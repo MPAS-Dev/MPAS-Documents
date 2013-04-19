@@ -1,0 +1,103 @@
+\documentclass[11pt,titlepage,twoside]{myarticle}
+\newif\ifpdf
+\ifx\pdfoutput\undefined
+   \pdffalse
+\else
+   \pdfoutput=1
+   \pdftrue
+\fi
+
+\ifpdf
+   \usepackage[pdftex]{graphicx}
+   \pdfcompresslevel=9
+  \pdfpagewidth=8.5 true in
+   \pdfpageheight=11 true in
+   \pdfhorigin=1 true in
+  \pdfvorigin=1.25 true in
+\else
+   \usepackage{graphicx}
+\fi
+
+
+%\usepackage[pdftex]{graphicx}
+
+%\usepackage{jafhmacros}
+%\usepackage[nointlimits]{jafhmath}
+\usepackage{amssymb}
+\usepackage{latexsym}
+\usepackage[centertags]{amsmath}
+\usepackage{cite}
+\usepackage{fancyhdr}
+\usepackage{color}
+\usepackage{verbatim}
+\usepackage{url}
+
+
+\usepackage{multicol}
+
+\textwidth=6.5in
+\textheight=10.0in
+\topmargin=-0.2in
+\headsep=0.0in
+\headheight=0.0in
+\oddsidemargin=0.in
+\evensidemargin=0.in
+
+\input{definitions}
+
+\title{\textbf{Timeline, Requirements and Design for MPAS-O:} \\
+July 2010 through June 2012}
+\author{ Authors TBD}
+\date{}
+
+%
+\begin{document}
+\renewcommand{\headrulewidth}{0pt}
+\ifpdf
+   \DeclareGraphicsExtensions{.pdf}
+\else
+   \DeclareGraphicsExtensions{.eps}
+\fi
+%
+
+%
+\pagestyle{plain}
+\pagenumbering{roman}
+\pagestyle{empty}
+
+
+\part*{\Large Abstract}
+\addcontentsline{toc}{part}{Abstract}
+\input{abstract}
+
+\newpage
+\tableofcontents
+\newpage
+
+\pagenumbering{arabic}
+\part*{Papers and Tasks}
+\addcontentsline{toc}{part}{Papers}
+\input{papers}
+
+%\newpage
+%\part*{\Large Timeline: July 2010 through July 2012}
+%\addcontentsline{toc}{part}{Timeline}
+%\input{timeline}
+
+%\part*{\Large Requirements}
+%\addcontentsline{toc}{part}{Requirments}
+%\input{requirements}
+
+%\part*{\Large Design}
+%\addcontentsline{toc}{part}{Design}
+%\input{design}
+
+%
+%
+\newpage
+\bibliography{mpas_o}
+\bibliographystyle{plain}
+%  
+%  
+\end{document}
+

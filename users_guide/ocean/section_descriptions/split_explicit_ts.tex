@@ -1,0 +1,9 @@
+The split explicit time-stepping method solves the barotropic (vertically-integrated) velocities separately from the remaining baroclinic velocities.  The time step for the barotropic solve is limited by fast surface gravity waves, and so is subcycled within a large timestep of the baroclinic velocity solve.  This provides a 10 to 12-times speed-up over fourth-order Runge-Kutta time stepping.
+
+A single large timestep in the split explicit algorithm may be summarized as
+\begin{itemize}
+\item Stage 1: solve for baroclinic velocity (3D)
+\item Stage 2: solve for barotropic velocity (2D) with explicit sub-cycling
+\item Stage 3: update thickness, tracers, density and pressure
+\end{itemize}
+The algorithm includes iterations within stage 1, within each subcycle of stage 2, and over the full three-stage process.  Further details are provided in \citet[Appendix A.5]{Ringler_ea13om}

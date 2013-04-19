@@ -1,0 +1,8 @@
+MPAS handles decomposing all variables into computational blocks. The
+decomposition used needs to be specified at run time and is computed by an
+external tool (e.g. metis). Additionally, MPAS supports multiple computational
+blocks per MPI process, and the user may specify an additional decomposition
+file which can specify the assignment of blocks to MPI processes. Run-time
+parameters that control the run-time decomposition used are specified within
+the decomposition namelist record.
+

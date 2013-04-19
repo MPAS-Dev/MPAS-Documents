@@ -1,0 +1,179 @@
+%--------------------------------------------------------------------------------------------
+% Initialization namelist options
+%--------------------------------------------------------------------------------------------
+
+\chapter{Initialization namelist options}
+
+This chapter summarizes the complete set of namelist options available when running the MPAS non-hydrostatic atmosphere initialization core.
+The applicability of certain options depends on the type of initial conditions to be created --- idealized or `real-data' --- and such applicability 
+is identified in the description when it exists.
+
+Date-time strings throughout all MPAS namelists assume a common format. Specifically, time intervals are of the form {\tt '[DDD\_]HH:MM:SS[.sss]'},
+where {\tt DDD} is an integer number of days with any number of digits, {\tt HH} is a two-digit hour value, {\tt MM} is a two-digit minute value, {\tt SS} is a two-digit second value, and {\tt sss} are fractions of a second with any number of digits;
+any part of the time interval format in square bracktes ({\tt [ ]}) may be omitted, and if days are omitted, {\tt HH} may be either a one- or two-digit hour specification.
+Time instants (e.g., start time or end time) are of the form {\tt 'YYYY-MM-DD[\_HH:MM:SS[.sss]]'}, where {\tt YYYY} is an integer year with any number of digits, {\tt MM}
+is a two-digit month value, {\tt DD} is a two-digit day value, and {\tt HH:MM:SS.sss} is a time with the same format as in a time interval specification. For both time instants and time intervals, a value of {\tt 'none'} represents `no value'.
+
+\section{nhyd\_model}
+
+{\small
+\begin{longtable}{|p{1.5in} |p{4.75in}|}
+ \hline
+   config\_test\_case & Type of initial conditions to create: \newline
+                                        1 = Jablonowski \& Williamson barolinic wave (no initial perturbation), \newline
+                                        2 = Jablonowski \& Williamson barolinic wave (with initial perturbation), \newline
+                                        3 = Jablonowski \& Williamson barolinic wave (with normal-mode perturbation), \newline
+                                        4 = squall line, \newline
+                                        5 = super-cell, \newline
+                                        6 = mountain wave, \newline
+                                        7 = real-data initial conditions from, e.g., GFS, \newline
+                                        8 = surface field (SST, sea-ice) update file for use with real-data simulations, \newline
+                                        9 = DCMIP test cases, with specific DCMIP case and parameters specified in the \&dcmip record, \newline
+                                        {\em Default value: 7} \\ \hline
+                                        
+   config\_theta\_adv\_order & Advection order for theta \newline 
+   {\em Default value: 3} \\ \hline
+                                      
+   config\_coef\_3rd\_order & Upwinding coefficient in the 3rd order advection scheme. \hfill\break 0 $\le$ config\_coef\_3rd\_order $\le$ 1\newline 
+   {\em Default value: 0.25} \\ \hline   
+   
+   config\_start\_time      & Time to begin processing first-guess data (test case 7 only) \newline 
+   {\em Default value: 'none'} \\ \hline
+   
+   config\_stop\_time       & Time to end processing first-guess data (test case 7 only) \newline 
+   {\em Default value: 'none'} \\ \hline
+\end{longtable}
+}
+
+\section{dcmip}
+
+{\small
+\begin{longtable}{|p{1.5in} |p{4.75in}|}
+ \hline
+   config\_dcmip\_case & Specific DCMIP case: \newline
+                                        2-0-0 = ?????, \newline
+                                         {\em Default value: '2-0-0'} \\ \hline
+                                        
+   config\_planet\_scale & Factor by which the Earth's radius will be divided. \newline 
+   {\em Default value: 1.0} \\ \hline
+                                      
+   config\_rotation\_rate\_scale & Factor by which the Earth's rotation rate will be multiplied. \newline 
+   {\em Default value: 1.0} \\ \hline   
+   
+\end{longtable}
+}
+
+
+\section{dimensions}
+
+{\small
+\begin{longtable}{|p{1.25in} |p{5.0in}|}
+ \hline
+   config\_nvertlevels     & The number of vertical levels to be used in the model \newline 
+   {\em Default value: 26} \\ \hline
+   
+   config\_nsoillevels     & The number of vertical soil levels needed by LSM in the model (test case 7 only) \newline 
+   {\em Default value: 4} \\ \hline
+   
+   config\_nfglevels       & The number of vertical levels in first-guess data (test case 7 only) \newline 
+   {\em Default value: 27} \\ \hline
+   
+   config\_nfgsoillevels   & The number of vertical soil levels in first-guess data (test case 7 only) \newline 
+   {\em Default value: 4} \\ \hline
+\end{longtable}
+}
+
+\section{data\_sources}
+
+{\small
+\begin{longtable}{|p{1.5in} |p{4.75in}|}
+ \hline
+   config\_geog\_data\_path  & Path to the WPS static data files (test case 7 only) \newline 
+   {\em Default value: '/mmm/users/wrfhelp/WPS\_GEOG/'} \\ \hline
+  
+   config\_met\_prefix      & Prefix of ungrib intermediate file to use for initial conditons (test case 7 only) \newline 
+   {\em Default value: 'FILE'} \\ \hline
+
+   config\_sfc\_prefix      & Prefix of ungrib intermediate file to use for SST and sea-ice (test case 7 only) \newline 
+   {\em Default value: 'FILE'} \\ \hline
+
+   config\_fg\_interval     & Interval between intermediate files to use for SST and sea-ice (test case 7 only) \newline 
+   {\em Default value: 21600} \\ \hline
+\end{longtable}
+}
+
+\section{vertical\_grid}
+
+{\small
+\begin{longtable}{|p{1.75in} |p{4.5in}|}
+ \hline
+   config\_ztop            & Model top height, in meters \newline 
+   {\em Default value: 28000.0} \\ \hline
+   
+   config\_nsmterrain      & Number of smoothing passes to apply to interpolated terrain field \newline 
+   {\em Default value: 2} \\ \hline
+   
+   config\_smooth\_surfaces & Whether to smooth zeta surfaces \newline 
+   {\em Default value: .false.} \\ \hline
+\end{longtable}
+}
+
+\section{preproc\_stages}
+
+{\small
+\begin{longtable}{|p{1.5in} |p{4.75in}|}
+ \hline 
+   config\_static\_interp   & Whether to interpolate WPS static data (test case 7 only) \newline 
+   {\em Default value: .true.} \\ \hline
+
+   config\_vertical\_grid   & Whether to generate vertical grid \newline 
+   {\em Default value: .true.} \\ \hline
+
+   config\_met\_interp      & Whether to interpolate first-guess fields from intermediate file \newline 
+   {\em Default value: .true.} \\ \hline
+  
+%   config\_physics\_init    & Whether to perform initialization of other physics fields \newline 
+%   {\em Default value: .false.} \\ \hline
+ 
+   config\_input\_sst       & Whether to re-compute SST and sea-ice fields from surface input data set; should be set to .true. if Test Case 8 was run \newline 
+   {\em Default value: .false.} \\ \hline
+    
+   config\_frac\_seaice       & Whether to switch sea-ice threshold from 0.5 to 0.02 \newline 
+   {\em Default value: .false.} \\ \hline
+\end{longtable}
+}
+
+\section{io}
+
+{\small
+\begin{longtable}{|p{1.75in} |p{4.5in}|}
+ \hline
+   config\_input\_name         & Input file name \newline 
+   {\em Default value: 'grid.nc'} \\ \hline
+   
+   config\_sfc\_update\_name        & Surface update file name \newline 
+   {\em Default value: 'sfc\_update.nc'} \\ \hline   
+ 
+   config\_output\_name        & Output file name \newline 
+   {\em Default value: 'init.nc'} \\ \hline
+
+   config\_pio\_num\_iotasks        & Number of I/O tasks to use \hfill\break 0 implies all MPI tasks are I/O tasks \newline 
+   {\em Default value: 0} \\ \hline
+
+   config\_pio\_stride        & The separation (stride) in MPI rank between I/O tasks \newline 
+   {\em Default value: 1} \\ \hline
+   
+\end{longtable}
+}
+
+\section{decomposition}
+
+{\small
+\begin{longtable}{|p{1.75in} |p{4.5in}|}
+ \hline
+   config\_block\_decomp\_file\_prefix & Prefix for mesh decomposition file \newline 
+   {\em Default value: 'graph.info.part.'}  \\ \hline
+
+\end{longtable}
+}
+

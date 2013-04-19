@@ -1,0 +1,475 @@
+\documentclass[11pt]{report}
+
+\usepackage{epsf,amsmath,amsfonts}
+\usepackage{graphicx}
+\usepackage{moreverb}
+
+\begin{document}
+
+\title{MPAS Ocean Testing and Testbed Plan: \\
+Requirements and Design}
+\author{Doug Jacobsen \and Phil Jones \and Todd Ringler \and Bill Large 
+        \and Gokhan Danabosoglu \and others to be added}
+
+\maketitle
+\tableofcontents
+
+%-----------------------------------------------------------------------
+
+\chapter{Summary}
+
+This document describes an overall test plan for verifying and validating 
+the MPAS Ocean model and to a lesser extent, ocean models in general.  A 
+hierarchy of such tests is described.  This document should evolve as
+more tests are defined and when new failure modes are identified, related
+tests should be added to this test suite.
+
+%-----------------------------------------------------------------------
+
+\chapter{Requirements}
+\section{Initial Condition Generator}
+Date last modified: 2011/09/06 \\
+Contributors: (Doug Jacobsen, others?) \\
+
+Because of the variety of initial conditions and grids required for the various
+test cases, an initial condition generator will be developed. This code will
+include routines for modifying existing grids, removing portions of the grid,
+as well as applying initial conditions for all fields required to run a test
+case.
+
+\section{Unit Tests}
+Date last modified: 2011/09/02 \\
+Contributors: (Phil Jones) \\
+
+When possible, specific modules or operators should have a defined unit 
+test that can test the behavior against an analytic or known result.  While 
+this may be difficult for more complex operators or parameterizations, it 
+should be possible for much of the infrastructure routines and well-defined 
+operations like the equation of state for which reference values are available.
+
+\section{Intermediate tests}
+Date last modified: 2011/09/02 \\
+Contributors: (Doug Jacobsen, Phil Jones) \\
+
+Well-defined test cases should be defined for partial or simpler configurations 
+that test more than one aspect of the code base.  Examples include advection 
+tests and shallow water test cases.  Results from these tests may not be 
+simple objective evaluations (e.g. tradeoffs between dispersion, diffusion 
+and monotonicity in advection), but should provide a framework and quantitative
+measures within which the configuration can be judged.
+
+\section{System tests}
+Date last modified: 2011/09/02 \\
+Contributors: (Doug Jacobsen, Phil Jones) \\
+
+Full system tests are required to provide a validation of the model 
+against observational data.
+
+\section{Regression Tests}
+Date last modified: 2011/09/02 \\
+Contributors: (Doug Jacobsen, Phil Jones) \\
+
+Some subset of the above test, including all of the unit tests, should be 
+included in an automated test suite with a script that can perform and 
+evaluate each tests on a regular (e.g. nightly) basis.  Such tests require 
+a method for a simple pass/fail evaluation of each included test.
+
+%-----------------------------------------------------------------------
+
+\chapter{Design and Implementation}
+\section{Initial Condition Generator}
+Date last modified: 2011/09/06 \\
+Contributors: (Doug Jacobsen, Others?) \\
+
+This tools is expected to read in an MPAS grid file. Based on user input, a suitable test case will be selected, which can be either pre-defined or user-defined. Pre-defined examples include those described in this document, where a user-defined one might be something specific a user would want to run. On reading in the grid file, the geometry needs to be modified to fit the test case of interest. For example, if a basin or channel test case is to be used portions of the grid will be removed to build a basin or channel geometry.
+
+After the geometry is initialized for the test case, the initial conditions will be generated for that test case. These will include fields such as fluid thickness, number of layers, initial velocity, temperature, salinity, etc. Finally, the new grid file using the modified geometry and initial conditions will be written to a new grid file which will be readable by MPAS.
+
+The tool will be written and documented to allow a user to easily use it to generate grid for specific test cases, as well as add new test cases to it. After this tool is complete module\_test\_cases.F can be removed from both core\_sw and core\_ocean as all test cases for these two cores will be included in the tool. 
+
+The layout of the program will be as follows.
+
+\begin{verbatimtab}
+Read in input parameters.
+	Could contain things like what test case to use.
+
+Read in input grid file.
+	To perform grid cutting we only really need to store
+	the coordinates of cells, edges, and vertices.
+
+Using coordinates, build masks for cells edges and vertices.
+
+Build a new grid by applying the masks.
+
+Copy the needed grid data to the new grid file.
+
+Generate initial conditions required for test case.
+	Need to ensure all fields are created that are
+	required for MPAS to run.
+\end{verbatimtab}
+
+To begin, a single ocean test case will be implemented to allow testing of ocean branches. Shallow water test cases should be easily implemented. Afterwards, the rest of the ocean test cases can be implemented.
+
+The test case of choice could be a compile time parameter, or a run time parameter. Each has it's own benefits. Test cases can also be developed as classes, which might allow easier development of new ones.
+
+\section{Unit Tests}
+Date last modified: 2011/09/02 \\
+Contributors: (Doug Jacobsen, Phil Jones) \\
+
+Unit tests can be defined for the following modules.
+
+\subsection{Halo Updates}
+Date last modified: 2011/09/02 \\
+Contributors: (Doug Jacobsen, Phil Jones) \\
+
+A test case for testing the validity of values in the halo region for halo updates should be defined.  This test should include a variety of grids and
+decompositions to cover any previous failure modes and potentially problematic 
+combinations of grids and decompositions.
+
+\subsection{Global Reductions}
+Date last modified: 2011/09/02 \\
+Contributors: (Doug Jacobsen, Phil Jones) \\
+
+A test case for ensuring accurate computation of global reductions of a 
+known field should be defined. Tests for all supported interfaces 
+(e.g. integer, real, double, logical fields) and all supported reduction
+operators (sum, min, max, masked sum) should be included.  If a 
+bit-reproducible implementation is available, bit-reproducibility across
+different node/processor counts should be tested.
+
+\subsection{I/O}
+Date last modified: 2011/09/02 \\
+Contributors: (Doug Jacobsen, Phil Jones) \\
+
+Tests of the I/O system should validate whether fields are accurately written and read to a file.  Multiple grid and processor configurations should be
+included.
+
+\subsection{Equation of State}
+Date last modified: 2011/09/02 \\
+Contributors: (Doug Jacobsen, Phil Jones) \\
+
+A unit test for returning the proper values of the ocean equation of 
+state should be included.  Reference density values for a few specific 
+p,T,S combinations are known and published for the typical equation of state 
+implementations.
+
+%-----------------------------------------------------------------------
+
+\section{Intermediate Tests}
+Date last modified: 01/09/12 \\
+Contributors: (Doug Jacobsen, Phil Jones) \\
+
+Several intermediate tests are either published or commonly used.  Some
+have analytic results while others must be compared to reference
+simulations, typically at high resolution.
+
+\subsection{Lock Exchange/Dam break Test}
+
+\noindent 2-Dimensional domain:
+\begin{itemize}
+	\item X direction: $0 \leq x \leq L$ and $L = 64km$
+	\item Y direction: $-H \leq z \leq 0$ and $H = 20m$
+\end{itemize}
+
+\noindent No rotation. \\
+
+\noindent Constant sailinty: $35 psu$ \\
+\noindent Temperature profile:
+\begin{itemize}
+	\item $0 \leq x < L/2$ - $T = 5^oC$ 
+	\item $L/2 \leq x \leq L$ - $T = 35^oC$
+\end{itemize}
+
+\noindent Linear equation of state.\\
+
+\noindent Horizontal grid spacing: 
+\begin{itemize}
+	\item $\Delta x = $ $500m$, $1km$, $2km$, $4km$. 
+\end{itemize}
+
+
+\noindent Vertial grid spacing (Z-level): 
+\begin{itemize}
+	\item $\Delta z = $ $1m$, $2m$, $4m$, $10m$.
+\end{itemize}
+
+\noindent Vertical grid (Isopycnal): 21 layers \\
+
+\noindent Time step: $1s$ \\
+
+\noindent Lateral Laplacian Viscosity: $10^{-2} m^2/s$ \\
+\noindent Vertical Viscosity: $10^{-4} m^2/s$ \\
+
+\noindent 17 hour simulation.
+
+\subsection{Re-entrant Channel with Baroclinic Eddies Test}
+
+\noindent 3-Dimensional domain: 
+\begin{itemize}
+	\item Latitudinal extent: $500km$ 
+	\item Longitudinal extent: $160km$ 
+	\item Vertical extent: $1000m$ - flat bottom 
+\end{itemize}
+
+\noindent Temporal Extent: 200 Days
+
+\noindent f-plane - Coriolis parameter: $1.2*10^{-4}$ (~$55^o$ Latitude)\\
+
+\noindent Bottom drag - Quadratic: $C_d = 0.01$. \\
+
+\noindent Horizontal grid spacing: $1km$, $4km$, $10km$. \\
+
+\noindent Barotropic time step: $200s$, $10s$ \\
+
+\noindent Horizontal Viscosity: $20 m/s^2$\\
+
+\noindent Linear Density
+
+\noindent Salinity: $35.0$
+
+\noindent Temperature Profile: \\
+
+\noindent {\bf Step 1:}
+Initialize with stratified temperatures.
+\begin{itemize}
+	\item Surface Temp: $13.1^oC$
+	\item Bottom Temp: $10.1^oC$
+\end{itemize}
+
+\noindent {\bf Parameters:}
+\begin{itemize}
+	\item $y_0$ = 200.0km
+	\item $x_0$ = 0km
+	\item $x_1$ = 160.0km
+	\item $x_2$ = 110.0km
+	\item $x_3$ = 130.0km
+	\item $\alpha$ = 40.0km
+\end{itemize}
+
+
+\noindent {\bf Step 2:}
+Add temperature gradient.
+\begin{itemize}
+	\item For each cell.
+	\item $cff1 = \alpha * sin ( 6 * \pi * (xCell - x_0) / ( x_1 - x_0))$
+	\item If $(yCell > y_0 - cff1)$
+	\begin{itemize}
+		\item $temp = temp - 1.2$
+	\end{itemize}
+	\item Else if $(yCell \geq y_0 - cff1$ \& $yCell \leq y_0 - cff1 + \alpha)$
+	\begin{itemize}
+		\item $temp = temp - 1.2 * ( 1.0 - ( yCell - (y_0 - cff1)) / ( 1.0 * \alpha))$
+	\end{itemize}
+\end{itemize}
+
+\noindent {\bf Step 3:}
+Add Instability.
+\begin{itemize}
+	\item For each cell.
+	\item $cff1 = 0.5 * \alpha * sin ( 1.0 * \pi * ( xCell - x_2)/(x_3 - x_2))$
+	\item If $(yCell \geq y_0 - cff1 - 0.5 * \alpha$ \& $yCell \leq y_0 - cff1 + 0.5 * \alpha$ 
+	\item \& $xCell \geq x_2$ \& $xCell \leq x_3)$
+	\begin{itemize}
+		\item $temp = temp + 0.3 * (1.0 - ( ( yCell - (y_0 - cff1))/(0.5 * \alpha)))$
+	\end{itemize}
+\end{itemize}
+
+
+\subsection{Overflow Test}
+
+\noindent 2-Dimension Domain:
+\begin{itemize}
+	\item Horizontal Extent: $200km$
+	\item Vertical Extent: $2km$
+	\item Temporal Extend: $6hr$
+\end{itemize}
+
+\noindent Horizontal Spacing: $1km$ \\
+\noindent Vertical Spacing: $40m$, $30.3m$, $20m$ \\
+
+\noindent Vertical Levels:
+\begin{equation}
+	n = N * (1.0/4.0) + 0.5 * (N * (3.0/4.0)) * (1.0 + tanh\left( yCell - 40000.0)/7000.0)) \right)
+\end{equation}
+\noindent $n$ is the number of vertical levels in a cell, and $N$ is the max number of vertical levels, defined by the vertical extent and spacing. \\
+
+\noindent Salinity: 35 \\
+\noindent Temperature Profile:
+\begin{itemize}
+	\item if $( yCell < 20000 )$ then
+		\begin{itemize}
+			\item $Temperature = 10^oC$
+		\end{itemize}
+	\item else 
+		\begin{itemize}
+			\item $Temperature = 20^oC$
+		\end{itemize}
+\end{itemize}
+
+\noindent No Rotation \\
+
+\subsection{Internal Wave Test}
+
+\noindent 2-Dimensional Domain:
+\begin{itemize}
+	\item Horizontal Extent: $250km$
+	\item Vertical Extent: $500m$ - Flat Bottom
+	\item Temporal Extent: $200 Days$
+\end{itemize}
+
+\noindent Horizontal Spacing: $5km$, $25km$ \\
+\noindent Vertical Spacing: $25m$ \\
+\noindent Time step: 300s \\
+
+\noindent Salinity: 35 \\
+
+\noindent Temperature Profile:
+\begin{itemize}
+	\item Surface Min: $10.1^oC$
+	\item Surface Max: $20.1^oC$
+	\item $Temperature = (surfMax - surfMin) * ( (-z + totalZ)/ totalZ) + surfMin$
+\end{itemize}
+
+\noindent Anomoly:
+\begin{itemize}
+	\item $y_a = 50.0e3$
+	\item $y_0 = 150.0e3$
+	\item $A_0 =$ $0.2$, $2.0$
+	\item If $( |yCell - y_0| < y_a $
+		\begin{itemize}
+			\item $\beta = -A_0 * (\cos(0.5 * \pi * (yCell - y_0)/y_a)*\sin(1.0 * \pi * (z - 0.5*(totalZ/N))/totalZ))$
+			\item $Temperature = Temperature + \beta$
+		\end{itemize}
+\end{itemize}
+
+\noindent No Rotation \\
+
+\subsection{Re-entrant Channel with Ridge}
+
+\noindent 3-Dimension Domain:
+\begin{itemize}
+	\item Longitudinal Extent: $320km$
+	\item Latitudinal Extent: $160km$
+	\item Vertical Extent: $2km$
+	\item Temporal Extent: 150 years?
+\end{itemize}
+
+\noindent Horizontal Spacing: $80km$, $40km$, $20km$, $10km$ \\
+\noindent Vertical Spacing: $80m$, $50m$ \\
+\noindent Time step: ?? \\
+
+\noindent Salinity: 35 \\
+\noindent Temperature Profile: 
+\begin{itemize}
+	\item If top three levels
+		\begin{itemize}
+			\item $Temperature = 7.0 + 5.0*tanh(2*(yCell - ymid) / (ymax-ymid))$
+		\end{itemize}
+	\item Remainder of domain is linear to bottom
+		\begin{itemize}
+			\item $Temperature = (3.5-Temperature@(k=3))*(k-3)/(40-3) + Temperature@(k=3)$
+		\end{itemize}
+\end{itemize}
+
+\noindent @(k=3) means in the third level. \\
+
+\noindent Surface Temperature and Salinity restoring equal to the top level. \\
+
+\noindent Wind stress: \\
+\noindent $\tau = u_src_max * e^(-(yEdge - ymid)**2/(r**2))$ \\
+\noindent $r = 3.0e5m$ \\
+\noindent $u_src_max = 0.1$ \\
+
+\noindent $\beta = 1.4e-11$ \\
+\noindent $f0 = -1.1e-4$ \\
+\noindent $\Omega = 7.29212e-5$ \\
+
+\subsection{Advection Tests}
+Date last modified: 2011/09/02 \\
+Contributors: (Doug Jacobsen, Phil Jones) \\
+
+Advection algorithms are often tested by advecting a shape around the
+surface of the Earth.  Such a test should be included. Add details
+on specific test case...
+
+\subsection{Shallow Water Test Cases}
+Date last modified: 2011/09/02 \\
+Contributors: (Doug Jacobsen, Phil Jones) \\
+
+Add specifics here
+
+\subsection{Channel Test Case}
+Date last modified: 2011/09/02 \\
+Contributors: (Doug Jacobsen, Phil Jones) \\
+
+A channel configuration is a good test of eddy processes and ACC flow.  
+A standard configuration is defined as (dimensions, forcing)....   
+ 
+\subsubsection{N. Atlantic variant}
+
+Variants of the channel case are useful.  For example, adding
+a North Atlantic basin (simple box) can be used.
+
+\subsection{Double-gyre}
+Date last modified: 2011/09/02 \\
+Contributors: (Doug Jacobsen, Phil Jones) \\
+
+The double-gyre configuration is a commonly explored case in the
+ocean community and can be used to test both boundary interactions
+and viscosity formulations.  A variety of configurations can be
+used.
+
+\subsubsection{Double-gyre variant 1}
+\subsubsection{Double-gyre variant 2}
+
+\subsection{Mixed layer tests}
+Date last modified: 2011/09/02 \\
+Contributors: (Doug Jacobsen, Phil Jones) \\
+
+Vertical mixing and mixed/boundary layer parameterizations can be
+tested using a simple 2-d configuration with depth as one dimension
+and space/time as the second.  A variation in surface buoyancy 
+forcing can be imposed in the space/time direction to mimic either
+spatial variability or diurnal cycling.  
+
+\subsection{Equatorial Pacific}
+Date last modified: 2011/09/02 \\
+Contributors: (Doug Jacobsen, Phil Jones) \\
+
+An equatorial Pacific configuration is also a good test of vertical
+mixing in a configuration that includes both wind and buoyancy forcing
+as well as realistic ocean conditions.  Specifics to be added...
+
+\subsection{Overflows}
+Date last modified: 2011/09/02 \\
+Contributors: (Doug Jacobsen, Phil Jones) \\
+
+An overflow test case is useful to explore both vertical coordinate
+choices as well as any specific overflow parameterizations.  More
+details here (DOME configuration?).
+
+%-----------------------------------------------------------------------
+
+\section{Full System Tests}
+Date last modified: 2011/09/02 \\
+Contributors: (Doug Jacobsen, Phil Jones) \\
+
+\subsection{CORE forced case}
+Date last modified: 2011/09/02 \\
+Contributors: (Doug Jacobsen, Phil Jones) \\
+
+The Common Ocean Reference Experiment (CORE) defines a useful test case
+for a full ocean simulation and comparisons with existing models can
+be performed.  More detail...
+
+\subsection{Variable resolution tests?}
+Date last modified: 2011/09/02 \\
+Contributors: (Doug Jacobsen, Phil Jones) \\
+
+\subsection{High resolution tests?}
+Date last modified: 2011/09/02 \\
+Contributors: (Doug Jacobsen, Phil Jones) \\
+
+%-----------------------------------------------------------------------
+
+\end{document}

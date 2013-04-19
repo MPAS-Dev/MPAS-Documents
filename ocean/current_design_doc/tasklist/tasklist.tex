@@ -1,0 +1,63 @@
+\documentclass[11pt,titlepage,twoside]{article}
+
+\textwidth=6.5in
+\textheight=10.0in
+\topmargin=-0.2in
+%\topmargin=0.8in
+\headsep=0.0in
+\headheight=0.0in
+\oddsidemargin=-0.25in
+\evensidemargin=-0.25in
+
+\begin{document}
+
+\today
+\section{MPAS-Ocean Task List}
+
+\begin{tabular}{| l || l | l | l |}
+\hline		
+{\bf Task} \hspace{1.8in} & {\bf lead (support)} & {\bf reviewer } & {\bf completed} \\
+\hline		
+convert sw core to isopycnal ocean & Mark & Todd & 3/15/10 \\ \hline
+z-level flat bottom  & Mark & Todd  & 6/1/10 \\ \hline
+$\nabla^2$ and $\nabla^4$ diffusion & Todd & Mark & 9/1/10 \\ \hline
+initial POP vs MPAS-O comparison & Mark & NA & 9/15/10 \\ \hline
+high-order horizontal advection & Todd &  Mark & 10/14/10 \\ \hline
+error: wrong number of total cells & Mark & NA & 10/14/10 \\\hline
+z-level with topography  & Mark & Todd  & 11/16/10 \\ \hline
+Nonlinear EOS & Mark & Todd  & 11/16/10 \\ \hline
+small timestep, x1 NAN issues & Mark (Mat, Todd) & NA  & 11/29/10 \\ \hline
+x1 and x0.1 quad mpas and POP runs & Mark (Mat) & NA  & 12/8/10 \\ \hline
+high rez hex z-level mpas runs & Todd & NA & 12/8/10 \\ \hline 
+high-order vertical advection & Mark & Todd & 2/25/11 \\ \hline
+Pac Phil \& implicit vertical mixing & Mark  & Mat & 5/26/11 \\ \hline
+set up hex 15, 30, 60km mesh on conejo & Todd & NA & 5/26/11 \\ \hline
+split explicit timestepping & Mark & Todd  & 10/26/11 \\ \hline
+code module reorg & Doug & NA & 10/26/11  \\ \hline
+module timers & Doug & NA & 10/26/11  \\ \hline
+\hline
+new SW core: PV, div, $h$ prog. var. & Todd &  & underway \\ \hline
+performance profiling & Todd, Doug, Mark & & underway \\ \hline 
+Limited domain Boundary Cond. & Todd, Chris Jeffery & & underway \\ \hline
+quasi-production sims 120, 60, 30, 15km & Todd, Mark & & underway \\ \hline
+variable rez meshes: N Atl \& Arctic & Doug, Todd & & underway \\ \hline
+z* vertical coordinate & Jonathan, Todd, Mark  & & underway \\ \hline
+scale $\nabla^2$ and $\nabla^4$ coef w mesh &  Todd & & underway  \\ \hline
+mpas with multiple blocks per processor &  Doug &  & underway  \\ \hline
+diagnostics: time-averaged fields & Mark & & underway \\ \hline
+\hline
+mpas-o coupled in CESM & Todd, Phil, Duda & &  \\ \hline
+diagnostics: MOC, through flows & & & \\ \hline
+performance: update boundary less, Btr subcycle & & & \\ \hline
+performance: update tracers less often              & & & \\ \hline
+planning of test suite & & & \\ \hline
+Analysis of POP versus MPAS &  &  & \\ \hline
+Reference Manual & & & \\ \hline
+time varying surface forcing* & & & \\ \hline
+GM horizontal mixing* & Todd &  & \\ \hline
+KPP vertical mixing* &  &  & \\ \hline
+variable GM*&  &  & \\ \hline
+\end{tabular}
+* May not be needed for first papers
+
+\end{document}

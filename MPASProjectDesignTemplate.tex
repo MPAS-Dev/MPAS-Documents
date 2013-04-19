@@ -1,0 +1,82 @@
+\documentclass[11pt]{report}
+
+\usepackage{epsf,amsmath,amsfonts}
+\usepackage{graphicx}
+
+\begin{document}
+
+\title{Title: \\
+Requirements and Design}
+\author{MPAS Development Team}
+
+\maketitle
+\tableofcontents
+
+%-----------------------------------------------------------------------
+
+\chapter{Summary}
+
+The purpose of this section is to summarize what capability is to be added to the MPAS system through this design process. It should be clear what new code will do that the current code does not. Summarizing the primary challenges with respect to software design and implementation is also appropriate for this section. Finally, this statement should contain general statement with regard to what is ``success.''
+
+%figure template
+%\begin{figure}
+%  \center{\includegraphics[width=14cm]{./Figure1.pdf}}
+%  \caption{A graphical representation of the discrete boundary.}
+%  \label{Figure1}
+%\end{figure} 
+
+
+
+
+%-----------------------------------------------------------------------
+
+\chapter{Requirements}
+
+\section{Requirement: XXX}
+Date last modified: 2011/01/05 \\
+Contributors: (add your name to this list if it does not appear) \\
+
+Each requirement is to be listed under a ''section'' heading, as there will be a one-to-one correspondence between requirements, design, proposed implementation and testing.
+
+Requirements should not discuss technical software issues, but rather focus on model capability. To the extent possible, requirements should be relatively independent of each other, thus allowing a clean design solution, implementation and testing plan.
+
+%-----------------------------------------------------------------------
+
+\chapter{Algorithmic Formulations}
+
+\section{Design Solution: XXX}
+Date last modified: 2011/01/05 \\
+Contributors: (add your name to this list if it does not appear) \\
+
+For each requirement, there is a design solution that is intended to meet that requirement. Design solutions can include detailed technical discussions of PDEs, algorithms, solvers and similar, as well as technical discussion of performance issues. In general, this section should steer away from a detailed discussion of low-level software issues such as variable declarations, interfaces and sequencing.
+
+
+%-----------------------------------------------------------------------
+
+\chapter{Design and Implementation}
+
+\section{Implementation: XXX}
+Date last modified: 2011/01/05 \\
+Contributors: (add your name to this list if it does not appear) \\
+
+This section should detail the plan for implementing the design solution for requirement XXX. In general, this section is software-centric with a focus on software implementation. Pseudo code is appropriate in this section. Links to actual source code are appropriate. Project management items, such as svn branches, timelines and staffing are also appropriate.
+
+How do we typeset pseudo code? 
+\begin{verbatim}
+  verbatim?
+\end{verbatim}
+
+%-----------------------------------------------------------------------
+
+\chapter{Testing}
+
+\section{Testing and Validation: XXX}
+Date last modified: 2011/01/05 \\
+Contributors: (add your name to this list if it does not appear) \\
+
+How will XXX be tested? i.e. how will be we know when we have met requirement XXX. Will these unit tests be included in the ongoing going forward?
+
+
+%-----------------------------------------------------------------------
+
+\end{document}

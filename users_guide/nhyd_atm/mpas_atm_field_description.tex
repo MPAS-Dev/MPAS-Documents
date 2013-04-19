@@ -1,0 +1,350 @@
+%--------------------------------------------------------------------------------------------
+% Description of model fields
+%--------------------------------------------------------------------------------------------
+
+\chapter{Description of model fields}
+
+In this chapter, the fields required in an MPAS input file are described. The dimensionality of each field is given in the name
+of each field, with the dimensions in C storage order (i.e., the fastest-varying dimension is outer-most).
+
+\section{Field dimensions}
+
+{\small
+\begin{longtable}{|p{1.75in} |p{4.5in}|}
+ \hline
+        nSoilLevels      &   Number of soil layers \\ \hline
+        nMonths         &   Constant value 12 \\ \hline
+        StrLen          &   Length of strings \\ \hline
+\end{longtable}
+}
+
+\section{Vertical grid fields}
+
+{\small        
+\begin{longtable}{|p{2.5in} |p{3.75in}|}
+ \hline
+        double hx(nCells, nVertLevelsP1)     & h\_s field used in smoothed terrain-following coordinate \\ \hline
+        double zgrid(nCells, nVertLevelsP1)  & height (m) at vertical cell interfaces (i.e. at $w$ points) \\ \hline
+        double rdzw(nVertLevels)                & 1/($\Delta \zeta$ between w-levels) \\ \hline
+        double dzu(nVertLevels)                 & $\Delta \zeta$ between u-levels (layer centers) \\ \hline
+        double rdzu(nVertLevels)                & 1/dzu \\ \hline
+        double fzm(nVertLevels)                 & dzw$_{k-1}$ / dzu$_k$, level $k-1$ interp weight from \hfil \break $u$ to $w$ points \\ \hline
+        double fzp(nVertLevels)                 & dzw$_k$ / dzu$_k$, level $k$ interp weight from $u$ to $w$ points \\ \hline
+        double zx(nEdges, nVertLevelsP1)        & $\partial z / \partial x$ \\ \hline
+        double zz(nCells, nVertLevelsP1)        & $\partial \zeta / \partial z$ \\ \hline
+%        double \hfil\break zf(nEdges, TWO, nVertLevelsP1)   & coefficients for contribution from $U$ to $\Omega$ diagnosis  \\ \hline
+%        double \hfil\break zf3(nEdges, TWO, nVertLevelsP1)  &  coefficients for 3rd-order contribution from $U$ to $\Omega$ \hfil\break diagnosis \\ \hline
+        double \hfil\break zb(nEdges, TWO, nVertLevelsP1)   & coefficients for contribution from $U$ to $w$ diagnosis \\ \hline
+        double \hfil\break zb3(nEdges, TWO, nVertLevelsP1)  & coefficients for 3rd-order contribution from $U$ to $\Omega$ \hfil\break diagnosis \\ \hline
+\end{longtable}
+}
+   
+\newpage        
+\section{Initial fields}  
+
+{\small     
+\begin{longtable}{|p{2.5in} |p{3.75in}|}
+ \hline
+        char xtime(Time, StrLen)     & Time stamp for each time record of fields in the file \\ \hline
+        double \hfil\break theta(Time, nCells, nVertLevels)      &        Potential temperature (K) \\ \hline
+        double rho(Time, nCells, nVertLevels)        &        Dry density (kg m$^{-3}$) \\ \hline
+        double u(Time, nEdges, nVertLevels)         & Normal wind velocity at edges (m s$^{-1}$) \\ \hline
+        double \hfil\break w(Time, nCells, nVertLevelsP1)       & Vertical velocity at vertical cell faces (m s$^{-1}$) \\ \hline
+        double qv(Time, nCells, nVertLevels)   &              Water vapor mixing ratio (kg kg$^{-1}$) \\ \hline
+        double qc(Time, nCells, nVertLevels)   &              Cloud water mixing ratio (kg kg$^{-1}$) \\ \hline
+        double qr(Time, nCells, nVertLevels)   &              Rain water mixing ratio (kg kg$^{-1}$) \\ \hline
+        double ter(nCells)           &  Terrain height (m) \\ \hline
+        int landmask(nCells)         &  Land-water mask (1=land, 0=water) \\ \hline
+        int ivgtyp(nCells)           &  Vegetation type category \\ \hline
+        int isltyp(nCells)           &  Soil type category \\ \hline
+        double snoalb(nCells)        &  Annual maximum snow albedo \\ \hline
+        double soiltemp(nCells)      &  Climatological average soil temperature \\ \hline
+        double greenfrac(nCells, nMonths)    & Climatological monthly mean greeness fraction \\ \hline
+        double shdmin(nCells)                & Annual minimum greeness fraction \\ \hline
+        double shdmax(nCells)                & Annual maximum greeness fraction \\ \hline
+        double albedo12m(nCells, nMonths)    & Climatological monthly mean background albedo \\ \hline
+        double dss(nCells, nVertLevels)         & w-damping coefficient \\ \hline
+        double dzs(Time, nCells, nSoilLevels)       & Thickness of soil layers (m) \\ \hline
+        double zs(Time, nCells, nSoilLevels)        & Depth of center of soil layers (m) \\ \hline
+        double \hfil\break sh2o(Time, nCells, nSoilLevels)      & Soil liquid water (m$^{3}$ m$^{-3}$) \\ \hline
+        double \hfil\break smois(Time, nCells, nSoilLevels)     & Soil moisture (m$^{3}$ m$^{-3}$) \\ \hline
+        double tslb(Time, nCells, nSoilLevels)      & Soil layer temperature (K) \\ \hline
+        double tmn(Time, nCells)                    & Deep soil temperature (K) \\ \hline
+        double skintemp(Time, nCells)               & Surface skin temperature (K) \\ \hline
+        double sst(Time, nCells)                    & Sea-surface temperature (K) \\ \hline
+        double snow(Time, nCells)                   & Snow water equivalent (kg m-2) \\ \hline
+        double snowc(Time, nCells)                  & Flag indicating snow coverage (1 for snow; 0 otherwise) \\ \hline
+        double snowh(Time, nCells)                  & Physical snow depth (m) \\ \hline
+        double xice(Time, nCells)                   & Sea-ice fraction \\ \hline
+        double seaice(Time, nCells)                 & Sea-ice mask (1 when xice $>$ 0, 0 otherwise) \\ \hline
+        double vegfra(Time, nCells)                 & Vegetation fraction \\ \hline
+        double sfc\_albbck(Time, nCells)            &  Surface background albedo \\ \hline
+        double xland(Time, nCells)                  & Land-ocean mask (1=land, 2=ocean) \\ \hline
+        double qv\_init(nVertLevels)           &               qv reference profile \\ \hline
+        double t\_init(nCells, nVertLevels)    &               theta reference profile for each cell \\ \hline
+        double u\_init(nVertLevels)            &               u reference profile \\ \hline
+        double coeffs\_reconstruct \hfil\break (nCells, maxEdges, R3) &   Coefficients for reconstructing wind vectors at cell centers. \\ \hline
+        double defc\_b(nCells, maxEdges)                 & coefficients for computing the diagonal components \hfil\break of the horizontal deformation \\ \hline
+        double defc\_a(nCells, maxEdges)                 &  coefficients for computing the off-diagonal components \hfil\break of the horizontal deformation\\ \hline
+        int advCells(nCells, TWENTYONE)                  &indices of cells used to compute cell-centered 2nd derivatives for transport scheme \\ \hline
+        double \hfil\break deriv\_two(nEdges, TWO, FIFTEEN)          & weights for cell centered 2nd derivatives, normal to edge, for the transport scheme \\ \hline
+        double surface\_pressure(Time, nCells)           & Surface pressure (Pa) \\ \hline
+        double \hfil\break theta\_base(Time, nCells, nVertLevels)    & Reference-state potential temperature (K) \\ \hline
+        double \hfil\break rho\_base(Time, nCells, nVertLevels)      & Reference-state dry density (kg m$^{-3}$) \\ \hline
+        double pressure\_base \hfil\break (Time, nCells, nVertLevels) & Reference-state dry pressure (Pa) \\ \hline
+        double exner\_base \hfil\break (Time, nCells, nVertLevels)    & Reference-state Exner function (-) \\ \hline
+        double fEdge(nEdges)         &  Coriolis parameter at edge locations \\ \hline
+        double fVertex(nVertices)    &  Coriolis parameter at vertex locations \\ \hline
+        double cf1                   &  surface interp weight for level $k=1$ values \\ \hline
+        double cf2                   &  surface interp weight for level $k=2$ values \\ \hline
+        double cf3                   &  surface interp weight for level $k=3$ values \\ \hline
+\end{longtable}
+}
+        
+\section{History fields}
+
+{\small        
+\begin{longtable}{|p{2.5in} |p{3.75in}|}
+ \hline
+        double v(Time, nEdges, nVertLevels)          &        Tangential wind velocity at edges (m s$^{-1}$)  \\ \hline 
+        double uReconstructMeridional\hfil\break (Time, nCells, nVertLevels)  & Reconstructed meridional velocity at cell centers (m s$^{-1}$)  \\ \hline
+        double uReconstructZonal\hfil\break (Time, nCells, nVertLevels)  &      Reconstructed zonal velocity at cell centers \hfil\break (m s$^{-1}$) \\ \hline
+        double uReconstructZ\hfil\break (Time, nCells, nVertLevels)      &      Reconstructed z-component of velocity at cell centers \hfil\break (m s$^{-1}$) \\ \hline
+        double uReconstructY\hfil\break (Time, nCells, nVertLevels)      &      Reconstructed y-component of velocity at cell centers \hfil\break (m s$^{-1}$) \\ \hline
+        double uReconstructX\hfil\break (Time, nCells, nVertLevels)      &      Reconstructed x-component of velocity at cell centers \hfil\break (m s$^{-1}$)  \\ \hline
+        double \hfil\break rho\_zz(Time, nCells, nVertLevels)   &  Dry density divided by d(zeta)/dz \\ \hline
+        double \hfil\break theta\_m(Time, nCells, nVertLevels)  &  Modified moist potential temperature (K) \\ \hline
+        double qsat \hfill\break(Time,nCells,nVertLevels) & Saturation mixing ratio  (kg kg$^{-1}$ ) \\ \hline
+        double relhum \hfill\break(Time,nCells,nVertLevels) & Relative humidity (-) \\ \hline
+\end{longtable}
+}
+
+
+\subsection{Cloud microphysics schemes}
+
+{\small
+\begin{longtable}{|p{2.0in} |p{3.5in} |p{0.5in} |}
+\hline
+        double rainncv (Time,nCells) & Time-step total precipitation due to microphysics & mm \\ \hline
+        double snowncv (Time,nCells) & Time-step precipitation of snow due to microphysics & mm \\ \hline
+        double graupelncv (Time,nCells) & Time-step precipitation of graupel due to microphysics & mm \\ \hline
+        double rainnc (Time,nCells) & Accumulated total precipitation due to microphysics & mm \\ \hline
+        double snownc (Time,nCells) & Accumulated precipitation of snow due to microphysics & mm \\ \hline
+        double graupelnc (Time,nCells) & Accumulated precipitation of graupel due to microphysics & mm \\ \hline
+        double sr (Time,nCells) & Ratio frozen to total precipitation due to microphysics & - \\ \hline
+\end{longtable}
+}
+
+\subsection{Convection schemes}
+
+{\small
+\begin{longtable}{|p{2.0in} |p{3.0in} |p{1.0in} |}
+\hline
+        double cuprec (Time,nCells) & Time-step total precipitation rate due to convection & (mm day$^{-1}$) \\ \hline
+        double raincv (Time,nCells)  & Time-step total precipitation due to convection & (mm) \\ \hline
+        double rain (Time,nCells)      & Accumulated total precipitation due to convection & (mm) \\ \hline
+        double rqccuten \hfil\break (Time,nCells,nVertLevels) & Tendency of cloud water due to convection &  (kg kg$^{-1}$ s$^{-1}$) \\ \hline
+        double rqicuten \hfil\break (Time,nCells,nVertLevels) & Tendency of cloud ice due to convection & (kg kg$^{-1}$ s$^{-1}$) \\ \hline
+        double rqvcuten \hfil\break (Time,nCells,nVertLevels) & Tendency of water vapor due to convection & (kg kg s$^{-1}$) \\ \hline
+        double rthcuten \hfil\break (Time,nCells,nVertLevels) & Tendency of potential temperature due to convection & (K s$^{-1}$) \\ \hline
+        double rqvdynten \hfil\break (Time,nCells,nVertLevels) & Tendency of water vapor due to total dynamical advection & (kg kg s$^{-1}$)\\ \hline
+        \multicolumn{3}{|l|}{{\rule[-3mm]{0mm}{8mm}\bf KAIN-FRITSCH SCHEME SPECIFICS:} \hfill}\\ \hline
+         double nca (Time,nCells) & Lifetime of convective clouds & (s) \\ \hline
+        double cubot (Time,nCells) & Index level of cloud base for convective clouds & (-) \\ \hline
+        double cutop (Time,nCells) & Index level of cloud top for convective clouds & (-) \\ \hline
+        double wavg0 \hfil\break (Time,nCells,nVertLevels) & Temporal running-average vertical velocity & (m s$^{-1}$) \\ \hline
+        double rqrcuten \hfil\break (Time,nCells,nVertLevels) & Tendency of rain due to convection &  (kg kg$^{-1}$ s$^{-1}$) \\ \hline
+        double rqscuten \hfil\break (Time,nCells,nVertLevels) & Tendency of snow due to convection & (kg kg$^{-1}$ s$^{-1}$) \\ \hline
+        \multicolumn{3}{|l|}{{\rule[-3mm]{0mm}{8mm}\bf TIEDTKE SCHEME SPECIFICS:} \hfill}\\ \hline
+        double rucuten \hfil\break (Time,nCells,nVertLevels) & Tendency of zonal wind due to convection & (m s$^{-1}$ s$^{-1}$) \\ \hline
+        double rvcuten \hfil\break (Time,nCells,nVertLevels) & Tendency of meridional wind due to convection & (m s$^{-1}$ s$^{-1}$) \\ \hline
+\end{longtable}
+}
+
+\subsection{Planetary boundary (PBL) schemes}
+
+{\small
+\begin{longtable}{|p{2.0in} |p{3.0in} |p{1.0in}|}
+\hline
+integer kpbl (Time,nCells)  & Index level of PBL top & (-) \\ \hline
+double hpbl (Time,nCells)  & Height of PBL top & (m) \\ \hline
+double rublten \hfil\break (Time,nCells,nVertLevels)  & Tendency of zonal wind due to PBL processes  & (m s$^{-1}$ s$^{-1}$) \\ \hline
+double rvblten \hfil\break (Time,nCells,nVertLevels)  &  Tendency of meridional wind due to PBL processes & (m s$^{-1}$ s$^{-1}$) \\ \hline
+double rthblten  \hfil\break (Time,nCells,nVertLevels)  &  Tendency of potential temperature due to PBL processes& (K s$^{-1}$) \\ \hline
+double rqvblten \hfil\break (Time,nCells,nVertLevels)  &  Tendency of water vapor due to PBL processes & (kg kg$^{-1}$ s$^{-1}$) \\ \hline
+double rqcblten \hfil\break (Time,nCells,nVertLevels)  &  Tendency of cloud water due to PBL processes & (kg kg$^{-1}$ s$^{-1}$) \\ \hline
+double rqiblten \hfil\break (Time,nCells,nVertLevels)  &  Tendency of cloud ice due to PBL processes & (kg kg$^{-1}$ s$^{-1}$) \\ \hline
+\end{longtable}
+}
+
+\subsection{Horizontal cloud fraction}
+
+{\small
+\begin{longtable}{|p{2.0in}|p{3.0in}|p{1.0in}|}
+\hline
+double cldfrac \hfil\break (Time,nCells,nVertLevels) & Cloud fraction & (-)\\ \hline
+\end{longtable}
+}
+
+\subsection{Radiation schemes}
+
+{\small
+\begin{longtable}{|p{2.0in} |p{3.0in} |p{1.0in} |}
+\hline
+\multicolumn{3}{|l|}{{\rule[-3mm]{0mm}{8mm}\bf SHORT-WAVE RADIATION SCHEMES:} \hfill}\\ \hline
+double coszr  (Time,nCells) & Cosine of solar zenith angle & (-) \\ \hline
+double gsw (Time,nCells) & SFC all-sky net shortwave radiation & (W m$^{-2}$) \\ \hline
+double swdnb (Time,nCells) & SFC all-sky downward shortwave radiation & (W m$^{-2}$) \\ \hline
+double swdnbc (Time,nCells) & SFC clear-sky downward shortwave radiation & (W m$^{-2}$) \\ \hline
+double swupb (Time,nCells) & SFC all-sky upward shortwave radiation & (W m$^{-2}$) \\ \hline
+double swupbc (Time,nCells) & SFC clear-sky upward shortwave radiation & (W m$^{-2}$) \\ \hline
+double swdnt (Time,nCells) & TOA all-sky downward shortwave radiation & (W m$^{-2}$) \\ \hline
+double swdntc (Time,nCells) & TOA clear-sky downward shortwave radiation & (W m$^{-2}$) \\ \hline
+double swupt (Time,nCells) & TOA all-sky upward shortwave radiation & (W m$^{-2}$) \\ \hline
+double swuptc (Time,nCells) & TOA clear-sky upward shortwave radiation & (W m$^{-2}$) \\ \hline
+double swcf (Time,nCells) & TOA all-sky shortwave radiative cloud forcing & (W m$^{-2}$) \\ \hline
+double rthratensw \hfil\break (Time,nCells,nVertLevels) & Tendency of potential temperature due to all-sky SW radiation & (K s$^{-1}$) \\ \hline
+
+\multicolumn{3}{|l|}{{\rule[-3mm]{0mm}{8mm}\bf LONG-WAVE RADIATION SCHEMES:} \hfill}\\ \hline
+double glw (Time,nCells)  & SFC all-sky net longwave radiation & (W m$^{-2}$) \\ \hline
+double lwdnb (Time,nCells)  & SFC all-sky downward longwave radiation & (W m$^{-2}$) \\ \hline
+double lwdnbc (Time,nCells)  & SFC clear-sky downward longwave radiation & (W m$^{-2}$) \\ \hline
+double lwupb (Time,nCells)  & SFC all-sky upward longwave radiation & (W m$^{-2}$) \\ \hline
+double lwupbc (Time,nCells)  & SFC clear-sky upward longwave radiation & (W m$^{-2}$) \\ \hline
+double lwdnt (Time,nCells)  & TOA all-sky downward longwave radiation & (W m$^{-2}$) \\ \hline
+double lwdntc (Time,nCells) & TOA clear-sky downward longwave radiation & (W m$^{-2}$) \\ \hline
+double lwupt (Time,nCells)  & TOA all-sky upward longwave radiation & (W m$^{-2}$) \\ \hline
+double lwuptc (Time,nCells)  & TOA clear-sky upward longwave radiation & (W m$^{-2}$) \\ \hline
+double lwcf (Time,nCells)  & TOA all-sky longwave radiative cloud forcing & (W m$^{-2}$) \\ \hline
+double olrtoa (Time,nCells) & TOA outgoing longwave radiation & (W m$^{-2}$) \\ \hline 
+double rthratenlw \hfil\break (Time,nCells,nVertLevels)  & Tendency of potential temperature due to all-sky LW radiation & (K s$^{-1}$) \\ \hline
+
+\multicolumn{3}{|l|}{{\rule[-3mm]{0mm}{8mm}\bf CAM RADIATION SPECIFICS:} \hfill}\\ \hline
+double absnxt \hfill\break(Time,nCells,cam\_dim1,nVertLevels)  & Total nearest layer absorptivity & (-) \\ \hline
+double abstot  \hfill\break(Time,nCells,nVertLevelsP1,nVertLevelsP1) & Total absorptivity & (-) \\ \hline
+double emstot  \hfil\break (Time,nCells,nVertLevelsP1) & Total emissivity & (-) \\ \hline
+double pin (nOznLevels) & Prescribed pressure levels for ozone mixing ratio & (hPa) \\ \hline
+double ozmixm \hfil\break (nMonths nOznLevels nCells) & Climatological monthly ozone mixing ratio & (kg kg$^{-1}$) \\ \hline
+double m\_hybi & Matched hybi (need to rechecked) & (-) \\ \hline
+double m\_ps  & Surface pressure from match on MPAS grid & (Pa) \\ \hline
+double sul \hfill\break (Time,nCells,nAerLevels)  & Sulfate soluble (SUL) aerosol concentration & (kg m$^{-3}$) \\ \hline
+double sslt \hfill\break (Time,nCells,nAerLevels)  & Sea-salt (SSLT) aerosol concentration & (kg m$^{-3}$) \\ \hline
+double dust1 \hfil\break (Time,nCells,nAerLevels) & Dust type 1 (DUST1) aerosol concentration & (kg m$^{-3}$) \\ \hline
+double dust2  \hfil\break (Time,nCells,nAerLevels) & Dust type 2 (DUST2) aerosol concentration & (kg m$^{-3}$) \\ \hline
+double dust3 \hfil\break (Time,nCells,nAerLevels) & Dust type 3 (DUST3) aerosol concentration & (kg m$^{-3}$) \\ \hline
+double dust4 \hfil\break (Time,nCells,nAerLevels) & Dust type 4 (DUST4) aerosol concentration & (kg m$^{-3}$) \\ \hline
+double ocpho \hfil\break (Time,nCells,nAerLevels) & Hydrophobic organic carbon (OCPHO) aerosol concentration & (kg m$^{-3}$) \\ \hline
+double bcpho \hfil\break (Time,nCells,nAerLevels) & Hydrophobic black carbon (BCPHO) aerosol concentration & (kg m$^{-3}$) \\ \hline
+double ocphi \hfil\break (Time,nCells,nAerLevels) & Hydrophilic organic carbon (OCPHI) aerosol concentration & (kg m$^{-3}$) \\ \hline
+double bcphi \hfil\break (Time,nCells,nAerLevels) & Hydrophilci black carbon (BCPHI) aerosol concentration & (kg m$^{-3}$) \\ \hline
+double bg \hfill\break (Time,nCells,nAerLevels) & Background (BG) aerosol concentration & (kg m$^{-3}$) \\ \hline
+double volc \hfill\break (Time,nCells,nAerLevels) & Volcanic (VOLC) aerosol concentration & (kg m$^{-3}$) \\ \hline
+\end{longtable}
+}
+
+\subsection{Surface layer scheme}
+
+{\small
+\begin{longtable}{|p{2.0in} |p{3.0in} |p{1.0in} |}
+\hline
+double br (Time,nCells) & Bulk Richardson number & (-) \\ \hline
+double cd (Time,nCells) & 10-meters drag coefficient & (-) \\ \hline
+double cda (Time,nCells) & Drag coefficient at lowest model level & (-) \\ \hline
+double chs (Time,nCells) & \em{To be defined as local. Will need to be removed from Registry} & \\ \hline
+double chs2 (Time,nCells) & \em{To be defined as local. Will need to be removed from Registry} & \\ \hline
+double cqs2 (Time,nCells) & \em{To be defined as local. Will need to be removed from Registry} & \\ \hline
+double ck (Time,nCells) & 10-meters enthalpy exchange coefficient & (-) \\ \hline
+double cka (Time,nCells) &  Enthalpy exchange coefficient at lowest model level & (-) \\ \hline
+double cpm (Time,nCells) & \em{To be defined as local. Will need to be removed from Registry} & (-) \\ \hline
+double flhc (Time,nCells) & Exchange coefficient for heat & (-) \\ \hline
+double flqc (Time,nCells) & Exchange coefficient for moisture & (-) \\ \hline
+double gz1oz0 (Time,nCells) & Log of z1 over z0 & (-) \\ \hline
+double hfx (Time,nCells) & Surface upward heat flux & (W m$^{-2}$) \\ \hline
+double lh (Time,nCells) & Surface latent heat flux & (W m$^{-2}$) \\ \hline
+double mavail (Time,nCells) & Surface moisture availability & (-) \\ \hline
+double mol (Time,nCells) &  T$^{*}$ in similarity theory & (K) \\ \hline
+double psim (Time,nCells) & Similarity function for heat & (-) \\ \hline
+double psih (Time,nCells) & Similarity function for momentum & (-) \\ \hline
+double q2 (Time,nCells) & 2-meters specific humidity & (kg kg$^{-1}$) \\ \hline
+double qfx (Time,nCells) & Upward moisture flux at the surface & (kg m$^{-2}$ s$^{-1}$) \\ \hline
+double qgh (Time,nCells) & \em{To be defined as local. Will need to be removed from Registry} & \\ \hline
+double qsfc (Time,nCells) & Specific humidity at lower boundary & (kg kg$^{-1}$) \\ \hline
+double regime (Time,nCells) & Flag indicating the PBL regime & (-) \\ \hline
+double rmol (Time,nCells) & Inverse of Monin Obukhov length scale & (m$^{-1}$) \\ \hline
+double u10 (Time,nCells) & 10-meters zonal wind & (m s$^{-1}$) \\ \hline
+double ust (Time,nCells) & u$^{*}$ in similarity theory & (m s$^{-1}$) \\ \hline
+double ustm (Time,nCells) & u$^{*}$ in similarity theory without the vconv term & (m s$^{-1}$) \\ \hline
+double t2m (Time,nCells) & 2-meters temperature & (K) \\ \hline
+double th2m (Time,nCells) & 2-meters potential temperature & (K) \\ \hline
+double v10 (Time,nCells) & 10-meters meridional wind & (m s$^{-1}$) \\ \hline
+double wspd (Time,nCells) & Wind speed & (m s$^{-1}$) \\ \hline
+double zol (Time,nCells) & Height over Monin-Obukhov length scale & (-) \\ \hline
+double znt (Time,nCells) & Roughness length & (m) \\ \hline
+\end{longtable}
+}
+
+\subsection{Land surface scheme}
+
+{\small
+\begin{longtable}{|p{2.0in} |p{3.0in} |p{1.0in} |}
+\hline
+double acsnom (Time,nCells) & Accumulated melted snow on the ground  & (kg m$^{-2}$) \\ \hline
+double acsnow (Time,nCells) & Accumulated snow on the ground & (kg m$^{-2}$)  \\ \hline
+double canwat (Time,nCells) & Water content in canopy & (kg m$^{-2}$) \\ \hline
+double chklowq (Time,nCells) & Flag indicating surface saturation & (-) \\ \hline
+double grdflx (Time,nCells) & Ground heat flux & (W m$^{-2}$) \\ \hline
+double lai (Time,nCells) & Leaf area index & (area/area) \\ \hline
+double noahres  (Time,nCells) & Residual for the Noah scheme surface energy budget & (W m$^{-2}$) \\ \hline
+double potevp  (Time,nCells) & Accumulated potential evaporation & (W m$^{-2}$) \\ \hline
+double qz0  (Time,nCells) & Specific humidity at znt & (kg kg$^{-1}$) \\ \hline
+double rib  (Time,nCells) & \em{To be defined as local. Will need to be removed from Registry} & \\ \hline
+double sfc\_albedo  (Time,nCells) & Surface albedo & (-) \\ \hline
+double sfc\_emiss (Time,nCells) & Surface emissivity & (-) \\ \hline
+double sfc\_emibck  (Time,nCells) & Background surface emissivity & (-) \\ \hline
+double sfcrunoff (Time,nCells) & Surface runoff & (mm) \\ \hline
+double smstav (Time,nCells) & Surface moisture availability & (-) \\ \hline
+double smstot (Time,nCells) & Surface total moisture &  (m$^{3}$ m$^{-3}$) \\ \hline
+double snopcx (Time,nCells) & Snow phase change heat flux &  (W m$^{-2}$) \\ \hline
+double snotime (Time,nCells) & \em{Do not know} & \\  \hline
+double sstsk (Time,nCells) & Skin sea-surface temperarute & (K) \\ \hline
+double sstsk\_diurn (Time,nCells) & Skin sea-surface temperature difference & (K) \\ \hline
+double thc (Time,nCells) & Thermal inertia & (Cal cm$^{-1} $ K$^{-1} $ s$^{-0.5} $) \\ \hline
+double udrunoff (Time,nCells) & Sub-surface runoff & (mm) \\ \hline
+double xicem (Time,nCells) & Sea-ice flag from previous time-step & (-) \\ \hline
+double z0 (Time,nCells) & Background roughness length & (m) \\ \hline
+double zs (Time,nCells) & Depth of centers of soil layers & (m) \\ \hline
+\end{longtable}
+}
+
+{\small
+\begin{longtable}{|p{2.0in} |p{3.0in} |p{1.0in} |}
+\hline
+integer isltyp (nCells) & Soil type category & (-) \\ \hline
+integer ivgtyp (nCells) & Vegetation type category & (-) \\ \hline
+integer landmask (nCells) & Land-water mask (1=land, 0=water) & (-) \\ \hline
+double shdmin  (nCells) & Annual minimum greeness fraction & (-) \\ \hline
+double shdmax (nCells) & Annual maximum greeness fraction & (-) \\ \hline
+double snoalb (nCells) & Annual maximum snow albedo & (-) \\ \hline
+double ter (nCells) & Terrain height & (m) \\ \hline
+double albedo12m \hfill\break (nMonths,nCells) & Climatological monthly mean background albedo& (-) \\ \hline
+double greenfrac \hfill\break (nMonths,nCells) & Climatological monthly mean greeness fraction & (-) \\ \hline
+double sfc\_albbck (Time,nCells) & Surface background albedo& (-) \\ \hline
+double skintemp (Time,nCells) & Surface skin temperature & (K) \\ \hline
+double snow (Time,nCells) & Snow water equivalent & (kg m$^{-2}$) \\ \hline
+double snowc (Time,nCells) & Flag indicating snow coverage (1 for snow; 0 otherwise) & (-) \\ \hline
+double snowh (Time,nCells) & Physical snow depth & (m) \\ \hline
+double sst (Time,nCells) & Sea-surface temperature & (K) \\ \hline
+double tmn (Time,nCells) & Deep soil temperature & (K) \\ \hline
+double vegfra (Time,nCells) & Vegetation fraction & (-) \\ \hline
+double seaice (Time,nCells) & Sea-ice flag & (-) \\ \hline
+double xice (Time,nCells) & Sea-ice fraction & (-) \\ \hline
+double xland (Time,nCells) & Land ocean mask (1=land, 2=ocean) & (-) \\ \hline
+double dzs (Time,nCells) & Soil layer thickness & (m) \\ \hline
+double smcrel (Time,nCells) & Relative soil moisture & (-) \\ \hline
+double sh2o (Time,nCells) & Soil liquid water & (m$^{3}$ m$^{-3}$) \\ \hline
+double smois (Time,nCells) & Soil layer moisture & (m$^{3}$ m$^{-3}$) \\ \hline
+double tslb (Time,nCells) & Soil layer temperature & (K) \\ \hline
+\end{longtable}
+}
+
+

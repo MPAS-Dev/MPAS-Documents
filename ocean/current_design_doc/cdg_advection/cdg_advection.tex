@@ -1,0 +1,731 @@
+%
+\documentclass[11pt]{report}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{subfigure}
+\usepackage{placeins}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{float}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\newcommand{\bdot}[0]{\boldsymbol{\cdot}}
+\newcommand{\bunderline}[1]{\underline{\bf #1}}
+\newcommand{\bvec}[1]{\vec{\bf #1}}
+\newcommand{\sgn}[0]{\mbox{sgn}}
+\newcommand{\pde}[2]{\frac{\partial {#1}}{\partial {#2}}}
+\newcommand{\mDeriv}[1]{\frac{D {#1}}{D t}}
+\newcommand{\deriv}[2]{\frac{d {#1}}{d {#2}}}
+\newcommand{\subtext}[1]{{\mbox{\tiny #1}}}
+\newcommand{\order}[1]{{O(#1)}}
+\newcommand{\outprod}[0]{\otimes}
+\newcommand{\half}[0]{\frac{1}{2}}
+\newcommand{\third}[0]{\frac{1}{3}}
+\newcommand{\fourth}[0]{\frac{1}{4}}
+\newcommand{\D}[0]{\displaystyle}
+\newcommand{\Dfrac}[2]{{\displaystyle \frac{#1}{#2}}}
+\newcommand{\svec}[1]{{\Vec{#1}}}
+\newcommand{\grad}[0]{\nabla}
+
+\title{Tracer Advection using Characteristic Discontinuous Galerkin}
+\author{Robert B. Lowrie}
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{5}
+\begin{document}
+\maketitle
+
+\chapter{Summary}
+This document outlines the implementation of the Characteristic Discontinuous
+Galerkin (CDG) tracer advection scheme within the MPAS framework.
+In this document, we refer to the existing advection scheme as FVM, for
+finite-volume method.
+
+\section{TODO}
+
+\begin{itemize}
+\item Add limiter algorithm.  This will probably change the overall algorithm
+  quite a bit, but I still want the base algorithm documented as such, since
+  there may be many other ways to limit than the current approach.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Requirements}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{enumerate}
+	\item Horizontal and vertical advection of tracers.  The horizontal
+          and vertical updates may be spatially-split, as they are in the
+          existing advection module.  Comments:
+          \begin{enumerate}
+          \item We might want to use CDG in the horizontal and FVM in the
+            vertical, and vice versa. However, how does FVM update the CDG
+            polynomial coefficients, aside from the cell-average?
+            Consequently, for now, the same method must be used for both
+            horizontal and vertical.
+          \end{enumerate}
+	\item Preserves physical bounds on tracer quantities.  This may also
+          be extended to monotone advection, a more stringent requirement.
+        \item User-selectable polynomial degree for the representation of the
+          tracers.  For example, bi-quadratic would be analogous to Prather's
+          method.
+            Comments:
+          \begin{enumerate}
+          \item  At this point, the polynomial degree will be the same
+          across all mesh cells and for all tracers.
+          \item We likely need ``diamond truncation'' (linear example:
+            $\{1,x,y,xy\}$) versus ``triangle truncation'' ($\{1,x,y\}$), but
+            we might want to make this an option.
+          \end{enumerate}
+        \item Operates within current FVM implementation.
+        \item The height-function update is performed elsewhere by MPAS.  A
+          constant tracer field must maintain this update, to within
+          round-off. \label{req:constantq}
+        \item Threadable and bit reproducible.
+          \label{req:thread}
+        \item Allocate additional tracer polynomial coefficients only if CDG is
+          selected as the advection scheme.  The tracer cell-average will be CDG's
+          leading coefficient. \label{req:cell_avg}
+          Comments:
+          \begin{enumerate}
+          \item Might just add another index to {\tt tracers} array, with the
+            first index the cell average.  Another possibility is to store
+            separately the CDG tracers and FVM tracers.
+          \end{enumerate}
+	\item In order to share this module with other dynamical cores,
+          isolate code dependencies on MPAS. \label{req:isolate}
+        \item Isolate polygon intersections for remap step.  Start with CORE,
+          and if available and useful via SciDAC3, consider using MOAB.
+          \label{req:remap}
+        \item The time step is limited by the number of neighboring cells one
+          intersects with each face's Lagrangian pre-image.  The algorithm
+          should allow this ``halo''
+          (or ``depth'') to be variable and likely will use whatever halo is
+          used by the current code, with its implied time step limitation.
+          \label{req:halo}
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Formulation for Horizontal Advection}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Equations Solved}
+
+The tracer advection system can be written as follows:
+\begin{subequations}
+\label{eq:tracer_system}
+\begin{gather}
+  \label{eq:rho}
+  \partial_t h + \grad \cdot (h \svec{u}) = 0\,, \\
+   \label{eq:tracer}
+  \partial_t (h q) + \grad \cdot (h q \svec{u}) = 0\,,
+\end{gather}
+\end{subequations}
+where $h(\svec{x},t)$ is the height field and $q(\svec{x},t)$ the tracer.
+
+At each time-level $t^n$, in each cell $\Omega_z$, we represent the tracer as
+\begin{equation}
+  \label{eq:expanT}
+   q(\svec{x},t^n) = \sum_{j=1}^{N} c^{n}_{z,j} \beta_{z,j}(\svec{x})
+       \,, \quad \svec{x} \in \Omega_z\,,
+\end{equation}
+where the coefficients $\{c^{n}_{z,j}\}_{j=1}^N$ are to be updated by the CDG
+method.  The choice of basis functions $\{\beta_{z,j}(\svec{x})\}_{j=1}^N$ will
+  be discussed in \S\ref{sec:basis}.
+
+To update the polynomial coefficients, we solve the system
+\begin{equation}
+  \label{eq:scdg}
+  h_z^{n+1} \int\limits_{\Omega_z} \beta_{z,i} q^{n+1} \, d\Omega - 
+  h_z^{n}   \int\limits_{\Omega_z} (\phi_{z,i} q)^{n}   \, d\Omega +
+  \sum_{f\in\mathcal{F}(z)}
+     \frac{m_f^n}{V_f} \int\limits_{\Delta\Omega_{f}}
+  (\phi_{z,i} q)^n \, d\Omega\ = 0\,,
+\end{equation}
+for $i = 1, \ldots, N$, where $m_f^n$ is the height flux through face-$f$ (with the proper sign with
+respect to cell-$z$), $\Delta\Omega_{f}$ is the Lagrangian pre-image of
+face-$f$, $V_f = |\Delta\Omega_{f}|$, and $\mathcal{F}(z)$ is the set of
+faces that make up cell-$z$.  The function $\phi_{z,i}(\svec{x},t^n)$ will be
+discussed in \S\ref{sec:phi}.
+
+Substitute (\ref{eq:expanT}) into the first integral in (\ref{eq:scdg}) to
+obtain
+\begin{equation}
+  \label{eq:scdg_massMatrix}
+  h_z^{n+1} M_{z,i,j} c^{n+1}_{z,j} - 
+  h_z^{n}   \int\limits_{\Omega_z} (\phi_{z,i} q)^{n}   \, d\Omega +
+  \sum_{f\in\mathcal{F}(z)}
+     \frac{m_f^n}{V_f} \int\limits_{\Delta\Omega_{f}}
+  (\phi_{z,i} q)^n \, d\Omega\ = 0\,,
+\end{equation}
+where for each cell-$z$, $M_{z,i,j}$ is an $N \times N$ matrix, given by
+\begin{equation}
+  \label{eq:massMatrix}
+  M_{z,i,j} = \int\limits_{\Omega_z} \beta_{z,i} \beta_{z,j} \, d\Omega\,.
+\end{equation}
+The remaining integrals are a function of time-level-$n$ data, so that
+(\ref{eq:scdg_massMatrix}) shows the manner in which the coefficients
+$c^{n+1}_{z,j}$ may be computed.  For each time step, in order to expedite the
+computation of $c^{n+1}_{z,j}$, the matrix inverse $M^{-1}_{z,i,j}$ may be
+computed once and stored.  More discussion of this issue will be given in
+\S\ref{sec:basis}.  Indeed, the remainder of this chapter discusses how the
+terms in (\ref{eq:scdg_massMatrix}) are computed.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Determination of $\phi_{z,i}(\svec{x},t^n)$}
+\label{sec:phi}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Within each time slab $t^n \le t \le t^{n+1}$, the function
+$\phi_{z,i}(\svec{x},t)$ is determined by integrating
+\begin{equation}
+  \label{eq:advectPhi}
+  \mDeriv{\phi_{z,i}} = 0\,,
+\end{equation}
+with $\phi_{z,i}(\svec{x},t^{n+1}) = \beta_{z,i}(\svec{x})$.  An alternative
+form is
+\begin{equation}
+  \label{eq:phiChar2}
+   \phi_{z,i}(\svec{x},t) = \beta_{z,i}(\svec{\Gamma}(\svec{x},t))\,,
+\end{equation}
+where
+\begin{equation}
+  \label{eq:xc}
+  \svec{\Gamma}(\svec{x}, t) = \svec{x} + \int\limits_{t}^{t^{n+1}} 
+            \svec{u}(\svec{\Gamma}(\svec{x},\xi), \xi) \, d\xi\,.
+\end{equation}
+For a constant velocity field, we have that
+\begin{equation}
+  \phi_{z,i}(\svec{x},t^n) = \beta_{z,i}(\svec{x} + \svec{u} \Delta t)\,.
+\end{equation}
+In general, (\ref{eq:xc}) may be integrated using Runge-Kutta, or some
+other time-integration scheme, to determine $\phi_{z,i}(\svec{x},t^{n})$.
+See \S\ref{sec:characteristic} for more discussion.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Remap}
+\label{sec:remap}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+This section describes the formation of the Lagrangian pre-image,
+$\Delta\Omega_{f}$, which can be viewed as a ``remap'' step.  For each
+face-$f$, we approximate the pre-image and compute the integral as follows:
+\begin{enumerate}
+\item Find the departure points $\svec{d}_1$ and $\svec{d}_2$ for face
+  endpoints $\svec{x}_1$ and $\svec{x}_2$.  In general, a
+  departure point is found via a relation very similar to (\ref{eq:xc}).  See
+  \S\ref{sec:characteristic} for more information.
+\item Determine whether the line $(\svec{d}_1, \svec{d}_2)$ intersects
+  $(\svec{x}_1, \svec{x}_2)$.
+  \begin{itemize}
+  \item If the lines do not intersect, then $\Delta\Omega_{f}$ is the
+    quadrilateral with points $\{\svec{x}_1, \svec{x}_2, \svec{d}_2,
+    \svec{d}_1\}$.
+  \item If the lines intersect, let $\svec{x}_I$ be the
+    intersection point.  Then $\Delta\Omega_{f}$ is made up of
+    two triangles, $\{\svec{x}_1, \svec{x}_I, \svec{d}_1\}$ and $\{\svec{x}_2,
+    \svec{x}_I, \svec{d}_2\}$. 
+  \end{itemize}
+\item Intersect $\Delta\Omega_{f}$ with any number of cells that neighbor
+  the face.  The larger the number of cells considered, the larger the maximum
+  allowable $\Delta t$.  See Requirement (\ref{req:halo}).
+\item For each region found in the previous step, subdivide into triangles and
+  integrate numerically.  The details of this integration will be given in
+  \S\ref{sec:quadrature}.
+\end{enumerate}
+We note that the majority of this algorithm can be performed outside of
+the inner-loop over tracers.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Characteristic Tracing}
+\label{sec:characteristic}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The velocity characteristics must be traced in two places for the update:
+\begin{enumerate}
+\item To determine $\phi(\svec{x},t^n)$ in the second and third integrals of
+  eq. (\ref{eq:scdg}).  Specifically, given a Gauss point $\svec{x}_g$ at
+  $t=t^n$, we must integrate (\ref{eq:xc}) to find where it lands at time
+  $t=t^{n+1}$.
+\item To determine the departure points $(\svec{d}_1, \svec{d}_2)$, for each
+  of the face's endpoints $(\svec{x}_1, \svec{x}_2)$, as described in
+  \S\ref{sec:remap}.  Specifically, given $(\svec{x}_1, \svec{x}_2)$ at
+  time $t=t^{n+1}$, their departure points are found at $t=t^n$.
+\end{enumerate}
+
+The difficulty is that the velocity field is discrete.  In this section, we
+describe a second-order accurate, predictor-corrector algorithm.
+For Case 1, we have the steps:
+\begin{enumerate}
+\item Interpolate edge velocities $\svec{u}^n_e$ to at $\svec{x}_g^n$ to find
+  $\svec{u}_I^n$.
+\item Predict: $\svec{x}_g^{n+1} = \svec{x}_g^{n} + \Delta
+  t\svec{u}_I^n$
+\item Interpolate edge velocities $\svec{u}^{n+1}_e$ at $\svec{x}_g^{n+1}$
+   to find $\svec{u}_I^{n+1}$
+\item Let $\svec{u}_I^{n+1/2} = (\svec{u}_I^{n} + \svec{u}_I^{n+1})/2$
+\item Correct: $\svec{x}_g^{n+1} = \svec{x}_g^{n} + \Delta
+  t\svec{u}_I^{n+1/2}$
+\end{enumerate}
+Assuming the velocity interpolation is at least second-order accurate in
+space, this algorithm is second-order accurate in space and time.
+
+Case 2 is very similar.  For a given vertex $\svec{x}_i$:
+\begin{enumerate}
+\item Interpolate edge velocities $\svec{u}^{n+1}_e$ to
+  $\svec{x}_i$ to find $\svec{u}_I^{n+1}$.
+\item Predict: $\svec{d}_i = \svec{x}_i - \Delta
+  t\svec{u}_I^{n+1}$
+\item Interpolate edge velocities $\svec{u}^{n}_e$ at $\svec{d}_i$
+   to find $\svec{u}_I^{n}$
+\item Let $\svec{u}_I^{n+1/2} = (\svec{u}_I^{n} + \svec{u}_I^{n+1})/2$
+\item Correct: $\svec{d}_i = \svec{x}_i - \Delta
+  t\svec{u}_I^{n+1/2}$.
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mass Conservation and the Preservation of a Constant Tracer}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Any basis will be a ``partition of unity.''  Specifically, for each
+cell-$z$, there exists constants $\{\alpha_{j}\}_{j=1}^N$ such that
+\begin{equation}
+  \sum_{i=1}^N \alpha_{i} \beta_{z,i}(\svec{x}) = 1\,,
+\end{equation}
+for all $\svec{x}$.
+As a result, if we take this same linear combination of (\ref{eq:scdg}), and
+assume that $q$ is a constant, then (\ref{eq:scdg}) reduces to
+\begin{equation}
+  \label{eq:massBal_tmp}
+  V_z (h_z^{n+1} - h_z^{n}) +
+  \sum_{f\in\mathcal{F}(z)} m_f^n = 0\,.
+\end{equation}
+This is simply the mass balance over the cell, corresponding to
+(\ref{eq:rho}).  We assume that the flow solver satisfies
+(\ref{eq:massBal_tmp}), and this is the sense that Requirement
+(\ref{req:constantq}) is satisfied.
+Note that for MPAS,
+\begin{equation}
+  m_f^n = \half \Delta t (h_z^n + h_{z'}^n) \svec{u}_f^n \cdot \svec{n}_f\,,
+\end{equation}
+where cell-$z'$ is the cell neighbor across face-$f$, and the area-weighted
+normal $\svec{n}_f$ points in this direction.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Choice of Basis Functions}
+\label{sec:basis}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+This section discusses the choice of basis functions
+$\{\beta_{z,j}(\svec{x})\}_{j=1}^N$ in eq. (\ref{eq:expanT}).  Many DG
+implementations use an orthonormal basis on each cell, but such a basis does
+not exist for hexagonal cells.  Two options are discussed in detail in this
+section.
+
+To begin with,
+the basis functions may be selected independent of the cell-index $k$ as the
+set of polynomials
+\begin{equation}
+  \label{eq:basis_quad_raw}
+  \beta_{z,j} = \mathcal{P}_j = x^{(j-1)\bmod (p+1)} 
+      y^{\lfloor (j-1)/(p+1) \rfloor}\,.
+\end{equation}
+where $p$ is the polynomial order and $1 \le j \le (p+1)^2$.
+For $p=2$ (bi-quadratic), $N = 9$ in (\ref{eq:expanT}), and we have
+\begin{equation}
+  \label{eq:biquadradic}
+  \{\mathcal{P}_j\}_{j=1}^N = \{1,x,x^2,y,xy,x^2y,y^2,xy^2,x^2y^2\}\,.
+\end{equation}
+This choice of basis is not ideal, for a number of reasons, all of which we
+won't go into here.
+
+One issue is that a straightforward way to meet Requirement
+(\ref{req:cell_avg}) is for
+\begin{equation}
+  c^{n}_{z,1} = \bar{q}^n_z \equiv \frac{1}{V_z} \int_{\Omega_z} q(\svec{x},t^n) d\Omega\,,
+\end{equation}
+where $\bar{q}^n_z$ is the cell average.  The basis (\ref{eq:basis_quad_raw})
+can be adjusted to satisfy this property with
+\begin{equation}
+  \label{eq:basis_quad}
+  \beta_{z,j} = \mathcal{P}_j - b_{z,j}\,,
+\end{equation}
+where for each cell, the constants $\{b_{z,j}\}_{j=1}^N$ are given by
+\begin{equation}
+  \label{eq:barray}
+  b_{z,j} = 
+  \begin{cases}
+    0 & \text{for $j=1$},\\
+    \int_{\Omega_z} \mathcal{P}_j d\Omega & \text{otherwise.}
+  \end{cases}
+\end{equation}
+This can viewed as the first step of a Gram-Schmidt orthogonalization.
+
+Indeed, a Gram-Schmidt orthogonalization of $\mathcal{P}_j$ is given by the
+recursion relation
+\begin{equation}
+  \label{eq:gs}
+  \beta_{z,j} = \mathcal{P}_j - \sum_{k=1}^{j-1} g_{z,j,k} \beta_{z,k} 
+\end{equation}
+where
+\begin{equation}
+  g_{z,j,k} = \int_{\Omega_z} \mathcal{P}_j \left. \beta_{z,k} d\Omega \middle/ 
+                 \int_{\Omega_z} \beta_{z,k}^2 d\Omega \right. \,.
+\end{equation}
+We claim that we can then write (\ref{eq:gs}) as
+\begin{equation}
+  \label{eq:gs_mat}
+  \beta_{z,j} = \sum_{k=1}^{j} L_{z,j,k} \mathcal{P}_k
+\end{equation}
+where for each cell-$z$, $L_{z,j,k}$ is an $N\times N$, lower-triangular
+matrix.  The precise form of $L_{z,j,k}$ won't be given here, but we claim it
+may be computed so that
+\begin{equation}
+  M_{z,i,j} = V_z \delta_{i,j}\,,
+\end{equation}
+which might appear to greatly decrease the computation cost for
+(\ref{eq:scdg_massMatrix}).
+
+However, consider the costs of using the non-orthogonal basis
+(\ref{eq:basis_quad}) versus the orthonormal basis (\ref{eq:gs_mat}).  Assume
+the update (\ref{eq:scdg}) is performed inside a cell loop, so that
+Requirement (\ref{req:thread}) is satisfied.  Then the costs may be summarized
+as follows:
+\begin{itemize}
+\item {\bf Use of non-orthogonal basis (\ref{eq:basis_quad})}: For each
+  cell-$z$, the following must be computed:
+  \begin{itemize}
+  \item The matrix $M_{z,j,k}$, which has $N^2$ elements.
+  \item The inverse $M^{-1}_{z,j,k}$.  This computation costs approximately
+    $O(N^3)$ FLOPS.  Note that $M^{-1}_{z,j,k}$ may be pre-computed and
+    stored, outside of the cell-update loop, and then $M_{z,j,k}$ discarded.
+  \item The array $b_{z,j}$, which contains $N$ elements.
+  \end{itemize}
+\item {\bf Use of orthonormal basis (\ref{eq:gs_mat})}:
+  \begin{itemize}
+  \item For each cell-$z$, the matrix $L_{z,j,k}$ must be
+  computed, which has $N^2 / 2$ nonzero elements.
+  \item For each quadrature point used for the integrals in
+    (\ref{eq:scdg_massMatrix}), the matrix-vector product (\ref{eq:gs_mat})
+    requires $O(N^2)$ extra FLOPS, compared with using the non-orthogonal
+    basis.  There is an absolute minimum of $N^2$ quadrature points (and
+    typically many more), so that at least $O(N^4)$ extra FLOPS are required.
+  \item If $L_{z,j,k}$ is computed within the cell-update loop, rather than
+    pre-computed, then it must also be computed for all of cell-$z$'s
+    neighbors that are covered by a Lagrangian pre-image.  In contrast,
+    $M^{-1}_{z,j,k}$ needs to be computed only for cell being updated.  Note
+    that such ``on-the-fly'' computation may be used for certain computer
+    architectures that have low-memory bandwidth.
+  \end{itemize}
+\end{itemize}
+Consequently, at this time, we will use the non-orthogonal basis
+(\ref{eq:basis_quad}).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Quadrature}
+\label{sec:quadrature}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+For the mesh cells used in MPAS, all of the integrals in (\ref{eq:scdg}) are
+computed with quadrature.  Generally, the integration regions are
+triangulated, and each triangle is integrated with known integration weights
+and points.  For the region $\Omega_z$, the triangulation is formed by
+computing the centroid and then connecting the centroid with each of the
+cell's vertices.  For $N^\mathrm{vertices}$ vertices, 
+this forms $N^{\mathrm{tri}}(\Omega_z) = N^\mathrm{vertices}-1$ triangles.
+
+On each triangle, we use the same quadrature rule with $N^{\mathrm{gauss}}$
+points, so that for example the second integral in (\ref{eq:scdg}), we have
+\begin{equation}
+  \label{eq:gauss_tri}
+  \int\limits_{\Omega_z} (\phi_{z,i} q)^{n} \, d\Omega \approx 
+     \sum_{it=1}^{N^{\mathrm{tri}}(\Omega_z)} A_{it}
+     \sum_{g=1}^{N^{\mathrm{gauss}}}
+       w_{g} (\phi^n_{z,i} q^n)|_{\svec{x}=\svec{x}_{g}}\,,
+\end{equation}
+where $A_{it}$ is the triangle's area and $\svec{x}_{g}$ is the Gauss-point
+location, with corresponding integration weight $w_{g}$.  We assume here
+that the weights are normalized such that
+\begin{equation}
+  \sum_{g=1}^{N^\mathrm{gauss}} w_{g} = 1\,,
+\end{equation}
+and that the $A_{it}$ satisfy
+\begin{equation}
+  V_z = \sum_{it=1}^{N^{\mathrm{tri}}(\Omega_z)} A_{it}\,.
+\end{equation}
+As part of a pre-processing step, we can accumulate all the Gauss points and
+weights into a single array for cell-$z$, so that (\ref{eq:gauss_tri}) takes
+the form
+\begin{equation}
+  \label{eq:gauss_vor}
+  \int\limits_{\Omega_z} (\phi_{z,i} q)^{n} \, d\Omega \approx 
+     V_z \sum_{g=1}^{N^{\mathrm{gauss}}_z}
+       w_{z,g} (\phi^n_{z,i} q^n)|_{\svec{x}=\svec{x}_{z,g}}\,,
+\end{equation}
+where
+\begin{align}
+  N^{\mathrm{gauss}}_z &= N^{\mathrm{gauss}} N^{\mathrm{tri}}(\Omega_z)\,,\\
+  w_{z,g'} &= w_g A_{it} / V_z\,,
+\end{align}
+with $g'=g+(z-1)N^{\mathrm{gauss}}$.
+
+We strive to perform as much computation as possible, outside of the loop
+over tracers.  To this end, we use (\ref{eq:expanT}) and write
+(\ref{eq:gauss_vor}) as
+\begin{equation}
+  \label{eq:gauss_vor2}
+  \int\limits_{\Omega_z} (\phi_{z,i} q)^{n} \, d\Omega \approx 
+     V_z \sum_{j=1}^N c^n_{z,j} \sum_{g=1}^{N^{\mathrm{gauss}}_z}
+       w_{z,g} \phi^n_{z,i}(\svec{x}_{z,g})
+       \beta_{z,j}(\svec{x}_{z,g})\,.
+\end{equation}
+As an initialization step, before the time-step loop, we can compute
+\begin{equation}
+  \label{eq:bfactor}
+  B_{z,j,g} = V_z w_{z,g} \beta_{z,j}(\svec{x}_{z,g})\,,
+\end{equation}
+which requires storing a $N \times N^{\mathrm{gauss}}_z$ matrix for each
+cell-$z$.  Within the time-step loop, we can evaluate $\phi$ for all tracers,
+and compute
+\begin{equation}
+  \label{eq:Kmat}
+  K^n_{z,i,j} = \sum_{g=1}^{N^{\mathrm{gauss}}_z} B_{z,j,g} \phi^n_{z,i}(\svec{x}_{z,g})\,,
+\end{equation}
+so that (\ref{eq:gauss_vor2}) reduces to
+\begin{equation}
+  \label{eq:gauss_vor3}
+  \int\limits_{\Omega_z} (\phi_{z,i} q)^{n} \, d\Omega \approx 
+     \sum_{j=1}^N K^n_{z,i,j} c^n_{z,j} \,;
+\end{equation}
+that is, a matrix-vector product.  Note that if the overall update is within a cell loop, then $K^n_{z,i,j}$ can
+be computed within this loop, and there is no need to permanently store it for
+each cell-$z$.
+
+The integration over each Lagrangian pre-image may be computed in a similar
+fashion.  Because the velocity is time dependent, the pre-image region is also
+time dependent, so all of the setup must be within the time-step loop.
+However, much of the work may be completed before the inner tracer loop.  To
+begin with, the integration over the pre-image may be written as:
+\begin{equation}
+  \int\limits_{\Delta\Omega_{f}}
+  (\phi_{z,i} q)^n \, d\Omega\ = \sum_{z'}
+   \int\limits_{\omega_{z'}} (\phi_{z,i} q)^n \, d\Omega\
+\end{equation}
+where $z'$ sums over the halo of neighbors of face-$f$ and $\omega_{z'} =
+\Omega_{z'} \cap \Delta\Omega_{f}$.  Note here that $\phi$ is with respect to the
+basis in cell-$z$, rather than cell-$z'$.  As discussed in \S\ref{sec:remap},
+$\Delta\Omega_{f}$ may itself consist of two separate triangles (``Case 2''),
+but this case is an obvious extension of the case when $\Delta\Omega_{f}$ is a
+single region (``Case 1'').  Next, we write the integral above in a similar
+form as (\ref{eq:gauss_vor3}):
+\begin{equation}
+   \label{eq:subflux}
+   \int\limits_{\omega_{z'}} (\phi_{z,i} q)^n \, d\Omega\ \approx
+    \sum_{j=1}^N F^n_{z',i,j} c^n_{z',j}
+\end{equation}
+For each cell-neighbor $z'$, the $N\times N$ matrix $F^n_{z',i,j}$ is computed
+by subdividing $\omega_{z'}$ into triangles and using quadrature on each of
+these triangles:
+\begin{equation}
+  \label{eq:Fmat_tmp}
+  F^n_{z',i,j} = \sum_{it=1}^{N^{\mathrm{tri}}(\omega_{z'})} A_{it} \sum_{g=1}^{N^\mathrm{gauss}} w_g
+  \phi_{z,i}^n(\svec{x}_g) \beta_{z',j}(\svec{x}_g)\,.
+\end{equation}
+
+However, eqs. (\ref{eq:subflux}-\ref{eq:Fmat_tmp}) get only the contribution of $z'$ for a single face-$f$.
+Referring to (\ref{eq:scdg}), we can sum the contributions
+of all faces as
+\begin{equation}
+\sum_{f\in\mathcal{F}(z)}
+     \frac{m_f^n}{V_f} \int\limits_{\Delta\Omega_{f}}
+  (\phi_{z,i} q)^n \, d\Omega \approx
+     \sum_{z'} \sum_{j=1}^N F^n_{z',i,j} c^n_{z',j}
+\end{equation}
+where now $z'$ sums over union of all the face's neighbors and
+\begin{equation}
+  \label{eq:Fmat}
+  F^n_{z',i,j} = \sum_{f\in\mathcal{F}(z)}
+     \frac{m_f^n}{V_f} \sum_{it=1}^{N^{\mathrm{tri}}(\omega_{z'})} A_{it} \sum_{g=1}^{N^\mathrm{gauss}} w_g
+  \phi_{z,i}^n(\svec{x}_g) \beta_{z',j}(\svec{x}_g)\,.
+\end{equation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Initial Condition}
+\label{sec:IC}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Given a tracer initial condition $q^0(\svec{x})$, its initial expansion
+coefficients are computed with the matrix-vector product
+\begin{equation}
+  \label{eq:cic}
+  c^0_{z,i} = M^{-1}_{i,j} v^0_{z,j}\,,
+\end{equation}
+where
+\begin{equation}
+  \label{eq:icproject}
+  v^0_{z,j} = \int\limits_{\Omega_z} q^0\beta_{z,j} \, d\Omega\,.
+\end{equation}
+This integral is computed with the same quadrature rule as in
+(\ref{eq:gauss_vor}). 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Pseudocode Formulation}
+\label{chap:pseudocode}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The overall update is broken into two main loops over the cells:
+\begin{enumerate}
+\item \emph{Initial setup}: Initial computations that are performed before
+  entering the time-advance loop.  These computations are given in Algorithm
+  \ref{alg:init_setup}.
+\item \emph{Update loop}: This loop is summarized in Algorithm
+  \ref{alg:update}, with the details given in Algorithms
+  \ref{alg:update_shared} and \ref{alg:update_tracers}.  This algorithm is
+  within the time-step loop.  Note that there are many computations that are
+  common to all tracers (Algorithm \ref{alg:update_shared}), performed before
+  a loop over all tracers (Algorithm \ref{alg:update_tracers}).
+\end{enumerate}
+Note that if one does not want to store quantities performed in the initial
+setup, such as the matrix $M^{-1}_{z,i,j}$ for all cells, then the two cell
+loops of Algorithms \ref{alg:init_setup}-\ref{alg:update} may be combined.
+
+\begin{algorithm}[ht]
+  \caption{Initial setup. We may place this loop outside of the time-step loop.}
+  \label{alg:init_setup}
+  \begin{algorithmic}[1]
+    \State Load Gauss points and weights for triangle
+    \For{$z=1,N^\mathrm{cells}$} \Comment{loop over all owned cells}
+      \State Compute centroid of cell-$z$
+      \State Compute triangulation of each cell-$z$
+      \State $N^\mathrm{tri}(\Omega_z) = N_z^\mathrm{vertices} - 1$
+      \For {$it=1,N^\mathrm{tri}(\Omega_z)$} \Comment{loop over triangles for this cell} 
+        \State Compute area of triangle, $A_{it}$
+        \State Normalize triangle Gauss weights by $A_{it} / V_z$
+        \State Accumulate new weights and points into $w_{z,g}$ and $\svec{x}_{z,g}$ 
+      \EndFor
+      \State Compute $M^{-1}_{z,i,j}$ \Comment{using quadrature set above}
+      \State Compute $b_{z,j}$ \Comment{using quadrature set above}
+      \State Compute $B_{z,j,g}$ \Comment{see eq. (\ref{eq:bfactor})}
+      \State Compute $v^0_{z,j}$ \Comment{using quadrature set above}
+      \State Initialize $c^0_{z,i}$ \Comment{see eq. (\ref{eq:cic})}
+    \EndFor
+    \State \Return $M^{-1}_{z,i,j}$, $b_{z,j}$, $B_{z,j,g}$, $c^0_{z,i}$
+  \end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[ht]
+  \caption{Main update loop.}
+  \label{alg:update}
+  \begin{algorithmic}[1]
+    \State Fill off-processor cell neighbors with data
+    \For {$z=1,N^\mathrm{cells}$} \Comment{loop over all owned cells}
+      \State Computations shared by all tracers, Algorithm \ref{alg:update_shared}
+      \State Update tracers, Algorithm \ref{alg:update_tracers}
+    \EndFor \Comment{cell loop}
+  \end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[ht]
+  \caption{Computations shared by all tracers, within main update loop (see
+    Algorithm \ref{alg:update}). Even though $K_{z,i,j}$ has a cell-index $z$,
+    it does not need to be stored for all cells.  For $F_{z',i,j}$, $z'$ spans
+    the cells that intersect the Lagrangian pre-image of any face-$f$.}
+  \label{alg:update_shared}
+  \begin{algorithmic}[1]
+      \State $K^n_{z,i,j} = 0$ \Comment{initialize array}
+      \For {$i=1,N$} \Comment{loop over number of basis}
+        \For {$g=1,N^{\mathrm{gauss}}_z$} \Comment{loop over gauss points for this cell}
+          \State Compute $\phi^n_{z,i}(\svec{x}_{z,g})$
+          \For {$j=1,N$}
+             \State $K^n_{z,i,j} = K^n_{z,i,j} + B_{z,j,q} \phi^n_{z,i}(\svec{x}_{z,g})$ \Comment{see eq. (\ref{eq:Kmat})}
+          \EndFor
+        \EndFor
+      \EndFor
+      \State $F^n_{z',i,j} = 0$ \Comment{initialize array}
+      \For {$f=1,N^{\mathrm{faces}}_z$} \Comment{loop over faces for this cell} 
+        \State Compute Lagrangian pre-image of face-$f$... 
+        \State ... to form subregions $\omega_p$, $p=1,N^\mathrm{preimages}$ \Comment{see \S\ref{sec:remap}}
+        \For {$zf=1,N^{\mathrm{neighbors}}_f$} \Comment{loop over face's cell neighbors}
+          \For {$p=1,N^\mathrm{preimages}$} \Comment{loop over preimage regions}
+            \State Intersect $\omega_p$ with $\Omega_{zf}$ to form $R$
+            \If {$R$ is not an empty region}
+              \State Put $zf$ in list of cell-$z$'s neighbors, with linear index $z'$
+              \State Split $R$ into triangles
+              \State Integrate over triangles and sum contributions...
+              \State ... to $F^n_{z',i,j}$ and $V_f$ \Comment{see eq. (\ref{eq:Fmat})}
+            \EndIf
+          \EndFor \Comment{pre-image loop}
+        \EndFor \Comment{cell-neighbor loop}
+      \EndFor \Comment{face loop}
+  \State \Return $K^n_{z,i,j}$, $F^n_{z',i,j}$, list of cells that $z'$ spans
+  \end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[ht]
+  \caption{Update tracers, within main update loop (see
+    Algorithm \ref{alg:update})}
+  \label{alg:update_tracers}
+  \begin{algorithmic}[1]
+      \For {$iq=1,N^{\mathrm{tracers}}$} \Comment{loop over number of tracers}
+         \State $sumFlux_i = 0$ \Comment{$N$-array to accumulate fluxes}
+         \State $sumFlux_i = sumFlux_i + K_{z,i,j} c^n_{z,j}$ \Comment{matrix-vector multiply} 
+         \For {$z'=1,N^{\mathrm{neighbors}}_z$} \Comment{loop over cell's neighbors}
+           \State $sumFlux_i = sumFlux_i - F_{z',i,j} c^n_{z',j}$ \Comment{matrix-vector multiply}
+         \EndFor
+         \State $c^{n+1}_{z,iq,i} = M^{-1}_{z,i,j} (sumFlux_j)$ \Comment{matrix-vector multiply} 
+      \EndFor \Comment{tracer loop}
+  \end{algorithmic}
+\end{algorithm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Formulation for Vertical Advection}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+To be written.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Design and Implementation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Namelist Options}
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The namelist options are as follows:
+\begin{itemize}
+\item {\tt config\_tracer\_adv\_meth}\\ This is a flag corresponding to either
+  the CDG or FVM methods.  The options for FVM are as before.   The options
+  for CDG are given below.\\
+  Available options: CDG or FVM
+\item {\tt config\_cdg\_ord}\\
+  Polynomial order of basis, for all cells.\\
+  Available options: Any non-negative integer, although effectively limited by
+  {\tt config\_cdg\_gauss} 
+\item {\tt config\_cdg\_gauss}\\
+  Max polynomial order integrated exactly by
+  quadrature on triangles.  If -1, estimate from {\tt config\_cdg\_ord}. Note
+  that general quadrature on triangles, for any order, does not exist.\\
+  Available options: 0 to 25
+\item {\tt config\_cdg\_limit}\\
+  Selects how tracer bounds are computed by the limiter.\\
+  {\tt none} means don't limit at all.\\
+  {\tt local} means use local cell averages to compute the bounds.\\
+  {\tt global} means use pre-computed, global minimum and maximums.\\
+  Available options: none, bounds, global
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Implementation Issues}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{itemize}
+\item Use {\tt advCellsForEdge} index array as the cell halo to search for
+  each edge's Lagrangian pre-image.
+\item \S\ref{sec:characteristic} requires the edge velocities to be
+  interpolated to any spatial coordinate, at either $t=t^n$ or $t=t^{n+1}$.
+  This interpolation call should be its own routine, so various methods may be
+  explored.
+\end{itemize}
+
+\end{document}
+

@@ -1,0 +1,9 @@
+General time management is handled by the time\_management namelist record.
+Included options handle time-related parts of MPAS, such as the calendar and if the simulation is a restart or not.
+
+Users should use this record to specify the beginning time of the simulation,
+and either the duration or the end of the simulation. Only the end or the
+duration need to be specified as the other is derived within MPAS from the
+beginning time and other specified one.
+
+{\bf TBA: If both duration and stop are specified, then what happens?)}

@@ -1,0 +1,99 @@
+\documentclass[11pt]{report}
+
+\usepackage{epsf,amsmath,amsfonts}
+\usepackage{listings}
+\usepackage{graphicx}
+
+\begin{document}
+
+\title{Surface Forcing Requirements and Design}
+\author{MPAS Development Team}
+
+\maketitle
+\tableofcontents
+
+%-----------------------------------------------------------------------
+
+\chapter{Summary}
+
+This document will describe the setup for surface forcing. Surface forcing
+includes wind stress, temperature, and salinity.
+
+%-----------------------------------------------------------------------
+
+\chapter{Requirements}
+
+Requirements for surface forcing can be seen below:
+\begin{itemize}
+	\item The forcing framework should provide capabilities to force
+		temperature, salinity, and velocity at the surface.
+	\item Forcing should be robust in terms of temporal frequency.
+	\item The choice of temporal frequency should not change the variables that
+		are used.
+	\item Constant and monthly forcing should be provided with the ocean core.
+\end{itemize}
+
+These requirements will be used to create an infrastructure that will support
+robust forcing of the ocean surface. As mentioned, constant and monthly forcing
+will be provided with the ocean core but the framework created should allow
+this to be easily extended into other temporal frequencies.
+%-----------------------------------------------------------------------
+
+\chapter{Design and Implementation}
+
+In order to support various types of forcing, a new grid dimension will be
+created and three variables will be modified.
+
+\begin{lstlisting}[language=fortran,escapechar=@,frame=single]
+dim nForcingTimeSlices
+\end{lstlisting}
+will be created in order to determine how many time slices there are within the
+forcing fields.
+
+
+The variables below
+\begin{lstlisting}[language=fortran,escapechar=@,frame=single]
+u_src ( nVertLevels nEdges )
+temperatureRestore ( nCells )
+salinityRestore ( nCells )
+windStressMonthly ( nMonths nEdges )
+temperatureRestoreMonthly ( nMonths nCells )
+salinityRestoreMonthly ( nMonths nCells )
+\end{lstlisting}
+
+will be changed into
+\begin{lstlisting}[language=fortran,escapechar=@,frame=single]
+windStress ( nEdges )
+sstRestore ( nCells )
+sssRestore ( nCells )
+windStressField ( nForcingTimeSlices nEdges )
+sstRestoringField ( nForcingTimeSlices nCells )
+sssRestoringField ( nForcingTimeSlices nCells )
+\end{lstlisting}
+
+where nForcingTimeSlices can be changes based on the frequency of forcing data. As an
+example, 1 would represent constant forcing while 12 would represent monthly
+forcing.
+
+The namelist variable config\_use\_monthly\_forcing will be changed to
+config\_forcing\_interval. Rather than being a logical variable, it will be a
+character string. By default the ocean core will support options for 'monthly'
+and 'constant'. These can be extended later if needed.
+
+Within this framework, the surfaceWindStresses, sstRestorings, and
+sssRestorings variables will be copied or interpolated (based on the choice of
+forcing frequency) into the surfaceWindStress, sstRestore, and sssRestore
+variables (respectively). These arrays are then used to perform the actual
+forcing within the ocean core.
+
+%-----------------------------------------------------------------------
+
+\chapter{Testing}
+
+In order to test, we should ensure bit-for-bit reproduction of data compared
+with the current version of the trunk. Using both monthly and constant forcing
+methods.
+
+%-----------------------------------------------------------------------
+
+\end{document}

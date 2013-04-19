@@ -1,0 +1,201 @@
+\chapter{Building MPAS}
+
+\section{Prequisites}
+
+To build MPAS, compatible C and Fortran compilers are required. Additionally, the MPAS software relies on the PIO parallel I/O library to read and write model fields, and the PIO library requires the standard netCDF library as well as the parallel-netCDF library from Argonne National Labs. All libraries must be compiled with the same compilers that will be used to build MPAS. Section \ref{sec:build_io} summarizes the basic procedure of installing the required I/O libraries for MPAS.
+
+In order for the MPAS makefiles to find the PIO, parallel-netCDF, and netCDF include files and libraries, the environment variables {\tt PIO}, {\tt PNETCDF}, and {\tt NETCDF} should be set to the root installation directories of the PIO, parallel-netCDF, and netCDF installations, respectively. Newer versions of the netCDF library use a separate Fortran interface library; the top-level MPAS Makefile attempts to add {\tt -lnetcdff} to the linker flags, but some linkers require that {\tt -lnetcdff} appear before {\tt -lnetcdf}, in which case {\tt -lnetcdff} will need to be manually added just before {\tt -lnetcdf} in the specification of {\tt LIBS} in the top-level Makefile.
+
+An MPI installation such as MPICH or OpenMPI is also required, and there is no option to build a serial version of the MPAS executables. There is currently no support for shared-memory parallelism with OpenMP within the MPAS framework.
+
+
+\section{Compiling I/O Libraries}
+\label{sec:build_io}
+
+Although most recent versions of the I/O libraries should work, the most tested versions of these libraries are: netCDF 4.1.3, parallel-netCDF 1.3.0, and PIO 1.4.1. The netCDF and parallel-netCDF libraries must be installed before building PIO library.
+
+\subsection{netCDF}
+
+Version 4.1.3 of the netCDF library may be downloaded from \url{http://www.unidata.ucar.edu/downloads/netcdf/netcdf-4\_1\_3/index.jsp}.
+Assuming the gfortran and gcc compilers will be used, the following shell commands are generally sufficient to install netCDF.
+
+\vspace{12pt}
+{\tt > setenv FC gfortran}
+
+{\tt > setenv F77 gfortran} 
+
+{\tt > setenv F90 gfortran}
+
+{\tt > setenv CC gcc} 
+
+{\tt > ./configure --prefix=XXXXX --disable-dap --disable-netcdf-4 --disable-cxx \hfill\break --disable-shared --enable-fortran} 
+
+{\tt > make}
+
+{\tt > make install}
+\vspace{12pt}
+
+Here, {\tt XXXXX} should be replaced with the directory that will serve as the root installation directory for netCDF.
+{\em Before proceeding to compile PIO the {\tt NETCDF\_PATH} environment variable should be set to the netCDF root installation directory.}
+
+Certain compilers require addition flags in the CPPFLAGS environment variable. Please refer to the netCDF installation instructions for these flags.
+
+\subsection{parallel-netCDF}
+
+Version 1.3.0 of the parallel-netCDF library may be downloaded from \url{https://trac.mcs.anl.gov/projects/parallel-netcdf/wiki/Download}.
+Assuming the gfortran and gcc compilers will be used, the following shell commands are generally sufficient to install parallel-netCDF.
+
+\vspace{12pt}
+{\tt > setenv MPIF90 mpif90}
+
+{\tt > setenv MPIF77 mpif90} 
+
+{\tt > setenv MPICC mpicc}  
+
+{\tt > ./configure --prefix=XXXXX} 
+
+{\tt > make}
+
+{\tt > make install}
+\vspace{12pt}
+
+Here, {\tt XXXXX} should be replaced with the directory that will serve as the root installation directory for parallel-netCDF.
+{\em Before proceeding to compile PIO the {\tt PNETCDF\_PATH} environment variable should be set to the parallel-netCDF root installation directory.}
+
+
+\subsection{PIO}
+
+Additional documentation for PIO can be found at
+\url{http://www.cesm.ucar.edu/models/pio_new/}. The instructions at this
+website might be more up-to-date than the instructions contained in this
+document, so please refer to them if you run into any issues.
+
+Due to the rapid development pace of PIO, the preferred method of obtaining the PIO library is via subversion checkout. The PIO repository URL
+can be found at \url{http://code.google.com/p/parallelio/}.
+Assuming that all environment variables mentioned in the preceding sections are
+still set (including {\tt NETCDF\_PATH} and {\tt PNETCDF\_PATH}), the following
+shell commands are generally sufficient to build the PIO library; there is no
+separate installation step for PIO.
+
+\vspace{12pt}
+{\tt > svn co http://parallelio.googlecode.com/svn/trunk/pio PIO}
+
+{\tt > ./configure}
+
+{\tt > make} 
+\vspace{12pt}
+
+Since PIO uses no installation step, the {\tt PIO} environment variable should be set to the directory containing the {\tt libpio.a} file (i.e., the directory where `make' was run in the final step above.
+
+
+\section{Compiling MPAS}
+
+{\em Before compiling MPAS, the {\tt NETCDF}, {\tt PNETCDF}, and {\tt PIO} environment variables must be set to the library installation directories as
+described in the previous section.}
+
+The MPAS code uses only the `make' utility for compilation. Rather than employing a separate configuration step
+before building the code, all information about compilers, compiler flags, etc., is contained in the top-level {\tt Makefile}; each
+supported combination of compilers (i.e., a configuration) is included in the {\tt Makefile} as a separate make target, and the user selects among
+these configurations by running {\tt make} with the name of a build target specified on the command-line, e.g.,
+
+\vspace{12pt}
+{\tt > make gfortran}
+\vspace{12pt}
+
+\noindent to build the code using the GNU Fortran and C compilers. Some of the available targets are listed in the table below, and additional
+targets can be added by simply editing the top-level {\tt Makefile}.
+
+\vspace{12pt}
+\begin{longtable}{| l | l | l | l |}
+\hline
+Target & Fortran compiler & C compiler & MPI wrappers \\ \hline \hline
+{\tt xlf} & xlf90 & xlc & mpxlf90 / mpcc \\ \hline
+{\tt pgi} & pgf90 & pgcc & mpif90 / mpicc \\ \hline
+{\tt ifort} & ifort & gcc & mpif90 / mpicc \\ \hline
+{\tt gfortran} & gfortran & gcc & mpif90 / mpicc \\ \hline
+{\tt g95} & g95 & gcc & mpif90 / mpicc \\ \hline
+\end{longtable}
+\vspace{12pt}
+
+In order to get a more complete and up-to-date list of available tagets, one can use the following command within the top-level of MPAS.
+{\small
+\begin{verbatim}
+> make -rpn | sed -n -e '/^$/ { n ; /^[^ ]*:/p }' | sed "s/: *.*$//g"
+\end{verbatim}
+}
+
+The MPAS framework supports multiple {\em cores} --- currently a shallow water
+model, an ocean model, a hydrostatic atmosphere model, a non-hydrostatic atmosphere model, and a non-hydrostatic atmosphere initialization core --- so the build
+process must be told which core to build. This is done by either setting the environment variable
+{\tt CORE} to the name of the model core to build, or by specifying the core to be built explicitly on the command-line
+when running {\tt make}. For the shallow water core, for example, one may run either
+
+\vspace{12pt}
+{\tt > setenv CORE sw}
+
+{\tt > make gfortran}
+\vspace{12pt}
+
+\noindent or
+
+\vspace{12pt}
+{\tt > make gfortran CORE=sw}
+\vspace{12pt}
+
+If the {\tt CORE} environment variable is set and a core is specified on the command-line, the command-line value takes precedence; if no core
+is specified, either on the command line or via the {\tt CORE} environment variable, the build process will stop with an error message stating such.
+Assuming compilation is successful, the model executable, named {\tt \$\{CORE\}\_model.exe} (e.g., {\tt sw\_model.exe}), should
+be created in the {\tt src/} subdirectory, and a symbolic link to the model executable 
+should exist in the top-level MPAS directory.
+
+In order to get a list of available cores, one can simply run the top-level {\tt Makefile} without setting the {\tt CORE} environment variable, or passing the core via the command-line. And example of the output from this can be seen below.
+
+{\small
+\begin{verbatim}
+> make
+( make error )
+make[1]: Entering directory `/home/douglasj/Documents/svn-mpas-model.cgd.ucar.edu/trunk/mpas'
+
+Usage: make target CORE=[core] [options]
+
+Example targets:
+ifort
+gfortran
+xlf
+pgi
+
+Availabe Cores:
+atmos_physics
+hyd_atmos
+init_nhyd_atmos
+nhyd_atmos
+ocean
+sw
+
+Available Options:
+DEBUG=true    - builds debug version. Default is optimized version.
+USE_PAPI=true - builds version using PAPI for timers. Default is off.
+TAU=true      - builds version using TAU hooks for profiling. Default is off.
+
+Ensure that NETCDF, PNETCDF, PIO, and PAPI (if USE_PAPI=true) are environment variables
+that point to the absolute paths for the libraries.
+
+************ ERROR ************
+No CORE specified. Quitting.
+************ ERROR ************
+
+make[1]: Leaving directory `/home/douglasj/Documents/svn-mpas-model.cgd.ucar.edu/trunk/mpas'
+\end{verbatim}
+}
+
+\section{Cleaning}
+
+To remove all files  that were created when the model was built, including the model executable itself, {\tt make} may
+be run for the `clean' target:
+
+\vspace{12pt}
+{\tt > make clean}
+\vspace{12pt}
+
+As with compiling, the core to be cleaned is specified by the {\tt CORE} environment variable, or by specifying a core explicitly on the command-line with {\tt CORE=}.
+

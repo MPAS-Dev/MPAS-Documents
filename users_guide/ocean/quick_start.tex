@@ -1,0 +1,34 @@
+\chapter{MPAS-Ocean Quick Start Guide}
+\label{chap:quick_start}
+
+This chapter provides MPAS-Ocean users with a quick start description of how to
+build and run the model. It is meant merely as a brief overview of the process,
+while the more detailed descriptions of each step are provided in later
+sections.
+
+In general, the build process follows the following steps.
+
+\begin{enumerate}
+	\item Build MPI Layer (OpenMPI, MVAPICH2, etc.)
+	\item Build serial NetCDF library (v3.6.3, v4.1.3, etc.)
+	\item Build Parallel-NetCDF library (v1.2.1, v1.3.0, etc.)
+	\item Build Parallel I/O library (v1.4.1, v1.6.1, etc.)
+	\item (Optional) Build METIS library and executables (v4.0, v5.0.2, etc.)
+	\item Checkout MPAS-Ocean from repository
+	\item Build ocean core
+\end{enumerate}
+
+After step 7, an executable should be created called ocean\_model.exe. Once the executable is built, one can begin the run process as follows:
+
+\begin{enumerate}
+	\item Create run directory.
+	\item Copy executable to run directory.
+	\item Copy namelist.input into run directory.
+	\item (Optional) Copy input and graph files into run directory.
+	\item Edit namelist.input to have the proper parameters. \\
+		  If step 4 was skipped, ensure paths to input and graph files are appropriately set.
+	\item (Optional) Create graph files, using METIS executable (pmetis or gpmetis depending on version). \\
+		  A graph file is required for each processor count you want to use.
+	\item Run MPAS-Ocean.
+	\item Visualize output file, and perform analysis.
+\end{enumerate}

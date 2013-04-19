@@ -1,0 +1,11 @@
+# Ignore intermediate LaTeX files.
+# Can't ignore PDFs as an image could be a PDF.
+
+*.aux 
+*.dvi 
+*.log 
+*.out 
+*.toc 
+*.bbl 
+*.blg
+

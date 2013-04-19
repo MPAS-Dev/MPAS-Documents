@@ -1,0 +1,19 @@
+The ``del4'', or biharmonic, turbulence closures are
+\begin{eqnarray}
+\label{ocean:h_mom_del4}
+& {\bf D}^u_h=-\displaystyle\frac{\nu_h}{\rho_m^{3/4}} \nabla^4 {\bf u} \\
+\label{ocean:h_tr_del4}
+& D^\varphi_h = -\nabla\cdot\left(h \displaystyle\frac{\kappa_h}{\rho_m^{3/4}} \nabla \left[\nabla\cdot\left(h \nabla\varphi \right) \right] \right)
+\end{eqnarray}
+for momentum and tracers  These are both computed by applying the Laplacian operator twice.  For momentum, this can be written in terms of divergence and vorticity as
+\begin{eqnarray}
+&\delta=\nabla\cdot{\bf u}\\
+&\eta={\bf k} \cdot \left( \nabla \times {\bf u} \right)+f\\
+\label{ocean:h_mom_del4a}
+&\nabla^2{\bf u}=(\nabla \delta + {\bf k}\times \nabla \eta) \\
+&\delta_2=\nabla\cdot(\nabla^2{\bf u})\\
+&\eta_2={\bf k} \cdot \left( \nabla \times (\nabla^2{\bf u}) \right)+f\\
+\label{ocean:h_mom_del4b}
+& {\bf D}^u_h= \displaystyle\frac{\nu_h}{\rho_m^{3/4}} (\nabla \delta_2 + {\bf k}\times \nabla \eta_2).
+\end{eqnarray}
+The biharmonic operator is similar to the Laplacian operator, but smooths more strongly at high wavenumbers.  

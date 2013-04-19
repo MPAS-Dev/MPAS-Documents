@@ -1,0 +1,19 @@
+The ``del2'', or Laplacian, turbulence closures are
+\begin{eqnarray}
+\label{ocean:h_mom_del2}
+& {\bf D}^u_h=\displaystyle\frac{\nu_h}{\rho_m^{3/4}} \nabla^2 {\bf u} 
+= \displaystyle\frac{\nu_h}{\rho_m^{3/4}}(\nabla \delta + {\bf 
+k}\times \nabla \eta),\\
+\label{ocean:h_tr_del2}
+& D^\varphi_h = \nabla\cdot\left(h 
+   \displaystyle\frac{\kappa_h}{\rho_m^{3/4}} \nabla\varphi \right)
+\end{eqnarray}
+for momentum and tracers, respectively.  Variable definitions appear in Tables \ref{oceanTable:variables} and \ref{oceanTable:variables_Greek}.  The momentum diffusion is in divergence-vorticity form because it is a natural discretization of the vector Laplacian operator with a C-grid staggering.  
+
+The Laplacian operator smooths the momentum and 
+tracer fields, and smooths more strongly at small scales than at large 
+scales.  This operator is the two dimensional form of the heat equation, 
+$u_t=\nu u_{xx}$, described in introductory books on partial 
+differential equations.  The strength of mixing is controlled by the 
+viscosity, $\nu_h$, for the momentum equation, and the diffusion, 
+$\kappa_h$, for the tracer equation.

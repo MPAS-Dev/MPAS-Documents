@@ -1,0 +1,530 @@
+\chapter[Namelist options]{\hyperref[chap:namelist_sections]{Namelist options}}
+\label{chap:namelist_tables}
+Embedded links point to more detailed namelist information in the appendix.
+\section[time\_management]{\hyperref[sec:nm_sec_time_management]{time\_management}}
+\label{sec:nm_tab_time_management}
+\input{ocean/section_descriptions/time_management.tex}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+	\hline
+	{\bf Name} & {\bf Description} \\
+	\hline
+	\hline
+	\hyperref[subsec:nm_sec_config_do_restart]{config\_do\_restart} & Determines if the initial conditions should be read from a restart file, or an input file. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_start_time]{config\_start\_time} & Timestamp describing the initial time of the simulation. If it is set to 'file', the initial time is read from restart\_timestamp. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_stop_time]{config\_stop\_time} & Timestamp descriping the final time of the simulation. If it is set to 'none' the final time is determined from config\_start\_time and config\_run\_duration. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_run_duration]{config\_run\_duration} & Timestamp describing the length of the simulation. If it is set to 'none' the duraction is determined from config\_start\_time and config\_stop\_time. config\_run\_duration overrides inconsistent values of config\_stop\_time. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_calendar_type]{config\_calendar\_type} & Selection of the type of calendar that should be used in the simulation. \\
+	\hline
+\end{longtable}
+\end{center}
+}
+\section[io]{\hyperref[sec:nm_sec_io]{io}}
+\label{sec:nm_tab_io}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+	\hline
+	{\bf Name} & {\bf Description} \\
+	\hline
+	\hline
+	\hyperref[subsec:nm_sec_config_input_name]{config\_input\_name} & {\bf \color{red} MISSING} \\
+	\hline
+	\hyperref[subsec:nm_sec_config_output_name]{config\_output\_name} & {\bf \color{red} MISSING} \\
+	\hline
+	\hyperref[subsec:nm_sec_config_restart_name]{config\_restart\_name} & {\bf \color{red} MISSING} \\
+	\hline
+	\hyperref[subsec:nm_sec_config_restart_interval]{config\_restart\_interval} & {\bf \color{red} MISSING} \\
+	\hline
+	\hyperref[subsec:nm_sec_config_output_interval]{config\_output\_interval} & {\bf \color{red} MISSING} \\
+	\hline
+	\hyperref[subsec:nm_sec_config_stats_interval]{config\_stats\_interval} & {\bf \color{red} MISSING} \\
+	\hline
+	\hyperref[subsec:nm_sec_config_write_stats_on_startup]{config\_write\_stats\_on\_startup} & {\bf \color{red} MISSING} \\
+	\hline
+	\hyperref[subsec:nm_sec_config_write_output_on_startup]{config\_write\_output\_on\_startup} & {\bf \color{red} MISSING} \\
+	\hline
+	\hyperref[subsec:nm_sec_config_frames_per_outfile]{config\_frames\_per\_outfile} & {\bf \color{red} MISSING} \\
+	\hline
+	\hyperref[subsec:nm_sec_config_pio_num_iotasks]{config\_pio\_num\_iotasks} & {\bf \color{red} MISSING} \\
+	\hline
+	\hyperref[subsec:nm_sec_config_pio_stride]{config\_pio\_stride} & {\bf \color{red} MISSING} \\
+	\hline
+\end{longtable}
+\end{center}
+}
+\section[time\_integration]{\hyperref[sec:nm_sec_time_integration]{time\_integration}}
+\label{sec:nm_tab_time_integration}
+\input{ocean/section_descriptions/time_integration.tex}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+	\hline
+	{\bf Name} & {\bf Description} \\
+	\hline
+	\hline
+	\hyperref[subsec:nm_sec_config_dt]{config\_dt} & Length of model time-step. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_time_integrator]{config\_time\_integrator} & Time integration method. \\
+	\hline
+\end{longtable}
+\end{center}
+}
+\section[grid]{\hyperref[sec:nm_sec_grid]{grid}}
+\label{sec:nm_tab_grid}
+\input{ocean/section_descriptions/grid.tex}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+	\hline
+	{\bf Name} & {\bf Description} \\
+	\hline
+	\hline
+	\hyperref[subsec:nm_sec_config_num_halos]{config\_num\_halos} & Determines the number of halo cells extending from a blocks owned cells (Called the 0-Halo). The default of 3 is the minimum that can be used with monotonic advection. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_vert_coord_movement]{config\_vert\_coord\_movement} & Determines the vertical coordinate movement type. 'uniform\_stretching' distrubtes SSH perturbations through all vertical levels, 'fixed' places them all in the top level, 'user\_specified' allows the input file to determine the distribution, and 'isopycnal' causes levels to be pure isopycnal. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_alter_ICs_for_pbcs]{config\_alter\_ICs\_for\_pbcs} & Determines the method of alteration for partial bottom cells. 'zlevel\_pbcs\_on' alters the initial conditions for partial bottom cells, 'zlevel\_pbcs\_off' alters the initial conditions to have full cells everwhere, and 'off' does nothing to the initial conditions. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_min_pbc_fraction]{config\_min\_pbc\_fraction} & Determines the minimum fraction of a cell altering the initial conditions can create. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_check_ssh_consistency]{config\_check\_ssh\_consistency} & Enables a check to determine if the SSH is consistent across relevant variables. \\
+	\hline
+\end{longtable}
+\end{center}
+}
+\section[decomposition]{\hyperref[sec:nm_sec_decomposition]{decomposition}}
+\label{sec:nm_tab_decomposition}
+\input{ocean/section_descriptions/decomposition.tex}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+	\hline
+	{\bf Name} & {\bf Description} \\
+	\hline
+	\hline
+	\hyperref[subsec:nm_sec_config_block_decomp_file_prefix]{config\_block\_decomp\_file\_prefix} & Defines the prefix for the block decomposition file. Can include a path. The number of blocks is appended to the end of the prefix at run-time. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_number_of_blocks]{config\_number\_of\_blocks} & Determines the number of blocks a simulation should be run with. If it is set to 0, the number of blocks is the same as the number of MPI tasks at run-time. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_explicit_proc_decomp]{config\_explicit\_proc\_decomp} & Determines if an explicit processor decomposition should be used. This is only useful if multiple blocks per processor are used. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_proc_decomp_file_prefix]{config\_proc\_decomp\_file\_prefix} & Defines the prefix for the processor decomposition file. This file is only read if config\_explicit\_proc\_decomp is .true. The number of processors is appended to the end of the prefix at run-time. \\
+	\hline
+\end{longtable}
+\end{center}
+}
+\section[hmix]{\hyperref[sec:nm_sec_hmix]{hmix}}
+\label{sec:nm_tab_hmix}
+\input{ocean/section_descriptions/hmix.tex}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+	\hline
+	{\bf Name} & {\bf Description} \\
+	\hline
+	\hline
+	\hyperref[subsec:nm_sec_config_hmix_ScaleWithMesh]{config\_hmix\_ScaleWithMesh} &  If false, del2 and del4 coefficients are constant throughout the mesh (equivalent to setting  $\rho_m=1$  throughout the mesh).  If true, these coefficients scale as mesh density to the -3/4 power. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_visc_vorticity_term]{config\_visc\_vorticity\_term} & {\color{red} TO BE DELETED} \\
+	\hline
+	\hyperref[subsec:nm_sec_config_apvm_scale_factor]{config\_apvm\_scale\_factor} &  Anticipated potential vorticity (APV) method scale factor,  $c_{apv}$ .  When zero, APV is off. \\
+	\hline
+\end{longtable}
+\end{center}
+}
+\section[hmix\_del2]{\hyperref[sec:nm_sec_hmix_del2]{hmix\_del2}}
+\label{sec:nm_tab_hmix_del2}
+\input{ocean/section_descriptions/hmix_del2.tex}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+	\hline
+	{\bf Name} & {\bf Description} \\
+	\hline
+	\hline
+	\hyperref[subsec:nm_sec_config_use_mom_del2]{config\_use\_mom\_del2} & If true, Laplacian horizontal mixing is used on the momentum equation. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_use_tracer_del2]{config\_use\_tracer\_del2} & If true, Laplacian horizontal mixing is used on the tracer equation. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_mom_del2]{config\_mom\_del2} &  Horizonal viscosity,  $\nu_h$ . \\
+	\hline
+	\hyperref[subsec:nm_sec_config_tracer_del2]{config\_tracer\_del2} &  Horizonal diffusion,  $\kappa_h$ . \\
+	\hline
+	\hyperref[subsec:nm_sec_config_vorticity_del2_scale]{config\_vorticity\_del2\_scale} & {\color{red} TO BE DELETED} \\
+	\hline
+\end{longtable}
+\end{center}
+}
+\section[hmix\_del4]{\hyperref[sec:nm_sec_hmix_del4]{hmix\_del4}}
+\label{sec:nm_tab_hmix_del4}
+\input{ocean/section_descriptions/hmix_del4.tex}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+	\hline
+	{\bf Name} & {\bf Description} \\
+	\hline
+	\hline
+	\hyperref[subsec:nm_sec_config_use_mom_del4]{config\_use\_mom\_del4} & If true, biharmonic horizontal mixing is used on the momentum equation. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_use_tracer_del4]{config\_use\_tracer\_del4} & If true, biharmonic horizontal mixing is used on the tracer equation. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_mom_del4]{config\_mom\_del4} & Coefficient for horizontal biharmonic operator on momentum. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_tracer_del4]{config\_tracer\_del4} & Coefficient for horizontal biharmonic operator on tracers. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_vorticity_del4_scale]{config\_vorticity\_del4\_scale} & {\color{red} TO BE DELETED} \\
+	\hline
+\end{longtable}
+\end{center}
+}
+\section[hmix\_Leith]{\hyperref[sec:nm_sec_hmix_Leith]{hmix\_Leith}}
+\label{sec:nm_tab_hmix_Leith}
+\input{ocean/section_descriptions/hmix_Leith.tex}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+	\hline
+	{\bf Name} & {\bf Description} \\
+	\hline
+	\hline
+	\hyperref[subsec:nm_sec_config_use_Leith_del2]{config\_use\_Leith\_del2} & If true, the Leith enstrophy-cascade closure is turned on \\
+	\hline
+	\hyperref[subsec:nm_sec_config_Leith_parameter]{config\_Leith\_parameter} & Non-dimensional Leith closure parameter \\
+	\hline
+	\hyperref[subsec:nm_sec_config_Leith_dx]{config\_Leith\_dx} & Characteristic length scale, usually the smallest dx in the mesh \\
+	\hline
+	\hyperref[subsec:nm_sec_config_Leith_visc2_max]{config\_Leith\_visc2\_max} & Upper bound on the allowable value of Leith-computed viscosity \\
+	\hline
+\end{longtable}
+\end{center}
+}
+\section[standard\_GM]{\hyperref[sec:nm_sec_standard_GM]{standard\_GM}}
+\label{sec:nm_tab_standard_GM}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+	\hline
+	{\bf Name} & {\bf Description} \\
+	\hline
+	\hline
+	\hyperref[subsec:nm_sec_config_h_kappa]{config\_h\_kappa} & {\bf \color{red} MISSING} \\
+	\hline
+	\hyperref[subsec:nm_sec_config_h_kappa_q]{config\_h\_kappa\_q} & {\bf \color{red} MISSING} \\
+	\hline
+\end{longtable}
+\end{center}
+}
+\section[Rayleigh\_damping]{\hyperref[sec:nm_sec_Rayleigh_damping]{Rayleigh\_damping}}
+\label{sec:nm_tab_Rayleigh_damping}
+\input{ocean/section_descriptions/Rayleigh_damping.tex}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+	\hline
+	{\bf Name} & {\bf Description} \\
+	\hline
+	\hline
+	\hyperref[subsec:nm_sec_config_Rayleigh_friction]{config\_Rayleigh\_friction} & If true, Rayleigh friction is included in the momentum equation. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_Rayleigh_damping_coeff]{config\_Rayleigh\_damping\_coeff} &  Inverse-time coefficient for the Rayleigh damping term,  $c_R$ . \\
+	\hline
+\end{longtable}
+\end{center}
+}
+\section[vmix]{\hyperref[sec:nm_sec_vmix]{vmix}}
+\label{sec:nm_tab_vmix}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+	\hline
+	{\bf Name} & {\bf Description} \\
+	\hline
+	\hline
+	\hyperref[subsec:nm_sec_config_convective_visc]{config\_convective\_visc} & {\bf \color{red} MISSING} \\
+	\hline
+	\hyperref[subsec:nm_sec_config_convective_diff]{config\_convective\_diff} & {\bf \color{red} MISSING} \\
+	\hline
+\end{longtable}
+\end{center}
+}
+\section[vmix\_const]{\hyperref[sec:nm_sec_vmix_const]{vmix\_const}}
+\label{sec:nm_tab_vmix_const}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+	\hline
+	{\bf Name} & {\bf Description} \\
+	\hline
+	\hline
+	\hyperref[subsec:nm_sec_config_use_const_visc]{config\_use\_const\_visc} & {\bf \color{red} MISSING} \\
+	\hline
+	\hyperref[subsec:nm_sec_config_use_const_diff]{config\_use\_const\_diff} & {\bf \color{red} MISSING} \\
+	\hline
+	\hyperref[subsec:nm_sec_config_vert_visc]{config\_vert\_visc} & {\bf \color{red} MISSING} \\
+	\hline
+	\hyperref[subsec:nm_sec_config_vert_diff]{config\_vert\_diff} & {\bf \color{red} MISSING} \\
+	\hline
+\end{longtable}
+\end{center}
+}
+\section[vmix\_rich]{\hyperref[sec:nm_sec_vmix_rich]{vmix\_rich}}
+\label{sec:nm_tab_vmix_rich}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+	\hline
+	{\bf Name} & {\bf Description} \\
+	\hline
+	\hline
+	\hyperref[subsec:nm_sec_config_use_rich_visc]{config\_use\_rich\_visc} & {\bf \color{red} MISSING} \\
+	\hline
+	\hyperref[subsec:nm_sec_config_use_rich_diff]{config\_use\_rich\_diff} & {\bf \color{red} MISSING} \\
+	\hline
+	\hyperref[subsec:nm_sec_config_bkrd_vert_visc]{config\_bkrd\_vert\_visc} & {\bf \color{red} MISSING} \\
+	\hline
+	\hyperref[subsec:nm_sec_config_bkrd_vert_diff]{config\_bkrd\_vert\_diff} & {\bf \color{red} MISSING} \\
+	\hline
+	\hyperref[subsec:nm_sec_config_rich_mix]{config\_rich\_mix} & {\bf \color{red} MISSING} \\
+	\hline
+\end{longtable}
+\end{center}
+}
+\section[vmix\_tanh]{\hyperref[sec:nm_sec_vmix_tanh]{vmix\_tanh}}
+\label{sec:nm_tab_vmix_tanh}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+	\hline
+	{\bf Name} & {\bf Description} \\
+	\hline
+	\hline
+	\hyperref[subsec:nm_sec_config_use_tanh_visc]{config\_use\_tanh\_visc} & {\bf \color{red} MISSING} \\
+	\hline
+	\hyperref[subsec:nm_sec_config_use_tanh_diff]{config\_use\_tanh\_diff} & {\bf \color{red} MISSING} \\
+	\hline
+	\hyperref[subsec:nm_sec_config_max_visc_tanh]{config\_max\_visc\_tanh} & {\bf \color{red} MISSING} \\
+	\hline
+	\hyperref[subsec:nm_sec_config_min_visc_tanh]{config\_min\_visc\_tanh} & {\bf \color{red} MISSING} \\
+	\hline
+	\hyperref[subsec:nm_sec_config_max_diff_tanh]{config\_max\_diff\_tanh} & {\bf \color{red} MISSING} \\
+	\hline
+	\hyperref[subsec:nm_sec_config_min_diff_tanh]{config\_min\_diff\_tanh} & {\bf \color{red} MISSING} \\
+	\hline
+	\hyperref[subsec:nm_sec_config_zMid_tanh]{config\_zMid\_tanh} & {\bf \color{red} MISSING} \\
+	\hline
+	\hyperref[subsec:nm_sec_config_zWidth_tanh]{config\_zWidth\_tanh} & {\bf \color{red} MISSING} \\
+	\hline
+\end{longtable}
+\end{center}
+}
+\section[forcing]{\hyperref[sec:nm_sec_forcing]{forcing}}
+\label{sec:nm_tab_forcing}
+\input{ocean/section_descriptions/forcing.tex}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+	\hline
+	{\bf Name} & {\bf Description} \\
+	\hline
+	\hline
+	\hyperref[subsec:nm_sec_config_use_monthly_forcing]{config\_use\_monthly\_forcing} & Controls time frequency of forcing.  If false, a constant forcing is used, provided by the input fields normalVelocityForcing, temperatureRestore, and salinityRestore.  If true, forcing is interpolated between monthly fields given by windStressMonthly, temperatureRestoreMonthly, and salinityRestoreMonthly. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_restoreTS]{config\_restoreTS} & If true, the restoring term is activated in the tracer equation for temperature and salinity. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_restoreT_timescale]{config\_restoreT\_timescale} &  Restoring timescale for temperature,  $\tau_r.$  \\
+	\hline
+	\hyperref[subsec:nm_sec_config_restoreS_timescale]{config\_restoreS\_timescale} &  Restoring timescale for salinity,  $\tau_r$ . \\
+	\hline
+\end{longtable}
+\end{center}
+}
+\section[advection]{\hyperref[sec:nm_sec_advection]{advection}}
+\label{sec:nm_tab_advection}
+\input{ocean/section_descriptions/advection.tex}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+	\hline
+	{\bf Name} & {\bf Description} \\
+	\hline
+	\hline
+	\hyperref[subsec:nm_sec_config_vert_tracer_adv]{config\_vert\_tracer\_adv} & Method for interpolating tracer values from layer centers to layer edges \\
+	\hline
+	\hyperref[subsec:nm_sec_config_vert_tracer_adv_order]{config\_vert\_tracer\_adv\_order} & Order of polynomial used for tracer reconstruction at layer edges \\
+	\hline
+	\hyperref[subsec:nm_sec_config_horiz_tracer_adv_order]{config\_horiz\_tracer\_adv\_order} & Order of polynomial used for tracer reconstruction at cell edges \\
+	\hline
+	\hyperref[subsec:nm_sec_config_coef_3rd_order]{config\_coef\_3rd\_order} & Reconstruction of 3rd-order reconstruction to blend with 4th-order reconstuction \\
+	\hline
+	\hyperref[subsec:nm_sec_config_monotonic]{config\_monotonic} & If .true. then fluxes are limited to produce a monotonic advection scheme \\
+	\hline
+\end{longtable}
+\end{center}
+}
+\section[bottom\_drag]{\hyperref[sec:nm_sec_bottom_drag]{bottom\_drag}}
+\label{sec:nm_tab_bottom_drag}
+\input{ocean/section_descriptions/bottom_drag.tex}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+	\hline
+	{\bf Name} & {\bf Description} \\
+	\hline
+	\hline
+	\hyperref[subsec:nm_sec_config_bottom_drag_coeff]{config\_bottom\_drag\_coeff} &  Dimensionless bottom drag coefficient,  $c_{drag}$ . \\
+	\hline
+\end{longtable}
+\end{center}
+}
+\section[pressure\_gradient]{\hyperref[sec:nm_sec_pressure_gradient]{pressure\_gradient}}
+\label{sec:nm_tab_pressure_gradient}
+\input{ocean/section_descriptions/pressure_gradient.tex}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+	\hline
+	{\bf Name} & {\bf Description} \\
+	\hline
+	\hline
+	\hyperref[subsec:nm_sec_config_pressure_gradient_type]{config\_pressure\_gradient\_type} & Form of pressure gradient terms in momentum equation. For most applications, the gradient of pressure and layer mid-depth are appropriate.  For isopycnal coordinates, one may use the gradient of the Montgomery potential. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_density0]{config\_density0} &  Density used as a coefficient of the pressure gradient terms,  $\rho_0$ .  This is a constant due to the Boussinesq approximation. \\
+	\hline
+\end{longtable}
+\end{center}
+}
+\section[eos]{\hyperref[sec:nm_sec_eos]{eos}}
+\label{sec:nm_tab_eos}
+\input{ocean/section_descriptions/eos.tex}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+	\hline
+	{\bf Name} & {\bf Description} \\
+	\hline
+	\hline
+	\hyperref[subsec:nm_sec_config_eos_type]{config\_eos\_type} & Character string to choose EOS formulation \\
+	\hline
+\end{longtable}
+\end{center}
+}
+\section[eos\_linear]{\hyperref[sec:nm_sec_eos_linear]{eos\_linear}}
+\label{sec:nm_tab_eos_linear}
+\input{ocean/section_descriptions/eos_linear.tex}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+	\hline
+	{\bf Name} & {\bf Description} \\
+	\hline
+	\hline
+	\hyperref[subsec:nm_sec_config_eos_linear_alpha]{config\_eos\_linear\_alpha} & Linear thermal expansion coefficient \\
+	\hline
+	\hyperref[subsec:nm_sec_config_eos_linear_beta]{config\_eos\_linear\_beta} & Linear haline contraction coefficient \\
+	\hline
+	\hyperref[subsec:nm_sec_config_eos_linear_Tref]{config\_eos\_linear\_Tref} & Reference temperature \\
+	\hline
+	\hyperref[subsec:nm_sec_config_eos_linear_Sref]{config\_eos\_linear\_Sref} & Reference salinity \\
+	\hline
+	\hyperref[subsec:nm_sec_config_eos_linear_densityref]{config\_eos\_linear\_densityref} & Reference density, i.e. density when T=Tref and S=Sref \\
+	\hline
+\end{longtable}
+\end{center}
+}
+\section[split\_explicit\_ts]{\hyperref[sec:nm_sec_split_explicit_ts]{split\_explicit\_ts}}
+\label{sec:nm_tab_split_explicit_ts}
+\input{ocean/section_descriptions/split_explicit_ts.tex}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+	\hline
+	{\bf Name} & {\bf Description} \\
+	\hline
+	\hline
+	\hyperref[subsec:nm_sec_config_n_ts_iter]{config\_n\_ts\_iter} & number of large iterations over stages 1-3 \\
+	\hline
+	\hyperref[subsec:nm_sec_config_n_bcl_iter_beg]{config\_n\_bcl\_iter\_beg} & number of iterations of stage 1 (baroclinic solve) on the first split-explicit iteration \\
+	\hline
+	\hyperref[subsec:nm_sec_config_n_bcl_iter_mid]{config\_n\_bcl\_iter\_mid} & number of iterations of stage 1 (baroclinic solve) on any split-explicit iterations between first and last \\
+	\hline
+	\hyperref[subsec:nm_sec_config_n_bcl_iter_end]{config\_n\_bcl\_iter\_end} & number of iterations of stage 1 (baroclinic solve) on the last split-explicit iteration \\
+	\hline
+	\hyperref[subsec:nm_sec_config_n_btr_subcycles]{config\_n\_btr\_subcycles} & number of barotropic subcycles in stage 2 \\
+	\hline
+	\hyperref[subsec:nm_sec_config_n_btr_cor_iter]{config\_n\_btr\_cor\_iter} & number of iterations of the velocity corrector step in stage 2 \\
+	\hline
+	\hyperref[subsec:nm_sec_config_vel_correction]{config\_vel\_correction} & If true, the velocity correction term is included in the horizontal advection of thickness and tracers \\
+	\hline
+	\hyperref[subsec:nm_sec_config_btr_subcycle_loop_factor]{config\_btr\_subcycle\_loop\_factor} &  Barotropic subcycles proceed from  $t$  to  $t+n\Delta t$ , where  $n$  is this configuration option. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_btr_gam1_velWt1]{config\_btr\_gam1\_velWt1} & Weighting of velocity in the SSH predictor step in stage 2.  When zero, previous subcycle time is used; when one, new subcycle time is used. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_btr_gam2_SSHWt1]{config\_btr\_gam2\_SSHWt1} & Weighting of SSH in the velocity corrector step in stage 2.  When zero, previous subcycle time is used; when one, new subcycle time is used. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_btr_gam3_velWt2]{config\_btr\_gam3\_velWt2} & Weighting of velocity in the SSH corrector step in stage 2.  When zero, previous subcycle time is used; when one, new subcycle time is used. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_btr_solve_SSH2]{config\_btr\_solve\_SSH2} & If true, execute the SSH corrector step in stage 2 \\
+	\hline
+\end{longtable}
+\end{center}
+}
+\section[debug]{\hyperref[sec:nm_sec_debug]{debug}}
+\label{sec:nm_tab_debug}
+\input{ocean/section_descriptions/debug.tex}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+	\hline
+	{\bf Name} & {\bf Description} \\
+	\hline
+	\hline
+	\hyperref[subsec:nm_sec_config_check_zlevel_consistency]{config\_check\_zlevel\_consistency} & Enables a run-time check for consistency for a zlevel grid. Ensures relevant variables correctly define the bottom of the ocean. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_filter_btr_mode]{config\_filter\_btr\_mode} & Enables filtering of the barotropic mode. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_prescribe_velocity]{config\_prescribe\_velocity} & Enables a prescribed velocity field. This velocity field is read on input, and remains constant through a simulation. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_prescribe_thickness]{config\_prescribe\_thickness} & Enables a prescribed thickness field. This thickness field is read on input, and remains constant through a simulation. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_include_KE_vertex]{config\_include\_KE\_vertex} & {\bf \color{red} MISSING} \\
+	\hline
+	\hyperref[subsec:nm_sec_config_check_tracer_monotonicity]{config\_check\_tracer\_monotonicity} & Enables a change on tracer monotonicity at the end of the monotonic advection routine. Only used if config\_monotonic is set to .true. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_disable_thick_all_tend]{config\_disable\_thick\_all\_tend} & Disables all tendencies on the thickness field. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_disable_thick_hadv]{config\_disable\_thick\_hadv} & Disable tendencies on the thickness field from horizontal advection. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_disable_thick_vadv]{config\_disable\_thick\_vadv} & Disables tendencies on the thickness field from vertical advection. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_disable_vel_all_tend]{config\_disable\_vel\_all\_tend} & Disables all tendencies on the velocity field. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_disable_vel_coriolis]{config\_disable\_vel\_coriolis} & Diables tendencies on the velocity field from the Coriolis force. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_disable_vel_pgrad]{config\_disable\_vel\_pgrad} & Disables tendencies on the velocity field from the horizontal pressure gradient. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_disable_vel_hmix]{config\_disable\_vel\_hmix} & Disables tendencies on the velocity field from horizontal mixing. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_disable_vel_windstress]{config\_disable\_vel\_windstress} & Disables tendencies on the velocity field from horizontal wind stress. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_disable_vel_vmix]{config\_disable\_vel\_vmix} & Disables tendencies on the velocity field from vertical mixing. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_disable_vel_vadv]{config\_disable\_vel\_vadv} & Disables tendencies on the velocity field from vertical advection. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_disable_tr_all_tend]{config\_disable\_tr\_all\_tend} & Disables all tendencies on tracer fields. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_disable_tr_adv]{config\_disable\_tr\_adv} & Disables tendencies on tracer fields from advection, both horizontal and vertical. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_disable_tr_hmix]{config\_disable\_tr\_hmix} & Disables tendencies on tracer fields from horizontal mixing. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_disable_tr_vmix]{config\_disable\_tr\_vmix} & Disables tendencies on tracer fields from vertical mixing. \\
+	\hline
+\end{longtable}
+\end{center}
+}

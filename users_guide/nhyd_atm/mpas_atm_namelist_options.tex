@@ -1,0 +1,326 @@
+%--------------------------------------------------------------------------------------------
+% Model namelist options
+%--------------------------------------------------------------------------------------------
+
+\chapter{Model namelist options}
+
+This chapter summarizes the complete set of namelist options available when running the MPAS non-hydrostatic atmosphere model.
+All date-time string specifications are of the form described at the beginning of Appendix A.
+
+\section{nhyd\_model}
+
+{\small
+\begin{longtable}{|p{1.75in} |p{4.5in}|}
+ \hline   
+%   config\_time\_integration & Time integration scheme to use; currently only `SRK3' is available \newline 
+%   {\em Default value: 'SRK3'} \\ \hline
+
+   config\_dt & Model time step, in seconds \newline 
+   {\em Default value: 600.0} \\ \hline
+
+   config\_start\_time & Starting time for model run \newline 
+   {\em Default value: '0000-01-01\_00:00:00'} \\ \hline
+
+   config\_run\_duration & Length of model run \newline 
+   {\em Default value: 'none'} \\ \hline
+
+   config\_stop\_time  & Stopping time for model run \newline 
+   {\em Default value: 'none'} \\ \hline
+
+   config\_number\_of\_sub\_steps & Number of acoustic steps per large RK step \newline 
+   {\em Default value: 6} \\ \hline
+
+   config\_h\_mom\_eddy\_visc2 & $\nabla^2$ eddy viscosity for horizontal diffusion of momentum \newline 
+   {\em Default value: 0.0} \\ \hline
+
+   config\_h\_mom\_eddy\_visc4 & $\nabla^4$ eddy hyper-viscosity for horizontal diffusion of momentum \newline 
+   {\em Default value: 0.0} \\ \hline
+
+   config\_v\_mom\_eddy\_visc2 & $\nabla^2$ eddy viscosity for vertical diffusion of momentum \newline 
+   {\em Default value: 0.0} \\ \hline
+
+   config\_h\_theta\_eddy\_visc2 & $\nabla^2$ eddy viscosity for horizontal diffusion of theta \newline 
+   {\em Default value: 0.0} \\ \hline
+
+   config\_h\_theta\_eddy\_visc4 & $\nabla^4$ eddy hyper-viscosity for horizontal diffusion of theta \newline 
+   {\em Default value: 0.0} \\ \hline
+
+   config\_v\_theta\_eddy\_visc2 & $\nabla^2$ eddy viscosity for vertical diffusion of theta \newline 
+   {\em Default value: 0.0} \\ \hline
+
+   config\_horiz\_mixing & Formulation of horizontal mixing: \newline
+                                           `2d\_smagorinsky' = 2-d Smagorinsky formulation, \newline
+                                           `2d\_fixed' = fixed eddy viscosity, \newline 
+   {\em Default value: '2d\_smagorinsky'} \\ \hline
+
+   config\_len\_disp & Horizontal length scale for Smagorinsky formulation of horizontal diffusion \newline 
+   {\em Default value: 120000.0} \\ \hline
+
+   config\_theta\_adv\_order & Horizontal advection order for theta \newline 
+   {\em Default value: 3} \\ \hline
+
+   config\_scalar\_adv\_order & Horizontal advection order for scalars \newline 
+   {\em Default value: 3} \\ \hline
+
+   config\_w\_adv\_order & Horizontal advection order for w \newline 
+   {\em Default value: 3} \\ \hline
+
+   config\_u\_vadv\_order & Vertical advection order for normal velocities (u) \newline 
+   {\em Default value: 3} \\ \hline
+
+   config\_w\_vadv\_order & Vertical advection order for w \newline 
+   {\em Default value: 3} \\ \hline
+
+   config\_theta\_vadv\_order & Vertical advection order for theta \newline 
+   {\em Default value: 3} \\ \hline
+
+   config\_scalar\_vadv\_order & Vertical advection order for scalars \newline 
+   {\em Default value: 3} \\ \hline
+
+   config\_coef\_3rd\_order & Upwinding coefficient in the 3rd order advection scheme. \hfill\break 0 $\le$ config\_coef\_3rd\_order $\le$ 1 \newline 
+   {\em Default value: 0.25} \\ \hline
+   
+   config\_scalar\_advection & Whether to advect scalar fields \newline 
+   {\em Default value: .true.} \\ \hline   
+
+   config\_positive\_definite & Whether to enable positive-definite advection of scalars \newline 
+   {\em Default value: .false.} \\ \hline
+
+   config\_monotonic & Whether to enable monotonic limiter in scalar advection \newline 
+   {\em Default value: .true.} \\ \hline
+
+   config\_mix\_full & mix full $\theta$ and $u$ fields, or mix perturbation from initial state \newline 
+   {\em Default value: .true.} \\ \hline   
+      
+   config\_epssm & Off-centering parameter for the vertically implicit acoustic \hfill \break integration, dimensionless \newline 
+   {\em Default value: 0.1} \\ \hline
+
+   config\_smdiv & 3D divergence damping coefficient, dimensionless. \newline 
+   {\em Default value: 0.1} \\ \hline
+
+   config\_h\_ScaleWithMesh & Scale eddy viscosities with mesh-density function for horizontal diffusion \newline 
+   {\em Default value: .false.} \\ \hline
+   
+   config\_apvm\_upwinding & Amount of upwinding in APVM \newline 
+   {\em Default value: 0.5} \\ \hline   
+
+   config\_sfc\_update\_interval & Interval between updates to surface fields provided in surface update file, 
+   format {\em 'yyyy-mm-dd\_hh:mm:ss'} \newline 
+   {\em Default value: 'none'} \\ \hline
+
+%   config\_newpx & Use new horizontal pressure gradient calculation \newline 
+%   {\em Default value: .false.} \\ \hline
+\end{longtable}
+}
+
+\section{damping}
+
+{\small
+\begin{longtable}{|p{2.0in} |p{4.25in}|}
+ \hline
+   config\_zd & Height MSL to begin w-damping profile \newline 
+   {\em Default value: 22000.0} \\ \hline
+
+   config\_xnutr & Maximum w-damping coefficient at model top \newline 
+   {\em Default value: 0.0} \\ \hline
+\end{longtable}
+}
+
+\section{io}
+
+{\small
+\begin{longtable}{|p{2.0in} |p{4.25in}|}
+ \hline
+   config\_input\_name & Input file name \newline 
+   {\em Default value: 'init.nc'} \\ \hline
+
+   config\_output\_name & History file name \newline 
+   {\em Default value: 'output.nc'} \\ \hline
+
+   config\_restart\_name & Restart file name \newline 
+   {\em Default value: 'restart.nc'} \\ \hline
+
+   config\_output\_interval & Interval between history writes \newline 
+   {\em Default value: '6:00:00'} \\ \hline
+
+   config\_frames\_per\_outfile & Maximum number of frames per history file \newline 
+   {\em Default value: 0} \\ \hline
+
+   config\_sfc\_update\_name & Name of surface update file \newline 
+   {\em Default value: 'sfc\_update.nc'} \\ \hline
+\end{longtable}
+}
+
+\section{decomposition}
+
+{\small
+\begin{longtable}{|p{2.0in} |p{4.25in}|}
+ \hline
+ 
+   config\_block\_decomp\_file\_prefix & Prefix of graph decomposition file, to be suffixed with the MPI task count \newline 
+   {\em Default value: 'graph.info.part.'} \\ \hline
+
+\end{longtable}
+}
+
+\section{restart}
+
+{\small
+\begin{longtable}{|p{2.0in} |p{4.25in}|}
+ \hline
+   config\_restart\_interval & Interval between restart writes \newline 
+   {\em Default value: 'none'} \\ \hline
+ 
+   config\_do\_restart & Whether this run of the model is a restart run \newline 
+   {\em Default value: .false.} \\ \hline
+ 
+   config\_do\_DAcycling & Whether to re-compute coupled fields $\theta_m$, $\tilde\rho$, $\rho u$,  etc. from uncoupled fields when restarting the model; used for cycling DA experiments that analyze uncoupled fields in restart files \newline 
+   {\em Default value: .false.} \\ \hline   
+\end{longtable}
+}
+
+\section{physics}
+
+{\small
+\begin{longtable}{|p{2.0in} |p{4.25in}|}
+ \hline
+  input\_landuse\_data         &   Acronym used to define landuse categories \hfill\break (Refer to the file LANDUSE.TBL). \newline 
+  {\em Default value: 'USGS'} \\ \hline
+
+  input\_soil\_data         &  Acronym used to define the soil categories \hfill\break (Refer to the file SOILPARM.TBL).  \newline 
+  {\em Default value: 'STAS'} \\ \hline  
+
+  input\_soil\_temperature\_lag &  Time lag (number of days) needed when updating the deep soil temperature.  \newline 
+  {\em Default value: 140} \\ \hline
+
+  num\_soil\_layers         & Number of soil layers. \newline 
+  {\em Default value: 4} \\ \hline 
+  
+  months         &  Number of months per year. \newline 
+  {\em Default value: 12} \\ \hline   
+  
+  noznlev         &  Number of input ozone data levels needed for the CAM radiation. \newline 
+  {\em Default value: 59} \\ \hline
+  
+  naerlev         &  Number of input aerosol data levels needed for the CAM radiation.  \newline 
+  {\em Default value: 29} \\ \hline
+  
+  cam\_dim1         &  Dimension needed in the declaration of array absnxt for the CAM radiation code. \newline 
+  {\em Default value: 4} \\ \hline
+         
+  config\_frac\_seaice &  Logical used to define fractional sea-ice. If set to true, fractional sea ice varies between 0 and 1. If set to false, fractional sea-ice is set to a sea-ice flag equal to 1 when sea-ice is present, or zero otherwise. \newline 
+  {\em Default value: .false.} \\ \hline
+
+  config\_sfc\_albedo & Logical used for initializing the background surface albedo. If set to true, the background surface albedo is initialized and updated daily using the monthly mean input static data. If set to false, it is initialized using the file LANDUSE.TBL, and it remains fixed during the entire model run. \newline 
+  {\em Default value: .true.} \\ \hline
+  
+    config\_sfc\_snowalbedo & Logical used for initializing the background surface snow albedo. If set to true, the snow albedo is initialized using the input static data. 
+    If set to false, it is initialized using the file LANDUSE.TBL.\newline 
+  {\em Default value: .true.} \\ \hline
+
+  config\_sst\_update & Logical used to update the Sea-Surface Temperatures (SSTs), and fractional sea-ice (if available). If set to true, SSTs are updated using the file config\_sfc\_update\_name. If set to false, SSTs remain fixed during the entire model run. \newline 
+  {\em Default value: .false.} \\ \hline
+
+  config\_sstdiurn\_update & If set to true, a diurnal cycle is applied to the SSTs. If set to false, SSTs remain constant during the entire day.\newline 
+  {\em Default value: .false.} \\ \hline
+
+  config\_deepsoiltemp\_update & If set to true, deep soil temperatures are slowly updated during the model run. If set to false, deep soil temperatures remain fixed during the entire run. \newline 
+  {\em Default value: .false.} \\ \hline
+
+  config\_n\_physics & NOT USED SINCE IMPLEMENTATION OF TIME MANAGER (TO BE REMOVED FROM REGISTRY). \newline 
+  {\em Default value: 1} \\ \hline
+
+  config\_n\_microp & Number of cloud microphysics time-steps per dynamic time-step. We currently keep cloud microphysics time-steps to values equal or less than 90 seconds. \newline 
+  {\em Default value: 1} \\ \hline
+  
+  config\_n\_conv & Number of dynamical time-steps between calls to parameterizations of convection. Currently, convective parameterizations  are called every dynamical time-step. \newline 
+  {\em Default value: 1} \\ \hline  
+  
+  config\_n\_pbl & NOT USED SINCE IMPLEMENTATION OF TIME MANAGER (TO BE REMOVED FROM REGISTRY). \newline 
+  {\em Default value: 1} \\ \hline
+  
+ config\_n\_lsm & NOT USED SINCE IMPLEMENTATION OF TIME MANAGER (TO BE REMOVED FROM REGISTRY). \newline 
+  {\em Default value: 1} \\ \hline  
+  
+  config\_n\_eddy & NOT USED SINCE IMPLEMENTATION OF TIME MANAGER (TO BE REMOVED FROM REGISTRY). \newline 
+  {\em Default value: 1} \\ \hline
+  
+  config\_n\_radt\_lw & NOT USED SINCE IMPLEMENTATION OF TIME MANAGER (TO BE REMOVED FROM REGISTRY). \newline 
+  {\em Default value: 1} \\ \hline  
+  
+  config\_n\_radt\_sw & NOT USED SINCE IMPLEMENTATION OF TIME MANAGER (TO BE REMOVED FROM REGISTRY). \newline 
+  {\em Default value: 1} \\ \hline
+      
+  config\_radtlw\_interval & Temporal interval between calls to the parameterizations of long wave radiation, format {\em 'yyyy-mm-dd\_hh:mm:ss'}. \newline 
+  {\em Default value: 'none'} \\ \hline
+
+  config\_radtsw\_interval & Temporal interval between calls to the parameterizations of short wave radiation, format {\em 'yyyy-mm-dd\_hh:mm:ss'}. \newline 
+  {\em Default value: 'none'} \\ \hline
+
+ config\_conv\_interval & Temporal interval between calls to the parameterizations of convection, format {\em 'yyyy-mm-dd\_hh:mm:ss'}. Note that, for now, we need to use config\_n\_conv instead. \newline
+  {\em Default value: 'none'} \\ \hline
+
+  config\_pbl\_interval & Temporal interval between calls to the PBL parameterizations, format {\em 'yyyy-mm-dd\_hh:mm:ss'}.  \newline 
+  {\em Default value: 'none'} \\ \hline
+
+  config\_camrad\_abs\_update & Temporal interval between updates to the arrays for spectral absorption and emission for the CAM long wave radiation, format {\em 'yyyy-mm-dd\_hh:mm:ss'}. \newline 
+  {\em Default value: '6:00:00'} \\ \hline
+
+  config\_greeness\_update & Temporal interval between updates to the greeness fraction used in the land surface scheme, format {\em 'yyyy-mm-dd\_hh:mm:ss'}. \newline 
+  {\em Default value: '24:00:00'} \\ \hline      
+
+  config\_microp\_scheme & Cloud Microphysics schemes: \newline
+                                             `off '  = no microphysics, \newline
+                                             `kessler' = Kessler, \newline 
+                                             `thompson' = Thompson, \newline
+                                             `wsm6       ' = WSM6 \newline
+  {\em Default value: 'off'} \\ \hline
+
+  config\_conv\_shallow\_scheme & Shallow convection schemes: \newline
+                                             `off' = no shallow convection scheme \newline   
+  {\em Default value: 'off'} \\ \hline
+
+  config\_conv\_deep\_scheme & Deep convection schemes: \newline
+                                             `off' = no deep convection scheme, \newline
+                                             `kain\_fritsch' = Kain-Fritsch, \newline 
+                                             `tiedtke' = Tiedtke \newline
+  {\em Default value: 'off'} \\ \hline
+
+  config\_eddy\_scheme & NOT USED. \newline 
+  {\em Default value: 'off'} \\ \hline
+
+  config\_lsm\_scheme & Land-surface schemes: \newline
+                                             `off' = no land surface option, \newline
+                                             `noah' = NOAH land-surface scheme \newline                                              
+  {\em Default value: 'off'} \\ \hline
+
+  config\_pbl\_scheme & Planetary Boundary Layer schemes: \newline
+                                             `off' = no boundary layer scheme, \newline
+                                             `ysu' = YSU PBL scheme \newline 
+  {\em Default value: 'off'} \\ \hline
+
+  config\_radt\_cld\_scheme & Parameterization of the cloud fraction for the long wave and short wave radiation schemes: \newline
+                                              `off' = if LW and SW radiation schemes are both `off', \newline
+                                              'cld\_incidence' = the cloud fraction is equal to 0 or 1, \newline
+                                              'cld\_fraction' = the cloud fraction varies between 0 and 1,  as a function of the relative humidity \newline
+   {\em Default value: 'off'} \\ \hline
+
+  config\_radt\_lw\_scheme & Long wave (LW) radiation schemes: \newline
+                                             `off' = no long-wave radiation scheme, \newline
+                                             `cam\_lw' = CAM LW radiation scheme, \newline 
+                                             `rrtmg\_lw' = RRTMG LW radiation scheme \newline
+  {\em Default value: 'off'} \\ \hline
+
+  config\_radt\_sw\_scheme & Short wave (SW) radiation scheme: \newline
+                                             `off' = no short-wave radiation scheme, \newline
+                                             `cam\_sw' = CAM SW radiation scheme, \newline
+                                             `rrtmg\_sw' = RRTMG SW radiation scheme \newline                                                                                           
+  {\em Default value: 'off'} \\ \hline
+
+  config\_sfclayer\_scheme &  Surface-layer schemes \newline
+                                             `off' = no surface-layer scheme, \newline
+                                             `monin\_obukhov' = Monin-Obukhov scheme \newline                                              
+  {\em Default value: 'off'} \\ \hline
+\end{longtable}
+}
+

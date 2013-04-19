@@ -1,0 +1,119 @@
+\documentclass[12pt,letterpaper]{article}
+
+\newcommand{\beas}{\begin{eqnarray*}}
+\newcommand{\eeas}{\end{eqnarray*}}
+\newcommand{\bea}{\begin{eqnarray}}
+\newcommand{\eea}{\end{eqnarray}}
+\newcommand{\nn}{\nonumber}
+
+\newcommand{\p}{\partial}
+\newcommand{\dd}[2]{\ds\frac{\p {#1}}{\p{#2}}}
+
+\newcommand{\h}{\hspace{1mm}}
+
+\setlength{\textwidth}{6.5in}
+\setlength{\oddsidemargin}{-.25in}
+\setlength{\evensidemargin}{-.25in}
+\setlength{\textheight}{8.5in}
+\setlength{\topmargin}{0in}
+
+
+\setlength{\parskip}{1.2ex}
+\setlength{\parindent}{0mm}
+\begin{document}
+
+
+\section{Proposal for ACC dynamics project }
+\today, MPAS-Ocean Development Team and Geoff Vallis
+
+Here we lay out a plan to investigate the behavior of the ACC and MOC using MPAS-Ocean and POP.  The line of investigation is similar to \cite{Henning_Vallis05jpo,Nikurashin_Vallis11jpo,Nikurashin_Vallis12jpo}, which document the response of the MOC to varying wind stress and diapycnal mixing in an idealized rectangular domain with a reentrant channel.  The MOC strength increases with increasing diapycnal mixing, and decreases with increasing wind stress, and a theoretical model is developed to explain these effects.  Similar studies have evaluated transport as a function of wind stress in a reentrant channel \cite{Hallberg_Gnanadesikan01jpo} and in a realistic Southern Hemisphere ocean model \cite{Hallberg_Gnanadesikan06jpo}.  The later uses resolutions of $1^o$, $1/2^o$, $1/4^o$, $1/6^o$ to investiage eddy saturation, and shows that northward Ekman transport is compensated by southward eddy-induced transport at high resolutions.  Wolfe and Cessi have also studied the dynamics of the ACC and MOC using an idealized rectangular domain with a southern reentrant channel \cite{Wolfe_Cessi09jpo,Wolfe_Cessi10jpo,Wolfe_Cessi11jpo}.
+
+Since most of the studies relating ACC to MOC have been conducted an idealized configuration, it makes sense to move toward more realistic configurations. At the same time, the research is ongoing with respect to mesoscale eddy parameterizing in idealized ACC configurations \cite{Ringler:2011hz, Chen:000}. Having an idealized ACC/MOC configuration will allow us to test and evaluate how these parameterization operate when confronted with a wide range of grid scales within a single simulation. Furthermore, this idealized ACC/MOC configuration when used with multi-resolution meshes can be used to meet LANL deliverables for the recently funded SciDAC MultiScale project (https://outreach.scidac.gov/multiscale/index.php). So along with the real-world configuration, we will explore idealized ACC/MOC configurations.
+
+
+{\bf Scientific questions:}
+\begin{enumerate}
+\item Document the variation of MOC strength versus wind stress and diapycnal mixing in a global ocean model with realistic topography.
+\item How do these effects vary for eddying versus non-eddying regimes (i.e.\ eddy saturation)?
+\item How well do the theoretical models of \cite{Nikurashin_Vallis11jpo,Nikurashin_Vallis12jpo} represent a realistic ocean?
+\end{enumerate}
+
+{\bf Model validation questions:}
+\begin{enumerate}
+\item Can a regionally-refined Southern Ocean domain reproduce the relationships found in a global high resolution domain?
+\item To what extent is GM required for the regionally-refined Southern Ocean?
+\item Does the inclusion of z-tilde allow very low diapycnal mixing for this study?
+\item Can a POP Atlantic domain with a reentrant channel answer the scientific questions?
+\item How well do POP and MPAS-Ocean match in their MOC climatology?
+\end{enumerate}
+
+{\bf Simulation specifications for Real-World MPAS-Ocean.}  To minimize number of simulations, required parameters are listed, with optional additional parameters in parentheses.
+\begin{enumerate}
+\item Global quasi-uniform resolution: 120km, 30km (60km, 15km)
+\item Global variable resolution, Southern Ocean, transition 30S to 40S, high resolution south of 30S: 30km/120km  (15km/60km)
+\item Global variable resolution, Southern Ocean and Atlantic: (30km/120km, 15km/60km)
+\item Run simulations out 100 years.
+\item Wind stress: Monthly mean NCEP, but multiplied by a factor south of 40S, varying smoothly from 35S to 40S.  Factor values: 0.5, 1, 2 (0.1, 0.2, 5, 10) (See range in Fig. 11a of \cite{Nikurashin_Vallis12jpo})
+\item Vertical tracer diffusion: Pacanowski and Philander config\_bkrd\_vert\_diff = 1e-6, 1e-5, 1e-4 m$^2$/s (2e-6, 5e-6, 2e-5, 5e-5, 2e-4, 5e-4m$^2$/s).  If desired, we could set config\_rich\_mix = 0.0 to be similar to convective adjustment in \cite{Nikurashin_Vallis11jpo,Nikurashin_Vallis12jpo}.
+\item GM to be added when available.
+\item Other settings may be like those of simulations for paper 1: 
+\subitem initial condition: WOCE T\&S
+\subitem zstar vertical grid (z-tilde later)
+\subitem split explicit time stepping
+\subitem monthly mean restoring to WOCE SST/SSS with 45 day time scale
+\subitem 40 vertical levels, no partial bottom cells (partial bottom cells later)
+\subitem horizontal mixing: del2 varying with grid, del4 with Leith closure
+\subitem third order horizontal flux corrected transport on tracers
+\subitem Jackett \& McDougall EOS
+\item Evaluation: Plot maximum overturning streamfunction, mean 2C and 5C isotherm depth over some region, and (perhaps) mixed layer depth averaged over a region.  These will each be plotted as functions of diapycnal mixing and Southern Ocean wind stress amplification.  See Fig 13 in \cite{Nikurashin_Vallis11jpo} and Fig 11 in \cite{Nikurashin_Vallis12jpo}.
+\end{enumerate}
+
+{\bf Simulation specifications for Idealized MPAS-Ocean.} This configuration will be an annulus connected to a box, where the annulus represents the ACC and the box represents the Atlantic basin. The annulus will have a width of approximately 20 degrees in latitude centered at approximately 50S. The box will span approximately 90 degrees in longitude and will extend to approximately 60N. Note: We can configure this system on a sphere of smaller radius than the Earth. The computational burden goes as $r^2$, so large computational advantages can be found here.
+\begin{enumerate}
+\item Quasi-uniform resolutions of 120km and 30km with 40 levels.
+\item Variable resolution meshes with 30 km in ACC and 120 km elsewhere
+\item Wind stress: Idealized wind stress in ACC multiplied by factors of 0.5 and 2.0.
+\item Vertical tracer diffusion: Background diffusivity multiplied by factors of 0.1 and 10.
+\item GM added when available.
+\item Other model configuration setting: 
+\subitem idealized potential temperature initial condition, constant salinity
+\subitem zstar vertical grid (z-tilde later)
+\subitem split explicit time stepping
+\subitem monthly mean restoring to idealized SST with 45 day time scale
+\subitem 40 vertical levels
+\subitem horizontal mixing: Leith closure for $\nabla^2$
+\subitem horizontal mixing: varying hyper-viscosity that varies as $(dx)^{3.32}$.
+\subitem vertical mixing: Pacanowski and Philander vertical mixing scheme.
+\subitem third order horizontal flux corrected transport on tracers
+\subitem Linear EOS
+\end{enumerate}
+
+{\bf Simulation specifications for POP.}
+\begin{enumerate}
+\item Atlantic grid with reentrant ACC, 0.1 degree resolution
+\item Wind stress: Monthly mean NCEP, but multiplied by a factor south of 40S, varying smoothly from 35S to 40S.  Factor values: 0.5, 1, 2 (0.1, 0.2, 5, 10) (See range in Fig. 11a of \cite{Nikurashin_Vallis12jpo})
+\item Vertical tracer diffusion: Pacanowski and Philander, background vertical diffusion = 1e-6, 1e-5, 1e-4 m$^2$/s(2e-6, 5e-6, 2e-5, 5e-5, 2e-4, 5e-4m$^2$/s)
+\item Other settings may be like those of \cite{Maltrud_McClean05om}
+\end{enumerate}
+
+{\bf MPAS-Ocean model development requirements:}
+\begin{enumerate}
+\item MOC diagnostic
+\item functioning globally averaged tracers in stats
+\item global horizontal average of tracer column in stats
+\item partial bottom cells
+\item GM 
+\item z-tilde
+\end{enumerate}
+
+{\bf Expected results:}
+\begin{enumerate}
+\item At a minimum, we should be able to produce plots like Fig 13 in \cite{Nikurashin_Vallis11jpo} and Fig 11 in \cite{Nikurashin_Vallis12jpo}.
+\item MOC plots will provide details about the circulation (like Fig 7 of \cite{Hallberg_Gnanadesikan06jpo}).
+\item MOC flow at a particular latitude can be used to compare parameters like wind stress and resolution (like Fig 14 of \cite{Hallberg_Gnanadesikan06jpo}).
+\end{enumerate}
+
+\bibliographystyle{plain}
+\bibliography{acc_dynamics}
+
+\end{document}

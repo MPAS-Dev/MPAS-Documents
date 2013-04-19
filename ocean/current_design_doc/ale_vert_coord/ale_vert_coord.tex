@@ -1,0 +1,620 @@
+\documentclass[11pt]{report}
+
+\usepackage{epsf,amsmath,amsfonts}
+\usepackage{graphicx}
+
+\setlength{\textwidth}{6.5in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\textheight}{9.0in}
+\setlength{\topmargin}{0in}
+
+\newcommand{\ds}{\displaystyle}
+\setlength{\parskip}{1.2ex}
+\setlength{\parindent}{0mm}
+\newcommand{\bea}{\begin{eqnarray}}
+\newcommand{\eea}{\end{eqnarray}}
+\newcommand{\nn}{\nonumber}
+
+\begin{document}
+
+\title{ALE Vertical Coordinate: \\
+Requirements and Design}
+\author{MPAS Development Team}
+
+
+ 
+\maketitle
+\tableofcontents
+
+%-----------------------------------------------------------------------
+
+\chapter{Summary}
+
+An Arbitrary Lagrangian-Eulerian (ALE) vertical coordinate provides greater freedom than the traditional fixed z-level vertical coordinate system to reduce vertical mixing, allow thin top layers, and improve accuracy over steep topography.  This ALE implementation has two components: it responds to the external mode and to high frequency internal models.  The first allows all layers to expand and contract in proporation to the external mode, ie. changes in sea surface height (SSH).  This alone has been called a $z^*$ coordinate system \cite{Adcroft:2004tv,Campin:2004wj}.  In addition, layer interfaces move with high frequency motions in the water column.  This was called a ${\tilde z}$ coordinate system, as described by \cite{Leclair:2011ud}.  The purpose of both is to reduce spurious vertical mixing associtaed with fixed z-level coordinates.  The $z^*$ part allows the top layers to be very thin, and bypass the constraint of a ten meter thick top layer that is required when all SSH variations must be within the top layer.  The algorithm presented here draws heavily from \cite{Leclair:2011ud}, but is translated into the thickness variables of MPAS-Ocean.
+
+%figure template
+%\begin{figure}
+%  \center{\includegraphics[width=14cm]{./Figure1.pdf}}
+%  \caption{A graphical representation of the discrete boundary.}
+%  \label{Figure1}
+%\end{figure} 
+
+%-----------------------------------------------------------------------
+
+\chapter{Requirements}
+
+\section{Requirement: A vertical coordinate that allows layers that are thinner than the SSH deviations.}
+Date last modified: 11/28/2011 \\
+Contributors: Mark, Todd \\
+
+SSH in a global ocean model is a maximum of 2-3m.  The minimum layer thickness typically used in a z-level model is 10m, because all the SSH deviations must be encompassed by the top layer, the only one with variable thickness.  If all layers are allowed to vary in thickness, the top layers can be arbitrarily thin.
+
+\section{Requirement: A vertical coordinate that reduces vertical mixing by moving with high frequency motions.}
+Date last modified: 11/28/2011 \\
+Contributors: Mark, Todd \\
+
+Much of the diapycnal mixing in fixed z-level ocean models is due to internal waves that advect fluid vertically with high temporal frequency, but do not transport water masses on longer time scales.  One way to avoid this spurious vertical mixing is an ALE vertical coordinate that moves with the high frequency oscillations. Thus, the coordinate acts as a Lagrangian coordinate at high frequencies in order to limit diapycnal mixing and acts as an Eulerian coordinate for low frequency motions associated with water mass transport.
+
+
+
+%-----------------------------------------------------------------------
+
+\chapter{Algorithmic Formulations}
+Date last modified: 2/3/2012 \\
+Contributors: Mark, Todd \\
+
+\section{ALE formulation}
+
+Here we present a conceptual description of how the ALE vertical coordinate fits into a typical timestepping algorithm.  The specifics of implementing ALE in our Runge-Kutta and split explicit formulation is given in later sections.  
+
+The MPAS-ocean z-level formulation solves the following equations for thickness, momentum, and tracers at layer $k$:
+\begin{eqnarray}   
+&&\label{h1} \ds
+\frac{\partial h_k}{\partial t} 
+ + \nabla \cdot \left( h_k^{edge} {\bf u}_k \right) 
+% + w^{top}_{k+1} - w^{top}_{k} = 0
+ + h_k  \frac{\partial w_k}{\partial z} = 0,
+\\&&
+\label{u1} \ds
+\frac{\partial {\bf u}_k}{\partial t} 
++ \frac{1}{2}\nabla \left| {\bf u}_k \right|^2 
++ ( {\bf k} \cdot \nabla \times {\bf u}_k) {\bf u}^\perp_k 
++ f{\bf u}^{\perp}_k 
++ w_k^{edge}\frac{\partial {\bf u}_k}{\partial z} \nonumber \\ &&\hspace{2cm} 
+  = - \frac{1}{\rho_0}\nabla p_k  - \frac{\rho g}{\rho_0}\nabla z^{mid}_k
+   +\nu_h\nabla^2{\bf u}_k
+ + \frac{\partial }{\partial z} 
+\left( \nu_v \frac{\partial {\bf u}_k}{\partial z} \right),
+\\
+&&\label{continuous_tracer1} \ds
+\frac{\partial h_k\varphi_k}{\partial t} 
+ + \nabla \cdot \left( h_k^{edge}\varphi_k^{edge} {\bf u}_k \right) 
+%+  w^{top}_{k+1}\varphi^{top}_{k+1} - w^{top}_{k}\varphi^{top}_{k}
+  + h_k \frac{\partial}{\partial z} \left( \varphi_k w_k \right) 
+= \nabla\cdot\left(h_k^{edge} \kappa_h \nabla\varphi_k \right)
++ h_k \frac{\partial }{\partial z} 
+  \left( \kappa_v \frac{\partial \varphi_k}{\partial z} \right)
+\end{eqnarray}
+
+For the numerical formulation, we rewrite these equations with tendencies,
+\bea
+\label{h1t} \ds
+\frac{\partial h_k}{\partial t} = T^h(h^*, u^*, w^*)
+\eea
+\bea
+\label{u1t} \ds
+\frac{\partial {\bf u}_k}{\partial t} = {\bf T}^u(h^*, u^*, w^*, p^*)
+\eea
+\bea
+\label{continuous_tracer1t} \ds
+\frac{\partial h_k\varphi_k}{\partial t} = T^\varphi(h^*, u^*, w^*, \varphi^*)
+\eea
+
+For this general timestepping description, we proceed from time $t_n$, where all variables are known, to time $t_{n+1}$, using $*$ variables for the fluxes that appear in the tendencies of the prognostic equations.  Typically, the $*$ variables are from time $n$ for the first iteration, and time $n+1/2$ or $n+1$ for subsequent iterations.
+
+{\bf Single iteration of the timestepping scheme for z-star}
+\begin{eqnarray} &&
+\mbox{known: all $n$ and $*$ variables except $w^{top}_*$}\\&&
+\mbox{ALE step: compute vertical transport $w^{top}_*$} 
+\mbox{ (branch for different grid types)}\\ && 
+\mbox{compute tendencies ${\bf T}^u, T^h, T^\varphi $ using $*$ variables}\\ && 
+\mbox{boundary update on all tendencies: } {\bf T}^u,T^h,T^\varphi\\&& 
+{\bf u}_{k,n+1} = {\bf u}_{k,n} + \Delta t {\bf T}^u_k \\&& 
+h_{k,n+1} = h_{k,n} + \Delta t T^h_k \\&& 
+{\varphi}_{k,n+1} =  \varphi_{k,n} + \Delta t  T^\varphi_k \\&&
+\mbox{compute diagnostics based on }{\bf u}_{k,n+1},h_{k,n+1},\varphi_{k,n+1} 
+\end{eqnarray}
+
+There is only one step that determines the vertical grid--the ALE step where $w^{top}_*$ is computed.  It is important to note that $w^{top}_*$ is the transport of fluid through the layer interface.  If the grid is fixed (z-level) then it is the vertical velocity of the fluid.  The critical part of the ALE step is that $w^{top}_*$ is specifically chosen in order to get the desired vertical grid behavior.  The thickness $h$ is then stepped forward with the continuity equation using this $w^{top}_*$.
+
+The algorithm for the ALE step determination of $w^{top}$ can be summarized as follows:
+\bea
+\mbox{thickness-weighted divergence} && D_{k,*} = \nabla_h \cdot  \left( h^{edge}_{k,*} {\bf u}_{k,*} \right)  \label{D1a} \\
+\mbox{barotropic divergence} && {\overline D}_* = \sum\limits_{k=1}^{kmax} D_{k,*}  \\
+\mbox{\bf branch for grid type:} &&  \\
+\mbox{z-level} && {\tilde T}^h_k = \left\{ 
+\begin{array}{ll}-{\overline D}_*, &\; k=1 \\0, &\; k>1 \end{array}\right.\\
+\mbox{z-star} && {\tilde T}^h_k = \frac{W_k h_k}{\sum\limits_{k'=1}^{kmax} W_{k'} h_{k'}}(-{\overline D}_*)\\
+\mbox{z-tilde} && {\tilde T}^h_k = \frac{W_k h_k}{\sum\limits_{k'=1}^{kmax} W_{k'} h_{k'}}(-{\overline D}_*) + T^{hhf}_k\\
+\mbox{isopycnal} && {\tilde T}^h_k = - D_{k,*}\\
+\mbox{compute $w^{top}_*$ from $k=k_{max}$ to $k=2$} && w^{top}_{k,*} = w^{top}_{k+1,*} - D_{k,*} - {\tilde T}^h_k 
+\eea
+
+The z-tilde branch is explained in the next sections.  The weights, $W_k$, determine how variations in SSH are distributed among the layers.  The choices are as follows:
+\begin{itemize}
+\item z-level: Set $W(1)=1$ (top layer), $W(2:kmax)=0$.  Like POP 2.0, SSH deviations are all contained in the top layer.  
+\item z-star: Set $W(k)=1$ at all layers.  This spreads the thickness change due to SSH throughout the layers in proportion to their initial thickness.
+\item weighted z-star: Weights may be set in any fashion.  A useful weighted z-star set-up is where $W(k)=1$ in upper layers, taper off from 1 to 0 in mid-layers, and zero in lower layers.  This distributes the SSH variations in upper and mid-layers only.
+\end{itemize}
+
+\section{Introduction to z-tilde coordinate system}
+
+Here we write the full equation set for the z-tilde system.
+Two new prognostic equations are added, for $h^{hf}$, the high frequency variations in thickness, and $D^{lf}$, the low frequency divergence variable.  Definitions are as follows: 
+\bea
+\mbox{thickness-weighted divergence} && D_k = \nabla_h \cdot  \left( h^{edge}_k {\bf u}_k \right)  \label{D1} \\
+\mbox{barotropic divergence} && {\overline D} = \sum\limits_{k=1}^{kmax} D_k  \\
+\mbox{barotropic and baroclinic divergence} && D_k = {\overline D} + D_k' = {\overline D} + D^{hf}_k + D^{lf}_k \label{D}\\
+\mbox{low frequecy baroclinic divergence} && 
+  \frac{\partial D^{lf}_k}{\partial t} = - \frac{2\pi}{\tau_{\;Dlf}} \left[ D^{lf}_k - D'_k \right] \label{Dlf}\\
+\mbox{decomposed thickness} && h_k = h^{init}_k + h^{hf}_k + h^{ext}_k \label{h} \\
+\mbox{decomposed thickness tendency} && 
+  \frac{\partial h_k}{\partial t} = \frac{\partial h^{hf}_k}{\partial t} + \frac{\partial h^{ext}_k}{\partial t} 
+   \label{dhdt} \\
+\mbox{high frequency thickness tendency} && 
+  \frac{\partial h^{hf}_k}{\partial t} = - D^{hf}_k - \frac{2\pi}{\tau_{hhf}} h^{hf}_k 
+   + \nabla_h\cdot \left( \kappa_{hhf} \nabla_h h^{hf}_k \right)
+   \label{hhf} \\
+\mbox{external mode thickness response} && 
+  \frac{\partial h^{ext}_k}{\partial t} = - \frac{W_k h_k}{\sum\limits_{k'=1}^{kmax} W_{k'} h_{k'}}
+  {\overline D} 
+   \label{hext} \\
+\mbox{SSH} && 
+  \frac{\partial \zeta}{\partial t}  = -{\overline D}
+   \label{ssh} \\
+\mbox{continuity equation (solve for $w$)} && 
+\label{cont} 
+\frac{\partial h_k}{\partial t}  + D_k + \frac{\partial}{\partial z} \left( h_k w_k \right) = 0.
+\eea
+These equations are discrete in the vertical, indexed by layer $k$, but continuous in the horizontal and in time.  The thickness variables $h$, divergence variables $D$, velocity ${\bf u}$,  and SSH $\zeta$ are functions of $({\bf x},t)$, and vertical dependance is explicitly labelled with a subscript $k$.  External thickness weights $W_k$ do not depend on ${\bf x}$ or $t$, and constant parameters include 
+$\tau_{Dlf}$, $\tau_{hhf}$, and $\kappa_{hhf}$.
+
+The divergence in each cell, $D$, is partitioned (\ref{D}) into its barotropic component ${\overline D}$ and its baroclinic component $D'$, which is further subpartitioned into the low frequency baroclinic component $D^{lf}$ and the remaining high frequency component $D^{hf}$.  The low frequency baroclinic divergence (\ref{Dlf}) is computed using a first-order low-pass filter, as suggested by \cite{Leclair:2011ud}, with timescale $\tau_{Dlf}$.  The new prognostic variable $D^{lf}$ should be initialized as zero and saved to the restart file.
+
+The thickness $h$ (\ref{h}) is initialized with the 3D field $h^{init}$, and then evolves (\ref{dhdt}) with contributions due to high frequency divergence $h^{hf}$ (the ${\tilde z}$-coordinate part) and external mode oscillations $h^{ext}$ (the $z^*$-coordinate part).  The tendency for $h^{hf}$ (\ref{hhf}) is primarily due to the high frequency divergence term $D^{hf}$, but also includes a restoring term with timescale $\tau_{hhf}$ to prevent any longterm drift coordinate drift, and a thickness diffusion term with diffusion coefficient $\kappa_{hhf}$ to prevent gridscale noise in the surface interfaces, as explained in \cite{Leclair:2011ud}.  The new prognostic variable $h^{hf}$ should be initialized as zero and saved to the restart file.
+
+The prognostic equation for $h^{ext}_k$ (\ref{hext}) simply changes the layer thickness in proportion to the change in SSH $\zeta$, where the constant of proportionality $W$ may vary by level (this differs from the formulation in \cite{Leclair:2011ud}).  In a pure $z^*$-coordinate system, one could compute the thickness simply as
+\bea
+   h_k^{new} = dz_k\left( 1+ \zeta \frac{W_k}{\sum_{k'=1}^{kmax}W_{k'}{dz}_{k'}}\right),
+\eea
+at each timestep, where $dz_k$ is the original reference thickness.  But here in the ${\tilde z}$-coordinate system, a prognostic equation for $h^{ext}_k$ is required so that it can be combined with the high-frequency divergence effects.
+The continuity equation (\ref{cont}) is then used to solve diagnostically for $w$, the vertical transport through the layer interface.
+
+\section{Algorithm for additional z-tilde tendencies \label{s tend alg}}
+
+In the tendency computations that must be added to the code for z-tilde are:
+\bea 
+\mbox{low freq. baroclinic div.} && 
+  \frac{\partial D^{lf}_k}{\partial t} 
+= - \frac{2\pi}{\tau_{\;Dlf}} \left[ D^{lf}_k - (D_k-{\overline D}) \right] \label{Dlf2}\\
+\mbox{high freq. thickness tend.} && 
+  \frac{\partial h^{hf}_k}{\partial t} = - (D_k-{\overline D}-D^{lf}_k) - \frac{2\pi}{\tau_{hhf}} h^{hf}_k 
+   + \nabla_h\cdot \left( \kappa_{hhf} \nabla_h h^{hf}_k \right)
+   \label{hhf2} 
+\eea
+
+Note that the variables $D'$ and $D^{hf}$ do not appear in the algorithm and thus do not need to be stored or explicitly computed.  For the numerical algorithm, these equations are rewritten as
+\bea
+\label{h1t2} \ds
+  \frac{\partial D^{lf}_k}{\partial t} &=& T^{Dlf}(D_{k,*}, {\overline D}_*,D^{lf}_{k,*}) \\
+  \frac{\partial h^{hf}_k}{\partial t} &=& T^{hhf}(D_{k,*}, {\overline D}_*, D^{lf}_{k,*}, h_{k,*}^{hf})
+\eea
+where * indicates the time-level of the tendency variables.  A simple timestepping algorithm, like forward Euler or backwards Euler, is as follows.  Details of the Runge-Kutta and split explicit timestepping are given in later sections.
+
+{\bf Single iteration of the timestepping scheme for z-tilde}
+\begin{eqnarray} &&
+\mbox{known: all $n$ and $*$ variables except $w^{top}_*$}\\&&
+\mbox{compute tendencies } 
+T^{hhf}, \;\;
+T^{Dlf} \mbox{ using $*$ variables} \\ && 
+\mbox{ALE step: compute vertical transport $w^{top}_*$} 
+\mbox{ (branch for different grid types)}\\ && 
+\mbox{compute tendencies ${\bf T}^u, T^\varphi $ using $*$ variables}\\ && 
+\mbox{boundary update on all tendencies: } {\bf T}^u,T^h,T^{hhf},T^{Dlf},T^\varphi\\&& 
+{\bf u}_{k,n+1} = {\bf u}_{k,n+1} + \Delta t {\bf T}^u_k \\&& 
+h_{k,n+1} = h_{k,n} + \Delta t T^h_k \\&& 
+{\varphi}_{k,n+1} =  \varphi_{k,n} + \Delta t  T^\varphi_k \\&&
+h^{hf}_{k,n+1} = h^{hf}_{k,n} + \Delta t T^{hhf}_k \\&& 
+D^{lf}_{k,n+1} = D^{lf}_{k,n} + \Delta t T^{Dlf}_k \\&& 
+\mbox{compute diagnostics based on }{\bf u}_{k,n+1},h_{k,n+1},\varphi_{k,n+1} 
+\end{eqnarray}
+
+% Where super scripts $hf$ and $lf$ refer to the high and low frequency components, as explained in the nex
+
+
+\section{Geopotential gradient in momentum equation}
+In order to account for hydrostatic pressure differences in tilted layers, an additional term is required in the momentum equation:
+\bea 
+\label{u2} \ds
+\frac{\partial {\bf u}_k}{\partial t} 
++ \frac{1}{2}\nabla \left| {\bf u}_k \right|^2 
++ ( {\bf k} \cdot \nabla \times {\bf u}_k) {\bf u}^\perp_k 
++ f{\bf u}^{\perp}_k 
++ w_k^{edge}\frac{\partial {\bf u}_k}{\partial z} \hspace{1cm} \nonumber \\
+  = - \frac{1}{\rho_0}\nabla p_k  - \frac{\rho g}{\rho_0}\nabla z^{mid}_k
+   +\nu_h\nabla^2{\bf u}_k
+ + \frac{\partial }{\partial z} 
+\left( \nu_v \frac{\partial {\bf u}_k}{\partial z} \right)
+\eea
+The variable $z^{mid}_k$ does not require a permanent variable, but can be computed as needed with:
+\bea
+z^{mid}_k = \zeta - \sum\limits_{k'=1}^{k-1}  h_{k'} - \frac{1}{2}h_k
+\eea
+
+\section{Isopycnal Coordinate transition from Montgomery Potential}
+The current formulation for the momentum equation in isopycnal coordinates,
+\begin{equation}
+\label{continuous_velocity_pv2}
+\frac{\partial {\bf u}}{\partial t} + q (h{\bf u^{\perp}}) 
+  = - \nabla M  - \nabla K
+   +\nu(\nabla \delta + k\times \nabla \eta)
+\end{equation}
+uses a  Montgomery Potential, defined as
+\begin{equation}
+\label{MontPot}
+M(x,y,z,t) = \alpha p(x,y,z,t) + gz
+\end{equation}
+where $\alpha=1/\rho$ is the specific volume.  The hydrostatic condition, 
+$\partial p/\partial z = -\rho g$, 
+implies that $M$ is independent of $z$ in a layer of constant density (See \cite{Higdon06xacta} p. 401 for derivation of $M$).  For the shallow water equations, fix $z=z_{top}=h+b$ in (\ref{MontPot}) and assume pressure at the top of the fluid has a constant value, so that 
+$\nabla M = g \nabla (h+b)$.  Similarly, for the primitive equations $\nabla M = \alpha \nabla p$.
+
+Both $\rho$ and $M$ are constant within each layer, but the pressure and z vary continuously in the vertical.  Taking (\ref{MontPot}) in the limit as one approaches a layer interface, $\Delta M =  p_{int} \Delta \alpha$.  In the top layer, evaluating (\ref{MontPot}) at $z=0$ and using the hydrostatic condition, $M=g\eta$ where $\eta$ is the sea surface height.  These two equations allow us to compute the Montgomery Potential in each column:
+\begin{eqnarray}
+M_1 &=& g\eta \\
+M_{k+1} &=& M_k + \left( \frac{1}{\rho_{k+1}} - \frac{1}{\rho_{k}}\right) pbot_k
+\end{eqnarray}
+where $pbot_k$ is the pressure at the bottom of layer $k$.
+
+We would like the pressure computation to be uniform for isopycnal and all z-type vertical coordinates.  In isopycnal, by definition, there is no vertical fluxes between layers, and the density in each layer remains constant.  The question for the pressure gradient is whether $\nabla M$ can be replaced with 
+\bea
+ \frac{1}{\rho_0}\nabla p_k  + \frac{\rho g}{\rho_0}\nabla z^{mid}_k. \label{p1}
+\eea
+From the definition above, and with constant density in each layer,
+\bea
+\nabla M = \frac{1}{\rho} \nabla p + g\nabla z \label{p2}
+\eea
+There are only two differences:  (\ref{p1}) uses a constant $\rho_0$ in the first term, due to the Boussinesq approximation; and the second term in (\ref{p1}) includes a $\rho/\rho_0$.
+
+\newpage
+\section{Revised Runga-Kutta algorithm}
+
+For any timestepping method, the additional tendencies and diagnostic variables outlined in section \ref{s tend alg} above would be implemented in the same way, using the same subroutines.  For the Runge-Kutta algorithm, prognostic equations for $h^{hf}$ and $D^{lf}$ must be added as follows.  Here $*$ denotes intermediate variables.
+
+{\bf Prep variables before first stage}
+\begin{eqnarray} &&
+{\bf u}_{k,n+1}={\bf u}_{k,n}, \;\;
+h_{k,n+1}=h_{k,n},\;\;
+h^{hf}_{k,n+1}=h^{hf}_{k,n},\;\;
+D^{lf}_{k,n+1}=D^{lf}_{k,n},\;\;
+{\varphi}_{k,n+1} = {\varphi}_{k,n} h_{k,n}
+\\&&
+{\bf u}_k^*={\bf u}_{k,n}, \;\;
+h_k^*=h_{k,n},\;\;
+h^{*hf}_k=h^{hf}_{k,n},\;\;
+D^{*lf}_k=D^{lf}_{k,n},\;\;
+{\varphi}_k^* = {\varphi}_{k,n}, \;\;
+p_k^*=p_{k,n}
+\\&&
+a = \left(\frac{1}{2},\frac{1}{2},1,0 \right),\;\;
+b = \left(\frac{1}{6},\frac{1}{3},\frac{1}{3},\frac{1}{6}\right),\;\;
+\end{eqnarray}
+
+{\bf Iteration}
+\begin{eqnarray} &&
+\mbox{do j=1,4} \\&& \hspace{.5cm}
+\mbox{compute tendencies } 
+T^{hhf}, \;\;
+T^{Dlf} \\ && \hspace{.5cm}
+\mbox{ALE step: compute vertical transport $w^{top}_*$} 
+\mbox{ (branch for different grid types)}\\ && \hspace{.5cm}
+\mbox{compute tendencies } 
+{\bf T}^u({\bf u}_k^*,w_k^*,p_k^*), \;\;
+T^\varphi({\bf u}_k^*,w_k^*,\varphi_k^*) \\ && \hspace{.5cm}\hspace{.5cm}
+T^h_k = -D_k^* + w_{k+1}^* - w_{k}^* \\ && \hspace{.5cm}
+\mbox{boundary update on all tendencies: } {\bf T}^u,T^h,T^{hhf},T^{Dlf},T^\varphi\\&& \hspace{.5cm}
+{\bf u}^*_k = {\bf u}_{k,n} + a_j \Delta t {\bf T}^u_k \\&& \hspace{.5cm}
+h^*_k = h_{k,n} + a_j \Delta t T^h_k \\&& \hspace{.5cm}
+h^{*hf}_k = h^{hf}_{k,n} + a_j \Delta t T^{hhf}_k \\&& \hspace{.5cm}
+D^{*lf}_k = D^{lf}_{k,n} + a_j \Delta t T^{Dlf}_k \\&& \hspace{.5cm}
+{\varphi}_k^* = \frac{1}{h_k^*} \left[
+h_{k,n} \varphi_{k,n} 
++ a_j \Delta t  T^\varphi_k \right]
+\\&& \hspace{.5cm}
+\mbox{compute diagnostics based on }{\bf u}_k^*,h_k^*,\varphi_k^* \\&& \hspace{.5cm}
+{\bf u}_{k,n+1} = {\bf u}_{k,n+1} + b_j \Delta t {\bf T}^u_k \\&& \hspace{.5cm}
+h_{k,n+1} = h_{k,n+1} + b_j \Delta t T^h_k \\&& \hspace{.5cm}
+h^{hf}_{k,n+1} = h^{hf}_{k,n+1} + b_j \Delta t T^{hhf}_k \\&& \hspace{.5cm}
+D^{lf}_{k,n+1} = D^{lf}_{k,n+1} + b_j \Delta t T^{Dlf}_k \\&& \hspace{.5cm}
+{\varphi}_{k,n+1} = 
+ \varphi_{k,n+1} 
++ b_j \Delta t  T^\varphi_k \\&&
+\mbox{enddo}
+\end{eqnarray}
+{\bf End of step}
+\begin{eqnarray} &&
+\varphi_{k,n+1} = 
+ \varphi_{k,n+1} / h_{k,n+1} \\&&
+\mbox{revise } {\bf u}_{k,n+1},\;\;\varphi_{k,n+1} \mbox{ with implicit vertical mixing}\\&&
+\mbox{compute diagnostics based on }{\bf u}_{k,n+1},h_{k,n+1},\varphi_{k,n+1} 
+\end{eqnarray}
+
+\newpage
+\section{Revised Split Explicit Algorithm}
+Additional tendencies and diagnostic variables outlined in section \ref{s tend alg} are the same here.  The additional prognostic equations for $h^{hf}$ and $D^{lf}$ do not affect the barotropic subcycling, and are similar to the timestepping of tracer variables.  The wrinkle here is to ensure that the new SSH computed from the barotropic solver (Stage 2) is used correctly for $h^{ext}_k$.  
+\newcommand{\ubtr}{ \overline{\bf u}}
+\newcommand{\ubcl}{ {\bf u}'_k}
+
+{\bf Prepare variables before first iteration}\\
+Always use most recent available for forcing terms.  The first time, use end of last timestep.
+\begin{eqnarray} &&
+{\bf u}_k^*={\bf u}_{k,n},\;\;
+w_k^*=w_{k,n},\;\;
+p_k^*=p_{k,n}, \;\;
+{\varphi}_k^* = {\varphi}_{k,n},\\&&
+h_{k,*} = h_{k,n}, \;\; h_{k,*}^{edge} = h_{k,n}^{edge},
+\zeta_{*} = \zeta_n,\;\;
+{\bf u}_{k,*}^{bolus} = {\bf u}_{k,n}^{bolus} \\&&
+h^{*hf}_k=h^{hf}_{k,n},\;\;
+D^{*lf}_k=D^{lf}_{k,n} \\ &&
+\ubtr_n = \left. \textstyle \sum_{k=1}^{N^{edge}}
+h_{k,n}^{edge}  {\bf u}_{k,n}
+\right/\textstyle 
+\sum_{k=1}^{N^{edge}}h_{k,n}^{edge} 
+\mbox{, on start-up only.}
+\\&&
+\mbox{Otherwise, }\ubtr_n\mbox{ from previous step.}\\&&
+{\bf u}'_{k,n} = {\bf u}_{k,n} - \ubtr_n \label{ubcl10}
+\\&&
+{\bf u}_{k,n+1/2}'={\bf u}_{k,n}' 
+\end{eqnarray}
+
+The full algorithm, Stages 1--3 are iterated.  This is typically done using two iterations, like a predictor--corrector timestep.  The flag for the number of these large iterations is {\tt config\_n\_ts\_iter}.
+
+{\bf Stage 1: Baroclinic velocity (3D), explicit with long timestep}\\
+Iterate on linear Coriolis term only.
+\begin{eqnarray} &&
+\mbox{compute } {\bf T}^u({\bf u}_k^*,w_k^*,p_k^*) +g\nabla \zeta^* \\ &&
+\mbox{compute weights, }\omega_k  =  h_{k,*}^{edge}
+\left/\textstyle\sum_{k=1}^{N^{edge}} h_{k,*}^{edge}
+\right.\\ &&
+\left\{\begin{array}{l} \label{u bcl s2} 
+\mbox{compute }{\bf u}_{k,n+1/2}^{'\;\perp}\mbox{ from }{\bf u}_{k,n+1/2}'\\ 
+{\tilde {\bf u}}'_{k,n+1} = {\bf u}'_{k,n} + \Delta t 
+\left( -f{\bf u}_{k,n+1/2}^{'\;\perp} + {\bf T}^u({\bf u}_k^*,w_k^*,p_k^*) 
++g\nabla \zeta^* \right)
+\\  
+{\overline {\bf G}} = 
+\frac{1}{\Delta t}
+\sum_{k=1}^{N^{edge}} \omega_k {\tilde {\bf u}}'_{k,n+1}
+\mbox{ (unsplit: ${\overline {\bf G}} =0$ )}
+\\ 
+{\bf u}'_{k,n+1} = {\tilde {\bf u}}'_{k,n+1} - \Delta t {\overline {\bf G}}
+\\
+{\bf u}'_{k,n+1/2} = \frac{1}{2}\left({\bf u}^{'}_{k,n} +{\bf u}'_{k,n+1}\right) 
+\\
+\mbox{boundary update on }{\bf u}'_{k,n+1/2}
+\end{array}
+\right. \;\;\; l=1\ldots L \\ &&
+\end{eqnarray}
+
+The bracketed computation is iterated $L$ times.  The default method is to use $L=1$ on the first time through Stages 1--3, and $L=2$ the second time through.  This is set by the flags {\tt
+config\_n\_bcl\_iter\_beg = 1, config\_n\_bcl\_iter\_mid = 2, config\_n\_bcl\_iter\_end = 2}.
+In the case of two iterations through Stages 1--3, the flag {\tt config\_n\_bcl\_iter\_mid} is not used.
+
+\newpage
+{\bf Stage 2: Barotropic velocity (2D), explicitly subcycled}\\
+Advance $\ubtr$ and $\zeta$ as a coupled system through $2J$ subcycles, ending at time $t+2\Delta t$. 
+\begin{eqnarray}   
+\label{u btr 5} &&
+\mbox{{\bf velocity predictor step:}} \nn \\ &&
+\mbox{compute }\ubtr_{n+(j-1)/J}^{\perp}\mbox{ from }\ubtr_{n+(j-1)/J} \\ && 
+{\tilde \ubtr}_{n+j/J} = \ubtr_{n+(j-1)/J} + \frac{\Delta t}{J} \left(
+- f\ubtr_{n+(j-1)/J}^{\perp}
+- g\nabla \zeta_{n+(j-1)/J} + {\overline {\bf G}_j}
+\right)\\ &&
+\mbox{boundary update on }{\tilde \ubtr}_{n+j/J}\\ && 
+\nn \\ &&
+\mbox{{\bf SSH predictor step:}}\nn \\ &&
+\zeta_{n+(j-1)/J}^{edge} = Interp(\zeta_{n+(j-1)/J}) \\ &&
+\tilde{\bf F}_j = \left((1-\gamma_1){\ubtr}_{n+(j-1)/J}  + \gamma_1{\tilde \ubtr}_{n+j/J}\right)
+\left(\zeta_{n+(j-1)/J}^{edge} + H^{edge} \right)\\ &&
+\tilde\zeta_{n+j/J} = \zeta_{n+(j-1)/J} + \frac{\Delta t}{J} \left( -
+ \nabla \cdot \tilde{\bf F}_j \right) \\ &&
+\mbox{boundary update on } \tilde\zeta_{n+j/J} \\ && 
+\nn \\ &&
+\mbox{{\bf velocity corrector step:}}\nn \\ &&
+\mbox{compute }{\tilde \ubtr}_{n+j/J}^{\perp}\mbox{ from }{\tilde \ubtr}_{n+j/J} \\ && 
+\ubtr_{n+j/J} = \ubtr_{n+(j-1)/J} + \frac{\Delta t}{J} \left(
+- f{\tilde \ubtr}_{n+j/J}^{\perp}
+- g\nabla \left((1-\gamma_2)\zeta_{n+(j-1)/J} + \gamma_2\tilde\zeta_{n+j/J}\right) + {\overline {\bf G}_j}
+\right),\\ &&
+\mbox{boundary update on }\ubtr_{n+j/J}\\ && 
+\nn\\ &&
+\mbox{{\bf SSH corrector step:}}\nn \\ &&
+\tilde\zeta_{n+j/J}^{\;edge}= Interp\left((1-\gamma_2)\zeta_{n+(j-1)/J} + \gamma_2\tilde\zeta_{n+j/J}\right) \\&&
+{\bf F}_j = \left((1-\gamma_3){\ubtr}_{n+(j-1)/J}  + \gamma_3 \ubtr_{n+j/J}\right)
+\left(\tilde\zeta_{n+j/J}^{\;edge} + H^{edge} \right)\\ &&
+\zeta_{n+j/J} = \zeta_{n+(j-1)/J} + \frac{\Delta t}{J} \left( -
+ \nabla \cdot {\bf F}_j \right) \\ &&
+\mbox{boundary update on } \zeta_{n+j/J} 
+\end{eqnarray}   
+Repeat $j=1\ldots 2J$ to step through the barotropic subcycles.  There are two predictor and two corrector steps for each subcycle.  At the end of $2J$ subcycles, we have progressed through two baroclinic timesteps, i.e.\ through $2\Delta t$.  In the code, {\tt config\_n\_btr\_subcycles} is $J$, while {\tt config\_btr\_subcycle\_loop\_factor=2} is the ``2'' coefficient in $2J$.  
+
+The input flag {\tt config\_btr\_solve\_SSH2=.true.} runs the algorithm as shown, while {\tt .false.} does not include the SSH corrector step.  Here $H^{edge}$ is the total column depth without SSH perturbations, that is, from the higher cell adjoining an edge to $z=0$.
+
+The velocity corrector step may be iterated to update the velocity in the Coriolis term.  The number of iterations is controlled by {\tt config\_n\_btr\_cor\_iter}, and is usually set to two.
+
+\newpage
+{\bf Stage 2 continued}\\
+
+The coefficients $(\gamma_1,\gamma_2,\gamma_3)$ control weighting between the old and new variables in the predictor velocity, corrector SSH gradient, and corrector velocity, respectively.  These are typically set as $(\gamma_1,\gamma_2,\gamma_3)=(0.5,1,1)$, but this is open to investigation.  These flags are 
+{\tt config\_btr\_gam1\_uWt1, config\_btr\_gam2\_SSHWt1, config\_btr\_gam3\_uWt2}.
+
+The baroclinic forcing ${\overline {\bf G}}_j$ may vary over the barotropic subcycles, as long as 
+$\frac{1}{2J}\sum_{j=1}^{2J}{\overline {\bf G}}_j={\overline {\bf G}}$.  This option is not currently implemented in the code.
+
+\begin{eqnarray} &&  
+\ubtr_{avg} = \frac{1}{2J+1} \sum_{j=0}^{2J} \ubtr_{n+j/J} 
+\label{ustar5}\\&&
+{\overline {\bf F}} = \frac{1}{2J} \sum_{j=1}^{2J}{\bf F}_j \\&&
+\mbox{boundary update on }{\overline {\bf F}}
+\\&&
+{\bf u}^{corr} = \left( {\overline {\bf F}} 
+  - \sum_{k=1}^{N^{edge}} h_{k,*}^{edge} 
+   \left( \ubtr_{avg} + {\bf u}'_{k,n+1/2} + {\bf u}_{k,*}^{bolus}\right) \right)
+\left/ \sum_{k=1}^{N^{edge}} h_{k,*}^{edge}   \right. \label{ucorr}
+\\ &&
+{\bf u}^{tr}_k = \ubtr_{avg} + {\bf u}'_{k,n+1/2} + {\bf u}_{k,*}^{bolus} + {\bf u}^{corr} \label{utr}
+\end{eqnarray}
+where ${\bf u}_{k,*}^{bolus}$ is the GM bolus velocity computed at the end of stage 3, and ${\bf u}^{tr}$ is the transport velocity used in the advection terms for for thickness and tracers.
+
+For unsplit explicit, skip all computations in stage 2.  Instead, set:
+\bea
+&&
+\ubtr_{avg} = 0 \\ &&
+{\bf u}^{tr}_{k} = {\bf u}'_{k,n+1/2} + {\bf u}_{k,*}^{bolus}
+\eea
+
+{\bf Discussion:} The derivation of ${\bf u}^{corr}$ is as follows.  For consistency between the barotropic and summed baroclinic thickness flux,  we must enforce
+\begin{eqnarray}
+{\overline {\bf F}} &=& \sum_{k=1}^N h_{k,*}^{edge} {\bf u}_k^{tr}. \label{flux.condition}
+\label{BclBtrFluxConsistency}
+\end{eqnarray}
+on each edge.  To do that, introduce a velocity correction ${\bf u}^{corr}$ that is vertically constant, and add it to the velocity as a barotropic correction.  The total transport velocity used in the thickness and tracer tendency terms is then given by (\ref{utr}).  Substitute (\ref{utr}) into (\ref{flux.condition}), note that ${\bf u}^{corr}$ moves outside of the vertical sum, and solve for ${\bf u}^{corr}$ to obtain (\ref{ucorr}).
+
+\newpage
+{\bf Stage 3: update thickness, tracers, density and pressure}
+\bea &&
+\mbox{compute tendencies } 
+T^{hhf}, \;\;
+T^{Dlf} \\ && 
+\mbox{boundary update on tendencies: } T^{hhf},T^{Dlf}\\&& 
+\mbox{ALE step: compute vertical transport $w^{top}_*$} 
+\mbox{ (branch for different grid types)}\\ &&
+\mbox{     based on } u^{tr}, h^* \\ &&
+T^h_k = \left(  - \nabla \cdot \left( h_k^{*\; edge} {\bf u}_k^{tr} \right)  
+- \frac{\partial}{\partial z} \left( h_k^* w_k^* \right)  \right)
+%-D_k^* + w_{k+1}^* - w_{k}^* 
+\\ && 
+T^\varphi %({\bf u}_k^*,w_k^*,\varphi_k^*) 
+= \left(  - \nabla \cdot \left( h_k^{*\; edge}\varphi_k^* {\bf u}_k^{tr} \right)  
+- \frac{\partial}{\partial z} \left( h_k^*\varphi_k^* w_k^* \right)  
++ \nabla\cdot\left(h_k^* \kappa_h \nabla\varphi_k^* \right)
++ h_k^* \frac{\partial }{\partial z} 
+  \left( \kappa_v \frac{\partial \varphi_k^*}{\partial z} \right)
+\right) 
+\\ &&
+\mbox{boundary update on tendencies: } T^h,T^\varphi\\&& 
+h_{k,n+1} = h_{k,n} +  \Delta t T^h_k \\&& 
+\label{phi3}
+{\varphi}_{k,n+1} = \frac{1}{h_{k,n+1}} \left[
+h_{k,n} \varphi_{k,n} 
++ \Delta t T^\varphi_k \right]
+\label{phi}
+\\&&
+h^{hf}_{k,n+1} = h^{hf}_{k,n} + \Delta t T^{hhf}_k \\ &&
+D^{lf}_{k,n+1} = D^{lf}_{k,n} + \Delta t T^{Dlf}_k 
+\eea
+
+{\bf Reset variables}
+\bea 
+\begin{array}{ll}
+\mbox{\bf if iterating} & \mbox{\bf after final iteration}\smallskip\\
+{\bf u}'_{k,*} = {\bf u}'_{k,n+1/2} & {\bf u}'_{k,n+1} \mbox{ from stage 1}\smallskip\\
+\ubtr_{*} = \ubtr_{avg} \mbox{ from stage 2} & \ubtr_{n+1} = \ubtr_{avg} \mbox{ from stage 2}\smallskip\\
+{\bf u}_{k,*} = \ubtr_{*} + {\bf u}'_{k,*} & {\bf u}_{k,n+1} = \ubtr_{n+1} + {\bf u}'_{k,n+1}\smallskip\\
+h_{k,*} = \frac{1}{2}\left(h_{k,n} +h_{k,n+1}\right)  
+ & h_{k,n+1} \mbox{ from stage 3} \smallskip\\
+\varphi_{k,*} = \frac{1}{2}\left(\varphi_{k,n} +\varphi_{k,n+1}\right)
+ & \varphi_{k,n+1} \mbox{ from stage 3} \smallskip\\
+h^{hf}_{k,*} = \frac{1}{2}\left(h^{hf}_{k,n} +h^{hf}_{k,n+1}\right) 
+&  h^{hf}_{k,n+1} \mbox{ from stage 3}  \smallskip\\
+D^{lf}_{k,*} = \frac{1}{2}\left(D^{lf}_{k,n} +D^{lf}_{k,n+1}\right) &
+D^{lf}_{k,n+1} \mbox{ from stage 3}\smallskip\\ \label{rho3}
+\mbox{diagnostics:}
+& \mbox{diagnostics:} \\
+{\rho}_k^* = EOS(T^*_k, S^*_k) 
+ & {\rho}_{k,n+1} = EOS(T_{k,n+1}, S_{k,n+1}) \smallskip\\
+\label{p3}
+{p}_k^* =  g\sum_{k'=1}^{k-1} 
+{\rho}_{k'}^* h_{k'}
++ \frac{1}{2}g{\rho}_{k}^* h_k
+ & {p}_{k,n+1} =  g\sum_{k'=1}^{k-1} 
+{\rho}_{k',n+1} h_{k',n+1}
++ \frac{1}{2}g{\rho}_{k,n+1}^* h_{k,n+1} \smallskip \\
+h^{edge}_{k,*} = interp(h_{k,*}) & 
+h^{edge}_{k,n+1} = interp(h_{k,n+1}) \smallskip\\
+\zeta_* = \sum_{k=1}^{kmax}h_{k,*} - H &
+\zeta_{n+1} = \sum_{k=1}^{kmax}h_{k,n+1} - H \\
+\mbox{compute }{\bf u}_{k,*}^{bolus} &
+\mbox{compute }{\bf u}_{k,n+1}^{bolus} 
+\end{array}
+\eea
+where H is the total column height with zero sea surface height.
+
+%-----------------------------------------------------------------------
+
+Question: Check \cite{Leclair:2011ud}: eqns 17-18 shows conservative vs nonconservative schemes.  This is  the method of vertical advection for us - does it effect our coordinate scheme?
+
+\chapter{Design and Implementation}
+Date last modified: 11/28/2011 \\
+Contributors: Mark, Todd \\
+
+\section{New variables}
+
+\begin{verbatim}
+namelist character vert_grid config_vert_grid_type      isopycnal
+ also: 'zlevel', 'zstar', 'ale'
+\end{verbatim}
+$\tau_{Dlf}$, $\tau_{hhf}$, and $\kappa_{hhf}$:
+\begin{verbatim}
+namelist real      grid     config_Dlf_restore_time    432000.0
+namelist real      grid     config_hhf_restore_time    432000.0
+namelist real      grid     config_hhf_diff            100
+\end{verbatim}
+note: should config\_h\_diff be in list hmix or vert\_grid?
+
+Arrays for $h^{hf}$, $D^{lf}$, $W$.
+\begin{verbatim}
+var persistent real    hHighFreq      ( nVertLevels nCells Time ) 2 r hHighFreq state - -
+var persistent real    tend_hHighFreq ( nVertLevels nCells Time ) 1 - hHighFreq tend - -
+var persistent real    divergenceLowFreq      ( nVertLevels nCells Time ) 2 r divergenceLowFreq state - -
+var persistent real    tend_divergenceLowFreq ( nVertLevels nCells Time ) 1 - divergenceLowFreq tend - -
+\end{verbatim}
+
+%-----------------------------------------------------------------------
+
+\chapter{Testing}
+Date last modified: 11/28/2011 \\
+Contributors: Mark, Todd \\
+
+Domain: 60km quasiuniform global mesh.\\
+Verify that config\_vert\_grid\_type = zlevel and isopycnal match between trunk and branch.\\
+Verify conservation of tracers (pointwise) and total volume.
+
+Domain: periodic channel with forced internal oscillations, see \cite{Leclair:2011ud}.\\
+Verify that ${\tilde z}$ produces less vertical mixing than $z*$, as in fig. 6-9.
+
+
+Domain: overflow, see \cite{Adcroft:2004tv}.
+
+
+
+
+%\bibliographystyle{ametsoc}
+\bibliographystyle{unsrt}
+\bibliography{mpas_o}
+
+\end{document}

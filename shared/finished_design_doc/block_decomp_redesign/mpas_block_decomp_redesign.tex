@@ -1,0 +1,337 @@
+\documentclass[11pt]{report}
+
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{color}
+
+\setlength{\topmargin}{0in}
+\setlength{\headheight}{0in}
+\setlength{\headsep}{0in}
+\setlength{\textheight}{9.0in}
+\setlength{\textwidth}{6.5in}
+\setlength{\evensidemargin}{0in}
+\setlength{\oddsidemargin}{0in}
+
+
+\begin{document}
+
+\title{Revisions to MPAS block decomposition routines}
+\author{}
+
+\maketitle
+\tableofcontents
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Introduction
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Introduction}
+
+In order to support multiple blocks of cells per MPI task, there are a number of
+development issues that need to be addressed:
+
+\begin{enumerate}
+
+\item Update/extend the fundamental derived types in mpas\_grid\_types.F.                                
+   In order for other parts of the infrastructure to handle multiple                                
+   blocks per task in a clean way, we'll need to be able to pass a head                             
+   pointer to a field into a routine, and have that routine loop through                            
+   all blocks for that field, with information about which cells/edges/vertices                     
+   in that field need to be communicated.                                                           
+                                                                                                    
+\item Decide on a new MPAS I/O abstraction layer, which will provide a                                
+   high-level interface to the PIO layer for the rest of MPAS. This layer                           
+   should work with blocks of fields, and make it possible to define an                             
+   arbitrary set of I/O streams at run-time.                                                        
+                                                                                                    
+\item Add a new module to parse a run-time I/O configuration file that                                
+   will describe which fields are read or written to each of the I/O                                
+   streams that a user requests via the file. This module will make calls                           
+   to the new MPAS I/O layer to register the requested fields for I/O in                            
+   the requested streams.                                          
+   
+\item Update the mpas\_dmpar module to support communication operations on                              
+   multiple blocks per task. This will likely involve revising the                                  
+   internal data structures used to define communication of cells                                   
+   between tasks, and also require revisions to the public interface                                
+   routines themselves.                                                                             
+                                                                                                    
+\item Modify the block\_decomp module to enable a task to get a list of                                 
+   cells in more than one block that it is to be the owner of.                                      
+   Implemented in the simplest way, there could simply be a namelist                                
+   option to specify how many blocks each task should own, and the                                  
+   block\_decomp module could look for a graph.info.part.n file, with                                
+   n=num\_blocks\_per\_task*num\_tasks, and assign blocks k, 2k, 3k, ...,                               
+   num\_blocks\_per\_task*k to task k.    
+
+\end{enumerate}                                                             
+                                                                                                    
+This document concerns the last item, namely, the extensions to the block decomposition
+module that will be necessary for supporting multiple blocks per task in other infrastructure
+modules. \\
+
+For a broader scope of this project, the intent with these five previously
+detailed tasks is to provide the capabilities within MPAS to support PIO and
+simulations where the number of blocks in a decomposition are not equal to the
+number of MPI tasks. For example, a simulation could run on 16 processors with
+a total of 64 blocks, as opposed to the current framework where only 16 blocks
+can run at 16 processors. \\
+
+After these tasks are implemented shared memory parallism can be implemented at
+the core level to (hopefully) improve performance, but also allow greater
+flexibility in terms of the parallel infrastructre of MPAS. \\
+
+As a rough timeline, these 5 tasks are planned to be completed by the end of February, 2012.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Requirements
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Requirements}
+
+The changes to the block decomposition module should enable an MPI task to get
+a list of it's owned cells, as well as the block number each of those cells
+lives on within it's task.
+
+\begin{itemize}
+
+	\item The user must be able to specify the number of blocks in a
+		simulation.
+
+	\item Block decomposition modules must provide information describing the
+		cell and block relationship for a given MPI task.
+
+	\item Block decomposition modules need to be flexible enough to support
+		multiple methods of acquiring a decomposition.
+
+	\item Block decomposition modules need to support a different number of
+		blocks than MPI tasks, even when they are not evenly divisible.
+
+	\item Block decomposition modules should provide an interface to map a
+		global block number to local block number, and owning processor number.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Design
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Design}
+
+We propose several changes to the block decomposition module in order to
+support multiple blocks per MPI task. Currently, in order to support the case
+where there are multiple blocks per MPI task a namelist parameter needs to be
+added that will allow these two values to differ. \\
+
+First, changes to the namelist.input file include a new section called
+decomposition. This section will include four parameters. The first being
+config\_number\_of\_blocks which is an integer representation of the number of
+blocks a run should use. Second is config\_block\_decomp\_file\_prefix, which
+represents the path and prefix (before the .N) of the file for the block
+decomposition. Third is config\_proc\_decomp\_file\_prefix representing the
+path and prefix (before the .Np) to the file for the processor decomposition.
+Finally is config\_explicit\_proc\_decomp which is logical and tells MPAS to
+use the config\_proc\_decomp\_file for the distribution of blocks, or to use
+the built in method of distributing the blocks to processors.\\
+
+config\_number\_of\_blocks option will have a default value of
+0. A value of 0 in this field means there should be nProcs blocks, or one block
+for every MPI task, which is the default behavior currently.
+config\_block\_decomp\_file\_prefix is read by default and
+config\_proc\_decomp\_file\_prefix is only read for external block assignment,
+as will be described later.\\
+
+Inside mpas\_block\_decomp.F, the mpas\_block\_decomp\_cells\_for\_proc needs
+to be changed.  To not only read in all cells in all blocks, but also their
+block numbers. \\
+
+The meaning of the contents of graph.info.part.N needs to change from the
+processor ID that owns a cell, to the global block number for a cell. This
+means the file that is read in with have N = config\_number\_of\_blocks. \\
+
+Given a graph.info.part.N file, the global block number needs to be mapped into
+both an owning processor number, and a local block id. The local block id does
+not need to be computed within mpas\_block\_decomp\_cells\_for\_proc as long as
+the mapping is available or known. \\
+
+The api for mpas\_block\_decomp\_cells\_for\_proc will change from
+
+\begin{lstlisting}[language=fortran,escapechar=@,frame=single]
+subroutine mpas_block_decomp_cells_for_proc(dminfo,  &
+           partial_global_graph_info, local_cell_list)
+\end{lstlisting}
+
+to
+
+\begin{lstlisting}[language=fortran,escapechar=@,frame=single]
+subroutine mpas_block_decomp_cells_for_proc(dminfo, &
+           partial_global_graph_info, local_cell_list, @\colorbox{yellow}{block\_id}@, &
+		   @\colorbox{yellow}{block\_start}@, @\colorbox{yellow}{block\_count}@)
+\end{lstlisting}
+
+where local\_cell\_list is a list of cells owned by a processor that is sorted
+by local block id, block\_id is a list of global block id's that an MPI task
+owns, block\_start is a list of offsets in local\_cell\_list for the contiguous
+cells a block owns, and block\_count is a the number of cells each block owns. \\
+
+mpas\_block\_decomp\_cells\_for\_proc will perform the same regardless of
+number of processors to enable the use of multiple blocks on a single
+processor. \\
+
+The block\_type data structure will be extended to include the local block id.
+This can help make dynamic load balancing easier for implementation at a later
+time. This will change
+
+\begin{lstlisting}[language=fortran,escapechar=@,frame=single]
+   type block_type
+
+#include "block_group_members.inc"
+
+      integer :: blockID   ! Unique global ID number for this block
+
+      type (domain_type), pointer :: domain
+
+      type (parallel_info), pointer :: parinfo
+
+      type (block_type), pointer :: prev, next
+   end type block_type
+
+\end{lstlisting}
+
+to
+
+\begin{lstlisting}[language=fortran,escapechar=@,frame=single]
+   type block_type
+
+#include "block_group_members.inc"
+
+      integer :: blockID   ! Unique global ID number for this block
+      @\colorbox{yellow}{integer :: localBlockID}@
+
+      type (domain_type), pointer :: domain
+
+      type (parallel_info), pointer :: parinfo
+
+      type (block_type), pointer :: prev, next
+   end type block_type
+
+\end{lstlisting}
+
+There will be three additions to the public interface of mpas\_block\_decomp.F
+The first adds the routine mpas\_get\_local\_block\_id which takes has three
+arguments. As input it takes the domain information and the global block
+number, and as output it provides the local block number on a processor. This
+allows other parts of MPAS to determine what local block number a global block
+is, even if it's on another processor. \\
+
+The second addition to the public interface is the subroutine
+mpas\_get\_owning\_proc. This subroutine takes as input the domain information
+and the global block number, and as output provides the MPI task number that
+owns the block. This allows other parts of MPAS to determine from a block
+number which MPI task it needs to communicate with to read/write this block. \\
+
+The third public routine is called mpas\_get\_blocks\_per\_proc. This routine
+takes as input the domain information and a processor number. On output
+blocks\_per\_proc contains the number of blocks a processor owns. \\
+
+In addition to the ad-hoc method of determining which blocks belong to which
+processors, a file based method will be added. This method will be toggelable
+by a namelist option named config\_explicit\_proc\_decomp, which will be logical.
+If this option is true, a file (config\_proc\_decomp\_file\_prefix.N) will be
+provided, where N is the number of processors. This file will have number of
+blocks lines, and each line will say what processor should own the block. This
+file can be created using metis externally. \\
+
+%\begin{lstlisting}[language=fortran,escapechar=@,frame=single]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Implementation
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Implementation}
+
+Implementation of the mpas\_get\_blocks\_per\_proc subroutine is as follows:
+
+\begin{lstlisting}[language=fortran,escapechar=@,frame=single]
+subroutine mpas_get_blocks_per_proc(dminfo, proc_number, blocks_per_proc)
+  type(domain_info), intent(in) :: dminfo
+  integer, intent(in) :: proc_number
+  integer, intent(out) :: blocks_per_proc
+  integer :: blocks_per_proc_min, even_blocks, remaining_blocks
+
+  blocks_per_proc_min = config_number_of_blocks / dminfo % nprocs
+  remaining_blocks = config_number_of_blocks - &
+         (blocks_per_proc_min * dminfo % nprocs)
+  even_blocks = config_number_of_blocks - remaining_blocks
+
+  blocks_per_proc = blocks_per_proc_min
+  if(proc_number .le. remaining_blocks) then
+    blocks_per_proc = blocks_per_proc + 1
+  end if
+end subroutine mpas_get_blocks_per_proc
+\end{lstlisting}
+
+\pagebreak
+
+Implementation of the mpas\_get\_local\_block\_id is as follows:
+
+\begin{lstlisting}[language=fortran,escapechar=@,frame=single]
+subroutine mpas_get_local_block_id(dminfo, &
+           global_block_number, local_block_number)
+  type(domain_info), intent(in) :: dminfo
+  integer, intent(in)  :: global_block_number
+  integer, intent(out) :: local_block_number
+  integer :: blocks_per_proc_min, even_blocks, remaining_blocks
+
+  blocks_per_proc_min = config_number_of_blocks / dminfo % nprocs
+  remaining_blocks = config_number_of_blocks - &
+         (blocks_per_proc_min * dminfo % nprocs)
+  even_blocks = config_number_of_blocks - remaining_blocks
+
+  if(global_block_number > even_blocks) then
+	local_block_number = blocks_per_proc_min - 1
+  else
+    local_block_number = mod(global_block_id, blocks_per_proc_min)
+  end if
+end subroutine mpas_get_local_block_id
+\end{lstlisting}
+
+\pagebreak
+
+Implementation of the mpas\_get\_owning\_proc routine is as follows:
+
+\begin{lstlisting}[language=fortran,escapechar=@,frame=single]
+subroutine mpas_get_owning_proc(dminfo, &
+           global_block_number, owning_proc)
+  type(domain_info), intent(in) :: dminfo
+  integer, intent(in) :: global_block_number
+  integer, intent(out) :: owning_proc
+  integer :: blocks_per_proc_min, even_blocks, remaining_blocks
+
+  blocks_per_proc_min = config_number_of_blocks / dminfo % nprocs
+  remaining_blocks = config_number_of_blocks - &
+         (blocks_per_proc_min * dminfo % nprocs)
+  even_blocks = config_number_of_blocks - remaining_blocks
+
+  if(global_block_number > even_blocks) then
+    owning_proc = global_block_number - even_blocks
+  else
+    owning_proc = global_block_number / blocks_per_proc_min
+  end if
+end subroutine mpas_get_owning_proc
+\end{lstlisting}
+
+\chapter{Testing}
+Only limited testing can be performed on this task. Since this task alone
+doesn't allow the use of multiple blocks the only testing that can really be
+performed is to provide a mis-matched number of blocks and MPI tasks and verify
+the block decomposition routines provide the correct block numbers for a
+processor and put the cells in their correct block numbers.
+
+\end{document}

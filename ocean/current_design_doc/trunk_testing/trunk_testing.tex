@@ -1,0 +1,45 @@
+\documentclass[11pt,titlepage,twoside]{article}
+
+\textwidth=6.5in
+\textheight=9.8in
+\topmargin=0.2in
+\headsep=0.0in
+\headheight=0.0in
+\oddsidemargin=-0.25in
+\evensidemargin=-0.25in
+
+\begin{document}
+
+\today
+\section{Trunk Testing Plan}
+
+\subsection{Purpose}
+To create a standard test to be executed every time the ocean core trunk is modified.\\
+
+\subsection{Evaluation criteria}
+\begin{enumerate}
+\item {\bf Stability} Model should run from typical initialization for a long duration without crashing.
+\item {\bf Accuracy} Statistics should be a bit-for-bit match to previous test, unless documented as a non-matching commit.
+\item {\bf Convergence} Time-stepping schemes should converge with the expected order.
+\item {\bf Realism} Namelist flags should be representative of standard settings.  Some runs must include topography and complex boundaries.
+\item {\bf Simplicity} The above criteria should be met with as few tests as possible.
+\item {\bf Automation} Full suite of tests should be setup, submitted, and evaluted with simple script commands.
+\end{enumerate}
+
+\subsection{Proposed Test Suite, high priority}
+\begin{enumerate}
+\item {\bf Global 120km, six months.} Full topography, z-level, 3rd order advection, jm eos, split explicit with dt=3000s.  Write stats daily, compare global avg KE to reference value.
+\item {\bf Global 30km, 15 days.} Full topography, z-star, flux corrected transport advection, jm eos, split explicit with dt=800s(?).  Write stats daily, compare global avg KE to reference value.
+\item {\bf Baroclinic Channel, 320s} Flat bottom, z-star, flux corrected transport advection, linear eos.  Convergence study of timestepping schemes: RK4, unsplit, split explicit with 1 subcycle, split explicit with 20 subcycles.  Timesteps of 5, 10, 20, 40, 80, 160 seconds compared to reference case of RK4 with dt=1s.  Measure convergence rates of KE, divergence, vorticity, temperature, compare to reference convergence rates.
+\item {\bf EOS unit test} as a module that can be run with the normal executable, with pass/fail result.
+\end{enumerate}
+
+\subsection{Proposed Test Suite, lower priority}
+\begin{enumerate}
+\item {\bf Isopycnal test} 
+\item {\bf Advection test} rotating disk
+\item {\bf Baroclinic Channel, 320s} Flat bottom, z-star, flux corrected transport advection, linear eos.  Convergence study of timestepping schemes: RK4, unsplit, split explicit with 1 subcycle, split explicit with 20 subcycles.  Timesteps of 5, 10, 20, 40, 80, 160 seconds compared to reference case of RK4 with dt=1s.  Measure convergence rates of KE, divergence, vorticity, temperature, compare to reference convergence rates.
+\item {\bf All other unit tests} vertical mixing, i/o, halo update, namelist read, etc
+\end{enumerate}
+
+\end{document}

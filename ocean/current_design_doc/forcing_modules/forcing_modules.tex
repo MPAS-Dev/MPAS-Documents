@@ -1,0 +1,226 @@
+\documentclass[11pt]{report}
+
+\usepackage{epsf,amsmath,amsfonts}
+\usepackage{graphicx}
+\usepackage{listings}
+
+\begin{document}
+
+\title{Generic Forcing Interface: \\
+Requirements and Design}
+\author{MPAS-Ocean Development Team}
+
+\maketitle
+\tableofcontents
+
+%-----------------------------------------------------------------------
+
+\chapter{Summary}
+
+MPAS-Ocean needs a forcing interface in order to couple with other components
+of a Climate system. This document details fields required to couple, along
+with potential interfaces that can be used for coupling. The coupling interface
+will be designed to be generic, meaning it can work in a standalone data driven
+run in addition to a fully coupled Climate system run.
+
+%-----------------------------------------------------------------------
+
+\chapter{Requirements}
+
+\section{Requirement: Generic Interface}
+Date last modified: 11/20/12 \\
+Contributors: (Doug Jacobsen) \\
+
+The interface used for coupling should be generic meaning it should be driver
+run, similarly to other parts of the ocean model. Under the main driver each
+option of forcing will exist, where the options are something like annual mean
+forcing, monthly forcing, and coupled forcing.
+
+\section{Requirement: Generic Data Structures}
+Date last modified: 11/20/12 \\
+Contributors: (Doug Jacobsen) \\
+
+As with the interface, the data structures used should be generic in the sense
+that any of the options for forcing can be used with the exact same data
+structures. Although the data structures might have different dimensions
+depending on the type of forcing used, and some data structures will not be
+used for specific forcing methods in general all data structures will be named
+and created in a way that makes them applicable to all forcing options.
+
+\section{Requirement: Includes Coupled Forcing}
+Date last modified: 11/20/12 \\
+Contributors: (Doug Jacobsen) \\
+
+One necessary component of the forcing module is that it contains a coupled
+forcing to include MPAS-O in the CESM.
+
+Currently, MPAS-O can run within the CESM but no data is used from the CESM to
+force the Ocean model.
+
+\section{Requirement: Includes Monthly Forcing}
+Date last modified: 11/20/12 \\
+Contributors: (Doug Jacobsen) \\
+
+The forcing module should include a monthly forcing option, that can be used in stand-alone mode.
+
+This uses interpolation within a month to determine the surface windstress, temperature restoring, and salinity restoring.
+
+\section{Requirement: Includes Annual Mean Forcing}
+Date last modified: 11/20/12 \\
+Contributors: (Doug Jacobsen) \\
+
+The forcing module should include an annaul mean forcing option, that can be used in stand-alone mode.
+
+%-----------------------------------------------------------------------
+
+\section{Requirement: Ease of Extensibility for Future Coupling Fields}
+Date last modified: 11/20/12 \\
+Contributors: (Doug Jacobsen) \\
+
+The forcing module should be easy to modify in order to add extra coupling fields.
+
+%-----------------------------------------------------------------------
+
+\section{Requirement: Ease of Extensibility for Future Coupling Options}
+Date last modified: 11/20/12 \\
+Contributors: (Doug Jacobsen) \\
+
+The forcing module should be easy to modify in order to add extra coupling options (like Daily forcing).
+
+%-----------------------------------------------------------------------
+
+\chapter{Description of Fields}
+
+\section{Stand Alone simulations}
+\begin{itemize}
+	\item Wind Stress
+	\item Temperature Restoring
+	\item Salinity Restoring
+\end{itemize}
+
+\section{Coupled Simulations}
+\subsection{Fields from Coupler to Ocean}
+\subsubsection{General Fields}
+\noindent Wind Stress
+\begin{itemize}
+	\item Foxx\_taux  - Zonal Wind Stress
+	\item Foxx\_tauy  - Meridonal Wind Stress
+\end{itemize}
+
+\noindent Surface Temperature Flux
+\begin{itemize}
+	\item Foxx\_lat   - Latent Heat
+	\item Foxx\_sen   - Sensible Heat
+	\item Foxx\_lwup  - Long Wave Up
+	\item Faxa\_lwdn  - Long Wave Down
+	\item Foxx\_evap  - Evaporation
+	\item Fioi\_melth - Heat Flux (From CICE)
+	\item Faxa\_snow  - Snow
+\end{itemize}
+
+\noindent Surface Salinity Flux
+\begin{itemize}
+	\item Fioi\_meltw - Fresh Water Flux (From CICE)
+	\item Fioi\_salt  - Salinity Flux (From CICE)
+	\item Forr\_roff  - River Runoff
+	\item Forr\_ioff  - Ice Runoff
+\end{itemize}
+
+\noindent Short Wave Radiation
+\begin{itemize}
+	\item Foxx\_swnet - Short Wave Net
+\end{itemize}
+
+\noindent Precipitation
+\begin{itemize}
+	\item Faxa\_snow  - Snow
+	\item Faxa\_rain  - Rain
+\end{itemize}
+
+\noindent Miscallenous Fields
+\begin{itemize}
+	\item Sa\_pslv    - Sea Level Pressure
+	\item Si\_ifrac   - Ice fraction
+\end{itemize}
+
+\subsubsection{Biogeochemistry Fields}
+\begin{itemize}
+	\item Sa\_co2prog - Prognistic CO2
+	\item Sa\_co2diag - Diagnostic CO2
+	\item So\_duu10n  - 10 Meter Wind Speed (Maybe Squared)
+\end{itemize}
+
+\subsection{Fields from Ocean to Coupler}
+\subsubsection{General Fields}
+\begin{itemize}
+	\item Fioo\_q  - q flux, sea ice formation potential
+	\item So\_t    - State Temperature
+	\item So\_s    - State Salinity
+	\item So\_u    - State Zonal Velocity
+	\item So\_v    - State Meridonal Velocity
+	\item So\_dhdx - SSH Gradient
+	\item So\_dhdy - SSH Gradient
+\end{itemize}
+
+\subsubsection{Biogeochemistry Fields}
+\begin{itemize}
+	\item Faoo\_fco2\_ocn  - co2 flux
+	\item Faoo\_fdms\_ocn  - dms flux
+	\item Faoo\_fco2\_ocn  
+\end{itemize}
+
+\chapter{Design and Implementation}
+
+In implementing generic forcing within MPAS-O there actual code can be broken out into two separate categories. The first of these includes routines used to compute the flux and forcing arrays, while the second includes routines used to apply the flux and forcing arrays as body forces to the appropriate equations.
+
+\section{Array Computation Routines}
+The array computation routines will live under separate drivers in a forcing category. This will have the following hierarchy: 
+
+\begin{lstlisting}
+mpas_ocn_forcing.F
+|-mpas_ocn_forcing_monthly.F
+|-mpas_ocn_forcing_annual.F
+\-mpas_ocn_forcing_cesm.F
+\end{lstlisting} 
+
+Monthly and annual forcing will have subroutines similar to the following: 
+
+\begin{lstlisting}
+mpas_ocn_forcing_monthly_compute_arrays
+mpas_ocn_forcing_monthly_init
+\end{lstlisting} 
+
+while cesm forcing will look like the following: 
+
+\begin{lstlisting}
+mpas_ocn_forcing_cesm_compute_input_arrays
+mpas_ocn_forcing_cesm_compute_output_arrays
+mpas_ocn_forcing_cesm_init
+\end{lstlisting} 
+
+In this case, the compute\_input\_arrays routine will take as input the cesm forcing arrays, and convert them to a form that is compatible with MAPS-O. compte\_output\_arrays will take as input the current state of MPAS-O and output arrays in the form the cesm coupler wants (q-flux for example, or gradient of ssh).
+
+\section{Forcing Routines}
+
+Each part of MPAS-O will have an additional forcing module, where the arrays computed in the previous section are applied. This involves things like windstress, heat fluxes, salinity fluxes, virtual salinity fluxes, mass fluxes, and short wave radiation.
+
+Each of the fluxes will be applied to their relative equations as a body force. Windstress is applied similarly to the current implementation. Short wave radiation will be applied similarly to POP, allowing the radiation to penetrate the surface.
+
+\chapter{Testing}
+
+\section{Testing and Validation: Annual Mean Forcing}
+Date last modified: 11/28/12 \\
+Contributors: (Doug Jacobsen) \\
+
+The new annual mean forcing should be bit reproducible with the current version of annual mean forcing.
+
+\section{Testing and Validation: Monthly Forcing}
+Date last modified: 11/28/12 \\
+Contributors: (Doug Jacobsen) \\
+
+The new monthly forcing option should be bit reproducible with the current version of monthly forcing.
+
+
+%-----------------------------------------------------------------------
+
+\end{document}

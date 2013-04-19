@@ -1,0 +1,854 @@
+\documentclass[11pt]{report}
+
+\usepackage{epsf,amsmath,amsfonts}
+\usepackage{graphicx}
+
+\setlength{\textwidth}{6.5in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\textheight}{9.5in}
+\setlength{\topmargin}{0in}
+
+\newcommand{\ds}{\displaystyle}
+\setlength{\parskip}{1.2ex}
+\setlength{\parindent}{0mm}
+\newcommand{\bea}{\begin{eqnarray}}
+\newcommand{\eea}{\end{eqnarray}}
+\newcommand{\nn}{\nonumber}
+
+\begin{document}
+
+\title{Barotropic--baroclinic time splitting: \\
+Requirements and Design}
+\author{MPAS Development Team}
+ 
+\maketitle
+\tableofcontents
+
+%-----------------------------------------------------------------------
+
+\chapter{Summary}
+
+%The purpose of this section is to summarize what capability is to be added to the MPAS system through this design process. It should be clear what new code will do that the current code does not. Summarizing the primary challenges with respect to software design and implementation is also appropriate for this section. Finally, this statement should contain general statement with regard to what is ``success.''
+
+%figure template
+%\begin{figure}
+%  \center{\includegraphics[width=14cm]{./Figure1.pdf}}
+%  \caption{A graphical representation of the discrete boundary.}
+%  \label{Figure1}
+%\end{figure} 
+
+
+Split Barotropic--baroclinic timestepping methods are required in ocean
+models to increase the timestep length and hence increase
+computational efficiency.  The proposed implementation follows Higdon
+(2005) and has been implemented and tested in prototype code.  The
+method differs from traditional splitting as the barotropic terms are
+subcycled explicitly rather than treated implicitly, as in POP.
+
+This document only addresses split exlicit time stepping in z-level
+coordinates.  This will be applied to isopycnal coordinates at a later
+time.  See the ALE vertical coordinate design document.
+
+The split explicit method consists of the following steps: decompose
+the velocity into barotropic and baroclinic components; take a large
+timestep with the baroclinic velocities, computing the vertical mean
+forcing ${\overline {\bf G}}$; subcycle the barotropic velocity with
+small explicit timesteps; add velocities, compute other variables.
+This process is repeated once more in the Higdon (2005) presentation,
+but in general may be iterated many times.
+
+
+%-----------------------------------------------------------------------
+
+\chapter{Requirements}
+
+\section{Requirement: A split time-stepping in z-level MPAS}
+Date last modified: 2011/05/4 \\
+Contributors: Mark, Todd \\
+
+The algorithm should follow Higdon (2005) section 2.3, but with alterations for z-level variables.
+Input variables should be provided for: timestepping type, number of split explicit iterations, number of barotropic subcycles, and number of baroclinic Coriolis iterations.
+A unsplit version will be provided that is identical to split explicit but where the full velocity is solved for in the baroclinic stage, and nothing is done in the barotropic stage.
+
+
+
+%-----------------------------------------------------------------------
+
+\chapter{Algorithmic Formulations}
+
+%\section{Design Solution: Implement split explicit time-stepping in z-level mpas}
+%Date last modified: 2011/05/4 \\
+%Contributors: Mark, Todd \\
+
+\section{MPAS-Ocean time splitting, z-level}
+The MPAS-ocean z-level formulation solves the following equations for thickness, momentum, and tracers at layer $k$:
+\begin{eqnarray}   
+&\label{h1} \ds
+\frac{\partial h_k}{\partial t} 
+ + \nabla \cdot \left( h_k^{edge} {\bf u}_k \right) 
+ + \frac{\partial}{\partial z} \left( h_k w_k \right) = 0,
+\\
+&\label{u1} \ds
+\frac{\partial {\bf u}_k}{\partial t} 
++ \frac{1}{2}\nabla \left| {\bf u}_k \right|^2 
++ ( {\bf k} \cdot \nabla \times {\bf u}_k) {\bf u}^\perp_k 
++ f{\bf u}^{\perp}_k 
++ w_k^{edge}\frac{\partial {\bf u}_k}{\partial z}
+  = - \frac{1}{\rho_0}\nabla p_k  
+   +\nu_h\nabla^2{\bf u}_k
+ + \frac{\partial }{\partial z} 
+\left( \nu_v \frac{\partial {\bf u}_k}{\partial z} \right), \\
+&\label{continuous_tracer1} \ds
+\frac{\partial h_k\varphi_k}{\partial t} 
+ + \nabla \cdot \left( h_k^{edge}\varphi_k^{edge} {\bf u}_k \right) 
+ + \frac{\partial}{\partial z} \left( h_k\varphi_k w_k \right) 
+= \nabla\cdot\left(h_k^{edge} \kappa_h \nabla\varphi_k \right)
++ h_k \frac{\partial }{\partial z} 
+  \left( \kappa_v \frac{\partial \varphi_k}{\partial z} \right).
+\end{eqnarray}
+
+The layer thickness $h$, vertical velocity $w$, pressure $p$, and tracer $\varphi$, are cell-centered quantities, while the horizontal velocity ${\bf u}$ and $edge$ superscript are variables located at cell edges.
+Define the barotopic and baroclinic velocities as 
+\newcommand{\utot}{{\bf u}_k}
+\newcommand{\ubtr}{ \overline{\bf u}}
+\newcommand{\ubcl}{ {\bf u}'_k}
+\begin{eqnarray}
+\ubtr &=&  \sum_{k=1}^{N^{edge}} h_k^{edge} \utot 
+\left/\sum_{k=1}^{N^{edge}} h_k^{edge} 
+\right.\\ 
+\ubcl &=& \utot-\ubtr, \;\; k=1\ldots N \\
+\zeta &=& h_1 - \Delta z_1
+\end{eqnarray}
+Here $\zeta$ is the sea surface height perturbation and $\Delta z_1$ is the top layer thickness with zero perturbation.  The barotropic thickness and momentum equations are
+\begin{eqnarray}   
+\label{h btr 1}
+& \displaystyle
+ \frac{\partial \zeta}{\partial t} 
+ + \nabla \cdot \left( \ubtr \textstyle\sum_{k=1}^{N^{edge}} h_k^{edge} \right) 
+= 0, \\
+\label{u btr 1}
+& \displaystyle
+ \frac{\partial \ubtr}{\partial t} 
++ f\ubtr^{\perp}
+  = - g\nabla \zeta
++ {\overline {\bf G}},
+\end{eqnarray}
+where ${\overline {\bf G}}$ includes all remaining terms in the barotropic equation.  Subtracting the barotropic equation (\ref{u btr 1}) from the total momentum equation (\ref{u1}), one obtains the baroclinic momentum equation,
+\begin{eqnarray}   
+\label{u bcl 1}
+&&\frac{\partial \ubcl}{\partial t} 
++ \frac{1}{2}\nabla \left| \utot \right|^2 
++ ( {\bf k} \cdot \nabla \times \utot) \utot^\perp 
++ f{\bf u}'^{\perp}_k 
++ w_k\frac{\partial \utot}{\partial z}
+\\ && \hspace{2cm}
+  =  g\nabla \zeta  
+- \frac{1}{\rho_0}\nabla p_k  
+   +\nu_h\nabla^2\utot
+ + \frac{\partial }{\partial z} 
+\left( \nu_v \frac{\partial \utot}{\partial z} \right) -{\overline {\bf G}},
+\end{eqnarray}
+Consolidating terms for convenience, we can rewrite this as
+\begin{eqnarray}   
+\label{u bcl 2}
+\frac{\partial \ubcl}{\partial t} 
+&=& -f{\bf u}'^{\perp}_k + {\bf T}({\bf u}_{k},w_k,p_{k}) +g\nabla \zeta  -{\overline {\bf G}},\\
+{\bf T}({\bf u}_{k},w_k, p_{k}) &=& \ds
+- \frac{1}{2}\nabla \left| \utot \right|^2 
+- ( {\bf k} \cdot \nabla \times \utot) \utot^\perp
+- w_k\frac{\partial \utot}{\partial z}
+- \frac{1}{\rho_0}\nabla p_k  \\ && \nonumber \hspace{4cm}
+   +\nu_h\nabla^2\utot
+ + \frac{\partial }{\partial z} 
+\left( \nu_v \frac{\partial \utot}{\partial z} \right).
+\end{eqnarray}
+
+For  z-level coordinates, set $dh_k/dt=0$ in the continuity equation (\ref{h1}) for $k=2\ldots N$, and solve for the vertical velocity at layer interfaces with
+\begin{eqnarray}   
+\label{w 1} &&
+w^{top}_{N+1} = 0,\;\;\; w^{top}_{1} = 0 
+\\&&
+w^{top}_k = w^{top}_{k+1} - \nabla \cdot \left( \Delta z_k {\bf u}_k \right), \;\;\; k=N\ldots 2
+\end{eqnarray}
+
+To summarize the equation set,
+\begin{eqnarray}   
+\mbox{barotropic momentum} && \ds
+\label{u btr 3}
+ \frac{\partial \ubtr}{\partial t} 
+  = - f\ubtr^{\perp}
+- g\nabla \zeta  
++ {\overline {\bf G}}, \\
+\mbox{baroclinic momentum} && \ds
+\label{u bcl 3}
+\frac{\partial \ubcl}{\partial t} 
+= -f{\bf u}'^{\perp}_k + {\bf T}({\bf u}_{k},w_{k},p_{k}) +g\nabla \zeta  
+-{\overline {\bf G}},
+, \;\;\; k=1\ldots N,\\
+\mbox{total momentum} && \ds
+\label{u tot 3}
+{\bf u}_{k} =\ubtr + {\bf u}'_{k}, 
+\;\; k=1\ldots N,
+\\
+\label{h btr 3}
+\mbox{barotropic continuity} &&
+ \displaystyle
+ \frac{\partial \zeta}{\partial t} 
+ + \nabla \cdot \left( \ubtr \textstyle\sum_{k=1}^{N^{edge}} h_k^{edge} \right) 
+= 0.\\
+\label{w bcl 3}
+\mbox{baroclinic continuity} &&
+ \displaystyle
+w^{top}_k = w^{top}_{k+1} - \nabla \cdot \left( \Delta z_k {\bf u}_k \right), \;\;\; k=N\ldots 2,
+\\
+\label{h2}
+\mbox{baroclinic continuity, top} &&
+ \displaystyle
+ \frac{\partial h_1}{\partial t} 
+= w^{top}_{2} - \nabla \cdot \left( h_1^{edge} {\bf u}_1 \right).
+\end{eqnarray}
+For the split system, sea surface height is overconstrained because both (\ref{h btr 3}) and (\ref{h2}) provide SSH information.  To enforce consistency between the barotropic and baroclinic equation set, replace (\ref{h2}) with
+\begin{eqnarray}   
+h_1 = \Delta z_1 + \zeta
+\end{eqnarray}
+for the split system.  For the unsplit algorithm, the barotopric equations (\ref{u btr 3}) and (\ref{h btr 3}) are not used, so (\ref{h2}) is used to find the top layer thickness.
+
+\newpage
+\section{Split explicit time stepping algorithm, z-level}
+
+{\bf Prepare variables before first iteration}\\
+Always use most recent available for forcing terms.  The first time, use end of last timestep.
+\begin{eqnarray} &&
+{\bf u}_k^*={\bf u}_{k,n},\;\;
+w_k^*=w_{k,n},\;\;
+p_k^*=p_{k,n}, \;\;
+{\varphi}_k^* = {\varphi}_{k,n},\\&&
+h_{k,*} = h_{k,n}, \;\; h_{k,*}^{edge} = h_{k,n}^{edge},
+\zeta_{*} = \zeta_n,\;\;
+{\bf u}_{k,*}^{bolus} = {\bf u}_{k,n}^{bolus} \\&&
+\ubtr_n = \left. \textstyle \sum_{k=1}^{N^{edge}}
+h_{k,n}^{edge}  {\bf u}_{k,n}
+\right/\textstyle 
+\sum_{k=1}^{N^{edge}}h_{k,n}^{edge} 
+\mbox{, on start-up only.}
+\\&&
+\mbox{Otherwise, }\ubtr_n\mbox{ from previous step.}\\&&
+{\bf u}'_{k,n} = {\bf u}_{k,n} - \ubtr_n \label{ubcl10}
+\\&&
+{\bf u}_{k,n+1/2}'={\bf u}_{k,n}' 
+\end{eqnarray}
+
+The full algorithm, Stages 1--3 are iterated.  This is typically done using two iterations, like a predictor--corrector timestep.  The flag for the number of these large iterations is {\tt config\_n\_ts\_iter}.
+
+{\bf Stage 1: Baroclinic velocity (3D), explicit with long timestep}\\
+Iterate on linear Coriolis term only.
+\begin{eqnarray} &&
+\mbox{compute } {\bf T}^u({\bf u}_k^*,w_k^*,p_k^*) +g\nabla \zeta^* \\ &&
+\mbox{compute weights, }\omega_k  =  h_{k,*}^{edge}
+\left/\textstyle\sum_{k=1}^{N^{edge}} h_{k,*}^{edge}
+\right.\\ &&
+\left\{\begin{array}{l} \label{u bcl s2} 
+\mbox{compute }{\bf u}_{k,n+1/2}^{'\;\perp}\mbox{ from }{\bf u}_{k,n+1/2}'\\ 
+{\tilde {\bf u}}'_{k,n+1} = {\bf u}'_{k,n} + \Delta t 
+\left( -f{\bf u}_{k,n+1/2}^{'\;\perp} + {\bf T}^u({\bf u}_k^*,w_k^*,p_k^*) 
++g\nabla \zeta^* \right)
+\\  
+{\overline {\bf G}} = 
+\frac{1}{\Delta t}
+\sum_{k=1}^{N^{edge}} \omega_k {\tilde {\bf u}}'_{k,n+1}
+\mbox{ (unsplit: ${\overline {\bf G}} =0$ )}
+\\ 
+{\bf u}'_{k,n+1} = {\tilde {\bf u}}'_{k,n+1} - \Delta t {\overline {\bf G}}
+\\
+{\bf u}'_{k,n+1/2} = \frac{1}{2}\left({\bf u}^{'}_{k,n} +{\bf u}'_{k,n+1}\right) 
+\\
+\mbox{boundary update on }{\bf u}'_{k,n+1/2}
+\end{array}
+\right. \;\;\; l=1\ldots L \\ &&
+\end{eqnarray}
+
+The bracketed computation is iterated $L$ times.  The default method is to use $L=1$ on the first time through Stages 1--3, and $L=2$ the second time through.  This is set by the flags {\tt
+config\_n\_bcl\_iter\_beg = 1, config\_n\_bcl\_iter\_mid = 2, config\_n\_bcl\_iter\_end = 2}.
+In the case of two iterations through Stages 1--3, the flag {\tt config\_n\_bcl\_iter\_mid} is not used.
+
+\newpage
+{\bf Stage 2: Barotropic velocity (2D), explicitly subcycled}\\
+Advance $\ubtr$ and $\zeta$ as a coupled system through $2J$ subcycles, ending at time $t+2\Delta t$. 
+\begin{eqnarray}   
+\label{u btr 5} &&
+\mbox{{\bf velocity predictor step:}} \nn \\ &&
+\mbox{compute }\ubtr_{n+(j-1)/J}^{\perp}\mbox{ from }\ubtr_{n+(j-1)/J} \\ && 
+{\tilde \ubtr}_{n+j/J} = \ubtr_{n+(j-1)/J} + \frac{\Delta t}{J} \left(
+- f\ubtr_{n+(j-1)/J}^{\perp}
+- g\nabla \zeta_{n+(j-1)/J} + {\overline {\bf G}_j}
+\right)\\ &&
+\mbox{boundary update on }{\tilde \ubtr}_{n+j/J}\\ && 
+\nn \\ &&
+\mbox{{\bf SSH predictor step:}}\nn \\ &&
+\zeta_{n+(j-1)/J}^{edge} = Interp(\zeta_{n+(j-1)/J}) \\ &&
+\tilde{\bf F}_j = \left((1-\gamma_1){\ubtr}_{n+(j-1)/J}  + \gamma_1{\tilde \ubtr}_{n+j/J}\right)
+\left(\zeta_{n+(j-1)/J}^{edge} + H^{edge} \right)\\ &&
+\tilde\zeta_{n+j/J} = \zeta_{n+(j-1)/J} + \frac{\Delta t}{J} \left( -
+ \nabla \cdot \tilde{\bf F}_j \right) \\ &&
+\mbox{boundary update on } \tilde\zeta_{n+j/J} \\ && 
+\nn \\ &&
+\mbox{{\bf velocity corrector step:}}\nn \\ &&
+\mbox{compute }{\tilde \ubtr}_{n+j/J}^{\perp}\mbox{ from }{\tilde \ubtr}_{n+j/J} \\ && 
+\ubtr_{n+j/J} = \ubtr_{n+(j-1)/J} + \frac{\Delta t}{J} \left(
+- f{\tilde \ubtr}_{n+j/J}^{\perp}
+- g\nabla \left((1-\gamma_2)\zeta_{n+(j-1)/J} + \gamma_2\tilde\zeta_{n+j/J}\right) + {\overline {\bf G}_j}
+\right),\\ &&
+\mbox{boundary update on }\ubtr_{n+j/J}\\ && 
+\nn\\ &&
+\mbox{{\bf SSH corrector step:}}\nn \\ &&
+\tilde\zeta_{n+j/J}^{\;edge}= Interp\left((1-\gamma_2)\zeta_{n+(j-1)/J} + \gamma_2\tilde\zeta_{n+j/J}\right) \\&&
+{\bf F}_j = \left((1-\gamma_3){\ubtr}_{n+(j-1)/J}  + \gamma_3 \ubtr_{n+j/J}\right)
+\left(\tilde\zeta_{n+j/J}^{\;edge} + H^{edge} \right)\\ &&
+\zeta_{n+j/J} = \zeta_{n+(j-1)/J} + \frac{\Delta t}{J} \left( -
+ \nabla \cdot {\bf F}_j \right) \\ &&
+\mbox{boundary update on } \zeta_{n+j/J} 
+\end{eqnarray}   
+Repeat $j=1\ldots 2J$ to step through the barotropic subcycles.  There are two predictor and two corrector steps for each subcycle.  At the end of $2J$ subcycles, we have progressed through two baroclinic timesteps, i.e.\ through $2\Delta t$.  In the code, {\tt config\_n\_btr\_subcycles} is $J$, while {\tt config\_btr\_subcycle\_loop\_factor=2} is the ``2'' coefficient in $2J$.  
+
+The input flag {\tt config\_btr\_solve\_SSH2=.true.} runs the algorithm as shown, while {\tt .false.} does not include the SSH corrector step.  Here $H^{edge}$ is the total column depth without SSH perturbations, that is, from the higher cell adjoining an edge to $z=0$.
+
+The velocity corrector step may be iterated to update the velocity in the Coriolis term.  The number of iterations is controlled by {\tt config\_n\_btr\_cor\_iter}, and is usually set to two.
+
+\newpage
+{\bf Stage 2 continued}\\
+
+The coefficients $(\gamma_1,\gamma_2,\gamma_3)$ control weighting between the old and new variables in the predictor velocity, corrector SSH gradient, and corrector velocity, respectively.  These are typically set as $(\gamma_1,\gamma_2,\gamma_3)=(0.5,1,1)$, but this is open to investigation.  These flags are 
+{\tt config\_btr\_gam1\_uWt1, config\_btr\_gam2\_SSHWt1, config\_btr\_gam3\_uWt2}.
+
+The baroclinic forcing ${\overline {\bf G}}_j$ may vary over the barotropic subcycles, as long as 
+$\frac{1}{2J}\sum_{j=1}^{2J}{\overline {\bf G}}_j={\overline {\bf G}}$.  This option is not currently implemented in the code.
+
+\begin{eqnarray} &&  
+\ubtr_{avg} = \frac{1}{2J+1} \sum_{j=0}^{2J} \ubtr_{n+j/J} 
+\label{ustar5}\\&&
+{\overline {\bf F}} = \frac{1}{2J} \sum_{j=1}^{2J}{\bf F}_j \\&&
+\mbox{boundary update on }{\overline {\bf F}}
+\\&&
+{\bf u}^{corr} = \left( {\overline {\bf F}} 
+  - \sum_{k=1}^{N^{edge}} h_{k,*}^{edge} 
+   \left( \ubtr_{avg} + {\bf u}'_{k,n+1/2} + {\bf u}_{k,*}^{bolus}\right) \right)
+\left/ \sum_{k=1}^{N^{edge}} h_{k,*}^{edge}   \right. \label{ucorr}
+\\ &&
+{\bf u}^{tr}_k = \ubtr_{avg} + {\bf u}'_{k,n+1/2} + {\bf u}_{k,*}^{bolus} + {\bf u}^{corr} \label{utr}
+\end{eqnarray}
+where ${\bf u}_{k,*}^{bolus}$ is the GM bolus velocity computed at the end of stage 3, and ${\bf u}^{tr}$ is the transport velocity used in the advection terms for for thickness and tracers.
+
+For unsplit explicit, skip all computations in stage 2.  Instead, set:
+\bea
+&&
+\ubtr_{avg} = 0 \\ &&
+{\bf u}^{tr}_{k} = {\bf u}'_{k,n+1/2} + {\bf u}_{k,*}^{bolus}
+\eea
+
+\newpage
+{\bf Stage 3: update thickness, tracers, density and pressure}
+\bea &&
+\label{w3}
+w^{*\; top}_k 
+= w^{*\; top}_{k+1} 
+- \nabla \cdot \left( \Delta z_k {\bf u}^{tr}_k \right), \;\;\; k=N\ldots 2.
+\\&&
+T^h_k = \left(  - \nabla \cdot \left( h_k^{*\; edge} {\bf u}_k^{tr} \right)  
+- \frac{\partial}{\partial z} \left( h_k^* w_k^* \right)  \right)
+%-D_k^* + w_{k+1}^* - w_{k}^* 
+\\ && 
+T^\varphi %({\bf u}_k^*,w_k^*,\varphi_k^*) 
+= \left(  - \nabla \cdot \left( h_k^{*\; edge}\varphi_k^* {\bf u}_k^{tr} \right)  
+- \frac{\partial}{\partial z} \left( h_k^*\varphi_k^* w_k^* \right)  
++ \nabla\cdot\left(h_k^* \kappa_h \nabla\varphi_k^* \right)
++ h_k^* \frac{\partial }{\partial z} 
+  \left( \kappa_v \frac{\partial \varphi_k^*}{\partial z} \right)
+\right) 
+\\ &&
+\mbox{boundary update on tendencies: } T^h,T^\varphi\\&& 
+h_{k,n+1} = h_{k,n} +  \Delta t T^h_k \\&& 
+\label{phi3}
+{\varphi}_{k,n+1} = \frac{1}{h_{k,n+1}} \left[
+h_{k,n} \varphi_{k,n} 
++ \Delta t T^\varphi_k \right]
+\label{phi}
+\eea
+
+{\bf Reset variables}
+\bea 
+\begin{array}{ll}
+\mbox{\bf if iterating} & \mbox{\bf after final iteration}\smallskip\\
+{\bf u}'_{k,*} = {\bf u}'_{k,n+1/2} & {\bf u}'_{k,n+1} \mbox{ from stage 1}\smallskip\\
+\ubtr_{*} = \ubtr_{avg} \mbox{ from stage 2} & \ubtr_{n+1} = \ubtr_{avg} \mbox{ from stage 2}\smallskip\\
+{\bf u}_{k,*} = \ubtr_{*} + {\bf u}'_{k,*} & {\bf u}_{k,n+1} = \ubtr_{n+1} + {\bf u}'_{k,n+1}\smallskip\\
+h_{k,*} = \frac{1}{2}\left(h_{k,n} +h_{k,n+1}\right)  
+ & h_{k,n+1} \mbox{ from stage 3} \smallskip\\
+\varphi_{k,*} = \frac{1}{2}\left(\varphi_{k,n} +\varphi_{k,n+1}\right)
+ & \varphi_{k,n+1} \mbox{ from stage 3} \smallskip\\
+\mbox{diagnostics:}
+& \mbox{diagnostics:} \\
+{\rho}_k^* = EOS(T^*_k, S^*_k) 
+ & {\rho}_{k,n+1} = EOS(T_{k,n+1}, S_{k,n+1}) \smallskip\\
+\label{p3}
+{p}_k^* =  g\sum_{k'=1}^{k-1} 
+{\rho}_{k'}^* h_{k'}
++ \frac{1}{2}g{\rho}_{k}^* h_k
+ & {p}_{k,n+1} =  g\sum_{k'=1}^{k-1} 
+{\rho}_{k',n+1} h_{k',n+1}
++ \frac{1}{2}g{\rho}_{k,n+1}^* h_{k,n+1} \smallskip \\
+h^{edge}_{k,*} = interp(h_{k,*}) & 
+h^{edge}_{k,n+1} = interp(h_{k,n+1}) \smallskip\\
+\zeta_* = \sum_{k=1}^{kmax}h_{k,*} - H &
+\zeta_{n+1} = \sum_{k=1}^{kmax}h_{k,n+1} - H \\
+\mbox{compute }{\bf u}_{k,*}^{bolus} &
+\mbox{compute }{\bf u}_{k,n+1}^{bolus} 
+\end{array}
+\eea
+where H is the total column height with zero sea surface height.
+
+\newpage
+{\bf notes:}
+\begin{enumerate}
+\item May be able to not compute phi, rho, p, until the end, i.e. compute (\ref{phi3}-\ref{p3}) last time only.
+\end{enumerate}
+
+An explanation of the stage 3 transport velocity ${\bf u}_k^{tr}$ used in the tracer equation is as follows.  For tracer conservation, (\ref{phi3}) with constant $\varphi$ must reduce to the thickness equation for all $k$.  Ignoring diffusion terms, this gives
+\begin{eqnarray}   &&
+\label{phi4}
+h_k^* = 
+h_{k,n} 
++ \Delta t
+\left(  - \nabla \cdot \left( h_k^{*\; edge} {\bf u}_k^{tr} \right)  
+- \left( w_k^{*\; top} -  w_{k+1}^{*\; top} \right)  
+\right).
+\end{eqnarray}
+For $k>1$, $h_k$ is constant throughout, and one may solve for $w_{k+1}^{*\; top}$, and this leads to equation (\ref{w3}).  For $k=1$, we have
+\begin{eqnarray}  
+\label{phi5}
+h_1^* &=& 
+h_{1,n} 
++ \Delta t
+\left(  - \nabla \cdot \left( h_1^{*\; edge} {\bf u}_1^{tr} \right)  
++  w_{2}^{*\; top} 
+\right) \\ \label{h6}
+&=& h_{1,n} + \Delta t
+\left(  - \nabla \cdot \left( \sum_{k=1}^N h_k^{*\; edge} {\bf u}_k^{tr} \right)  
+\right)
+\end{eqnarray}
+For consistency between the barotropic and summed baroclinic thickness flux, we must enforce
+\begin{eqnarray}
+{\overline {\bf F}} &=& \sum_{k=1}^N h_k^{*\; edge} {\bf u}_k^{tr}.
+\label{BclBtrFluxConsistency}
+\end{eqnarray}
+To do that, introduce a velocity correction $u^{corr}$ that is vertically constant, so that 
+${\bf u}_k^{tr}=u^*_k + u^{corr}$.  Substitute into (\ref{BclBtrFluxConsistency}) and solve for the velocity correction,
+\begin{eqnarray}
+u^{corr} = \left( {\overline {\bf F}} 
+  - \sum_{k=1}^{N^{edge}} h_{k,n}^{*\;edge} u_k^* \right)
+\left/ \sum_{k=1}^{N^{edge}} h_{k,n}^{*\;edge} \right. 
+\end{eqnarray}
+
+\newpage
+\section{Unsplit algorithm, z-level}
+{\bf Prep variables before first iteration}\\
+Always use most recent available for forcing terms.  The first time, use end of last timestep.
+\begin{eqnarray} &&
+{\bf u}_k^*={\bf u}_{k,n},\;\;
+w_k^*=w_{k,n},\;\;
+p_k^*=p_{k,n}, \;\;
+h_k^{*\; edge}=h_{k,n}^{edge}, \;\;
+{\varphi}_k^* = {\varphi}_{k,n} \\&&
+\ubtr_n = 0, \;\;
+{\bf u}'_{k,n} = {\bf u}_{k,n} - \ubtr_n, \;\;
+{\bf u}_{k,n+1/2}'={\bf u}_{k,n}' 
+\end{eqnarray}
+
+{\bf Stage 1: Baroclinic velocity (3D) prediction, explicit with long timestep}
+\begin{eqnarray} &&
+\mbox{compute } {\bf T}({\bf u}_k^*,w_k^*,p_k^*) \\ &&
+\left\{\begin{array}{l} \label{u bcl s3} 
+\mbox{compute }{\bf u}_{k,n+1/2}^{'\;\perp}\mbox{ from }{\bf u}_{k,n+1/2}'\\ 
+{\tilde {\bf u}}'_{k,n+1} = {\bf u}'_{k,n} + \Delta t 
+\left( -f{\bf u}_{k,n+1/2}^{'\;\perp} + {\bf T}({\bf u}_k^*,w_k^*,p_k^*) \right)
+\\  
+{\overline {\bf G}} = 0
+\\ 
+{\bf u}'_{k,n+1} = {\tilde {\bf u}}'_{k,n+1} - \Delta t {\overline {\bf G}}
+\\
+{\bf u}'_{k,n+1/2} = \frac{1}{2}\left({\bf u}^{'}_{k,n} +{\bf u}'_{k,n+1}\right) 
+\\
+\mbox{boundary update on }{\bf u}'_{k,n+1/2}
+\end{array}
+\right. \;\;\; l=1\ldots L \\ &&
+{\bf u}^{'*}_k = {\bf u}'_{k,n+1/2}
+\end{eqnarray}
+
+{\bf Stage 2: Barotropic velocity (2D) prediction, explicitly subcycled}\\
+$\ubtr^* = 0$, ${\bf u}_k* = {\bf u}^{'*}_k$, no other computations here.
+
+{\bf Stage 3: Tracer, density, pressure, vertical velocity prediction} \\
+Note that the new $h_1^{*\; edge}$ is computed after $\phi^*_k$, so that (\ref{h7}) and (\ref{phi7}) use the same version of $h_1^{*\; edge}$.  This ensures that the tracer equation reduces to the thickness equation at layer 1 with constant tracers.
+\begin{eqnarray}   &&
+\label{w7}
+w^{*\; top}_k 
+= w^{*\; top}_{k+1} 
+- \nabla \cdot \left( \Delta z_k {\bf u}^{*}_k \right), \;\;\; k=N\ldots 2.
+\\&&
+\label{h7}
+h_{1,n+1} 
+= h_{1,n} + \Delta t \left( w^{*\; top}_2     
+- \nabla \cdot \left( h^{*\ edge}_1 {\bf u}^*_1 \right) \right)
+\\&&
+\label{phi7}
+{\varphi}_{k,n+1} = \frac{1}{h_{k,n+1}} \left[
+h_{k,n} \varphi_{k,n} 
++ \Delta t
+\left(  - \nabla \cdot \left( h_k^{*\; edge}\varphi_k^* {\bf u}_k^* \right)  
+- \frac{\partial}{\partial z} \left( h_k^*\varphi_k^* w_k^* \right)  
+\right.\right.
+\\&& \nonumber \hspace{5cm}
+\left.\left.
++ \nabla\cdot\left(h_k^* \kappa_h \nabla\varphi_k^* \right)
++ h_k^* \frac{\partial }{\partial z} 
+  \left( \kappa_v \frac{\partial \varphi_k^*}{\partial z} \right)
+\right) \right]
+\\&&
+\mbox{boundary update on }{\varphi}_{k,n+1}, h_1^* 
+\\&&
+\varphi_{k}^* = \textstyle\frac{1}{2}\left(\varphi_{k,n} +\varphi_{k,n+1}\right), 
+\mbox{ (not on last iteration)}
+\\&&
+h_{1}^* = \textstyle\frac{1}{2}\left(h_{1,n} +h_{1,n+1}\right) 
+\mbox{ (not on last iteration)}
+\\&&
+{\bf u}^*_k = \ubtr^* + {\bf u}^{'*}_k 
+\\&&
+h^{*\; edge}_1 = Interp(h^*_1)
+\\&& \label{rho7}
+{\rho}_k^* = EOS(T^*_k, S^*_k) 
+\\&&
+\label{p7}
+{p}_k^* =  g {\rho}_1^* \left( h_1^* - \frac{1}{2}\Delta z_1 \right) + 
+  \frac{g}{2}\sum_{l=2}^{k} 
+\left({\rho}_{l-1}^* \Delta z_{l-1}
++ {\rho}_{l}^* \Delta z_{l} 
+\right)
+\end{eqnarray}
+
+{\bf Iteration} \\
+If iterating, return to stage 1.  \\
+If complete, we have ${\bf u}_{k,n+1}= {\bf u}'_{k,n+1}$ from (\ref{u bcl s3}), 
+${\varphi}_{k,n+1}$ from (\ref{phi7}), $h_{1,n+1}$ from (\ref{h7}).  
+Then compute the full end-of-step diagnostics, including $w^{top }_{k,n+1}$, $\rho_{k,n+1}$ and $p_{k,n+1}$.
+
+
+\newpage
+\section{Runge-Kutta Fourth Order algorithm, z-level}
+{\bf Prep variables before first stage}
+\begin{eqnarray} &&
+{\bf u}_{k,n+1}={\bf u}_{k,n}, \;\;
+h_{k,n+1}=h_{k,n},\;\;
+{\varphi}_{k,n+1} = {\varphi}_{k,n} h_{k,n}
+\\&&
+{\bf u}_k^*={\bf u}_{k,n}, \;\;
+h_k^*=h_{k,n},\;\;
+{\varphi}_k^* = {\varphi}_{k,n}, \;\;
+p_k^*=p_{k,n},\;\;
+w_k^*=w_{k,n},\mbox{ etc.}
+\\&&
+a = \left(\frac{1}{2},\frac{1}{2},1,0 \right),\;\;
+b = \left(\frac{1}{6},\frac{1}{3},\frac{1}{3},\frac{1}{6}\right),\;\;
+\end{eqnarray}
+
+{\bf Iteration}
+\begin{eqnarray} &&
+\mbox{do j=1,4} \\&& \hspace{.5cm}
+\mbox{compute } {\bf T}^u({\bf u}_k^*,w_k^*,p_k^*), \;\;
+{\bf T}^h({\bf u}_k^*,w_k^*), \;\;
+{\bf T}^\varphi({\bf u}_k^*,w_k^*,\varphi_k^*) \\ && \hspace{.5cm}
+\mbox{boundary update on all tendencies: } {\bf T}^u,{\bf T}^h,{\bf T}^\varphi\\&& \hspace{.5cm}
+{\bf u}^*_k = {\bf u}_{k,n} + a_j \Delta t {\bf T}^u_k \\&& \hspace{.5cm}
+h^*_k = h_{k,n} + a_j \Delta t {\bf T}^h_k \\&& \hspace{.5cm}
+{\varphi}_k^* = \frac{1}{h_k^*} \left[
+h_{k,n} \varphi_{k,n} 
++ a_j \Delta t  {\bf T}^\varphi_k \right]
+\\&& \hspace{.5cm}
+\mbox{compute diagnostics based on }{\bf u}_k^*,h_k^*,\varphi_k^* \\&& \hspace{.5cm}
+{\bf u}_{k,n+1} = {\bf u}_{k,n+1} + b_j \Delta t {\bf T}^u_k \\&& \hspace{.5cm}
+h_{k,n+1} = h_{k,n+1} + b_j \Delta t {\bf T}^h_k \\&& \hspace{.5cm}
+{\varphi}_{k,n+1} = 
+ \varphi_{k,n+1} 
++ b_j \Delta t  {\bf T}^\varphi_k \\&&
+\mbox{enddo}
+\end{eqnarray}
+{\bf End of step}
+\begin{eqnarray} &&
+\varphi_{k,n+1} = 
+ \varphi_{k,n+1} / h_{k,n+1} \\&&
+\mbox{revise } {\bf u}_{k,n+1},\;\;\varphi_{k,n+1} \mbox{ with implicit vertical mixing}\\&&
+\mbox{compute diagnostics based on }{\bf u}_{k,n+1},h_{k,n+1},\varphi_{k,n+1} 
+\end{eqnarray}
+
+
+%-----------------------------------------------------------------------
+
+\chapter{Design and Implementation}
+
+\section{Design Solution: split explicit time-stepping in z-level mpas}
+Date last modified: 2011/05/4 \\
+Contributors: Mark, Todd \\
+
+\section{New variables}
+
+\begin{verbatim}
+namelist character timestep        config_time_integration 'RK4',
+ also: 'unsplit','split_explicit'
+namelist integer   split_explicit_ts config_n_ts_iter     2
+namelist integer   split_explicit_ts config_n_bcl_iter_beg   4
+namelist integer   split_explicit_ts config_n_bcl_iter_mid   4
+namelist integer   split_explicit_ts config_n_bcl_iter_end   4
+namelist integer   split_explicit_ts config_n_btr_subcycles  10
+namelist logical   split_explicit_ts config_compute_tr_midstage true
+\end{verbatim}
+
+
+\begin{verbatim}
+var persistent real   uBtr ( nEdges Time )         2 o  state
+var persistent real   ssh ( nCells Time )          2 o  state 
+var persistent real   uBtrSubcycle ( nEdges Time ) 2 o  state
+var persistent real   sshSubcycle ( nCells Time )  2 o  state 
+var persistent real   FBtr ( nEdges Time )         1 o  state 
+var persistent real   GBtrForcing ( nEdges Time )  1 o  state
+var persistent real   uBcl ( nVertLevelsP1 nEdges Time )  2 o  state 
+\end{verbatim}
+
+
+\newpage
+\section{Higdon time splitting code, z-level}
+
+{\bf Prepare variables before first iteration}\\
+\verb|uOld => block % state % time_levs(1) % state % u % array(:,:)| etc.\\
+\verb|uNew => block % state % time_levs(2) % state % u % array(:,:)| etc.\\
+\verb|uBclOld => block % state % time_levs(1) % state % uBcl % array(:,:)| etc.\\
+\verb|uBclNew => block % state % time_levs(2) % state % uBcl % array(:,:)| etc.\\
+\verb|tend_u => block % tend % u % array(:,:)|\\
+${\bf u}_k^*={\bf u}_{k,n},\;\;
+w_k^*=w_{k,n},\;\;
+p_k^*=p_{k,n}, \;\;
+{\varphi}_k^* = {\varphi}_{k,n} $\\
+\verb|Do nothing.  * variables are already in time_levs(2) slots.|\\
+$\ubtr_n = \left. \sum_{k=1}^{N^{edge}} h_{k,n}^{edge} {\bf u}_{k,n}
+\right/
+\sum_{k=1}^{N^{edge}} h_{k,n}^{edge}$\\
+\verb|uBtrOld(iEdge) = |\\
+${\bf u}'_{k,n} = {\bf u}_{k,n} - \ubtr_n $\\
+\verb|uBclOld = uOld - uBtrOld|\\
+${\bf u}_{k,n+1}'={\bf u}_{k,n}' $\\
+\verb|uBclNew = uBclOld|\\
+
+{\bf Stage 1: Baroclinic velocity (3D) prediction, explicit with long timestep}\\
+compute ${\bf T}({\bf u}_k^*,w_k^*,p_k^*) +g\nabla \zeta^* $\\
+\verb|put in tend_u, separate out linear Coriolis term|\\
+\verb|do j=1,config_n_bcl_iter|\\
+\verb|  |compute ${\bf u}_{k,n+1}^{'\;\perp}$ from ${\bf u}_{k,n+1}'$\\
+\verb|  call compute_uPerp(uBclNew,uBclPerp)|\\
+\verb|  need subroutine and variable just for perp, say uBclPerp - may already be there.|\\
+\verb|  do iEdge=1,nEdges|\\
+\verb|    do k=1,maxLevelEdgeTop(iEdge)|\\
+\verb|      |${\bf G}_k = -f{\bf u}_{k,n+1}^{'\;\perp} + {\bf T}({\bf u}_k^*,w_k^*,p_k^*) 
++g\nabla \zeta^*$\\
+\verb|      G(k) = -fEdge(iEdge)*uBclPerp(k,iEdge) + tend_u(k,iEdge)|\\
+\verb|    enddo|\\
+\verb|    |${\overline {\bf G}} = 
+\left. \sum_{k=1}^{N^{edge}} h_{k,n}^{edge} {\bf G}_k 
+\right/\sum_{k=1}^{N^{edge}} h_{k,n}^{edge}
+$\\
+\verb|    GBtrForcing(iEdge) = sum(hOld(k,iEdge)* G(k))/(hOld(1,iEdge) + h2toNZLevel)|\\
+\verb|    do k=1,maxLevelEdgeTop(iEdge)|\\
+\verb|      |${\bf u}'_{k,n+1} = {\bf u}'_{k,n} + \Delta t \left({\bf G}_k - {\overline {\bf G}}
+\right)$\\
+\verb|      uBclNew(k,iEdge) = uBclOld(k,iEdge) + dt*(G(k)-GBtrForcing(iEdge)|\\
+\verb|    enddo|\\
+\verb|  enddo|\\
+\verb|  boundary update on uBclNew|\\
+\verb|enddo|\\
+${\bf u}^{'*}_k = \frac{1}{2}\left({\bf u}^{'}_{k,n} +{\bf u}'_{k,n+1}\right) $\\
+This is done in stage 2 so we don't overwrite uBclNew\\
+
+\newpage
+{\bf Stage 2: Barotropic velocity (2D) prediction, explicitly subcycled}\\
+\verb|sshSubcycleOld = sshOld  |\\
+\verb|uBtrSubcycleOld = uBtrOld |\\
+\verb|uBtrNew = aBtrSumCoef(0)*uBtrOld  |\\
+\verb|sshNew = aBtrSumCoef(0)*sshOld  |\\
+\verb|FBtr = 0  |\\
+\verb|do j=1,2*config_n_btr_subcycles|\\
+
+\verb|  |$\zeta_{n+j/J}^{edge} = Interp(\zeta_{n+j/J}) $\\
+\verb|  |${\bf F}_j = \ubtr_{n+j/J} 
+\left(\zeta_{n+j/J}^{edge} + \sum_{k=1}^{N^{edge}} \Delta z_k \right)$\\
+\verb|  |$\zeta_{n+(j+1)/J} = \zeta_{n+j/J} + \frac{\Delta t}{J} \left( -
+ \nabla \cdot {\bf F}_j \right) $\\
+\verb|  do iEdge=1,nEdges|\\
+\verb|    cell1 = cellsOnEdge(1,iEdge)|\\
+\verb|    cell2 = cellsOnEdge(2,iEdge)|\\
+\verb|    flux = u(k,iEdge) * dvEdge(iEdge) * h_edge(k,iEdge)|\\
+\verb|    FBtr(iEdge) = FBtr(iEdge) + bBtrSumCoef(j)*flux |\\
+\verb|    tend_ssh(cell1) = tend_ssh(cell1) - flux|\\
+\verb|    tend_ssh(cell2) = tend_ssh(cell2) + flux|\\
+\verb|  end do|\\
+\verb|  do iCell=1,nCells|\\
+\verb|    sshSubcycleNew(iCell) = sshSubcycleOld(iCell) + tend_ssh(iCell)/areaCell(iCell)|\\
+\verb|    sshNew(iCell) = sshNew(iCell) + aBtrSumCoef(j)*sshSubcycleNew(iCell)|\\
+\verb|  end do|\\
+
+\verb|  |boundary update on $\zeta_{n+(j+1)/J} $\\
+
+\verb|  |compute $\ubtr_{n+j/J}^{\perp}$ from $\ubtr_{n+j/J} $\\ 
+\verb|  |$\ubtr_{n+(j+1)/J} = \ubtr_{n+j/J} + \frac{\Delta t}{J} \left(
+- f\ubtr_{n+j/J}^{\perp}
+- g\nabla \zeta_{n+(j+1)/J} + {\overline {\bf G}}
+\right),$\\
+\verb|  do iEdge=1,nEdges|\\
+\verb|    cell1 = cellsOnEdge(1,iEdge)|\\
+\verb|    cell2 = cellsOnEdge(2,iEdge)|\\
+\verb|    grad_ssh = - gravity*rho0Inv*( sshSubcycleNew(cell2) &|\\
+\verb|               - sshSubcycleNew(cell1) )/dcEdge(iEdge)|\\
+\verb|    uBtrSubCycleNew(iEdge) = uBtrSubcycleOld(iEdge) + dt*(fEdge(iEdge)*uBtrPerp(iEdge) |\\
+\verb|        - grad_ssh + GBtrForcing(iEdge))|\\
+\verb|    uBtrNew(iEdge) = uBtrNew(iEdge) + aBtrSumCoef(j)*uBtrSubcycleNew(iEdge)|\\
+\verb|  end do|\\
+
+\verb|  |boundary update on $\ubtr_{n+(j+1)/J}$\\
+
+\verb|enddo|\\
+Note: Normalize so that $\sum_{j=0}^{2J} a_j=1$ and $\sum_{j=1}^{2J} b_j=1$.  Then the following 
+three lines are already done, so that\\
+$\zeta^* = \left. \sum_{j=0}^{2J} a_j \zeta_{n+j/J} \right/ \sum_{j=0}^{2J} a_j$ is \verb|sshNew|\\
+$\ubtr^* = \left. \sum_{j=0}^{2J} a_j \ubtr_{n+j/J} \right/ \sum_{j=0}^{2J} a_j $ is \verb|uBtrNew|\\
+${\overline {\bf F}} = \left. \sum_{j=1}^{2J} b_j {\bf F}_j \right/ \sum_{j=1}^{2J} b_j$ is \verb|FBtr|\\
+\verb||${\bf u}^*_k = \ubtr^* + {\bf u}^{'*}_k $\\
+\verb|uNew(iEdge) = uBtrNew(iEdge) + 0.5*(uBclOld(iEdge) + uBclNew(iEdge))|\\
+\verb||$h_1^* = \Delta z_1 + \zeta^*$\\
+\verb|hNew(iCell) = hZlevel(1) + sshNew(iCell)|\\
+
+boundary update on ${\overline {\bf F}}$\\
+
+
+{\bf Stage 3: Tracer, density, pressure, vertical velocity prediction} \\
+$w^{*\; top}_k 
+= w^{*\; top}_{k+1} 
+- \nabla \cdot \left( \Delta z_k {\bf u}^*_k \right), \;\;\; k=N\ldots 2.$\\
+\verb|  |\\
+$h^{*\; edge}_1 = \frac{1}{{\bf u}^*_1 + \epsilon}
+\left({\overline {\bf F}} - \sum_{k=2}^N h_k u_k^* \right)$\\
+make sure $h^{*\; edge}_1$ is bounded by neighboring cells.\\
+${\varphi}_k^* = \frac{1}{h_k^*} \left[
+h_{k,n} \varphi_{k,n} 
++ \Delta t
+\left(  - \nabla \cdot \left( h_k^{*\; edge}\varphi_k^* {\bf u}_k^* \right)  
+- \frac{\partial}{\partial z} \left( h_k^*\varphi_k^* w_k^* \right)  
++ \nabla\cdot\left(h_k^* \kappa_h \nabla\varphi_k^* \right)
++ h_k^* \frac{\partial }{\partial z} 
+  \left( \kappa_v \frac{\partial \varphi_k^*}{\partial z} \right)
+\right) \right]$\\
+\verb|tracerNew = |\\
+${\rho}_k^* = EOS(T^*_k, S^*_k) $\\
+\verb|  |\\
+${p}_k^* =   g {\rho}_1^* \left( h_1^* - \frac{1}{2}\Delta z_1 \right) + 
+  \frac{g}{2}\sum_{l=2}^{k} 
+\left({\rho}_{l-1}^* \Delta z_{l-1}
++ {\rho}_{l}^* \Delta z_{l} 
+\right)$\\
+
+{\bf Iteration} \\
+If iterating, return to stage 1.  \\
+If complete, then:\\
+\verb||${\bf u}^*_k = \ubtr^* + {\bf u}^{'*}_{k,n+1} $\\
+\verb|uNew(iEdge) = uBtrNew(iEdge) + uBclNew(iEdge))|\\
+$w^{*\; top}_k 
+= w^{*\; top}_{k+1} 
+- \nabla \cdot \left( \Delta z_k {\bf u}^*_k \right), \;\;\; k=N\ldots 2.$\\
+\verb|  |\\
+$h_{1,n+1} = h_1^*\;\;
+{\varphi}_{k,n+1} = {\varphi}_k^*,\;\;
+\rho_{k,n+1}=\rho_k^*, \;\;
+p_{k,n+1}=p_k^* $\\
+Do nothing, starred variables are already \verb|hNew, tracerNew, rhoNew, pNew| etc.\\
+Compute the full end-of-step diagnostics.\\
+\verb|call compute_solve_diagnostics|
+
+\newpage
+\section{Runge-Kutta Fourth Order code, z-level}
+{\bf Prep variables before first stage}\\
+\verb|  uOld => block % state % time_levs(1) % state % u % array(:,:)| etc.\\
+\verb|  uNew => block % state % time_levs(2) % state % u % array(:,:)| etc.\\
+\verb|  uProvis => provis % u % array(:,:)| etc.\\
+\verb|  tend_u => block % tend % u % array(:,:)|\\
+${\bf u}_{k,n+1}={\bf u}_{k,n}, \;\;
+h_{k,n+1}=h_{k,n},\;\;
+{\varphi}_{k,n+1} = {\varphi}_{k,n} h_{k,n}$\\
+\verb|  uNew = uOld|\\
+\verb|  hNew = hOld|\\
+\verb|  tracerNew = tracerOld|\\
+${\bf u}_k^*={\bf u}_{k,n}, \;\;
+h_k^*=h_{k,n},\;\;
+{\varphi}_k^* = {\varphi}_{k,n}, \;\;
+p_k^*=p_{k,n},\;\;
+w_k^*=w_{k,n},\mbox{ etc.}$\\
+\verb|  call allocate_state(provis, &| etc.\\
+\verb|  call copy_state(provis, block % state % time_levs(1) % state)|\\
+$a = \left(\frac{1}{2},\frac{1}{2},1,0 \right),\;\;
+b = \left(\frac{1}{6},\frac{1}{3},\frac{1}{3},\frac{1}{6}\right)$\\
+\verb|  rk_substep_weights(1) = dt/2.|, etc.  \verb|  rk_weights(1) = dt/6.|, etc.\\
+
+{\bf Iteration}\\
+\verb|do rk_step=1,4|\\
+$\mbox{compute } {\bf T}^u({\bf u}_k^*,w_k^*,p_k^*), \;\;
+{\bf T}^h({\bf u}_k^*,w_k^*), \;\;
+{\bf T}^\varphi({\bf u}_k^*,w_k^*,\varphi_k^*) $\\
+\verb|  call compute_tend(block % tend, provis, block % diagnostics, block % mesh)|\\
+\verb|  call compute_scalar_tend(block % tend, provis, block % diagnostics, block % mesh)|\\
+${\bf u}^*_k = {\bf u}_{k,n} + a_j \Delta t {\bf T}^u_k $\\ 
+\verb|  uProvis = uOld + rk_substep_weights(rk_step) * tend_u|\\
+$h^*_k = h_{k,n} + a_j \Delta t {\bf T}^h_k $\\
+\verb|  hProvis = hOld + rk_substep_weights(rk_step) * tend_h|\\
+${\varphi}_k^* = \frac{1}{h_k^*} \left[
+h_{k,n} \varphi_{k,n} 
++ a_j \Delta t  {\bf T}^\varphi_k \right]$\\
+\verb|  tracerProvis = (hOld*tracerOld + rk_substep_weights(rk_step) * tracer_tend)/hProvis|\\
+$\mbox{compute diagnostics based on }{\bf u}_k^*,h_k^*,\varphi_k^* $\\
+\verb|  call compute_solve_diagnostics(dt, provis, block % mesh)|\\
+${\bf u}_{k,n+1} = {\bf u}_{k,n+1} + b_j \Delta t {\bf T}^u_k $\\
+\verb|  uNew = uNew + rk_weights(rk_step) * tend_u|\\
+$h_{k,n+1} = h_{k,n+1} + b_j \Delta t {\bf T}^h_k $\\
+\verb|  hNew = hNew + rk_weights(rk_step) * tend_h|\\
+${\varphi}_{k,n+1} =  \varphi_{k,n+1} 
++ b_j \Delta t  {\bf T}^\varphi_k $\\
+\verb|  tracerNew = tracerNew + rk_weights(rk_step) * tracer_tend|\\
+\verb|enddo|\\
+
+{\bf End of step}\\
+$\varphi_{k,n+1} =  \varphi_{k,n+1} / h_{k,n+1} $\\
+\verb|  tracers(:,k,iCell) = tracers(:,k,iCell) / h(k,iCell)|\\
+revise ${\bf u}_{k,n+1},\;\;\varphi_{k,n+1}$ with implicit vertical mixing\\
+\verb|  call compute_vertical_mix_coefficients(block % state % time_levs(2) % state, block % diagnostics, block % mesh)|\\
+\verb|  call tridiagonal_solve(A,C,A,u(:,iEdge),uTemp,maxLevelEdgeTop(iEdge))| etc.\\
+compute diagnostics based on ${\bf u}_{k,n+1},h_{k,n+1},\varphi_{k,n+1}$\\
+\verb|  call compute_solve_diagnostics(dt, block % state % time_levs(2) % state, block % mesh)|\\
+
+
+%-----------------------------------------------------------------------
+
+\chapter{Testing}
+
+\section{Testing and Validation: split explicit time-stepping in z-level mpas}
+Date last modified: 2011/05/04 \\
+Contributors: (add your name to this list if it does not appear) \\
+
+Testing: Compare Runge-Kutta versus unsplit and split explicit.
+
+%-----------------------------------------------------------------------
+
+\end{document}

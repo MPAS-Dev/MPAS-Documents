@@ -1,0 +1,99 @@
+\chapter{Governing Equations}
+\label{chap:ocean-intro}
+
+The governing equations for MPAS-Ocean are\\ \\
+{\it momentum equation:}
+\begin{equation}
+\label{ocean:momentum}
+\frac{\partial {\bf u}}{\partial t} 
++ \eta {\bf k} \times {\bf u}
++ w\frac{\partial {\bf u}}{\partial z}
+  = - \frac{1}{\rho_0}\nabla p - \frac{\rho g}{\rho_0}\nabla z^{mid}
+ - \nabla K
++ {\bf D}^u_h + {\bf D}^u_v + {\cal F}^u
+\end{equation}
+{\it thickness equation:}
+\begin{equation}
+\label{ocean:thickness}
+\frac{\partial h}{\partial t}
++ \nabla\cdot\left(h \overline{ {\bf u} }^z\right)
++ \left.  w \right|_{z=s^{top}} 
+- \left.  w \right|_{z=s^{bot}} 
+= 0
+\end{equation}
+{\it tracer equation:}
+\begin{equation}
+\label{ocean:tracer}
+\frac{\partial}{\partial t} h \overline{\varphi}^z
++ \nabla\cdot\left(h \overline{\varphi {\bf u} }^z\right)
++ \left. \varphi w \right|_{z=s^{top}} 
+- \left. \varphi w \right|_{z=s^{bot}} 
+=  D^\varphi_h +  D^\varphi_v
++ {\cal F}^\varphi
+\end{equation}
+{\it hydrostatic condition:}
+\begin{equation}
+\label{ocean:pressure}
+p(x,y,z) = p^{s}(x,y) + \int_{z}^{z^s} \rho g dz'
+\end{equation}
+{\it equation of state:}
+\begin{equation}
+\label{ocean:eos}
+\rho = f_{eos}(\Theta,S,p)
+\end{equation}
+
+Equations \ref{ocean:momentum} through \ref{ocean:eos} are a normal expression of the primitive equations; i.e. the incompressible Boussinesq equations in hydrostatic balance.  Variable definitions are in Tables \ref{oceanTable:variables} and \ref{oceanTable:variables_Greek}.  The momentum advection and Coriolis terms in (\ref{ocean:momentum}) are presented in vorticity-kinetic energy form \citep[eqn 5]{Ringler_ea10jcp}.  The thickness and tracer equations describe a single layer in the vertical, where the operator $\overline{\left(\cdot\right)}^z$ is a vertical average over that layer (see derivation in Appedix A.2 of \citet{Ringler_ea13om}).  Otherwise, \ref{ocean:momentum}--\ref{ocean:eos} are the model equations in continuous form.  Details of the conversion to fully discretized equations are given in the appendices of \citet{Ringler_ea13om}.  
+
+\begin{table}[ht] 
+\caption{Latin variables used in prognostic equation set.  Column 3 shows the native horizontal grid location.  All variables are located at the center of the layer in the vertical unless noted.} 
+\vspace{0.5cm} \centering 
+\begin{tabular}{c c c c } 
+\hline\hline symbol &  name & grid &  notes  \\
+\hline 
+${\bf D}^u_h$, ${\bf D}^u_v$  & mom. diffusion terms & edge & $h$ horizonal, $v$ vertical\\ 
+$ D^\varphi_h$, $ D^\varphi_v$ & tracer diff. terms & cell & \\ 
+$f$ & Coriolis parameter & vertex \\
+$f_{eos}$ & equation of state & -  \\
+$ {\cal F}^u$ & momentum forcing & edge & \\ 
+$ {\cal F}^\varphi$ & tracer forcing & cell & \\ 
+$g$ & grav. acceleration & constant  \\
+$h$ & layer thickness & cell &\\
+${\bf k}$ & vertical unit vector &  \\
+$K$ &  kinetic energy & edge  & $K = \left| {\bf u} \right|^2 / 2$ \\
+$p$ & pressure & cell \\
+$p^s$ & surface pressure & cell \\ 
+$q$ & potential vorticity & vertex & $q=\eta/h$ \\
+$s^{bot}$ & z-location of bottom of layer & cell \\
+$s^{top}$ & z-location of top of layer & cell \\
+$S$ & salinity & cell &  a tracer $\varphi$  \\
+$t$ & time & -  \\
+$u$ & horizontal velocity & edge  & normal component to edge\\
+${\bf u}$ & horizontal velocity   & - \\
+${\bf v}$ & 3D velocity   & - \\
+$w$ & vertical transport & cell  & top of layer in vertical \\
+$z$ & vertical coordinate & - & positive upward \\
+$z^{mid}$ & z-location of middle of layer & cell \\
+$z^{s}$ & z-location of sea surface  & cell \\
+\hline 
+\end{tabular} \label{oceanTable:variables} 
+\end{table}
+
+\begin{table}[ht] 
+\caption{Greek variables used in prognostic equation set.  Column 3 shows the native horizontal grid location.  All variables are located at the center of the layer in the vertical.} 
+\vspace{0.5cm} \centering 
+\begin{tabular}{c c c c} 
+\hline\hline symbol &  name & grid & notes  \\
+\hline 
+$\delta$ & horizontal divergence & cell  & $\delta=\nabla\cdot{\bf u}$  \\
+$\zeta$ & sea surface height & cell   \\
+$\omega$ & relative vorticity & vertex & $\omega={\bf k} \cdot \left( \nabla \times {\bf u} \right)$\\
+$\eta$ & absolute vorticity & vertex  & $\eta=\omega+f$ \\
+$\Theta$ & potential temperature & cell  & a tracer $\varphi$ \\
+$\kappa_h$, $\kappa_h$ & diffusion & cell \\ 
+$\nu_h$, $\nu_v$ & viscosity & edge \\
+$\rho$ & density & cell  \\
+$\rho_0$ & reference density & constant & \\
+$\varphi$ & generic tracer & cell & e.g. $\Theta$, $S$ \\
+\hline 
+\end{tabular} \label{oceanTable:variables_Greek} 
+\end{table}

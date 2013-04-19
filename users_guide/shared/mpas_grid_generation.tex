@@ -1,0 +1,158 @@
+\appendix{Generating meshes}
+
+This chapter describes the steps used to create the  spherical centroidal Voronoi tessellation (SCVT) meshes and mesh-decomposition files used by MPAS models.
+Since it can take considerable time (often several days or more) to generate a mesh as described in \S \ref{sec:global_scvt}, it is recommended to obtain 
+and use existing SCVT meshes from \url{http://www.mmm.ucar.edu/people/duda/mpas/} whenever possible; these meshes can be quickly
+modified to shift or rotate the refinement regions over the geographic areas of interest using the utility program described in \S \ref{sec:grid_rotate}.
+
+\section{Density functions}
+
+In all MPAS models, the horizontal meshes are SCVTs with a C-grid staggering of
+velocities. As their name suggests, SCVTs are Voronoi tessellations defined on the surface of a sphere, and in which the generating 
+point for each Voronoi region is also the mass centroid of that region with respect to some {\em density function}. An overview of
+the application of SCVTs to multi-resolution climate modeling is given in Ringler et al. (2008)
+\footnote{Ringler, T., L. Ju and M. Gunzburger, 2008, A multiresolution method for climate system modeling: application of spherical centroidal Voronoi tessellations, {\em Ocean Dynamics}, 58 (5-6), 475-498. doi:10.1007/s10236-008-0157-2.}.
+
+For the purposes of generating SCVTs, the central concern lies with the density function, $\rho$, which is a user-defined
+function relating the relative resolutions in different regions of the mesh. Specifically, for two generating points of the 
+SCVT, ${\bf x}_i$ and ${\bf x}_j$,
+\[
+{h_i \over h_j} \approx \left({\rho({\bf x}_j) \over \rho({\bf x}_i)} \right)^{1 \over 4},
+\]
+where $h_i$ and $h_j$ are the diameters of the Voronoi cells associated with ${\bf x}_i$ and ${\bf x}_j$, respectively.
+
+In the mesh generation program global\_scvt, described in the next section, the density function is defined programatically in the Fortran function
+{\tt density\_for\_point()}, which returns the value of the density function, $\rho({\bf x})$, given a location on the sphere, ${\bf x}$.
+   
+\section{The global\_scvt program}
+\label{sec:global_scvt}
+
+\subsection{Compilation}
+                                                                                             
+As a first step toward building the global\_scvt code, the environment variable                     
+{\tt NETCDF} must be set to the root of the netCDF installation. Unlike with the MPAS model, separate make targets are not
+defined for each compiler set, and it will generally be necessary to edit the top-level Makefile to set the compiler and compiler flags                 
+that will be used to build global\_scvt; however, there are commented-out sections in the Makefile for using either of the ifort, pgf90, or gfortran compilers that may be uncommented or used as a starting point for other compilers. Also, if the netCDF installation has a separate Fortran interface library, {\tt -lnetcdff} will need to be added before {\tt -lnetcdf} in the Makefile. The global\_scvt program is parallelized with OpenMP, so if compiler support is available, OpenMP compiler flags may be added
+in the Makefile as well.                      
+
+Before compiling the global\_scvt program, a density function should first be defined in the function {\tt density\_for\_point()} in {\tt src/module\_scvt.F}. The default density function is a uniform density function that returns a value of 1.0 for all locations
+on the sphere, and commented code in {\tt density\_for\_point()} may be uncommented to achieve an area of circular refinement. {\em Note that, although $\rho({\bf x})$ could in principle take on any non-negative value, the code to scale eddy viscosities by the mesh resolution in the MPAS model assumes that $\rho({\bf x}) \in (0,1]$, so care should be taken when designing a new density function: a value of 1.0 should correspond to the highest-resolution regions(s) in the mesh.}                                      
+                                                                                                
+After editing the Makefile and defining the desired density function, running `make' should create the grid\_gen executable 
+in the top-level directory. A second program, grid\_ref, may also be created, but this program is not needed by the current version 
+of the global\_scvt program.
+
+\subsection{Running}
+
+As will be described in Section \ref{sec:grid_gen_efficiency}, a typical mesh is generated using multiple refinement steps. Within each of these steps, an SCVT with a fixed
+number of generating points is converged before the SCVT is refined, giving a larger number of generating points to begin the next step. In this section, the process of converging an SCVT within a single step is described.
+
+Two files are needed in order to run the grid\_gen program: an initial generating point file, {\tt locs.dat}, and a                        
+namelist file, {\tt namelist.input}. The {\tt locs.dat} file contains a list of the Cartesian coordinates (assuming a unit-radius sphere
+centered at the origin) of each of the beginning generating points, and the {\tt namelist.input} file specifies the number of generating points to be read from the {\tt locs.dat} file, the number of iterations to run, and the convergence criteria; a complete list of namelist variables is provided in the table below.
+
+\vspace{12pt}
+\begin{longtable}{|p{1.25in} |p{4.5in}|}
+\hline
+np & the number of points to read from the {\tt locs.dat} file \\ \hline
+locs\_as\_xyz & whether the initial generating points in {\tt locs.dat} are given in Cartesian space ({\tt .true.}) or latitude-longitude space ({\tt .false.}) \\ \hline
+n\_scvt\_iterations & the maximum number of Lloyd iterations to perform \\ \hline
+eps & the convergence criterion, specifying the maximum permissible average movement of a generating point during an iteration \\ \hline
+l2\_conv & whether to stop iterating if the convergence criterion is met \\ \hline
+inf\_conv & currently the same meaning as l2\_conv \\ \hline
+min\_dx & the targeted minimum grid distance in the mesh, on which an estimate for the number of generating points will be based; see Section \ref{sec:estimating_np} \\ \hline
+\end{longtable}
+\vspace{12pt}
+
+\noindent A convergence criterion of $1\times10^{-10}$ should be sufficient, and in                     
+practice, many thousands of iterations are needed to reach this tolerance.
+
+If grid\_gen was compiled with OpenMP support, the environment variable {\tt OMP\_NUM\_THREADS} can be set to the 
+number of threads that will be used by the program. Then, grid\_gen can be run with no command-line arguments:
+
+\vspace{12pt}
+{\tt > ./grid\_gen}
+\vspace{12pt}
+                                                                                         
+                                                                                                
+When grid\_gen finishes --- either because the convergence criterion has been met, or the
+maximum number of iterations have been performed ---  several output files should be created: 
+
+\begin{itemize}
+\item {\tt scvt\_initial.ps} --- a plot of the mesh at the start of iterations,
+\item {\tt scvt\_final.ps} --- a plot of the mesh after iterations,
+\item {\tt grid.nc} --- the actual MPAS mesh file, which can be used with the initialization core to create an MPAS input file,
+\item {\tt graph.info} --- information describing the cell connectivity graph of the mesh, to be used with a graph partitioner as described in Section \ref{sec:metis}, and
+\item {\tt locs.dat.out} --- a list of the final generating points appended with a set of $3 np - 6$ refinement points. 
+\end{itemize}
+
+If the tolerance specified in the {\tt namelist.input} file was met, the SCVT mesh should be sufficiently converged, and the resulting {\tt grid.nc}
+file can be used with the initialization program to create an initial condition file for MPAS; alternatively, the full set of $4 np - 6$ refinement points in 
+the {\tt locs.dat.out} file can be used as input to the grid\_gen program to create another SCVT with approximately twice the resolution. If, however, the specified tolerance was not met, the {\tt locs.dat.out} file may be copied to {\tt locs.dat}, and further iteration may be performed on the SCVT.
+
+To create a plot of the mesh with coastlines, which can be helpful when locating or sizing refinement regions, the {\tt mesh.ncl} script may be used to plot the mesh directly from                 
+the {\tt grid.nc} file.                                                                          
+
+\subsection{Estimating the required number of generating points}
+\label{sec:estimating_np}
+
+Setting the {\tt min\_dx} variable in the {\tt namelist.input} file to the targeted minimum grid distance in the mesh and running the grid\_gen program will cause the program to print out an estimate for the number of generating points that will be required to achieve that minimum grid distance with the density function provided in {\tt density\_for\_point()}.
+
+\subsection{Efficiency concerns}
+\label{sec:grid_gen_efficiency}
+
+Although one could, given an estimate for the number of generating points needed to achieve the required absolute resolutions in the mesh,
+create a {\tt locs.dat} file with that number of randomly chosen points on the unit sphere, and, using that {\tt locs.dat} file, converge a final SCVT, 
+experience indicates that a stepwise approach can significantly reduce the required wallclock time.                   
+
+   
+\section{The grid\_rotate program} 
+\label{sec:grid_rotate} 
+
+The purpose of the grid\_rotate program is simply to rotate an MPAS mesh file, moving a refinement region from one geographic location to another, so that the mesh can be re-used for different applications. This utility was developed out of the need to save computational resources, since generating an SCVT --- particularly one with a large number of generating points or a high degree of refinement --- can take considerable time.
+
+To build the grid\_rotate program, the Makefile should first be edited to set the Fortran compiler to be used; if the netCDF installation pointed to by the {\tt NETCDF} environment variable was build with a separate Fortran interface library, it will also be necessary to add {\tt -lnetcdff} just before {\tt -lnetcdf} in the Makefile. After editing the Makefile, running `make' should result in a grid\_rotate executable file.
+
+Besides the MPAS grid file to be rotated, grid\_rotate requires a namelist file, {\tt namelist.input}, which specifies the rotation to be applied to the mesh. The namelist variables are summarized in the table below
+   
+\vspace{12pt}
+\begin{longtable}{|p{3.25in} |p{2.5in}|}
+\hline
+config\_original\_latitude\_degrees & original latitude of any point on the sphere \\ \hline
+config\_original\_longitude\_degrees & original longitude of any point on the sphere \\ \hline
+config\_new\_latitude\_degrees &  latitude to which the original point should be shifted \\ \hline
+config\_new\_longitude\_degrees &  longitude to which the original point should be shifted \\ \hline
+config\_birdseye\_rotation\_counter\_clockwise\_degrees & rotation about a vector from the sphere center through the original point \\ \hline
+\end{longtable}
+\vspace{12pt}
+
+\noindent Essentially, one chooses any point on the sphere, decides where that point should be shifted to,
+and specifies any change to the orientation (i.e., rotation) of the mesh about that point. 
+
+Having set the rotation parameters in the {\tt namelist.input} file, the grid\_rotate program should be run with two command-line options
+specifying the original grid file name and the name of the rotated grid file to be produced, e.g.,
+
+\vspace{12pt}
+{\tt > grid\_rotate grid.nc grid\_SE\_Asia\_refinement.nc}
+\vspace{12pt}
+
+The original grid file will not be altered, and a new, rotated grid file will be created. The NCL script {\tt mesh.ncl} may be used to plot either of the original or rotated grid files after suitable setting the name of the grid file in the script.
+   
+   
+\section{Graph partitioning with METIS} 
+\label{sec:metis}
+
+Before MPAS can be run in parallel, a mesh decomposition file with an appropriate number of 
+partitions (equal to the number of MPI tasks that will be used) must first be created from the {\tt graph.info}
+file created by the grid\_gen program. The currently supported method for partitioning a {\tt graph.info} file
+uses the METIS software (\url{http://glaros.dtc.umn.edu/gkhome/views/metis}). The serial graph partitioning program, METIS (rather than ParMETIS or hMETIS) should be sufficient for quickly partitioning any SCVT produced by the grid\_gen mesh generator.
+
+After installing METIS, a {\tt graph.info} file may be partitioned into $N$ partitions by running
+
+\vspace{12pt}
+{\tt > gpmetis graph.info} $N$
+\vspace{12pt}
+
+\noindent The resulting file, {\tt graph.info.part.}$N$, can then be copied into the MPAS run directory
+before running the model with $N$ MPI tasks.
+

@@ -1,0 +1,15 @@
+\chapter{Troubleshooting}
+\label{chap:troubleshooting}
+
+\section{Choice of time step}
+
+{\bf Symptoms:} ``Abort: NaN detected'' appears in log.0000.err file.
+\\ \\
+{\bf Possible cause:} Time step is too long.
+\\ \\
+{\bf Remedy:}  Shorten time step.  
+\\ \\
+{\bf Discission:}  The time step must be short enough that the CFL criterion is not violated.  The minimum timestep varies based on resolution, viscosity, diffusion, forcing, and the resulting dynamics.  The simulations presented in \citet{Ringler_ea13om} used a 600s split explicit timestep for the global 15km mesh, and 360s for a global mesh with 7.5km regions.  On a 120km global mesh, we typically use a 3000s for split explicit and 500s for fourth-order Runge-Kutta.  These timesteps may need adjustment for your choice of turbulence closure and parameter values.
+
+
+

@@ -1,0 +1,465 @@
+\documentclass[11pt]{report}
+
+\usepackage{epsf,amsmath,amsfonts}
+\usepackage{graphicx}
+
+\setlength{\textwidth}{6.5in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\textheight}{8.5in}
+\setlength{\topmargin}{0in}
+
+\begin{document}
+
+\title{
+Requirements and Design\\
+Implicit Vertical Mixing in the Ocean Core}
+\author{MPAS Development Team}
+
+\maketitle
+\tableofcontents
+
+%-----------------------------------------------------------------------
+
+\chapter{Summary}
+
+Implicit vertical mixing is required in ocean models because vertical mixing between unstably stratified layers occurs at timescales faster that other model processes.  The timestep requirement for explicit timestepping is usually set by the horizontal advective CFL condition.  In order to include realistic vertical mixing without very small time steps, we must use operator splitting so that the vertical tracer diffusion term is treated with an implicit timestep, while the remaining terms of the tracer equation use an explicit method.  This is almost identical to the implementation in POP (see Reference Manual p. 25), except that POP uses leapfrog for the explicit timestep, while MPAS-Ocean uses fourth-order Runge-Kutta.  A reasonable test of implicit vertical mixing is simply vertical tracer diffusion with zero advection, which can be compared against one-dimensional analytic solutions.
+
+%figure template
+%\begin{figure}
+%  \center{\includegraphics[width=14cm]{./Figure1.pdf}}
+%  \caption{A graphical representation of the discrete boundary.}
+%  \label{Figure1}
+%\end{figure} 
+
+
+
+
+%-----------------------------------------------------------------------
+
+\chapter{Requirements}
+
+\section{Requirement: Pacanowski and Philander vertical mixing scheme}
+Date last modified: 2011/02/28 \\
+Contributors: Mark Petersen \\
+
+This simply computes the value of the vertical viscosity and tracer diffusivity based on the local Richardson number, calculated from velocity and density fields.
+
+
+\section{Requirement: operator splitting and implicit solve}
+Date last modified: 2011/02/28 \\
+Contributors: Mark Petersen \\
+
+The momentum vertical and tracer vertical diffusion terms must be solved implicitly.  This will normally be used in z-level mode, but coding should work in both z-level and isopycnal modes.
+
+%-----------------------------------------------------------------------
+
+\chapter{Algorithmic Formulations}
+
+\section{Design Solution: Pacanowski and Philander vertical mixing scheme}
+Date last modified: 2011/02/28 \\
+Contributors: Mark Petersen \\
+
+The formulation is identical to that presented in the POP reference manual, p. 49, except that velocities must be averaged from from cell edges to cell centers, rather than cell corners to cell edges, and in MPAS the column index loops within the cell index.
+
+In this parameterization, the vertical diffusivity and viscosity are functions of the Richardson Number,
+\begin{eqnarray}   
+\label{Ri1}
+Ri &=& N^2
+\left(\frac{\partial V}{\partial z} \right)^{-2}
+ = -\frac{g}{\rho_0}\frac{\partial \rho}{\partial z}
+\left(\frac{\partial V}{\partial z} \right)^{-2},
+\end{eqnarray}
+where $V=\sqrt{u^2+v^2}=\sqrt{ke}$ is the velocity magnitude.  The discrete version is
+\begin{eqnarray}   
+Ri^{top}_k &=& -\frac{g}{\rho_0}\frac{\rho^*_{k-1}-\rho^*_k}{\frac{1}{2}(h_{k-1}+h_k)}
+\left(\frac{u_{k-1}-u_k}{\frac{1}{2}(h_{k-1}+h_k)}\right)^{-2}\\
+ &=& -\frac{g}{\rho_0}\frac{(\rho^*_{k-1}-\rho^*_k)\frac{1}{2}(h_{k-1}+h_k)}
+{(u_{k-1}-u_k)^2+\epsilon}
+\end{eqnarray}
+where $top$ indicates a layer interface, $ke$ is the cell-centered kinetic energy, $\rho^*_k$ is the density in layer $k$ adiabatically displaced to the surface, and $\epsilon$ is a small number to avoid dividing by zero.  We will use $\rho_0=1000m^3/kg$ as in POP.  
+
+The variable $Ri^{top}$ must be available at cell edges for the viscoscity $\nu_v$ and at cell centers for the tracer diffusion $\kappa_v$.  In addition, the computation of shear is native to the edges, while density is native to the cell centers.  The design chapter lays out the steps to compute these variables.
+
+%Question: The POP manual has
+%\begin{eqnarray} \label{RiPOP}    
+%Ri &=& -\frac{g dz_{k+\frac{1}{2}}(\rho^*_k-\rho_{k+1})}
+%{(u_k-u_{k+1})^2+(v_k-v_{k+1})^2+\epsilon}
+%\end{eqnarray}
+%This appears to have units of $\rho$.  Also, if $V=\sqrt{u^2+v^2}$, then this uses the invalid operation
+%\begin{eqnarray} 
+%\left(\frac{\partial V}{\partial z} \right)^{2}
+%\equiv \left(\frac{\partial \sqrt{u^2+v^2}}{\partial z} \right)^{2}
+%=\frac{\partial (u^2+v^2)}{\partial z},
+%\end{eqnarray}
+%that is, $(da/dz)^2=d(a^2)/dz$.  Pacanowski and Philander (1981) eqn (3) is similar to (\ref{RiPOP}).
+
+The functional forms for vertical viscosity and diffusivity at each layer interface will be identical to POP:
+\begin{eqnarray} \label{visc1}  
+\nu_v &=& \nu_{bkrd} + Rich\_mix/(1+5Ri)^2\\
+\kappa_v &=& \kappa_{bkrd} + (\nu_{bkrd} + Rich\_mix/(1+5Ri)^2)/(1+5Ri)
+\end{eqnarray}
+for $Ri>=0$.  For unstable stratification, $Ri<0$ and the viscosity and diffusion are set to be very high.  For implicit vertical mixing, it is set by the config\_convective\_visc and config\_convective\_diff input variables.  For explicit vertical diffusion, it is based on the vertical diffusive CFL condition,
+\begin{eqnarray} \label{visc2}  
+\nu_v = 
+\kappa_v = \frac{1}{4} \frac{dz^2}{dt}
+\end{eqnarray}
+
+
+\section{Design Solution: operator splitting and implicit solve}
+Date last modified: 2012/05/02 \\
+Contributors: Mark Petersen, Qingshan Chen \\
+
+The continuous MPAS-Ocean tracer equation with operator splitting is
+\begin{equation}   
+\label{continuous_tracer1}
+\frac{\partial h\varphi}{\partial t} 
+ + \nabla \cdot \left( h\varphi {\bf u} \right) 
+ + \frac{\partial}{\partial z} \left( h\varphi w \right) 
+= \nabla\cdot\left(h \kappa_h \nabla\varphi \right)
++ (1-\lambda)h \frac{\partial }{\partial z} 
+  \left( \kappa_v \frac{\partial \varphi}{\partial z} \right)
++ \lambda h \frac{\partial }{\partial z} 
+  \left( \kappa_v \frac{\partial \varphi}{\partial z} \right),
+\end{equation}
+where $\lambda=1$ for fully implicit vertical mixing.
+Consolidating all of the terms to be solved explicitly and implicitly, we have
+\begin{eqnarray}   
+\label{continuous_tracer2}
+&\displaystyle\frac{\partial h\varphi}{\partial t} 
+ = F_{exp}(t,h,\phi) + F_{imp}(t,h,\phi), \\
+& F_{imp}(t,h,\phi) = \lambda h \displaystyle\frac{\partial }{\partial z} 
+  \left( \kappa_v \frac{\partial \varphi}{\partial z} \right).
+\end{eqnarray}
+We now choose Runge-Kutta 4 for the explicit timestep, and backward Euler for the implicit timestep,
+\begin{equation}   
+\label{tracersplit1}
+(h\varphi)^{n+1} = (h\varphi)^n 
++ \frac{\Delta t }{6}(k_1 + 2k_2 + 2k_3 + k_4)
++ \Delta t \lambda h^{n+1} \displaystyle\frac{\partial }{\partial z}
+  \left( \kappa_v \frac{\partial \varphi^{n+1}}{\partial z} \right),
+\end{equation}
+where $k_1\ldots k_4$ are the RK4 slopes.  Because $h$ and $\varphi$ are separate in the last term, we must solve for $\varphi^{n+1}$ rather than $(h\varphi)^{n+1}$ in the implicit solve.  To deal with this, we define a provisional variable $\widetilde{(h\varphi)}^{n+1}$ and separate the solve into two steps,
+\begin{eqnarray}
+\label{dt1}
+\widetilde{(h\varphi)}^{n+1} = (h\varphi)^n 
++ \frac{\Delta t }{6}(k_1 + 2k_2 + 2k_3 + k_4)\\
+\label{dt2}
+\varphi^{n+1} = \frac{\widetilde{(h\varphi)}^{n+1}}{h^{n+1}}
++ \Delta t \lambda \displaystyle\frac{\partial }{\partial z}
+  \left( \kappa_v \frac{\partial \varphi^{n+1}}{\partial z} \right).
+\end{eqnarray}
+Note that $\widetilde{(h\varphi)}^{n+1}$ is the solution from the explicit RK4 in the current code, and $h^{n+1}$ is known from the solution of the thickness equation.  Rewrite \ref{dt2} as
+\begin{eqnarray}
+\label{dt3}
+\left(1- \Delta t \lambda \displaystyle\frac{\partial }{\partial z}
+  \left( \kappa_v \frac{\partial}{\partial z} \right)
+  \right)\varphi^{n+1} = \frac{\widetilde{(h\varphi)}^{n+1}}{h^{n+1}}
+\end{eqnarray}
+and add spacial discretization,
+\begin{eqnarray}
+\label{dt4}
+\left(1- \Delta t \lambda \delta_z \kappa_v \delta_z \right)\varphi^{n+1}_k 
+= \frac{\widetilde{(h\varphi)}^{n+1}_k}{h^{n+1}_k}
+\end{eqnarray}
+where $\delta_z$ is a first order finite difference $\delta_z \varphi_k= (\varphi_{k-1/2}-\varphi_{k+1/2})/h_k$ (index $k$ increases downward).  The second order derivative is then:
+\begin{eqnarray}
+\delta_z \kappa \delta_z \varphi_k= 
+  \frac{\kappa_{k  }^{top}(\varphi_{k-1}-\varphi_{k  })}{h^{n+1}_k(h^{n+1}_{k-1} + h^{n+1}_{k  })/2}
+- \frac{\kappa_{k+1}^{top}(\varphi_{k  }-\varphi_{k+1})}{h^{n+1}_k(h^{n+1}_{k  } + h^{n+1}_{k+1})/2}
+\end{eqnarray}
+so that (\ref{dt4}) is then
+\begin{eqnarray}
+\label{dt5}
+\varphi^{n+1}_k 
+- \frac{2 \Delta t \lambda}{h^{n+1}_k}\left[
+  \frac{\kappa_{k  }^{top}(\varphi^{n+1}_{k-1}-\varphi^{n+1}_{k  })}{h^{n+1}_{k-1} + h^{n+1}_{k  }}
+- \frac{\kappa_{k+1}^{top}(\varphi^{n+1}_{k  }-\varphi^{n+1}_{k+1})}{h^{n+1}_{k  } + h^{n+1}_{k+1}}
+\right]
+= \frac{\widetilde{(h\varphi)}^{n+1}_k}{h^{n+1}_k}
+\end{eqnarray}
+%\begin{eqnarray}
+%\label{dt6}
+%- \frac{2 \Delta t \lambda \kappa_{k  }^{top}}{h^{n+1}_k(h^{n+1}_{k-1} + h^{n+1}_{k  })}\varphi^{n+1}_{k-1} 
+%+ \left[1 - A - B
+%\right]
+%\varphi^{n+1}_k 
+%- \frac{2 \Delta t \lambda \kappa_{k+1}^{top}}{h^{n+1}_k(h^{n+1}_{k  } + h^{n+1}_{k+1})}\varphi^{n+1}_{k+1} 
+%= \frac{\widetilde{(h\varphi)}^{n+1}_k}{h^{n+1}_k}
+%\end{eqnarray}
+which can be rewritten as
+\begin{eqnarray}
+\label{tridiag}
+&& A_{k}\varphi^{n+1}_{k-1} + B_k\varphi^{n+1}_k +  C_k\varphi^{n+1}_{k+1} 
+=\frac{\widetilde{(h\varphi)}^{n+1}}{h^{n+1}}, \;\; k=1\ldots N\\
+&& A_k = -\frac{2 \Delta t \lambda \kappa^{top}_{k}}{h_k^{n+1}(h_{k-1}^{n+1} + h_{k}^{n+1})}, \;\; k=2\ldots N \\
+&& C_k = -\frac{2 \Delta t \lambda \kappa^{top}_{k+1}}{h_k^{n+1}(h_k^{n+1} + h_{k+1}^{n+1})}, \;\; k=1\ldots N-1 \\
+&& A_1=C_N=0, \\
+&& B_k = 1 - A_k - C_{k}
+\end{eqnarray}
+%\begin{eqnarray}
+%\label{tridiag}
+%&& A_{k-1}\varphi^{n+1}_{k-1} + B_k\varphi^{n+1}_k +  A_k\varphi^{n+1}_{k+1} 
+%=\frac{\widetilde{(h\varphi)}^{n+1}}{h^{n+1}}, \;\; k=1\ldots N\\
+%&& A_k = -\frac{2 \Delta t \lambda \kappa^{top}_{k+1}}{h_k^{n+1}(h_k^{n+1} + h_{k+1}^{n+1})}, \;\; k=1\ldots N-1 \\
+%&& A_0=A_N=0, \\
+%&& B_k = 1 - A_k - A_{k-1}
+%\end{eqnarray}
+where $\kappa^{top}_{k+1}$ is the tracer diffusion on the interface between layers $k$ and $k+1$, and the bottom cell is $N$.  This equation set is nearly identical to that in the POP reference manual, section 4.2.3.  The boundary condition for the implicit tracer solve is no flux, 
+\begin{eqnarray}
+\label{tridiag bc}
+\frac{\partial \varphi}{\partial z} = 0
+\end{eqnarray}
+at the top of cell 1 and the bottom of cell N (top of cell $N+1$).  When this is implemented in the derivation from (\ref{tridiag}) to (\ref{tridiag bc}), the result is $A_1=C_N=0$ above.
+
+We now proceed to operator splitting for the momentum equation.  The continuous equation is
+\begin{eqnarray}   
+\nonumber &&
+\frac{\partial u}{\partial t} + q (h u^{\perp}) 
+ + w\frac{\partial u}{\partial z} 
+  = - \frac{1}{\rho_0}\nabla p  - \nabla K
+   +\nu_h(\nabla \delta + {\bf k}\times \nabla \eta)
+\\ &&
+\hspace{1cm}
+\label{continuous_momentum1} 
+ + (1-\lambda)\frac{\partial }{\partial z} 
+\left( \nu_v \frac{\partial u}{\partial z} \right)
+ + \lambda\frac{\partial }{\partial z} 
+\left( \nu_v \frac{\partial u}{\partial z} \right) .
+\end{eqnarray}
+Continuing as in (\ref{continuous_tracer2}-\ref{tracersplit1}), we define a provisional 
+variable $\tilde{u}^{n+1}$ and separate the solve into two steps,
+\begin{eqnarray}
+\label{momdt1}
+\tilde{u}^{n+1} = u^n 
++ \frac{\Delta t }{6}(k_1 + 2k_2 + 2k_3 + k_4)\\
+\label{momdt2}
+u^{n+1} = \tilde{u}^{n+1}
++ \Delta t \lambda \displaystyle\frac{\partial }{\partial z}
+  \left( \nu_v \frac{\partial u^{n+1}}{\partial z} \right).
+\end{eqnarray}
+Note that $\tilde{u}^{n+1}$ is the solution from the explicit RK4 in the current code.  Rewrite (\ref{momdt2}) as
+\begin{eqnarray}
+\label{momdt3}
+\left(1- \Delta t \lambda \displaystyle\frac{\partial }{\partial z}
+  \left( \nu_v \frac{\partial}{\partial z} \right)
+  \right)u^{n+1} = \tilde{u}^{n+1}
+\end{eqnarray}
+and add spacial discretization,
+\begin{eqnarray}
+\label{momdt4}
+\left(1- \Delta t \lambda \delta_z \nu_v \delta_z \right)u^{n+1}_k
+= \tilde{u}^{n+1}_k
+\end{eqnarray}
+where $\delta_z$ is a first order finite difference.  The tridiagonal solve is then
+\begin{eqnarray}
+\label{momtridiag}
+&& A_{k} u^{n+1}_{k-1} + B_k u^{n+1}_k +  C_k u^{n+1}_{k+1} 
+= \tilde{u}^{n+1}_k, \;\; k=1\ldots N\\
+&& A_k = -\frac{2 \Delta t \lambda \nu^{top}_{k}}{h_k^{n+1}(h_{k-1}^{n+1} + h_{k}^{n+1})}, \;\; k=2\ldots N \\
+&& C_k = -\frac{2 \Delta t \lambda \nu^{top}_{k+1}}{h_k^{n+1}(h_k^{n+1} + h_{k+1}^{n+1})}, \;\; k=1\ldots N-1 \\
+&& A_1=C_N=0, \\
+&& B_k = 1 - A_k - C_{k}
+\end{eqnarray}
+Again, no flux boundary conditions $\partial u/\partial z=0$ imply that $A_0=C_N=0$.  In practice $\lambda$, the fraction vertical mixing done implicitly, is either one (fully implicit) or zero (fully explicit) so that variable does not show up in the code.  Rather, there is a logical flag \verb=config_implicit_vertical_mix= that serves that purpose.
+
+\subsection{Inclusion of bottom drag in the momentum implicit solve}
+Date last modified: 2012/05/02 \\
+Contributors: Mark Petersen, Mathew Maltrud, Qingshan Chen \\
+
+The bottom boundary condition for the viscous term is 
+\begin{eqnarray}
+\nu_v \frac{\partial u}{\partial z} \rightarrow c_{drag}|u| u.
+\end{eqnarray}
+where $c_{drag}$ is the dimensionless drag coefficient of the order $10^{-3}$.  Note that this is nonlinear in $u$, so we linearize by considering the speed $|u|$ to be at time level $n$ and the velocity to at be time level $n+1$:
+\begin{eqnarray}
+\nu_v \frac{\partial u^{n+1}}{\partial z} \rightarrow c_{drag}|u^n| u^{n+1}.
+\end{eqnarray}
+Applying the bottom boundary condition to (\ref{momdt3}) at level N, and discritizing the outside derivative first,
+\begin{eqnarray}
+\label{momdt5}
+u^{n+1}_k - \Delta t \left[ 
+\frac{
+  \left( \nu_v \frac{\partial u}{\partial z}\right)^{k-1/2}
+- \left( \nu_v \frac{\partial u}{\partial z}\right)^{k+1/2}
+}{h_k^{n+1}}\right]
+= \tilde{u}^{n+1}_k
+\end{eqnarray}
+Level $N+1/2$ is the bottom boundary, and can be replaced with the drag term,
+\begin{eqnarray}
+\label{momdt6}
+u^{n+1}_k - \Delta t \left[ 
+  \left( \frac{\nu_v}{h_k^{n+1}} \frac{\partial u}{\partial z}\right)^{k-1/2}
+- \frac{c_{drag}|u^n| u^{n+1}}{h_k^{n+1}}
+\right]
+= \tilde{u}^{n+1}_k,\;\;\;k=N
+\end{eqnarray}
+Discretizing the remaining derivative,
+\begin{eqnarray}
+\label{momdt7}
+u^{n+1}_k - \Delta t \left[ 
+\frac{\nu^{top}_{k}(u^{n+1}_{k-1} - u^{n+1}_{k})}
+{h_k^{n+1}(h_{k-1}^{n+1} + h_{k}^{n+1})/2}
+- \frac{c_{drag}|u^n| u^{n+1}}{h_k^{n+1}}
+\right]
+= \tilde{u}^{n+1}_k,\;\;\;k=N
+\end{eqnarray}
+so that the coefficients of the tridiagonal solve are revised as:
+\begin{eqnarray}
+\label{momtridiag2}
+&& A_{k} u^{n+1}_{k-1} + B_k u^{n+1}_k +  C_k u^{n+1}_{k+1} 
+= \tilde{u}^{n+1}_k, \;\; k=1\ldots N\\
+&& A_k = -\frac{2 \Delta t \lambda \nu^{top}_{k}}{h_k^{n+1}(h_{k-1}^{n+1} + h_{k}^{n+1})}, \;\; k=2\ldots N \\
+&& C_k = -\frac{2 \Delta t \lambda \nu^{top}_{k+1}}{h_k^{n+1}(h_k^{n+1} + h_{k+1}^{n+1})}, \;\; k=1\ldots N-1 \\
+&& A_1=C_N=0, \\
+&& B_k = 1 - A_k - C_{k}, \;\; k=1\ldots N-1 \\
+&& B_k = 1 - A_k + \Delta t c_{drag}|u^n| /h_k^{n+1}, \;\;\;k=N
+\end{eqnarray}
+
+
+
+\subsection{Inclusion of implicit terms in the surface forcing.}
+Date last modified: 2011/05/20 \\
+Contributors: Mark Petersen, Mathew Maltrud \\
+
+Surface forcing terms often take on a similar form as the drag term in the previous section.  For example, simple restoring of surface temperature takes the following form,
+
+\begin{eqnarray}
+&& R = (T_{ref} - T)/\tau,
+\end{eqnarray}
+
+where $T_{ref}$ is a reference temperature, and $\tau$ is a restoring timescale.  Clearly, this linear form can easily be incorporated into the tridiagonal implicit solve.  However, POP does not have this feature.  Also, complications may occur when running fully coupled.  We therefore defer this aspect of the problem to the future.
+
+%-----------------------------------------------------------------------
+
+\chapter{Design and Implementation}
+
+\section{Implementation: Pacanowski and Philander vertical mixing scheme}
+Date last modified: 2011/02/28 \\
+Contributors: Mark Petersen \\
+
+Add the ``rich'' option to \verb=config_vert_visc_type=.  Add separate namelist for each vertical mixing type, so the vmix namelist is less confusing.  That part of the Registry will look like:
+\begin{verbatim}
+namelist character vmix     config_vert_visc_type    const
+namelist character vmix     config_vert_diff_type    const
+namelist logical   vmix     config_implicit_vertical_mix  .true.
+namelist real      vmix     config_convective_visc  1.0
+namelist real      vmix     config_convective_diff  1.0
+namelist real      vmix_const   config_vert_visc         2.5e-4
+namelist real      vmix_const   config_vert_diff         2.5e-5
+namelist real      vmix_rich    config_bkrd_vert_visc    1.0e-4
+namelist real      vmix_rich    config_bkrd_vert_diff    1.0e-5
+namelist real      vmix_rich    config_rich_mix          50
+namelist real      vmix_tanh    config_max_visc_tanh     2.5e-1
+namelist real      vmix_tanh    config_min_visc_tanh     1.0e-4
+namelist real      vmix_tanh    config_max_diff_tanh     2.5e-2
+namelist real      vmix_tanh    config_min_diff_tanh     1.0e-5
+namelist real      vmix_tanh    config_zMid_tanh         -100
+namelist real      vmix_tanh    config_zWidth_tanh       100
+\end{verbatim}
+
+Right now, the vertical viscosity variable \verb=vertViscTop(k)= is computed columnwise in subroutine \verb=compute_tend=, and the vertical diffusivity variable \verb=vertDiffTop(k)= is computed columnwise in subroutine \verb=compute_scalar_tend=.  We propose to change these to 3D variables computed in \verb=compute_solve_diagnostics=.  The revised registry would include:
+
+\begin{verbatim}
+var persistent real   RiTopOfCell ( nVertLevelsP1 nCells Time )       1 o  diagnostics
+var persistent real   RiTopOfEdge ( nVertLevelsP1 nEdges Time )       1 o  diagnostics
+var persistent real   vertViscTopOfEdge ( nVertLevelsP1 nEdges Time ) 1 o  diagnostics
+var persistent real   vertDiffTopOfCell ( nVertLevelsP1 nCells Time ) 1 o  diagnostics
+var persistent real   rhoDisplaced ( nVertLevels nCells Time )        2 o  state
+\end{verbatim}
+A note will be added that in the future, arrays could be saved by computing these values columnwise on the fly.  We feel that the full 3D allocation allows for clear and consolidated code, so is worthwhile in the prototype version.  A new variable class, named diagnostics, with only one time level is used for these variables, in order to avoid the memory required for two time-level state class variables.
+
+Right now subroutine \verb=equation_of_state_jm= computes the density for all cells and levels.  It will need to be modified to compute $\rho^*$ values, density of a parcel after adiabatic displacement.
+
+
+The following steps will be used to ensure that variables are computed at the correct locations:
+\begin{enumerate}
+\item compute density of parcel displaced to surface, $\rho^*$
+\item drhoTopOfCell(k) = $\rho^*_{k-1}-\rho^*_k$
+\item interpolate drhoTopOfCell to drhoTopOfEdge
+\item duTopOfEdge(k) = $u_{k-1}-u_k$
+\item interpolate duTopOfEdge to duTopOfCell
+\item compute RiTopOfCell using drhoTopOfCell and duTopOfCell
+\item compute vertDiffTopOfCell from RiTopOfCell
+\item compute RiTopOfEdge using drhoTopOfEdge and duTopOfEdge
+\item compute vertViscTopOfEdge from RiTopOfEdge 
+\end{enumerate}
+
+
+\section{Implementation: operator splitting and implicit solve}
+Date last modified: 2011/02/28 \\
+Contributors: Mark Petersen \\
+
+Add the following namelist option to the registry:
+\begin{verbatim}
+namelist logical   vmix     config_implicit_vertical_mix  .true.
+\end{verbatim}
+so that .true. sets $\lambda=1$ in \ref{continuous_tracer1}.  In the code the variable $\lambda$ will not appear.  Rather, the namelist variable \verb=config_implicit_vertical_mix= would be used in if statements around the tridiagonal solve and the explicit vertical tracer diffusion term.
+
+We will add eqn (\ref{dt4}) and (\ref{momdt4}) to subroutine \verb=rk4=, here within \verb=if (config_implicit_vertical_mix)=
+\begin{verbatim}
+! END RK loop 
+
+block => domain % blocklist
+do while (associated(block))
+
+   if (config_implicit_vertical_mix) then
+
+      call compute_vertical_mix_coeff(dt, state, mesh, diag)
+
+      do iCell=1,nCells
+         N=maxLevelCell(iCell)
+
+         do k=1,N
+            ! Compute A(k), C(k), R(k) for momentum
+         enddo
+         call tridiagonal_solve(u(:,iCell),A(2:N),C(1:N),A(1:N-1),R)
+
+         do k=1,N
+            ! Compute A(k), C(k), R(iTracer,k) for tracers
+         enddo
+         call tridiagonal_solve_mult(tracers(:,:,iCell),A(2:N),C(1:N),A(1:N-1),R)
+      end do
+   else
+      do iCell=1,nCells
+         do k=1,maxLevelCell
+            tracers(:,k,iCell) = tracers(:,k,iCell) / h(k,iCell)
+         end do
+      end do
+   endif
+
+   call compute_solve_diagnostics(dt, state, mesh)
+   call reconstruct(state, mesh)
+
+   block => block % next
+end do
+\end{verbatim}
+The variables $\rho^*, Ri, \nu_v,$ and $\kappa_v$ are computed in the new subroutine \verb=compute_vertical_mix_coeff= rather than \verb=compute_solve_diagnostics= in order to save computation.  For implicit vertical mixing ($\lambda=1$) one only needs $\nu_v$ and $\kappa_v$ after the fourth RK stage.
+
+We propose to use a standard tridiagonal solver for \verb=tridiagonal_solve=.  An additional subroutine \verb=tridiagonal_solve_mult=, will include an internal loop over tracers to save computation.  I think we should add both of these to the operator subdirectory.  The POP tridiag solver, in \verb=impvmixt= in module \verb=vertical_mix.F90=, should not be copied, because it has horizontal indices as the innermost loop, includes partial bottom cells, and so is not general in its interface.
+
+%-----------------------------------------------------------------------
+
+\chapter{Testing}
+
+\section{Testing and Validation: Pacanowski and Philander vertical mixing scheme}
+Date last modified: 2011/02/28 \\
+Contributors: Mark Petersen \\
+
+For an artificial initial condition with velocities and densities that are linear with depth, one can compute the expected values for $Ri$, vertical viscosity, and vertical diffusion, and make sure the model matches this.  This would require a linear equation of state to predict $\rho^*$.
+
+The equation of state routine with adiablatic displacement should be tested by itself.
+
+\section{Testing and Validation: operator splitting and implicit solve}
+Date last modified: 2011/02/28 \\
+Contributors: Mark Petersen \\
+
+The tridiagonal solver subroutine may be tested with a stand-alone matrix and be compared with a solution from Matlab.
+
+A reasonable test of implicit vertical mixing is simply vertical tracer diffusion with zero advection, which can be compared against one-dimensional analytic solutions.  
+
+In the end, a full global ocean simulation with topography should be run, and implicit vertical mixing should produce reasonable results.
+
+%-----------------------------------------------------------------------
+
+\end{document}

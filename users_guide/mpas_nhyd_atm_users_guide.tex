@@ -1,0 +1,46 @@
+\documentclass[11pt]{report}
+
+\usepackage{epsf,amsmath,amsfonts}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{hyperref}
+\usepackage{color}
+
+\setlength{\topmargin}{0in}
+\setlength{\headheight}{0in}
+\setlength{\headsep}{0in}
+\setlength{\textheight}{9.0in}
+\setlength{\textwidth}{6.5in}
+\setlength{\evensidemargin}{0in}
+\setlength{\oddsidemargin}{0in}
+
+
+\setlength\LTleft\parindent
+\setlength\LTright\fill
+
+\begin{document}
+
+\title{MPAS - Non-Hydrostatic Atmosphere Model Users Guide}
+
+
+
+\author{MPAS-Developer Team}
+
+\maketitle
+\tableofcontents
+
+\part{Introduction}
+\input{shared/mpas_build_instructions.tex}
+\input{shared/mpas_grid_information.tex}
+\input{shared/mpas_visualization.tex}
+
+\part{Non-hydrostatic Atomospheric Core}
+\input{nhyd_atm/mpas_atm_core.tex}
+\input{nhyd_atm/mpas_atm_field_description.tex}
+\input{nhyd_atm/mpas_atm_init_namelist_options.tex}
+\input{nhyd_atm/mpas_atm_namelist_options.tex}
+
+\input{shared/mpas_grid_generation.tex}
+
+\end{document}
+
