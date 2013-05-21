@@ -17,6 +17,8 @@ An MPI installation such as MPICH or OpenMPI is also required, and there is no o
 
 Although most recent versions of the I/O libraries should work, the most tested versions of these libraries are: netCDF 4.1.3, parallel-netCDF 1.3.1, and PIO 1.4.1. The netCDF and parallel-netCDF libraries must be installed before building PIO library.
 
+All commands are presented for csh, and will not work if pasted into another shell. Please translate them to the appropraite commands in your shell.
+
 \subsection{netCDF}
 
 Version 4.1.3 of the netCDF library may be downloaded from \url{http://www.unidata.ucar.edu/downloads/netcdf/netcdf-4\_1\_3/index.jsp}.
@@ -33,7 +35,7 @@ Assuming the gfortran and gcc compilers will be used, the following shell comman
 
 {\tt > ./configure --prefix=XXXXX --disable-dap --disable-netcdf-4 --disable-cxx \hfill\break --disable-shared --enable-fortran} 
 
-{\tt > make}
+{\tt > make all check}
 
 {\tt > make install}
 \vspace{12pt}
@@ -68,38 +70,18 @@ Here, {\tt XXXXX} should be replaced with the directory that will serve as the r
 
 \subsection{PIO}
 
-Additional documentation for PIO can be found at
-\url{http://www.cesm.ucar.edu/models/pio_new/}. The instructions at this
-website might be more up-to-date than the instructions contained in this
-document, so please refer to them if you run into any issues.
+Instructions for building PIO can be found at \url{http://www.cesm.ucar.edu/models/pio/}. Please refer to these instructions for building PIO.
 
-Due to the rapid development pace of PIO, the preferred method of obtaining the PIO library is via subversion checkout. The PIO repository URL
-can be found at \url{http://code.google.com/p/parallelio/}.
-
-It is recommended users begin trying to use the current trunk of the subversion repository. However, the latest version is not always tested within MPAS. The lateset version that has been tested within MPAS at the time of writing this is 1.6.8.
-
-Assuming that all environment variables mentioned in the preceding sections are
-still set (including {\tt NETCDF\_PATH} and {\tt PNETCDF\_PATH}), the following
-shell commands are generally sufficient to build the PIO library; there is no
-separate installation step for PIO.
-
-\vspace{12pt}
-{trunk\tt > svn co http://parallelio.googlecode.com/svn/trunk/pio pio-trunk}
-
-{v1.6.8\tt > svn co http://parallelio.googlecode.com/svn/trunk\_tags/pio1\_6\_8 pio-1.6.8}
-
-{\tt > ./configure}
-
-{\tt > make} 
-\vspace{12pt}
-
-Since PIO uses no installation step, the {\tt PIO} environment variable should be set to the directory containing the {\tt libpio.a} file (i.e., the directory where `make' was run in the final step above.
-
+After PIO is built, and installed the PIO enviroment variable needs to be
+defined to point at the directory PIO is installed into. Older versions of PIO
+cannot be installed, and the PIO environment variable needs to be set to the
+directory where PIO was built instead.
 
 \section{Compiling MPAS}
 
-{\em Before compiling MPAS, the {\tt NETCDF}, {\tt PNETCDF}, and {\tt PIO} environment variables must be set to the library installation directories as
-described in the previous section.}
+{\bf \em Before compiling MPAS, the {\tt NETCDF}, {\tt PNETCDF}, and {\tt PIO} environment variables must be set to the library installation directories as
+described in the previous section. A {\tt CORE} variable also needs to either be defined or passed in during the make process. If {\tt CORE} is not specified, 
+the build process will fail.}
 
 The MPAS code uses only the `make' utility for compilation. Rather than employing a separate configuration step
 before building the code, all information about compilers, compiler flags, etc., is contained in the top-level {\tt Makefile}; each
@@ -125,12 +107,12 @@ Target & Fortran compiler & C compiler & MPI wrappers \\ \hline \hline
 \end{longtable}
 \vspace{12pt}
 
-%In order to get a more complete and up-to-date list of available targets, one can use the following command within the top-level directory of MPAS.
-%{\small
-%\begin{verbatim}
-%> make -rpn | sed -n -e '/^$/ { n ; /^[^ ]*:/p }' | sed "s/: *.*$//g"
-%\end{verbatim}
-%}
+In order to get a more complete and up-to-date list of available tagets, one can use the following command within the top-level of MPAS. {\bf NOTE: }This command is known to not work with Mac OSX.
+{\small
+\begin{verbatim}
+> make -rpn | sed -n -e '/^$/ { n ; /^[^ ]*:/p }' | sed "s/: *.*$//g"
+\end{verbatim}
+}
 
 The MPAS framework supports multiple {\em cores} --- currently a shallow water
 model, an ocean model, a hydrostatic atmosphere model, a non-hydrostatic atmosphere model, and a non-hydrostatic atmosphere initialization core --- so the build
