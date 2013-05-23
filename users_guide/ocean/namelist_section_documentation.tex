@@ -28,7 +28,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Units: & $unitless$ \\
     \hline
-    Default Value: & '0000-01-01\_00:00:00' \\
+    Default Value: & 0000-01-01\_00:00:00 \\
     \hline
     Possible Values: & 'YYYY-MM-DD\_HH:MM:SS' or 'file' \\
     \hline
@@ -44,7 +44,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Units: & $unitless$ \\
     \hline
-    Default Value: & 'none' \\
+    Default Value: & none \\
     \hline
     Possible Values: & 'YYYY-MM-DD\_HH:MM:SS' or 'none' \\
     \hline
@@ -60,7 +60,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Units: & $unitless$ \\
     \hline
-    Default Value: & '0\_06:00:00' \\
+    Default Value: & 0001\_00:00:00 \\
     \hline
     Possible Values: & 'DDDD\_HH:MM:SS' or 'none' \\
     \hline
@@ -76,7 +76,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Units: & $unitless$ \\
     \hline
-    Default Value: & '360day' \\
+    Default Value: & 360day \\
     \hline
     Possible Values: & 'gregorian', 'gregorian\_noleap', or '360day' \\
     \hline
@@ -94,7 +94,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Units: & {\bf \color{red} MISSING} \\
     \hline
-    Default Value: & 'grid.nc' \\
+    Default Value: & grid.nc \\
     \hline
     Possible Values: & {\bf \color{red} MISSING} \\
     \hline
@@ -110,7 +110,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Units: & {\bf \color{red} MISSING} \\
     \hline
-    Default Value: & 'output.nc' \\
+    Default Value: & output.nc \\
     \hline
     Possible Values: & {\bf \color{red} MISSING} \\
     \hline
@@ -126,7 +126,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Units: & {\bf \color{red} MISSING} \\
     \hline
-    Default Value: & 'restart.nc' \\
+    Default Value: & restart.nc \\
     \hline
     Possible Values: & {\bf \color{red} MISSING} \\
     \hline
@@ -142,7 +142,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Units: & {\bf \color{red} MISSING} \\
     \hline
-    Default Value: & '0\_06:00:00' \\
+    Default Value: & 0001\_00:00:00 \\
     \hline
     Possible Values: & {\bf \color{red} MISSING} \\
     \hline
@@ -158,7 +158,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Units: & {\bf \color{red} MISSING} \\
     \hline
-    Default Value: & '0\_06:00:00' \\
+    Default Value: & 0001\_00:00:00 \\
     \hline
     Possible Values: & {\bf \color{red} MISSING} \\
     \hline
@@ -174,7 +174,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Units: & {\bf \color{red} MISSING} \\
     \hline
-    Default Value: & '0\_01:00:00' \\
+    Default Value: & 0000\_01:00:00 \\
     \hline
     Possible Values: & {\bf \color{red} MISSING} \\
     \hline
@@ -272,7 +272,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Units: & $s$ \\
     \hline
-    Default Value: & 3000.0 \\
+    Default Value: & 300.0 \\
     \hline
     Possible Values: & Any positive real value, but limited by CFL condition. \\
     \hline
@@ -288,7 +288,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Units: & $unitless$ \\
     \hline
-    Default Value: & 'split\_explicit' \\
+    Default Value: & split\_explicit \\
     \hline
     Possible Values: & 'split\_explicit', 'RK4', 'unsplit\_explicit' \\
     \hline
@@ -322,7 +322,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Units: & $unitless$ \\
     \hline
-    Default Value: & 'uniform\_stretching' \\
+    Default Value: & uniform\_stretching \\
     \hline
     Possible Values: & 'uniform\_stretching', 'fixed', 'user\_specified', 'isopycnal' \\
     \hline
@@ -338,7 +338,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Units: & $unitless$ \\
     \hline
-    Default Value: & 'zlevel\_pbcs\_off' \\
+    Default Value: & zlevel\_pbcs\_off \\
     \hline
     Possible Values: & 'zlevel\_pbcs\_on', 'zlevel\_pbcs\_off', 'off' \\
     \hline
@@ -388,7 +388,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Units: & $unitless$ \\
     \hline
-    Default Value: & 'graph.info.part.' \\
+    Default Value: & graph.info.part. \\
     \hline
     Possible Values: & Any path/prefix to a block decomposition file. \\
     \hline
@@ -436,7 +436,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Units: & $unitless$ \\
     \hline
-    Default Value: & 'graph.info.part.' \\
+    Default Value: & graph.info.part. \\
     \hline
     Possible Values: & Any path/prefix to a processor decomposition file. \\
     \hline
@@ -459,6 +459,22 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     Possible Values: & .true. or .false. \\
     \hline
     \caption{config\_hmix\_ScaleWithMesh:  If false, del2 and del4 coefficients are constant throughout the mesh (equivalent to setting  $\rho_m=1$  throughout the mesh).  If true, these coefficients scale as mesh density to the -3/4 power.}
+\end{longtable}
+\end{center}
+\subsection[config\_maxMeshDensity]{\hyperref[sec:nm_tab_hmix]{config\_maxMeshDensity}}
+\label{subsec:nm_sec_config_maxMeshDensity}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & -1.0 \\
+    \hline
+    Possible Values: & Any positive real number. If set any negative real number, config\_maxMeshDensity is computed during the initialization of each simulation. \\
+    \hline
+    \caption{config\_maxMeshDensity: Global maximum of the mesh density}
 \end{longtable}
 \end{center}
 \subsection[config\_visc\_vorticity\_term]{\hyperref[sec:nm_tab_hmix]{config\_visc\_vorticity\_term}}
@@ -504,7 +520,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Units: & $unitless$ \\
     \hline
-    Default Value: & .false. \\
+    Default Value: & .true. \\
     \hline
     Possible Values: & .true. or .false. \\
     \hline
@@ -536,7 +552,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Units: & $m^2$ $s^{-1}$ \\
     \hline
-    Default Value: & 0.0 \\
+    Default Value: & 10.0 \\
     \hline
     Possible Values: & any positive real \\
     \hline
@@ -552,7 +568,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Units: & $m^2$ $s^{-1}$ \\
     \hline
-    Default Value: & 0.0 \\
+    Default Value: & 10.0 \\
     \hline
     Possible Values: & any positive real \\
     \hline
@@ -586,7 +602,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Units: & $unitless$ \\
     \hline
-    Default Value: & .true. \\
+    Default Value: & .false. \\
     \hline
     Possible Values: & .true. or .false. \\
     \hline
@@ -836,7 +852,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Units: & {\bf \color{red} MISSING} \\
     \hline
-    Default Value: & .false. \\
+    Default Value: & .true. \\
     \hline
     Possible Values: & {\bf \color{red} MISSING} \\
     \hline
@@ -852,7 +868,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Units: & {\bf \color{red} MISSING} \\
     \hline
-    Default Value: & .false. \\
+    Default Value: & .true. \\
     \hline
     Possible Values: & {\bf \color{red} MISSING} \\
     \hline
@@ -868,7 +884,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Units: & {\bf \color{red} MISSING} \\
     \hline
-    Default Value: & 2.5e-4 \\
+    Default Value: & 1.0e-4 \\
     \hline
     Possible Values: & {\bf \color{red} MISSING} \\
     \hline
@@ -884,7 +900,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Units: & {\bf \color{red} MISSING} \\
     \hline
-    Default Value: & 2.5e-5 \\
+    Default Value: & 1.0e-4 \\
     \hline
     Possible Values: & {\bf \color{red} MISSING} \\
     \hline
@@ -1180,7 +1196,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Units: & $unitless$ \\
     \hline
-    Default Value: & 'stencil' \\
+    Default Value: & stencil \\
     \hline
     Possible Values: & 'spline' and 'stencil' \\
     \hline
@@ -1262,7 +1278,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Units: & $unitless$ \\
     \hline
-    Default Value: & 1.0e-3 \\
+    Default Value: & 1.0e-2 \\
     \hline
     Possible Values: & any positive real, typically 1.0e-3 \\
     \hline
@@ -1280,7 +1296,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Units: & $unitless$ \\
     \hline
-    Default Value: & 'pressure\_and\_zmid' \\
+    Default Value: & pressure\_and\_zmid \\
     \hline
     Possible Values: & 'pressure\_and\_zmid' or 'MontgomeryPotential' \\
     \hline
@@ -1314,7 +1330,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Units: & $unitless$ \\
     \hline
-    Default Value: & 'jm' \\
+    Default Value: & linear \\
     \hline
     Possible Values: & Jackett McDougall EOS = 'jm' and Linear EOS = 'linear' \\
     \hline

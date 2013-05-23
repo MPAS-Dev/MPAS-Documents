@@ -3,7 +3,6 @@
 Embedded links point to more detailed namelist information in the appendix.
 \section[time\_management]{\hyperref[sec:nm_sec_time_management]{time\_management}}
 \label{sec:nm_tab_time_management}
-\input{ocean/section_descriptions/time_management.tex}
 {\small
 \begin{center}
 \begin{longtable}{| p{2.0in} || p{4.0in} |}
@@ -60,7 +59,6 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[time\_integration]{\hyperref[sec:nm_sec_time_integration]{time\_integration}}
 \label{sec:nm_tab_time_integration}
-\input{ocean/section_descriptions/time_integration.tex}
 {\small
 \begin{center}
 \begin{longtable}{| p{2.0in} || p{4.0in} |}
@@ -77,7 +75,6 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[grid]{\hyperref[sec:nm_sec_grid]{grid}}
 \label{sec:nm_tab_grid}
-\input{ocean/section_descriptions/grid.tex}
 {\small
 \begin{center}
 \begin{longtable}{| p{2.0in} || p{4.0in} |}
@@ -100,7 +97,6 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[decomposition]{\hyperref[sec:nm_sec_decomposition]{decomposition}}
 \label{sec:nm_tab_decomposition}
-\input{ocean/section_descriptions/decomposition.tex}
 {\small
 \begin{center}
 \begin{longtable}{| p{2.0in} || p{4.0in} |}
@@ -121,7 +117,6 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[hmix]{\hyperref[sec:nm_sec_hmix]{hmix}}
 \label{sec:nm_tab_hmix}
-\input{ocean/section_descriptions/hmix.tex}
 {\small
 \begin{center}
 \begin{longtable}{| p{2.0in} || p{4.0in} |}
@@ -130,6 +125,8 @@ Embedded links point to more detailed namelist information in the appendix.
 	\hline
 	\hline
 	\hyperref[subsec:nm_sec_config_hmix_ScaleWithMesh]{config\_hmix\_ScaleWithMesh} &  If false, del2 and del4 coefficients are constant throughout the mesh (equivalent to setting  $\rho_m=1$  throughout the mesh).  If true, these coefficients scale as mesh density to the -3/4 power. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_maxMeshDensity]{config\_maxMeshDensity} & Global maximum of the mesh density \\
 	\hline
 	\hyperref[subsec:nm_sec_config_visc_vorticity_term]{config\_visc\_vorticity\_term} & {\color{red} TO BE DELETED} \\
 	\hline
@@ -140,7 +137,6 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[hmix\_del2]{\hyperref[sec:nm_sec_hmix_del2]{hmix\_del2}}
 \label{sec:nm_tab_hmix_del2}
-\input{ocean/section_descriptions/hmix_del2.tex}
 {\small
 \begin{center}
 \begin{longtable}{| p{2.0in} || p{4.0in} |}
@@ -163,7 +159,6 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[hmix\_del4]{\hyperref[sec:nm_sec_hmix_del4]{hmix\_del4}}
 \label{sec:nm_tab_hmix_del4}
-\input{ocean/section_descriptions/hmix_del4.tex}
 {\small
 \begin{center}
 \begin{longtable}{| p{2.0in} || p{4.0in} |}
@@ -186,7 +181,6 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[hmix\_Leith]{\hyperref[sec:nm_sec_hmix_Leith]{hmix\_Leith}}
 \label{sec:nm_tab_hmix_Leith}
-\input{ocean/section_descriptions/hmix_Leith.tex}
 {\small
 \begin{center}
 \begin{longtable}{| p{2.0in} || p{4.0in} |}
@@ -223,7 +217,6 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[Rayleigh\_damping]{\hyperref[sec:nm_sec_Rayleigh_damping]{Rayleigh\_damping}}
 \label{sec:nm_tab_Rayleigh_damping}
-\input{ocean/section_descriptions/Rayleigh_damping.tex}
 {\small
 \begin{center}
 \begin{longtable}{| p{2.0in} || p{4.0in} |}
@@ -326,7 +319,6 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[forcing]{\hyperref[sec:nm_sec_forcing]{forcing}}
 \label{sec:nm_tab_forcing}
-\input{ocean/section_descriptions/forcing.tex}
 {\small
 \begin{center}
 \begin{longtable}{| p{2.0in} || p{4.0in} |}
@@ -347,7 +339,6 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[advection]{\hyperref[sec:nm_sec_advection]{advection}}
 \label{sec:nm_tab_advection}
-\input{ocean/section_descriptions/advection.tex}
 {\small
 \begin{center}
 \begin{longtable}{| p{2.0in} || p{4.0in} |}
@@ -370,7 +361,6 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[bottom\_drag]{\hyperref[sec:nm_sec_bottom_drag]{bottom\_drag}}
 \label{sec:nm_tab_bottom_drag}
-\input{ocean/section_descriptions/bottom_drag.tex}
 {\small
 \begin{center}
 \begin{longtable}{| p{2.0in} || p{4.0in} |}
@@ -385,7 +375,6 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[pressure\_gradient]{\hyperref[sec:nm_sec_pressure_gradient]{pressure\_gradient}}
 \label{sec:nm_tab_pressure_gradient}
-\input{ocean/section_descriptions/pressure_gradient.tex}
 {\small
 \begin{center}
 \begin{longtable}{| p{2.0in} || p{4.0in} |}
@@ -402,7 +391,6 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[eos]{\hyperref[sec:nm_sec_eos]{eos}}
 \label{sec:nm_tab_eos}
-\input{ocean/section_descriptions/eos.tex}
 {\small
 \begin{center}
 \begin{longtable}{| p{2.0in} || p{4.0in} |}
@@ -417,7 +405,6 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[eos\_linear]{\hyperref[sec:nm_sec_eos_linear]{eos\_linear}}
 \label{sec:nm_tab_eos_linear}
-\input{ocean/section_descriptions/eos_linear.tex}
 {\small
 \begin{center}
 \begin{longtable}{| p{2.0in} || p{4.0in} |}
@@ -440,7 +427,6 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[split\_explicit\_ts]{\hyperref[sec:nm_sec_split_explicit_ts]{split\_explicit\_ts}}
 \label{sec:nm_tab_split_explicit_ts}
-\input{ocean/section_descriptions/split_explicit_ts.tex}
 {\small
 \begin{center}
 \begin{longtable}{| p{2.0in} || p{4.0in} |}
@@ -477,7 +463,6 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[debug]{\hyperref[sec:nm_sec_debug]{debug}}
 \label{sec:nm_tab_debug}
-\input{ocean/section_descriptions/debug.tex}
 {\small
 \begin{center}
 \begin{longtable}{| p{2.0in} || p{4.0in} |}

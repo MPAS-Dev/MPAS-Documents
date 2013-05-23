@@ -51,30 +51,6 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
     \caption{salinity: salinity}
 \end{longtable}
 \end{center}
-\subsection[tracer1]{\hyperref[sec:var_tab_state]{tracer1}}
-\label{subsec:var_sec_state_tracer1}
-\begin{center}
-\begin{longtable}{| p{2.0in} | p{4.0in} |}
-        \hline 
-        Type: & real \\
-        \hline 
-        Units: & $unitless$ \\
-        \hline 
-        Dimension: & nVertLevels nCells Time \\
-        \hline 
-        Persistence: & persistent \\
-        \hline 
-		 Default Streams: & Input Restart Output  \\
-        \hline 
-		 Index in tracers Array: & domain \% blocklist \% state \% index\_tracer1 \\
-		 \hline 
-		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% tracers \\
-		 \hline 
-		 Array Group: & testing \\
-		 \hline 
-    \caption{tracer1: A tracer with value 1.0 to test conservation.  {\color{red} REMOVE THIS VARIABLE}}
-\end{longtable}
-\end{center}
 \subsection[xtime]{\hyperref[sec:var_tab_state]{xtime}}
 \label{subsec:var_sec_state_xtime}
 \begin{center}
@@ -568,55 +544,15 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & Output  \\
+		 Default Streams: &  \\
         \hline 
 		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% relativeVorticity \\
 		 \hline 
-    \caption{relativeVorticity: curl of horizontal velocity}
+    \caption{relativeVorticity: curl of horizontal velocity, defined at vertices}
 \end{longtable}
 \end{center}
-\subsection[potentialVorticityEdge]{\hyperref[sec:var_tab_state]{potentialVorticityEdge}}
-\label{subsec:var_sec_state_potentialVorticityEdge}
-\begin{center}
-\begin{longtable}{| p{2.0in} | p{4.0in} |}
-        \hline 
-        Type: & real \\
-        \hline 
-        Units: & $s^{-1}$ \\
-        \hline 
-        Dimension: & nVertLevels nEdges Time \\
-        \hline 
-        Persistence: & persistent \\
-        \hline 
-		 Default Streams: & None \\
-        \hline 
-		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% potentialVorticityEdge \\
-		 \hline 
-    \caption{potentialVorticityEdge: vorticity averaged from vertices to edges}
-\end{longtable}
-\end{center}
-\subsection[potentialVorticityVertex]{\hyperref[sec:var_tab_state]{potentialVorticityVertex}}
-\label{subsec:var_sec_state_potentialVorticityVertex}
-\begin{center}
-\begin{longtable}{| p{2.0in} | p{4.0in} |}
-        \hline 
-        Type: & real \\
-        \hline 
-        Units: & $s^{-1}$ \\
-        \hline 
-        Dimension: & nVertLevels nVertices Time \\
-        \hline 
-        Persistence: & persistent \\
-        \hline 
-		 Default Streams: & None \\
-        \hline 
-		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% potentialVorticityVertex \\
-		 \hline 
-    \caption{potentialVorticityVertex: curl of horizontal velocity defined at vertices}
-\end{longtable}
-\end{center}
-\subsection[potentialVorticityCell]{\hyperref[sec:var_tab_state]{potentialVorticityCell}}
-\label{subsec:var_sec_state_potentialVorticityCell}
+\subsection[relativeVorticityCell]{\hyperref[sec:var_tab_state]{relativeVorticityCell}}
+\label{subsec:var_sec_state_relativeVorticityCell}
 \begin{center}
 \begin{longtable}{| p{2.0in} | p{4.0in} |}
         \hline 
@@ -630,9 +566,69 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
 		 Default Streams: & Output  \\
         \hline 
-		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% potentialVorticityCell \\
+		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% relativeVorticityCell \\
 		 \hline 
-    \caption{potentialVorticityCell: curl of horizontal velocity defined at cell centers}
+    \caption{relativeVorticityCell: curl of horizontal velocity, averaged from vertices to cell centers}
+\end{longtable}
+\end{center}
+\subsection[normalizedRelativeVorticityEdge]{\hyperref[sec:var_tab_state]{normalizedRelativeVorticityEdge}}
+\label{subsec:var_sec_state_normalizedRelativeVorticityEdge}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $s^{-1}$ \\
+        \hline 
+        Dimension: & nVertLevels nEdges Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & None \\
+        \hline 
+		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% normalizedRelativeVorticityEdge \\
+		 \hline 
+    \caption{normalizedRelativeVorticityEdge: curl of horizontal velocity divided by layer thickness, averaged from vertices to edges}
+\end{longtable}
+\end{center}
+\subsection[normalizedPlanetaryVorticityEdge]{\hyperref[sec:var_tab_state]{normalizedPlanetaryVorticityEdge}}
+\label{subsec:var_sec_state_normalizedPlanetaryVorticityEdge}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $s^{-1}$ \\
+        \hline 
+        Dimension: & nVertLevels nEdges Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & None \\
+        \hline 
+		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% normalizedPlanetaryVorticityEdge \\
+		 \hline 
+    \caption{normalizedPlanetaryVorticityEdge: earth's rotational rate (Coriolis parameter, f) divided by layer thickness, averaged from vertices to edges}
+\end{longtable}
+\end{center}
+\subsection[normalizedRelativeVorticityCell]{\hyperref[sec:var_tab_state]{normalizedRelativeVorticityCell}}
+\label{subsec:var_sec_state_normalizedRelativeVorticityCell}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $s^{-1}$ \\
+        \hline 
+        Dimension: & nVertLevels nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & None \\
+        \hline 
+		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% normalizedRelativeVorticityCell \\
+		 \hline 
+    \caption{normalizedRelativeVorticityCell: curl of horizontal velocity divided by layer thickness, averaged from vertices to cell centers}
 \end{longtable}
 \end{center}
 \subsection[layerThicknessEdge]{\hyperref[sec:var_tab_state]{layerThicknessEdge}}
@@ -675,8 +671,8 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
     \caption{layerThicknessVertex: layer thickness averaged from cell center to vertices}
 \end{longtable}
 \end{center}
-\subsection[kineticEnergy]{\hyperref[sec:var_tab_state]{kineticEnergy}}
-\label{subsec:var_sec_state_kineticEnergy}
+\subsection[kineticEnergyCell]{\hyperref[sec:var_tab_state]{kineticEnergyCell}}
+\label{subsec:var_sec_state_kineticEnergyCell}
 \begin{center}
 \begin{longtable}{| p{2.0in} | p{4.0in} |}
         \hline 
@@ -690,69 +686,9 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
 		 Default Streams: & Output  \\
         \hline 
-		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% kineticEnergy \\
+		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% kineticEnergyCell \\
 		 \hline 
-    \caption{kineticEnergy: kinetic energy of horizonal velocity}
-\end{longtable}
-\end{center}
-\subsection[kineticEnergyVertex]{\hyperref[sec:var_tab_state]{kineticEnergyVertex}}
-\label{subsec:var_sec_state_kineticEnergyVertex}
-\begin{center}
-\begin{longtable}{| p{2.0in} | p{4.0in} |}
-        \hline 
-        Type: & real \\
-        \hline 
-        Units: & $m^2$ $s^{-2}$ \\
-        \hline 
-        Dimension: & nVertLevels nVertices Time \\
-        \hline 
-        Persistence: & persistent \\
-        \hline 
-		 Default Streams: & Output  \\
-        \hline 
-		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% kineticEnergyVertex \\
-		 \hline 
-    \caption{kineticEnergyVertex: kinetic energy of horizonal velocity defined at vertices}
-\end{longtable}
-\end{center}
-\subsection[kineticEnergyVertexOnCells]{\hyperref[sec:var_tab_state]{kineticEnergyVertexOnCells}}
-\label{subsec:var_sec_state_kineticEnergyVertexOnCells}
-\begin{center}
-\begin{longtable}{| p{2.0in} | p{4.0in} |}
-        \hline 
-        Type: & real \\
-        \hline 
-        Units: & $m^2$ $s^{-2}$ \\
-        \hline 
-        Dimension: & nVertLevels nCells Time \\
-        \hline 
-        Persistence: & persistent \\
-        \hline 
-		 Default Streams: & Output  \\
-        \hline 
-		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% kineticEnergyVertexOnCells \\
-		 \hline 
-    \caption{kineticEnergyVertexOnCells: kinetic energy of horizonal velocity defined at vertices}
-\end{longtable}
-\end{center}
-\subsection[kineticEnergyEdge]{\hyperref[sec:var_tab_state]{kineticEnergyEdge}}
-\label{subsec:var_sec_state_kineticEnergyEdge}
-\begin{center}
-\begin{longtable}{| p{2.0in} | p{4.0in} |}
-        \hline 
-        Type: & real \\
-        \hline 
-        Units: & $m^2$ $s^{-2}$ \\
-        \hline 
-        Dimension: & nVertLevels nEdges Time \\
-        \hline 
-        Persistence: & persistent \\
-        \hline 
-		 Default Streams: & None \\
-        \hline 
-		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% kineticEnergyEdge \\
-		 \hline 
-    \caption{kineticEnergyEdge: kinetic energy of horizonal velocity defined at edges}
+    \caption{kineticEnergyCell: kinetic energy of horizonal velocity on cells}
 \end{longtable}
 \end{center}
 \subsection[normalVelocityX]{\hyperref[sec:var_tab_state]{normalVelocityX}}
@@ -855,106 +791,6 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
     \caption{normalVelocityMeridional: component of horizontal velocity in the northward}
 \end{longtable}
 \end{center}
-\subsection[normalVelocityForcingReconstructX]{\hyperref[sec:var_tab_state]{normalVelocityForcingReconstructX}}
-\label{subsec:var_sec_state_normalVelocityForcingReconstructX}
-\begin{center}
-\begin{longtable}{| p{2.0in} | p{4.0in} |}
-        \hline 
-        Type: & real \\
-        \hline 
-        Units: & $N$ $m^{-2}$ \\
-        \hline 
-        Dimension: & nVertLevels nCells Time \\
-        \hline 
-        Persistence: & persistent \\
-        \hline 
-		 Default Streams: & None \\
-        \hline 
-		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% normalVelocityForcingReconstructX \\
-		 \hline 
-    \caption{normalVelocityForcingReconstructX: wind stress in the x-direction (cartesian)}
-\end{longtable}
-\end{center}
-\subsection[normalVelocityForcingReconstructY]{\hyperref[sec:var_tab_state]{normalVelocityForcingReconstructY}}
-\label{subsec:var_sec_state_normalVelocityForcingReconstructY}
-\begin{center}
-\begin{longtable}{| p{2.0in} | p{4.0in} |}
-        \hline 
-        Type: & real \\
-        \hline 
-        Units: & $N$ $m^{-2}$ \\
-        \hline 
-        Dimension: & nVertLevels nCells Time \\
-        \hline 
-        Persistence: & persistent \\
-        \hline 
-		 Default Streams: & None \\
-        \hline 
-		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% normalVelocityForcingReconstructY \\
-		 \hline 
-    \caption{normalVelocityForcingReconstructY: wind stress in the y-direction (cartesian)}
-\end{longtable}
-\end{center}
-\subsection[normalVelocityForcingReconstructZ]{\hyperref[sec:var_tab_state]{normalVelocityForcingReconstructZ}}
-\label{subsec:var_sec_state_normalVelocityForcingReconstructZ}
-\begin{center}
-\begin{longtable}{| p{2.0in} | p{4.0in} |}
-        \hline 
-        Type: & real \\
-        \hline 
-        Units: & $N$ $m^{-2}$ \\
-        \hline 
-        Dimension: & nVertLevels nCells Time \\
-        \hline 
-        Persistence: & persistent \\
-        \hline 
-		 Default Streams: & None \\
-        \hline 
-		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% normalVelocityForcingReconstructZ \\
-		 \hline 
-    \caption{normalVelocityForcingReconstructZ: wind stress in the z-direction (cartesian)}
-\end{longtable}
-\end{center}
-\subsection[normalVelocityForcingReconstructZonal]{\hyperref[sec:var_tab_state]{normalVelocityForcingReconstructZonal}}
-\label{subsec:var_sec_state_normalVelocityForcingReconstructZonal}
-\begin{center}
-\begin{longtable}{| p{2.0in} | p{4.0in} |}
-        \hline 
-        Type: & real \\
-        \hline 
-        Units: & $N$ $m^{-2}$ \\
-        \hline 
-        Dimension: & nVertLevels nCells Time \\
-        \hline 
-        Persistence: & persistent \\
-        \hline 
-		 Default Streams: & Output  \\
-        \hline 
-		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% normalVelocityForcingReconstructZonal \\
-		 \hline 
-    \caption{normalVelocityForcingReconstructZonal: wind stress in the eastward direction}
-\end{longtable}
-\end{center}
-\subsection[normalVelocityForcingReconstructMeridional]{\hyperref[sec:var_tab_state]{normalVelocityForcingReconstructMeridional}}
-\label{subsec:var_sec_state_normalVelocityForcingReconstructMeridional}
-\begin{center}
-\begin{longtable}{| p{2.0in} | p{4.0in} |}
-        \hline 
-        Type: & real \\
-        \hline 
-        Units: & $N$ $m^{-2}$ \\
-        \hline 
-        Dimension: & nVertLevels nCells Time \\
-        \hline 
-        Persistence: & persistent \\
-        \hline 
-		 Default Streams: & Output  \\
-        \hline 
-		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% normalVelocityForcingReconstructMeridional \\
-		 \hline 
-    \caption{normalVelocityForcingReconstructMeridional: wind stress in the northward direction}
-\end{longtable}
-\end{center}
 \subsection[montgomeryPotential]{\hyperref[sec:var_tab_state]{montgomeryPotential}}
 \label{subsec:var_sec_state_montgomeryPotential}
 \begin{center}
@@ -988,7 +824,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% pressure \\
 		 \hline 
@@ -1008,7 +844,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% vertTransportVelocityTop \\
 		 \hline 
@@ -1028,7 +864,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% vertVelocityTop \\
 		 \hline 
@@ -1048,7 +884,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% displacedDensity \\
 		 \hline 
@@ -1095,26 +931,6 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
     \caption{viscosity: horizontal viscosity}
 \end{longtable}
 \end{center}
-\subsection[vh]{\hyperref[sec:var_tab_state]{vh}}
-\label{subsec:var_sec_state_vh}
-\begin{center}
-\begin{longtable}{| p{2.0in} | p{4.0in} |}
-        \hline 
-        Type: & real \\
-        \hline 
-        Units: & $m^2$ $s^{-1}$ \\
-        \hline 
-        Dimension: & nVertLevels nEdges Time \\
-        \hline 
-        Persistence: & persistent \\
-        \hline 
-		 Default Streams: & None \\
-        \hline 
-		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% vh \\
-		 \hline 
-    \caption{vh: thickness flux in the tangent direction (from vertex1 to vertex2)}
-\end{longtable}
-\end{center}
 \subsection[circulation]{\hyperref[sec:var_tab_state]{circulation}}
 \label{subsec:var_sec_state_circulation}
 \begin{center}
@@ -1133,46 +949,6 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
 		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% circulation \\
 		 \hline 
     \caption{circulation: area-integrated vorticity}
-\end{longtable}
-\end{center}
-\subsection[gradVor\_t]{\hyperref[sec:var_tab_state]{gradVor\_t}}
-\label{subsec:var_sec_state_gradVor_t}
-\begin{center}
-\begin{longtable}{| p{2.0in} | p{4.0in} |}
-        \hline 
-        Type: & real \\
-        \hline 
-        Units: & $s^{-1}$ $m^{-1}$ \\
-        \hline 
-        Dimension: & nVertLevels nEdges Time \\
-        \hline 
-        Persistence: & persistent \\
-        \hline 
-		 Default Streams: & None \\
-        \hline 
-		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% gradVor\_t \\
-		 \hline 
-    \caption{gradVor\_t: gradient of vorticity in the tangent direction (from vertex1 to vertex2)}
-\end{longtable}
-\end{center}
-\subsection[gradVor\_n]{\hyperref[sec:var_tab_state]{gradVor\_n}}
-\label{subsec:var_sec_state_gradVor_n}
-\begin{center}
-\begin{longtable}{| p{2.0in} | p{4.0in} |}
-        \hline 
-        Type: & real \\
-        \hline 
-        Units: & $s^{-1}$ $m^{-1}$ \\
-        \hline 
-        Dimension: & nVertLevels nEdges Time \\
-        \hline 
-        Persistence: & persistent \\
-        \hline 
-		 Default Streams: & None \\
-        \hline 
-		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% gradVor\_n \\
-		 \hline 
-    \caption{gradVor\_n: gradient of vorticity in the normal direction (from cell1 to cell2)}
 \end{longtable}
 \end{center}
 \subsection[areaCellGlobal]{\hyperref[sec:var_tab_state]{areaCellGlobal}}
@@ -2777,26 +2553,6 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
     \caption{refBottomDepthTopOfCell: Reference depth of ocean for each vertical interface. Used in 'z-level' type runs.}
 \end{longtable}
 \end{center}
-\subsection[hZLevel]{\hyperref[sec:var_tab_mesh]{hZLevel}}
-\label{subsec:var_sec_mesh_hZLevel}
-\begin{center}
-\begin{longtable}{| p{2.0in} | p{4.0in} |}
-        \hline 
-        Type: & real \\
-        \hline 
-        Units: & $m$ \\
-        \hline 
-        Dimension: & nVertLevels \\
-        \hline 
-        Persistence: & persistent \\
-        \hline 
-		 Default Streams: & Input Restart Output  \\
-        \hline 
-		 Location in code: & domain \% blocklist \% mesh \% hZLevel \\
-		 \hline 
-    \caption{hZLevel: {\color{red} TO BE REMOVED}}
-\end{longtable}
-\end{center}
 \subsection[vertCoordMovementWeights]{\hyperref[sec:var_tab_mesh]{vertCoordMovementWeights}}
 \label{subsec:var_sec_mesh_vertCoordMovementWeights}
 \begin{center}
@@ -3187,30 +2943,6 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
     \caption{tend\_salinity: time tendency of salinity measured as change in practical salinity units per second}
 \end{longtable}
 \end{center}
-\subsection[tend\_tracer1]{\hyperref[sec:var_tab_tend]{tend\_tracer1}}
-\label{subsec:var_sec_tend_tend_tracer1}
-\begin{center}
-\begin{longtable}{| p{2.0in} | p{4.0in} |}
-        \hline 
-        Type: & real \\
-        \hline 
-        Units: & $tracer$ $s^{-1}$ \\
-        \hline 
-        Dimension: & nVertLevels nCells Time \\
-        \hline 
-        Persistence: & persistent \\
-        \hline 
-		 Default Streams: & None \\
-        \hline 
-		 Index in tracers Array: & domain \% blocklist \% tend \% index\_tracer1 \\
-		 \hline 
-		 Location in code: & domain \% blocklist \% tend \% tracers \\
-		 \hline 
-		 Array Group: & testing \\
-		 \hline 
-    \caption{tend\_tracer1: time tendency of an arbitary tracer}
-\end{longtable}
-\end{center}
 \subsection[tend\_normalVelocity]{\hyperref[sec:var_tab_tend]{tend\_normalVelocity}}
 \label{subsec:var_sec_tend_tend_normalVelocity}
 \begin{center}
@@ -3351,5 +3083,267 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
 		 Location in code: & domain \% blocklist \% diagnostics \% vertDiffTopOfCell \\
 		 \hline 
     \caption{vertDiffTopOfCell: vertical diffusion defined at the edge (horizontally) and top (vertically)}
+\end{longtable}
+\end{center}
+\subsection[windStressZonal]{\hyperref[sec:var_tab_diagnostics]{windStressZonal}}
+\label{subsec:var_sec_diagnostics_windStressZonal}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $N$ $m^{-2}$ \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% diagnostics \% windStressZonal \\
+		 \hline 
+    \caption{windStressZonal: reconstructed surface wind stress in the eastward direction.}
+\end{longtable}
+\end{center}
+\subsection[windStressMeridional]{\hyperref[sec:var_tab_diagnostics]{windStressMeridional}}
+\label{subsec:var_sec_diagnostics_windStressMeridional}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $N$ $m^{-2}$ \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% diagnostics \% windStressMeridional \\
+		 \hline 
+    \caption{windStressMeridional: reconstructed surface wind stress in the northward direction.}
+\end{longtable}
+\end{center}
+\section[scratch]{\hyperref[sec:var_tab_scratch]{scratch}}
+\label{sec:var_sec_scratch}
+\subsection[normalVelocityForcingX]{\hyperref[sec:var_tab_scratch]{normalVelocityForcingX}}
+\label{subsec:var_sec_scratch_normalVelocityForcingX}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $N$ $m^{-2}$ \\
+        \hline 
+        Dimension: & nVertLevels nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & None \\
+        \hline 
+		 Location in code: & domain \% blocklist \% scratch \% normalVelocityForcingX \\
+		 \hline 
+    \caption{normalVelocityForcingX: reconstructed wind stress in the x-direction (cartesian)}
+\end{longtable}
+\end{center}
+\subsection[normalVelocityForcingY]{\hyperref[sec:var_tab_scratch]{normalVelocityForcingY}}
+\label{subsec:var_sec_scratch_normalVelocityForcingY}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $N$ $m^{-2}$ \\
+        \hline 
+        Dimension: & nVertLevels nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & None \\
+        \hline 
+		 Location in code: & domain \% blocklist \% scratch \% normalVelocityForcingY \\
+		 \hline 
+    \caption{normalVelocityForcingY: reconstructed wind stress in the y-direction (cartesian)}
+\end{longtable}
+\end{center}
+\subsection[normalVelocityForcingZ]{\hyperref[sec:var_tab_scratch]{normalVelocityForcingZ}}
+\label{subsec:var_sec_scratch_normalVelocityForcingZ}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $N$ $m^{-2}$ \\
+        \hline 
+        Dimension: & nVertLevels nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & None \\
+        \hline 
+		 Location in code: & domain \% blocklist \% scratch \% normalVelocityForcingZ \\
+		 \hline 
+    \caption{normalVelocityForcingZ: reconstructed wind stress in the z-direction (cartesian)}
+\end{longtable}
+\end{center}
+\subsection[normalVelocityForcingZonal]{\hyperref[sec:var_tab_scratch]{normalVelocityForcingZonal}}
+\label{subsec:var_sec_scratch_normalVelocityForcingZonal}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $N$ $m^{-2}$ \\
+        \hline 
+        Dimension: & nVertLevels nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & None \\
+        \hline 
+		 Location in code: & domain \% blocklist \% scratch \% normalVelocityForcingZonal \\
+		 \hline 
+    \caption{normalVelocityForcingZonal: reconstructed wind stress in the eastward direction}
+\end{longtable}
+\end{center}
+\subsection[normalVelocityForcingMeridional]{\hyperref[sec:var_tab_scratch]{normalVelocityForcingMeridional}}
+\label{subsec:var_sec_scratch_normalVelocityForcingMeridional}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $N$ $m^{-2}$ \\
+        \hline 
+        Dimension: & nVertLevels nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & None \\
+        \hline 
+		 Location in code: & domain \% blocklist \% scratch \% normalVelocityForcingMeridional \\
+		 \hline 
+    \caption{normalVelocityForcingMeridional: reconstructed wind stress in the northward direction}
+\end{longtable}
+\end{center}
+\subsection[vorticityGradientTangentialComponent]{\hyperref[sec:var_tab_scratch]{vorticityGradientTangentialComponent}}
+\label{subsec:var_sec_scratch_vorticityGradientTangentialComponent}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $s^{-1}$ $m^{-1}$ \\
+        \hline 
+        Dimension: & nVertLevels nEdges Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & None \\
+        \hline 
+		 Location in code: & domain \% blocklist \% scratch \% vorticityGradientTangentialComponent \\
+		 \hline 
+    \caption{vorticityGradientTangentialComponent: gradient of vorticity in the tangent direction (positive points from vertex1 to vertex2)}
+\end{longtable}
+\end{center}
+\subsection[vorticityGradientNormalComponent]{\hyperref[sec:var_tab_scratch]{vorticityGradientNormalComponent}}
+\label{subsec:var_sec_scratch_vorticityGradientNormalComponent}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $s^{-1}$ $m^{-1}$ \\
+        \hline 
+        Dimension: & nVertLevels nEdges Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & None \\
+        \hline 
+		 Location in code: & domain \% blocklist \% scratch \% vorticityGradientNormalComponent \\
+		 \hline 
+    \caption{vorticityGradientNormalComponent: gradient of vorticity in the normal direction (positive points from cell1 to cell2)}
+\end{longtable}
+\end{center}
+\subsection[normalizedRelativeVorticityVertex]{\hyperref[sec:var_tab_scratch]{normalizedRelativeVorticityVertex}}
+\label{subsec:var_sec_scratch_normalizedRelativeVorticityVertex}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $s^{-1}$ \\
+        \hline 
+        Dimension: & nVertLevels nVertices Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & None \\
+        \hline 
+		 Location in code: & domain \% blocklist \% scratch \% normalizedRelativeVorticityVertex \\
+		 \hline 
+    \caption{normalizedRelativeVorticityVertex: curl of horizontal velocity divided by layer thickness, defined at vertices}
+\end{longtable}
+\end{center}
+\subsection[normalizedPlanetaryVorticityVertex]{\hyperref[sec:var_tab_scratch]{normalizedPlanetaryVorticityVertex}}
+\label{subsec:var_sec_scratch_normalizedPlanetaryVorticityVertex}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $s^{-1}$ \\
+        \hline 
+        Dimension: & nVertLevels nVertices Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & None \\
+        \hline 
+		 Location in code: & domain \% blocklist \% scratch \% normalizedPlanetaryVorticityVertex \\
+		 \hline 
+    \caption{normalizedPlanetaryVorticityVertex: earth's rotational rate (Coriolis parameter, f) divided by layer thickness, defined at vertices}
+\end{longtable}
+\end{center}
+\subsection[kineticEnergyVertex]{\hyperref[sec:var_tab_scratch]{kineticEnergyVertex}}
+\label{subsec:var_sec_scratch_kineticEnergyVertex}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $m^2$ $s^{-2}$ \\
+        \hline 
+        Dimension: & nVertLevels nVertices Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & None \\
+        \hline 
+		 Location in code: & domain \% blocklist \% scratch \% kineticEnergyVertex \\
+		 \hline 
+    \caption{kineticEnergyVertex: kinetic energy of horizonal velocity defined at vertices}
+\end{longtable}
+\end{center}
+\subsection[kineticEnergyVertexOnCells]{\hyperref[sec:var_tab_scratch]{kineticEnergyVertexOnCells}}
+\label{subsec:var_sec_scratch_kineticEnergyVertexOnCells}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $m^2$ $s^{-2}$ \\
+        \hline 
+        Dimension: & nVertLevels nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & None \\
+        \hline 
+		 Location in code: & domain \% blocklist \% scratch \% kineticEnergyVertexOnCells \\
+		 \hline 
+    \caption{kineticEnergyVertexOnCells: kinetic energy of horizonal velocity defined at vertices}
 \end{longtable}
 \end{center}
