@@ -3,7 +3,6 @@
 Embedded links point to more detailed variable information in the appendix.
 \section[state]{\hyperref[sec:var_sec_state]{state}}
 \label{sec:var_tab_state}
-\input{ocean/section_descriptions/state.tex}
 {\small
 \begin{center}
 \begin{longtable}{| p{2.0in} | p{4.0in} |}
@@ -13,8 +12,6 @@ Embedded links point to more detailed variable information in the appendix.
 	\hyperref[subsec:var_sec_state_temperature]{temperature} & potential temperature \\
 	\hline
 	\hyperref[subsec:var_sec_state_salinity]{salinity} & salinity \\
-	\hline
-	\hyperref[subsec:var_sec_state_tracer1]{tracer1} & A tracer with value 1.0 to test conservation.  {\color{red} REMOVE THIS VARIABLE} \\
 	\hline
 	\hyperref[subsec:var_sec_state_xtime]{xtime} & model time, with format 'YYYY-MM-DD\_HH:MM:SS' \\
 	\hline
@@ -64,25 +61,21 @@ Embedded links point to more detailed variable information in the appendix.
 	\hline
 	\hyperref[subsec:var_sec_state_divergence]{divergence} & divergence of horizonal velocity \\
 	\hline
-	\hyperref[subsec:var_sec_state_relativeVorticity]{relativeVorticity} & curl of horizontal velocity \\
+	\hyperref[subsec:var_sec_state_relativeVorticity]{relativeVorticity} & curl of horizontal velocity, defined at vertices \\
 	\hline
-	\hyperref[subsec:var_sec_state_potentialVorticityEdge]{potentialVorticityEdge} & vorticity averaged from vertices to edges \\
+	\hyperref[subsec:var_sec_state_relativeVorticityCell]{relativeVorticityCell} & curl of horizontal velocity, averaged from vertices to cell centers \\
 	\hline
-	\hyperref[subsec:var_sec_state_potentialVorticityVertex]{potentialVorticityVertex} & curl of horizontal velocity defined at vertices \\
+	\hyperref[subsec:var_sec_state_normalizedRelativeVorticityEdge]{normalizedRelativeVorticityEdge} & curl of horizontal velocity divided by layer thickness, averaged from vertices to edges \\
 	\hline
-	\hyperref[subsec:var_sec_state_potentialVorticityCell]{potentialVorticityCell} & curl of horizontal velocity defined at cell centers \\
+	\hyperref[subsec:var_sec_state_normalizedPlanetaryVorticityEdge]{normalizedPlanetaryVorticityEdge} & earth's rotational rate (Coriolis parameter, f) divided by layer thickness, averaged from vertices to edges \\
+	\hline
+	\hyperref[subsec:var_sec_state_normalizedRelativeVorticityCell]{normalizedRelativeVorticityCell} & curl of horizontal velocity divided by layer thickness, averaged from vertices to cell centers \\
 	\hline
 	\hyperref[subsec:var_sec_state_layerThicknessEdge]{layerThicknessEdge} & layer thickness averaged from cell center to edges \\
 	\hline
 	\hyperref[subsec:var_sec_state_layerThicknessVertex]{layerThicknessVertex} & layer thickness averaged from cell center to vertices \\
 	\hline
-	\hyperref[subsec:var_sec_state_kineticEnergy]{kineticEnergy} & kinetic energy of horizonal velocity \\
-	\hline
-	\hyperref[subsec:var_sec_state_kineticEnergyVertex]{kineticEnergyVertex} & kinetic energy of horizonal velocity defined at vertices \\
-	\hline
-	\hyperref[subsec:var_sec_state_kineticEnergyVertexOnCells]{kineticEnergyVertexOnCells} & kinetic energy of horizonal velocity defined at vertices \\
-	\hline
-	\hyperref[subsec:var_sec_state_kineticEnergyEdge]{kineticEnergyEdge} & kinetic energy of horizonal velocity defined at edges \\
+	\hyperref[subsec:var_sec_state_kineticEnergyCell]{kineticEnergyCell} & kinetic energy of horizonal velocity on cells \\
 	\hline
 	\hyperref[subsec:var_sec_state_normalVelocityX]{normalVelocityX} & component of horizontal velocity in the x-direction (cartesian) \\
 	\hline
@@ -93,16 +86,6 @@ Embedded links point to more detailed variable information in the appendix.
 	\hyperref[subsec:var_sec_state_normalVelocityZonal]{normalVelocityZonal} & component of horizontal velocity in the eastward direction \\
 	\hline
 	\hyperref[subsec:var_sec_state_normalVelocityMeridional]{normalVelocityMeridional} & component of horizontal velocity in the northward \\
-	\hline
-	\hyperref[subsec:var_sec_state_normalVelocityForcingReconstructX]{normalVelocityForcingReconstructX} & wind stress in the x-direction (cartesian) \\
-	\hline
-	\hyperref[subsec:var_sec_state_normalVelocityForcingReconstructY]{normalVelocityForcingReconstructY} & wind stress in the y-direction (cartesian) \\
-	\hline
-	\hyperref[subsec:var_sec_state_normalVelocityForcingReconstructZ]{normalVelocityForcingReconstructZ} & wind stress in the z-direction (cartesian) \\
-	\hline
-	\hyperref[subsec:var_sec_state_normalVelocityForcingReconstructZonal]{normalVelocityForcingReconstructZonal} & wind stress in the eastward direction \\
-	\hline
-	\hyperref[subsec:var_sec_state_normalVelocityForcingReconstructMeridional]{normalVelocityForcingReconstructMeridional} & wind stress in the northward direction \\
 	\hline
 	\hyperref[subsec:var_sec_state_montgomeryPotential]{montgomeryPotential} & Montgomery potential, may be used as the pressure for isopycnal coordinates. \\
 	\hline
@@ -118,13 +101,7 @@ Embedded links point to more detailed variable information in the appendix.
 	\hline
 	\hyperref[subsec:var_sec_state_viscosity]{viscosity} & horizontal viscosity \\
 	\hline
-	\hyperref[subsec:var_sec_state_vh]{vh} & thickness flux in the tangent direction (from vertex1 to vertex2) \\
-	\hline
 	\hyperref[subsec:var_sec_state_circulation]{circulation} & area-integrated vorticity \\
-	\hline
-	\hyperref[subsec:var_sec_state_gradVor_t]{gradVor\_t} & gradient of vorticity in the tangent direction (from vertex1 to vertex2) \\
-	\hline
-	\hyperref[subsec:var_sec_state_gradVor_n]{gradVor\_n} & gradient of vorticity in the normal direction (from cell1 to cell2) \\
 	\hline
 	\hyperref[subsec:var_sec_state_areaCellGlobal]{areaCellGlobal} & sum of the areaCell variable over the full domain, used to normalize global statistics \\
 	\hline
@@ -163,7 +140,6 @@ Embedded links point to more detailed variable information in the appendix.
 }
 \section[mesh]{\hyperref[sec:var_sec_mesh]{mesh}}
 \label{sec:var_tab_mesh}
-\input{ocean/section_descriptions/mesh.tex}
 {\small
 \begin{center}
 \begin{longtable}{| p{2.0in} | p{4.0in} |}
@@ -298,8 +274,6 @@ Embedded links point to more detailed variable information in the appendix.
 	\hline
 	\hyperref[subsec:var_sec_mesh_refBottomDepthTopOfCell]{refBottomDepthTopOfCell} & Reference depth of ocean for each vertical interface. Used in 'z-level' type runs. \\
 	\hline
-	\hyperref[subsec:var_sec_mesh_hZLevel]{hZLevel} & {\color{red} TO BE REMOVED} \\
-	\hline
 	\hyperref[subsec:var_sec_mesh_vertCoordMovementWeights]{vertCoordMovementWeights} & Weights used for distribution of sea surface heigh purturbations through multiple vertical levels. \\
 	\hline
 	\hyperref[subsec:var_sec_mesh_boundaryEdge]{boundaryEdge} & Mask for determining boundary edges. A boundary edge has only one active ocean cell neighboring it. \\
@@ -339,7 +313,6 @@ Embedded links point to more detailed variable information in the appendix.
 }
 \section[tend]{\hyperref[sec:var_sec_tend]{tend}}
 \label{sec:var_tab_tend}
-\input{ocean/section_descriptions/tend.tex}
 {\small
 \begin{center}
 \begin{longtable}{| p{2.0in} | p{4.0in} |}
@@ -349,8 +322,6 @@ Embedded links point to more detailed variable information in the appendix.
 	\hyperref[subsec:var_sec_tend_tend_temperature]{tend\_temperature} & time tendency of potential temperature \\
 	\hline
 	\hyperref[subsec:var_sec_tend_tend_salinity]{tend\_salinity} & time tendency of salinity measured as change in practical salinity units per second \\
-	\hline
-	\hyperref[subsec:var_sec_tend_tend_tracer1]{tend\_tracer1} & time tendency of an arbitary tracer \\
 	\hline
 	\hyperref[subsec:var_sec_tend_tend_normalVelocity]{tend\_normalVelocity} & time tendency of normal component of velocity \\
 	\hline
@@ -363,7 +334,6 @@ Embedded links point to more detailed variable information in the appendix.
 }
 \section[diagnostics]{\hyperref[sec:var_sec_diagnostics]{diagnostics}}
 \label{sec:var_tab_diagnostics}
-\input{ocean/section_descriptions/diagnostics.tex}
 {\small
 \begin{center}
 \begin{longtable}{| p{2.0in} | p{4.0in} |}
@@ -377,6 +347,43 @@ Embedded links point to more detailed variable information in the appendix.
 	\hyperref[subsec:var_sec_diagnostics_vertViscTopOfEdge]{vertViscTopOfEdge} & vertical viscosity defined at the edge (horizontally) and top (vertically) \\
 	\hline
 	\hyperref[subsec:var_sec_diagnostics_vertDiffTopOfCell]{vertDiffTopOfCell} & vertical diffusion defined at the edge (horizontally) and top (vertically) \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_windStressZonal]{windStressZonal} & reconstructed surface wind stress in the eastward direction. \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_windStressMeridional]{windStressMeridional} & reconstructed surface wind stress in the northward direction. \\
+	\hline
+\end{longtable}
+\end{center}
+}
+\section[scratch]{\hyperref[sec:var_sec_scratch]{scratch}}
+\label{sec:var_tab_scratch}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+	\hline
+	{\bf Name} & {\bf Description} \\
+	\hline
+	\hyperref[subsec:var_sec_scratch_normalVelocityForcingX]{normalVelocityForcingX} & reconstructed wind stress in the x-direction (cartesian) \\
+	\hline
+	\hyperref[subsec:var_sec_scratch_normalVelocityForcingY]{normalVelocityForcingY} & reconstructed wind stress in the y-direction (cartesian) \\
+	\hline
+	\hyperref[subsec:var_sec_scratch_normalVelocityForcingZ]{normalVelocityForcingZ} & reconstructed wind stress in the z-direction (cartesian) \\
+	\hline
+	\hyperref[subsec:var_sec_scratch_normalVelocityForcingZonal]{normalVelocityForcingZonal} & reconstructed wind stress in the eastward direction \\
+	\hline
+	\hyperref[subsec:var_sec_scratch_normalVelocityForcingMeridional]{normalVelocityForcingMeridional} & reconstructed wind stress in the northward direction \\
+	\hline
+	\hyperref[subsec:var_sec_scratch_vorticityGradientTangentialComponent]{vorticityGradientTangentialComponent} & gradient of vorticity in the tangent direction (positive points from vertex1 to vertex2) \\
+	\hline
+	\hyperref[subsec:var_sec_scratch_vorticityGradientNormalComponent]{vorticityGradientNormalComponent} & gradient of vorticity in the normal direction (positive points from cell1 to cell2) \\
+	\hline
+	\hyperref[subsec:var_sec_scratch_normalizedRelativeVorticityVertex]{normalizedRelativeVorticityVertex} & curl of horizontal velocity divided by layer thickness, defined at vertices \\
+	\hline
+	\hyperref[subsec:var_sec_scratch_normalizedPlanetaryVorticityVertex]{normalizedPlanetaryVorticityVertex} & earth's rotational rate (Coriolis parameter, f) divided by layer thickness, defined at vertices \\
+	\hline
+	\hyperref[subsec:var_sec_scratch_kineticEnergyVertex]{kineticEnergyVertex} & kinetic energy of horizonal velocity defined at vertices \\
+	\hline
+	\hyperref[subsec:var_sec_scratch_kineticEnergyVertexOnCells]{kineticEnergyVertexOnCells} & kinetic energy of horizonal velocity defined at vertices \\
 	\hline
 \end{longtable}
 \end{center}
