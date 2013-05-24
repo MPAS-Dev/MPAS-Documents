@@ -142,6 +142,8 @@ The original grid file will not be altered, and a new, rotated grid file will be
 \section{Graph partitioning with METIS} 
 \label{sec:metis}
 
+{\color{red} THIS SECTION WAS COPIED TO mpas_build_instructions.tex  FOR RELEASE 1.0. WHEN GRID GENERATION IS INCLUDED, DELETE THE METIS SECTION FROM mpas_build_instructions.tex}.
+
 Before MPAS can be run in parallel, a mesh decomposition file with an appropriate number of 
 partitions (equal to the number of MPI tasks that will be used) must first be created from the {\tt graph.info}
 file created by the grid\_gen program. The currently supported method for partitioning a {\tt graph.info} file
