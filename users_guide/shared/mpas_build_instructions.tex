@@ -1,4 +1,5 @@
 \chapter{Building MPAS}
+\label{chap:mpas_build_instructions}
 
 \section{Prequisites}
 
@@ -213,7 +214,7 @@ As with compiling, the core to be cleaned is specified by the {\tt CORE} environ
 % this section is also in mpas_grid_generation.tex.  When grid generation is included in a future release, delete this section from this chapter.
 
 Before MPAS can be run in parallel, a mesh decomposition file with an appropriate number of 
-partitions (equal to the number of MPI tasks that will be used) is required in the run directory.  A limited number of mesh decomposition files are provided with each test case (see Test Cases Chapter).  In order to create new mesh decomposition files for your desired number of partitions, begin with the provided {\tt graph.info} file and partition with METIS software (\url{http://glaros.dtc.umn.edu/gkhome/views/metis}). The serial graph partitioning program, METIS (rather than ParMETIS or hMETIS) should be sufficient for quickly partitioning any SCVT produced by the grid\_gen mesh generator.
+partitions (equal to the number of MPI tasks that will be used) is required in the run directory.  A limited number of mesh decomposition files ({\tt graph.info.part.*}) are provided with each test case.  In order to create new mesh decomposition files for your desired number of partitions, begin with the provided {\tt graph.info} file and partition with METIS software (\url{http://glaros.dtc.umn.edu/gkhome/views/metis}). The serial graph partitioning program, METIS (rather than ParMETIS or hMETIS) should be sufficient for quickly partitioning any SCVT produced by the grid\_gen mesh generator.
 
 After installing METIS, a {\tt graph.info} file may be partitioned into $N$ partitions by running
 
