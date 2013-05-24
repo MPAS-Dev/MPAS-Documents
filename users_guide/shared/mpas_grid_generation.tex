@@ -1,4 +1,5 @@
 \appendix{Generating meshes}
+\label{chap:mpas_grid_generation}
 
 This chapter describes the steps used to create the  spherical centroidal Voronoi tessellation (SCVT) meshes and mesh-decomposition files used by MPAS models.
 Since it can take considerable time (often several days or more) to generate a mesh as described in \S \ref{sec:global_scvt}, it is recommended to obtain 
@@ -145,9 +146,7 @@ The original grid file will not be altered, and a new, rotated grid file will be
 {\color{red} THIS SECTION WAS COPIED TO mpas_build_instructions.tex  FOR RELEASE 1.0. WHEN GRID GENERATION IS INCLUDED, DELETE THE METIS SECTION FROM mpas_build_instructions.tex}.
 
 Before MPAS can be run in parallel, a mesh decomposition file with an appropriate number of 
-partitions (equal to the number of MPI tasks that will be used) must first be created from the {\tt graph.info}
-file created by the grid\_gen program. The currently supported method for partitioning a {\tt graph.info} file
-uses the METIS software (\url{http://glaros.dtc.umn.edu/gkhome/views/metis}). The serial graph partitioning program, METIS (rather than ParMETIS or hMETIS) should be sufficient for quickly partitioning any SCVT produced by the grid\_gen mesh generator.
+partitions (equal to the number of MPI tasks that will be used) is required in the run directory.  A limited number of mesh decomposition files ({\tt graph.info.part.*}) are provided with each test case (see Test Cases Chapter).  In order to create new mesh decomposition files for your desired number of partitions, begin with the {\tt graph.info} file created by the grid\_gen program or available with your test case, and partition with METIS software (\url{http://glaros.dtc.umn.edu/gkhome/views/metis}). The serial graph partitioning program, METIS (rather than ParMETIS or hMETIS) should be sufficient for quickly partitioning any SCVT produced by the grid\_gen mesh generator.
 
 After installing METIS, a {\tt graph.info} file may be partitioned into $N$ partitions by running
 
