@@ -18,11 +18,21 @@ ParaView is an open-source, multi-platform data analysis and visualization appli
 
 To visualize an MPAS cell-centered variable in ParaView, open the file and choose {\tt MPAS NetCDF (Unstructured)} as the file format.  In the lower left Object Inspector panel, choose your variables of interest (Figure \ref{fig:ParaviewExample}).  For large data sets, loading fewer variables will result in less wait time.  Options are available for latitude-longitude projections, vertical level, etc.  Click the 'Apply' button to load the data set.  In the toolbars at the top, choose the variable to plot from the pull-down menu, and 'Surface' for the type of visualization.  The color bar button displays a color bar, and the color scale editor button allows the user to manually change the color bar type and extents.  The Filters menu provides computational tools for interactive data manipulation.  Movies, in avi format or as individual frames, may be conveniently created with the {\tt Save Animation} tool in the File menu.
 
-
 \begin{figure}[htb]
 \begin{center}
-\includegraphics[width=6.5in]{shared/figures/ParaviewExample.png}
+\includegraphics[width=6.5in]{shared/figures/ParaviewExample.jpg}
 \caption{Example of ParaView to view an MPAS NetCDF file.}
 \label{fig:ParaviewExample}
 \end{center}
 \end{figure}
+
+Paraview may be used to view the grid from any MPAS NetCDF file by choosing {\tt Wireframe} or {\tt Suface With Edges} from the visualization-type pull-down menu (Figure \ref{fig:ParaviewExampleEdges}).  This produces a view of the Delaunay triangulation, which is the dual mesh to the primal Voronoi cell grid (Figure \ref{figure:variablePosition}).  Paraview plots all variables by interpolating colors between each corner of the Delaunay triangles.  These corners are the cell-center locations of the primal grid.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=6.5in]{shared/figures/ParaviewExampleEdges.jpg}
+\caption{Example of visualizing the dual mesh from an MPAS NetCDF file.}
+\label{fig:ParaviewExampleEdges}
+\end{center}
+\end{figure}
+
