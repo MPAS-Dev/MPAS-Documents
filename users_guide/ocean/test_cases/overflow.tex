@@ -27,6 +27,8 @@ This test case is useful for parameter studies to compare resolution, vertical m
 	\item namelist.input: \\
 		This is the namelist file with all parameters for the run. \\
 		It has a default setup which when run provides the results in the next section.
+	\item visualize\_overflow.py: \\
+		Python visualization script.  See Section \ref{sec:ocean_python}.
 \end{itemize}
 
 \subsection{Results}
@@ -37,7 +39,7 @@ The python script \verb|visualize_overflow.py| is included in the test case file
 \begin{verbatim}
 python visualize_overflow.py -f output.nc -v temperature --min=10 --max=20 --time=9
 \end{verbatim}
-The python script requires the libraries numpy, netCDF4, and matplotlib.
+The python scripts are further described in Section \ref{sec:ocean_python}.
 
 \begin{figure}[H!]
 	\centering

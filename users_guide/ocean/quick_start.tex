@@ -23,12 +23,12 @@ After step 7, an executable should be created called ocean\_model.exe. Once the 
 \begin{enumerate}
 	\item Create run directory.
 	\item Copy executable to run directory.
-	\item Copy namelist.input into run directory.
-	\item (Optional) Copy input and graph files into run directory.
+	\item Copy namelist.input, input and graph files into run directory.  See test cases, Chapter \ref{chap:\core_test_cases}.  The standard first test case is the 10km-resolution baroclinic channel, available at\\
+ \url{http://mpas-dev.github.com/ocean/release_\version/release_\version.html} \\
+as {\tt overflow\_10km\_40layer.tgz}.
 	\item Edit namelist.input to have the proper parameters. \\
 		  If step 4 was skipped, ensure paths to input and graph files are appropriately set.
-	\item (Optional) Create graph files, using METIS executable (pmetis or gpmetis depending on version). \\
-		  A graph file is required for each processor count you want to use.
-	\item Run MPAS-Ocean.
-	\item Visualize output file, and perform analysis.
+	\item (Optional) Create graph files, using METIS executable (pmetis or gpmetis depending on version).  A graph file is required for each processor count you want to use.  See Section \ref{sec:metis}
+	\item Run MPAS-Ocean (e.g.\ {\tt mpirun -np 8 ocean\_model}).
+	\item Visualize output file, and perform analysis.  See Chapters \ref{chap:mpas_visualization} and \ref{chap:ocean_visualization}.
 \end{enumerate}

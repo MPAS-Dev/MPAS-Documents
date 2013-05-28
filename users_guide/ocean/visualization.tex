@@ -1,0 +1,32 @@
+\chapter{Ocean Visualization}
+\label{chap:ocean_visualization}
+
+This chapter discusses visualization tools that are specific to the ocean core.  For instructions on visualization tools that may be used by all cores, such as Paraview, see Chapter \ref{chap:mpas_visualization}.
+
+\section{Python}
+\label{sec:ocean_python}
+
+Python visualization scripts are provided with the tar files for the baroclinic channel and overflow test cases.  In order to use these scripts, the following python modules are required:
+\begin{itemize}
+\item matplotlib, see \url{http://matplotlib.org}
+\item numpy, see \url{http://www.numpy.org}
+\item pylab, see \url{www.scipy.org}
+\item netCDF4, see \url{http://code.google.com/p/netcdf4-python}
+\end{itemize}
+A convenient way to install all these libraries at once is to purchase the Enthought Python Distribution (EPD), available at \url{https://www.enthought.com/products/epd}.  Many institutions have Python-EPD installed on their compute clusters.
+
+Examples of output from python visualization scripts are shown in Figures \ref{fig:baroclinicChannelTemperature} and \ref{fig:overflow}.  Options for each script may be found using, e.g.
+\begin{verbatim}
+python visualize_overflow.py --help
+\end{verbatim}
+These scripts are easily customizable by the user.  Within the python script the specified variable is read from the NetCDF file using the commands
+\begin{verbatim}
+f = NetCDFFile(options.filename,'r')
+field = f.variables[options.variable]
+\end{verbatim}
+The plot is created with the matplotlib command {\tt plt.imshow}, as described in the following tutorials:
+\begin{itemize}
+\item \url{http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.imshow}
+\item \url{http://matplotlib.org/users/image_tutorial.html}
+\end{itemize}
+Text is then added with the commands {\tt xlabel}, {\tt ylabel}, {\tt title}; colorbar is added using {\tt plt.colorbar}; and the figure is saved to the local directory as a png file useing {\tt plt.savefig}.

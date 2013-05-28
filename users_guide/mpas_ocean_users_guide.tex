@@ -43,6 +43,8 @@
 			\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{ocean/figures/ke_x1_15km.pdf}%
 }}}
 
+\newcommand{\core}{ocean}
+
 \begin{document}
 \AddToShipoutPicture*{\BackgroundPic}
 
@@ -68,16 +70,23 @@
 \part{The MPAS Framework}
 \input{shared/mpas_build_instructions.tex}
 \input{shared/mpas_grid_description.tex}
+% Grid generation is not included in MPAS release 1.0:
+%\input{shared/mpas_grid_generation.tex}
 \input{shared/mpas_visualization.tex}
 
 \part{MPAS-Ocean}
 \input{ocean/core_intro.tex}
+% Grid generation is not included in MPAS release 1.0.
+% In a future release, describe here ocean-specific grid
+% generation, currently the basin.F program.
+%\input{ocean/mpas_grid_generation.tex}
 \input{ocean/dimension_table_documentation.tex}
 \input{ocean/namelist_table_documentation.tex}
 \input{ocean/variable_table_documentation.tex}
 
 \input{ocean/test_case_descriptions.tex}
 \input{ocean/global_statistics.tex}
+\input{ocean/visualization.tex}
 \input{ocean/cesm_coupling.tex}
 \input{ocean/troubleshooting.tex}
 \input{ocean/knownissues.tex}

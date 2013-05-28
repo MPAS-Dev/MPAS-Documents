@@ -18,6 +18,8 @@
 \setlength\LTleft\parindent
 \setlength\LTright\fill
 
+\newcommand{\core}{nhyd_atm}
+
 \begin{document}
 
 \title{MPAS - Non-Hydrostatic Atmosphere Model Users Guide}
@@ -29,18 +31,18 @@
 \maketitle
 \tableofcontents
 
-\part{Introduction}
+\part{The MPAS Framework}
 \input{shared/mpas_build_instructions.tex}
 \input{shared/mpas_grid_information.tex}
 \input{shared/mpas_visualization.tex}
+%\input{shared/mpas_grid_generation.tex}
 
 \part{Non-hydrostatic Atomospheric Core}
 \input{nhyd_atm/mpas_atm_core.tex}
 \input{nhyd_atm/mpas_atm_field_description.tex}
 \input{nhyd_atm/mpas_atm_init_namelist_options.tex}
 \input{nhyd_atm/mpas_atm_namelist_options.tex}
-
-\input{shared/mpas_grid_generation.tex}
+\input{nhyd_atm/mpas_atm_visualization.tex}
 
 \end{document}
 

@@ -1,4 +1,5 @@
 \chapter{Building MPAS}
+\label{chap:mpas_build_instructions}
 
 \section{Prequisites}
 
@@ -14,7 +15,7 @@ An MPI installation such as MPICH or OpenMPI is also required, and there is no o
 
 {\bf NOTE:} It's important to note the MPAS Developers are not responsible for any of the libraries that are used within MPAS. Support for specific libraries should be taken up with the respective developer groups.
 
-Although most recent versions of the I/O libraries should work, the most tested versions of these libraries are: netCDF 4.1.3, parallel-netCDF 1.3.0, and PIO 1.4.1. The netCDF and parallel-netCDF libraries must be installed before building PIO library.
+Although most recent versions of the I/O libraries should work, the most tested versions of these libraries are: netCDF 4.1.3, parallel-netCDF 1.3.1, and PIO 1.4.1. The netCDF and parallel-netCDF libraries must be installed before building PIO library.
 
 \subsection{netCDF}
 
@@ -44,7 +45,7 @@ Certain compilers require addition flags in the CPPFLAGS environment variable. P
 
 \subsection{parallel-netCDF}
 
-Version 1.3.0 of the parallel-netCDF library may be downloaded from \url{https://trac.mcs.anl.gov/projects/parallel-netcdf/wiki/Download}.
+Version 1.3.1 of the parallel-netCDF library may be downloaded from \url{https://trac.mcs.anl.gov/projects/parallel-netcdf/wiki/Download}.
 Assuming the gfortran and gcc compilers will be used, the following shell commands are generally sufficient to install parallel-netCDF.
 
 \vspace{12pt}
@@ -110,7 +111,7 @@ these configurations by running {\tt make} with the name of a build target speci
 \vspace{12pt}
 
 \noindent to build the code using the GNU Fortran and C compilers. Some of the available targets are listed in the table below, and additional
-targets can be added by simply editing the top-level {\tt Makefile}.
+targets can be added by simply editing the {\tt Makefile} in the top-level directory.
 
 \vspace{12pt}
 \begin{longtable}{| l | l | l | l |}
@@ -124,12 +125,12 @@ Target & Fortran compiler & C compiler & MPI wrappers \\ \hline \hline
 \end{longtable}
 \vspace{12pt}
 
-In order to get a more complete and up-to-date list of available tagets, one can use the following command within the top-level of MPAS.
-{\small
-\begin{verbatim}
-> make -rpn | sed -n -e '/^$/ { n ; /^[^ ]*:/p }' | sed "s/: *.*$//g"
-\end{verbatim}
-}
+%In order to get a more complete and up-to-date list of available targets, one can use the following command within the top-level directory of MPAS.
+%{\small
+%\begin{verbatim}
+%> make -rpn | sed -n -e '/^$/ { n ; /^[^ ]*:/p }' | sed "s/: *.*$//g"
+%\end{verbatim}
+%}
 
 The MPAS framework supports multiple {\em cores} --- currently a shallow water
 model, an ocean model, a hydrostatic atmosphere model, a non-hydrostatic atmosphere model, and a non-hydrostatic atmosphere initialization core --- so the build
@@ -206,3 +207,20 @@ be run for the `clean' target:
 
 As with compiling, the core to be cleaned is specified by the {\tt CORE} environment variable, or by specifying a core explicitly on the command-line with {\tt CORE=}.
 
+
+\section{Graph partitioning with METIS} 
+\label{sec:metis}
+
+% this section is also in mpas_grid_generation.tex.  When grid generation is included in a future release, delete this section from this chapter.
+
+Before MPAS can be run in parallel, a mesh decomposition file with an appropriate number of 
+partitions (equal to the number of MPI tasks that will be used) is required in the run directory.  A limited number of mesh decomposition files ({\tt graph.info.part.*}) are provided with each test case.  In order to create new mesh decomposition files for your desired number of partitions, begin with the provided {\tt graph.info} file and partition with METIS software (\url{http://glaros.dtc.umn.edu/gkhome/views/metis}). The serial graph partitioning program, METIS (rather than ParMETIS or hMETIS) should be sufficient for quickly partitioning any SCVT produced by the grid\_gen mesh generator.
+
+After installing METIS, a {\tt graph.info} file may be partitioned into $N$ partitions by running
+
+\vspace{12pt}
+{\tt > gpmetis graph.info} $N$
+\vspace{12pt}
+
+\noindent The resulting file, {\tt graph.info.part.}$N$, can then be copied into the MPAS run directory
+before running the model with $N$ MPI tasks.

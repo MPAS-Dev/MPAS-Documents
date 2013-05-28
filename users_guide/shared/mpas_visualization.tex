@@ -3,69 +3,36 @@
 %--------------------------------------------------------------------------------------------
 
 \chapter{Visualization}
+\label{chap:mpas_visualization}
 
-Since the MPAS input and output files are in netCDF format, a wide variety of software
-tools may be used to manipulate and visualize fields in these files. As a starting point, several NCL \footnote{NCAR Command Language; \url{http://ncl.ucar.edu}}
-scripts are provided in the {\tt graphics/ncl} sub-directory
-of the main MPAS directory for making the basic types of plots illustrated in Figure \ref{fig:ncl_plots}. Each of
-these scripts reads the name of the file from which fields should be plotted from the environment variable {\tt FNAME},
-and all but the mesh-plotting script read the time frame to be plotted from the environment variable {\tt T}. To plot
-a field from the first frame (indexed from 0) of the file {\tt output.2010-10-23\_00:00:00.nc}, for example, one would set the 
-following environment variables 
+This chapter discusses visualization tools that may be used by all cores.  For instructions on additional visualization tools for this core, see Chapter \ref{chap:\core_visualization}.
 
-\vspace{12pt}
-{\tt > setenv FNAME output.2010-10-23\_00:00:00.nc}
+\section{ParaView}
 
-{\tt > setenv T 0}
-\vspace{12pt}
+ParaView may be used to visualize MPAS initialization, output, and restart files.  It includes a reader that was specifically designed to read MPAS NetCDF files, including Cartesian and spherical domains.  At this time, only cell-centered quantities may be plotted with ParaView.  Variables located at edges and vertices must be interpolated to cell centers for visualization.
 
-\noindent before running one of the scripts. In general, the specific field to be plotted from the netCDF file must be set 
-within a script before running that script. 
+ParaView is freely available for download at \url{http://www.paraview.org}.  Binary installations are available for Windows, Mac, and Linux, as well as source code files and tutorials.  From the ParaView website:
+\begin{quotation}
+ParaView is an open-source, multi-platform data analysis and visualization application. ParaView users can quickly build visualizations to analyze their data using qualitative and quantitative techniques. The data exploration can be done interactively in 3D or programmatically using ParaView's batch processing capabilities.  ParaView was developed to analyze extremely large datasets using distributed memory computing resources. It can be run on supercomputers to analyze datasets of terascale as well as on laptops for smaller data.
+\end{quotation}
+
+To visualize an MPAS cell-centered variable in ParaView, open the file and choose {\tt MPAS NetCDF (Unstructured)} as the file format.  In the lower left Object Inspector panel, choose your variables of interest (Figure \ref{fig:ParaviewExample}).  For large data sets, loading fewer variables will result in less wait time.  Options are available for latitude-longitude projections, vertical level, etc.  Click the 'Apply' button to load the data set.  In the toolbars at the top, choose the variable to plot from the pull-down menu, and 'Surface' for the type of visualization.  The color bar button displays a color bar, and the color scale editor button allows the user to manually change the color bar type and extents.  The Filters menu provides computational tools for interactive data manipulation.  Movies, in avi format or as individual frames, may be conveniently created with the {\tt Save Animation} tool in the File menu.
 
 \begin{figure}[htb]
 \begin{center}
-\includegraphics[width=6.5in]{shared_figures/ncl_plots.pdf}
-\caption{Various plot types that can be produced from MPAS input or output files using example scripts provided with the MPAS code.
-(a) A plot of an MPAS SCVT mesh against a filled map background. (b) A simple horizontal contour plot. (c) A cell-filled horizontal plot, with
-individual cells of the mesh drawn as polygons colored according to the field value. (d) A vertical cross-section in height, with areas below the
-terrain left unshaded.}
-\label{fig:ncl_plots}
+\includegraphics[width=6.5in]{shared/figures/ParaviewExample.jpg}
+\caption{Example of ParaView to view an MPAS NetCDF file.}
+\label{fig:ParaviewExample}
 \end{center}
 \end{figure}
 
+Paraview may be used to view the grid from any MPAS NetCDF file by choosing {\tt Wireframe} or {\tt Suface With Edges} from the visualization-type pull-down menu (Figure \ref{fig:ParaviewExampleEdges}).  This produces a view of the Delaunay triangulation, which is the dual mesh to the primal Voronoi cell grid (Figure \ref{figure:variablePosition}).  Paraview plots all variables by interpolating colors between each corner of the Delaunay triangles.  These corners are the cell-center locations of the primal grid.
 
-\section{Meshes}
-
-A plot showing just an MPAS SCVT mesh can be produced using the {\tt atm\_mesh.ncl} script, as in Figure \ref{fig:ncl_plots}(a). This script
-reads a subset of the mesh description fields in Appendix \ref{sec:var_sec_mesh} and uses this information to draw the SCVT mesh over a 
-color-filled map background. Parameters in the script can be used to control the type of map projection (e.g., orthographic, cylindrical equidistant, etc.), 
-the colors used to fill land and water points, and the widths of lines used for the Voronoi cells.
-
-
-\section{Horizontal contour plots}
-
-Contour plots of horizontal fields can be produced with the {\tt atm\_contours.ncl} script, as in Figure \ref{fig:ncl_plots}(b). The particular
-field to be plotted is set in the script and can in principle be drawn on any horizontal surface (e.g., a constant pressure
-surface, a constant height surface, sea-level, etc.) if suitable vertical interpolation code is added to the script. Not shown in the figure are horizontal
-wind vectors, which can also be added to the plot using example code provided in the script.
-
-
-\section{Horizontal cell-filled plots}
-
-For visualizing horizontal fields on their native SCVT grid, the {\tt atm\_cells.ncl} script may be used to produce horizontal cell-filled plots, 
-as in Figure \ref{fig:ncl_plots}(c). This script draws each MPAS grid cell as a polygon colored according to the value of the field in that
-cell; the color scale is automatically chosen based on the range of the field and the default NCL color table, though other color tables can
-be selected instead.
-
-
-\section{Vertical cross-sections}
-
-Vertical cross-sections of fields can be created using the {\tt atm\_xsec.ncl} script, as in Figure \ref{fig:ncl_plots}(d). Before running this script,
-a starting point and an ending point for the cross section must be given as latitude-longitude pairs near the top of the script, and the number of points along
-the cross section should be specified. The script evenly distributes the specified number of points along the shortest great-circle arc from the 
-starting point to the ending point, and for each point, the script uses values from the grid cell containing that point (i.e., a nearest-neighbor interpolation
-to the horizontal cross-section points is performed); no vertical interpolation is performed, and the thicknesses and vertical heights of cells are
-all drawn according to the MPAS vertical grid.
-
-
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=6.5in]{shared/figures/ParaviewExampleEdges.jpg}
+\caption{Example of visualizing the dual mesh from an MPAS NetCDF file.}
+\label{fig:ParaviewExampleEdges}
+\end{center}
+\end{figure}
 

@@ -1,7 +1,7 @@
 \chapter{Global Statistics}
 \label{chap:global_statistics}
 
-MPAS-Ocean simulations create global statistics text files that are accessible during the simulation, as described in Table \ref{oceanTable:global statistics}.  These are useful to check the health and progress of a simulation, and to compare the history of global statistics amongst similar simulations.  Frequency is controlled by \verb|_stats_| flags in the namelist.  The files are simply text files formatted in columns and rows, where each row is a particular time, written to \verb|stats_time.txt|, and each column is a variable, described in \verb|stats_readme.txt|.
+MPAS-Ocean simulations create global statistics text files that are accessible during the simulation, as described in Table \ref{oceanTable:global statistics}.  These are useful to check the health and progress of a simulation, and to compare the history of global statistics amongst similar simulations.  Frequency is controlled by \verb|_stats_| flags in the namelist.  The files are simply text files formatted in columns and rows, where each row is a particular time, written to \verb|stats_time.txt|, and each column is a variable, described in \verb|stats_readme.txt|.  Output is always appended to the {\tt stats\_*} files, so these files must be deleted or moved in order to restart from line one.
 
 A chain of simple unix commands may be used to access a specific part of the data.  For example, to view the last three values of column seven in the global average, use
 \begin{verbatim}
