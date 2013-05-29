@@ -211,9 +211,9 @@ Embedded links point to more detailed namelist information in the appendix.
 	{\bf Name} & {\bf Description} \\
 	\hline
 	\hline
-	\hyperref[subsec:nm_sec_config_h_kappa]{config\_h\_kappa} & $ $$ \kappa $ parameter for Gent-McWilliams eddy parameterization$ \\
+	\hyperref[subsec:nm_sec_config_h_kappa]{config\_h\_kappa} & kappa parameter for Gent-McWilliams eddy parameterization \\
 	\hline
-	\hyperref[subsec:nm_sec_config_h_kappa_q]{config\_h\_kappa\_q} & kappa parameter for Gent-McWilliams eddy parameterization \\
+	\hyperref[subsec:nm_sec_config_h_kappa_q]{config\_h\_kappa\_q} & kappa-q parameter for Gent-McWilliams eddy parameterization \\
 	\hline
 \end{longtable}
 \end{center}
@@ -237,6 +237,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[vmix]{\hyperref[sec:nm_sec_vmix]{vmix}}
 \label{sec:nm_tab_vmix}
+\input{ocean/section_descriptions/vmix.tex}
 {\small
 \begin{center}
 \begin{longtable}{| p{2.0in} || p{4.0in} |}
@@ -244,15 +245,16 @@ Embedded links point to more detailed namelist information in the appendix.
 	{\bf Name} & {\bf Description} \\
 	\hline
 	\hline
-	\hyperref[subsec:nm_sec_config_convective_visc]{config\_convective\_visc} & {\bf \color{red} MISSING} \\
+	\hyperref[subsec:nm_sec_config_convective_visc]{config\_convective\_visc} & Value of vertical viscosity to be used in unstable conditions (i.e. Richardson number less than zero) \\
 	\hline
-	\hyperref[subsec:nm_sec_config_convective_diff]{config\_convective\_diff} & {\bf \color{red} MISSING} \\
+	\hyperref[subsec:nm_sec_config_convective_diff]{config\_convective\_diff} & Value of vertical diffusion to be used in unstable conditions (i.e. Richardson number less than zero) \\
 	\hline
 \end{longtable}
 \end{center}
 }
 \section[vmix\_const]{\hyperref[sec:nm_sec_vmix_const]{vmix\_const}}
 \label{sec:nm_tab_vmix_const}
+\input{ocean/section_descriptions/vmix_const.tex}
 {\small
 \begin{center}
 \begin{longtable}{| p{2.0in} || p{4.0in} |}
@@ -260,19 +262,20 @@ Embedded links point to more detailed namelist information in the appendix.
 	{\bf Name} & {\bf Description} \\
 	\hline
 	\hline
-	\hyperref[subsec:nm_sec_config_use_const_visc]{config\_use\_const\_visc} & {\bf \color{red} MISSING} \\
+	\hyperref[subsec:nm_sec_config_use_const_visc]{config\_use\_const\_visc} & If true, constant vertical viscosity is included in the momentum equation \\
 	\hline
-	\hyperref[subsec:nm_sec_config_use_const_diff]{config\_use\_const\_diff} & {\bf \color{red} MISSING} \\
+	\hyperref[subsec:nm_sec_config_use_const_diff]{config\_use\_const\_diff} & If true, constant vertical diffusion is included in the tracer equation \\
 	\hline
-	\hyperref[subsec:nm_sec_config_vert_visc]{config\_vert\_visc} & {\bf \color{red} MISSING} \\
+	\hyperref[subsec:nm_sec_config_vert_visc]{config\_vert\_visc} & Vertical viscosity, applied uniformly throughout domain \\
 	\hline
-	\hyperref[subsec:nm_sec_config_vert_diff]{config\_vert\_diff} & {\bf \color{red} MISSING} \\
+	\hyperref[subsec:nm_sec_config_vert_diff]{config\_vert\_diff} & Vertical diffusion, applied uniformly throughout domain \\
 	\hline
 \end{longtable}
 \end{center}
 }
 \section[vmix\_rich]{\hyperref[sec:nm_sec_vmix_rich]{vmix\_rich}}
 \label{sec:nm_tab_vmix_rich}
+\input{ocean/section_descriptions/vmix_rich.tex}
 {\small
 \begin{center}
 \begin{longtable}{| p{2.0in} || p{4.0in} |}
@@ -280,21 +283,22 @@ Embedded links point to more detailed namelist information in the appendix.
 	{\bf Name} & {\bf Description} \\
 	\hline
 	\hline
-	\hyperref[subsec:nm_sec_config_use_rich_visc]{config\_use\_rich\_visc} & {\bf \color{red} MISSING} \\
+	\hyperref[subsec:nm_sec_config_use_rich_visc]{config\_use\_rich\_visc} & If true, Richardson-number based vertical viscosity is included in the momentum equation \\
 	\hline
-	\hyperref[subsec:nm_sec_config_use_rich_diff]{config\_use\_rich\_diff} & {\bf \color{red} MISSING} \\
+	\hyperref[subsec:nm_sec_config_use_rich_diff]{config\_use\_rich\_diff} & If true, Richardson-number based vertical diffusion is included in the tracer equation \\
 	\hline
-	\hyperref[subsec:nm_sec_config_bkrd_vert_visc]{config\_bkrd\_vert\_visc} & {\bf \color{red} MISSING} \\
+	\hyperref[subsec:nm_sec_config_bkrd_vert_visc]{config\_bkrd\_vert\_visc} &  Background vertical viscosity for Richardson-number based vertical mixing,  $\nu_{bkrd}$  \\
 	\hline
-	\hyperref[subsec:nm_sec_config_bkrd_vert_diff]{config\_bkrd\_vert\_diff} & {\bf \color{red} MISSING} \\
+	\hyperref[subsec:nm_sec_config_bkrd_vert_diff]{config\_bkrd\_vert\_diff} &  Background vertical diffusion for Richardson-number based vertical mixing,  $\kappa_{bkrd}$  \\
 	\hline
-	\hyperref[subsec:nm_sec_config_rich_mix]{config\_rich\_mix} & {\bf \color{red} MISSING} \\
+	\hyperref[subsec:nm_sec_config_rich_mix]{config\_rich\_mix} &  Coefficient for Richardon-number vertical mixing function,  $c_{Ri}$  \\
 	\hline
 \end{longtable}
 \end{center}
 }
 \section[vmix\_tanh]{\hyperref[sec:nm_sec_vmix_tanh]{vmix\_tanh}}
 \label{sec:nm_tab_vmix_tanh}
+\input{ocean/section_descriptions/vmix_tanh.tex}
 {\small
 \begin{center}
 \begin{longtable}{| p{2.0in} || p{4.0in} |}
@@ -302,21 +306,21 @@ Embedded links point to more detailed namelist information in the appendix.
 	{\bf Name} & {\bf Description} \\
 	\hline
 	\hline
-	\hyperref[subsec:nm_sec_config_use_tanh_visc]{config\_use\_tanh\_visc} & {\bf \color{red} MISSING} \\
+	\hyperref[subsec:nm_sec_config_use_tanh_visc]{config\_use\_tanh\_visc} & If true, tanh-based vertical viscosity is included in the momentum equation \\
 	\hline
-	\hyperref[subsec:nm_sec_config_use_tanh_diff]{config\_use\_tanh\_diff} & {\bf \color{red} MISSING} \\
+	\hyperref[subsec:nm_sec_config_use_tanh_diff]{config\_use\_tanh\_diff} & If true, tanh-based vertical diffusion is included in the tracer equation \\
 	\hline
-	\hyperref[subsec:nm_sec_config_max_visc_tanh]{config\_max\_visc\_tanh} & {\bf \color{red} MISSING} \\
+	\hyperref[subsec:nm_sec_config_max_visc_tanh]{config\_max\_visc\_tanh} & maximum viscosity value for tanh-fit function \\
 	\hline
-	\hyperref[subsec:nm_sec_config_min_visc_tanh]{config\_min\_visc\_tanh} & {\bf \color{red} MISSING} \\
+	\hyperref[subsec:nm_sec_config_min_visc_tanh]{config\_min\_visc\_tanh} & minimum viscosity value for tanh-fit function \\
 	\hline
-	\hyperref[subsec:nm_sec_config_max_diff_tanh]{config\_max\_diff\_tanh} & {\bf \color{red} MISSING} \\
+	\hyperref[subsec:nm_sec_config_max_diff_tanh]{config\_max\_diff\_tanh} & maximum diffusion value for tanh-fit function \\
 	\hline
-	\hyperref[subsec:nm_sec_config_min_diff_tanh]{config\_min\_diff\_tanh} & {\bf \color{red} MISSING} \\
+	\hyperref[subsec:nm_sec_config_min_diff_tanh]{config\_min\_diff\_tanh} & minimum diffusion value for tanh-fit function \\
 	\hline
-	\hyperref[subsec:nm_sec_config_zMid_tanh]{config\_zMid\_tanh} & {\bf \color{red} MISSING} \\
+	\hyperref[subsec:nm_sec_config_zMid_tanh]{config\_zMid\_tanh} & z-coodinate location of center of tanh function \\
 	\hline
-	\hyperref[subsec:nm_sec_config_zWidth_tanh]{config\_zWidth\_tanh} & {\bf \color{red} MISSING} \\
+	\hyperref[subsec:nm_sec_config_zWidth_tanh]{config\_zWidth\_tanh} & vertical width parameter for tanh function \\
 	\hline
 \end{longtable}
 \end{center}
@@ -490,7 +494,7 @@ Embedded links point to more detailed namelist information in the appendix.
 	\hline
 	\hyperref[subsec:nm_sec_config_prescribe_thickness]{config\_prescribe\_thickness} & Enables a prescribed thickness field. This thickness field is read on input, and remains constant through a simulation. \\
 	\hline
-	\hyperref[subsec:nm_sec_config_include_KE_vertex]{config\_include\_KE\_vertex} & {\bf \color{red} MISSING} \\
+	\hyperref[subsec:nm_sec_config_include_KE_vertex]{config\_include\_KE\_vertex} & If true, the kinetic energy in each cell is computed by blending cell-based and vertex-based values of kinetic energy. \\
 	\hline
 	\hyperref[subsec:nm_sec_config_check_tracer_monotonicity]{config\_check\_tracer\_monotonicity} & Enables a change on tracer monotonicity at the end of the monotonic advection routine. Only used if config\_monotonic is set to .true. \\
 	\hline

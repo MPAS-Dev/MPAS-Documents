@@ -700,13 +700,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $missing$ \\
+    Units: & {\bf \color{red} MISSING} \\
     \hline
     Default Value: & 0.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any positive real value. \\
     \hline
-    \caption{config\_h\_kappa: $ $$ \kappa $ parameter for Gent-McWilliams eddy parameterization$}
+    \caption{config\_h\_kappa: kappa parameter for Gent-McWilliams eddy parameterization}
 \end{longtable}
 \end{center}
 \subsection[config\_h\_kappa\_q]{\hyperref[sec:nm_tab_standard_GM]{config\_h\_kappa\_q}}
@@ -720,9 +720,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 0.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any positive real value. \\
     \hline
-    \caption{config\_h\_kappa\_q: kappa parameter for Gent-McWilliams eddy parameterization}
+    \caption{config\_h\_kappa\_q: kappa-q parameter for Gent-McWilliams eddy parameterization}
 \end{longtable}
 \end{center}
 \section[Rayleigh\_damping]{\hyperref[sec:nm_tab_Rayleigh_damping]{Rayleigh\_damping}}
@@ -768,13 +768,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $m^2$ $s^{-1}$ \\
     \hline
     Default Value: & 1.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any positive real value. \\
     \hline
-    \caption{config\_convective\_visc: {\bf \color{red} MISSING}}
+    \caption{config\_convective\_visc: Value of vertical viscosity to be used in unstable conditions (i.e. Richardson number less than zero)}
 \end{longtable}
 \end{center}
 \subsection[config\_convective\_diff]{\hyperref[sec:nm_tab_vmix]{config\_convective\_diff}}
@@ -784,13 +784,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $m^2$ $s^{-1}$ \\
     \hline
     Default Value: & 1.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any positive real value. \\
     \hline
-    \caption{config\_convective\_diff: {\bf \color{red} MISSING}}
+    \caption{config\_convective\_diff: Value of vertical diffusion to be used in unstable conditions (i.e. Richardson number less than zero)}
 \end{longtable}
 \end{center}
 \section[vmix\_const]{\hyperref[sec:nm_tab_vmix_const]{vmix\_const}}
@@ -802,13 +802,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & .true. \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & .true. or .false. \\
     \hline
-    \caption{config\_use\_const\_visc: {\bf \color{red} MISSING}}
+    \caption{config\_use\_const\_visc: If true, constant vertical viscosity is included in the momentum equation}
 \end{longtable}
 \end{center}
 \subsection[config\_use\_const\_diff]{\hyperref[sec:nm_tab_vmix_const]{config\_use\_const\_diff}}
@@ -818,13 +818,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & .true. \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & .true. or .false. \\
     \hline
-    \caption{config\_use\_const\_diff: {\bf \color{red} MISSING}}
+    \caption{config\_use\_const\_diff: If true, constant vertical diffusion is included in the tracer equation}
 \end{longtable}
 \end{center}
 \subsection[config\_vert\_visc]{\hyperref[sec:nm_tab_vmix_const]{config\_vert\_visc}}
@@ -834,13 +834,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $m^2$ $s^{-1}$ \\
     \hline
     Default Value: & 1.0e-4 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any positive real value. \\
     \hline
-    \caption{config\_vert\_visc: {\bf \color{red} MISSING}}
+    \caption{config\_vert\_visc: Vertical viscosity, applied uniformly throughout domain}
 \end{longtable}
 \end{center}
 \subsection[config\_vert\_diff]{\hyperref[sec:nm_tab_vmix_const]{config\_vert\_diff}}
@@ -850,13 +850,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $m^2$ $s^{-1}$ \\
     \hline
     Default Value: & 1.0e-4 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any positive real value. \\
     \hline
-    \caption{config\_vert\_diff: {\bf \color{red} MISSING}}
+    \caption{config\_vert\_diff: Vertical diffusion, applied uniformly throughout domain}
 \end{longtable}
 \end{center}
 \section[vmix\_rich]{\hyperref[sec:nm_tab_vmix_rich]{vmix\_rich}}
@@ -868,13 +868,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & .true. \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & .true. or .false. \\
     \hline
-    \caption{config\_use\_rich\_visc: {\bf \color{red} MISSING}}
+    \caption{config\_use\_rich\_visc: If true, Richardson-number based vertical viscosity is included in the momentum equation}
 \end{longtable}
 \end{center}
 \subsection[config\_use\_rich\_diff]{\hyperref[sec:nm_tab_vmix_rich]{config\_use\_rich\_diff}}
@@ -884,13 +884,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & .true. \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & .true. or .false. \\
     \hline
-    \caption{config\_use\_rich\_diff: {\bf \color{red} MISSING}}
+    \caption{config\_use\_rich\_diff: If true, Richardson-number based vertical diffusion is included in the tracer equation}
 \end{longtable}
 \end{center}
 \subsection[config\_bkrd\_vert\_visc]{\hyperref[sec:nm_tab_vmix_rich]{config\_bkrd\_vert\_visc}}
@@ -900,13 +900,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $m^2$ $s^{-1}$ \\
     \hline
     Default Value: & 1.0e-4 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any positive real value. \\
     \hline
-    \caption{config\_bkrd\_vert\_visc: {\bf \color{red} MISSING}}
+    \caption{config\_bkrd\_vert\_visc:  Background vertical viscosity for Richardson-number based vertical mixing,  $\nu_{bkrd}$ }
 \end{longtable}
 \end{center}
 \subsection[config\_bkrd\_vert\_diff]{\hyperref[sec:nm_tab_vmix_rich]{config\_bkrd\_vert\_diff}}
@@ -916,13 +916,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $m^2$ $s^{-1}$ \\
     \hline
     Default Value: & 1.0e-5 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any positive real value. \\
     \hline
-    \caption{config\_bkrd\_vert\_diff: {\bf \color{red} MISSING}}
+    \caption{config\_bkrd\_vert\_diff:  Background vertical diffusion for Richardson-number based vertical mixing,  $\kappa_{bkrd}$ }
 \end{longtable}
 \end{center}
 \subsection[config\_rich\_mix]{\hyperref[sec:nm_tab_vmix_rich]{config\_rich\_mix}}
@@ -932,13 +932,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $m^2$ $s^{-1}$ \\
     \hline
     Default Value: & 0.005 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any positive real value. \\
     \hline
-    \caption{config\_rich\_mix: {\bf \color{red} MISSING}}
+    \caption{config\_rich\_mix:  Coefficient for Richardon-number vertical mixing function,  $c_{Ri}$ }
 \end{longtable}
 \end{center}
 \section[vmix\_tanh]{\hyperref[sec:nm_tab_vmix_tanh]{vmix\_tanh}}
@@ -950,13 +950,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & .false. \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & .true. or .false. \\
     \hline
-    \caption{config\_use\_tanh\_visc: {\bf \color{red} MISSING}}
+    \caption{config\_use\_tanh\_visc: If true, tanh-based vertical viscosity is included in the momentum equation}
 \end{longtable}
 \end{center}
 \subsection[config\_use\_tanh\_diff]{\hyperref[sec:nm_tab_vmix_tanh]{config\_use\_tanh\_diff}}
@@ -966,13 +966,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & .false. \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & .true. or .false. \\
     \hline
-    \caption{config\_use\_tanh\_diff: {\bf \color{red} MISSING}}
+    \caption{config\_use\_tanh\_diff: If true, tanh-based vertical diffusion is included in the tracer equation}
 \end{longtable}
 \end{center}
 \subsection[config\_max\_visc\_tanh]{\hyperref[sec:nm_tab_vmix_tanh]{config\_max\_visc\_tanh}}
@@ -982,13 +982,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $m^2$ $s^{-1}$ \\
     \hline
     Default Value: & 2.5e-1 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any positive real value. \\
     \hline
-    \caption{config\_max\_visc\_tanh: {\bf \color{red} MISSING}}
+    \caption{config\_max\_visc\_tanh: maximum viscosity value for tanh-fit function}
 \end{longtable}
 \end{center}
 \subsection[config\_min\_visc\_tanh]{\hyperref[sec:nm_tab_vmix_tanh]{config\_min\_visc\_tanh}}
@@ -998,13 +998,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $m^2$ $s^{-1}$ \\
     \hline
     Default Value: & 1.0e-4 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any positive real value. \\
     \hline
-    \caption{config\_min\_visc\_tanh: {\bf \color{red} MISSING}}
+    \caption{config\_min\_visc\_tanh: minimum viscosity value for tanh-fit function}
 \end{longtable}
 \end{center}
 \subsection[config\_max\_diff\_tanh]{\hyperref[sec:nm_tab_vmix_tanh]{config\_max\_diff\_tanh}}
@@ -1014,13 +1014,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $m^2$ $s^{-1}$ \\
     \hline
     Default Value: & 2.5e-2 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any positive real value. \\
     \hline
-    \caption{config\_max\_diff\_tanh: {\bf \color{red} MISSING}}
+    \caption{config\_max\_diff\_tanh: maximum diffusion value for tanh-fit function}
 \end{longtable}
 \end{center}
 \subsection[config\_min\_diff\_tanh]{\hyperref[sec:nm_tab_vmix_tanh]{config\_min\_diff\_tanh}}
@@ -1030,13 +1030,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $m^2$ $s^{-1}$ \\
     \hline
     Default Value: & 1.0e-5 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any positive real value. \\
     \hline
-    \caption{config\_min\_diff\_tanh: {\bf \color{red} MISSING}}
+    \caption{config\_min\_diff\_tanh: minimum diffusion value for tanh-fit function}
 \end{longtable}
 \end{center}
 \subsection[config\_zMid\_tanh]{\hyperref[sec:nm_tab_vmix_tanh]{config\_zMid\_tanh}}
@@ -1046,13 +1046,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $m$ \\
     \hline
     Default Value: & -100 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any real value, typically negative. \\
     \hline
-    \caption{config\_zMid\_tanh: {\bf \color{red} MISSING}}
+    \caption{config\_zMid\_tanh: z-coodinate location of center of tanh function}
 \end{longtable}
 \end{center}
 \subsection[config\_zWidth\_tanh]{\hyperref[sec:nm_tab_vmix_tanh]{config\_zWidth\_tanh}}
@@ -1062,13 +1062,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $m$ \\
     \hline
     Default Value: & 100 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any positive real value. \\
     \hline
-    \caption{config\_zWidth\_tanh: {\bf \color{red} MISSING}}
+    \caption{config\_zWidth\_tanh: vertical width parameter for tanh function}
 \end{longtable}
 \end{center}
 \section[forcing]{\hyperref[sec:nm_tab_forcing]{forcing}}
@@ -1644,7 +1644,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Possible Values: & .true. or .false. \\
     \hline
-    \caption{config\_include\_KE\_vertex: {\bf \color{red} MISSING}}
+    \caption{config\_include\_KE\_vertex: If true, the kinetic energy in each cell is computed by blending cell-based and vertex-based values of kinetic energy.}
 \end{longtable}
 \end{center}
 \subsection[config\_check\_tracer\_monotonicity]{\hyperref[sec:nm_tab_debug]{config\_check\_tracer\_monotonicity}}
