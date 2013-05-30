@@ -17,7 +17,7 @@ Embedded links point to more detailed namelist information in the appendix.
 	\hline
 	\hyperref[subsec:nm_sec_config_stop_time]{config\_stop\_time} & Timestamp descriping the final time of the simulation. If it is set to 'none' the final time is determined from config\_start\_time and config\_run\_duration. \\
 	\hline
-	\hyperref[subsec:nm_sec_config_run_duration]{config\_run\_duration} & Timestamp describing the length of the simulation. If it is set to 'none' the duraction is determined from config\_start\_time and config\_stop\_time. config\_run\_duration overrides inconsistent values of config\_stop\_time. \\
+	\hyperref[subsec:nm_sec_config_run_duration]{config\_run\_duration} & Timestamp describing the length of the simulation. If it is set to 'none' the duration is determined from config\_start\_time and config\_stop\_time. config\_run\_duration overrides inconsistent values of config\_stop\_time. \\
 	\hline
 	\hyperref[subsec:nm_sec_config_calendar_type]{config\_calendar\_type} & Selection of the type of calendar that should be used in the simulation. \\
 	\hline
@@ -26,6 +26,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[io]{\hyperref[sec:nm_sec_io]{io}}
 \label{sec:nm_tab_io}
+\input{ocean/section_descriptions/io.tex}
 {\small
 \begin{center}
 \begin{longtable}{| p{2.0in} || p{4.0in} |}
@@ -33,27 +34,27 @@ Embedded links point to more detailed namelist information in the appendix.
 	{\bf Name} & {\bf Description} \\
 	\hline
 	\hline
-	\hyperref[subsec:nm_sec_config_input_name]{config\_input\_name} & {\bf \color{red} MISSING} \\
+	\hyperref[subsec:nm_sec_config_input_name]{config\_input\_name} & The path to the input file for the simulation. \\
 	\hline
-	\hyperref[subsec:nm_sec_config_output_name]{config\_output\_name} & {\bf \color{red} MISSING} \\
+	\hyperref[subsec:nm_sec_config_output_name]{config\_output\_name} & The template path and name to the output file from the simulation. A time stamp is prepended to the extension of the file (.nc). \\
 	\hline
-	\hyperref[subsec:nm_sec_config_restart_name]{config\_restart\_name} & {\bf \color{red} MISSING} \\
+	\hyperref[subsec:nm_sec_config_restart_name]{config\_restart\_name} & The template path and name to the restart file for the simulation. A time stamp is prepended to the extension of the file (.nc) both for input and output. \\
 	\hline
-	\hyperref[subsec:nm_sec_config_restart_interval]{config\_restart\_interval} & {\bf \color{red} MISSING} \\
+	\hyperref[subsec:nm_sec_config_restart_interval]{config\_restart\_interval} & Timestamp determining how often a restart file should be written. \\
 	\hline
-	\hyperref[subsec:nm_sec_config_output_interval]{config\_output\_interval} & {\bf \color{red} MISSING} \\
+	\hyperref[subsec:nm_sec_config_output_interval]{config\_output\_interval} & Timestamp determining how often an output file should be written. \\
 	\hline
-	\hyperref[subsec:nm_sec_config_stats_interval]{config\_stats\_interval} & {\bf \color{red} MISSING} \\
+	\hyperref[subsec:nm_sec_config_stats_interval]{config\_stats\_interval} & Timestamp determining how often a global statistics files should be written. \\
 	\hline
-	\hyperref[subsec:nm_sec_config_write_stats_on_startup]{config\_write\_stats\_on\_startup} & {\bf \color{red} MISSING} \\
+	\hyperref[subsec:nm_sec_config_write_stats_on_startup]{config\_write\_stats\_on\_startup} & Logical flag determining if statistics files should be written prior to the first time step. \\
 	\hline
-	\hyperref[subsec:nm_sec_config_write_output_on_startup]{config\_write\_output\_on\_startup} & {\bf \color{red} MISSING} \\
+	\hyperref[subsec:nm_sec_config_write_output_on_startup]{config\_write\_output\_on\_startup} & Logical flag determining if an output file should be written prior to the first time step. \\
 	\hline
-	\hyperref[subsec:nm_sec_config_frames_per_outfile]{config\_frames\_per\_outfile} & {\bf \color{red} MISSING} \\
+	\hyperref[subsec:nm_sec_config_frames_per_outfile]{config\_frames\_per\_outfile} & Integer specifying how many time frames should be included in an output file. Once the maximum is reached, a new output file is created. \\
 	\hline
-	\hyperref[subsec:nm_sec_config_pio_num_iotasks]{config\_pio\_num\_iotasks} & {\bf \color{red} MISSING} \\
+	\hyperref[subsec:nm_sec_config_pio_num_iotasks]{config\_pio\_num\_iotasks} & Integer specifying how many IO tasks should be used within the PIO library. A value of 0 causes all MPI tasks to also be IO tasks. IO tasks are requried to write contiguous blocks of data to a file. \\
 	\hline
-	\hyperref[subsec:nm_sec_config_pio_stride]{config\_pio\_stride} & {\bf \color{red} MISSING} \\
+	\hyperref[subsec:nm_sec_config_pio_stride]{config\_pio\_stride} & Integer specifying the stride of each IO task. \\
 	\hline
 \end{longtable}
 \end{center}

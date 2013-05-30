@@ -64,7 +64,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Possible Values: & 'DDDD\_HH:MM:SS' or 'none' \\
     \hline
-    \caption{config\_run\_duration: Timestamp describing the length of the simulation. If it is set to 'none' the duraction is determined from config\_start\_time and config\_stop\_time. config\_run\_duration overrides inconsistent values of config\_stop\_time.}
+    \caption{config\_run\_duration: Timestamp describing the length of the simulation. If it is set to 'none' the duration is determined from config\_start\_time and config\_stop\_time. config\_run\_duration overrides inconsistent values of config\_stop\_time.}
 \end{longtable}
 \end{center}
 \subsection[config\_calendar\_type]{\hyperref[sec:nm_tab_time_management]{config\_calendar\_type}}
@@ -92,13 +92,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & character \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & grid.nc \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & path/to/grid.nc \\
     \hline
-    \caption{config\_input\_name: {\bf \color{red} MISSING}}
+    \caption{config\_input\_name: The path to the input file for the simulation.}
 \end{longtable}
 \end{center}
 \subsection[config\_output\_name]{\hyperref[sec:nm_tab_io]{config\_output\_name}}
@@ -108,13 +108,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & character \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & output.nc \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & path/to/output.nc \\
     \hline
-    \caption{config\_output\_name: {\bf \color{red} MISSING}}
+    \caption{config\_output\_name: The template path and name to the output file from the simulation. A time stamp is prepended to the extension of the file (.nc).}
 \end{longtable}
 \end{center}
 \subsection[config\_restart\_name]{\hyperref[sec:nm_tab_io]{config\_restart\_name}}
@@ -124,13 +124,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & character \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & restart.nc \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & path/to/restart.nc \\
     \hline
-    \caption{config\_restart\_name: {\bf \color{red} MISSING}}
+    \caption{config\_restart\_name: The template path and name to the restart file for the simulation. A time stamp is prepended to the extension of the file (.nc) both for input and output.}
 \end{longtable}
 \end{center}
 \subsection[config\_restart\_interval]{\hyperref[sec:nm_tab_io]{config\_restart\_interval}}
@@ -140,13 +140,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & character \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0001\_00:00:00 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & 'DDDD\_HH:MM:SS' \\
     \hline
-    \caption{config\_restart\_interval: {\bf \color{red} MISSING}}
+    \caption{config\_restart\_interval: Timestamp determining how often a restart file should be written.}
 \end{longtable}
 \end{center}
 \subsection[config\_output\_interval]{\hyperref[sec:nm_tab_io]{config\_output\_interval}}
@@ -156,13 +156,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & character \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0001\_00:00:00 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & 'DDDD\_HH:MM:SS' \\
     \hline
-    \caption{config\_output\_interval: {\bf \color{red} MISSING}}
+    \caption{config\_output\_interval: Timestamp determining how often an output file should be written.}
 \end{longtable}
 \end{center}
 \subsection[config\_stats\_interval]{\hyperref[sec:nm_tab_io]{config\_stats\_interval}}
@@ -172,13 +172,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & character \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0000\_01:00:00 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & 'DDDD\_HH:MM:SS' \\
     \hline
-    \caption{config\_stats\_interval: {\bf \color{red} MISSING}}
+    \caption{config\_stats\_interval: Timestamp determining how often a global statistics files should be written.}
 \end{longtable}
 \end{center}
 \subsection[config\_write\_stats\_on\_startup]{\hyperref[sec:nm_tab_io]{config\_write\_stats\_on\_startup}}
@@ -188,13 +188,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & .true. \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & .true. or .false. \\
     \hline
-    \caption{config\_write\_stats\_on\_startup: {\bf \color{red} MISSING}}
+    \caption{config\_write\_stats\_on\_startup: Logical flag determining if statistics files should be written prior to the first time step.}
 \end{longtable}
 \end{center}
 \subsection[config\_write\_output\_on\_startup]{\hyperref[sec:nm_tab_io]{config\_write\_output\_on\_startup}}
@@ -204,13 +204,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & .true. \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & .true. or .false. \\
     \hline
-    \caption{config\_write\_output\_on\_startup: {\bf \color{red} MISSING}}
+    \caption{config\_write\_output\_on\_startup: Logical flag determining if an output file should be written prior to the first time step.}
 \end{longtable}
 \end{center}
 \subsection[config\_frames\_per\_outfile]{\hyperref[sec:nm_tab_io]{config\_frames\_per\_outfile}}
@@ -220,13 +220,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & integer \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 1000 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any positive integer value greater than 0 \\
     \hline
-    \caption{config\_frames\_per\_outfile: {\bf \color{red} MISSING}}
+    \caption{config\_frames\_per\_outfile: Integer specifying how many time frames should be included in an output file. Once the maximum is reached, a new output file is created.}
 \end{longtable}
 \end{center}
 \subsection[config\_pio\_num\_iotasks]{\hyperref[sec:nm_tab_io]{config\_pio\_num\_iotasks}}
@@ -236,13 +236,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & integer \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any positive integer value greater than or equal to 0. \\
     \hline
-    \caption{config\_pio\_num\_iotasks: {\bf \color{red} MISSING}}
+    \caption{config\_pio\_num\_iotasks: Integer specifying how many IO tasks should be used within the PIO library. A value of 0 causes all MPI tasks to also be IO tasks. IO tasks are requried to write contiguous blocks of data to a file.}
 \end{longtable}
 \end{center}
 \subsection[config\_pio\_stride]{\hyperref[sec:nm_tab_io]{config\_pio\_stride}}
@@ -252,13 +252,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & integer \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 1 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any positive integer value greater than 0. \\
     \hline
-    \caption{config\_pio\_stride: {\bf \color{red} MISSING}}
+    \caption{config\_pio\_stride: Integer specifying the stride of each IO task.}
 \end{longtable}
 \end{center}
 \section[time\_integration]{\hyperref[sec:nm_tab_time_integration]{time\_integration}}
@@ -368,11 +368,11 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & .true. \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & .true. or .false. \\
     \hline
     \caption{config\_check\_ssh\_consistency: Enables a check to determine if the SSH is consistent across relevant variables.}
 \end{longtable}
