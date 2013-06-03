@@ -6,12 +6,12 @@
 
 \setlength\LTleft{0.0in}
 
-Given an SCVT mesh, this chapter describes the two main steps to running the non-hydrostatic model: creating initial conditions and running the model itself.  This chapter makes use of two MPAS cores, {\tt init\_nhyd\_atmos} and {\tt nhyd\_atmos}, which are, respectively, used for initializing and running the non-hydrostatic atmospheric model.  Sections 3.1 and 3.2 of this chapter describe the creation of idealized and real-data non-hydrostatic initial condition files using the {\tt init\_nhyd\_atmos} core.   Section 3.3 describes the basic procedure of running the model itself.
+Given an SCVT mesh, this chapter describes the two main steps to running the non-hydrostatic model: creating initial conditions and running the model itself.  This chapter makes use of two MPAS cores, {\tt init\_atmosphere} and {\tt atmosphere}, which are, respectively, used for initializing and running the non-hydrostatic atmospheric model.  Sections 3.1 and 3.2 of this chapter describe the creation of idealized and real-data non-hydrostatic initial condition files using the {\tt init\_atmosphere} core.   Section 3.3 describes the basic procedure of running the model itself.
 
-Each section of this chapter follows a familiar pattern of compiling and executing MPAS model components, albeit using different cores depending on its intended use.  The compilation will create either an initialization or a model executable, which are named, respectively, {\tt init\_nhyd\_atmos\_model.exe} and {\tt nhyd\_atmos\_model.exe}.  In general, if an MPAS executable was compiled for serial use, simply call the executable by name. If compiled to be run in parallel, the executable is called with {\tt mpiexec} or {\tt mpirun}, for example:
+Each section of this chapter follows a familiar pattern of compiling and executing MPAS model components, albeit using different cores depending on its intended use.  The compilation will create either an initialization or a model executable, which are named, respectively, {\tt init\_atmosphere\_model} and {\tt atmosphere\_model}.  In general, if an MPAS executable was compiled for serial use, simply call the executable by name. If compiled to be run in parallel, the executable is called with {\tt mpiexec} or {\tt mpirun}, for example:
 
 \vspace{12pt}
-{\tt > mpiexec -n 8 nhyd\_atmos\_model.exe}
+{\tt > mpiexec -n 8 atmosphere\_model}
 \vspace{12pt}
 
 
@@ -19,7 +19,7 @@ Each section of this chapter follows a familiar pattern of compiling and executi
 
 \section{Creating idealized ICs}
 
-There are several idealized test cases supported within the {\tt init\_nhyd\_atmos} model initialization core:
+There are several idealized test cases supported within the {\tt init\_atmosphere} model initialization core:
 
 1 --- Jablonowski and Williamson baroclinic wave, no initial perturbation
 \footnote{Jablonowski, C. and D.L. Williamson, 2006, A baroclinic instability test case for atmospheric model dynamical cores, {\em QJRMS}, 132, 2943-2975. doi:10.1256/qj.06.12.}
@@ -41,18 +41,18 @@ The following steps summarize the creation of {\tt init.nc}:
 \begin{itemize}
 \item Include a {\tt grid.nc} file, which contains the SCVT mesh, in the working directory (\S 2)
 \item If running in parallel, include a {\tt graph.info.part.*} file in the working directory (\S 2.4)
-\item Compile MPAS with the {\tt init\_nhyd\_atmos} core specified (\S 1.2)
+\item Compile MPAS with the {\tt init\_atmosphere} core specified (\S 1.2)
 \item Create an appropriate {\tt namelist.input} configuration file (described below)
-\item Run {\tt init\_nhyd\_atmos\_model.exe} to create {\tt init.nc}
+\item Run {\tt init\_atmosphere\_model} to create {\tt init.nc}
 \end{itemize}~\\
 
-Included in the MPAS directory is a sample initialization namelist, {\tt namelist.input.init\_nhyd\_atmos}, which can be copied or linked to the {\tt namelist.input} file for use in this step.  A number of the namelist parameters found in {\tt namelist.input.init\_nhyd\_atmos} are irrelevant to creating idealized conditions and can be removed or ignored.  The following table outlines the namelist parameters that are required; comments are given on the right for certain key parameters, and formal explanations for all namelist parameters can be found in Appendix A.
+Included in the MPAS directory is a sample initialization namelist, {\tt namelist.input.init\_atmosphere}, which can be copied or linked to the {\tt namelist.input} file for use in this step.  A number of the namelist parameters found in {\tt namelist.input.init\_atmosphere} are irrelevant to creating idealized conditions and can be removed or ignored.  The following table outlines the namelist parameters that are required; comments are given on the right for certain key parameters, and formal explanations for all namelist parameters can be found in Appendix A.
 
 
 \begin{longtable}{p{3in}|p{3.25in}}
 
 \&nhyd\_model\\
-   config\_test\_case       = 1                      & a number between 1 and 6 corresponding to the test cases listed at the beginning of this section\\
+   config\_init\_case       = 1                      & a number between 1 and 6 corresponding to the cases listed at the beginning of this section\\
    config\_theta\_adv\_order = 3                     & advection order for theta \\
 /\\
 \\
@@ -77,9 +77,9 @@ Included in the MPAS directory is a sample initialization namelist, {\tt namelis
 
 Creating real-data initial conditions is similar to that of the idealized case described in the previous section, but is more involved as it requires interpolation of static geographic data (e.g., topography, land cover, soil category, etc.), surface fields such as SST, and the atmospheric initial conditions associated with a particular date/time.  The static datasets are the same as those used by the WRF model, and the surface fields and atmospheric initial conditions can be obtained from GFS data using the WRF pre-processing system (WPS).
 
-Creating real-data initial conditions requires a single compilation of the {\tt init\_nhyd\_atmos} core, but the actual generation of the IC files will take place using three separate runs of {\tt init\_nhyd\_model.exe}, where each of these runs is described individually in the following sub-sections.  While it is possible to condense the three real-data initialization steps into fewer executions, running each step separately will both improve clarity and, as will become apparent, save a significant amount of time when generating subsequent initial conditions, that is, when making initial conditions using the same mesh but different starting times.
+Creating real-data initial conditions requires a single compilation of the {\tt init\_atmosphere} core, but the actual generation of the IC files will take place using three separate runs of {\tt init\_atmosphere}, where each of these runs is described individually in the following sub-sections.  While it is possible to condense the three real-data initialization steps into fewer executions, running each step separately will both improve clarity and, as will become apparent, save a significant amount of time when generating subsequent initial conditions, that is, when making initial conditions using the same mesh but different starting times.
 
-The first of the three steps, described in \S 3.2.1, is the interpolation of static fields onto the mesh to create a {\tt static.nc} file.  This step cannot be run in parallel and takes considerably longer than the steps that follow, however, the fields being static, this step need only be run once for a particular mesh, regardless of the number of initial condition files that are ultimately created from the {\tt static.nc} output file.  Described in \S 3.2.2 is an optional step that creates a file {\tt surface.nc} that contains surface data at regular intervals. This file is used in the case where the model run makes periodic external updates to surface fields (currently only sea-ice and SST).  Finally, \S 3.2.3 describes the processing of the atmospheric initial conditions beginning with the {\tt static.nc} file created in \S 3.2.1.  Naturally, each of the initialization runs described in the three following sections will make use of a {\tt namelist.input} file, and as was the case for idealized initial conditions, the file {\tt namelist.input.init\_nhyd\_atmos} in the MPAS directory can be used as a starting point.  Not every variable in this namelist is needed for any particular step, and therefore each section will elaborate only on the namelist variables that are immediately relevant.
+The first of the three steps, described in \S 3.2.1, is the interpolation of static fields onto the mesh to create a {\tt static.nc} file.  This step cannot be run in parallel and takes considerably longer than the steps that follow, however, the fields being static, this step need only be run once for a particular mesh, regardless of the number of initial condition files that are ultimately created from the {\tt static.nc} output file.  Described in \S 3.2.2 is an optional step that creates a file {\tt surface.nc} that contains surface data at regular intervals. This file is used in the case where the model run makes periodic external updates to surface fields (currently only sea-ice and SST).  Finally, \S 3.2.3 describes the processing of the atmospheric initial conditions beginning with the {\tt static.nc} file created in \S 3.2.1.  Naturally, each of the initialization runs described in the three following sections will make use of a {\tt namelist.input} file, and as was the case for idealized initial conditions, the file {\tt namelist.input.init\_atmosphere} in the MPAS directory can be used as a starting point.  Not every variable in this namelist is needed for any particular step, and therefore each section will elaborate only on the namelist variables that are immediately relevant.
 
 \subsection{Static fields}
 
@@ -90,17 +90,17 @@ The following steps summarize the creation of {\tt static.nc}:
 
 \begin{itemize}
 \item Download geographic data from the WRF download page (described above) 
-\item Compile MPAS with the {\tt init\_nhyd\_atmos} core specified (\S 1.2)
+\item Compile MPAS with the {\tt init\_atmosphere} core specified (\S 1.2)
 \item Include a {\tt grid.nc} file in the working directory (\S 2)
 \item Create an appropriate {\tt namelist.input} configuration file (described below)
-\item Run {\tt init\_nhyd\_atmos\_model.exe} {\em either in serial or with only one MPI task specified} to create {\tt static.nc}
+\item Run {\tt init\_atmosphere\_model} {\em either in serial or with only one MPI task specified} to create {\tt static.nc}
 \end{itemize}~\\
-Note that it is critical for this step that the initialization core is run serially; if the core was compiled in parallel, one only MPI task must be used ({\tt mpiexec -n 1 init\_nhyd\_model.exe}).  The steps described in \S 3.2.2 and \S 3.2.3 may be run in serial or parallel.
+Note that it is critical for this step that the initialization core is run serially; if the core was compiled in parallel, one only MPI task must be used ({\tt mpiexec -n 1 init\_atmosphere\_model}).  The steps described in \S 3.2.2 and \S 3.2.3 may be run in serial or parallel.
 
 \begin{longtable}{p{3.0in} |p{3.25in}}
 
 \&nhyd\_model\\
-   config\_test\_case       = 7                      & must be 7, the real-data 'test case' \\
+   config\_init\_case       = 7                      & must be 7, the real-data initialization case \\
 /\\
 \\
 \&dimensions                                         & the following two variables must be present now, though their values do not become significant until \S 3.2.3 \\
@@ -138,14 +138,14 @@ The following steps summarize the creation of {\tt surface.nc}:
 \item Include a {\tt static.nc} file in the working directory (\S 3.2.1)
 \item If running in parallel, include a {\tt graph.info.part.*} in the working directory (\S 2.4)
 \item Create an appropriate {\tt namelist.input} configuration file (see below)
-\item Run {\tt init\_nhyd\_atmos\_model.exe} to create {\tt surface.nc}
+\item Run {\tt init\_atmosphere\_model} to create {\tt surface.nc}
 \end{itemize}
 
 
 \begin{longtable}{p{3.0in} |p{3.25in}}
 
 \&nhyd\_model\\
-   config\_test\_case       = 8                      & must be 8, the surface field 'test case' \\
+   config\_init\_case       = 8                      & must be 8, the surface field initialization case \\
    config\_start\_time      = '2010-10-23\_00:00:00' & time to begin processing surface data \\
    config\_stop\_time       = '2010-10-24\_00:00:00' & time to end processing surface data \\
 /\\
@@ -188,14 +188,14 @@ The following steps summarize the creation of {\tt init.nc}:
 \item Include the {\tt static.nc} file in the working directory (\S 3.2.1)
 \item If running in parallel, include a {\tt graph.info.part.*} file in the working directory (\S 2.4)
 \item Create an appropriate {\tt namelist.input} configuration file (described below)
-\item Run {\tt init\_nhyd\_atmos\_model.exe} to create {\tt init.nc}
+\item Run {\tt init\_atmosphere\_model} to create {\tt init.nc}
 \end{itemize}
 
 
 \begin{longtable}{p{3.0in} |p{3.25in}}
 
 \&nhyd\_model\\
-   config\_test\_case       = 7                      & must be 7 \\
+   config\_init\_case       = 7                      & must be 7 \\
    config\_theta\_adv\_order = 3                     & advection order for theta \\
    config\_start\_time      = '2010-10-23\_00:00:00' & time to process first-guess data \\
 /\\
@@ -237,7 +237,7 @@ The following steps summarize the creation of {\tt init.nc}:
 
 \section{Running the model}
 
-With the files {\tt init.nc} and, optionally, {\tt surface.nc}, generated as in the previous sections, we have completed the prerequisites to run the model.  The only step remaining before running the model itself is the configuration of {\tt namelist.input}.  As a starting point, the MPAS directory contains {\tt namelist.input.nhyd\_atmos}, along with three other namelists corresponding to the various idealized test cases, that can be copied or linked to {\tt namelist.input}.  This section will discuss both running the model from a cold start and restarting the model from some point in a previous run.
+With the files {\tt init.nc} and, optionally, {\tt surface.nc}, generated as in the previous sections, we have completed the prerequisites to run the model.  The only step remaining before running the model itself is the configuration of {\tt namelist.input}.  As a starting point, the MPAS directory contains {\tt namelist.input.atmosphere}, along with three other namelists corresponding to the various idealized cases, that can be copied or linked to {\tt namelist.input}.  This section will discuss both running the model from a cold start and restarting the model from some point in a previous run.
 
 The following steps summarize running the model:
 
@@ -245,8 +245,8 @@ The following steps summarize running the model:
 \item Include an initial condition netCDF file (e.g., {\tt init.nc}) in the working directory(\S 3.1, \S 3.2)
 \item If using surface updates, include a surface netCDF file (e.g., {\tt surface.nc}) in the working directory (\S 3.2.2)
 \item If running in parallel, include a graph decomposition file in the working directory (\S 2.4)
-\item If the MPAS directory has not been cleaned since running initialization, run {\tt make clean} with the {\tt init\_nhyd\_atmos} core specified
-\item Compile MPAS with the {\tt nhyd\_atmos} core specified (\S 1.2)
+\item If the MPAS directory has not been cleaned since running initialization, run {\tt make clean} with the {\tt init\_atmosphere} core specified
+\item Compile MPAS with the {\tt atmosphere} core specified (\S 1.2)
 \item Create an appropriate {\tt namelist.input} configuration file (described below)
 \item Run the compiled executable
 \end{itemize}

@@ -205,7 +205,7 @@ All date-time string specifications are of the form described at the beginning o
   naerlev         &  Number of input aerosol data levels needed for the CAM radiation.  \newline 
   {\em Default value: 29} \\ \hline
   
-  cam\_dim1         &  Dimension needed in the declaration of array absnxt for the CAM radiation code. \newline 
+  camdim1         &  Dimension needed in the declaration of array absnxt for the CAM radiation code. \newline 
   {\em Default value: 4} \\ \hline
          
   config\_frac\_seaice &  Logical used to define fractional sea-ice. If set to true, fractional sea ice varies between 0 and 1. If set to false, fractional sea-ice is set to a sea-ice flag equal to 1 when sea-ice is present, or zero otherwise. \newline 
@@ -227,30 +227,9 @@ All date-time string specifications are of the form described at the beginning o
   config\_deepsoiltemp\_update & If set to true, deep soil temperatures are slowly updated during the model run. If set to false, deep soil temperatures remain fixed during the entire run. \newline 
   {\em Default value: .false.} \\ \hline
 
-  config\_n\_physics & NOT USED SINCE IMPLEMENTATION OF TIME MANAGER (TO BE REMOVED FROM REGISTRY). \newline 
-  {\em Default value: 1} \\ \hline
-
   config\_n\_microp & Number of cloud microphysics time-steps per dynamic time-step. We currently keep cloud microphysics time-steps to values equal or less than 90 seconds. \newline 
   {\em Default value: 1} \\ \hline
   
-  config\_n\_conv & Number of dynamical time-steps between calls to parameterizations of convection. Currently, convective parameterizations  are called every dynamical time-step. \newline 
-  {\em Default value: 1} \\ \hline  
-  
-  config\_n\_pbl & NOT USED SINCE IMPLEMENTATION OF TIME MANAGER (TO BE REMOVED FROM REGISTRY). \newline 
-  {\em Default value: 1} \\ \hline
-  
- config\_n\_lsm & NOT USED SINCE IMPLEMENTATION OF TIME MANAGER (TO BE REMOVED FROM REGISTRY). \newline 
-  {\em Default value: 1} \\ \hline  
-  
-  config\_n\_eddy & NOT USED SINCE IMPLEMENTATION OF TIME MANAGER (TO BE REMOVED FROM REGISTRY). \newline 
-  {\em Default value: 1} \\ \hline
-  
-  config\_n\_radt\_lw & NOT USED SINCE IMPLEMENTATION OF TIME MANAGER (TO BE REMOVED FROM REGISTRY). \newline 
-  {\em Default value: 1} \\ \hline  
-  
-  config\_n\_radt\_sw & NOT USED SINCE IMPLEMENTATION OF TIME MANAGER (TO BE REMOVED FROM REGISTRY). \newline 
-  {\em Default value: 1} \\ \hline
-      
   config\_radtlw\_interval & Temporal interval between calls to the parameterizations of long wave radiation, format {\em 'yyyy-mm-dd\_hh:mm:ss'}. \newline 
   {\em Default value: 'none'} \\ \hline
 
@@ -264,29 +243,24 @@ All date-time string specifications are of the form described at the beginning o
   {\em Default value: 'none'} \\ \hline
 
   config\_camrad\_abs\_update & Temporal interval between updates to the arrays for spectral absorption and emission for the CAM long wave radiation, format {\em 'yyyy-mm-dd\_hh:mm:ss'}. \newline 
-  {\em Default value: '6:00:00'} \\ \hline
+  {\em Default value: '06:00:00'} \\ \hline
 
   config\_greeness\_update & Temporal interval between updates to the greeness fraction used in the land surface scheme, format {\em 'yyyy-mm-dd\_hh:mm:ss'}. \newline 
   {\em Default value: '24:00:00'} \\ \hline      
 
+  config\_bucket\_update & Temporal interval between updates to restoring the accumulated rain and radiation fields below their respective bucket values, format {\em 'yyyy-mm-dd\_hh:mm:ss'}. \newline 
+  {\em Default value: 'none'} \\ \hline      
+
   config\_microp\_scheme & Cloud Microphysics schemes: \newline
                                              `off '  = no microphysics, \newline
                                              `kessler' = Kessler, \newline 
-                                             `thompson' = Thompson, \newline
                                              `wsm6       ' = WSM6 \newline
-  {\em Default value: 'off'} \\ \hline
-
-  config\_conv\_shallow\_scheme & Shallow convection schemes: \newline
-                                             `off' = no shallow convection scheme \newline   
   {\em Default value: 'off'} \\ \hline
 
   config\_conv\_deep\_scheme & Deep convection schemes: \newline
                                              `off' = no deep convection scheme, \newline
                                              `kain\_fritsch' = Kain-Fritsch, \newline 
                                              `tiedtke' = Tiedtke \newline
-  {\em Default value: 'off'} \\ \hline
-
-  config\_eddy\_scheme & NOT USED. \newline 
   {\em Default value: 'off'} \\ \hline
 
   config\_lsm\_scheme & Land-surface schemes: \newline
@@ -321,6 +295,16 @@ All date-time string specifications are of the form described at the beginning o
                                              `off' = no surface-layer scheme, \newline
                                              `monin\_obukhov' = Monin-Obukhov scheme \newline                                              
   {\em Default value: 'off'} \\ \hline
+ 
+  config\_bucket\_radt &  Threshold value below which accumulated long wave and short wave radiation fields are restored to if config\_bucket\_update is different than \em 'none'. \newline
+  {\em Default value: '0.0'} \\ \hline
+  
+  config\_bucket\_rainc &  Threshold value below which the accumulated convective precipitation is restored to if config\_bucket\_update is different than \em 'none'.\newline
+  {\em Default value: '0.0'} \\ \hline
+  
+  config\_bucket\_rainnc &  Threshold value below which the accumulated grid-scale precipitation is restored to if config\_bucket\_update is different than \em 'none'. \newline
+  {\em Default value: '0.0'} \\ \hline
+  
 \end{longtable}
 }
 
