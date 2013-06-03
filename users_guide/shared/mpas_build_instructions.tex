@@ -115,7 +115,7 @@ In order to get a more complete and up-to-date list of available tagets, one can
 }
 
 The MPAS framework supports multiple {\em cores} --- currently a shallow water
-model, an ocean model, a hydrostatic atmosphere model, a non-hydrostatic atmosphere model, and a non-hydrostatic atmosphere initialization core --- so the build
+model, an ocean model, a non-hydrostatic atmosphere model, and a non-hydrostatic atmosphere initialization core --- so the build
 process must be told which core to build. This is done by either setting the environment variable
 {\tt CORE} to the name of the model core to build, or by specifying the core to be built explicitly on the command-line
 when running {\tt make}. For the shallow water core, for example, one may run either
@@ -155,10 +155,8 @@ xlf
 pgi
 
 Availabe Cores:
-atmos_physics
-hyd_atmos
-init_nhyd_atmos
-nhyd_atmos
+atmosphere
+init_atmosphere
 ocean
 sw
 

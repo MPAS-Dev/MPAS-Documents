@@ -19,7 +19,7 @@ is a two-digit month value, {\tt DD} is a two-digit day value, and {\tt HH:MM:SS
 {\small
 \begin{longtable}{|p{1.5in} |p{4.75in}|}
  \hline
-   config\_test\_case & Type of initial conditions to create: \newline
+   config\_init\_case & Type of initial conditions to create: \newline
                                         1 = Jablonowski \& Williamson barolinic wave (no initial perturbation), \newline
                                         2 = Jablonowski \& Williamson barolinic wave (with initial perturbation), \newline
                                         3 = Jablonowski \& Williamson barolinic wave (with normal-mode perturbation), \newline
@@ -28,7 +28,6 @@ is a two-digit month value, {\tt DD} is a two-digit day value, and {\tt HH:MM:SS
                                         6 = mountain wave, \newline
                                         7 = real-data initial conditions from, e.g., GFS, \newline
                                         8 = surface field (SST, sea-ice) update file for use with real-data simulations, \newline
-                                        9 = DCMIP test cases, with specific DCMIP case and parameters specified in the \&dcmip record, \newline
                                         {\em Default value: 7} \\ \hline
                                         
    config\_theta\_adv\_order & Advection order for theta \newline 
@@ -37,32 +36,13 @@ is a two-digit month value, {\tt DD} is a two-digit day value, and {\tt HH:MM:SS
    config\_coef\_3rd\_order & Upwinding coefficient in the 3rd order advection scheme. \hfill\break 0 $\le$ config\_coef\_3rd\_order $\le$ 1\newline 
    {\em Default value: 0.25} \\ \hline   
    
-   config\_start\_time      & Time to begin processing first-guess data (test case 7 only) \newline 
+   config\_start\_time      & Time to begin processing first-guess data (case 7 only) \newline 
    {\em Default value: 'none'} \\ \hline
    
-   config\_stop\_time       & Time to end processing first-guess data (test case 7 only) \newline 
+   config\_stop\_time       & Time to end processing first-guess data (case 7 only) \newline 
    {\em Default value: 'none'} \\ \hline
 \end{longtable}
 }
-
-\section{dcmip}
-
-{\small
-\begin{longtable}{|p{1.5in} |p{4.75in}|}
- \hline
-   config\_dcmip\_case & Specific DCMIP case: \newline
-                                        2-0-0 = ?????, \newline
-                                         {\em Default value: '2-0-0'} \\ \hline
-                                        
-   config\_planet\_scale & Factor by which the Earth's radius will be divided. \newline 
-   {\em Default value: 1.0} \\ \hline
-                                      
-   config\_rotation\_rate\_scale & Factor by which the Earth's rotation rate will be multiplied. \newline 
-   {\em Default value: 1.0} \\ \hline   
-   
-\end{longtable}
-}
-
 
 \section{dimensions}
 
@@ -72,13 +52,13 @@ is a two-digit month value, {\tt DD} is a two-digit day value, and {\tt HH:MM:SS
    config\_nvertlevels     & The number of vertical levels to be used in the model \newline 
    {\em Default value: 26} \\ \hline
    
-   config\_nsoillevels     & The number of vertical soil levels needed by LSM in the model (test case 7 only) \newline 
+   config\_nsoillevels     & The number of vertical soil levels needed by LSM in the model (case 7 only) \newline 
    {\em Default value: 4} \\ \hline
    
-   config\_nfglevels       & The number of vertical levels in first-guess data (test case 7 only) \newline 
+   config\_nfglevels       & The number of vertical levels in first-guess data (case 7 only) \newline 
    {\em Default value: 27} \\ \hline
    
-   config\_nfgsoillevels   & The number of vertical soil levels in first-guess data (test case 7 only) \newline 
+   config\_nfgsoillevels   & The number of vertical soil levels in first-guess data (case 7 only) \newline 
    {\em Default value: 4} \\ \hline
 \end{longtable}
 }
@@ -88,16 +68,16 @@ is a two-digit month value, {\tt DD} is a two-digit day value, and {\tt HH:MM:SS
 {\small
 \begin{longtable}{|p{1.5in} |p{4.75in}|}
  \hline
-   config\_geog\_data\_path  & Path to the WPS static data files (test case 7 only) \newline 
+   config\_geog\_data\_path  & Path to the WPS static data files (case 7 only) \newline 
    {\em Default value: '/mmm/users/wrfhelp/WPS\_GEOG/'} \\ \hline
   
-   config\_met\_prefix      & Prefix of ungrib intermediate file to use for initial conditons (test case 7 only) \newline 
+   config\_met\_prefix      & Prefix of ungrib intermediate file to use for initial conditons (case 7 only) \newline 
    {\em Default value: 'FILE'} \\ \hline
 
-   config\_sfc\_prefix      & Prefix of ungrib intermediate file to use for SST and sea-ice (test case 7 only) \newline 
+   config\_sfc\_prefix      & Prefix of ungrib intermediate file to use for SST and sea-ice (case 7 only) \newline 
    {\em Default value: 'FILE'} \\ \hline
 
-   config\_fg\_interval     & Interval between intermediate files to use for SST and sea-ice (test case 7 only) \newline 
+   config\_fg\_interval     & Interval between intermediate files to use for SST and sea-ice (case 7 only) \newline 
    {\em Default value: 21600} \\ \hline
 \end{longtable}
 }
@@ -123,7 +103,7 @@ is a two-digit month value, {\tt DD} is a two-digit day value, and {\tt HH:MM:SS
 {\small
 \begin{longtable}{|p{1.5in} |p{4.75in}|}
  \hline 
-   config\_static\_interp   & Whether to interpolate WPS static data (test case 7 only) \newline 
+   config\_static\_interp   & Whether to interpolate WPS static data (case 7 only) \newline 
    {\em Default value: .true.} \\ \hline
 
    config\_vertical\_grid   & Whether to generate vertical grid \newline 
@@ -135,7 +115,7 @@ is a two-digit month value, {\tt DD} is a two-digit day value, and {\tt HH:MM:SS
 %   config\_physics\_init    & Whether to perform initialization of other physics fields \newline 
 %   {\em Default value: .false.} \\ \hline
  
-   config\_input\_sst       & Whether to re-compute SST and sea-ice fields from surface input data set; should be set to .true. if Test Case 8 was run \newline 
+   config\_input\_sst       & Whether to re-compute SST and sea-ice fields from surface input data set; should be set to .true. if Case 8 was run \newline 
    {\em Default value: .false.} \\ \hline
     
    config\_frac\_seaice       & Whether to switch sea-ice threshold from 0.5 to 0.02 \newline 
