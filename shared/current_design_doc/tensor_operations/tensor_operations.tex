@@ -23,7 +23,7 @@ Tensor Operators}
 
 \chapter{Summary}
 
-The computation of the stress tensor and the divergence of the stress tensor are required for turbulence closures and the sea-ice momentum equation.  These operations on an unstructured grid are significantly more complicated than on a quadrilateral grid.  Here we provide algorithms to compute the strain rate tensor and the divergence of any symmetric rank-2 tensor . The stress tensor is related to the strain rate tensor through a constitutive relation that is not specified herein.  Analytic test cases are provided to validate the discrete.
+The computation of the stress tensor and the divergence of the stress tensor are required for turbulence closures and the sea-ice momentum equation.  These operations on an unstructured grid are significantly more complicated than on a quadrilateral grid.  Here we provide algorithms to compute the strain rate tensor and the divergence of any symmetric rank-2 tensor . The stress tensor is related to the strain rate tensor through a constitutive relation that is not specified herein.  Analytic test cases are provided to validate the discrete operators.
 
 
 %figure template
@@ -41,12 +41,7 @@ The computation of the stress tensor and the divergence of the stress tensor are
 Date last modified: 4/23/2013 \\
 Contributors: Mark Petersen \\
 
- Given a discrete horizontal velocity field on the edges of an unstructured C-grid, compute the strain rate tensor 
-\begin{equation}
-\dot{\epsilon}_{ij} = \frac{1}{2}\left(\frac{\partial u_i}{\partial x_j} 
-                                     + \frac{\partial u_j}{\partial x_i}\right).
-\end{equation}
-
+ Given a discrete horizontal velocity field on the edges of an unstructured C-grid, compute the strain rate tensor.
 
 \section{Requirement: Divergence of a tensor}
 Date last modified: 4/23/2013 \\
@@ -64,13 +59,13 @@ The strain rate tensor and tensor divergence must be available at cell centers, 
 Date last modified: 4/23/2013 \\
 Contributors: Mark Petersen \\
 
-The $\mathbb{R}^3$ form should be measured in Cartesian $(x,y,z)$ and lie in the tangent plane of an embedded surface (such as the surface of a sphere). In the $\mathbb{R}^2$ form, the local vertical direction is discarded and a new coordinate system spanning $\mathbb{R}^2$ is chosen.  The $\mathbb{R}^3$ form is preferred because typical global $\mathbb{R}^2$ coordinate systems, such as latitude-longitude coordinates, have pole problems.
+The $\mathbb{R}^3$ form is measured in Cartesian $(x,y,z)$ coordinates.  In the case of a sphere, the center of the sphere is located at the origin.  The $\mathbb{R}^2$ coordinates are a local Cartesian coordinate, such as latitude-longitude coordinates on the sphere.  Operators must be provided to convert quantities between the two coordinate systems.
 
 \section{Requirement: Validation with analytic test functions}
 Date last modified: 4/23/2013 \\
 Contributors: Mark Petersen \\
 
-Analytic test functions and solutions should provided in a testing subroutine for both Cartesian and spherical geometries.  These will be sufficiently general to fully exercise the numerical discretization.  This should include an arbitrary rotation with respect to the primary axes, and complex enough so that the divergence is not a constant.  For a fixed domain size, the root-mean-squared error should converge towards zero with a fixed order as grid-cell size decreases.  The required order of convergence is unknown.
+Analytic test functions and solutions should provided in a testing subroutine for both Cartesian and spherical geometries.  These will be sufficiently general to fully exercise the numerical discretization.  This should include an arbitrary rotation with respect to the primary axes, and complex enough so that the divergence is not a constant.  For a fixed domain size, the root-mean-squared error should converge towards zero with a fixed order as grid-cell size decreases.  The required order of convergence is unknown, but should be nearly order one or greater.
 
 
 %-----------------------------------------------------------------------
@@ -128,7 +123,7 @@ where $A_i$ is the area of cell $i$; $n_e$ is the unit vector normal to the edge
 \begin{eqnarray}
 {\bf u}_e = u_e {\bf n}_e + v_e \tilde{\bf n}_e,
 \end{eqnarray}
-where $u_e$ is the \verb|normalVelocity| variable, $v_e$ is the \verb|tangentVelocity| variable.  Here $\tilde{\bf n}_e$ is the unit tangent vector on an edge,
+where $u_e$ is the \verb|normalVelocity| variable, $v_e$ is the \verb|tangentialVelocity| variable.  Here $\tilde{\bf n}_e$ is the unit tangent vector on an edge,
 \begin{eqnarray}
 {\bf n}_e = \frac{{\bf x}_{i2}-{\bf x}_{i1}}{\left||{\bf x}_{i2}-{\bf x}_{i1}\right||}
   = \frac{1}{d_e} \sum_{i\in CE(e)}n_{e,i}{\bf x}_{i} 
@@ -193,6 +188,28 @@ For the applications in this design document, tensor divergence reduces a rank-2
 
 Boundary conditions for $\sigma$ at land edges are not necessarily zero, as there can be shear stress at the wall.  If the stress tensor is native to vertices, interpolation to edge values may be done by simple averaging.  If the stress tensor is native to cell centers, the stress tensor at the land cell is zero, so a simple average to the edge will be half the value of the ocean cell.
 
+
+\section{Requirement: Quantities must be available in $\mathbb{R}^3$ and $\mathbb{R}^2$ forms.}
+A rank-2 tensor $\epsilon_{sph}$ may be converted from spherical coordinates to $\mathbb{R}^3$ using tensor rotation as follows
+\begin{eqnarray}
+\epsilon_{R3} = R \epsilon_{sph} R^T
+\end{eqnarray}
+where $T$ is the transpose and $R$ is the rotation matrix composed of unit vectors in the zonal, meridional, and vertical directions,
+\begin{eqnarray}
+R = \left[ \begin{array}{ccc}
+{\bf n}_\lambda & {\bf n}_\phi & {\bf n}_r
+\end{array}\right]
+= \left[ \begin{array}{ccc}
+-\sin\lambda & -\sin\phi\cos\lambda & \cos\phi\cos\lambda \\
+ \cos\lambda & -\sin\phi\sin\lambda & \cos\phi\sin\lambda \\
+    0     &  \cos\phi         & \sin\phi
+\end{array}\right].
+\end{eqnarray}
+Note that a matrix consisting of three orthogonal unit vectors is an orthonormal matrix, has determinant one, and has the property $R^{-1}=R^T$.  Thus the inverse operation is simply
+\begin{eqnarray}
+\epsilon_{sph} = R^T \epsilon_{R3} R.
+\end{eqnarray}
+
 %-----------------------------------------------------------------------
 
 \chapter{Design and Implementation}
@@ -207,9 +224,9 @@ An example of a workflow for an MPAS-Ocean turbulence closure using the strain r
 \hline
   {\bf subroutine} &  {\bf input} &  {\bf output} \\
 \hline
-\verb|mpas_tangential_velocity|  & $u_e$ \verb|normalVelocity| & $v_e$ \verb|tangentVelocity|  \\
+\verb|mpas_tangential_velocity|  & $u_e$ \verb|normalVelocity| & $v_e$ \verb|tangentialVelocity|  \\
 \verb|mpas_strain_rate_R3Cell|   & $u_e$ \verb|normalVelocity| & $\left[\dot\epsilon  \right]_i$ \verb|strainRateR3Cell|\\
-&  $v_e$ \verb|tangentVelocity| &\\
+&  $v_e$ \verb|tangentialVelocity| &\\
 interpolate to edge or vertex and 2D if desired &  $\left[\dot\epsilon  \right]_i$ &  $\left[\dot\epsilon  \right]_e$ or $\left[\dot\epsilon  \right]_v$\\
 turbulence closure: compute stress tensor &  $\left[\dot\epsilon  \right]_:$ &  $\left[\sigma  \right]_:$\\
 interpolate to edge, if needed   & $\left[\sigma  \right]_:$&  $\left[\sigma  \right]_e$\\
@@ -227,13 +244,15 @@ add $[\nabla \cdot \sigma]$ terms to momentum equation & & \\
 \end{figure}
 
 
+
 \newpage
 
 \section{Implementation: Workflow for MPAS-CICE}
 Date last modified: 4/23/2013 \\
 Contributors: Mark Petersen \\
 
-The formulation for strain rate and tensor divergence provided in this library always computes from edges to cell centers.  However, MPAS-CICE developers are free to solve the stress tensor and momentum equations at the location of their choice, and in the local coordinate system of their choice, by using the provided interpolation and rotation subroutines. For example, the following is a workflow for solving the momentum equation at vertices in a local 2D latitude-longitude coordinate system.  This is the same as the current CICE code when on quadrilateral cells.  In addition, the constitutive relation between strain rate and stress is solved in the 2D form, as in CICE.  An example of the MPAS-CICE workflow for three-dimensional tensor operations is as follows, and is shown graphically in figure \ref{fig:mpasCICE_tensor_workflow1}.  Alternately, all tensor operations could be conducted in 2D, as shown in figure \ref{fig:mpasCICE_tensor_workflow2}.\\
+The formulation for strain rate and tensor divergence provided in this library are in $\mathbb{R}^3$.  Operators are also included to rotate vectors and tensors to a local two-dimensional coordinate system, as well as interpolation routines to move variables amongst cell, vertex, and edge locations.  Here we provide an example of a potential MPAS-CICE workflow for solving the momentum equation at vertices in a local 2D latitude-longitude coordinate system.  This is the same as the current CICE code when on quadrilateral cells.  In addition, the constitutive relation between strain rate and stress is solved in the 2D form, as in CICE.  An example of the MPAS-CICE workflow for three-dimensional tensor operations is as follows, and is shown graphically in figure \ref{fig:mpasCICE_tensor_workflow1}.  
+%Alternately, all tensor operations could be conducted in 2D, as shown in figure \ref{fig:mpasCICE_tensor_workflow2}.\\
 \begin{tabular}{ |l| l| l| }
 \hline
   {\bf subroutine} &  {\bf input} &  {\bf output} \\
@@ -250,7 +269,7 @@ rotate to 2D for momentum forcing &  $[\nabla \cdot \sigma]_v$ (R3) & $[\nabla \
 \end{tabular}
 \vspace{8pt}
 
-The MPAS-CICE routines required for this workflow are to solve the momentum equation and compute the stress tensor.  These operations are both point-wise (i.e., they do not involve neighbors given these inputs), and so the subroutines could in general solve these on cells centers, vertices, or edges.  
+The MPAS-CICE routines required for this workflow are to solve the momentum equation and compute the stress tensor.  These operations are point-wise (i.e., they do not involve neighbors given these inputs), and so the subroutines can operate on cells centers, vertices, or edges.  
 
 If the momentum equation is solved on edges or vertices, boundary conditions for velocity is simply zero on land boundaries.  If the momentum equation is solved at cell centers, the velocity interpolated to the edge could be set to zero before the advection and strain rate are computed.  For the strain rate and stress tensor, use a land-cell value of zero when averaging from cell centers to edges, and use a straight average from vertices to edges.
 
@@ -262,12 +281,12 @@ If the momentum equation is solved on edges or vertices, boundary conditions for
 \end{figure}
 
 
-\begin{figure}[htbp]
- \center
- \includegraphics[scale=0.9]{f/mpasCICE_tensor_workflow2.pdf}
- \caption{MPAS-CICE workflow, tensor operations in 2D}
- \label{fig:mpasCICE_tensor_workflow2}
-\end{figure}
+%\begin{figure}[htbp]
+% \center
+% \includegraphics[scale=0.9]{f/mpasCICE_tensor_workflow2.pdf}
+% \caption{MPAS-CICE workflow, tensor operations in 2D}
+% \label{fig:mpasCICE_tensor_workflow2}
+%\end{figure}
 
 
 %-----------------------------------------------------------------------
@@ -278,7 +297,7 @@ If the momentum equation is solved on edges or vertices, boundary conditions for
 Date last modified: 4/23/2013 \\
 Contributors: Mark Petersen \\
 
-The following analytic test cases may be used to test the tensor operators on any two-dimension Cartesian domain, including quads, hexes, and variable resolution meshs.  There are presently no test cases for a sphere.  All cases are implemented in the subroutine \verb|mpas_test_tensor|.  It is clear that some later test cases are a superset of earlier ones.  For example, the linear case is the power function with $n=1$.  But the earlier simple cases are instructional and useful for debugging, and so are included here and in the code.
+The following analytic test cases may be used to test the tensor operators in $\mathbb{R}^2$, including quads, hexes, and variable resolution meshs.  All cases are implemented in the subroutine \verb|mpas_test_tensor|.  It is clear that some later test cases are a superset of earlier ones.  For example, the linear case is the power function with $n=1$.  But the earlier simple cases are instructional and useful for debugging, and so are included here and in the code.
 
 The constant coefficients $c_n$ and $c_s$ are for the normal and shear components of the strain, respectively.  When velocities are aligned with an axis, like in cases \ref{linear_x}, \ref{linear_y}, \ref{power_x}, and \ref{power_y}, the normal strain appears on the diagonals of the strain rate tensor, and the shear appears on the off-diagonals.  However, for arbitrary rotations, both components appear in all the elements of the strain rate tensor.
 
@@ -416,11 +435,187 @@ Using the definitions of f and g in (\ref{def f}-\ref{def g}),
  \end{array} \right)^* 
 \end{eqnarray}
 
-\section{Testing functions for strain rate and its divergence on a sphere}
-Date last modified: 4/23/2013 \\
+\section{Test functions on a sphere}
+Date last modified: 5/6/2013 \\
 Contributors: Mark Petersen \\
 
-{\it Mark:} I have these written by hand, need to add in latex.
+\subsection{Strain Rate}
+
+The strain rate tensor in standard spherical coordinates $(\varphi,\theta,r)$, where $\theta=0$ points towards the north pole, ${\bf x}=(0,0,1)$, is \cite[p. 868]{Kundu_ea12bk}
+\begin{eqnarray}
+\epsilon = \left[\begin{array}{ccc}
+\displaystyle
+\frac{1}{r\sin\theta} \left( u_{\varphi,\varphi} + u_r\sin\theta +  u_\theta\cos\theta \right) &  & (sym) \\
+\displaystyle
+\frac{1}{2r}\left(u_{\varphi,\theta} - u_\varphi \cot\theta  +  \frac{1}{\sin\theta}u_{\theta,\varphi}  \right)
+\displaystyle
+   & \frac{1}{r} u_{\theta,\theta} + \frac{1}{r} u_{r} & \\
+\displaystyle
+\frac{1}{2r\sin\theta}u_{r,\varphi} + \frac{1}{2}u_{\varphi,r} - \frac{1}{2r}u_\varphi &  
+\displaystyle
+\frac{1}{2r}u_{r,\theta} + \frac{1}{2}u_{\theta,r} - \frac{1}{2r}u_\theta  & u_{r,r}
+\end{array}\right],
+\end{eqnarray}
+where variables in subscripts after commas are derivatives.  For fluids on a sphere, radial velocities and derivatives are assumed to be zero, so the strain rate tensor reduces to
+\begin{eqnarray}
+\epsilon = \left[\begin{array}{ccc}
+\displaystyle
+\frac{1}{r\sin\theta} \left( u_{\varphi,\varphi} +  u_\theta\cos\theta \right) &  & (sym) \\
+\displaystyle
+\frac{1}{2r}\left(u_{\varphi,\theta} - u_\varphi \cot\theta  +  \frac{1}{\sin\theta}u_{\theta,\varphi}  \right)
+\displaystyle
+   & \frac{1}{r} u_{\theta,\theta}  & \\
+\displaystyle
+ - \frac{1}{2r}u_\varphi &  
+\displaystyle
+ - \frac{1}{2r}u_\theta  & 0
+\end{array}\right]
+\end{eqnarray}
+We now change to longidude-latitude-radial coordinates using the variables $(\lambda, \phi, r)$.  These differ from those in \cite{Kundu_ea12bk} in that $\phi=0$ at the equator and $\phi=\pi/2$ radians at the north pole.  Then $\phi=\pi/2-\theta$, $\partial/\partial\phi=-\partial/\partial\theta$, $\sin\theta=\cos\phi$, and $\cos\theta=\sin\phi$.  The strain rate tensor in longitude-latitude-radial coordinates is now
+\begin{eqnarray}
+\epsilon = \left[\begin{array}{ccc}
+\displaystyle
+\frac{1}{r\cos\phi} \left( u_{\lambda,\lambda} +  u_\phi\sin\phi \right) &  & (sym) \\
+\displaystyle
+\frac{1}{2r}\left(-u_{\lambda,\phi} - u_\lambda \tan\phi  +  \frac{1}{\cos\phi}u_{\phi,\lambda}  \right)
+\displaystyle
+   & -\frac{1}{r} u_{\phi,\phi}  & \\
+\displaystyle
+ - \frac{1}{2r}u_\lambda &  
+\displaystyle
+ - \frac{1}{2r}u_\phi  & 0
+\end{array}\right].
+\end{eqnarray}
+Although this seems like a straight forward substitution, some of the signs are not correct.  Going back the the derivation of the stress tensor in curvilinear coordinates \cite[Appendix 2]{Batchelor67book}, as summarized in \cite[Section 2b]{Hunke_Dukowicz02mwr}, $\xi_1=\lambda$ (longitude), $\xi_2=\phi$ (latitude), $\xi_3=r$.  Then the scale factors are $h_1=r \cos\phi$, $h_2=r$, and $h_3=1$, and the strain rate is 
+\begin{eqnarray}
+\epsilon_{11}&=&\frac{1}{h_1} \frac{\partial u}{\partial \xi_1} + \frac{1}{h_1 h_2}\frac{\partial h_1}{\partial \xi_2} v \\
+\epsilon_{22}&=&\frac{2}{h_2} \frac{\partial v}{\partial \xi_2} + \frac{2}{h_1 h_2}\frac{\partial h_2}{\partial \xi_1} u \\
+\epsilon_{12}&=&\frac{h_1}{h_2} \frac{\partial }{\partial \xi_2}\left(\frac{u}{h_1}\right) 
+           + \frac{h_2}{h_1} \frac{\partial }{\partial \xi_1}\left(\frac{v}{h_2}\right).
+\end{eqnarray}
+The correct strain rate tensor in spherical coordinates is then
+\begin{eqnarray}
+\epsilon = \left[\begin{array}{ccc}
+\displaystyle
+\frac{1}{r\cos\phi} \left( u_{\lambda,\lambda} -  u_\phi\sin\phi \right) &  & (sym) \\
+\displaystyle
+\frac{1}{2r}\left(u_{\lambda,\phi} + u_\lambda \tan\phi  +  \frac{1}{\cos\phi}u_{\phi,\lambda}  \right)
+\displaystyle
+   & \frac{1}{r} u_{\phi,\phi}  & \\
+\displaystyle
+ - \frac{3}{2r}u_\lambda &  
+\displaystyle
+ - \frac{3}{2r}u_\phi  & 0
+\end{array}\right].
+\end{eqnarray}
+
+The simplest cases are when the zonal flow $u_\lambda=1$ and meridional flow $u_\phi=0$, 
+\begin{eqnarray}
+\epsilon = \left[\begin{array}{ccc}
+0 &  & (sym) \\
+\displaystyle
+\frac{\tan\phi}{2r} & 0 &\\
+\displaystyle
+ - \frac{3}{2r} & 0 & 0
+\end{array}\right], 
+\end{eqnarray}
+when the zonal flow $u_\lambda=0$ and meridional flow $u_\phi=1$,
+\begin{eqnarray}
+\epsilon = \left[\begin{array}{ccc}
+\displaystyle
+-\frac{\tan\phi}{r} &  & (sym) \\
+0 & 0 &\\
+ 0 & \displaystyle - \frac{3}{2r} & 0 
+\end{array}\right], 
+\end{eqnarray}
+and solid-body rotation, $u_\lambda=\cos\phi$, $u_\phi=0$, so that the two terms in $\epsilon_{12}$ subtract out and 
+\begin{eqnarray}
+\epsilon = \left[\begin{array}{ccc}
+\displaystyle
+0 &  & (sym) \\
+0 & 0 &\\
+ \displaystyle - \frac{3}{2r}\cos\phi & 0 & 0
+\end{array}\right].
+\end{eqnarray}
+For more general testing, we chose the functions $u_\lambda=\cos\lambda (1+\cos(2\phi))$, $u_\phi=0$, which has the solution shown in Figure \ref{fig:mathematica1}, and $u_\lambda=0$, $u_\phi=\cos\lambda (1+\cos(2\phi))$, which has the solution shown in Figure \ref{fig:mathematica2}.  These forms were chosen so that the test functions have a zero value and zero derivative at the poles.  Convergence plots are shown in figures \ref{fig:convergence1} and \ref{fig:convergence2}, respectively.
+
+\begin{figure}[htbp]
+ \center
+ \includegraphics[scale=0.8, trim = 0 4in 0 0, clip]{f/130520_u_coscos.pdf}
+ \caption{Mathematica worksheet to compute strain rate.}
+ \label{fig:mathematica1}
+\end{figure}
+
+\begin{figure}[htbp]
+ \center
+ \includegraphics[scale=0.8, trim = 0 4in 0 0, clip]{f/130520_v_coscos.pdf}
+ \caption{Mathematica worksheet to compute strain rate.}
+ \label{fig:mathematica2}
+\end{figure}
+
+\begin{figure}[htbp]
+ \center
+ \includegraphics[scale=0.8, trim = 0 0 0 4in, clip]{f/a19_sph_conv_test_1.pdf}
+ \caption{Convergence of test function on a quasi-uniform spherical mesh}
+ \label{fig:convergence1}
+\end{figure}
+
+\begin{figure}[htbp]
+ \center
+ \includegraphics[scale=0.8, trim = 0 0 0 4in, clip]{f/a19_sph_conv_test_2.pdf}
+ \caption{Convergence of test function on a quasi-uniform spherical mesh}
+ \label{fig:convergence2}
+\end{figure}
+
+
+\subsection{Divergence of a tensor}
+
+The divergence of a tensor $\sigma$ in longidude-latitude-radial coordinates using the variables $(\lambda, \phi, r)$, is 
+\begin{eqnarray}
+\nabla\cdot\sigma
+&=& \frac{1}{r\cos\theta} \left( \begin{array}{c} \sigma_{\lambda\lambda,\lambda} \\ \sigma_{\theta\lambda,\lambda} \\ \sigma_{r\lambda,\lambda} \end{array} \right)
++ \frac{1}{r}       \left( \begin{array}{c} \sigma_{\lambda\theta,\lambda} \\ \sigma_{\theta\theta,\lambda} \\ \sigma_{r\theta,\lambda} \end{array} \right)
++                   \left( \begin{array}{c} \sigma_{\lambda r,\lambda} \\ \sigma_{\theta r,\lambda} \\ \sigma_{rr,\lambda} \end{array} \right) 
+\\ && 
++ \frac{1}{r}       \left( \begin{array}{c} 0 \\ \tan\theta \\ -1 \end{array} \right) \sigma_{\lambda\lambda} 
++ \frac{1}{r}       \left( \begin{array}{c} 0 \\ -\tan\theta \\ -1 \end{array} \right) \sigma_{\theta\theta} 
++ \frac{1}{r}       \left( \begin{array}{c} 0 \\ 0 \\ 0 \end{array} \right) \sigma_{r r} 
+\\ &&
++ \frac{1}{r}       \left( \begin{array}{c} -2\tan\theta \\ 0 \\ 0 \end{array} \right) \sigma_{\lambda\theta} 
++ \frac{1}{r}       \left( \begin{array}{c} 0 \\ 1 \\ -\tan\theta \end{array} \right) \sigma_{r\theta} 
++ \frac{1}{r}       \left( \begin{array}{c} 1 \\ 0 \\ 0 \end{array} \right) \sigma_{r\lambda}.
+\end{eqnarray}
+
+For the test function $\sigma_{\lambda\lambda}=\cos\lambda (1+\cos(2\phi))$ and $\sigma=0$ for other tensor elements, the analytical solution is shown in Figure \ref{fig:mathematica3}, and a convergence plot in Figure \ref{fig:convergence3}.  For the test function $\sigma_{\lambda\phi}=\cos\lambda (1+\cos(2\phi))$ and $\sigma=0$ for other tensor elements, the analytical solution is shown in Figure \ref{fig:mathematica4}, and a convergence plot in Figure \ref{fig:convergence4}. 
+
+
+\begin{figure}[htbp]
+ \center
+ \includegraphics[scale=0.8, trim = 0 4in 0 0, clip]{f/130520_ELonLon_coscos.pdf}
+ \caption{Mathematica worksheet to compute strain rate.}
+ \label{fig:mathematica3}
+\end{figure}
+
+\begin{figure}[htbp]
+ \center
+ \includegraphics[scale=0.8, trim = 0 4in 0 0, clip]{f/130520_ELonLat_coscos.pdf}
+ \caption{Mathematica worksheet to compute strain rate.}
+ \label{fig:mathematica4}
+\end{figure}
+
+\begin{figure}[htbp]
+ \center
+ \includegraphics[scale=0.8, trim = 0 0 0 4in, clip]{f/a19_sph_conv_test_3.pdf}
+ \caption{Convergence of test function on a quasi-uniform spherical mesh}
+ \label{fig:convergence3}
+\end{figure}
+
+\begin{figure}[htbp]
+ \center
+ \includegraphics[scale=0.8, trim = 0 0 0 4in, clip]{f/a19_sph_conv_test_4.pdf}
+ \caption{Convergence of test function on a quasi-uniform spherical mesh}
+ \label{fig:convergence4}
+\end{figure}
 
 \bibliographystyle{alpha}
 \bibliography{tensor_operations}
