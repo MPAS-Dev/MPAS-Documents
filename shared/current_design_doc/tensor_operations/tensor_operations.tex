@@ -276,7 +276,7 @@ If the momentum equation is solved on edges or vertices, boundary conditions for
 \begin{figure}[htbp]
  \center
  \includegraphics[scale=0.9]{f/mpasCICE_tensor_workflow1.pdf}
- \caption{MPAS-CICE workflow, tensor operations in R3}
+ \caption{MPAS-CICE workflow, tensor operations in R3.  In step 7, the line integral is about the dual cell, i.e. the triangle surrounding the vertex.}
  \label{fig:mpasCICE_tensor_workflow1}
 \end{figure}
 
@@ -542,28 +542,35 @@ For more general testing, we chose the functions $u_\lambda=\cos\lambda (1+\cos(
 \begin{figure}[htbp]
  \center
  \includegraphics[scale=0.8, trim = 0 4in 0 0, clip]{f/130520_u_coscos.pdf}
- \caption{Mathematica worksheet to compute strain rate.}
+ \caption{Mathematica worksheet to compute strain rate.  Test function is $u_{\lambda}=\cos \lambda (1+\cos(2\phi))$, $u_{\phi}=0$}
  \label{fig:mathematica1}
 \end{figure}
 
 \begin{figure}[htbp]
  \center
- \includegraphics[scale=0.8, trim = 0 4in 0 0, clip]{f/130520_v_coscos.pdf}
- \caption{Mathematica worksheet to compute strain rate.}
- \label{fig:mathematica2}
-\end{figure}
-
-\begin{figure}[htbp]
- \center
  \includegraphics[scale=0.8, trim = 0 0 0 4in, clip]{f/a19_sph_conv_test_1.pdf}
- \caption{Convergence of test function on a quasi-uniform spherical mesh}
+ \caption{Convergence of strain rate computation on a quasi-uniform spherical mesh.  Test function is $u_{\lambda}=\cos \lambda (1+\cos(2\phi))$, $u_{\phi}=0$}
  \label{fig:convergence1}
 \end{figure}
 
 \begin{figure}[htbp]
  \center
+ \includegraphics[scale=0.8, trim = 0 0 0 4in, clip]{f/a19_sph_conv_test_6.pdf}
+ \caption{Convergence of strain rate computation on a variable resolution spherical mesh.  Test function is $u_{\lambda}=\cos \lambda (1+\cos(2\phi))$, $u_{\phi}=0$.  The 120km mesh has two obtuse triangles, showing that the CVT grid is not fully converged.  This produces higher errors for that resolution.}
+ \label{fig:convergence1b}
+\end{figure}
+
+\begin{figure}[htbp]
+ \center
+ \includegraphics[scale=0.8, trim = 0 4in 0 0, clip]{f/130520_v_coscos.pdf}
+ \caption{Mathematica worksheet to compute strain rate.  Test function is $u_{\lambda}=0$, $u_{\phi}=\cos \lambda (1+\cos(2\phi))$}
+ \label{fig:mathematica2}
+\end{figure}
+
+\begin{figure}[htbp]
+ \center
  \includegraphics[scale=0.8, trim = 0 0 0 4in, clip]{f/a19_sph_conv_test_2.pdf}
- \caption{Convergence of test function on a quasi-uniform spherical mesh}
+ \caption{Convergence of strain rate computation on a quasi-uniform spherical mesh.  Test function is $u_{\lambda}=0$, $u_{\phi}=\cos \lambda (1+\cos(2\phi))$}
  \label{fig:convergence2}
 \end{figure}
 
@@ -573,18 +580,20 @@ For more general testing, we chose the functions $u_\lambda=\cos\lambda (1+\cos(
 The divergence of a tensor $\sigma$ in longidude-latitude-radial coordinates using the variables $(\lambda, \phi, r)$, is 
 \begin{eqnarray}
 \nabla\cdot\sigma
-&=& \frac{1}{r\cos\theta} \left( \begin{array}{c} \sigma_{\lambda\lambda,\lambda} \\ \sigma_{\theta\lambda,\lambda} \\ \sigma_{r\lambda,\lambda} \end{array} \right)
-+ \frac{1}{r}       \left( \begin{array}{c} \sigma_{\lambda\theta,\lambda} \\ \sigma_{\theta\theta,\lambda} \\ \sigma_{r\theta,\lambda} \end{array} \right)
-+                   \left( \begin{array}{c} \sigma_{\lambda r,\lambda} \\ \sigma_{\theta r,\lambda} \\ \sigma_{rr,\lambda} \end{array} \right) 
+&=& \frac{1}{r\cos\phi} \left( \begin{array}{c} \sigma_{\lambda\lambda,\lambda} \\ \sigma_{\phi\lambda,\lambda} \\ \sigma_{r\lambda,\lambda} \end{array} \right)
++ \frac{1}{r}       \left( \begin{array}{c} \sigma_{\lambda\phi,\phi} \\ \sigma_{\phi\phi,\phi} \\ \sigma_{r\phi,\phi} \end{array} \right)
++                   \left( \begin{array}{c} \sigma_{\lambda r,r} \\ \sigma_{\phi r,r} \\ \sigma_{rr,r} \end{array} \right) \nonumber
 \\ && 
-+ \frac{1}{r}       \left( \begin{array}{c} 0 \\ \tan\theta \\ -1 \end{array} \right) \sigma_{\lambda\lambda} 
-+ \frac{1}{r}       \left( \begin{array}{c} 0 \\ -\tan\theta \\ -1 \end{array} \right) \sigma_{\theta\theta} 
-+ \frac{1}{r}       \left( \begin{array}{c} 0 \\ 0 \\ 0 \end{array} \right) \sigma_{r r} 
++ \frac{1}{r}       \left( \begin{array}{c} 0 \\ \tan\phi \\ -1 \end{array} \right) \sigma_{\lambda\lambda} 
++ \frac{1}{r}       \left( \begin{array}{c} 0 \\ -\tan\phi \\ -1 \end{array} \right) \sigma_{\phi\phi} 
++ \frac{1}{r}       \left( \begin{array}{c} 0 \\ 0 \\ 0 \end{array} \right) \sigma_{r r}   \nonumber
 \\ &&
-+ \frac{1}{r}       \left( \begin{array}{c} -2\tan\theta \\ 0 \\ 0 \end{array} \right) \sigma_{\lambda\theta} 
-+ \frac{1}{r}       \left( \begin{array}{c} 0 \\ 1 \\ -\tan\theta \end{array} \right) \sigma_{r\theta} 
++ \frac{1}{r}       \left( \begin{array}{c} -2\tan\phi \\ 0 \\ 0 \end{array} \right) \sigma_{\lambda\phi} 
++ \frac{1}{r}       \left( \begin{array}{c} 0 \\ 1 \\ -\tan\phi \end{array} \right) \sigma_{r\phi} 
 + \frac{1}{r}       \left( \begin{array}{c} 1 \\ 0 \\ 0 \end{array} \right) \sigma_{r\lambda}.
 \end{eqnarray}
+
+This formula was found on a few on-line sources, such as Continuum Mechanics notes by Prof. R Teyssier.  I was not able to find it in a textbook yet.
 
 For the test function $\sigma_{\lambda\lambda}=\cos\lambda (1+\cos(2\phi))$ and $\sigma=0$ for other tensor elements, the analytical solution is shown in Figure \ref{fig:mathematica3}, and a convergence plot in Figure \ref{fig:convergence3}.  For the test function $\sigma_{\lambda\phi}=\cos\lambda (1+\cos(2\phi))$ and $\sigma=0$ for other tensor elements, the analytical solution is shown in Figure \ref{fig:mathematica4}, and a convergence plot in Figure \ref{fig:convergence4}. 
 
@@ -592,28 +601,28 @@ For the test function $\sigma_{\lambda\lambda}=\cos\lambda (1+\cos(2\phi))$ and 
 \begin{figure}[htbp]
  \center
  \includegraphics[scale=0.8, trim = 0 4in 0 0, clip]{f/130520_ELonLon_coscos.pdf}
- \caption{Mathematica worksheet to compute strain rate.}
+ \caption{Mathematica worksheet to compute strain rate.  Test function is $\sigma_{\lambda\lambda}=\cos \lambda (1+\cos(2\phi))$, $\sigma_{ii}=0$ otherwise.}
  \label{fig:mathematica3}
 \end{figure}
 
 \begin{figure}[htbp]
  \center
- \includegraphics[scale=0.8, trim = 0 4in 0 0, clip]{f/130520_ELonLat_coscos.pdf}
- \caption{Mathematica worksheet to compute strain rate.}
- \label{fig:mathematica4}
-\end{figure}
-
-\begin{figure}[htbp]
- \center
  \includegraphics[scale=0.8, trim = 0 0 0 4in, clip]{f/a19_sph_conv_test_3.pdf}
- \caption{Convergence of test function on a quasi-uniform spherical mesh}
+ \caption{Convergence of divergence of a tensor computation on a quasi-uniform spherical mesh.  Test function is $\sigma_{\lambda\lambda}=\cos \lambda (1+\cos(2\phi))$, $\sigma_{ii}=0$ otherwise.}
  \label{fig:convergence3}
 \end{figure}
 
 \begin{figure}[htbp]
  \center
+ \includegraphics[scale=0.8, trim = 0 4in 0 0, clip]{f/130520_ELonLat_coscos.pdf}
+ \caption{Mathematica worksheet to compute strain rate.  Test function is $\sigma_{\phi\phi}=\cos \lambda (1+\cos(2\phi))$, $\sigma_{ii}=0$ otherwise.}
+ \label{fig:mathematica4}
+\end{figure}
+
+\begin{figure}[htbp]
+ \center
  \includegraphics[scale=0.8, trim = 0 0 0 4in, clip]{f/a19_sph_conv_test_4.pdf}
- \caption{Convergence of test function on a quasi-uniform spherical mesh}
+ \caption{Convergence of divergence of a tensor computation on a quasi-uniform spherical mesh.  Test function is $\sigma_{\phi\phi}=\cos \lambda (1+\cos(2\phi))$, $\sigma_{ii}=0$ otherwise.}
  \label{fig:convergence4}
 \end{figure}
 
