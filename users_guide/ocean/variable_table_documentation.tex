@@ -20,6 +20,10 @@ Embedded links point to more detailed variable information in the appendix.
 	\hline
 	\hyperref[subsec:var_sec_state_layerThickness]{layerThickness} & layer thickness \\
 	\hline
+	\hyperref[subsec:var_sec_state_highFreqThickness]{highFreqThickness} & high frequency-filtered layer thickness \\
+	\hline
+	\hyperref[subsec:var_sec_state_lowFreqDivergence]{lowFreqDivergence} & low frequency-filtered divergence \\
+	\hline
 	\hyperref[subsec:var_sec_state_density]{density} & density \\
 	\hline
 	\hyperref[subsec:var_sec_state_normalBarotropicVelocity]{normalBarotropicVelocity} & barotropic velocity, used in split-explicit time-stepping \\
@@ -96,7 +100,9 @@ Embedded links point to more detailed variable information in the appendix.
 	\hline
 	\hyperref[subsec:var_sec_state_vertVelocityTop]{vertVelocityTop} & vertical velocity defined at center (horizonally) and top (vertically) of cell \\
 	\hline
-	\hyperref[subsec:var_sec_state_displacedDensity]{displacedDensity} & potential density displaced to the mid-depth of top layer \\
+	\hyperref[subsec:var_sec_state_displacedDensity]{displacedDensity} & Density displaced adiabatically to the mid-depth one layer deeper.  That is, layer k has been displaced to the depth of layer k+1. \\
+	\hline
+	\hyperref[subsec:var_sec_state_potentialDensity]{potentialDensity} & potential density: density displaced adiabatically to the mid-depth of top layer \\
 	\hline
 	\hyperref[subsec:var_sec_state_BruntVaisalaFreqTop]{BruntVaisalaFreqTop} & Brunt Vaisala frequency defined at the center (horizontally) and top (vertically) of cell \\
 	\hline
@@ -308,6 +314,8 @@ Embedded links point to more detailed variable information in the appendix.
 	\hline
 	\hyperref[subsec:var_sec_mesh_seaSurfacePressure]{seaSurfacePressure} & Pressure defined at the sea surface. \\
 	\hline
+	\hyperref[subsec:var_sec_mesh_restingThickness]{restingThickness} & Layer thickness when the ocean is at rest, i.e. without SSH or internal perturbations. \\
+	\hline
 \end{longtable}
 \end{center}
 }
@@ -330,6 +338,10 @@ Embedded links point to more detailed variable information in the appendix.
 	\hline
 	\hyperref[subsec:var_sec_tend_tend_ssh]{tend\_ssh} & time tendency of sea-surface height \\
 	\hline
+	\hyperref[subsec:var_sec_tend_tend_highFreqThickness]{tend\_highFreqThickness} & time tendency of high frequency-filtered layer thickness \\
+	\hline
+	\hyperref[subsec:var_sec_tend_tend_lowFreqDivergence]{tend\_lowFreqDivergence} & time tendency of low frequency-filtered divergence \\
+	\hline
 \end{longtable}
 \end{center}
 }
@@ -348,7 +360,7 @@ Embedded links point to more detailed variable information in the appendix.
 	\hline
 	\hyperref[subsec:var_sec_diagnostics_vertViscTopOfEdge]{vertViscTopOfEdge} & vertical viscosity defined at the edge (horizontally) and top (vertically) \\
 	\hline
-	\hyperref[subsec:var_sec_diagnostics_vertDiffTopOfCell]{vertDiffTopOfCell} & vertical diffusion defined at the edge (horizontally) and top (vertically) \\
+	\hyperref[subsec:var_sec_diagnostics_vertDiffTopOfCell]{vertDiffTopOfCell} & vertical diffusion defined at the cell center (horizontally) and top (vertically) \\
 	\hline
 	\hyperref[subsec:var_sec_diagnostics_windStressZonal]{windStressZonal} & reconstructed surface wind stress in the eastward direction. \\
 	\hline

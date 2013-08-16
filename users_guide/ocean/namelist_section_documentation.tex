@@ -313,22 +313,6 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \caption{config\_num\_halos: Determines the number of halo cells extending from a blocks owned cells (Called the 0-Halo). The default of 3 is the minimum that can be used with monotonic advection.}
 \end{longtable}
 \end{center}
-\subsection[config\_vert\_coord\_movement]{\hyperref[sec:nm_tab_grid]{config\_vert\_coord\_movement}}
-\label{subsec:nm_sec_config_vert_coord_movement}
-\begin{center}
-\begin{longtable}{| p{2.0in} | p{4.0in} |}
-    \hline
-    Type: & character \\
-    \hline
-    Units: & $unitless$ \\
-    \hline
-    Default Value: & uniform\_stretching \\
-    \hline
-    Possible Values: & 'uniform\_stretching', 'fixed', 'user\_specified', 'isopycnal' \\
-    \hline
-    \caption{config\_vert\_coord\_movement: Determines the vertical coordinate movement type. 'uniform\_stretching' distrubtes SSH perturbations through all vertical levels, 'fixed' places them all in the top level, 'user\_specified' allows the input file to determine the distribution, and 'isopycnal' causes levels to be pure isopycnal.}
-\end{longtable}
-\end{center}
 \subsection[config\_alter\_ICs\_for\_pbcs]{\hyperref[sec:nm_tab_grid]{config\_alter\_ICs\_for\_pbcs}}
 \label{subsec:nm_sec_config_alter_ICs_for_pbcs}
 \begin{center}
@@ -375,6 +359,170 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     Possible Values: & .true. or .false. \\
     \hline
     \caption{config\_check\_ssh\_consistency: Enables a check to determine if the SSH is consistent across relevant variables.}
+\end{longtable}
+\end{center}
+\section[ALE\_vertical\_grid]{\hyperref[sec:nm_tab_ALE_vertical_grid]{ALE\_vertical\_grid}}
+\label{sec:nm_sec_ALE_vertical_grid}
+\subsection[config\_vert\_coord\_movement]{\hyperref[sec:nm_tab_ALE_vertical_grid]{config\_vert\_coord\_movement}}
+\label{subsec:nm_sec_config_vert_coord_movement}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & uniform\_stretching \\
+    \hline
+    Possible Values: & 'uniform\_stretching', 'fixed', 'user\_specified', 'impermeable\_interface' \\
+    \hline
+    \caption{config\_vert\_coord\_movement: Determines the vertical coordinate movement type. 'uniform\_stretching' distributes SSH perturbations through all vertical levels (z-star vertical coordinate); 'fixed' places them all in the top level (z-level vertical coordinate); 'user\_specified' allows the input file to determine the distribution using the variable vertCoordMovementWeights (weighted z-star vertical coordinate); and 'impermeable\_interface' makes the vertical transport between layers zero (idealized isopycnal).}
+\end{longtable}
+\end{center}
+\subsection[config\_use\_minimum\_thickness]{\hyperref[sec:nm_tab_ALE_vertical_grid]{config\_use\_minimum\_thickness}}
+\label{subsec:nm_sec_config_use_minimum_thickness}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_use\_minimum\_thickness: If true, a minimum thickness is enforced to prevent massless layers.}
+\end{longtable}
+\end{center}
+\subsection[config\_minimum\_thickness]{\hyperref[sec:nm_tab_ALE_vertical_grid]{config\_minimum\_thickness}}
+\label{subsec:nm_sec_config_minimum_thickness}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & $m$ \\
+    \hline
+    Default Value: & 1.0 \\
+    \hline
+    Possible Values: & any positive real value, but typically 0.1 to 1 m. \\
+    \hline
+    \caption{config\_minimum\_thickness: Minimum thickness allowed.}
+\end{longtable}
+\end{center}
+\subsection[config\_set\_restingThickness\_to\_z]{\hyperref[sec:nm_tab_ALE_vertical_grid]{config\_set\_restingThickness\_to\_z}}
+\label{subsec:nm_sec_config_set_restingThickness_to_z}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & .true. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_set\_restingThickness\_to\_z: If true, compute restingThickness using refBottomDepth.  This can be used for z-type grids.  If false, restingThickness must be in init or restart file.  For sigma grids, this must be false.}
+\end{longtable}
+\end{center}
+\section[ALE\_frequency\_filtered\_thickness]{\hyperref[sec:nm_tab_ALE_frequency_filtered_thickness]{ALE\_frequency\_filtered\_thickness}}
+\label{sec:nm_sec_ALE_frequency_filtered_thickness}
+\subsection[config\_use\_freq\_filtered\_thickness]{\hyperref[sec:nm_tab_ALE_frequency_filtered_thickness]{config\_use\_freq\_filtered\_thickness}}
+\label{subsec:nm_sec_config_use_freq_filtered_thickness}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_use\_freq\_filtered\_thickness:  If true,  $h^{hf}$  is included in the desired ALE thickness in \ref{ocean:desired thickness}, and the prognostic equations \ref{Dlf} and \ref{hhf} are integrated in the code.}
+\end{longtable}
+\end{center}
+\subsection[config\_thickness\_filter\_timescale]{\hyperref[sec:nm_tab_ALE_frequency_filtered_thickness]{config\_thickness\_filter\_timescale}}
+\label{subsec:nm_sec_config_thickness_filter_timescale}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & $days$ \\
+    \hline
+    Default Value: & 5.0 \\
+    \hline
+    Possible Values: & any positive real value, but typically 5 days. \\
+    \hline
+    \caption{config\_thickness\_filter\_timescale:  Filter timescale for the low-frequency baroclinic divergence,  $\tau_{Dlf}$ .}
+\end{longtable}
+\end{center}
+\subsection[config\_use\_highFreqThick\_restore]{\hyperref[sec:nm_tab_ALE_frequency_filtered_thickness]{config\_use\_highFreqThick\_restore}}
+\label{subsec:nm_sec_config_use_highFreqThick_restore}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_use\_highFreqThick\_restore:  If true, the high frequency thickness equation (\ref{ocean:hhf}) includes term 2 on the RHS, the restoring term.  The high frequency thickness is restored to zero with timescale  $\tau_{hhf}$ .}
+\end{longtable}
+\end{center}
+\subsection[config\_highFreqThick\_restore\_time]{\hyperref[sec:nm_tab_ALE_frequency_filtered_thickness]{config\_highFreqThick\_restore\_time}}
+\label{subsec:nm_sec_config_highFreqThick_restore_time}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & $days$ \\
+    \hline
+    Default Value: & 30.0 \\
+    \hline
+    Possible Values: & any positive real value, but typically 5-30 days. \\
+    \hline
+    \caption{config\_highFreqThick\_restore\_time:  Restoring timescale for thickness,  $\tau_{hhf}$ .}
+\end{longtable}
+\end{center}
+\subsection[config\_use\_highFreqThick\_del2]{\hyperref[sec:nm_tab_ALE_frequency_filtered_thickness]{config\_use\_highFreqThick\_del2}}
+\label{subsec:nm_sec_config_use_highFreqThick_del2}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_use\_highFreqThick\_del2: If true, high frequency thickness equation (\ref{ocean:hhf}) includes term 3 on the RHS, the diffusion term.}
+\end{longtable}
+\end{center}
+\subsection[config\_highFreqThick\_del2]{\hyperref[sec:nm_tab_ALE_frequency_filtered_thickness]{config\_highFreqThick\_del2}}
+\label{subsec:nm_sec_config_highFreqThick_del2}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & $m^2$ $s^{-1}$ \\
+    \hline
+    Default Value: & 100.0 \\
+    \hline
+    Possible Values: & any positive real \\
+    \hline
+    \caption{config\_highFreqThick\_del2:  Horizonal high frequency thickness diffusion,  $\kappa_{hhf}$ .}
 \end{longtable}
 \end{center}
 \section[decomposition]{\hyperref[sec:nm_tab_decomposition]{decomposition}}

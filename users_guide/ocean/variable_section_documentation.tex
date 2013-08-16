@@ -111,6 +111,46 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
     \caption{layerThickness: layer thickness}
 \end{longtable}
 \end{center}
+\subsection[highFreqThickness]{\hyperref[sec:var_tab_state]{highFreqThickness}}
+\label{subsec:var_sec_state_highFreqThickness}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $m$ \\
+        \hline 
+        Dimension: & nVertLevels nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% highFreqThickness \\
+		 \hline 
+    \caption{highFreqThickness: high frequency-filtered layer thickness}
+\end{longtable}
+\end{center}
+\subsection[lowFreqDivergence]{\hyperref[sec:var_tab_state]{lowFreqDivergence}}
+\label{subsec:var_sec_state_lowFreqDivergence}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $s^{-1}$ \\
+        \hline 
+        Dimension: & nVertLevels nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% lowFreqDivergence \\
+		 \hline 
+    \caption{lowFreqDivergence: low frequency-filtered divergence}
+\end{longtable}
+\end{center}
 \subsection[density]{\hyperref[sec:var_tab_state]{density}}
 \label{subsec:var_sec_state_density}
 \begin{center}
@@ -824,7 +864,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & Output  \\
+		 Default Streams: &  \\
         \hline 
 		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% pressure \\
 		 \hline 
@@ -884,11 +924,31 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & Output  \\
+		 Default Streams: &  \\
         \hline 
 		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% displacedDensity \\
 		 \hline 
-    \caption{displacedDensity: potential density displaced to the mid-depth of top layer}
+    \caption{displacedDensity: Density displaced adiabatically to the mid-depth one layer deeper.  That is, layer k has been displaced to the depth of layer k+1.}
+\end{longtable}
+\end{center}
+\subsection[potentialDensity]{\hyperref[sec:var_tab_state]{potentialDensity}}
+\label{subsec:var_sec_state_potentialDensity}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $kg$ $m^{-3}$ \\
+        \hline 
+        Dimension: & nVertLevels nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: &  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% potentialDensity \\
+		 \hline 
+    \caption{potentialDensity: potential density: density displaced adiabatically to the mid-depth of top layer}
 \end{longtable}
 \end{center}
 \subsection[BruntVaisalaFreqTop]{\hyperref[sec:var_tab_state]{BruntVaisalaFreqTop}}
@@ -904,7 +964,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & Output  \\
+		 Default Streams: &  \\
         \hline 
 		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% BruntVaisalaFreqTop \\
 		 \hline 
@@ -924,7 +984,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & Output  \\
+		 Default Streams: &  \\
         \hline 
 		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% viscosity \\
 		 \hline 
@@ -1144,7 +1204,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & Output  \\
+		 Default Streams: &  \\
         \hline 
 		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% avgNormalVelocityZonal \\
 		 \hline 
@@ -1164,7 +1224,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & Output  \\
+		 Default Streams: &  \\
         \hline 
 		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% avgNormalVelocityMeridional \\
 		 \hline 
@@ -1184,7 +1244,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & Output  \\
+		 Default Streams: &  \\
         \hline 
 		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% varNormalVelocityZonal \\
 		 \hline 
@@ -1204,7 +1264,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & Output  \\
+		 Default Streams: &  \\
         \hline 
 		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% varNormalVelocityMeridional \\
 		 \hline 
@@ -1224,7 +1284,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & Output  \\
+		 Default Streams: &  \\
         \hline 
 		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% avgNormalVelocity \\
 		 \hline 
@@ -1244,7 +1304,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & Output  \\
+		 Default Streams: &  \\
         \hline 
 		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% varNormalVelocity \\
 		 \hline 
@@ -2873,6 +2933,26 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
     \caption{seaSurfacePressure: Pressure defined at the sea surface.}
 \end{longtable}
 \end{center}
+\subsection[restingThickness]{\hyperref[sec:var_tab_mesh]{restingThickness}}
+\label{subsec:var_sec_mesh_restingThickness}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $m$ \\
+        \hline 
+        Dimension: & nVertLevels nCells \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Input Restart  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% restingThickness \\
+		 \hline 
+    \caption{restingThickness: Layer thickness when the ocean is at rest, i.e. without SSH or internal perturbations.}
+\end{longtable}
+\end{center}
 \section[tend]{\hyperref[sec:var_tab_tend]{tend}}
 \label{sec:var_sec_tend}
 \subsection[tend\_temperature]{\hyperref[sec:var_tab_tend]{tend\_temperature}}
@@ -2983,6 +3063,46 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
     \caption{tend\_ssh: time tendency of sea-surface height}
 \end{longtable}
 \end{center}
+\subsection[tend\_highFreqThickness]{\hyperref[sec:var_tab_tend]{tend\_highFreqThickness}}
+\label{subsec:var_sec_tend_tend_highFreqThickness}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $m$ $s^{-1}$ \\
+        \hline 
+        Dimension: & nVertLevels nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & None \\
+        \hline 
+		 Location in code: & domain \% blocklist \% tend \% highFreqThickness \\
+		 \hline 
+    \caption{tend\_highFreqThickness: time tendency of high frequency-filtered layer thickness}
+\end{longtable}
+\end{center}
+\subsection[tend\_lowFreqDivergence]{\hyperref[sec:var_tab_tend]{tend\_lowFreqDivergence}}
+\label{subsec:var_sec_tend_tend_lowFreqDivergence}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $m$ $s^{-1}$ \\
+        \hline 
+        Dimension: & nVertLevels nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & None \\
+        \hline 
+		 Location in code: & domain \% blocklist \% tend \% lowFreqDivergence \\
+		 \hline 
+    \caption{tend\_lowFreqDivergence: time tendency of low frequency-filtered divergence}
+\end{longtable}
+\end{center}
 \section[diagnostics]{\hyperref[sec:var_tab_diagnostics]{diagnostics}}
 \label{sec:var_sec_diagnostics}
 \subsection[RiTopOfCell]{\hyperref[sec:var_tab_diagnostics]{RiTopOfCell}}
@@ -3062,7 +3182,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
 		 Location in code: & domain \% blocklist \% diagnostics \% vertDiffTopOfCell \\
 		 \hline 
-    \caption{vertDiffTopOfCell: vertical diffusion defined at the edge (horizontally) and top (vertically)}
+    \caption{vertDiffTopOfCell: vertical diffusion defined at the cell center (horizontally) and top (vertically)}
 \end{longtable}
 \end{center}
 \subsection[windStressZonal]{\hyperref[sec:var_tab_diagnostics]{windStressZonal}}
@@ -3078,7 +3198,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & Output  \\
+		 Default Streams: &  \\
         \hline 
 		 Location in code: & domain \% blocklist \% diagnostics \% windStressZonal \\
 		 \hline 
@@ -3098,7 +3218,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & Output  \\
+		 Default Streams: &  \\
         \hline 
 		 Location in code: & domain \% blocklist \% diagnostics \% windStressMeridional \\
 		 \hline 

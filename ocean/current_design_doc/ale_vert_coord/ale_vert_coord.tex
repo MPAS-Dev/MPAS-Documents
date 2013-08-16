@@ -153,10 +153,12 @@ D_k = \frac{h_k}{H}{\overline D} + D_k' \label{D}\\
 \mbox{decomposed thickness tendency} && 
   \frac{\partial h_k}{\partial t} = \frac{\partial h^{hf}_k}{\partial t} + \frac{\partial h^{ext}_k}{\partial t} 
    \label{dhdt} \\
-\mbox{high frequency thickness tendency} && 
-  \frac{\partial h^{hf}_k}{\partial t} = - D^{hf}_k - \frac{2\pi}{\tau_{hhf}} h^{hf}_k 
-   + \nabla_h\cdot \left( \kappa_{hhf} \nabla_h h^{hf}_k \right)
-   \label{hhf} \\
+\mbox{preliminary thickness tendency} && 
+  \frac{\partial h^{pre}_k}{\partial t} = - \frac{W_k h_k}{\sum\limits_{k'=1}^{kmax} W_{k'} h_{k'}} {\overline D} 
+\nonumber \\ &&
+   - D^{hf}_k - \frac{2\pi}{\tau_{h}} (h_k - h^{target}_k)
+   + \nabla_h\cdot \left( \kappa_{hh} \nabla_h h_k \right)
+   \label{preliminary_thickness} \\
 \mbox{external mode thickness response} && 
   \frac{\partial h^{ext}_k}{\partial t} = - \frac{W_k h_k}{\sum\limits_{k'=1}^{kmax} W_{k'} h_{k'}}
   {\overline D} 
@@ -166,7 +168,7 @@ D_k = \frac{h_k}{H}{\overline D} + D_k' \label{D}\\
    \label{ssh} \\
 \mbox{continuity equation (solve for $w$)} && 
 \label{cont} 
-\frac{\partial h_k}{\partial t}  + D_k + \frac{\partial}{\partial z} \left( h_k w_k \right) = 0.
+\frac{\partial h_{k}}{\partial t} + D_k + w^t_k - w^t_{k+1} =0.
 \eea
 These equations are discrete in the vertical, indexed by layer $k$, but continuous in the horizontal and in time.  The thickness variables $h$, divergence variables $D$, velocity ${\bf u}$,  and SSH $\zeta$ are functions of $({\bf x},t)$, and vertical dependance is explicitly labelled with a subscript $k$.  External thickness weights $W_k$ do not depend on ${\bf x}$ or $t$, and constant parameters include 
 $\tau_{Dlf}$, $\tau_{hhf}$, and $\kappa_{hhf}$.
