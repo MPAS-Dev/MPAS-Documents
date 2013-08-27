@@ -14,11 +14,17 @@ Embedded links point to more detailed variable information in the appendix.
 	\hline
 	\hyperref[subsec:var_sec_state_salinity]{salinity} & salinity \\
 	\hline
+	\hyperref[subsec:var_sec_state_tracer1]{tracer1} & tracer \\
+	\hline
 	\hyperref[subsec:var_sec_state_xtime]{xtime} & model time, with format 'YYYY-MM-DD\_HH:MM:SS' \\
 	\hline
 	\hyperref[subsec:var_sec_state_normalVelocity]{normalVelocity} & horizonal velocity, normal component to an edge \\
 	\hline
 	\hyperref[subsec:var_sec_state_layerThickness]{layerThickness} & layer thickness \\
+	\hline
+	\hyperref[subsec:var_sec_state_highFreqThickness]{highFreqThickness} & high frequency-filtered layer thickness \\
+	\hline
+	\hyperref[subsec:var_sec_state_lowFreqDivergence]{lowFreqDivergence} & low frequency-filtered divergence \\
 	\hline
 	\hyperref[subsec:var_sec_state_density]{density} & density \\
 	\hline
@@ -37,6 +43,8 @@ Embedded links point to more detailed variable information in the appendix.
 	\hyperref[subsec:var_sec_state_normalBaroclinicVelocity]{normalBaroclinicVelocity} & baroclinic velocity, used in split-explicit time-stepping \\
 	\hline
 	\hyperref[subsec:var_sec_state_zMid]{zMid} & z-coordinate of the mid-depth of the layer \\
+	\hline
+	\hyperref[subsec:var_sec_state_zTop]{zTop} & z-coordinate of the top of the layer \\
 	\hline
 	\hyperref[subsec:var_sec_state_tangentialVelocity]{tangentialVelocity} & horizontal velocity, tangential to an edge \\
 	\hline
@@ -96,7 +104,9 @@ Embedded links point to more detailed variable information in the appendix.
 	\hline
 	\hyperref[subsec:var_sec_state_vertVelocityTop]{vertVelocityTop} & vertical velocity defined at center (horizonally) and top (vertically) of cell \\
 	\hline
-	\hyperref[subsec:var_sec_state_displacedDensity]{displacedDensity} & potential density displaced to the mid-depth of top layer \\
+	\hyperref[subsec:var_sec_state_displacedDensity]{displacedDensity} & Density displaced adiabatically to the mid-depth one layer deeper.  That is, layer k has been displaced to the depth of layer k+1. \\
+	\hline
+	\hyperref[subsec:var_sec_state_potentialDensity]{potentialDensity} & potential density: density displaced adiabatically to the mid-depth of top layer \\
 	\hline
 	\hyperref[subsec:var_sec_state_BruntVaisalaFreqTop]{BruntVaisalaFreqTop} & Brunt Vaisala frequency defined at the center (horizontally) and top (vertically) of cell \\
 	\hline
@@ -122,13 +132,13 @@ Embedded links point to more detailed variable information in the appendix.
 	\hline
 	\hyperref[subsec:var_sec_state_varSsh]{varSsh} & variance of sea surface height \\
 	\hline
-	\hyperref[subsec:var_sec_state_avgNormalVelocityZonal]{avgNormalVelocityZonal} & time-averaged velocity in the eastward direction \\
+	\hyperref[subsec:var_sec_state_avgVelocityZonal]{avgVelocityZonal} & time-averaged velocity in the eastward direction \\
 	\hline
-	\hyperref[subsec:var_sec_state_avgNormalVelocityMeridional]{avgNormalVelocityMeridional} & time-averaged velocity in the northward direction \\
+	\hyperref[subsec:var_sec_state_avgVelocityMeridional]{avgVelocityMeridional} & time-averaged velocity in the northward direction \\
 	\hline
-	\hyperref[subsec:var_sec_state_varNormalVelocityZonal]{varNormalVelocityZonal} & variance of velocity in the eastward direction \\
+	\hyperref[subsec:var_sec_state_varVelocityZonal]{varVelocityZonal} & variance of velocity in the eastward direction \\
 	\hline
-	\hyperref[subsec:var_sec_state_varNormalVelocityMeridional]{varNormalVelocityMeridional} & variance of velocity in the northward direction \\
+	\hyperref[subsec:var_sec_state_varVelocityMeridional]{varVelocityMeridional} & variance of velocity in the northward direction \\
 	\hline
 	\hyperref[subsec:var_sec_state_avgNormalVelocity]{avgNormalVelocity} & time-averaged velocity, normal to cell edge \\
 	\hline
@@ -242,8 +252,6 @@ Embedded links point to more detailed variable information in the appendix.
 	\hline
 	\hyperref[subsec:var_sec_mesh_adv_coefs]{adv\_coefs} & Weighting coefficients used for reconstruction of cell center quantities at edges. Used in advection routines. \\
 	\hline
-	\hyperref[subsec:var_sec_mesh_adv_coefs_2nd]{adv\_coefs\_2nd} & Weighting coefficients used for reconstruction of cell center quantities at edges. Used in advection routines. \\
-	\hline
 	\hyperref[subsec:var_sec_mesh_adv_coefs_3rd]{adv\_coefs\_3rd} & Wegihting coefficients used for reconstruction of cell center quantities at edges. Used in advection routines. \\
 	\hline
 	\hyperref[subsec:var_sec_mesh_advCellsForEdge]{advCellsForEdge} & List of cells used to reconstruct a cell quantity at an edge. Used in advection routines. \\
@@ -251,8 +259,6 @@ Embedded links point to more detailed variable information in the appendix.
 	\hyperref[subsec:var_sec_mesh_nAdvCellsForEdge]{nAdvCellsForEdge} & Number of cells used in reconstruction of cell center quantities at an edge. Used in advection routines. \\
 	\hline
 	\hyperref[subsec:var_sec_mesh_highOrderAdvectionMask]{highOrderAdvectionMask} & Mask for high order advection. Values are 1 if high order is used, and 0 if not. \\
-	\hline
-	\hyperref[subsec:var_sec_mesh_lowOrderAdvectionMask]{lowOrderAdvectionMask} & Mask for low order advection. Values are 1 if low order is used, and 0 if not. \\
 	\hline
 	\hyperref[subsec:var_sec_mesh_defc_a]{defc\_a} & Variable used with advection setup to compute advection coefficients. Deformation weight coefficients. \\
 	\hline
@@ -308,6 +314,8 @@ Embedded links point to more detailed variable information in the appendix.
 	\hline
 	\hyperref[subsec:var_sec_mesh_seaSurfacePressure]{seaSurfacePressure} & Pressure defined at the sea surface. \\
 	\hline
+	\hyperref[subsec:var_sec_mesh_restingThickness]{restingThickness} & Layer thickness when the ocean is at rest, i.e. without SSH or internal perturbations. \\
+	\hline
 \end{longtable}
 \end{center}
 }
@@ -324,11 +332,17 @@ Embedded links point to more detailed variable information in the appendix.
 	\hline
 	\hyperref[subsec:var_sec_tend_tend_salinity]{tend\_salinity} & time tendency of salinity measured as change in practical salinity units per second \\
 	\hline
+	\hyperref[subsec:var_sec_tend_tend_tracer1]{tend\_tracer1} & test tracer \\
+	\hline
 	\hyperref[subsec:var_sec_tend_tend_normalVelocity]{tend\_normalVelocity} & time tendency of normal component of velocity \\
 	\hline
 	\hyperref[subsec:var_sec_tend_tend_layerThickness]{tend\_layerThickness} & time tendency of layer thickness \\
 	\hline
 	\hyperref[subsec:var_sec_tend_tend_ssh]{tend\_ssh} & time tendency of sea-surface height \\
+	\hline
+	\hyperref[subsec:var_sec_tend_tend_highFreqThickness]{tend\_highFreqThickness} & time tendency of high frequency-filtered layer thickness \\
+	\hline
+	\hyperref[subsec:var_sec_tend_tend_lowFreqDivergence]{tend\_lowFreqDivergence} & time tendency of low frequency-filtered divergence \\
 	\hline
 \end{longtable}
 \end{center}
@@ -342,17 +356,31 @@ Embedded links point to more detailed variable information in the appendix.
 	\hline
 	{\bf Name} & {\bf Description} \\
 	\hline
+	\hyperref[subsec:var_sec_diagnostics_temperatureSurfaceValue]{temperatureSurfaceValue} & potential temperature extrapolated to ocean surface \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_salinitySurfaceValue]{salinitySurfaceValue} & salinity extrapolated to ocean surface \\
+	\hline
 	\hyperref[subsec:var_sec_diagnostics_RiTopOfCell]{RiTopOfCell} & gradient Richardson number defined at the center (horizontally) and top (vertically) \\
 	\hline
 	\hyperref[subsec:var_sec_diagnostics_RiTopOfEdge]{RiTopOfEdge} & gradient Richardson number defined at the edge (horizontally) and top (vertically) \\
 	\hline
 	\hyperref[subsec:var_sec_diagnostics_vertViscTopOfEdge]{vertViscTopOfEdge} & vertical viscosity defined at the edge (horizontally) and top (vertically) \\
 	\hline
-	\hyperref[subsec:var_sec_diagnostics_vertDiffTopOfCell]{vertDiffTopOfCell} & vertical diffusion defined at the edge (horizontally) and top (vertically) \\
+	\hyperref[subsec:var_sec_diagnostics_vertDiffTopOfCell]{vertDiffTopOfCell} & vertical diffusion defined at the cell center (horizontally) and top (vertically) \\
 	\hline
 	\hyperref[subsec:var_sec_diagnostics_windStressZonal]{windStressZonal} & reconstructed surface wind stress in the eastward direction. \\
 	\hline
 	\hyperref[subsec:var_sec_diagnostics_windStressMeridional]{windStressMeridional} & reconstructed surface wind stress in the northward direction. \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_bulkRichardsonNumber]{bulkRichardsonNumber} & bulk Richardson number \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_boundaryLayerDepth]{boundaryLayerDepth} & diagnosed depth of the ocean surface boundary layer \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_indexBoundaryLayerDepth]{indexBoundaryLayerDepth} & int(indexBoundaryLayerDepth) is vertical layer within which boundaryLayerDepth resides. mod(indexBoundaryLayerDepth) is fractional position within that layer. \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_surfaceFrictionVelocity]{surfaceFrictionVelocity} & diagnosed surface friction velocity defined as square root of (mag(wind stress) / reference density) \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_surfaceBuoyancyForcing]{surfaceBuoyancyForcing} & diagnosed surface buoyancy forcing due to heat, salt and freshwater fluxes at ocean surface \\
 	\hline
 \end{longtable}
 \end{center}
@@ -386,6 +414,8 @@ Embedded links point to more detailed variable information in the appendix.
 	\hyperref[subsec:var_sec_scratch_kineticEnergyVertex]{kineticEnergyVertex} & kinetic energy of horizonal velocity defined at vertices \\
 	\hline
 	\hyperref[subsec:var_sec_scratch_kineticEnergyVertexOnCells]{kineticEnergyVertexOnCells} & kinetic energy of horizonal velocity defined at vertices \\
+	\hline
+	\hyperref[subsec:var_sec_scratch_densitySurfaceDisplaced]{densitySurfaceDisplaced} & Density computed by displacing SST and SSS to every vertical layer within the column \\
 	\hline
 \end{longtable}
 \end{center}
