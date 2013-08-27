@@ -5,9 +5,9 @@ MPAS-Ocean employs the continuity equation,
 \label{ocean:continuity thickness}
 \frac{\partial h_{k}}{\partial t} + D_k + w^t_k - w^t_{k+1} =0
 \end{eqnarray}
-for the ALE formulation, where variables are defined in Table XX.  The ALE algorithm is as follows:
+for the ALE formulation, where variables are defined in Table \ref{oceanTable:ALE_variables}.  The ALE algorithm is as follows:
 \begin{enumerate}
-\item ALE step: Compute desired thickness, for the new time,
+\item ALE step: Compute desired thickness for the new time,
 \begin{eqnarray}
 \label{ocean:desired thickness}
 h_k^{ALE} = h_k^{rest} + h_k^{SSH} + h_k^{hf} + h_k^{min}
@@ -26,6 +26,7 @@ The desired ALE thickness includes contributions from four terms (\ref{ocean:des
 \item {\bf Resting thickness}, $h^{rest}$, is the layer thickness when the ocean is at rest, i.e. without SSH or internal perturbations.  For z-type coordinates, the resting thickness is constant in each horizontal layer.
 \item {\bf SSH alteration}, $h^{SSH}$, alters layer thicknesses so that they change in proportion to the sea surface height (SSH),
 \begin{eqnarray}
+\label{ocean:h ssh}
    h_k^{SSH} =  \zeta \frac{W_k h^{rest}_k}{\sum_{k'=1}^{kmax}W_{k'}h^{rest}_{k'}}
 \end{eqnarray}
 The weights $W_k$ determine how SSH oscillations are distributed amongst the layers, as described in Table \ref{oceanTable:vertical coordinates}.
@@ -42,7 +43,9 @@ Of the four terms, resting thickness is always positive, while the others are sm
 Thus the first two terms are always included so that the column thickness sums to $H+\zeta$, while the second two terms are optional and may be turned on with flags.
 
 In order to assist users in choosing the correct settings, we provide a description of traditional vertical coordinate names in Table \ref{oceanTable:vertical coordinates}.
-The vertical coordinate type also depends upon the set-up of the layerThickness variable in the initial condition file.  For all Z-type vertical coordinates, initial layer thicknesses are horizontally constant; for sigma, layers are terrain-following and all layers are employed; for isopycnal, initial temperature and salinity are constant within each layer.  MPAS-Ocean does not support massless layers at this time, so isopycnal vertical coordinates may only be used for idealized domains.  For sigma coordinates, SSH may be distributed through the column just like with z-type models in Table {oceanTable:vertical coordinates}.
+The vertical coordinate type also depends upon the set-up of the layerThickness variable in the initial condition file.  For all Z-type vertical coordinates, initial layer thicknesses are horizontally constant.  For sigma coordinates, layers are terrain-following and all layers are employed.  In this case, the user may still choose amongst the flags in SSH may be distributed through the column just like with z-type models in Table \ref{oceanTable:vertical coordinates}.
+
+In order to run an isopycnal configuration, use config\_vert\_coord\_movement='impermeable\_interfaces' and set initial temperature and salinity to be constant within each layer.  All vertical tracer diffusion must be off so that the density in each layer remains constant.  For an isopycnal set-up, the equation of state is still called at each timestep, so a linear equation of state is recommended to avoid depth-dependancy of the density.  The user may choose a Montgomery Potential (\ref{ocean:Montgomery Potential}) or standard pressure gradient (\ref{ocean:grad p}); Montgomery Potential is a more common choice for isopycnal configurations, but both are tested and functional.  MPAS-Ocean does not support massless layers at this time, so isopycnal vertical coordinates may only be used for idealized domains.
 
 \begin{table}[ht] 
 \caption{Vertical coordinate settings for traditional names.}
@@ -51,9 +54,39 @@ The vertical coordinate type also depends upon the set-up of the layerThickness 
 \hline\hline flag name &  {\bf Z-Level} & {\bf Z-star} & {\bf weighted Z-star} &  {\bf isopycnal}  \\
 \hline 
 config\_vert\_ & 'fixed' & 'uniform\_stretching' & 'user\_specified' & 'impermeable\_ \\
-coord\_movement & & & & interface'
+coord\_movement & & & & interfaces'
 \\
 weights & $W_k =\left\{ \begin{array}{c} 1\; k=1\\ 0\; k>1 \end{array}\right.$ & $W_k=1\;\;\forall\;\;k$ & input file & not applicable \\
 \hline 
 \end{tabular} \label{oceanTable:vertical coordinates} 
 \end{table}
+
+\begin{table}[h!t] 
+\caption{Variables used in ALE equation sets.  Column 3 shows the native horizontal grid location.  A subscript $k$ indicates indicates the layer index.  The $\nabla$ indicates a horizontal gradient within a single layer.} 
+\vspace{0.5cm} \centering 
+\begin{tabular}{c c c c } 
+\hline\hline symbol &  name & grid &  notes  \\
+\hline 
+$D$  & thickness-weighted divergence & cell & $D_k = \nabla \cdot  \left( h_k {\bf u}_k \right)$  \\ 
+${\bar D}$ & barotropic divergence & cell & ${\overline D} = \sum\limits_{k=1}^{kmax} D_k$  \\ 
+$D'$  & baroclinic divergence & cell & $D'_k = D_k-\frac{h_k}{H}{\bar D}$  \\ 
+$D^{lf}$  & low-frequency divergence & cell & see (\ref{ocean:Dlf})  \\ 
+$D^{hf}$  & high-frequency divergence & cell & $D^{hf}_k = D'_k - D^{lf}_k$  \\ 
+$h$  & layer thickness & cell &   \\ 
+$h^{ALE}$  & desired ALE thickness & cell & see (\ref{ocean:desired thickness})  \\ 
+$h^{rest}$  & resting thickness & cell &   \\ 
+$h^{SSH}$  & SSH thickness alteration & cell & see (\ref{ocean:h ssh})  \\ 
+$h^{hf}$  & high-freq. thickness alteration & cell &   see (\ref{ocean:hhf})  \\ 
+$h^{min}$  & minimum thickness alteration & cell &   \\ 
+$H$  & total resting thickness & cell & $H= \sum\limits_{k=1}^{kmax} h_k^{rest}$  \\ 
+${\bf u}$  & velocity & edge &   \\ 
+$w^t$ & vertical transport & cell  & top of layer in vertical \\
+$W$  & SSH thickness weights & cell &   \\ 
+$\tau_{Dlf}$  & frequency filter time scale & constant &   \\ 
+$\tau_{hhf}$  & restoring time scale for $h^{hf}$ & constant &   \\ 
+$\kappa_{hhf}$  & $h^{hf}$ diffusion & constant &   \\ 
+$\zeta$  & sea surface height & cell &  $\zeta= \sum\limits_{k=1}^{kmax} h_k^{rest} - H$  \\ 
+\hline 
+\end{tabular} \label{oceanTable:ALE_variables} 
+\end{table}
+

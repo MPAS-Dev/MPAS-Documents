@@ -76,27 +76,6 @@ Embedded links point to more detailed namelist information in the appendix.
 \end{longtable}
 \end{center}
 }
-\section[grid]{\hyperref[sec:nm_sec_grid]{grid}}
-\label{sec:nm_tab_grid}
-\input{ocean/section_descriptions/grid.tex}
-{\small
-\begin{center}
-\begin{longtable}{| p{2.0in} || p{4.0in} |}
-	\hline
-	{\bf Name} & {\bf Description} \\
-	\hline
-	\hline
-	\hyperref[subsec:nm_sec_config_num_halos]{config\_num\_halos} & Determines the number of halo cells extending from a blocks owned cells (Called the 0-Halo). The default of 3 is the minimum that can be used with monotonic advection. \\
-	\hline
-	\hyperref[subsec:nm_sec_config_alter_ICs_for_pbcs]{config\_alter\_ICs\_for\_pbcs} & Determines the method of alteration for partial bottom cells. 'zlevel\_pbcs\_on' alters the initial conditions for partial bottom cells, 'zlevel\_pbcs\_off' alters the initial conditions to have full cells everwhere, and 'off' does nothing to the initial conditions. \\
-	\hline
-	\hyperref[subsec:nm_sec_config_min_pbc_fraction]{config\_min\_pbc\_fraction} & Determines the minimum fraction of a cell altering the initial conditions can create. \\
-	\hline
-	\hyperref[subsec:nm_sec_config_check_ssh_consistency]{config\_check\_ssh\_consistency} & Enables a check to determine if the SSH is consistent across relevant variables. \\
-	\hline
-\end{longtable}
-\end{center}
-}
 \section[ALE\_vertical\_grid]{\hyperref[sec:nm_sec_ALE_vertical_grid]{ALE\_vertical\_grid}}
 \label{sec:nm_tab_ALE_vertical_grid}
 \input{ocean/section_descriptions/ALE_vertical_grid.tex}
@@ -107,13 +86,17 @@ Embedded links point to more detailed namelist information in the appendix.
 	{\bf Name} & {\bf Description} \\
 	\hline
 	\hline
-	\hyperref[subsec:nm_sec_config_vert_coord_movement]{config\_vert\_coord\_movement} & Determines the vertical coordinate movement type. 'uniform\_stretching' distributes SSH perturbations through all vertical levels (z-star vertical coordinate); 'fixed' places them all in the top level (z-level vertical coordinate); 'user\_specified' allows the input file to determine the distribution using the variable vertCoordMovementWeights (weighted z-star vertical coordinate); and 'impermeable\_interface' makes the vertical transport between layers zero (idealized isopycnal). \\
+	\hyperref[subsec:nm_sec_config_vert_coord_movement]{config\_vert\_coord\_movement} &  Determines the vertical coordinate movement type. 'uniform\_stretching' distributes SSH perturbations through all vertical levels (z-star vertical coordinate); 'fixed' places them all in the top level (z-level vertical coordinate); 'user\_specified' allows the input file to determine the distribution using the variable vertCoordMovementWeights (weighted z-star vertical coordinate); and 'impermeable\_interfaces' makes the vertical transport between layers zero, i.e.  $w^t=0$  in (\ref{ocean:vert tranport}) (idealized isopycnal). \\
 	\hline
-	\hyperref[subsec:nm_sec_config_use_minimum_thickness]{config\_use\_minimum\_thickness} & If true, a minimum thickness is enforced to prevent massless layers. \\
+	\hyperref[subsec:nm_sec_config_use_min_max_thickness]{config\_use\_min\_max\_thickness} & If true, a minimum and maximum thicknesses are enforced to prevent massless and very thick layers. \\
 	\hline
-	\hyperref[subsec:nm_sec_config_minimum_thickness]{config\_minimum\_thickness} & Minimum thickness allowed. \\
+	\hyperref[subsec:nm_sec_config_min_thickness]{config\_min\_thickness} & Minimum thickness allowed. \\
 	\hline
-	\hyperref[subsec:nm_sec_config_set_restingThickness_to_z]{config\_set\_restingThickness\_to\_z} & If true, compute restingThickness using refBottomDepth.  This can be used for z-type grids.  If false, restingThickness must be in init or restart file.  For sigma grids, this must be false. \\
+	\hyperref[subsec:nm_sec_config_max_thickness_factor]{config\_max\_thickness\_factor} &  Maximum thickness allowed.  This is a factor times the resting thickness, i.e., maximum thickness = config\_max\_thickness\_factor* $h^{rest}$ . \\
+	\hline
+	\hyperref[subsec:nm_sec_config_set_restingThickness_to_IC]{config\_set\_restingThickness\_to\_IC} & If true, set restingThickness to be the same as layerThickness upon start-up.  This only occurs when config\_do\_restart is false, i.e. on an initial run. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_dzdk_positive]{config\_dzdk\_positive} & Determines if the positive Z axis is aligned with the positive K index direction. \\
 	\hline
 \end{longtable}
 \end{center}
@@ -128,17 +111,36 @@ Embedded links point to more detailed namelist information in the appendix.
 	{\bf Name} & {\bf Description} \\
 	\hline
 	\hline
-	\hyperref[subsec:nm_sec_config_use_freq_filtered_thickness]{config\_use\_freq\_filtered\_thickness} &  If true,  $h^{hf}$  is included in the desired ALE thickness in \ref{ocean:desired thickness}, and the prognostic equations \ref{Dlf} and \ref{hhf} are integrated in the code. \\
+	\hyperref[subsec:nm_sec_config_use_freq_filtered_thickness]{config\_use\_freq\_filtered\_thickness} &  If true,  $h^{hf}$  is included in the desired ALE thickness in \ref{ocean:desired thickness}, and the prognostic equations \ref{ocean:Dlf} and \ref{ocean:hhf} are integrated in the code. \\
 	\hline
-	\hyperref[subsec:nm_sec_config_thickness_filter_timescale]{config\_thickness\_filter\_timescale} &  Filter timescale for the low-frequency baroclinic divergence,  $\tau_{Dlf}$ . \\
+	\hyperref[subsec:nm_sec_config_thickness_filter_timescale]{config\_thickness\_filter\_timescale} &  Filter time scale for the low-frequency baroclinic divergence,  $\tau_{Dlf}$ . \\
 	\hline
-	\hyperref[subsec:nm_sec_config_use_highFreqThick_restore]{config\_use\_highFreqThick\_restore} &  If true, the high frequency thickness equation (\ref{ocean:hhf}) includes term 2 on the RHS, the restoring term.  The high frequency thickness is restored to zero with timescale  $\tau_{hhf}$ . \\
+	\hyperref[subsec:nm_sec_config_use_highFreqThick_restore]{config\_use\_highFreqThick\_restore} &  If true, the high frequency thickness equation (\ref{ocean:hhf}) includes term 2 on the RHS, the restoring term.  The high frequency thickness is restored to zero with time scale  $\tau_{hhf}$ . \\
 	\hline
-	\hyperref[subsec:nm_sec_config_highFreqThick_restore_time]{config\_highFreqThick\_restore\_time} &  Restoring timescale for thickness,  $\tau_{hhf}$ . \\
+	\hyperref[subsec:nm_sec_config_highFreqThick_restore_time]{config\_highFreqThick\_restore\_time} &  Restoring time scale for high-frequency thickness,  $\tau_{hhf}$ . \\
 	\hline
 	\hyperref[subsec:nm_sec_config_use_highFreqThick_del2]{config\_use\_highFreqThick\_del2} & If true, high frequency thickness equation (\ref{ocean:hhf}) includes term 3 on the RHS, the diffusion term. \\
 	\hline
 	\hyperref[subsec:nm_sec_config_highFreqThick_del2]{config\_highFreqThick\_del2} &  Horizonal high frequency thickness diffusion,  $\kappa_{hhf}$ . \\
+	\hline
+\end{longtable}
+\end{center}
+}
+\section[partial\_bottom\_cells]{\hyperref[sec:nm_sec_partial_bottom_cells]{partial\_bottom\_cells}}
+\label{sec:nm_tab_partial_bottom_cells}
+\input{ocean/section_descriptions/partial_bottom_cells.tex}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+	\hline
+	{\bf Name} & {\bf Description} \\
+	\hline
+	\hline
+	\hyperref[subsec:nm_sec_config_alter_ICs_for_pbcs]{config\_alter\_ICs\_for\_pbcs} & Determines the method of layer thickness alteration for partial bottom cells. 'zlevel\_pbcs\_on' alters the initial conditions for partial bottom cells, 'zlevel\_pbcs\_off' alters the initial conditions to have full cells everwhere, and 'off' does nothing to the initial conditions.  The alteration of layer thickness only occurs when config\_do\_restart is false, i.e. on an initial run. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_min_pbc_fraction]{config\_min\_pbc\_fraction} & Determines the minimum fraction of a cell altering the initial conditions can create.  The alteration of layer thickness only occurs when config\_do\_restart is false, i.e. on an initial run. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_check_ssh_consistency]{config\_check\_ssh\_consistency} & Enables a check to determine if the SSH is within 2m of the surface, as specified in (\ref{ocean:pbc SSH}). \\
 	\hline
 \end{longtable}
 \end{center}
@@ -152,6 +154,8 @@ Embedded links point to more detailed namelist information in the appendix.
 	\hline
 	{\bf Name} & {\bf Description} \\
 	\hline
+	\hline
+	\hyperref[subsec:nm_sec_config_num_halos]{config\_num\_halos} & Determines the number of halo cells extending from a blocks owned cells (Called the 0-Halo). The default of 3 is the minimum that can be used with monotonic advection. \\
 	\hline
 	\hyperref[subsec:nm_sec_config_block_decomp_file_prefix]{config\_block\_decomp\_file\_prefix} & Defines the prefix for the block decomposition file. Can include a path. The number of blocks is appended to the end of the prefix at run-time. \\
 	\hline
@@ -384,9 +388,9 @@ Embedded links point to more detailed namelist information in the appendix.
 	\hline
 	\hyperref[subsec:nm_sec_config_restoreTS]{config\_restoreTS} & If true, the restoring term is activated in the tracer equation for temperature and salinity. \\
 	\hline
-	\hyperref[subsec:nm_sec_config_restoreT_timescale]{config\_restoreT\_timescale} &  Restoring timescale for temperature,  $\tau_r.$  \\
+	\hyperref[subsec:nm_sec_config_restoreT_timescale]{config\_restoreT\_timescale} &  Restoring time scale for temperature,  $\tau_r.$  \\
 	\hline
-	\hyperref[subsec:nm_sec_config_restoreS_timescale]{config\_restoreS\_timescale} &  Restoring timescale for salinity,  $\tau_r$ . \\
+	\hyperref[subsec:nm_sec_config_restoreS_timescale]{config\_restoreS\_timescale} &  Restoring time scale for salinity,  $\tau_r$ . \\
 	\hline
 \end{longtable}
 \end{center}
