@@ -154,9 +154,11 @@ D_k = \frac{h_k}{H}{\overline D} + D_k' \label{D}\\
   \frac{\partial h_k}{\partial t} = \frac{\partial h^{hf}_k}{\partial t} + \frac{\partial h^{ext}_k}{\partial t} 
    \label{dhdt} \\
 \mbox{high frequency thickness tendency} && 
-  \frac{\partial h^{hf}_k}{\partial t} = - D^{hf}_k - \frac{2\pi}{\tau_{hhf}} h^{hf}_k 
-   + \nabla_h\cdot \left( \kappa_{hhf} \nabla_h h^{hf}_k \right)
-   \label{hhf} \\
+\label{hhf}
+  \frac{\partial h^{hf}_k}{\partial t} = 
+   - D^{hf}_k - \frac{2\pi}{\tau_{hhf}} h_k^{hf}
+   + \nabla_h\cdot \left( \kappa_{hhf} \nabla_h h_k^{hf} \right)
+   \label{preliminary_thickness} \\
 \mbox{external mode thickness response} && 
   \frac{\partial h^{ext}_k}{\partial t} = - \frac{W_k h_k}{\sum\limits_{k'=1}^{kmax} W_{k'} h_{k'}}
   {\overline D} 
@@ -166,7 +168,7 @@ D_k = \frac{h_k}{H}{\overline D} + D_k' \label{D}\\
    \label{ssh} \\
 \mbox{continuity equation (solve for $w$)} && 
 \label{cont} 
-\frac{\partial h_k}{\partial t}  + D_k + \frac{\partial}{\partial z} \left( h_k w_k \right) = 0.
+\frac{\partial h_{k}}{\partial t} + D_k + w^t_k - w^t_{k+1} =0.
 \eea
 These equations are discrete in the vertical, indexed by layer $k$, but continuous in the horizontal and in time.  The thickness variables $h$, divergence variables $D$, velocity ${\bf u}$,  and SSH $\zeta$ are functions of $({\bf x},t)$, and vertical dependance is explicitly labelled with a subscript $k$.  External thickness weights $W_k$ do not depend on ${\bf x}$ or $t$, and constant parameters include 
 $\tau_{Dlf}$, $\tau_{hhf}$, and $\kappa_{hhf}$.
@@ -198,8 +200,8 @@ The tendency computations that must be added to the code for z-tilde are:
 Note that the variables $D'$ and $D^{hf}$ do not appear in the algorithm and thus do not need to be stored or explicitly computed.  For the numerical algorithm, these equations are rewritten as
 \bea
 \label{h1t2} \ds
-  \frac{\partial D^{lf}_k}{\partial t} &=& T^{Dlf}_k(D_{*}, {\overline D}_*,D^{lf}_{*},h_*) \\
-  \frac{\partial h^{hf}_k}{\partial t} &=& T^{hhf}_k(D_{*}, {\overline D}_*, D^{lf}_{*}, h_{*}^{hf},h_*)
+  \frac{\partial D^{lf}_k}{\partial t} &=& T^{Dlf}_k(u_{*}, D^{lf}_{*},h_*) \\
+  \frac{\partial h^{hf}_k}{\partial t} &=& T^{hhf}_k(u_{*}, D^{lf}_{*}, h_{*}^{hf},h_*)
 \eea
 where * indicates the time-level of the tendency variables.  A simple timestepping algorithm, like forward Euler or backwards Euler, is as follows.  Details of the Runge-Kutta and split explicit timestepping are given in later sections.
 
@@ -210,13 +212,13 @@ where * indicates the time-level of the tendency variables.  A simple timesteppi
 T^{hhf}, \;\;
 T^{Dlf} \mbox{ using $*$ variables} \\ && 
 \mbox{boundary update: } T^{hhf},T^{Dlf}\\&& 
+h^{hf}_{k,n+1} = h^{hf}_{k,n} + \Delta t T^{hhf}_k \\&& 
 \mbox{ALE step: compute vertical transport $w^t_*$} \\&&
 \mbox{compute tendencies $T^u, T^h, T^\varphi $ using $*$ variables}\\ && 
 \mbox{boundary update: } T^u,T^h,T^\varphi\\&& 
 u_{k,n+1} = u_{k,n+1} + \Delta t T^u_k \\&& 
 h_{k,n+1} = h_{k,n} + \Delta t T^h_k \\&& 
 {\varphi}_{k,n+1} =  \varphi_{k,n} + \Delta t  T^\varphi_k \\&&
-h^{hf}_{k,n+1} = h^{hf}_{k,n} + \Delta t T^{hhf}_k \\&& 
 D^{lf}_{k,n+1} = D^{lf}_{k,n} + \Delta t T^{Dlf}_k \\&& 
 \mbox{compute diagnostics based on }u_{k,n+1},h_{k,n+1},\varphi_{k,n+1} 
 \end{eqnarray}
@@ -310,6 +312,7 @@ b = \left(\frac{1}{6},\frac{1}{3},\frac{1}{3},\frac{1}{6}\right),\;\;
 \mbox{do j=1,4} \\&& \hspace{.5cm}
 \mbox{compute tendencies } T^{hhf}, \;\;T^{Dlf} \\ && \hspace{.5cm}
 \mbox{boundary update: } T^{hhf},T^{Dlf}\\&& \hspace{.5cm}
+h^{hf}_{k,n+1} = h^{hf}_{k,n+1} + b_j \Delta t T^{hhf}_k \\&& \hspace{.5cm}
 \mbox{ALE step: compute vertical transport $w^t_*$} \\ && \hspace{.5cm}
 \mbox{compute tendencies } 
 T^u({\bf u}_k^*,w_k^*,p_k^*), \;\;
@@ -327,7 +330,6 @@ h_{k,n} \varphi_{k,n}
 \mbox{compute diagnostics based on }{\bf u}_k^*,h_k^*,\varphi_k^* \\&& \hspace{.5cm}
 {\bf u}_{k,n+1} = {\bf u}_{k,n+1} + b_j \Delta t T^u_k \\&& \hspace{.5cm}
 h_{k,n+1} = h_{k,n+1} + b_j \Delta t T^h_k \\&& \hspace{.5cm}
-h^{hf}_{k,n+1} = h^{hf}_{k,n+1} + b_j \Delta t T^{hhf}_k \\&& \hspace{.5cm}
 D^{lf}_{k,n+1} = D^{lf}_{k,n+1} + b_j \Delta t T^{Dlf}_k \\&& \hspace{.5cm}
 {\varphi}_{k,n+1} = 
  \varphi_{k,n+1} 
@@ -377,9 +379,10 @@ The full algorithm, Stages 1--3 are iterated.  This is typically done using two 
 {\bf Stage 1: Baroclinic velocity (3D), explicit with long timestep}\\
 Iterate on linear Coriolis term only.
 \begin{eqnarray} &&
-\mbox{compute tendencies } T^{hhf}, \;\;T^{Dlf} \\ && \hspace{.5cm}
-\mbox{boundary update: } T^{hhf},T^{Dlf}\\&& \hspace{.5cm}
-\mbox{compute vertical transport $w^t_*$} 
+\mbox{compute tendencies } T^{hhf}, \;\;T^{Dlf} \\ &&
+\mbox{boundary update: } T^{hhf},T^{Dlf}\\&&
+h^{hf}_{k,n+1} = h^{hf}_{k,n} + \Delta t T^{hhf}_k \\ &&
+\mbox{compute vertical transport $w^t_*$} \\ &&
 \mbox{compute } {\bf T}^u({\bf u}_k^*,w_k^*,p_k^*) +g\nabla \zeta^* \\ &&
 \mbox{compute weights, }\omega_k  =  h_{k,*}^{edge}
 \left/\textstyle\sum_{k=1}^{N^{edge}} h_{k,*}^{edge}
@@ -511,7 +514,6 @@ h_{k,n} \varphi_{k,n}
 + \Delta t T^\varphi_k \right]
 \label{phi}
 \\&&
-h^{hf}_{k,n+1} = h^{hf}_{k,n} + \Delta t T^{hhf}_k \\ &&
 D^{lf}_{k,n+1} = D^{lf}_{k,n} + \Delta t T^{Dlf}_k 
 \eea
 
