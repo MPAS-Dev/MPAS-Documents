@@ -136,7 +136,9 @@ Embedded links point to more detailed namelist information in the appendix.
 	{\bf Name} & {\bf Description} \\
 	\hline
 	\hline
-	\hyperref[subsec:nm_sec_config_alter_ICs_for_pbcs]{config\_alter\_ICs\_for\_pbcs} & Determines the method of layer thickness alteration for partial bottom cells. 'zlevel\_pbcs\_on' alters the initial conditions for partial bottom cells, 'zlevel\_pbcs\_off' alters the initial conditions to have full cells everwhere, and 'off' does nothing to the initial conditions.  The alteration of layer thickness only occurs when config\_do\_restart is false, i.e. on an initial run. \\
+	\hyperref[subsec:nm_sec_config_alter_ICs_for_pbcs]{config\_alter\_ICs\_for\_pbcs} & If true, initial conditions are altered according to the config\_pbc\_alteration\_type flag.  The alteration of layer thickness only occurs when config\_do\_restart is false, i.e. on an initial run. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_pbc_alteration_type]{config\_pbc\_alteration\_type} & Determines the method of initial condition alteration for partial bottom cells.  'partial\_cell' alters layerThickness, interpolates all tracers in the bottom cell based on the bottomDepth variable, and alters bottomDepth to enforce the minimum pbc fraction.  'full\_cell' alters bottomDepth to have full cells everywhere, based on the refBottomDepth variable. \\
 	\hline
 	\hyperref[subsec:nm_sec_config_min_pbc_fraction]{config\_min\_pbc\_fraction} & Determines the minimum fraction of a cell altering the initial conditions can create.  The alteration of layer thickness only occurs when config\_do\_restart is false, i.e. on an initial run. \\
 	\hline

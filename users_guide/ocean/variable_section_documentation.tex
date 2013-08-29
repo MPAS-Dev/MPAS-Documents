@@ -2937,8 +2937,10 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
     \caption{seaSurfacePressure: Pressure defined at the sea surface.}
 \end{longtable}
 \end{center}
-\subsection[restingThickness]{\hyperref[sec:var_tab_mesh]{restingThickness}}
-\label{subsec:var_sec_mesh_restingThickness}
+\section[verticalMesh]{\hyperref[sec:var_tab_verticalMesh]{verticalMesh}}
+\label{sec:var_sec_verticalMesh}
+\subsection[restingThickness]{\hyperref[sec:var_tab_verticalMesh]{restingThickness}}
+\label{subsec:var_sec_verticalMesh_restingThickness}
 \begin{center}
 \begin{longtable}{| p{2.0in} | p{4.0in} |}
         \hline 
@@ -2952,9 +2954,49 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
 		 Default Streams: & Input Restart  \\
         \hline 
-		 Location in code: & domain \% blocklist \% mesh \% restingThickness \\
+		 Location in code: & domain \% blocklist \% verticalMesh \% restingThickness \\
 		 \hline 
     \caption{restingThickness: Layer thickness when the ocean is at rest, i.e. without SSH or internal perturbations.}
+\end{longtable}
+\end{center}
+\subsection[refZMid]{\hyperref[sec:var_tab_verticalMesh]{refZMid}}
+\label{subsec:var_sec_verticalMesh_refZMid}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $m$ \\
+        \hline 
+        Dimension: & nVertLevels \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% verticalMesh \% refZMid \\
+		 \hline 
+    \caption{refZMid: Reference mid z-coordinate of ocean for each vertical level.  This has a negative value.}
+\end{longtable}
+\end{center}
+\subsection[refLayerThickness]{\hyperref[sec:var_tab_verticalMesh]{refLayerThickness}}
+\label{subsec:var_sec_verticalMesh_refLayerThickness}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $m$ \\
+        \hline 
+        Dimension: & nVertLevels \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% verticalMesh \% refLayerThickness \\
+		 \hline 
+    \caption{refLayerThickness: Reference layerThickness of ocean for each vertical level.}
 \end{longtable}
 \end{center}
 \section[tend]{\hyperref[sec:var_tab_tend]{tend}}
