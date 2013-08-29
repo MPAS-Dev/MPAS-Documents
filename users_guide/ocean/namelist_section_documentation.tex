@@ -498,15 +498,31 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
 \begin{center}
 \begin{longtable}{| p{2.0in} | p{4.0in} |}
     \hline
+    Type: & logical \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_alter\_ICs\_for\_pbcs: If true, initial conditions are altered according to the config\_pbc\_alteration\_type flag.  The alteration of layer thickness only occurs when config\_do\_restart is false, i.e. on an initial run.}
+\end{longtable}
+\end{center}
+\subsection[config\_pbc\_alteration\_type]{\hyperref[sec:nm_tab_partial_bottom_cells]{config\_pbc\_alteration\_type}}
+\label{subsec:nm_sec_config_pbc_alteration_type}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
     Type: & character \\
     \hline
     Units: & $unitless$ \\
     \hline
-    Default Value: & zlevel\_pbcs\_off \\
+    Default Value: & full\_cell \\
     \hline
-    Possible Values: & 'zlevel\_pbcs\_on', 'zlevel\_pbcs\_off', 'off' \\
+    Possible Values: & 'full\_cell' or 'partial\_cell' \\
     \hline
-    \caption{config\_alter\_ICs\_for\_pbcs: Determines the method of layer thickness alteration for partial bottom cells. 'zlevel\_pbcs\_on' alters the initial conditions for partial bottom cells, 'zlevel\_pbcs\_off' alters the initial conditions to have full cells everwhere, and 'off' does nothing to the initial conditions.  The alteration of layer thickness only occurs when config\_do\_restart is false, i.e. on an initial run.}
+    \caption{config\_pbc\_alteration\_type: Determines the method of initial condition alteration for partial bottom cells.  'partial\_cell' alters layerThickness, interpolates all tracers in the bottom cell based on the bottomDepth variable, and alters bottomDepth to enforce the minimum pbc fraction.  'full\_cell' alters bottomDepth to have full cells everywhere, based on the refBottomDepth variable.}
 \end{longtable}
 \end{center}
 \subsection[config\_min\_pbc\_fraction]{\hyperref[sec:nm_tab_partial_bottom_cells]{config\_min\_pbc\_fraction}}
