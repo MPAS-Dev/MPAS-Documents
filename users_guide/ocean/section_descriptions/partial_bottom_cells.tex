@@ -12,7 +12,7 @@ This can be done when creating the initial conditions, or upon start-up of the s
 \end{eqnarray}
 and check that it is less than 2m.  If not, there is likely an error in the set-up of the layer thickness, and MPAS-Ocean ends with an error message.
 
-When PBCs are in use, PBC thicknessess are used for $h$ in the governing equations, (\ref{ocean:momentum}--\ref{ocean:tracer}).  Note there is no flag that turns PBCs on in the main part of the code.  The flags below simply alter $h$ from the initial conditions upon the first start-up.
+When PBCs are in use, PBC thicknessess are used for $h$ in the governing equations, (\ref{ocean:momentum}--\ref{ocean:tracer}).  Note there is no flag that turns PBCs on in the main part of the code.  The flags below simply alter the initial conditions upon the first start-up.
 
 \begin{figure}[h!b]
 \centering
@@ -21,3 +21,10 @@ When PBCs are in use, PBC thicknessess are used for $h$ in the governing equatio
 \label{oceanFigure:pbcs}
 \end{figure}
 
+For typical global domains, the initial condition file includes the following variables:
+\begin{itemize}
+\item layerThickness: all full cells
+\item tracers: values at middle (in vertical) of full cells
+\item bottomDepth: depth of column from bathymetry data
+\end{itemize}
+Note that there is a mismatch in these data fields, because layerThickness and tracers are initialized for full cells, but bottomDepth is from bathymetry and so may fall anywhere within the bottom cell.  This configuration of initial conditions was chosen so that a single file may be used for any PBC setting upon start-up.  These variables are changed for the PBC configuration when starting from initial conditions, and then the PBC settings remain the same for all subsequent restart simulations.  See flags below for a description of how the variables are altered for PBCs.
