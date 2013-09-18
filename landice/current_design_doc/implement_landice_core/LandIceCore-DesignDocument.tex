@@ -1,0 +1,208 @@
+ \documentclass[11pt]{report}
+
+\usepackage{epsf,amsmath,amsfonts}
+\usepackage{graphicx}
+
+\usepackage{fullpage}
+\usepackage{mathtools}
+\usepackage{listings}
+\usepackage{float}
+
+\usepackage{tikz}
+
+\newcommand{\vect}[1]{\mathbf{#1}}
+\restylefloat{figure}
+
+\usetikzlibrary{trees}
+
+\begin{document}
+
+\title{MPAS Land Ice Core: \\
+Requirements and Design}
+\author{M. Hoffman}
+
+\maketitle
+\tableofcontents
+
+%-----------------------------------------------------------------------
+
+\chapter{Summary}
+
+A Land Ice core for MPAS will provide the ability to model ice sheets and glaciers.  The goal of this design document is to describe the simplest Land Ice core possible to facilitate approval to the main MPAS Development respository.  After a minimal Land Ice core is operational, additional features can be added.
+
+
+%-----------------------------------------------------------------------
+
+\chapter{Requirements}
+
+The simplest ice sheet model would simply calculate ice velocity and perform thickness advection.
+
+\section{Requirement: Solve ice velocity}
+Date last modified: 2013/09/10 \\
+Contributors: MJH \\
+
+The simplest solution of ice velocity is the shallow ice approximation (SIA).  The preferred approach for implementing SIA in ice sheet models is not to solve velocity directly but instead formulate an elliptic PDE for thickness evolution.   However, for higher-order velocity solvers it is much simpler to solve velocity and thickness evolution as separate steps, so to facilitate the incorporation of higher-order velocity solvers, the goal for this design is to simply calculate SIA velocity.
+
+
+\section{Requirement: Thickness advection}
+Date last modified: 2013/09/10 \\
+Contributors: MJH \\
+
+In order to evolve the model in time, thickness advection is necessary.  While tracer advection is necessary to thermomechanically couple an ice sheet model, a minimial ice sheet model can forgo this capability.  A simple thickness advection scheme is explicit (Forward Euler) time-stepping with first-order upwinding.
+
+
+\section{Requirement: Modular organization}
+Date last modified: 2013/09/10 \\
+Contributors: MJH \\
+
+Though the proposed ice sheet model is very simple, it will be written to be modular so that much greater complexity can be added over time.  Eventual features will include:
+
+\begin{itemize}
+\item Various masks
+\item Tracer advection (temperature, age, ...)
+\item Support for external velocity solvers (dycores)
+\item Higher-order advection (e.g. MPAS' FCT scheme)
+\item Temperature evolution (horizontal advection as a tracer and vertical diffusion) - using either a temperature or enthalpy formulation
+\item Higher-order advection (e.g. RK4)
+\item Implicit advection?
+\item Forcing from data
+\item Coupling to an Earth System Model
+\item Other 'physics': subglacial hydrology, calving, etc.
+\end{itemize}
+
+
+%-----------------------------------------------------------------------
+
+\chapter{Algorithmic Formulations}
+
+\section{Design Solution: Solve ice velocity}
+Date last modified: 2013/09/10 \\
+Contributors: MJH \\
+
+The depth-dependent SIA velocity can be solved as:
+
+\begin{equation}
+    \label{sia}
+	\vect{u} = -\frac{1}{2} A (\rho g )^3 (\nabla s)^3 \left[H^4 - (h-z)^4 \right]
+\end{equation}
+where $\vect{u}$ is the horizontal velocity vector, $A$ is the flow rate factor, $\rho$ is the density of ice, $g$ is acceleration due to gravity, $s$ is the ice surface elevation, $H$ is ice thickness, and $z$ is the vertical coordinate.
+
+(See, for example, http://www.projects.science.uu.nl/iceclimate/karthaus/2009/more/lecturenotes/EdBueler.pdf)
+
+\section{Design Solution: Thickness advection}
+Date last modified: 2013/09/10 \\
+Contributors: MJH \\
+
+First-order upwinding of ice thickness is described by (http://en.wikipedia.org/wiki/Upwind\_scheme):
+
+\begin{equation}
+    \label{fouw}
+ \frac{h_i^{n+1} - h_i^n}{\Delta t} + u \frac{h_i^n - h_{i-1}^n}{\Delta x} = 0 \quad \text{for} \quad u > 0
+\end{equation}
+\begin{equation}
+ \frac{h_i^{n+1} - h_i^n}{\Delta t} + u \frac{h_{i+1}^n - h_i^n}{\Delta x} = 0 \quad \text{for} \quad u < 0
+\end{equation}
+
+where subscripts designate the spatial dimension, and superscripts designate the time dimension.
+
+To allow the eventual inclusion of tracer advection, thickness should be advected level-by-level, rather than the cheaper operation of advecting the total column thickness.
+
+%-----------------------------------------------------------------------
+
+\chapter{Design and Implementation}
+
+Advection will be performed on a C-grid, with scalar quantities (thickness, temperature, age, etc.) on the Voronoi cell centers and velocities and fluxes on Voronoi cell edges.
+
+\section{Implementation: Solve ice velocity}
+Date last modified: 2013/09/10 \\
+Contributors: MJH \\
+
+Slope will be calculated on cell edges based on surface elevation of adjacent cells.  Ice thickness on edges will also be needed, and this will be calculated as the average (2nd-order appoximation).
+
+\section{Implementation: Thickness advection}
+Date last modified: 2013/09/10 \\
+Contributors: MJH \\
+
+The Forward Euler time step will be organized as follows:
+
+\begin{itemize}
+\item column physics, e.g. temperature vertical diffusion: $T^{n+1} = f(T^n)$  \emph{this will be added later but written here for completeness}
+\item thickness advection: $h^{n+1} = f(h^n, u^n)$
+\item tracer advection: $T^{n+1} = f(T*^n, u^n)$, with $T*$ being the temperature state after column physics  \emph{this will be added later but written here for completeness}
+\item solve velocity: $u^{n+1} = f(h^{n+1})$  \emph{velocity calculation is time-independent}
+\end{itemize}
+
+
+
+
+\section{Implementation: Modular organization}
+Date last modified: 2013/09/10 \\
+Contributors: MJH \\
+
+The code will be organized into separate modules.  In the figure below, each white boxes are modules, with dashed lines indicating examples of modules that are not a part of this design document but should be accounted for.  Gray boxes may be implemented as subroutines rather than separate modules.
+
+\tikzstyle{every node}=[draw=black,thick,anchor=west]
+\tikzstyle{selected}=[draw=red,fill=red!30]
+\tikzstyle{optional}=[dashed]  %,fill=gray!50]
+\tikzstyle{sub}=[fill=gray!50]
+\begin{tikzpicture}[%
+  grow via three points={one child at (0.5,-0.7) and
+  two children at (0.5,-0.7) and (0.5,-1.4)},
+  edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
+  \node {mpas core}
+    child { node [sub] {initialization}
+      child { node {velocity} 
+        child {node {sia}}
+    }}
+    child [missing] {}				
+    child [missing] {}	
+    child { node [optional] {forcing}}	
+    child { node {time integration}	
+      child { node [optional]{rk4}}
+      child { node {forwad euler}
+        child { node [optional] {column physics}}
+        child { node {tendency}
+          child { node {tracer tendency}} }
+        child [missing] {}
+        child { node {velocity}
+          child { node {sia}}
+          child { node [optional] {lifev}}
+          child { node [optional] {albany}}
+          child { node [optional] {stokes}}
+        }}};
+\end{tikzpicture}
+
+
+
+%-----------------------------------------------------------------------
+
+\chapter{Testing}
+
+The Halfar analytic solution for the thickness evolution of the flat bed SIA equation can be used to validate the combined SIA velocity and thickness evolution components:
+
+\begin{equation}
+    \label{halfar}
+    \frac{\partial H}{\partial t} = \nabla \cdot (\Gamma H^{n+2} |\nabla H|^{n-1} \nabla H)
+\end{equation}
+where $n$ is the exponent in the Glen flow law, commonly taken as 3, and $\Gamma$ is a positive constant:
+\begin{equation}
+    \Gamma = \frac{2}{n+2} A (\rho g)^n
+\end{equation}
+
+For $n=3$, this reduces to:
+\begin{equation}
+    H(t,r) = H_0 \left(\frac{t_0}{t}\right)^\frac{1}{9}  \left[ 1 - \left(  \left( \frac{t_0}{t} \right) ^ \frac{1}{18} \frac{r}{R_0} \right)^\frac{4}{3} \right] ^ \frac{3}{7}
+\end{equation}
+where
+\begin{equation}
+    t_0 = \frac{1}{18\Gamma} \left( \frac{7}{4} \right)^3 \frac{R_0^4}{H_0^7}
+\end{equation}
+and $H_0, R_0$ are the central height of the dome and its radius at time $t=t_0$.
+
+For more details see http://www.projects.science.uu.nl/iceclimate/karthaus/2009/more/lecturenotes/EdBueler.pdf,  Nye(2000), Bueler et al. (2005), Halfar (1981).
+
+A test case will be setup in the MPAS-Testing repository to implement this.
+
+%-----------------------------------------------------------------------
+
+\end{document}
