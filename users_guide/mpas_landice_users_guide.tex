@@ -1,0 +1,98 @@
+\documentclass[11pt]{report}
+
+\usepackage{epsf,amsmath,amsfonts}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{caption}
+\usepackage[hang]{subfigure}
+\usepackage{natbib}
+\usepackage{placeins}
+\usepackage{eso-pic}
+
+\definecolor{black}{rgb}{0.0,0.0,0.0}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.5}
+\hypersetup{colorlinks,breaklinks,
+            linkcolor=blue,urlcolor=blue,
+            anchorcolor=black,citecolor=black}
+
+\setlength{\topmargin}{0in}
+\setlength{\headheight}{0in}
+\setlength{\headsep}{0in}
+\setlength{\textheight}{9.0in}
+\setlength{\textwidth}{6.5in}
+\setlength{\evensidemargin}{0in}
+\setlength{\oddsidemargin}{0in}
+
+\captionsetup{width=6in}
+\captionsetup{format=hang}
+\captionsetup{justification=RaggedRight}
+
+\input{landice/define_version.tex}
+
+\setlength\LTleft\parindent
+\setlength\LTright\fill
+
+\newcommand\BackgroundPic{%
+	\put(0,0){%
+		\parbox[b][\paperheight]{\paperwidth}{%
+			\centering
+			%\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{ocean/figures/MPAS_LOGO_Ocean.png}%
+			\vfill
+			%\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{ocean/figures/ke_x1_15km.pdf}%
+}}}
+
+\begin{document}
+\AddToShipoutPicture*{\BackgroundPic}
+
+\title{
+\Huge MPAS-Land Ice Model User's Guide \\
+\LARGE Version: \version}
+
+\author{
+\LARGE Climate, Ocean, Sea-Ice Modeling Team\\ \\
+\LARGE Los Alamos National Laboratory
+}
+
+\date{September 18, 2013}
+
+\maketitle
+
+\input{landice/foreword.tex}
+
+\tableofcontents
+
+\input{landice/quick_start.tex}
+
+\part{The MPAS Framework}
+\input{shared/mpas_build_instructions.tex}
+\input{shared/mpas_grid_description.tex}
+\input{shared/mpas_visualization.tex}
+
+\part{MPAS-Land Ice}
+\input{landice/core_intro.tex}
+%\input{landice/dimension_table_documentation.tex}
+%\input{landice/namelist_table_documentation.tex}
+%\input{landice/variable_table_documentation.tex}
+
+%\input{landice/test_case_descriptions.tex}
+%\input{landice/global_statistics.tex}
+%\input{landice/cesm_coupling.tex}
+%\input{landice/troubleshooting.tex}
+%\input{landice/knownissues.tex}
+
+\part{Bibliography}
+\bibliographystyle{shared/ametsoc}
+\bibliography{shared/mpas_shared}
+%\bibliography{shared/mpas_shared,ocean/mpas_ocean}
+
+\part{Appendices}
+\appendix
+%\input{landice/namelist_section_documentation.tex}
+%\input{landice/variable_section_documentation.tex}
+
+\end{document}
+
+
+

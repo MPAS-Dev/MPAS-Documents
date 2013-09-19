@@ -1,0 +1,34 @@
+\chapter*{Foreword}
+\label{chap:foreword}
+
+The Model for Prediction Across Scales-Land Ice (MPAS-Land Ice) is an unstructured-mesh land ice model (ice sheets or glaciers) capable of using enhanced horizontal resolution in selected regions of the land ice domain.  This allows researchers to perform high-resolution regional simulations at a lower computational cost, while providing realistic ice flow from the low-resolution regions. Model domains may be spherical or on Cartesian domains.  
+
+MPAS-Land Ice is one component within the MPAS framework of climate models that is developed in cooperation between Los Alamos National Laboratory (LANL) and the National Center for Atmospheric Research (NCAR).  Functionality that is required by all cores, such as i/o, time management, block decomposition, etc, is developed collaboratively, and this code is shared across cores within the same repository.  Each core then solves its own differential equations and physical parameterizations within this framework.  This user's guide reflects the spirit of this collaborative process, where Part I, ``The MPAS Framework'', applies to all cores, and the remaining parts apply to MPAS-Land Ice.
+
+Here we would normally describe the new features of this version.  For the initial release, we will simply review the major features of the basic MPAS-Land Ice model.  We employ a finite-volume discretization of the ice continuity equation using a C-grid staggering in the horizontal.  The vertical coordinate is sigma.  The time-stepping method is Forward Euler (explicit).  Ice advection is performed by first-order upwinding.  No tracer advection is available at pressent.  
+
+% Include this in future versions of the forward:
+%A history of past releases is as follows:
+%\begin{tabular}{lll} 
+%\hline\hline version & date & description  \\
+%\hline 
+%1.0.0 & June 3, 2013 & Initial public release \\
+%\hline 
+%\end{tabular} 
+
+Information about MPAS-Land Ice, including the most recent code, user's guide, and test cases, may be found at \url{http://mpas-dev.github.com}.  This user's guide refers to version \version, with corresponding downloads at \href{http://mpas-dev.github.com/landice/release_\version/release_\version.html}{release \version}. \\
+
+\vspace{8pt}
+\noindent
+{\bf Contributors to this guide:}\\
+Matt Hoffman\\
+{\bf Additional contributors to MPAS Framework sections:}\\
+Michael Duda, Douglas Jacobsen
+
+\vspace{8pt}
+\noindent
+{\it Funding for the development of MPAS-Land Ice was provided by the United States Department of Energy, Office of Science.}
+
+
+
+
