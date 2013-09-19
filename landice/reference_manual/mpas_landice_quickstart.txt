@@ -1,67 +1,58 @@
-MPAS Land Ice Core Quick Start:
+======================================
+=== MPAS Land Ice Core Quick Start ===
+======================================
+
+Author:  Matt Hoffman
+Date: 19 Sept. 2013
+
+This quick start walks you through setting up the model and running the dome test case.  It assumes you have access to MPAS Developer repositories and know how to checkout code from github.  See the developer guide for more details.
 
 ============
 Organization:
 In this document, the following directory convention is used:
 ~/mpas   = a root directory to hold all mpas related work
-~/mpas/land_ice_projects   = https://svn-mpas-model.cgd.ucar.edu/branches/land_ice_projects  ; where the land ice development happens
-~/mpas/grid_gen   = https://svn-mpas-model.cgd.ucar.edu/trunk/grid_gen  ; the trunk version of grid generation tools - this is the only piece of the trunk that is currently used
 ~/mpas/grids   = an unversioned directory in which to generate grids
 ~/mpas/runs   = an unversioned directory in which to actually perform runs
-(Note: the land_ice_projects and grid_gen directories can either be separate checkouts or symlinks to a single checkout of the entire repository, e.g. ~/mpas/mpasall/.  The latter option allows a single 'snv up' to update all the pieces.)
-The quick start assumes you want to run the dome test case.
+MPAS github repositories are cloned here:
+~/mpas/MPAS   = a clone of the <remote>/MPAS repository  (eventually this should be the <remote>/MPAS-Release repository)
+~/mpas/MPAS-Tools/   = a clone of the <remote>/MPAS-Tools repository
+~/mpas/MPAS-Testing/   = a clone of the <remote>/MPAS-Testing repository
 
-================================
-Checking out the land ice branch
-================================
-$ svn checkout --username somebody@lanl.gov https://svn-mpas-model.cgd.ucar.edu/branches/land_ice_projects ~/mpas/land_ice_projects
 
-All land ice development occurs within the land_ice_projects branch in separate projects.
-The land ice core is located in the 'implement_core' project which is equivalent to the 'mpas' directory in the trunk.
-
-Updating the branch (if already checked out)
-$ svn update
+Currently, the landice specific code is only on my forks of the various MPAS development repositories:
+https://github.com/matthewhoffman?tab=repositories
+but eventually it will be merged into the MPAS-Dev repository:
+https://github.com/MPAS-Dev
+In other words, '<remote>' in the above descriptions should currently be:  git@github.com:matthewhoffman
+A branch name of a given repository is given in brackets, e.g.:
+~/mpas/MPAS-Tools/[grid_gen/landice_grid_tools]
 
 
 ========================
-Setting up a workspace
+Setting up a workspace - one suggestion for organizing your runs
 ========================
 We will create unversioned directories called 'grids' and 'runs' where simulations are performed.  All work can be done in the directories under version control, but this is somewhat cleaner for illustrative purposes.
 mkdir ~/mpas/grids
 mkdir ~/mpas/grids/dome
 mkdir ~/mpas/runs
-cp -R ~/mpas/land_ice_projects/test_cases/dome ~/mpas/runs/dome
+cp -R ~/mpas/MPAS-Testing/landice/dome ~/mpas/runs/dome
 (this could also be a symlink)
 
 
 =======================
 Building MPAS: Land Ice
 =======================
-$ setenv CORE land_ice (or export CORE=land_ice)
-$ setenv NETCDF /usr/local/netcdf-gfortran (or export NETCDF=/usr/local/netcdf-gfortran)
+Clone the MPAS repository and checkout the branch: [landice/implement_li_core]
 
-$ cd ~/mpas/land_ice_projects/implement_core
-$ make clean
-$ make gfortran DEBUG=true 
-Iif you do not have MPI installed and working properly, you can compile with "make gfortran SERIAL=true".  However the option to do a serial build will soon be deprecated.)
-(You can replace gfortran with the compiler of your choice - see Makefile for options)
-
-look for the link to land_ice_model.exe to make sure the build succeeded
-
-Notes on building:
-* Starting with netcdf4, linking to the netcdf fortran libraries requires both netcdf.a and netcdff.a.  The Makefile needs to be modified to include -lnetcdff on the LIBS line.  (Same for periodic_hex's Makefile.)  If you are using netcdf version 3.x, this doesn not apply.  NOTE: The MPAS Makefile has now been modified to automatically detect if you are using netcdf4 and make the change for you.
-* On bluefire 'make' will not work - gmake needs to be used instead.  One way to avoid having to replace all instances of 'make' with 'gmake' in all Makefiles is to set up a link named 'make' to /usr/local/bin/gmake in your home directory.  For example:
-cd ~
-mkdir bin
-ln -s /usr/local/bin/gmake ./bin/make
-Now put /glade/home/USERNAME/bin at the beginning of your path in your .bashrc by adding this line:
-export PATH=/glade/home/USERNAME/bin:$PATH
-Just remember that from now on you will always be using gmake when you invoke 'make'!
+See User's Guide Build Instructions.  Compile using CORE=landice.
 
 
 =============================
 Building with and using LifeV
 =============================
+
+[Note: this is not currently supported.]
+
 If you want to compile with the LifeV velocity solvers, you will need to have LifeV compiled and tested successfully.  LifeV requires Trilinos (10.10.1), ParMetis (3.2), HDF5 (1.8.8).  Parentheses indicate versions that I was successful with - not all versions (and not necessarily the newest) of each will work.
 
 To compile MPAS with LifeV libraries use:
@@ -85,33 +76,25 @@ To actually perform calls to LifeV, your namelist.config file needs to specify e
 =============
 Making a grid
 =============
-Checking out the trunk version of grid gen
-$ svn checkout --username somebody@lanl.gov https://svn-mpas-model.cgd.ucar.edu/trunk/grid_gen ~/mpas/grid_gen
+Clone the MPAS-Tools repository and checkout the branch: [grid_gen/landice_grid_tools]
 
-$ cd ~/mpas/grid_gen/periodic_hex
+$ cd ~/mpas/MPAS-Tools/grid_gen/periodic_hex
 $ vim Makefile
-Modify the Makefile to use your compiler (this one is not smart like the Makefile in mpas/).
-For example:
-FC = gfortran
-CC = gcc
-FFLAGS = -O3 -m64 -ffree-line-length-none -fdefault-real-8 -fconvert=big-endian
-CFLAGS = -O3 -m64
-LDFLAGS = -O3 -m64
-
+Modify the Makefile to use your compiler (this one is not smart like the Makefile in mpas/) and the build with:
 $ make
 
 
 Now we will work from our 'grids' directory to actually create the grid:
 $ cd ~/mpas/grids/dome/
 Get the namelist file that will create the appropriately sized grid for the dome test case
-$ cp ~/mpas/land_ice_projects/test_cases/dome/namelist.input.periodic_hex ./namelist.input
-$ ln -s ~/mpas/grid_gen/periodic_hex/periodic_grid 
+$ cp ~/mpas/MPAS-Testing/landice/dome/namelist.input.periodic_hex ./namelist.input
+$ ln -s ~/mpas/grid_gen/periodic_hex/periodic_grid .
 
 If you'd like, modify the namelist file:
 $ vim namelist.input (or emacs namelist.input)
 &periodic_grid
    nx = 30, # the number of columns
-   ny = 35, #                     ...rows
+   ny = 34, # the number of rows - NOTE: This needs to be an even number!
    dc = 2000., # the characteristic size of a cell
    nVertLevels = 9, # the number of vertical levels in the grid
    nTracers = 1, # the number of tracers - this is not used by the land ice core (gets removed in a subsequent step), but periodic_hex requires a value
@@ -127,55 +110,53 @@ graph.info.part.4
 etc.
 
 
-Next the default MPAS grid needs to be modified to include land ice variables.  This is currently done with a python script.
-The script is located here:  land_ice_projects/grid_tools/add_land_ice_variables_to_mpas_grid.py
-Run the script with:
-python ~/mpas/land_ice_projects/grid_tools/add_land_ice_variables_to_mpas_grid.py
-(you can also copy it to the current directory and then run it)
-It will create a new file called land_ice_grid.nc that contains the land ice variables.  (Note that the script will use grid.nc as the input file by default, but a different file name can be passed in as an argument.)
-You can confirm this worked with ncdump -h land_ice_grid.nc.  At the end of the variable list should be:
-        double layerThicknessFractions(nVertLevels) ;
-        double thickness(Time, nCells) ;
-        double bedTopography(Time, nCells) ;
-        double beta(Time, nCells) ;
-        double normalVelocity(Time, nEdges, nVertLevels) ;
-        double temperature(Time, nCells, nVertLevelsPlus2) ;
+Next the default MPAS grid needs to be converted to a new grid file that includes land ice variables.  This is currently done with a python script.
+The script is located here:  ~/mpas/MPAS-Tools/grid_gen/landice_grid_tools/create_landice_grid_from_generic_MPAS_grid.py
+Run the script from the directory with your new grid file with, e.g.:
+python ~/mpas/MPAS-Tools/grid_gen/landice_grid_tools/create_landice_grid_from_generic_MPAS_grid.py
+(you can also copy or symlink it to the current directory and then run it)
+It will create a new file called landice_grid.nc that contains the land ice variables.  (Note that the script will use grid.nc as the input file by default, but a different file name can be passed in as an argument.)
+You can confirm this worked with: 'ncdump -h landice_grid.nc'    
+At the end of the variable list should be:
+	double layerThicknessFractions(nVertLevels) ;
+	double thickness(Time, nCells) ;
+	double normalVelocity(Time, nEdges, nVertLevels) ;
+	double temperature(Time, nCells, nVertLevels) ;
+	double bedTopography(nCells) ;
+	double sfcMassBal(nCells) ;
 
 
 
 ================
 Setting up a Run:
 ================
-The following assumes the following locations:
-land_ice branch is in ~/mpas/land_ice_projects   (this should include MPAS as the 'implement_core' project)
-grids are stored in subdirectories in ~/mpas/grids
-runs are made from subdirectories in ~/mpas/runs
+Clone the MPAS-Testing repository and checkout the branch: [landice/add_dome]
 
 Move to the directory for running the code and gather needed files
 $ cd ~/mpas/runs/dome
-$ ln -s ~/mpas/land_ice_projects/implement_core/land_ice_model.exe 
-$ cp namelist.input.land_ice_core namelist.input
-There should be no need to modify namelist.input as it is setup to run the dome test case.
-$ cp ~/mpas/grids/dome/land_ice_grid.nc .
+$ ln -s ~/mpas/MPAS/landice_model 
+$ cp namelist.input.landice_core namelist.input
+There should be no need to modify namelist.input as it is setup to run the dome test case, but you can experiment with the settings if you want.
+$ cp ~/mpas/grids/dome/landice_grid.nc .
 (The grid could also be symlinked if it is large, but in this case it is small.)
 
 Now the dome initial conditions need to be added to the grid file.  This is currently done with a python script:
-python setup_dome_initial_conditions.py
+$ python setup_dome_initial_conditions.py
 (By default this script modifies land_ice_grid.nc, but a different file name can be specified as a command line argument.)
 You can check that the script worked with:
-ncdump -v thickness land_ice_grid.nc
+ncdump -v thickness landice_grid.nc
 You should see a bunch of nonzero values for the thickness.
 
 if running on 1 processor:
-$ ./land_ice_model.exe
+$ ./landice_model
 
 if running on 2 processors:
 $ ln -s ~/mpas/grids/dome/graph.info.part.2 graph.info.part.2
-$ mpirun -np 2 land_ice_model.exe
+$ mpirun -np 2 landice_model
 
 
 
-Output:
+Output:                    -------- NEED TO UPDATE!!!
  Reading namelist.input
   
  Initial timestep 0000-01-01_00:00:00             
@@ -192,29 +173,22 @@ The default velocity solver is a SIA solver written in MPAS.  To use a higher-or
 
 
 ========================
-Important Config Options
+Config Options
 ========================
-Runs in MPAS are controlled by options set in the namelist.config file in the directory where you execute the run.  Any options not specified in the namelist.config file are determined from defaults set in src/core_land_ice/Registry.  Browse that file to see what valid options exist (though not all are implemented yet).  Here are the more important options:
-   config_time_integration = 'ForwardEuler'  ! This is the only currently supported time integration scheme
-   config_dycore = 'FO'   ! This is where you select the velocity solver.  Valid dycores are SIA, L1L2, FO, Stokes. All but SIA require compiling with LifeV libraries.
-! Specify run duration with these.  MPAS uses a calendar system, so start/stop times need to be specified in this format.  You can alternatively specify a config_run_duration, but it would have to be in seconds.  It is possible to specify dt in seconds instead of years with config_dt_seconds.
-   config_dt_years = 1.0
-   config_start_time = '0000-01-01_00:00:00'
-   config_stop_time = '0005-01-01_00:00:00'
-! I/O specified with these:
-   config_input_name = 'land_ice_grid.nc'
-   config_output_name = 'output.nc'
-   config_restart_name = 'restart.nc'
+Runs in MPAS are controlled by options set in the namelist.config file in the directory where you execute the run.  Any options not specified in the namelist.config file are determined from defaults set in src/core_landice/Registry.xml  Browse that file to see what valid options exist or read the Land Ice User's Guide. 
 
 
 ================
-Examining Output
+Examining Output -------- NEED TO UPDATE!!!
 ================
 There are a number of options for visualizing output:
 
 1. Some simple plots of the dome test case are generated with a python script:
 python visualize_dome.py
 It can take commandline arguments to visualize a different time step (default=the first) or file (default=output.nc) and to save the plots to files.  Get details with: python visualize_dome.py -h
+
+2. A series of python scripts for viewing land ice files have been created here:  \TODO
+  ~/mpas/MPAS-Tools/
 
 2. Use paraview to visualize output.nc (this will have to be a separate tutorial).
 However, paraview's MPAS support is currently limited to variables with dimensions that include [nCells (or nVertices), nVertLevels], i.e. 3d fields only.  Few land ice variables meet that criterion.  Hopefully this will be remedied in a future version of the paraview MPAS plugin.
