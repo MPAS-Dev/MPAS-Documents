@@ -17,9 +17,9 @@
 
 \begin{document}
 
-\title{MPAS Land Ice Core: \\
+\title{Initial MPAS Land Ice Core: \\
 Requirements and Design}
-\author{M. Hoffman}
+\author{M. Hoffman, S. Price}
 
 \maketitle
 \tableofcontents
@@ -28,46 +28,44 @@ Requirements and Design}
 
 \chapter{Summary}
 
-A Land Ice core for MPAS will provide the ability to model ice sheets and glaciers.  The goal of this design document is to describe the simplest Land Ice core possible to facilitate approval to the main MPAS Development respository.  After a minimal Land Ice core is operational, additional features can be added.
+A Land Ice core for MPAS will provide the ability to model the evolution of ice sheets and glaciers.  The goal of this design document is to describe the simplest Land Ice core possible to facilitate approval for inclusion in the main MPAS Development respository.  After a minimal Land Ice core is operational and part of the MPAS trunk, additional features can be added.
 
 
 %-----------------------------------------------------------------------
 
 \chapter{Requirements}
 
-The simplest ice sheet model would simply calculate ice velocity and perform thickness advection.
+The simplest ice sheet model would calculate ice velocity and geometry evolution through thickness advection.
 
-\section{Requirement: Solve ice velocity}
+\section{Requirement: Solve ice momentum balance}
 Date last modified: 2013/09/10 \\
-Contributors: MJH \\
+Contributors: MH, SP \\
 
-The simplest solution of ice velocity is the shallow ice approximation (SIA).  The preferred approach for implementing SIA in ice sheet models is not to solve velocity directly but instead formulate an elliptic PDE for thickness evolution.   However, for higher-order velocity solvers it is much simpler to solve velocity and thickness evolution as separate steps, so to facilitate the incorporation of higher-order velocity solvers, the goal for this design is to simply calculate SIA velocity.
+The simplest solution of the momentum balance for land ice is the Shallow Ice Approximation (SIA). In terms of balancing the gravitational body force, the SIA neglects all but the 0th-order, vertical shear-stress gradients.  The preferred numerical approach for implementing the SIA in ice sheet models is not to solve for the velocity directly but to instead formulate a parabolic PDE describing the thickness evolution, with velocities implicit in the formulation.  However, for higher-order treatments of the momentum balance, it is necessary to solve the velocity and thickness evolution steps separately. Therefore, to allow for the eventual incorporation of higher-order velocity solvers in MPAS Land Ice, a goal for the current design is to explicitly calculate velocities from the SIA.
 
 
 \section{Requirement: Thickness advection}
 Date last modified: 2013/09/10 \\
-Contributors: MJH \\
+Contributors: MH, SP \\
 
-In order to evolve the model in time, thickness advection is necessary.  While tracer advection is necessary to thermomechanically couple an ice sheet model, a minimial ice sheet model can forgo this capability.  A simple thickness advection scheme is explicit (Forward Euler) time-stepping with first-order upwinding.
+In order to evolve the model geometry in time, thickness advection is necessary.  While tracer advection is necessary to thermomechanically couple an ice sheet model, a minimal ice sheet model can forgo this capability.  A simple thickness advection scheme is explicit (Forward Euler) time-stepping with first-order upwinding.
 
 
 \section{Requirement: Modular organization}
 Date last modified: 2013/09/10 \\
-Contributors: MJH \\
+Contributors: MH, SP \\
 
 Though the proposed ice sheet model is very simple, it will be written to be modular so that much greater complexity can be added over time.  Eventual features will include:
 
 \begin{itemize}
 \item Various masks
-\item Tracer advection (temperature, age, ...)
+\item Tracer advection (e.g., temperature, age)
 \item Support for external velocity solvers (dycores)
-\item Higher-order advection (e.g. MPAS' FCT scheme)
-\item Temperature evolution (horizontal advection as a tracer and vertical diffusion) - using either a temperature or enthalpy formulation
-\item Higher-order advection (e.g. RK4)
-\item Implicit advection?
-\item Forcing from data
-\item Coupling to an Earth System Model
-\item Other 'physics': subglacial hydrology, calving, etc.
+\item Higher-order and/or implicit advection (e.g., MPAS' FCT scheme, Incremental Remapping (IR), RK4)
+\item Temperature evolution (horizontal advection as a tracer and vertical diffusion) - using either a temperature- or enthalpy-based formulation
+\item Climate forcing from data or through coupling to an Earth System Model
+%\item Coupling to an Earth System Model
+\item Other 'physics' (e.g., subglacial hydrology, basal sliding, calving, etc.)
 \end{itemize}
 
 
@@ -75,35 +73,35 @@ Though the proposed ice sheet model is very simple, it will be written to be mod
 
 \chapter{Algorithmic Formulations}
 
-\section{Design Solution: Solve ice velocity}
+\section{Design Solution: Solve ice momentum balance}
 Date last modified: 2013/09/10 \\
-Contributors: MJH \\
+Contributors: MH, SP \\
 
-The depth-dependent SIA velocity can be solved as:
+Within a column, at any point in the model domain in map view, the depth-dependent SIA velocity can be solved for as:
 
 \begin{equation}
     \label{sia}
-	\vect{u} = -\frac{1}{2} A (\rho g )^3 (\nabla s)^3 \left[H^4 - (h-z)^4 \right]
+	\vect{u}(z) = -\frac{1}{2} A (\rho g )^3 (\nabla s)^3 \left[H^4 - (h-z)^4 \right]
 \end{equation}
-where $\vect{u}$ is the horizontal velocity vector, $A$ is the flow rate factor, $\rho$ is the density of ice, $g$ is acceleration due to gravity, $s$ is the ice surface elevation, $H$ is ice thickness, and $z$ is the vertical coordinate.
+where $\vect{u}(z)$ is the horizontal velocity vector, $A$ is the flow rate factor (primarily a function of ice temperature), $\rho$ is the density of ice, $g$ is acceleration due to gravity, $s$ is the ice surface elevation, $H$ is ice thickness, and $z$ is the vertical coordinate. Velocities are (nonlinearly) proportional to both the ice thickness and the ice surface slope.
 
 (See, for example, http://www.projects.science.uu.nl/iceclimate/karthaus/2009/more/lecturenotes/EdBueler.pdf)
 
 \section{Design Solution: Thickness advection}
 Date last modified: 2013/09/10 \\
-Contributors: MJH \\
+Contributors: MH, SP \\
 
-First-order upwinding of ice thickness is described by (http://en.wikipedia.org/wiki/Upwind\_scheme):
+In 1D, first-order upwinding of ice thickness is described by (http://en.wikipedia.org/wiki/Upwind\_scheme):
 
 \begin{equation}
     \label{fouw}
- \frac{h_i^{n+1} - h_i^n}{\Delta t} + u \frac{h_i^n - h_{i-1}^n}{\Delta x} = 0 \quad \text{for} \quad u > 0
+ \frac{H_i^{n+1} - H_i^n}{\Delta t} + u \frac{H_i^n - H_{i-1}^n}{\Delta x} = 0 \quad \text{for} \quad u > 0
 \end{equation}
 \begin{equation}
- \frac{h_i^{n+1} - h_i^n}{\Delta t} + u \frac{h_{i+1}^n - h_i^n}{\Delta x} = 0 \quad \text{for} \quad u < 0
+ \frac{H_i^{n+1} - H_i^n}{\Delta t} + u \frac{H_{i+1}^n - H_i^n}{\Delta x} = 0 \quad \text{for} \quad u < 0
 \end{equation}
 
-where subscripts designate the spatial dimension, and superscripts designate the time dimension.
+where ${\Delta x}$ represents the horizontal grid spacing along flow, subscripts designate the spatial dimension, and superscripts designate the time dimension.
 
 To allow the eventual inclusion of tracer advection, thickness should be advected level-by-level, rather than the cheaper operation of advecting the total column thickness.
 
@@ -111,25 +109,25 @@ To allow the eventual inclusion of tracer advection, thickness should be advecte
 
 \chapter{Design and Implementation}
 
-Advection will be performed on a C-grid, with scalar quantities (thickness, temperature, age, etc.) on the Voronoi cell centers and velocities and fluxes on Voronoi cell edges.
+Advection will be performed on a C-grid, with scalar quantities (thickness, temperature, age, etc.) on the Voronoi cell centers and velocities and fluxes centered at Voronoi cell edges.
 
-\section{Implementation: Solve ice velocity}
+\section{Implementation: Solve ice momentum balance}
 Date last modified: 2013/09/10 \\
-Contributors: MJH \\
+Contributors: MH, SP \\
 
-Slope will be calculated on cell edges based on surface elevation of adjacent cells.  Ice thickness on edges will also be needed, and this will be calculated as the average (2nd-order appoximation).
+Surface slope will be calculated on cell edges based on surface elevation at adjacent cell centers.  Ice thickness on edges will also be needed for advection, and this will be calculated as the average of the adjacent cell center values (2nd-order approximation).
 
 \section{Implementation: Thickness advection}
 Date last modified: 2013/09/10 \\
-Contributors: MJH \\
+Contributors: MH \\
 
 The Forward Euler time step will be organized as follows:
 
 \begin{itemize}
-\item column physics, e.g. temperature vertical diffusion: $T^{n+1} = f(T^n)$  \emph{this will be added later but written here for completeness}
+\item column physics, e.g. vertical diffusion of temperature: $T^{n+1} = f(T^n)$  \emph{(Note: this will be added later but is written here for completeness)}
 \item thickness advection: $h^{n+1} = f(h^n, u^n)$
-\item tracer advection: $T^{n+1} = f(T*^n, u^n)$, with $T*$ being the temperature state after column physics  \emph{this will be added later but written here for completeness}
-\item solve velocity: $u^{n+1} = f(h^{n+1})$  \emph{velocity calculation is time-independent}
+\item tracer advection: $T^{n+1} = f(T*^n, u^n)$, with $T*$ being the temperature state after column physics  (\emph{this will be added later but written here for completeness})
+\item solve velocity (momentum balance): $u^{n+1} = f(h^{n+1})$  \emph{(Note: the velocity calculation is time-independent)}
 \end{itemize}
 
 
@@ -137,9 +135,9 @@ The Forward Euler time step will be organized as follows:
 
 \section{Implementation: Modular organization}
 Date last modified: 2013/09/10 \\
-Contributors: MJH \\
+Contributors: MH \\
 
-The code will be organized into separate modules.  In the figure below, each white boxes are modules, with dashed lines indicating examples of modules that are not a part of this design document but should be accounted for.  Gray boxes may be implemented as subroutines rather than separate modules.
+The code will be organized into separate modules.  In the figure below, white boxes are modules, with dashed lines indicating examples of modules that are not a part of this design document but that should eventually be accounted for.  Gray boxes may be implemented as subroutines rather than separate modules.
 
 \tikzstyle{every node}=[draw=black,thick,anchor=west]
 \tikzstyle{selected}=[draw=red,fill=red!30]
@@ -149,27 +147,31 @@ The code will be organized into separate modules.  In the figure below, each whi
   grow via three points={one child at (0.5,-0.7) and
   two children at (0.5,-0.7) and (0.5,-1.4)},
   edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
-  \node {mpas core}
+  \node {MPAS core}
     child { node [sub] {initialization}
-      child { node {velocity} 
-        child {node {sia}}
-    }}
+      child { node {diagnostic solve} 
+        child { node {velocity}
+           child {node {SIA}
+    }}}}
+    child [missing] {}				
     child [missing] {}				
     child [missing] {}	
     child { node [optional] {forcing}}	
     child { node {time integration}	
-      child { node [optional]{rk4}}
-      child { node {forwad euler}
+      child { node [optional]{RK4}}
+      child { node [optional]{IR}}
+      child { node {forward Euler}
         child { node [optional] {column physics}}
         child { node {tendency}
           child { node {tracer tendency}} }
         child [missing] {}
-        child { node {velocity}
-          child { node {sia}}
-          child { node [optional] {lifev}}
-          child { node [optional] {albany}}
-          child { node [optional] {stokes}}
-        }}};
+        child { node {diagnostic solve} 
+          child { node {velocity}
+            child { node {SIA (native)}}
+            child { node [optional] {1st-order (native)}}
+            child { node [optional] {FELIX 1st-order (external)}}
+            child { node [optional] {FELIX Stokes (external)}}
+        }}}};
 \end{tikzpicture}
 
 
