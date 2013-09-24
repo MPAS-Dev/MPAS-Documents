@@ -1,0 +1,1297 @@
+\chapter[Variable definitions]{\hyperref[chap:variable_tables]{Variable definitions}}
+\label{chap:variable_sections}
+Embedded links point to information in chapter \ref{chap:variable_tables}
+\section[state]{\hyperref[sec:var_tab_state]{state}}
+\label{sec:var_sec_state}
+\subsection[xtime]{\hyperref[sec:var_tab_state]{xtime}}
+\label{subsec:var_sec_state_xtime}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & text \\
+        \hline 
+        Units: & $unitless$ \\
+        \hline 
+        Dimension: & Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Restart Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% xtime \\
+		 \hline 
+    \caption{xtime: model time, with format 'YYYY-MM-DD\_HH:MM:SS'}
+\end{longtable}
+\end{center}
+\subsection[thickness]{\hyperref[sec:var_tab_state]{thickness}}
+\label{subsec:var_sec_state_thickness}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $m$ \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Input Restart Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% thickness \\
+		 \hline 
+    \caption{thickness: ice thickness}
+\end{longtable}
+\end{center}
+\subsection[layerThickness]{\hyperref[sec:var_tab_state]{layerThickness}}
+\label{subsec:var_sec_state_layerThickness}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $m$ \\
+        \hline 
+        Dimension: & nVertLevels nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: &  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% layerThickness \\
+		 \hline 
+    \caption{layerThickness: layer thickness}
+\end{longtable}
+\end{center}
+\subsection[temperature]{\hyperref[sec:var_tab_state]{temperature}}
+\label{subsec:var_sec_state_temperature}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $degrees$ $Celsius$ \\
+        \hline 
+        Dimension: & nVertLevels nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Input Restart Output  \\
+        \hline 
+		 Index in tracers Array: & domain \% blocklist \% state \% index\_temperature \\
+		 \hline 
+		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% tracers \\
+		 \hline 
+		 Array Group: & dynamics \\
+		 \hline 
+    \caption{temperature: ice temperature}
+\end{longtable}
+\end{center}
+\subsection[lowerSurface]{\hyperref[sec:var_tab_state]{lowerSurface}}
+\label{subsec:var_sec_state_lowerSurface}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $m$ $above$ $datum$ \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% lowerSurface \\
+		 \hline 
+    \caption{lowerSurface: elevation at bottom of ice}
+\end{longtable}
+\end{center}
+\subsection[upperSurface]{\hyperref[sec:var_tab_state]{upperSurface}}
+\label{subsec:var_sec_state_upperSurface}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $m$ $above$ $datum$ \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% upperSurface \\
+		 \hline 
+    \caption{upperSurface: elevation at top of ice}
+\end{longtable}
+\end{center}
+\subsection[layerThicknessEdge]{\hyperref[sec:var_tab_state]{layerThicknessEdge}}
+\label{subsec:var_sec_state_layerThicknessEdge}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $m$ \\
+        \hline 
+        Dimension: & nVertLevels nEdges Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: &  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% layerThicknessEdge \\
+		 \hline 
+    \caption{layerThicknessEdge: layer thickness on cell edges}
+\end{longtable}
+\end{center}
+\subsection[cellMask]{\hyperref[sec:var_tab_state]{cellMask}}
+\label{subsec:var_sec_state_cellMask}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & $none$ \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Restart Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% cellMask \\
+		 \hline 
+    \caption{cellMask: bitmask indicating various properties about the ice sheet on cells.  cellMask only needs to be a restart field if config\_allow\_additional\_advance = false (to keep the mask of initial ice extent)}
+\end{longtable}
+\end{center}
+\subsection[edgeMask]{\hyperref[sec:var_tab_state]{edgeMask}}
+\label{subsec:var_sec_state_edgeMask}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & $none$ \\
+        \hline 
+        Dimension: & nEdges Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% edgeMask \\
+		 \hline 
+    \caption{edgeMask: bitmask indicating various properties about the ice sheet on edges.}
+\end{longtable}
+\end{center}
+\subsection[vertexMask]{\hyperref[sec:var_tab_state]{vertexMask}}
+\label{subsec:var_sec_state_vertexMask}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & $none$ \\
+        \hline 
+        Dimension: & nVertices Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% vertexMask \\
+		 \hline 
+    \caption{vertexMask: bitmask indicating various properties about the ice sheet on vertices.}
+\end{longtable}
+\end{center}
+\subsection[normalVelocity]{\hyperref[sec:var_tab_state]{normalVelocity}}
+\label{subsec:var_sec_state_normalVelocity}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $m$ $s^{-1}$ \\
+        \hline 
+        Dimension: & nVertLevels nEdges Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Input Restart Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% normalVelocity \\
+		 \hline 
+    \caption{normalVelocity: horizonal velocity, normal component to an edge}
+\end{longtable}
+\end{center}
+\subsection[uReconstructX]{\hyperref[sec:var_tab_state]{uReconstructX}}
+\label{subsec:var_sec_state_uReconstructX}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $m$ $s^{-1}$ \\
+        \hline 
+        Dimension: & nVertLevels nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% uReconstructX \\
+		 \hline 
+    \caption{uReconstructX: x-component of velocity reconstructed on cell centers}
+\end{longtable}
+\end{center}
+\subsection[uReconstructY]{\hyperref[sec:var_tab_state]{uReconstructY}}
+\label{subsec:var_sec_state_uReconstructY}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $m$ $s^{-1}$ \\
+        \hline 
+        Dimension: & nVertLevels nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% uReconstructY \\
+		 \hline 
+    \caption{uReconstructY: y-component of velocity reconstructed on cell centers}
+\end{longtable}
+\end{center}
+\subsection[uReconstructZ]{\hyperref[sec:var_tab_state]{uReconstructZ}}
+\label{subsec:var_sec_state_uReconstructZ}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $m$ $s^{-1}$ \\
+        \hline 
+        Dimension: & nVertLevels nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% uReconstructZ \\
+		 \hline 
+    \caption{uReconstructZ: z-component of velocity reconstructed on cell centers}
+\end{longtable}
+\end{center}
+\subsection[uReconstructZonal]{\hyperref[sec:var_tab_state]{uReconstructZonal}}
+\label{subsec:var_sec_state_uReconstructZonal}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $m$ $s^{-1}$ \\
+        \hline 
+        Dimension: & nVertLevels nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% uReconstructZonal \\
+		 \hline 
+    \caption{uReconstructZonal: zonal velocity reconstructed on cell centers}
+\end{longtable}
+\end{center}
+\subsection[uReconstructMeridional]{\hyperref[sec:var_tab_state]{uReconstructMeridional}}
+\label{subsec:var_sec_state_uReconstructMeridional}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $m$ $s^{-1}$ \\
+        \hline 
+        Dimension: & nVertLevels nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% state \% time\_levs(:) \% state \% uReconstructMeridional \\
+		 \hline 
+    \caption{uReconstructMeridional: meridional velocity reconstructed on cell centers}
+\end{longtable}
+\end{center}
+\section[tend]{\hyperref[sec:var_tab_tend]{tend}}
+\label{sec:var_sec_tend}
+\subsection[tend\_layerThickness]{\hyperref[sec:var_tab_tend]{tend\_layerThickness}}
+\label{subsec:var_sec_tend_tend_layerThickness}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $m$ $s^{-1}$ \\
+        \hline 
+        Dimension: & nVertLevels nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & None \\
+        \hline 
+		 Location in code: & domain \% blocklist \% tend \% layerThickness \\
+		 \hline 
+    \caption{tend\_layerThickness: time tendency of layer thickness}
+\end{longtable}
+\end{center}
+\subsection[tend\_temperature]{\hyperref[sec:var_tab_tend]{tend\_temperature}}
+\label{subsec:var_sec_tend_tend_temperature}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $K$ $s^{-1}$ \\
+        \hline 
+        Dimension: & nVertLevels nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & None \\
+        \hline 
+		 Index in tracers Array: & domain \% blocklist \% tend \% index\_temperature \\
+		 \hline 
+		 Location in code: & domain \% blocklist \% tend \% tracers \\
+		 \hline 
+		 Array Group: & dynamics \\
+		 \hline 
+    \caption{tend\_temperature: time tendency of ice temperature}
+\end{longtable}
+\end{center}
+\section[mesh]{\hyperref[sec:var_tab_mesh]{mesh}}
+\label{sec:var_sec_mesh}
+\subsection[latCell]{\hyperref[sec:var_tab_mesh]{latCell}}
+\label{subsec:var_sec_mesh_latCell}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $radians$ \\
+        \hline 
+        Dimension: & nCells \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Input Restart Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% latCell \\
+		 \hline 
+    \caption{latCell: Latitude location of cell centers in radians.}
+\end{longtable}
+\end{center}
+\subsection[lonCell]{\hyperref[sec:var_tab_mesh]{lonCell}}
+\label{subsec:var_sec_mesh_lonCell}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $radians$ \\
+        \hline 
+        Dimension: & nCells \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Input Restart Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% lonCell \\
+		 \hline 
+    \caption{lonCell: Longitude location of cell centers in radians.}
+\end{longtable}
+\end{center}
+\subsection[xCell]{\hyperref[sec:var_tab_mesh]{xCell}}
+\label{subsec:var_sec_mesh_xCell}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $unitless$ \\
+        \hline 
+        Dimension: & nCells \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Input Restart Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% xCell \\
+		 \hline 
+    \caption{xCell: X Coordinate in cartesian space of cell centers.}
+\end{longtable}
+\end{center}
+\subsection[yCell]{\hyperref[sec:var_tab_mesh]{yCell}}
+\label{subsec:var_sec_mesh_yCell}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $unitless$ \\
+        \hline 
+        Dimension: & nCells \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Input Restart Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% yCell \\
+		 \hline 
+    \caption{yCell: Y Coordinate in cartesian space of cell centers.}
+\end{longtable}
+\end{center}
+\subsection[zCell]{\hyperref[sec:var_tab_mesh]{zCell}}
+\label{subsec:var_sec_mesh_zCell}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $unitless$ \\
+        \hline 
+        Dimension: & nCells \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Input Restart Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% zCell \\
+		 \hline 
+    \caption{zCell: Z Coordinate in cartesian space of cell centers.}
+\end{longtable}
+\end{center}
+\subsection[indexToCellID]{\hyperref[sec:var_tab_mesh]{indexToCellID}}
+\label{subsec:var_sec_mesh_indexToCellID}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & $unitless$ \\
+        \hline 
+        Dimension: & nCells \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Input Restart Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% indexToCellID \\
+		 \hline 
+    \caption{indexToCellID: List of global cell IDs.}
+\end{longtable}
+\end{center}
+\subsection[latEdge]{\hyperref[sec:var_tab_mesh]{latEdge}}
+\label{subsec:var_sec_mesh_latEdge}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $radians$ \\
+        \hline 
+        Dimension: & nEdges \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Input Restart Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% latEdge \\
+		 \hline 
+    \caption{latEdge: Latitude location of edge midpoints in radians.}
+\end{longtable}
+\end{center}
+\subsection[lonEdge]{\hyperref[sec:var_tab_mesh]{lonEdge}}
+\label{subsec:var_sec_mesh_lonEdge}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $radians$ \\
+        \hline 
+        Dimension: & nEdges \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Input Restart Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% lonEdge \\
+		 \hline 
+    \caption{lonEdge: Longitude location of edge midpoints in radians.}
+\end{longtable}
+\end{center}
+\subsection[xEdge]{\hyperref[sec:var_tab_mesh]{xEdge}}
+\label{subsec:var_sec_mesh_xEdge}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $unitless$ \\
+        \hline 
+        Dimension: & nEdges \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Input Restart Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% xEdge \\
+		 \hline 
+    \caption{xEdge: X Coordinate in cartesian space of edge midpoints.}
+\end{longtable}
+\end{center}
+\subsection[yEdge]{\hyperref[sec:var_tab_mesh]{yEdge}}
+\label{subsec:var_sec_mesh_yEdge}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $unitless$ \\
+        \hline 
+        Dimension: & nEdges \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Input Restart Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% yEdge \\
+		 \hline 
+    \caption{yEdge: Y Coordinate in cartesian space of edge midpoints.}
+\end{longtable}
+\end{center}
+\subsection[zEdge]{\hyperref[sec:var_tab_mesh]{zEdge}}
+\label{subsec:var_sec_mesh_zEdge}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $unitless$ \\
+        \hline 
+        Dimension: & nEdges \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Input Restart Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% zEdge \\
+		 \hline 
+    \caption{zEdge: Z Coordinate in cartesian space of edge midpoints.}
+\end{longtable}
+\end{center}
+\subsection[indexToEdgeID]{\hyperref[sec:var_tab_mesh]{indexToEdgeID}}
+\label{subsec:var_sec_mesh_indexToEdgeID}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & $unitless$ \\
+        \hline 
+        Dimension: & nEdges \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Input Restart Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% indexToEdgeID \\
+		 \hline 
+    \caption{indexToEdgeID: List of global edge IDs.}
+\end{longtable}
+\end{center}
+\subsection[latVertex]{\hyperref[sec:var_tab_mesh]{latVertex}}
+\label{subsec:var_sec_mesh_latVertex}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $radians$ \\
+        \hline 
+        Dimension: & nVertices \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Input Restart Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% latVertex \\
+		 \hline 
+    \caption{latVertex: Latitude location of vertices in radians.}
+\end{longtable}
+\end{center}
+\subsection[lonVertex]{\hyperref[sec:var_tab_mesh]{lonVertex}}
+\label{subsec:var_sec_mesh_lonVertex}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $radians$ \\
+        \hline 
+        Dimension: & nVertices \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Input Restart Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% lonVertex \\
+		 \hline 
+    \caption{lonVertex: Longitude location of vertices in radians.}
+\end{longtable}
+\end{center}
+\subsection[xVertex]{\hyperref[sec:var_tab_mesh]{xVertex}}
+\label{subsec:var_sec_mesh_xVertex}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $unitless$ \\
+        \hline 
+        Dimension: & nVertices \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Input Restart Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% xVertex \\
+		 \hline 
+    \caption{xVertex: X Coordinate in cartesian space of vertices.}
+\end{longtable}
+\end{center}
+\subsection[yVertex]{\hyperref[sec:var_tab_mesh]{yVertex}}
+\label{subsec:var_sec_mesh_yVertex}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $unitless$ \\
+        \hline 
+        Dimension: & nVertices \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Input Restart Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% yVertex \\
+		 \hline 
+    \caption{yVertex: Y Coordinate in cartesian space of vertices.}
+\end{longtable}
+\end{center}
+\subsection[zVertex]{\hyperref[sec:var_tab_mesh]{zVertex}}
+\label{subsec:var_sec_mesh_zVertex}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $unitless$ \\
+        \hline 
+        Dimension: & nVertices \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Input Restart Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% zVertex \\
+		 \hline 
+    \caption{zVertex: Z Coordinate in cartesian space of vertices.}
+\end{longtable}
+\end{center}
+\subsection[indexToVertexID]{\hyperref[sec:var_tab_mesh]{indexToVertexID}}
+\label{subsec:var_sec_mesh_indexToVertexID}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & $unitless$ \\
+        \hline 
+        Dimension: & nVertices \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Input Restart Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% indexToVertexID \\
+		 \hline 
+    \caption{indexToVertexID: List of global vertex IDs.}
+\end{longtable}
+\end{center}
+\subsection[cellsOnEdge]{\hyperref[sec:var_tab_mesh]{cellsOnEdge}}
+\label{subsec:var_sec_mesh_cellsOnEdge}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & $unitless$ \\
+        \hline 
+        Dimension: & TWO nEdges \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Input Restart Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% cellsOnEdge \\
+		 \hline 
+    \caption{cellsOnEdge: List of cells that straddle each edge.}
+\end{longtable}
+\end{center}
+\subsection[nEdgesOnCell]{\hyperref[sec:var_tab_mesh]{nEdgesOnCell}}
+\label{subsec:var_sec_mesh_nEdgesOnCell}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & $unitless$ \\
+        \hline 
+        Dimension: & nCells \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Input Restart Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% nEdgesOnCell \\
+		 \hline 
+    \caption{nEdgesOnCell: Number of edges that border each cell.}
+\end{longtable}
+\end{center}
+\subsection[nEdgesOnEdge]{\hyperref[sec:var_tab_mesh]{nEdgesOnEdge}}
+\label{subsec:var_sec_mesh_nEdgesOnEdge}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & $unitless$ \\
+        \hline 
+        Dimension: & nEdges \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Input Restart Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% nEdgesOnEdge \\
+		 \hline 
+    \caption{nEdgesOnEdge: Number of edges that surround each of the cells that straddle each edge. These edges are used to reconstruct the tangential velocities.}
+\end{longtable}
+\end{center}
+\subsection[edgesOnCell]{\hyperref[sec:var_tab_mesh]{edgesOnCell}}
+\label{subsec:var_sec_mesh_edgesOnCell}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & $unitless$ \\
+        \hline 
+        Dimension: & maxEdges nCells \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Input Restart Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% edgesOnCell \\
+		 \hline 
+    \caption{edgesOnCell: List of edges that border each cell.}
+\end{longtable}
+\end{center}
+\subsection[edgesOnEdge]{\hyperref[sec:var_tab_mesh]{edgesOnEdge}}
+\label{subsec:var_sec_mesh_edgesOnEdge}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & $unitless$ \\
+        \hline 
+        Dimension: & maxEdges2 nEdges \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Input Restart Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% edgesOnEdge \\
+		 \hline 
+    \caption{edgesOnEdge: List of edges that border each of the cells that straddle each edge.}
+\end{longtable}
+\end{center}
+\subsection[weightsOnEdge]{\hyperref[sec:var_tab_mesh]{weightsOnEdge}}
+\label{subsec:var_sec_mesh_weightsOnEdge}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $unitless$ \\
+        \hline 
+        Dimension: & maxEdges2 nEdges \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Input Restart Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% weightsOnEdge \\
+		 \hline 
+    \caption{weightsOnEdge: Reconstruction weights associated with each of the edgesOnEdge.}
+\end{longtable}
+\end{center}
+\subsection[dvEdge]{\hyperref[sec:var_tab_mesh]{dvEdge}}
+\label{subsec:var_sec_mesh_dvEdge}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $m$ \\
+        \hline 
+        Dimension: & nEdges \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Input Restart Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% dvEdge \\
+		 \hline 
+    \caption{dvEdge: Length of each edge, computed as the distance between verticesOnEdge.}
+\end{longtable}
+\end{center}
+\subsection[dcEdge]{\hyperref[sec:var_tab_mesh]{dcEdge}}
+\label{subsec:var_sec_mesh_dcEdge}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $m$ \\
+        \hline 
+        Dimension: & nEdges \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Input Restart Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% dcEdge \\
+		 \hline 
+    \caption{dcEdge: Length of each edge, computed as the distance between cellsOnEdge.}
+\end{longtable}
+\end{center}
+\subsection[angleEdge]{\hyperref[sec:var_tab_mesh]{angleEdge}}
+\label{subsec:var_sec_mesh_angleEdge}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $radians$ \\
+        \hline 
+        Dimension: & nEdges \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Input Restart Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% angleEdge \\
+		 \hline 
+    \caption{angleEdge: Angle the edge normal makes with local eastward direction.}
+\end{longtable}
+\end{center}
+\subsection[areaCell]{\hyperref[sec:var_tab_mesh]{areaCell}}
+\label{subsec:var_sec_mesh_areaCell}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $m^2$ \\
+        \hline 
+        Dimension: & nCells \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Input Restart Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% areaCell \\
+		 \hline 
+    \caption{areaCell: Area of each cell in the primary grid.}
+\end{longtable}
+\end{center}
+\subsection[areaTriangle]{\hyperref[sec:var_tab_mesh]{areaTriangle}}
+\label{subsec:var_sec_mesh_areaTriangle}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $m^2$ \\
+        \hline 
+        Dimension: & nVertices \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Input Restart Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% areaTriangle \\
+		 \hline 
+    \caption{areaTriangle: Area of each cell (triangle) in the dual grid.}
+\end{longtable}
+\end{center}
+\subsection[edgeNormalVectors]{\hyperref[sec:var_tab_mesh]{edgeNormalVectors}}
+\label{subsec:var_sec_mesh_edgeNormalVectors}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $unitless$ \\
+        \hline 
+        Dimension: & R3 nEdges \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% edgeNormalVectors \\
+		 \hline 
+    \caption{edgeNormalVectors: Normal vector defined at an edge.}
+\end{longtable}
+\end{center}
+\subsection[localVerticalUnitVectors]{\hyperref[sec:var_tab_mesh]{localVerticalUnitVectors}}
+\label{subsec:var_sec_mesh_localVerticalUnitVectors}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $unitless$ \\
+        \hline 
+        Dimension: & R3 nCells \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% localVerticalUnitVectors \\
+		 \hline 
+    \caption{localVerticalUnitVectors: Unit surface normal vectors defined at cell centers.}
+\end{longtable}
+\end{center}
+\subsection[cellTangentPlane]{\hyperref[sec:var_tab_mesh]{cellTangentPlane}}
+\label{subsec:var_sec_mesh_cellTangentPlane}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $unitless$ \\
+        \hline 
+        Dimension: & R3 TWO nCells \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% cellTangentPlane \\
+		 \hline 
+    \caption{cellTangentPlane: The two vectors that define a tangent plane at a cell center.}
+\end{longtable}
+\end{center}
+\subsection[cellsOnCell]{\hyperref[sec:var_tab_mesh]{cellsOnCell}}
+\label{subsec:var_sec_mesh_cellsOnCell}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & $unitless$ \\
+        \hline 
+        Dimension: & maxEdges nCells \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Input Restart Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% cellsOnCell \\
+		 \hline 
+    \caption{cellsOnCell: List of cells that neighbor each cell.}
+\end{longtable}
+\end{center}
+\subsection[verticesOnCell]{\hyperref[sec:var_tab_mesh]{verticesOnCell}}
+\label{subsec:var_sec_mesh_verticesOnCell}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & $unitless$ \\
+        \hline 
+        Dimension: & maxEdges nCells \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Input Restart Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% verticesOnCell \\
+		 \hline 
+    \caption{verticesOnCell: List of vertices that border each cell.}
+\end{longtable}
+\end{center}
+\subsection[verticesOnEdge]{\hyperref[sec:var_tab_mesh]{verticesOnEdge}}
+\label{subsec:var_sec_mesh_verticesOnEdge}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & $unitless$ \\
+        \hline 
+        Dimension: & TWO nEdges \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Input Restart Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% verticesOnEdge \\
+		 \hline 
+    \caption{verticesOnEdge: List of vertices that straddle each edge.}
+\end{longtable}
+\end{center}
+\subsection[edgesOnVertex]{\hyperref[sec:var_tab_mesh]{edgesOnVertex}}
+\label{subsec:var_sec_mesh_edgesOnVertex}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & $unitless$ \\
+        \hline 
+        Dimension: & vertexDegree nVertices \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Input Restart Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% edgesOnVertex \\
+		 \hline 
+    \caption{edgesOnVertex: List of edges that share a vertex as an endpoint.}
+\end{longtable}
+\end{center}
+\subsection[cellsOnVertex]{\hyperref[sec:var_tab_mesh]{cellsOnVertex}}
+\label{subsec:var_sec_mesh_cellsOnVertex}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & $unitless$ \\
+        \hline 
+        Dimension: & vertexDegree nVertices \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Input Restart Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% cellsOnVertex \\
+		 \hline 
+    \caption{cellsOnVertex: List of cells that share a vertex.}
+\end{longtable}
+\end{center}
+\subsection[kiteAreasOnVertex]{\hyperref[sec:var_tab_mesh]{kiteAreasOnVertex}}
+\label{subsec:var_sec_mesh_kiteAreasOnVertex}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $m^2$ \\
+        \hline 
+        Dimension: & vertexDegree nVertices \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Input Restart Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% kiteAreasOnVertex \\
+		 \hline 
+    \caption{kiteAreasOnVertex: Area of the portions of each dual cell that are part of each cellsOnVertex.}
+\end{longtable}
+\end{center}
+\subsection[coeffs\_reconstruct]{\hyperref[sec:var_tab_mesh]{coeffs\_reconstruct}}
+\label{subsec:var_sec_mesh_coeffs_reconstruct}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $unitless$ \\
+        \hline 
+        Dimension: & R3 maxEdges nCells \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & None \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% coeffs\_reconstruct \\
+		 \hline 
+    \caption{coeffs\_reconstruct: Coefficients to reconstruct velocity vectors at cells centers.}
+\end{longtable}
+\end{center}
+\subsection[edgeSignOnCell]{\hyperref[sec:var_tab_mesh]{edgeSignOnCell}}
+\label{subsec:var_sec_mesh_edgeSignOnCell}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & $unitless$ \\
+        \hline 
+        Dimension: & maxEdges nCells \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & None \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% edgeSignOnCell \\
+		 \hline 
+    \caption{edgeSignOnCell: Sign of edge contributions to a cell for each edge on cell. Used for bit-reproducible loops. Represents directionality of vector connecting cells.}
+\end{longtable}
+\end{center}
+\subsection[edgeSignOnVertex]{\hyperref[sec:var_tab_mesh]{edgeSignOnVertex}}
+\label{subsec:var_sec_mesh_edgeSignOnVertex}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & $unitless$ \\
+        \hline 
+        Dimension: & maxEdges nVertices \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & None \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% edgeSignOnVertex \\
+		 \hline 
+    \caption{edgeSignOnVertex: Sign of edge contributions to a vertex for each edge on vertex. Used for bit-reproducible loops. Represents directionality of vector connecting vertices.}
+\end{longtable}
+\end{center}
+\subsection[layerThicknessFractions]{\hyperref[sec:var_tab_mesh]{layerThicknessFractions}}
+\label{subsec:var_sec_mesh_layerThicknessFractions}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $none$ \\
+        \hline 
+        Dimension: & nVertLevels \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Input Restart  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% layerThicknessFractions \\
+		 \hline 
+    \caption{layerThicknessFractions: Fractional thickness of each sigma layer}
+\end{longtable}
+\end{center}
+\subsection[layerCenterSigma]{\hyperref[sec:var_tab_mesh]{layerCenterSigma}}
+\label{subsec:var_sec_mesh_layerCenterSigma}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $none$ \\
+        \hline 
+        Dimension: & nVertLevels \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: &  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% layerCenterSigma \\
+		 \hline 
+    \caption{layerCenterSigma: Sigma (fractional) level at center of each layer}
+\end{longtable}
+\end{center}
+\subsection[layerInterfaceSigma]{\hyperref[sec:var_tab_mesh]{layerInterfaceSigma}}
+\label{subsec:var_sec_mesh_layerInterfaceSigma}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $none$ \\
+        \hline 
+        Dimension: & nVertLevelsP1 \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: &  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% layerInterfaceSigma \\
+		 \hline 
+    \caption{layerInterfaceSigma: Sigma (fractional) level at interface between each layer (including top and bottom)}
+\end{longtable}
+\end{center}
+\subsection[bedTopography]{\hyperref[sec:var_tab_mesh]{bedTopography}}
+\label{subsec:var_sec_mesh_bedTopography}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $m$ $above$ $datum$ \\
+        \hline 
+        Dimension: & nCells \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Input Restart  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% bedTopography \\
+		 \hline 
+    \caption{bedTopography: Elevation of ice sheet bed.  Once isostasy is added to the model, this should become a state variable.}
+\end{longtable}
+\end{center}
+\subsection[sfcMassBal]{\hyperref[sec:var_tab_mesh]{sfcMassBal}}
+\label{subsec:var_sec_mesh_sfcMassBal}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $kg$ $m^2$ $s^{-1}$ \\
+        \hline 
+        Dimension: & nCells \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Input Restart  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% sfcMassBal \\
+		 \hline 
+    \caption{sfcMassBal: Surface mass balance}
+\end{longtable}
+\end{center}

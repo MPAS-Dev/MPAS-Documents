@@ -1,0 +1,559 @@
+\chapter[Namelist options]{\hyperref[chap:namelist_tables]{Namelist options}}
+\label{chap:namelist_sections}
+Embedded links point to information in chapter \ref{chap:namelist_tables}
+\section[li\_model]{\hyperref[sec:nm_tab_li_model]{li\_model}}
+\label{sec:nm_sec_li_model}
+\subsection[config\_velocity\_solver]{\hyperref[sec:nm_tab_li_model]{config\_velocity\_solver}}
+\label{subsec:nm_sec_config_velocity_solver}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & sia \\
+    \hline
+    Possible Values: & 'sia' \\
+    \hline
+    \caption{config\_velocity\_solver: Selection of the method for solving ice velocity.}
+\end{longtable}
+\end{center}
+\subsection[config\_thickness\_advection]{\hyperref[sec:nm_tab_li_model]{config\_thickness\_advection}}
+\label{subsec:nm_sec_config_thickness_advection}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & fo \\
+    \hline
+    Possible Values: & 'fo' \\
+    \hline
+    \caption{config\_thickness\_advection: Selection of the method for advecting thickness.}
+\end{longtable}
+\end{center}
+\subsection[config\_tracer\_advection]{\hyperref[sec:nm_tab_li_model]{config\_tracer\_advection}}
+\label{subsec:nm_sec_config_tracer_advection}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & none \\
+    \hline
+    Possible Values: & 'none' \\
+    \hline
+    \caption{config\_tracer\_advection: Selection of the method for advecting tracers.}
+\end{longtable}
+\end{center}
+\subsection[config\_ice\_density]{\hyperref[sec:nm_tab_li_model]{config\_ice\_density}}
+\label{subsec:nm_sec_config_ice_density}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & $kg$ $m^{-3}$ \\
+    \hline
+    Default Value: & 900.0 \\
+    \hline
+    Possible Values: & Any positive real value \\
+    \hline
+    \caption{config\_ice\_density: ice density to use}
+\end{longtable}
+\end{center}
+\subsection[config\_ocean\_density]{\hyperref[sec:nm_tab_li_model]{config\_ocean\_density}}
+\label{subsec:nm_sec_config_ocean_density}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & $kg$ $m^{-3}$ \\
+    \hline
+    Default Value: & 1028.0 \\
+    \hline
+    Possible Values: & Any positive real value \\
+    \hline
+    \caption{config\_ocean\_density: ocean density to use for calculating floatation}
+\end{longtable}
+\end{center}
+\subsection[config\_sea\_level]{\hyperref[sec:nm_tab_li_model]{config\_sea\_level}}
+\label{subsec:nm_sec_config_sea_level}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & $m$ $above$ $datum$ \\
+    \hline
+    Default Value: & 0.0 \\
+    \hline
+    Possible Values: & Any real value \\
+    \hline
+    \caption{config\_sea\_level: sea level to use for calculating floatation}
+\end{longtable}
+\end{center}
+\subsection[config\_dynamic\_thickness]{\hyperref[sec:nm_tab_li_model]{config\_dynamic\_thickness}}
+\label{subsec:nm_sec_config_dynamic_thickness}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & $m$ $of$ $ice$ \\
+    \hline
+    Default Value: & 0.0 \\
+    \hline
+    Possible Values: & Any positive real value \\
+    \hline
+    \caption{config\_dynamic\_thickness: Defines the ice thickness below which dynamics are not calculated.}
+\end{longtable}
+\end{center}
+\subsection[config\_forcing\_frequency]{\hyperref[sec:nm_tab_li_model]{config\_forcing\_frequency}}
+\label{subsec:nm_sec_config_forcing_frequency}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & $?$ \\
+    \hline
+    Default Value: & 0.0 \\
+    \hline
+    Possible Values: & Any positive real value \\
+    \hline
+    \caption{config\_forcing\_frequency: not implemented}
+\end{longtable}
+\end{center}
+\subsection[config\_allow\_additional\_advance]{\hyperref[sec:nm_tab_li_model]{config\_allow\_additional\_advance}}
+\label{subsec:nm_sec_config_allow_additional_advance}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & $none$ \\
+    \hline
+    Default Value: & .true. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_allow\_additional\_advance: Determines whether ice can advance beyond its initial extent}
+\end{longtable}
+\end{center}
+\section[time\_integration]{\hyperref[sec:nm_tab_time_integration]{time\_integration}}
+\label{sec:nm_sec_time_integration}
+\subsection[config\_dt\_years]{\hyperref[sec:nm_tab_time_integration]{config\_dt\_years}}
+\label{subsec:nm_sec_config_dt_years}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & $yr$ \\
+    \hline
+    Default Value: & 0.0 \\
+    \hline
+    Possible Values: & Any positive real value, but limited by CFL condition. \\
+    \hline
+    \caption{config\_dt\_years: Length of model time-step in years.  Will be used instead of config\_dt\_seconds if greater than zero.}
+\end{longtable}
+\end{center}
+\subsection[config\_dt\_seconds]{\hyperref[sec:nm_tab_time_integration]{config\_dt\_seconds}}
+\label{subsec:nm_sec_config_dt_seconds}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & $s$ \\
+    \hline
+    Default Value: & 31536000.0 \\
+    \hline
+    Possible Values: & Any positive real value, but limited by CFL condition. \\
+    \hline
+    \caption{config\_dt\_seconds: Length of model time-step in seconds.  This value will only be used if config\_dt\_years is less than or equal to zero (or is not supplied).}
+\end{longtable}
+\end{center}
+\subsection[config\_time\_integration]{\hyperref[sec:nm_tab_time_integration]{config\_time\_integration}}
+\label{subsec:nm_sec_config_time_integration}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & forward\_euler \\
+    \hline
+    Possible Values: & 'forward\_euler' \\
+    \hline
+    \caption{config\_time\_integration: Time integration method.}
+\end{longtable}
+\end{center}
+\section[time\_management]{\hyperref[sec:nm_tab_time_management]{time\_management}}
+\label{sec:nm_sec_time_management}
+\subsection[config\_do\_restart]{\hyperref[sec:nm_tab_time_management]{config\_do\_restart}}
+\label{subsec:nm_sec_config_do_restart}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_do\_restart: Determines if the initial conditions should be read from a restart file, or an input file.  To perform a restart, simply set this to true in the namelist.input file and modify the start time to be the time you want restart from.  A restart will read the grid information from the input field, and the restart state from the restart file.  It will perform a run normally, i.e. do all the same init.}
+\end{longtable}
+\end{center}
+\subsection[config\_start\_time]{\hyperref[sec:nm_tab_time_management]{config\_start\_time}}
+\label{subsec:nm_sec_config_start_time}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & 0000-01-01\_00:00:00 \\
+    \hline
+    Possible Values: & 'YYYY-MM-DD\_HH:MM:SS' \\
+    \hline
+    \caption{config\_start\_time: Timestamp describing the initial time of the simulation.}
+\end{longtable}
+\end{center}
+\subsection[config\_stop\_time]{\hyperref[sec:nm_tab_time_management]{config\_stop\_time}}
+\label{subsec:nm_sec_config_stop_time}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & none \\
+    \hline
+    Possible Values: & 'YYYY-MM-DD\_HH:MM:SS' or 'none' \\
+    \hline
+    \caption{config\_stop\_time: Timestamp descriping the final time of the simulation. If it is set to 'none' the final time is determined from config\_start\_time and config\_run\_duration.}
+\end{longtable}
+\end{center}
+\subsection[config\_run\_duration]{\hyperref[sec:nm_tab_time_management]{config\_run\_duration}}
+\label{subsec:nm_sec_config_run_duration}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & 0000-00-00\_00:00:00 \\
+    \hline
+    Possible Values: & 'DDDD\_HH:MM:SS' or 'none' \\
+    \hline
+    \caption{config\_run\_duration: Timestamp describing the length of the simulation. If it is set to 'none' the duration is determined from config\_start\_time and config\_stop\_time. config\_run\_duration overrides inconsistent values of config\_stop\_time.  The default of 0 duration performs a diagnostic solve only.}
+\end{longtable}
+\end{center}
+\subsection[config\_calendar\_type]{\hyperref[sec:nm_tab_time_management]{config\_calendar\_type}}
+\label{subsec:nm_sec_config_calendar_type}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & 360gregorian\_noleap \\
+    \hline
+    Possible Values: & 'gregorian', 'gregorian\_noleap', or '360day' \\
+    \hline
+    \caption{config\_calendar\_type: Selection of the type of calendar that should be used in the simulation.}
+\end{longtable}
+\end{center}
+\section[io]{\hyperref[sec:nm_tab_io]{io}}
+\label{sec:nm_sec_io}
+\subsection[config\_input\_name]{\hyperref[sec:nm_tab_io]{config\_input\_name}}
+\label{subsec:nm_sec_config_input_name}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & landice\_grid.nc \\
+    \hline
+    Possible Values: & path/to/grid.nc \\
+    \hline
+    \caption{config\_input\_name: The path to the input file for the simulation.}
+\end{longtable}
+\end{center}
+\subsection[config\_output\_name]{\hyperref[sec:nm_tab_io]{config\_output\_name}}
+\label{subsec:nm_sec_config_output_name}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & output.nc \\
+    \hline
+    Possible Values: & path/to/output.nc \\
+    \hline
+    \caption{config\_output\_name: The template path and name to the output file from the simulation. A time stamp is prepended to the extension of the file (.nc).}
+\end{longtable}
+\end{center}
+\subsection[config\_restart\_name]{\hyperref[sec:nm_tab_io]{config\_restart\_name}}
+\label{subsec:nm_sec_config_restart_name}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & restart.nc \\
+    \hline
+    Possible Values: & path/to/restart.nc \\
+    \hline
+    \caption{config\_restart\_name: The template path and name to the restart file for the simulation. A time stamp is prepended to the extension of the file (.nc) both for input and output.}
+\end{longtable}
+\end{center}
+\subsection[config\_restart\_interval]{\hyperref[sec:nm_tab_io]{config\_restart\_interval}}
+\label{subsec:nm_sec_config_restart_interval}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & 3650\_00:00:00 \\
+    \hline
+    Possible Values: & 'DDDD\_HH:MM:SS' \\
+    \hline
+    \caption{config\_restart\_interval: Timestamp determining how often a restart file should be written.  Currently years and months are not supported, so you have to specify the restart interval in units of days! **  We could eventually propose a change to framework to fix this in subroutine mpas\_set\_timeInterval in mpas\_timekeeping module.}
+\end{longtable}
+\end{center}
+\subsection[config\_output\_interval]{\hyperref[sec:nm_tab_io]{config\_output\_interval}}
+\label{subsec:nm_sec_config_output_interval}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & 0001\_00:00:00 \\
+    \hline
+    Possible Values: & 'DDDD\_HH:MM:SS' \\
+    \hline
+    \caption{config\_output\_interval: Timestamp determining how often an output file should be written.}
+\end{longtable}
+\end{center}
+\subsection[config\_stats\_interval]{\hyperref[sec:nm_tab_io]{config\_stats\_interval}}
+\label{subsec:nm_sec_config_stats_interval}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & 0000\_01:00:00 \\
+    \hline
+    Possible Values: & 'DDDD\_HH:MM:SS' \\
+    \hline
+    \caption{config\_stats\_interval: Timestamp determining how often a global statistics files should be written.}
+\end{longtable}
+\end{center}
+\subsection[config\_write\_stats\_on\_startup]{\hyperref[sec:nm_tab_io]{config\_write\_stats\_on\_startup}}
+\label{subsec:nm_sec_config_write_stats_on_startup}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & .true. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_write\_stats\_on\_startup: Logical flag determining if statistics files should be written prior to the first time step.}
+\end{longtable}
+\end{center}
+\subsection[config\_write\_output\_on\_startup]{\hyperref[sec:nm_tab_io]{config\_write\_output\_on\_startup}}
+\label{subsec:nm_sec_config_write_output_on_startup}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & .true. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_write\_output\_on\_startup: Logical flag determining if an output file should be written prior to the first time step.}
+\end{longtable}
+\end{center}
+\subsection[config\_frames\_per\_outfile]{\hyperref[sec:nm_tab_io]{config\_frames\_per\_outfile}}
+\label{subsec:nm_sec_config_frames_per_outfile}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & integer \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & 1000 \\
+    \hline
+    Possible Values: & Any positive integer value greater than 0 \\
+    \hline
+    \caption{config\_frames\_per\_outfile: Integer specifying how many time frames should be included in an output file. Once the maximum is reached, a new output file is created.}
+\end{longtable}
+\end{center}
+\subsection[config\_pio\_num\_iotasks]{\hyperref[sec:nm_tab_io]{config\_pio\_num\_iotasks}}
+\label{subsec:nm_sec_config_pio_num_iotasks}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & integer \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & 0 \\
+    \hline
+    Possible Values: & Any positive integer value greater than or equal to 0. \\
+    \hline
+    \caption{config\_pio\_num\_iotasks: Integer specifying how many IO tasks should be used within the PIO library. A value of 0 causes all MPI tasks to also be IO tasks. IO tasks are required to write contiguous blocks of data to a file.}
+\end{longtable}
+\end{center}
+\subsection[config\_pio\_stride]{\hyperref[sec:nm_tab_io]{config\_pio\_stride}}
+\label{subsec:nm_sec_config_pio_stride}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & integer \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & 1 \\
+    \hline
+    Possible Values: & Any positive integer value greater than 0. \\
+    \hline
+    \caption{config\_pio\_stride: Integer specifying the stride of each IO task.}
+\end{longtable}
+\end{center}
+\section[decomposition]{\hyperref[sec:nm_tab_decomposition]{decomposition}}
+\label{sec:nm_sec_decomposition}
+\subsection[config\_num\_halos]{\hyperref[sec:nm_tab_decomposition]{config\_num\_halos}}
+\label{subsec:nm_sec_config_num_halos}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & integer \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & 3 \\
+    \hline
+    Possible Values: & Any positive interger value. \\
+    \hline
+    \caption{config\_num\_halos: Determines the number of halo cells extending from a blocks owned cells (Called the 0-Halo). The default of 3 is the minimum that can be used with monotonic advection.}
+\end{longtable}
+\end{center}
+\subsection[config\_block\_decomp\_file\_prefix]{\hyperref[sec:nm_tab_decomposition]{config\_block\_decomp\_file\_prefix}}
+\label{subsec:nm_sec_config_block_decomp_file_prefix}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & graph.info.part. \\
+    \hline
+    Possible Values: & Any path/prefix to a block decomposition file. \\
+    \hline
+    \caption{config\_block\_decomp\_file\_prefix: Defines the prefix for the block decomposition file. Can include a path. The number of blocks is appended to the end of the prefix at run-time.}
+\end{longtable}
+\end{center}
+\subsection[config\_number\_of\_blocks]{\hyperref[sec:nm_tab_decomposition]{config\_number\_of\_blocks}}
+\label{subsec:nm_sec_config_number_of_blocks}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & integer \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & 0 \\
+    \hline
+    Possible Values: & Any integer $>=$ 0. \\
+    \hline
+    \caption{config\_number\_of\_blocks: Determines the number of blocks a simulation should be run with. If it is set to 0, the number of blocks is the same as the number of MPI tasks at run-time.}
+\end{longtable}
+\end{center}
+\subsection[config\_explicit\_proc\_decomp]{\hyperref[sec:nm_tab_decomposition]{config\_explicit\_proc\_decomp}}
+\label{subsec:nm_sec_config_explicit_proc_decomp}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_explicit\_proc\_decomp: Determines if an explicit processor decomposition should be used. This is only useful if multiple blocks per processor are used.}
+\end{longtable}
+\end{center}
+\subsection[config\_proc\_decomp\_file\_prefix]{\hyperref[sec:nm_tab_decomposition]{config\_proc\_decomp\_file\_prefix}}
+\label{subsec:nm_sec_config_proc_decomp_file_prefix}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & graph.info.part. \\
+    \hline
+    Possible Values: & Any path/prefix to a processor decomposition file. \\
+    \hline
+    \caption{config\_proc\_decomp\_file\_prefix: Defines the prefix for the processor decomposition file. This file is only read if config\_explicit\_proc\_decomp is .true. The number of processors is appended to the end of the prefix at run-time.}
+\end{longtable}
+\end{center}
+\section[debug]{\hyperref[sec:nm_tab_debug]{debug}}
+\label{sec:nm_sec_debug}
+\subsection[config\_print\_thickness\_advection\_info]{\hyperref[sec:nm_tab_debug]{config\_print\_thickness\_advection\_info}}
+\label{subsec:nm_sec_config_print_thickness_advection_info}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_print\_thickness\_advection\_info: Prints additional information about thickness advection.}
+\end{longtable}
+\end{center}
