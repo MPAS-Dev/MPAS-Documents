@@ -38,12 +38,14 @@
 	\put(0,0){%
 		\parbox[b][\paperheight]{\paperwidth}{%
 			\centering
-			%\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{ocean/figures/MPAS_LOGO_Ocean.png}%
+			\includegraphics[width=9.5cm,keepaspectratio]{landice/figures/dome.png}%
 			\vfill
-			%\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{ocean/figures/ke_x1_15km.pdf}%
+			\includegraphics[width=7cm,keepaspectratio]{landice/figures/greenland.png}%
 }}}
 
 \newcommand{\core}{landice}
+
+\newcommand{\vect}[1]{\mathbf{#1}}
 
 \begin{document}
 \AddToShipoutPicture*{\BackgroundPic}
@@ -79,16 +81,16 @@
 \input{landice/variable_table_documentation.tex}
 
 \input{landice/visualization.tex}
-%\input{landice/test_case_descriptions.tex}
-%\input{landice/global_statistics.tex}
-%\input{landice/cesm_coupling.tex}
-%\input{landice/troubleshooting.tex}
-%\input{landice/knownissues.tex}
+\input{landice/test_case_descriptions.tex}
+\input{landice/global_statistics.tex}
+\input{landice/climatemodel_coupling.tex}
+\input{landice/troubleshooting.tex}
+\input{landice/knownissues.tex}
 
 \part{Bibliography}
 \bibliographystyle{shared/ametsoc}
-\bibliography{shared/mpas_shared}
-%\bibliography{shared/mpas_shared,ocean/mpas_ocean}
+%%%\bibliography{shared/mpas_shared}
+\bibliography{shared/mpas_shared,landice/mpas_landice}
 
 \part{Appendices}
 \appendix

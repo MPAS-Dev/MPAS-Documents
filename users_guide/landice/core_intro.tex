@@ -1,101 +1,46 @@
 \chapter{Governing Equations}
 \label{chap:landice-intro}
 
-Some Stuff
-\nocite{Ringler_ea08od}
-%The governing equations for MPAS-Ocean are\\ \\
-%{\it momentum equation:}
-%\begin{equation}
-%\label{ocean:momentum}
-%\frac{\partial {\bf u}}{\partial t} 
-%+ \eta {\bf k} \times {\bf u}
-%+ w\frac{\partial {\bf u}}{\partial z}
-%  = - \frac{1}{\rho_0}\nabla p - \frac{\rho g}{\rho_0}\nabla z^{mid}
-% - \nabla K
-%+ {\bf D}^u_h + {\bf D}^u_v + {\cal F}^u
-%\end{equation}
-%{\it thickness equation:}
-%\begin{equation}
-%\label{ocean:thickness}
-%\frac{\partial h}{\partial t}
-%+ \nabla\cdot\left(h \overline{ {\bf u} }^z\right)
-%+ \left.  w \right|_{z=s^{top}} 
-%- \left.  w \right|_{z=s^{bot}} 
-%= 0
-%\end{equation}
-%{\it tracer equation:}
-%\begin{equation}
-%\label{ocean:tracer}
-%\frac{\partial}{\partial t} h \overline{\varphi}^z
-%+ \nabla\cdot\left(h \overline{\varphi {\bf u} }^z\right)
-%+ \left. \varphi w \right|_{z=s^{top}} 
-%- \left. \varphi w \right|_{z=s^{bot}} 
-%=  D^\varphi_h +  D^\varphi_v
-%+ {\cal F}^\varphi
-%\end{equation}
-%{\it hydrostatic condition:}
-%\begin{equation}
-%\label{ocean:pressure}
-%p(x,y,z) = p^{s}(x,y) + \int_{z}^{z^s} \rho g dz'
-%\end{equation}
-%{\it equation of state:}
-%\begin{equation}
-%\label{ocean:eos}
-%\rho = f_{eos}(\Theta,S,p)
-%\end{equation}
 
-%Equations \ref{ocean:momentum} through \ref{ocean:eos} are a normal expression of the primitive equations; i.e. the incompressible Boussinesq equations in hydrostatic balance.  Variable definitions are in Tables \ref{oceanTable:variables} and \ref{oceanTable:variables_Greek}.  The momentum advection and Coriolis terms in (\ref{ocean:momentum}) are presented in vorticity-kinetic energy form \citep[eqn 5]{Ringler_ea10jcp}.  The thickness and tracer equations describe a single layer in the vertical, where the operator $\overline{\left(\cdot\right)}^z$ is a vertical average over that layer (see derivation in Appedix A.2 of \citet{Ringler_ea13om}).  Otherwise, \ref{ocean:momentum}--\ref{ocean:eos} are the model equations in continuous form.  Details of the conversion to fully discretized equations are given in the appendices of \citet{Ringler_ea13om}.  
 
-%\begin{table}[ht] 
-%\caption{Latin variables used in prognostic equation set.  Column 3 shows the native horizontal grid location.  All variables are located at the center of the layer in the vertical unless noted.} 
-%\vspace{0.5cm} \centering 
-%\begin{tabular}{c c c c } 
-%\hline\hline symbol &  name & grid &  notes  \\
-%\hline 
-%${\bf D}^u_h$, ${\bf D}^u_v$  & mom. diffusion terms & edge & $h$ horizonal, $v$ vertical\\ 
-%$ D^\varphi_h$, $ D^\varphi_v$ & tracer diff. terms & cell & \\ 
-%$f$ & Coriolis parameter & vertex \\
-%$f_{eos}$ & equation of state & -  \\
-%$ {\cal F}^u$ & momentum forcing & edge & \\ 
-%$ {\cal F}^\varphi$ & tracer forcing & cell & \\ 
-%$g$ & grav. acceleration & constant  \\
-%$h$ & layer thickness & cell &\\
-%${\bf k}$ & vertical unit vector &  \\
-%$K$ &  kinetic energy & edge  & $K = \left| {\bf u} \right|^2 / 2$ \\
-%$p$ & pressure & cell \\
-%$p^s$ & surface pressure & cell \\ 
-%$q$ & potential vorticity & vertex & $q=\eta/h$ \\
-%$s^{bot}$ & z-location of bottom of layer & cell \\
-%$s^{top}$ & z-location of top of layer & cell \\
-%$S$ & salinity & cell &  a tracer $\varphi$  \\
-%$t$ & time & -  \\
-%$u$ & horizontal velocity & edge  & normal component to edge\\
-%${\bf u}$ & horizontal velocity   & - \\
-%${\bf v}$ & 3D velocity   & - \\
-%$w$ & vertical transport & cell  & top of layer in vertical \\
-%$z$ & vertical coordinate & - & positive upward \\
-%$z^{mid}$ & z-location of middle of layer & cell \\
-%$z^{s}$ & z-location of sea surface  & cell \\
-%\hline 
-%\end{tabular} \label{oceanTable:variables} 
-%\end{table}
+Advection is performed on a C-grid, with scalar quantities (thickness, temperature, age, etc.) on the Voronoi cell centers and velocities and fluxes centered at Voronoi cell edges.
 
-%\begin{table}[ht] 
-%\caption{Greek variables used in prognostic equation set.  Column 3 shows the native horizontal grid location.  All variables are located at the center of the layer in the vertical.} 
-%\vspace{0.5cm} \centering 
-%\begin{tabular}{c c c c} 
-%\hline\hline symbol &  name & grid & notes  \\
-%\hline 
-%$\delta$ & horizontal divergence & cell  & $\delta=\nabla\cdot{\bf u}$  \\
-%$\zeta$ & sea surface height & cell   \\
-%$\omega$ & relative vorticity & vertex & $\omega={\bf k} \cdot \left( \nabla \times {\bf u} \right)$\\
-%$\eta$ & absolute vorticity & vertex  & $\eta=\omega+f$ \\
-%$\Theta$ & potential temperature & cell  & a tracer $\varphi$ \\
-%$\kappa_h$, $\kappa_h$ & diffusion & cell \\ 
-%$\nu_h$, $\nu_v$ & viscosity & edge \\
-%$\rho$ & density & cell  \\
-%$\rho_0$ & reference density & constant & \\
-%$\varphi$ & generic tracer & cell & e.g. $\Theta$, $S$ \\
-%\hline 
-%\end{tabular} \label{oceanTable:variables_Greek} 
-%\end{table}
+\section{Momentum Balance}
+
+Currently within MPAS-Land Ice, the momentum balance for ice is approximated with the Shallow Ice Approximation (SIA) \citep{Hutter1983}.   which is solved explicitly.  In terms of balancing the gravitational body force, the SIA neglects all but the 0th-order, vertical shear-stress gradients.  The preferred numerical approach for implementing the SIA in ice sheet models is not to solve for the velocity directly but to instead formulate a parabolic PDE describing the thickness evolution, with velocities implicit in the formulation.  However, for higher-order treatments of the momentum balance, it is necessary to solve the velocity and thickness evolution steps separately. Therefore, to allow for the eventual incorporation of higher-order velocity solvers in MPAS Land Ice, the current design explicitly calculates velocities from the SIA.
+
+Within a column, at any point in the model domain in map view, the depth-dependent SIA velocity can be solved for as:
+
+\begin{equation}
+    \label{sia}
+	\vect{u}(z) = -\frac{1}{2} A (\rho g )^3 (\nabla s)^3 \left[H^4 - (h-z)^4 \right]
+\end{equation}
+where $\vect{u}(z)$ is the horizontal velocity vector, $A$ is the flow rate factor (primarily a function of ice temperature), $\rho$ is the density of ice, $g$ is acceleration due to gravity, $s$ is the ice surface elevation, $H$ is ice thickness, and $z$ is the vertical coordinate. Velocities are (nonlinearly) proportional to both the ice thickness and the ice surface slope.
+
+Velocities and fluxes are calculated on the midpoint of Voronoi cell edges.  Surface slope is calculated on cell edges based on surface elevation at adjacent cell centers.  Ice thickness on edges is calculated as the average of the adjacent cell center values (2nd-order approximation).
+
+
+\section{Time Integration}
+
+Currently, MPAS Land Ice only supports Forward Euler time integration.
+
+
+\section{Advection}
+
+Currently, MPAS Land Ice only supports advection of thickness, and the only advection scheme is First-Order Upwinding.  In 1D, first-order upwinding of ice thickness is described by:
+
+\begin{equation}
+    \label{fouw}
+ \frac{H_i^{n+1} - H_i^n}{\Delta t} + u \frac{H_i^n - H_{i-1}^n}{\Delta x} = 0 \quad \text{for} \quad u > 0
+\end{equation}
+\begin{equation}
+ \frac{H_i^{n+1} - H_i^n}{\Delta t} + u \frac{H_{i+1}^n - H_i^n}{\Delta x} = 0 \quad \text{for} \quad u < 0
+\end{equation}
+
+where ${\Delta x}$ represents the horizontal grid spacing along flow, subscripts designate the spatial dimension, and superscripts designate the time dimension.
+
+(See, e.g. \url{http://en.wikipedia.org/wiki/Upwind\_scheme})
+
+To allow the eventual inclusion of tracer advection, thickness is advected level-by-level, rather than the cheaper operation of advecting the total column thickness.
+
+
