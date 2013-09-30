@@ -7,7 +7,7 @@ Advection is performed on a C-grid, with scalar quantities (thickness, temperatu
 
 \section{Momentum Balance}
 
-Currently within MPAS-Land Ice, the momentum balance for ice is approximated with the Shallow Ice Approximation (SIA) \citep{Hutter1983}.   which is solved explicitly.  In terms of balancing the gravitational body force, the SIA neglects all but the 0th-order, vertical shear-stress gradients.  The preferred numerical approach for implementing the SIA in ice sheet models is not to solve for the velocity directly but to instead formulate a parabolic PDE describing the thickness evolution, with velocities implicit in the formulation.  However, for higher-order treatments of the momentum balance, it is necessary to solve the velocity and thickness evolution steps separately. Therefore, to allow for the eventual incorporation of higher-order velocity solvers in MPAS Land Ice, the current design explicitly calculates velocities from the SIA.
+Currently within MPAS-Land Ice, the momentum balance for ice is approximated with the Shallow Ice Approximation (SIA) \citep{Hutter1983}, which is solved explicitly.  In terms of balancing the gravitational body force, the SIA neglects all but the 0th-order, vertical shear-stress gradients.  The preferred numerical approach for implementing the SIA in ice sheet models is not to solve for the velocity directly but to instead formulate a parabolic PDE describing the thickness evolution, with velocities implicit in the formulation.  However, for higher-order treatments of the momentum balance, it is necessary to solve the velocity and thickness evolution steps separately. Therefore, to allow for the eventual incorporation of higher-order velocity solvers in MPAS Land Ice, the current design explicitly calculates velocities from the SIA.
 
 Within a column, at any point in the model domain in map view, the depth-dependent SIA velocity can be solved for as:
 
@@ -27,7 +27,8 @@ Currently, MPAS Land Ice only supports Forward Euler time integration.
 
 \section{Advection}
 
-Currently, MPAS Land Ice only supports advection of thickness, and the only advection scheme is First-Order Upwinding.  In 1D, first-order upwinding of ice thickness is described by:
+Currently, MPAS Land Ice only supports advection of thickness and only using First-Order Upwinding. 
+In 1D, first-order upwinding of ice thickness using a Forward Euler time step is described by:
 
 \begin{equation}
     \label{fouw}
