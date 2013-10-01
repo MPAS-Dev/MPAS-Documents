@@ -3,7 +3,7 @@
 ======================================
 
 Author:  Matt Hoffman
-Date: 19 Sept. 2013
+Date: 1 Oct. 2013
 
 This quick start walks you through setting up the model and running the dome test case.  It assumes you have access to MPAS Developer repositories and know how to checkout code from github.  See the developer guide for more details.
 
@@ -15,8 +15,8 @@ In this document, the following directory convention is used:
 ~/mpas/runs   = an unversioned directory in which to actually perform runs
 MPAS github repositories are cloned here:
 ~/mpas/MPAS   = a clone of the <remote>/MPAS repository  (eventually this should be the <remote>/MPAS-Release repository)
-~/mpas/MPAS-Tools/   = a clone of the <remote>/MPAS-Tools repository
-~/mpas/MPAS-Testing/   = a clone of the <remote>/MPAS-Testing repository
+~/mpas/MPAS-Tools   = a clone of the <remote>/MPAS-Tools repository
+~/mpas/MPAS-Testing   = a clone of the <remote>/MPAS-Testing repository
 
 
 Currently, the landice specific code is only on my forks of the various MPAS development repositories:
@@ -154,22 +154,12 @@ if running on 2 processors:
 $ ln -s ~/mpas/grids/dome/graph.info.part.2 graph.info.part.2
 $ mpirun -np 2 landice_model
 
+The run will generate:
+  output.nc - the output file
+  log.*.out - stdout log files for each processor
+  log.*.err - stderr log files for each processor
 
-
-Output:                    -------- NEED TO UPDATE!!!
- Reading namelist.input
-  
- Initial timestep 0000-01-01_00:00:00             
- Doing timestep 0000-01-01_00:01:00             
-   timer_name                                  total     calls          min            max            avg     percent  efficiency
- 0 total time                                 0.43400         1        0.43400        0.43400        0.43400
- 1  initialize                                0.03700         1        0.03700        0.03700        0.03700    0.09    0.00
- 1  time integration                          0.00000         1        0.00000        0.00000        0.00000    0.00    0.00
-
-
-Now look for output.nc
-
-The default velocity solver is a SIA solver written in MPAS.  To use a higher-order solver, you need to have MPAS compiled with LifeV support (see above).
+The default velocity solver is a SIA solver written in MPAS.  To use a higher-order solver, you need to have MPAS compiled with LifeV support (see above, not currently supported).
 
 
 ========================
@@ -179,25 +169,21 @@ Runs in MPAS are controlled by options set in the namelist.config file in the di
 
 
 ================
-Examining Output -------- NEED TO UPDATE!!!
+Examining Output 
 ================
 There are a number of options for visualizing output:
 
-1. Some simple plots of the dome test case are generated with a python script:
+* Some simple plots of the dome test case are generated with a python script:
 python visualize_dome.py
 It can take commandline arguments to visualize a different time step (default=the first) or file (default=output.nc) and to save the plots to files.  Get details with: python visualize_dome.py -h
 
-2. A series of python scripts for viewing land ice files have been created here:  \TODO
-  ~/mpas/MPAS-Tools/
-
-2. Use paraview to visualize output.nc (this will have to be a separate tutorial).
+* Use paraview to visualize output.nc (this will have to be a separate tutorial).
 However, paraview's MPAS support is currently limited to variables with dimensions that include [nCells (or nVertices), nVertLevels], i.e. 3d fields only.  Few land ice variables meet that criterion.  Hopefully this will be remedied in a future version of the paraview MPAS plugin.
 
-3. An alternative is to convert the output file to a regular grid that can be viewed (somwhat sloppily) in ncview (or similar tool).  A script that does that conversion is here:
-land_ice_projects/grid_tools/convert_mpas_grid_to_regular_grid_netcdf.py
+* A good option for casually browsing output is a tool written by Doug Jacobsen called MpasDraw.  It is located in the MPAS-Tools repository.  To compile it, simply make sure the Makefile has properly set the NETCDF and PLATFORM variables, and then run 'make'.  The README file has detailed instructions for how to use it.  It is easy to compile and use.
 
-4. By far the best option for casually browsing output is a tool written by Doug Jacobsen called MpasDraw.  It is located here: branches/tools/mpas_draw, so you will need to checkout that directory if you have not checked out the entire repository.  To compile it, simply make sure the Makefile has properly set the NETCDF and PLATFORM variables, and then run 'make'.  The README file has detailed instructions for how to use it.
+* A series of python scripts for viewing land ice files on planar grids are in development (including one that converts an MPAS output file to a regular grid for viewing in a tool like ncview).
 
-5. For more rigorous examination/analysis of the output, python or Matlab can be used.  
+* For more rigorous examination/analysis of the output, python or Matlab can be used.  
 
 
