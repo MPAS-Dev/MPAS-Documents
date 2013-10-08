@@ -25,10 +25,6 @@ Embedded links point to more detailed namelist information in the appendix.
 	\hline
 	\hyperref[subsec:nm_sec_config_dynamic_thickness]{config\_dynamic\_thickness} & Defines the ice thickness below which dynamics are not calculated. \\
 	\hline
-	\hyperref[subsec:nm_sec_config_forcing_frequency]{config\_forcing\_frequency} & not implemented \\
-	\hline
-	\hyperref[subsec:nm_sec_config_allow_additional_advance]{config\_allow\_additional\_advance} & Determines whether ice can advance beyond its initial extent \\
-	\hline
 \end{longtable}
 \end{center}
 }
@@ -42,9 +38,9 @@ Embedded links point to more detailed namelist information in the appendix.
 	{\bf Name} & {\bf Description} \\
 	\hline
 	\hline
-	\hyperref[subsec:nm_sec_config_dt_years]{config\_dt\_years} & Length of model time-step in years.  Will be used instead of config\_dt\_seconds if greater than zero. \\
+	\hyperref[subsec:nm_sec_config_dt_years]{config\_dt\_years} & Length of model time-step in years.  Will be used instead of config\_dt\_seconds if greater than zero.  Currently the model assumes there are 365.0 * 24.0 * 3600.0 seconds in a year and the calendar type is not considered for this conversion. \\
 	\hline
-	\hyperref[subsec:nm_sec_config_dt_seconds]{config\_dt\_seconds} & Length of model time-step in seconds.  This value will only be used if config\_dt\_years is less than or equal to zero (or is not supplied). \\
+	\hyperref[subsec:nm_sec_config_dt_seconds]{config\_dt\_seconds} & Length of model time-step in seconds.  This value will only be used if config\_dt\_years is less than or equal to zero. \\
 	\hline
 	\hyperref[subsec:nm_sec_config_time_integration]{config\_time\_integration} & Time integration method. \\
 	\hline
@@ -65,9 +61,9 @@ Embedded links point to more detailed namelist information in the appendix.
 	\hline
 	\hyperref[subsec:nm_sec_config_start_time]{config\_start\_time} & Timestamp describing the initial time of the simulation. \\
 	\hline
-	\hyperref[subsec:nm_sec_config_stop_time]{config\_stop\_time} & Timestamp descriping the final time of the simulation. If it is set to 'none' the final time is determined from config\_start\_time and config\_run\_duration. \\
+	\hyperref[subsec:nm_sec_config_stop_time]{config\_stop\_time} & Timestamp describing the final time of the simulation. If it is set to 'none' the final time is determined from config\_start\_time and config\_run\_duration.  If config\_run\_duration is also specified, it takes precedence over config\_stop\_time.  Set config\_stop\_time to be equal to config\_start\_time (and config\_run\_duration to 'none') to perform a diagnostic solve of velocity. \\
 	\hline
-	\hyperref[subsec:nm_sec_config_run_duration]{config\_run\_duration} & Timestamp describing the length of the simulation. If it is set to 'none' the duration is determined from config\_start\_time and config\_stop\_time. config\_run\_duration overrides inconsistent values of config\_stop\_time.  The default of 0 duration performs a diagnostic solve only. \\
+	\hyperref[subsec:nm_sec_config_run_duration]{config\_run\_duration} & Timestamp describing the length of the simulation. If it is set to 'none' the duration is determined from config\_start\_time and config\_stop\_time. config\_run\_duration overrides inconsistent values of config\_stop\_time. If a time value is specified for config\_run\_duration, it must be greater than 0. \\
 	\hline
 	\hyperref[subsec:nm_sec_config_calendar_type]{config\_calendar\_type} & Selection of the type of calendar that should be used in the simulation. \\
 	\hline

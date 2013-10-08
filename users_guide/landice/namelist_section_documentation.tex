@@ -30,7 +30,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & fo \\
     \hline
-    Possible Values: & 'fo' \\
+    Possible Values: & 'fo', 'none' \\
     \hline
     \caption{config\_thickness\_advection: Selection of the method for advecting thickness.}
 \end{longtable}
@@ -108,43 +108,11 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Units: & $m$ $of$ $ice$ \\
     \hline
-    Default Value: & 0.0 \\
+    Default Value: & 100.0 \\
     \hline
     Possible Values: & Any positive real value \\
     \hline
     \caption{config\_dynamic\_thickness: Defines the ice thickness below which dynamics are not calculated.}
-\end{longtable}
-\end{center}
-\subsection[config\_forcing\_frequency]{\hyperref[sec:nm_tab_li_model]{config\_forcing\_frequency}}
-\label{subsec:nm_sec_config_forcing_frequency}
-\begin{center}
-\begin{longtable}{| p{2.0in} | p{4.0in} |}
-    \hline
-    Type: & real \\
-    \hline
-    Units: & $?$ \\
-    \hline
-    Default Value: & 0.0 \\
-    \hline
-    Possible Values: & Any positive real value \\
-    \hline
-    \caption{config\_forcing\_frequency: not implemented}
-\end{longtable}
-\end{center}
-\subsection[config\_allow\_additional\_advance]{\hyperref[sec:nm_tab_li_model]{config\_allow\_additional\_advance}}
-\label{subsec:nm_sec_config_allow_additional_advance}
-\begin{center}
-\begin{longtable}{| p{2.0in} | p{4.0in} |}
-    \hline
-    Type: & logical \\
-    \hline
-    Units: & $none$ \\
-    \hline
-    Default Value: & .true. \\
-    \hline
-    Possible Values: & .true. or .false. \\
-    \hline
-    \caption{config\_allow\_additional\_advance: Determines whether ice can advance beyond its initial extent}
 \end{longtable}
 \end{center}
 \section[time\_integration]{\hyperref[sec:nm_tab_time_integration]{time\_integration}}
@@ -158,11 +126,11 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Units: & $yr$ \\
     \hline
-    Default Value: & 0.0 \\
+    Default Value: & 0.5 \\
     \hline
     Possible Values: & Any positive real value, but limited by CFL condition. \\
     \hline
-    \caption{config\_dt\_years: Length of model time-step in years.  Will be used instead of config\_dt\_seconds if greater than zero.}
+    \caption{config\_dt\_years: Length of model time-step in years.  Will be used instead of config\_dt\_seconds if greater than zero.  Currently the model assumes there are 365.0 * 24.0 * 3600.0 seconds in a year and the calendar type is not considered for this conversion.}
 \end{longtable}
 \end{center}
 \subsection[config\_dt\_seconds]{\hyperref[sec:nm_tab_time_integration]{config\_dt\_seconds}}
@@ -174,11 +142,11 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Units: & $s$ \\
     \hline
-    Default Value: & 31536000.0 \\
+    Default Value: & 0.0 \\
     \hline
     Possible Values: & Any positive real value, but limited by CFL condition. \\
     \hline
-    \caption{config\_dt\_seconds: Length of model time-step in seconds.  This value will only be used if config\_dt\_years is less than or equal to zero (or is not supplied).}
+    \caption{config\_dt\_seconds: Length of model time-step in seconds.  This value will only be used if config\_dt\_years is less than or equal to zero.}
 \end{longtable}
 \end{center}
 \subsection[config\_time\_integration]{\hyperref[sec:nm_tab_time_integration]{config\_time\_integration}}
@@ -240,11 +208,11 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Units: & $unitless$ \\
     \hline
-    Default Value: & none \\
+    Default Value: & 0000-01-01\_00:00:00 \\
     \hline
     Possible Values: & 'YYYY-MM-DD\_HH:MM:SS' or 'none' \\
     \hline
-    \caption{config\_stop\_time: Timestamp descriping the final time of the simulation. If it is set to 'none' the final time is determined from config\_start\_time and config\_run\_duration.}
+    \caption{config\_stop\_time: Timestamp describing the final time of the simulation. If it is set to 'none' the final time is determined from config\_start\_time and config\_run\_duration.  If config\_run\_duration is also specified, it takes precedence over config\_stop\_time.  Set config\_stop\_time to be equal to config\_start\_time (and config\_run\_duration to 'none') to perform a diagnostic solve of velocity.}
 \end{longtable}
 \end{center}
 \subsection[config\_run\_duration]{\hyperref[sec:nm_tab_time_management]{config\_run\_duration}}
@@ -256,11 +224,11 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Units: & $unitless$ \\
     \hline
-    Default Value: & 0000-00-00\_00:00:00 \\
+    Default Value: & none \\
     \hline
     Possible Values: & 'DDDD\_HH:MM:SS' or 'none' \\
     \hline
-    \caption{config\_run\_duration: Timestamp describing the length of the simulation. If it is set to 'none' the duration is determined from config\_start\_time and config\_stop\_time. config\_run\_duration overrides inconsistent values of config\_stop\_time.  The default of 0 duration performs a diagnostic solve only.}
+    \caption{config\_run\_duration: Timestamp describing the length of the simulation. If it is set to 'none' the duration is determined from config\_start\_time and config\_stop\_time. config\_run\_duration overrides inconsistent values of config\_stop\_time. If a time value is specified for config\_run\_duration, it must be greater than 0.}
 \end{longtable}
 \end{center}
 \subsection[config\_calendar\_type]{\hyperref[sec:nm_tab_time_management]{config\_calendar\_type}}
@@ -272,7 +240,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Units: & $unitless$ \\
     \hline
-    Default Value: & 360gregorian\_noleap \\
+    Default Value: & gregorian\_noleap \\
     \hline
     Possible Values: & 'gregorian', 'gregorian\_noleap', or '360day' \\
     \hline
