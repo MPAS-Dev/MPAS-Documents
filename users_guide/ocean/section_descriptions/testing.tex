@@ -1,0 +1,14 @@
+Upon start-up, a series of tests may be run to confirm normal operations.  Some tests may require specific domains in order to produce reasonable error statistics.  Available tests include the following.
+
+\begin{enumerate}
+\item {\bf Tensor test} verifies subroutines that compute the gradient of a vector and the divergence of a tensor.  Differences between computed and analytic solutions are printed to the log file.  All test functions beginning with 'sph' should be run on a spherical domain without land, and all others should be run on a plane periodic Cartesian domain.  The test has the following workflow:
+\begin{itemize}
+\item compute tangential velocity at each edge, $v_e$
+\item compute strain rate tensor at a cell center, $\sigma_i=\left[\dot\epsilon  \right]_i=\nabla {\bf u}$
+\item interpolate strain rate tensor to edge, $\left[\dot\epsilon  \right]_e$
+\item compute divergence of tensor at cell center, $\left[\nabla \cdot \sigma\right]_i$
+\item interpolate to edge, $\left[\nabla \cdot \sigma\right]_i$
+\item compute normal and tangential components, ${\bf n}_e\cdot[\nabla \cdot \sigma]_{e}$
+\item compute rms of difference between computed and analytic solution, when available for that test case.
+\end{itemize}
+\end{enumerate}
