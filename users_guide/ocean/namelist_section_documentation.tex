@@ -133,6 +133,22 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \caption{config\_restart\_name: The template path and name to the restart file for the simulation. A time stamp is prepended to the extension of the file (.nc) both for input and output.}
 \end{longtable}
 \end{center}
+\subsection[config\_restart\_timestamp\_name]{\hyperref[sec:nm_tab_io]{config\_restart\_timestamp\_name}}
+\label{subsec:nm_sec_config_restart_timestamp_name}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & restart\_timestamp \\
+    \hline
+    Possible Values: & path/to/restart\_timestamp \\
+    \hline
+    \caption{config\_restart\_timestamp\_name: The name of the file timestamps for latest restart files are written to. This file is also read when config\_start\_time is set to 'file' and config\_do\_restart is set to .true.}
+\end{longtable}
+\end{center}
 \subsection[config\_restart\_interval]{\hyperref[sec:nm_tab_io]{config\_restart\_interval}}
 \label{subsec:nm_sec_config_restart_interval}
 \begin{center}
@@ -921,6 +937,74 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \caption{config\_h\_kappa\_q: kappa-q parameter for Gent-McWilliams eddy parameterization}
 \end{longtable}
 \end{center}
+\section[hmix\_del2\_tensor]{\hyperref[sec:nm_tab_hmix_del2_tensor]{hmix\_del2\_tensor}}
+\label{sec:nm_sec_hmix_del2_tensor}
+\subsection[config\_use\_mom\_del2\_tensor]{\hyperref[sec:nm_tab_hmix_del2_tensor]{config\_use\_mom\_del2\_tensor}}
+\label{subsec:nm_sec_config_use_mom_del2_tensor}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_use\_mom\_del2\_tensor: If true, tensor-based Laplacian horizontal mixing is used on the momentum equation.  The tensor-based mixing operations are provided to show the functionality of the tensor subroutines.  Tensor-based del2 mixing is not fully vetted and not recommended for production simulations.}
+\end{longtable}
+\end{center}
+\subsection[config\_mom\_del2\_tensor]{\hyperref[sec:nm_tab_hmix_del2_tensor]{config\_mom\_del2\_tensor}}
+\label{subsec:nm_sec_config_mom_del2_tensor}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & $m^2$ $s^{-1}$ \\
+    \hline
+    Default Value: & 10.0 \\
+    \hline
+    Possible Values: & any positive real \\
+    \hline
+    \caption{config\_mom\_del2\_tensor:  Horizonal viscosity,  $\nu_h$ .}
+\end{longtable}
+\end{center}
+\section[hmix\_del4\_tensor]{\hyperref[sec:nm_tab_hmix_del4_tensor]{hmix\_del4\_tensor}}
+\label{sec:nm_sec_hmix_del4_tensor}
+\subsection[config\_use\_mom\_del4\_tensor]{\hyperref[sec:nm_tab_hmix_del4_tensor]{config\_use\_mom\_del4\_tensor}}
+\label{subsec:nm_sec_config_use_mom_del4_tensor}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_use\_mom\_del4\_tensor: If true, tensor-based biharmonic horizontal mixing is used on the momentum equation.  The tensor-based mixing operations are provided to show the functionality of the tensor subroutines.  Tensor-based del4 mixing is not fully vetted and not recommended for production simulations.}
+\end{longtable}
+\end{center}
+\subsection[config\_mom\_del4\_tensor]{\hyperref[sec:nm_tab_hmix_del4_tensor]{config\_mom\_del4\_tensor}}
+\label{subsec:nm_sec_config_mom_del4_tensor}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & $m^4$ $s^{-1}$ \\
+    \hline
+    Default Value: & 5.0e13 \\
+    \hline
+    Possible Values: & any positive real \\
+    \hline
+    \caption{config\_mom\_del4\_tensor: Coefficient for horizontal biharmonic operator on momentum.}
+\end{longtable}
+\end{center}
 \section[Rayleigh\_damping]{\hyperref[sec:nm_tab_Rayleigh_damping]{Rayleigh\_damping}}
 \label{sec:nm_sec_Rayleigh_damping}
 \subsection[config\_Rayleigh\_friction]{\hyperref[sec:nm_tab_Rayleigh_damping]{config\_Rayleigh\_friction}}
@@ -1269,22 +1353,6 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
 \end{center}
 \section[forcing]{\hyperref[sec:nm_tab_forcing]{forcing}}
 \label{sec:nm_sec_forcing}
-\subsection[config\_use\_monthly\_forcing]{\hyperref[sec:nm_tab_forcing]{config\_use\_monthly\_forcing}}
-\label{subsec:nm_sec_config_use_monthly_forcing}
-\begin{center}
-\begin{longtable}{| p{2.0in} | p{4.0in} |}
-    \hline
-    Type: & logical \\
-    \hline
-    Units: & $unitless$ \\
-    \hline
-    Default Value: & .false. \\
-    \hline
-    Possible Values: & .true. or .false. \\
-    \hline
-    \caption{config\_use\_monthly\_forcing: Controls time frequency of forcing.  If false, a constant forcing is used, provided by the input fields normalVelocityForcing, temperatureRestore, and salinityRestore.  If true, forcing is interpolated between monthly fields given by windStressMonthly, temperatureRestoreMonthly, and salinityRestoreMonthly.}
-\end{longtable}
-\end{center}
 \subsection[config\_restoreTS]{\hyperref[sec:nm_tab_forcing]{config\_restoreTS}}
 \label{subsec:nm_sec_config_restoreTS}
 \begin{center}
@@ -1331,6 +1399,54 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     Possible Values: & any positive real value, but typically between 30 and 90 days. \\
     \hline
     \caption{config\_restoreS\_timescale:  Restoring time scale for salinity,  $\tau_r$ .}
+\end{longtable}
+\end{center}
+\subsection[config\_use\_coupled\_forcing]{\hyperref[sec:nm_tab_forcing]{config\_use\_coupled\_forcing}}
+\label{subsec:nm_sec_config_use_coupled_forcing}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_use\_coupled\_forcing: Logical flag that determines if forcing from a coupler should be used.}
+\end{longtable}
+\end{center}
+\subsection[config\_flux\_attenuation\_coefficient]{\hyperref[sec:nm_tab_forcing]{config\_flux\_attenuation\_coefficient}}
+\label{subsec:nm_sec_config_flux_attenuation_coefficient}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & $m$ \\
+    \hline
+    Default Value: & 0.001 \\
+    \hline
+    Possible Values: & Any real number $\gamma>0.0$ and $\gamma \le 1.0$. \\
+    \hline
+    \caption{config\_flux\_attenuation\_coefficient:  Coefficient used to determine transmission of surface fluxes. Fluxes are defined with  $e^{z/\gamma}$  where this coefficient is  $\gamma$ .}
+\end{longtable}
+\end{center}
+\subsection[config\_frazil\_ice\_formation]{\hyperref[sec:nm_tab_forcing]{config\_frazil\_ice\_formation}}
+\label{subsec:nm_sec_config_frazil_ice_formation}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & .true. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_frazil\_ice\_formation: Logical flag that determines if the formation of frazil ice is allowed.}
 \end{longtable}
 \end{center}
 \section[advection]{\hyperref[sec:nm_tab_advection]{advection}}
@@ -1759,6 +1875,56 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     Possible Values: & .true. or .false. \\
     \hline
     \caption{config\_btr\_solve\_SSH2: If true, execute the SSH corrector step in stage 2}
+\end{longtable}
+\end{center}
+\section[testing]{\hyperref[sec:nm_tab_testing]{testing}}
+\label{sec:nm_sec_testing}
+\subsection[config\_conduct\_tests]{\hyperref[sec:nm_tab_testing]{config\_conduct\_tests}}
+\label{subsec:nm_sec_config_conduct_tests}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_conduct\_tests: If true, run testing suite.  This is the overarching control on the test suite.  Individual flags must be set to true below to conduct each test.}
+\end{longtable}
+\end{center}
+\subsection[config\_test\_tensors]{\hyperref[sec:nm_tab_testing]{config\_test\_tensors}}
+\label{subsec:nm_sec_config_test_tensors}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_test\_tensors: If true, tensor operations are tested upon start-up.}
+\end{longtable}
+\end{center}
+\subsection[config\_tensor\_test\_function]{\hyperref[sec:nm_tab_testing]{config\_tensor\_test\_function}}
+\label{subsec:nm_sec_config_tensor_test_function}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & sph\_uCosCos \\
+    \hline
+    Possible Values: & 'linear\_x', 'linear\_y', 'linear\_arb\_rot', 'power\_x', 'power\_y', 'power\_arb\_rot', 'sin\_arb\_rot', 'sph\_solid\_body', 'sph\_Williamson', 'sph\_uCosCos', 'sph\_vCosCos', 'sph\_ELonLon\_CosCos', 'sph\_ELatLat\_CosCos', 'sph\_ELonLat\_CosCos' \\
+    \hline
+    \caption{config\_tensor\_test\_function: Character string to choose tensor test fuction}
 \end{longtable}
 \end{center}
 \section[debug]{\hyperref[sec:nm_tab_debug]{debug}}

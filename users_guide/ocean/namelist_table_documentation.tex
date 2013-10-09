@@ -40,6 +40,8 @@ Embedded links point to more detailed namelist information in the appendix.
 	\hline
 	\hyperref[subsec:nm_sec_config_restart_name]{config\_restart\_name} & The template path and name to the restart file for the simulation. A time stamp is prepended to the extension of the file (.nc) both for input and output. \\
 	\hline
+	\hyperref[subsec:nm_sec_config_restart_timestamp_name]{config\_restart\_timestamp\_name} & The name of the file timestamps for latest restart files are written to. This file is also read when config\_start\_time is set to 'file' and config\_do\_restart is set to .true. \\
+	\hline
 	\hyperref[subsec:nm_sec_config_restart_interval]{config\_restart\_interval} & Timestamp determining how often a restart file should be written. \\
 	\hline
 	\hyperref[subsec:nm_sec_config_output_interval]{config\_output\_interval} & Timestamp determining how often an output file should be written. \\
@@ -269,6 +271,40 @@ Embedded links point to more detailed namelist information in the appendix.
 \end{longtable}
 \end{center}
 }
+\section[hmix\_del2\_tensor]{\hyperref[sec:nm_sec_hmix_del2_tensor]{hmix\_del2\_tensor}}
+\label{sec:nm_tab_hmix_del2_tensor}
+\input{ocean/section_descriptions/hmix_del2_tensor.tex}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+	\hline
+	{\bf Name} & {\bf Description} \\
+	\hline
+	\hline
+	\hyperref[subsec:nm_sec_config_use_mom_del2_tensor]{config\_use\_mom\_del2\_tensor} & If true, tensor-based Laplacian horizontal mixing is used on the momentum equation.  The tensor-based mixing operations are provided to show the functionality of the tensor subroutines.  Tensor-based del2 mixing is not fully vetted and not recommended for production simulations. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_mom_del2_tensor]{config\_mom\_del2\_tensor} &  Horizonal viscosity,  $\nu_h$ . \\
+	\hline
+\end{longtable}
+\end{center}
+}
+\section[hmix\_del4\_tensor]{\hyperref[sec:nm_sec_hmix_del4_tensor]{hmix\_del4\_tensor}}
+\label{sec:nm_tab_hmix_del4_tensor}
+\input{ocean/section_descriptions/hmix_del4_tensor.tex}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+	\hline
+	{\bf Name} & {\bf Description} \\
+	\hline
+	\hline
+	\hyperref[subsec:nm_sec_config_use_mom_del4_tensor]{config\_use\_mom\_del4\_tensor} & If true, tensor-based biharmonic horizontal mixing is used on the momentum equation.  The tensor-based mixing operations are provided to show the functionality of the tensor subroutines.  Tensor-based del4 mixing is not fully vetted and not recommended for production simulations. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_mom_del4_tensor]{config\_mom\_del4\_tensor} & Coefficient for horizontal biharmonic operator on momentum. \\
+	\hline
+\end{longtable}
+\end{center}
+}
 \section[Rayleigh\_damping]{\hyperref[sec:nm_sec_Rayleigh_damping]{Rayleigh\_damping}}
 \label{sec:nm_tab_Rayleigh_damping}
 \input{ocean/section_descriptions/Rayleigh_damping.tex}
@@ -386,13 +422,17 @@ Embedded links point to more detailed namelist information in the appendix.
 	{\bf Name} & {\bf Description} \\
 	\hline
 	\hline
-	\hyperref[subsec:nm_sec_config_use_monthly_forcing]{config\_use\_monthly\_forcing} & Controls time frequency of forcing.  If false, a constant forcing is used, provided by the input fields normalVelocityForcing, temperatureRestore, and salinityRestore.  If true, forcing is interpolated between monthly fields given by windStressMonthly, temperatureRestoreMonthly, and salinityRestoreMonthly. \\
-	\hline
 	\hyperref[subsec:nm_sec_config_restoreTS]{config\_restoreTS} & If true, the restoring term is activated in the tracer equation for temperature and salinity. \\
 	\hline
 	\hyperref[subsec:nm_sec_config_restoreT_timescale]{config\_restoreT\_timescale} &  Restoring time scale for temperature,  $\tau_r.$  \\
 	\hline
 	\hyperref[subsec:nm_sec_config_restoreS_timescale]{config\_restoreS\_timescale} &  Restoring time scale for salinity,  $\tau_r$ . \\
+	\hline
+	\hyperref[subsec:nm_sec_config_use_coupled_forcing]{config\_use\_coupled\_forcing} & Logical flag that determines if forcing from a coupler should be used. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_flux_attenuation_coefficient]{config\_flux\_attenuation\_coefficient} &  Coefficient used to determine transmission of surface fluxes. Fluxes are defined with  $e^{z/\gamma}$  where this coefficient is  $\gamma$ . \\
+	\hline
+	\hyperref[subsec:nm_sec_config_frazil_ice_formation]{config\_frazil\_ice\_formation} & Logical flag that determines if the formation of frazil ice is allowed. \\
 	\hline
 \end{longtable}
 \end{center}
@@ -523,6 +563,25 @@ Embedded links point to more detailed namelist information in the appendix.
 	\hyperref[subsec:nm_sec_config_btr_gam3_velWt2]{config\_btr\_gam3\_velWt2} & Weighting of velocity in the SSH corrector step in stage 2.  When zero, previous subcycle time is used; when one, new subcycle time is used. \\
 	\hline
 	\hyperref[subsec:nm_sec_config_btr_solve_SSH2]{config\_btr\_solve\_SSH2} & If true, execute the SSH corrector step in stage 2 \\
+	\hline
+\end{longtable}
+\end{center}
+}
+\section[testing]{\hyperref[sec:nm_sec_testing]{testing}}
+\label{sec:nm_tab_testing}
+\input{ocean/section_descriptions/testing.tex}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+	\hline
+	{\bf Name} & {\bf Description} \\
+	\hline
+	\hline
+	\hyperref[subsec:nm_sec_config_conduct_tests]{config\_conduct\_tests} & If true, run testing suite.  This is the overarching control on the test suite.  Individual flags must be set to true below to conduct each test. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_test_tensors]{config\_test\_tensors} & If true, tensor operations are tested upon start-up. \\
+	\hline
+	\hyperref[subsec:nm_sec_config_tensor_test_function]{config\_tensor\_test\_function} & Character string to choose tensor test fuction \\
 	\hline
 \end{longtable}
 \end{center}

@@ -1,0 +1,11 @@
+A tensor version of the ``del4'' operator is provided for the momentum closure,
+\begin{eqnarray}
+\label{ocean:h_mom_del4_tensor}
+& {\bf D}^u_h = \nabla\cdot\left( 
+   \displaystyle\frac{\nu_h}{\rho_m^{3/4}} \nabla 
+\left[
+\nabla\cdot \left(
+   \displaystyle \nabla {\bf u} \right)  \right]
+  \right).
+\end{eqnarray}
+The standard form for the del4 momentum closure is the divergence-vorticity form, described in the hmix\_del4 namelist above.  The tensor-based mixing operations are provided to show the functionality of the tensor subroutines.  Tensor-based del4 mixing is not fully vetted and not recommended for production simulations.
