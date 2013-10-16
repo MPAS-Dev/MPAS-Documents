@@ -1,0 +1,156 @@
+\documentclass[11pt]{report}
+
+\usepackage{epsf,amsmath,amsfonts}
+\usepackage{graphicx}
+
+\setlength{\textwidth}{6.5in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\textheight}{8.5in}
+\setlength{\topmargin}{0in}
+
+\begin{document}
+
+\title{
+Requirements and Design\\
+Ocean Analysis Core}
+\author{MPAS Development Team}
+
+\maketitle
+\tableofcontents
+
+%-----------------------------------------------------------------------
+
+\chapter{Summary}
+
+Now that the ocean core is well developed and tested, it is time to add analysis functionality to the MPAS-Ocean model.  Much of the analysis (diagnostics) developed to date has used a post-processing workflow with Matlab or Python.  These tools have been useful to meet short-term requirements, but they do not scale well to high resolution, and are typically created individually by each developer without coordination, review, or commits to the repository.
+
+This design document lays out a new ocean analysis functionality, where analysis modules such as global means, zonal means, MOC, Lagrangian particles, etc, may be called at run time from the ocean core or as a post-processing step using the Ocean Analysis Core.  Advantage are that all MPAS grid variables and operators are available within the analysis modules; analysis routines will fall under the same review process as other code; and once developed, analysis routines are available to all users.
+
+This document only deals with the overall design of the analysis modules and analysis core, not the details of any new diagnostics added within this new framework.  The global diagnostics, which already exist, will be used to test this new design. 
+
+%-----------------------------------------------------------------------
+
+\chapter{Requirements}
+
+\section{Requirement: Analysis routines may be applied during runtime or post-processing}
+Date last modified: 2013/10/15 \\
+Contributors: Mark Petersen \\
+
+Runtime or post-processing workflows will call the same subroutines.  Output must be identical for both processes.
+
+\section{Requirement: Post-processing must work on both output and restart files}
+Date last modified: 2013/10/15 \\
+Contributors: Mark Petersen \\
+
+This requirement is up for discussion.  Should the analysis core be required to function on restart files?  One issue is that some variables, particularly time means and time variances, are missing from restart files.  If applied to restart files, those arrays would simply fill in with zeros.
+
+\section{Requirement: Each analysis group will have its own flags, timers, and output files}
+Date last modified: 2013/10/15 \\
+Contributors: Mark Petersen \\
+
+An analysis group is a group of statistics that are computed at the same time.  Examples of analysis groups are:
+\begin{itemize}
+\item global statistics
+\item MOC
+\item zonal averages
+\end{itemize}
+For simplicity of organization, flags, timers, and output files will use this same grouping.
+
+\section{Requirement: Each analysis group may have its own output format}
+Date last modified: 2013/10/15 \\
+Contributors: Mark Petersen \\
+
+Some analysis groups, like global diagnostics, may use text files with one line per output time.  Other analysis groups may produce netcdf files or other formats.  Output from analysis modules should not be placed in the run-time output*.nc files.
+
+
+%-----------------------------------------------------------------------
+
+
+\chapter{Design and Implementation}
+
+\section{Implementation: Analysis routines may be applied during runtime or post-processing}
+Date last modified: 2013/10/15 \\
+Contributors: Mark Petersen \\
+
+The directory structure will be as follows:
+\begin{itemize}
+\item MPAS/src/
+\begin{itemize}
+\item core\_ocean
+\begin{itemize}
+\item mpas\_ocn\_mpas\_core.F, etc
+\end{itemize}
+\item core\_ocean\_analysis
+\begin{itemize}
+\item mpas\_ocn\_analysis\_mpas\_core.F
+\item mpas\_ocn\_analysis\_global\_stats.F
+\item mpas\_ocn\_analysis\_moc.F
+\item mpas\_ocn\_analysis\_zonal\_avg.F, etc
+\end{itemize}
+\end{itemize}
+\end{itemize}
+
+The analysis core may be compiled using\\
+make {\it target} CORE=ocean\_analysis
+
+\newpage
+\section{Implementation: Each analysis group will have its own timer and output files}
+Date last modified: 2013/10/15 \\
+Contributors: Mark Petersen \\
+
+The new namelists for the ocean core will be:
+\begin{verbatim}
+&analysis
+   config_write_analysis_on_startup = .true.
+   config_write_global_stats = .true.
+   config_global_stats_interval = "0001_00:00:00"
+   config_write_moc = .true.
+   config_moc_interval = "0001_00:00:00"
+   config_write_zonal_avg = .true.
+   config_zonal_avg_interval = "0001_00:00:00"
+   etc
+/
+\end{verbatim}
+The \verb|stats| flags will be removed from the io namelist.  One option for the interval flags will be 
+\begin{verbatim}
+   config_global_stats_interval = "output_interval"
+\end{verbatim}
+which sets it to the save value as \verb|config_output_interval|.
+
+The new namelists for the ocean analysis core will be:
+\begin{verbatim}
+&io
+   config_filename = "output.0000-01-01_00.00.00.nc"
+   config_filename_list = "filename_list"
+   config_first_record = 1
+   config_record_interval = 1
+   config_last_record = 1000
+   config_pio_num_iotasks = 0
+   config_pio_stride = 1
+/
+&analysis
+   config_write_global_stats = .true.
+   config_write_moc = .true.
+   config_write_zonal_avg = .true.
+   etc
+/
+\end{verbatim}
+
+If \verb|config_filename = "file"| then the analysis core proceeds through the list of filenames provided in 
+\verb|config_filename_list|.
+%-----------------------------------------------------------------------
+
+\chapter{Testing}
+
+\section{Testing: Analysis routines may be applied during runtime or post-processing}
+Date last modified: 2013/10/15 \\
+Contributors: Mark Petersen \\
+
+After completion, a global simulation will be conducted with run-time analysis tools on.  Global diagnostics output will be compared between run-time, post-processed analysis core data, and global statistics from the current develop branch.  All three should match bit-for-bit on the same number of processors.  When processor counts vary, global statistics may not match in last digits due to order of operations.
+
+
+
+%-----------------------------------------------------------------------
+
+\end{document}
