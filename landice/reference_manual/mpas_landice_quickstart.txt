@@ -88,7 +88,7 @@ Now we will work from our 'grids' directory to actually create the grid:
 $ cd ~/mpas/grids/dome/
 Get the namelist file that will create the appropriately sized grid for the dome test case
 $ cp ~/mpas/MPAS-Testing/landice/dome/namelist.input.periodic_hex ./namelist.input
-$ ln -s ~/mpas/grid_gen/periodic_hex/periodic_grid .
+$ ln -s ~/mpas/MPAS-Tools/grid_gen/periodic_hex/periodic_grid .
 
 If you'd like, modify the namelist file:
 $ vim namelist.input (or emacs namelist.input)
@@ -177,12 +177,14 @@ There are a number of options for visualizing output:
 python visualize_dome.py
 It can take commandline arguments to visualize a different time step (default=the first) or file (default=output.nc) and to save the plots to files.  Get details with: python visualize_dome.py -h
 
+* A series of python scripts for viiewing MPAS input/output files on planar grids can be found at:
+~/mpas/MPAS-Tools/visualization/python/planar_grids/
+The plot_mpas_field.py script is a good general-purpose visualization tool and has a lot of useful options (including animation).
+
 * Use paraview to visualize output.nc (this will have to be a separate tutorial).
-However, paraview's MPAS support is currently limited to variables with dimensions that include [nCells (or nVertices), nVertLevels], i.e. 3d fields only.  Few land ice variables meet that criterion.  Hopefully this will be remedied in a future version of the paraview MPAS plugin.
+However, paraview's MPAS support is currently limited to variables with dimensions that include [nCells (or nVertices), nVertLevels], i.e. 3d fields only.  Few land ice variables meet that criterion.  A fix for this issue currently exists in nightly builds of Paraview.
 
 * A good option for casually browsing output is a tool written by Doug Jacobsen called MpasDraw.  It is located in the MPAS-Tools repository.  To compile it, simply make sure the Makefile has properly set the NETCDF and PLATFORM variables, and then run 'make'.  The README file has detailed instructions for how to use it.  It is easy to compile and use.
-
-* A series of python scripts for viewing land ice files on planar grids are in development (including one that converts an MPAS output file to a regular grid for viewing in a tool like ncview).
 
 * For more rigorous examination/analysis of the output, python or Matlab can be used.  
 
