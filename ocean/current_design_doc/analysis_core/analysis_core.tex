@@ -39,8 +39,10 @@ Color key: {\color{green} green has been reviewed or is straightforward}, {\colo
 \section{Overall organization}
 \subsection{{\color{green} Requirement:} OAC may be executed in-situ (i.e. during runtime) or as a post-processing step.}
 
-\subsection{{\color{green} Requirement:} When executed in-situ, OAC may be conducted on the same processors as used for the forward model or on a separate set of processor. In that, OAC can execute in single-program, multiple-data (SPMD) or multiple-program, multiple-data (MPMD) mode.}
-Stated otherwise, OAC can be executed ``in-line'' (OAC-SPMD) with the forward model and can be called (when needed) as a part of the time-stepping sequence. Alternatively, OAC can be executed with a separate MPI communicator (OAC-MPMD) and, thus, executed on dedicated processor that are different from those used for the forward model integration.This requirement will not be part of the initial implementation due to its complexity, but should not be built out of the design.
+\subsection{{\color{green} Requirement:} When executed in-situ, OAC may be conducted on the same processors as used for the forward model or on a separate set of processor. In that, OAC can execute in single-program, multiple-data (SPMD) or multiple-program, multiple-data (MPMD) mode. \label{requirement: modes}}
+Stated otherwise, OAC can be executed ``in-line'' (OAC-SPMD) with the forward model and can be called (when needed) as a part of the time-stepping sequence. Alternatively, OAC can be executed with a separate MPI communicator (OAC-MPMD) and, thus, executed on dedicated processors that are different from those used for the forward model integration.
+
+This requirement will not be part of the initial implementation due to its complexity, but should not be built out of the design.
 
 \subsection{{\color{green} Requirement:} Analysis algorithms are unaware of the executing environment.}
 Below the OAC driver level, the analysis methods are incognizant of whether the operating environment is OAC-SPMD, OAC-MPMD or OAC-PP.
@@ -51,6 +53,8 @@ Each {\it analysis member} will have an identical template structure for namelis
 \subsection{{\color{red} Requirement:} Each OAC analysis member is compiled into its own library.}
 In order to promote modularity and reuse of object code, each analysis member is to be compiled into its own library that are loaded, along with a driver, to produce OAC.
 
+Like the requirement \ref{requirement: modes}, this requirement will not be part of the initial implementation, but should not be built out of the design.
+
 \newpage
 \section{Input data and files}
 
@@ -60,22 +64,17 @@ No data is returned to the forward model.  The only output is by writing analysi
 \subsection{{\color{red} Requirement:} When viewed from the OAC driver and from each OAC analysis member, intent(in) variables are ``state'' and ''analysisInput'' derived data types. Our aspiration is that ``analysisInput'' is empty.}
 The modularity, extensibility and repurposing of OAC analysis member will be optimized by limiting the scope of intent(in). The optimal realization of this aspiration would be that OAC operates with only knowledge of the MPAS-O prognostic variables. The requirement here acknowledges our imperfect knowledge of the feasibility of this aspiration.
 
-The upside benefit of this approach is that my minimizing the data flow between MPAS-O and OAC, we reduce risks related to communication bottlenecks and redundant memory allocations. Furthermore, if intent(in) is entirely contained within state, OAC will be able to execute with access of output files or restart files. The downside risk that relatively expensive computations might have to recomputed. Furthermore, it turn out that analysis members will require accumulated and/or time-averaged fields from MPAS-O. Thus, we allow for the creation of a new derived data type, {\bf analysisInput}, where auxiliary data can be transferred to OAC. We set a very high bar of adding variable arrays into {\bf analysisInput}.
+The upside benefit of this approach is that by minimizing the data flow between MPAS-O and OAC, we reduce risks related to communication bottlenecks and redundant memory allocations. Furthermore, if intent(in) is entirely contained within state, OAC will be able to execute with access of output files or restart files. The downside risk that relatively expensive computations might have to be recomputed. Furthermore, it may turn out that analysis members will require accumulated and/or time-averaged fields from MPAS-O. Thus, we allow for the creation of a new derived data type, {\bf analysisInput}, where auxiliary data can be transferred to OAC. We set a very high bar of adding variable arrays into {\bf analysisInput}.
 
 \newpage
 \section{Analysis Member Output}
 \subsection{{\color{red} Requirement:} output file format}
 All analysis members will write netCDF files along with the derived meta data from the registry in manner identical the current paradigm with MPAS-O. Additional types of output format are permitted, but auxiliary workflow items should be constructed on top of the self-describing netCDF output files. This includes hooks into Paraview, UV-CDAT and similar.
 
-Mark: Each analysis group may have its own output format.  
-Global averages are extremely convenient as text files to monitor runs and with text commands and gnuplot.  A paraview analysis group would produce images in jpg and png formats.  Perhaps a netcdf file could be required analysis output, but other formats may be included as well?
-
-Todd: The provenance of output files that are not self-describing is not sufficient. 
-
 \newpage
 \section{Code structure}
-\subsection{{\color{green} Requirement:} Redundant computations are computed with identical software.}
-This means that computation of diagnostic variables like kinetic energy would not appear in both the ocean and analysis cores. This implement ion of this requirement is to force a more modular computation of auxiliary (i.e. diagnostic) data structures.
+\subsection{{\color{green} Requirement:} Redundant computations are computed with identical software.\label{requirement: redundant code}}
+This means that computation of diagnostic variables like kinetic energy would not appear in both the ocean and analysis cores. This implementation of this requirement is to force a more modular computation of auxiliary (i.e. diagnostic) data structures.
 
 \subsection{{\color{red} Requirement:} Each OAC-AM (OAC-Analysis Member) resides within a single module.}
 
@@ -83,7 +82,7 @@ This means that computation of diagnostic variables like kinetic energy would no
 If compelling reasons for ``cross talk'' between different analysis members are presented, then the two analysis members should be merged into a single analysis member.
 
 \subsection{{\color{red} Requirement:} All MPAS-O computations that are not needed to move the model forward in time are to occur within the analysis core.}
-This is similar to the previous requirement, but specifies that all diagnostics, computation of means and variability, etc. must be in the analysis core.  
+This is similar to requirement \ref{requirement: redundant code}, but specifies that all diagnostics, computation of means and variability, etc. must be in the analysis core.  
 
 One question is: kinetic energy, vorticity, density, pressure, etc. appear in the momentum equation and are needed to 'move the model forward'.  Where should they go?  i.e., is the converse true: All MPAS-O computations that {\bf are} needed to move the model forward in time are to occur within the {\bf ocean} core?
 
