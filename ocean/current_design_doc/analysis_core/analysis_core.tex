@@ -14,7 +14,7 @@
 
 \title{
 Requirements and Design\\
-Ocean Analysis Core}
+Ocean Analysis Core (OAC)}
 \author{MPAS Development Team}
 
 \maketitle
@@ -24,9 +24,9 @@ Ocean Analysis Core}
 
 \chapter{Summary}
 
-Now that the ocean core is well developed and tested, it is time to add analysis functionality to the MPAS-Ocean model.  Much of the analysis (diagnostics) developed to date has used a post-processing work-flow with Matlab or Python.  These tools have been useful to meet short-term requirements, but they do not scale well to high resolution, and are typically created individually by each developer without coordination, review, or commits to the repository.
+Now that MPAS-O is well developed and tested, it is time to add an extensible and forward-looking analysis functionality to the MPAS-Ocean model.  Much of the analysis (diagnostics) developed to date has used a post-processing work-flow with Matlab or Python.  These tools have been useful to meet short-term requirements, but they do not scale well to high resolution, and are typically created individually by each developer without coordination, review, or commits to the repository.
 
-This design document lays out a new ocean analysis functionality, where analysis modules such as global means, zonal means, MOC, Lagrangian particles, etc, may be called at run time from the ocean core or as a post-processing step using the Ocean Analysis Core.  Advantage are that all MPAS grid variables and operators are available within the analysis modules; analysis routines will fall under the same review process as other code; and once developed, analysis routines are available to all users.
+This design document lays out a new ocean analysis functionality, where analysis modules such as global means, zonal means, MOC, Lagrangian particles, etc, may be called at run time from the ocean core or as a post-processing step using the Ocean Analysis Core (OAC).  Advantage are that all MPAS grid variables and operators are available within the analysis modules; analysis routines will fall under the same review process and revision control as other code; and once developed, analysis routines are available to all users.
 
 This document only deals with the overall design of the analysis modules and analysis core, not the details of any new diagnostics added within this new framework.  The global diagnostics, which already exist, will be used to test this new design. 
 
@@ -37,54 +37,57 @@ This document only deals with the overall design of the analysis modules and ana
 Color key: {\color{green} green has been reviewed or is straightforward}, {\color{red} red needs further review}.
 
 \section{Overall organization}
-\subsection{{\color{green} Requirement:} Analysis may be applied during run-time or post-processing.}
+\subsection{{\color{green} Requirement:} OAC may be executed in-situ (i.e. during runtime) or as a post-processing step.}
 
-\subsection{{\color{green} Requirement:} Run-time analysis may be conducted on the forward model threads or on dedicated analysis threads.}
-Forward model threads would use the native domain decomposition from the forward model, and work-flow is in-line with the forward model.  Analysis threads may use a different, typically small, analysis decomposition and run in parallel with forward model after data is passed in.
+\subsection{{\color{green} Requirement:} When executed in-situ, OAC may be conducted on the same processors as used for the forward model or on a separate set of processor. In that, OAC can execute in single-program, multiple-data (SPMD) or multiple-program, multiple-data (MPMD) mode.}
+Stated otherwise, OAC can be executed ``in-line'' (OAC-SPMD) with the forward model and can be called (when needed) as a part of the time-stepping sequence. Alternatively, OAC can be executed with a separate MPI communicator (OAC-MPMD) and, thus, executed on dedicated processor that are different from those used for the forward model integration.This requirement will not be part of the initial implementation due to its complexity, but should not be built out of the design.
 
-This requirement will not be part of the initial implementation due to its complexity, but should not be built out of the design.
-
-\subsection{{\color{green} Requirement:} Analysis algorithms are unaware of what mode they are operating in.}
-The three modes above: post-processing, run-time on forward model threads, and run-time on analysis threads, will not be referenced in the analysis routines below the driver level.
+\subsection{{\color{green} Requirement:} Analysis algorithms are unaware of the executing environment.}
+Below the OAC driver level, the analysis methods are incognizant of whether the operating environment is OAC-SPMD, OAC-MPMD or OAC-PP.
 
 \subsection{{\color{green} Requirement:} Analysis computations will be organized in groups of related computations, controlled in a coherent manner.}
-All analysis groups will have an identical template structure for namelists and code, including flags, timers, init and finalize routines, and the top subroutine interface.  These may then be customized for the each analysis group.   A template will be included to guide developers in creating a new analysis group.
+Each {\it analysis member} will have an identical template structure for namelists and code, including flags, timers, init and finalize routines, and the top-level subroutine interface. A template will be included to guide developers for the creation of a new OAC analysis member.
 
-\subsection{{\color{red} Requirement:} Todd: Compiled analysis algorithms (i.e. object files) can be repurposed (i.e. analysis procedures packaged into library)}
-Mark: I don't see the need for this requirement.  The analysis core will call subroutines from framework and operators, so analysis package is not isolated.  I think the ability to create an executable for the modes above is sufficient.
+\subsection{{\color{red} Requirement:} Each OAC analysis member is compiled into its own library.}
+In order to promote modularity and reuse of object code, each analysis member is to be compiled into its own library that are loaded, along with a driver, to produce OAC.
 
 \newpage
 \section{Input data and files}
-\subsection{{\color{red} Requirement:} Input arguments can include only prognostic variables.}
-This allows any restart file to be used for analysis post-processing.  It creates a robust design: if many variables are required by the analysis core, then some are likely to be missing in any output file.  It also keeps the interface between drivers and analysis subroutines simple and consistent.
-
-The disadvantage is that some diagnostics may be extremely complicated or expensive to compute, for example, GM statistics.  The above requirement may be pushed back for a few of these special cases.
-
-Mark: Another special case is time-averaged statistics.  For example, if I need to compute the MOC in post-processing mode, I really need to pass the time-averaged velocity from the output file to the analysis core.  In run-time mode, this could be handled by computing the MOC at high frequency and averaging in time afterward.
-
-\subsection{{\color{red} Requirement:} Post-processing mode must work on both output and restart files.}
-Based on the previous requirement, this means that the output*.nc files must include all prognostic variables.  Special cases to the previous requirement would break this requirement.
 
 \subsection{{\color{green} Requirement:} All analysis variables are intent(in).}
-Nothing returns to forward model or analysis driver from analysis calls.  The only output is by writing to disk.
+No data is returned to the forward model.  The only output is by writing analysis member data to disk.
+
+\subsection{{\color{red} Requirement:} When viewed from the OAC driver and from each OAC analysis member, intent(in) variables are ``state'' and ''analysisInput'' derived data types. Our aspiration is that ``analysisInput'' is empty.}
+The modularity, extensibility and repurposing of OAC analysis member will be optimized by limiting the scope of intent(in). The optimal realization of this aspiration would be that OAC operates with only knowledge of the MPAS-O prognostic variables. The requirement here acknowledges our imperfect knowledge of the feasibility of this aspiration.
+
+The upside benefit of this approach is that my minimizing the data flow between MPAS-O and OAC, we reduce risks related to communication bottlenecks and redundant memory allocations. Furthermore, if intent(in) is entirely contained within state, OAC will be able to execute with access of output files or restart files. The downside risk that relatively expensive computations might have to recomputed. Furthermore, it turn out that analysis members will require accumulated and/or time-averaged fields from MPAS-O. Thus, we allow for the creation of a new derived data type, {\bf analysisInput}, where auxiliary data can be transferred to OAC. We set a very high bar of adding variable arrays into {\bf analysisInput}.
 
 \newpage
-\section{Output data and files}
+\section{Analysis Member Output}
 \subsection{{\color{red} Requirement:} output file format}
-Todd: All output is to be netCDF.  NetCDF files have the advantage that all variables can include units and descriptions, and all analysis output would be in a standard format.
+All analysis members will write netCDF files along with the derived meta data from the registry in manner identical the current paradigm with MPAS-O. Additional types of output format are permitted, but auxiliary workflow items should be constructed on top of the self-describing netCDF output files. This includes hooks into Paraview, UV-CDAT and similar.
 
 Mark: Each analysis group may have its own output format.  
 Global averages are extremely convenient as text files to monitor runs and with text commands and gnuplot.  A paraview analysis group would produce images in jpg and png formats.  Perhaps a netcdf file could be required analysis output, but other formats may be included as well?
 
+Todd: The provenance of output files that are not self-describing is not sufficient. 
+
 \newpage
 \section{Code structure}
-\subsection{{\color{green} Requirement:} All computations only appear once in code.}
-This means that computation of diagnostic variables like kinetic energy would not appear in both the ocean and analysis cores.
+\subsection{{\color{green} Requirement:} Redundant computations are computed with identical software.}
+This means that computation of diagnostic variables like kinetic energy would not appear in both the ocean and analysis cores. This implement ion of this requirement is to force a more modular computation of auxiliary (i.e. diagnostic) data structures.
+
+\subsection{{\color{red} Requirement:} Each OAC-AM (OAC-Analysis Member) resides within a single module.}
+
+\subsection{{\color{red} Requirement:} Analysis Member A can not contain the ``use'' of Analysis Member B.}
+If compelling reasons for ``cross talk'' between different analysis members are presented, then the two analysis members should be merged into a single analysis member.
 
 \subsection{{\color{red} Requirement:} All MPAS-O computations that are not needed to move the model forward in time are to occur within the analysis core.}
 This is similar to the previous requirement, but specifies that all diagnostics, computation of means and variability, etc. must be in the analysis core.  
 
 One question is: kinetic energy, vorticity, density, pressure, etc. appear in the momentum equation and are needed to 'move the model forward'.  Where should they go?  i.e., is the converse true: All MPAS-O computations that {\bf are} needed to move the model forward in time are to occur within the {\bf ocean} core?
+
+Todd: KE, vorticity, etc are required to move the model forward in time, so these are computed in MPAS-O. These same variable might be recomputed in OAC.
 
 \subsection{{\color{green} Requirement:} All namelist flags and variables only appear once among all the registry files.}
 A newly added analysis flag or variable should only be added to a single registry file.  This prevents errors of requiring duplicate entries in the ocean and analysis registry files.
@@ -129,7 +132,36 @@ One possible exception to this is an analysis group that computes tendency terms
 %-----------------------------------------------------------------------
 
 
-%% \chapter{Design and Implementation}
+\chapter{Design and Implementation}
+
+\section{Overview}
+The conceptual layout of each OAC-AM is portrayed in Figure \ref{OAC-AM}. Each OAC-AM will have four points of entry.
+
+\begin{figure}[p]
+\center{\includegraphics[width=12.0cm]{./figures/OAC-AM.pdf}} \\
+\caption{Diagram outlining the calls into each analysis member.}
+\label{OAC-AM}
+\end{figure}
+
+\section{Definition OAC-AM points-of-entry}
+
+\subsection{initOACAM}
+
+\subsection{restartOACAM}
+
+\subsection{computeOACAM}
+
+\subsection{writeOACAM}
+
+
+\section{Definition of minimum set of OAC-AM namelist record}
+Each OAC-AM will have a standardized, minimum set of config namelist entries. This list can be augmented for each OAC-AM.
+
+\subsection{executeAM}
+
+(maybe put all of this into a .tex table)
+
+
 
 %% \section{Implementation: Analysis routines may be applied during run-time or post-processing}
 %% Date last modified: 2013/10/15 \\
