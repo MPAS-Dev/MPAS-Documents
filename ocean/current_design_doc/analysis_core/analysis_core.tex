@@ -2,6 +2,7 @@
 
 \usepackage{epsf,amsmath,amsfonts}
 \usepackage{graphicx}
+\usepackage{color}
 
 \setlength{\textwidth}{6.5in}
 \setlength{\oddsidemargin}{0in}
@@ -23,7 +24,7 @@ Ocean Analysis Core}
 
 \chapter{Summary}
 
-Now that the ocean core is well developed and tested, it is time to add analysis functionality to the MPAS-Ocean model.  Much of the analysis (diagnostics) developed to date has used a post-processing workflow with Matlab or Python.  These tools have been useful to meet short-term requirements, but they do not scale well to high resolution, and are typically created individually by each developer without coordination, review, or commits to the repository.
+Now that the ocean core is well developed and tested, it is time to add analysis functionality to the MPAS-Ocean model.  Much of the analysis (diagnostics) developed to date has used a post-processing work-flow with Matlab or Python.  These tools have been useful to meet short-term requirements, but they do not scale well to high resolution, and are typically created individually by each developer without coordination, review, or commits to the repository.
 
 This design document lays out a new ocean analysis functionality, where analysis modules such as global means, zonal means, MOC, Lagrangian particles, etc, may be called at run time from the ocean core or as a post-processing step using the Ocean Analysis Core.  Advantage are that all MPAS grid variables and operators are available within the analysis modules; analysis routines will fall under the same review process as other code; and once developed, analysis routines are available to all users.
 
@@ -33,121 +34,182 @@ This document only deals with the overall design of the analysis modules and ana
 
 \chapter{Requirements}
 
-\section{Requirement: Analysis routines may be applied during runtime or post-processing}
-Date last modified: 2013/10/15 \\
-Contributors: Mark Petersen \\
+Color key: {\color{green} green has been reviewed or is straightforward}, {\color{red} red needs further review}.
 
-Runtime or post-processing workflows will call the same subroutines.  Output must be identical for both processes.
+\section{Overall organization}
+\subsection{{\color{green} Requirement:} Analysis may be applied during run-time or post-processing.}
 
-\section{Requirement: Post-processing must work on both output and restart files}
-Date last modified: 2013/10/15 \\
-Contributors: Mark Petersen \\
+\subsection{{\color{green} Requirement:} Run-time analysis may be conducted on the forward model threads or on dedicated analysis threads.}
+Forward model threads would use the native domain decomposition from the forward model, and work-flow is in-line with the forward model.  Analysis threads may use a different, typically small, analysis decomposition and run in parallel with forward model after data is passed in.
 
-This requirement is up for discussion.  Should the analysis core be required to function on restart files?  One issue is that some variables, particularly time means and time variances, are missing from restart files.  If applied to restart files, those arrays would simply fill in with zeros.
+This requirement will not be part of the initial implementation due to its complexity, but should not be built out of the design.
 
-\section{Requirement: Each analysis group will have its own flags, timers, and output files}
-Date last modified: 2013/10/15 \\
-Contributors: Mark Petersen \\
+\subsection{{\color{green} Requirement:} Analysis algorithms are unaware of what mode they are operating in.}
+The three modes above: post-processing, run-time on forward model threads, and run-time on analysis threads, will not be referenced in the analysis routines below the driver level.
 
-An analysis group is a group of statistics that are computed at the same time.  Examples of analysis groups are:
-\begin{itemize}
-\item global statistics
-\item MOC
-\item zonal averages
-\end{itemize}
-For simplicity of organization, flags, timers, and output files will use this same grouping.
+\subsection{{\color{green} Requirement:} Analysis computations will be organized in groups of related computations, controlled in a coherent manner.}
+All analysis groups will have an identical template structure for namelists and code, including flags, timers, init and finalize routines, and the top subroutine interface.  These may then be customized for the each analysis group.   A template will be included to guide developers in creating a new analysis group.
 
-\section{Requirement: Each analysis group may have its own output format}
-Date last modified: 2013/10/15 \\
-Contributors: Mark Petersen \\
-
-Some analysis groups, like global diagnostics, may use text files with one line per output time.  Other analysis groups may produce netcdf files or other formats.  Output from analysis modules should not be placed in the run-time output*.nc files.
-
-
-%-----------------------------------------------------------------------
-
-
-\chapter{Design and Implementation}
-
-\section{Implementation: Analysis routines may be applied during runtime or post-processing}
-Date last modified: 2013/10/15 \\
-Contributors: Mark Petersen \\
-
-The directory structure will be as follows:
-\begin{itemize}
-\item MPAS/src/
-\begin{itemize}
-\item core\_ocean
-\begin{itemize}
-\item mpas\_ocn\_mpas\_core.F, etc
-\end{itemize}
-\item core\_ocean\_analysis
-\begin{itemize}
-\item mpas\_ocn\_analysis\_mpas\_core.F
-\item mpas\_ocn\_analysis\_global\_stats.F
-\item mpas\_ocn\_analysis\_moc.F
-\item mpas\_ocn\_analysis\_zonal\_avg.F, etc
-\end{itemize}
-\end{itemize}
-\end{itemize}
-
-The analysis core may be compiled using\\
-make {\it target} CORE=ocean\_analysis
+\subsection{{\color{red} Requirement:} Todd: Compiled analysis algorithms (i.e. object files) can be repurposed (i.e. analysis procedures packaged into library)}
+Mark: I don't see the need for this requirement.  The analysis core will call subroutines from framework and operators, so analysis package is not isolated.  I think the ability to create an executable for the modes above is sufficient.
 
 \newpage
-\section{Implementation: Each analysis group will have its own timer and output files}
-Date last modified: 2013/10/15 \\
-Contributors: Mark Petersen \\
+\section{Input data and files}
+\subsection{{\color{red} Requirement:} Input arguments can include only prognostic variables.}
+This allows any restart file to be used for analysis post-processing.  It creates a robust design: if many variables are required by the analysis core, then some are likely to be missing in any output file.  It also keeps the interface between drivers and analysis subroutines simple and consistent.
 
-The new namelists for the ocean core will be:
-\begin{verbatim}
-&analysis
-   config_write_analysis_on_startup = .true.
-   config_write_global_stats = .true.
-   config_global_stats_interval = "0001_00:00:00"
-   config_write_moc = .true.
-   config_moc_interval = "0001_00:00:00"
-   config_write_zonal_avg = .true.
-   config_zonal_avg_interval = "0001_00:00:00"
-   etc
-/
-\end{verbatim}
-The \verb|stats| flags will be removed from the io namelist.  One option for the interval flags will be 
-\begin{verbatim}
-   config_global_stats_interval = "output_interval"
-\end{verbatim}
-which sets it to the save value as \verb|config_output_interval|.
+The disadvantage is that some diagnostics may be extremely complicated or expensive to compute, for example, GM statistics.  The above requirement may be pushed back for a few of these special cases.
 
-The new namelists for the ocean analysis core will be:
-\begin{verbatim}
-&io
-   config_filename = "output.0000-01-01_00.00.00.nc"
-   config_filename_list = "filename_list"
-   config_first_record = 1
-   config_record_interval = 1
-   config_last_record = 1000
-   config_pio_num_iotasks = 0
-   config_pio_stride = 1
-/
-&analysis
-   config_write_global_stats = .true.
-   config_write_moc = .true.
-   config_write_zonal_avg = .true.
-   etc
-/
-\end{verbatim}
+Mark: Another special case is time-averaged statistics.  For example, if I need to compute the MOC in post-processing mode, I really need to pass the time-averaged velocity from the output file to the analysis core.  In run-time mode, this could be handled by computing the MOC at high frequency and averaging in time afterward.
 
-If \verb|config_filename = "file"| then the analysis core proceeds through the list of filenames provided in 
-\verb|config_filename_list|.
+\subsection{{\color{red} Requirement:} Post-processing mode must work on both output and restart files.}
+Based on the previous requirement, this means that the output*.nc files must include all prognostic variables.  Special cases to the previous requirement would break this requirement.
+
+\subsection{{\color{green} Requirement:} All analysis variables are intent(in).}
+Nothing returns to forward model or analysis driver from analysis calls.  The only output is by writing to disk.
+
+\newpage
+\section{Output data and files}
+\subsection{{\color{red} Requirement:} output file format}
+Todd: All output is to be netCDF.  NetCDF files have the advantage that all variables can include units and descriptions, and all analysis output would be in a standard format.
+
+Mark: Each analysis group may have its own output format.  
+Global averages are extremely convenient as text files to monitor runs and with text commands and gnuplot.  A paraview analysis group would produce images in jpg and png formats.  Perhaps a netcdf file could be required analysis output, but other formats may be included as well?
+
+\newpage
+\section{Code structure}
+\subsection{{\color{green} Requirement:} All computations only appear once in code.}
+This means that computation of diagnostic variables like kinetic energy would not appear in both the ocean and analysis cores.
+
+\subsection{{\color{red} Requirement:} All MPAS-O computations that are not needed to move the model forward in time are to occur within the analysis core.}
+This is similar to the previous requirement, but specifies that all diagnostics, computation of means and variability, etc. must be in the analysis core.  
+
+One question is: kinetic energy, vorticity, density, pressure, etc. appear in the momentum equation and are needed to 'move the model forward'.  Where should they go?  i.e., is the converse true: All MPAS-O computations that {\bf are} needed to move the model forward in time are to occur within the {\bf ocean} core?
+
+\subsection{{\color{green} Requirement:} All namelist flags and variables only appear once among all the registry files.}
+A newly added analysis flag or variable should only be added to a single registry file.  This prevents errors of requiring duplicate entries in the ocean and analysis registry files.
+
+\subsection{{\color{red} Requirement:} Analysis core does not use subroutines from ocean core.}
+In the hierarchy of subroutines, the ocean time-stepping routine will call analysis subroutines.  If analysis core routines can call ocean core routines as well, there is the possibility of recursive 'use' statements in the modules.
+
+One possible exception to this is an analysis group that computes tendency terms.  In order for computations to only appear once and only pass prognostic variables into the analysis core, the analysis routine must call tendency routines in the ocean core.
+
+
+%% \section{{\color{green} Requirement:} Analysis routines may be applied during run-time or post-processing}
+%% Date last modified: 2013/10/15 \\
+%% Contributors: Mark Petersen \\
+
+%% Run-Time or post-processing work-flows will call the same subroutines.  Output must be identical for both processes.
+
+%% \section{{\color{green} Requirement:} Post-processing must work on both output and restart files}
+%% Date last modified: 2013/10/15 \\
+%% Contributors: Mark Petersen \\
+
+%% This requirement is up for discussion.  Should the analysis core be required to function on restart files?  One issue is that some variables, particularly time means and time variances, are missing from restart files.  If applied to restart files, those arrays would simply fill in with zeros.
+
+%% \section{{\color{green} Requirement:} Each analysis group will have its own flags, timers, and output files}
+%% Date last modified: 2013/10/15 \\
+%% Contributors: Mark Petersen \\
+
+%% An analysis group is a group of statistics that are computed at the same time.  Examples of analysis groups are:
+%% \begin{itemize}
+%% \item global statistics
+%% \item MOC
+%% \item zonal averages
+%% \end{itemize}
+%% For simplicity of organization, flags, timers, and output files will use this same grouping.
+
+%% \section{{\color{green} Requirement:} Each analysis group may have its own output format}
+%% Date last modified: 2013/10/15 \\
+%% Contributors: Mark Petersen \\
+
+%% Some analysis groups, like global diagnostics, may use text files with one line per output time.  Other analysis groups may produce netcdf files or other formats.  Output from analysis modules should not be placed in the run-time output*.nc files.
+
+
 %-----------------------------------------------------------------------
 
-\chapter{Testing}
 
-\section{Testing: Analysis routines may be applied during runtime or post-processing}
-Date last modified: 2013/10/15 \\
-Contributors: Mark Petersen \\
+%% \chapter{Design and Implementation}
 
-After completion, a global simulation will be conducted with run-time analysis tools on.  Global diagnostics output will be compared between run-time, post-processed analysis core data, and global statistics from the current develop branch.  All three should match bit-for-bit on the same number of processors.  When processor counts vary, global statistics may not match in last digits due to order of operations.
+%% \section{Implementation: Analysis routines may be applied during run-time or post-processing}
+%% Date last modified: 2013/10/15 \\
+%% Contributors: Mark Petersen \\
+
+%% The directory structure will be as follows:
+%% \begin{itemize}
+%% \item MPAS/src/
+%% \begin{itemize}
+%% \item core\_ocean
+%% \begin{itemize}
+%% \item mpas\_ocn\_mpas\_core.F, etc
+%% \end{itemize}
+%% \item core\_ocean\_analysis
+%% \begin{itemize}
+%% \item mpas\_ocn\_analysis\_mpas\_core.F
+%% \item mpas\_ocn\_analysis\_global\_stats.F
+%% \item mpas\_ocn\_analysis\_moc.F
+%% \item mpas\_ocn\_analysis\_zonal\_avg.F, etc
+%% \end{itemize}
+%% \end{itemize}
+%% \end{itemize}
+
+%% The analysis core may be compiled using\\
+%% make {\it target} CORE=ocean\_analysis
+
+%% \newpage
+%% \section{Implementation: Each analysis group will have its own timer and output files}
+%% Date last modified: 2013/10/15 \\
+%% Contributors: Mark Petersen \\
+
+%% The new namelists for the ocean core will be:
+%% \begin{verbatim}
+%% &analysis
+%%    config_write_analysis_on_startup = .true.
+%%    config_write_global_stats = .true.
+%%    config_global_stats_interval = "0001_00:00:00"
+%%    config_write_moc = .true.
+%%    config_moc_interval = "0001_00:00:00"
+%%    config_write_zonal_avg = .true.
+%%    config_zonal_avg_interval = "0001_00:00:00"
+%%    etc
+%% /
+%% \end{verbatim}
+%% The \verb|stats| flags will be removed from the io namelist.  One option for the interval flags will be 
+%% \begin{verbatim}
+%%    config_global_stats_interval = "output_interval"
+%% \end{verbatim}
+%% which sets it to the save value as \verb|config_output_interval|.
+
+%% The new namelists for the ocean analysis core will be:
+%% \begin{verbatim}
+%% &io
+%%    config_filename = "output.0000-01-01_00.00.00.nc"
+%%    config_filename_list = "filename_list"
+%%    config_first_record = 1
+%%    config_record_interval = 1
+%%    config_last_record = 1000
+%%    config_pio_num_iotasks = 0
+%%    config_pio_stride = 1
+%% /
+%% &analysis
+%%    config_write_global_stats = .true.
+%%    config_write_moc = .true.
+%%    config_write_zonal_avg = .true.
+%%    etc
+%% /
+%% \end{verbatim}
+
+%% If \verb|config_filename = "file"| then the analysis core proceeds through the list of filenames provided in 
+%% \verb|config_filename_list|.
+%% %-----------------------------------------------------------------------
+
+%% \chapter{Testing}
+
+%% \section{Testing: Analysis routines may be applied during run-time or post-processing}
+%% Date last modified: 2013/10/15 \\
+%% Contributors: Mark Petersen \\
+
+%% After completion, a global simulation will be conducted with run-time analysis tools on.  Global diagnostics output will be compared between run-time, post-processed analysis core data, and global statistics from the current develop branch.  All three should match bit-for-bit on the same number of processors.  When processor counts vary, global statistics may not match in last digits due to order of operations.
 
 
 
