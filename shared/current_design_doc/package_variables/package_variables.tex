@@ -4,6 +4,14 @@
 \usepackage{graphicx}
 \usepackage{listings}
 
+\setlength{\topmargin}{0in}
+\setlength{\headheight}{0in}
+\setlength{\headsep}{0in}
+\setlength{\textheight}{9.0in}
+\setlength{\textwidth}{6.0in}
+\setlength{\evensidemargin}{0.25in}
+\setlength{\oddsidemargin}{0.25in}
+
 \begin{document}
 
 \title{Package Variables: \\
@@ -33,12 +41,46 @@ whos allocation depends on the choices of namelist options.
 
 \chapter{Requirements}
 
-\section{Requirement: Variable allocation depends on namelist parameter}
-Date last modified: 10/03/2013 \\
-Contributors: ( Doug Jacobsen, Michael Duda, Todd Ringler )\\
+To support the increasing complexity and breadth of options in MPAS cores,
+while keeping memory usage to a minimum, the package variable capability in MPAS
+must meet the following requirements.
 
-Variables and variable arrays defined in registry can have their allocation
-controlled through a run-time namelist parameter.
+\begin{enumerate}
+
+\item MPAS must be capable of enabling or disabling individual variables, 
+   constituents of variable arrays (super-arrays), and variable groups at run-time.
+   ``Enabling'' a variable means that the variable should be allocated and fully usable within
+   an MPAS core; ``disabling'' means that a variable should use a little memory as possible 
+   while still allowing an MPAS core to compile and run using a set of options that do not 
+   require the variable. Packages are the means by which MPAS variables will be
+   enabled and disabled.
+   
+\item It must be possible to include arbitrary sets of variables in a package. A package may, therefore,
+   include a mix of regular variables, constituent variables, and variable groups. 
+
+\item Variables are not required to belong to any package, and the behavior of variables that do
+   not belong to any package should not change from current behavior in MPAS.
+                                                                                                    
+\item MPAS must support the ability to enable variables based on a conjunction of run-time 
+   conditions (i.e., condition a {\bf and} condition b). For example, we might want to
+   enable a particular variable in MPAS-A only if the user has chosen to run a digital filter initialization
+   and if a certain physics option is set.
+      
+\item MPAS must support the ability to enable variables based on a disjunction of run-time 
+   conditions (i.e., condition a {\bf or} condition b). For example, we might want to enable a
+   particular variable if a physics option is set to either of several possible values, or if either of 
+   two different types of options are set to particular values.
+   
+\item MPAS core and infrastructure code must be able to determine whether a variable is
+   enabled or disabled.
+   
+\item MPAS I/O should only read/write variables and constituents that are enabled. If a variable
+   is disabled, and therefore has no associated storage, reading the variable makes no sense; and
+   it wouldn't appear to be useful to write garbage or default values for a variable that is never used
+   during a particular execution of an MPAS core.
+
+\end{enumerate}                                                             
+
 
 %-----------------------------------------------------------------------
 
