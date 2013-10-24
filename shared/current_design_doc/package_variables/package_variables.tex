@@ -3,6 +3,7 @@
 \usepackage{epsf,amsmath,amsfonts}
 \usepackage{graphicx}
 \usepackage{listings}
+\usepackage{color}
 
 \setlength{\topmargin}{0in}
 \setlength{\headheight}{0in}
@@ -11,6 +12,28 @@
 \setlength{\textwidth}{6.0in}
 \setlength{\evensidemargin}{0.25in}
 \setlength{\oddsidemargin}{0.25in}
+
+\definecolor{gray}{rgb}{0.4,0.4,0.4}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.6}
+\definecolor{cyan}{rgb}{0.0,0.6,0.6}
+
+\lstset{
+	basicstyle=\ttfamily,
+		columns=fullflexible,
+		showstringspaces=false,
+		commentstyle=\color{gray}\upshape
+}
+
+\lstdefinelanguage{XML}
+{
+	morestring=[b]",
+	morestring=[s]{>}{<},
+	morecomment=[s]{<?}{?>},
+	stringstyle=\color{black},
+	identifierstyle=\color{darkblue},
+	keywordstyle=\color{cyan},
+	morekeywords={xmlns,version,type,name,type,dimensions,name\_in\_code,units,description,template,streams,persistence}% list your attributes here
+}
 
 \begin{document}
 
@@ -85,6 +108,96 @@ must meet the following requirements.
 %-----------------------------------------------------------------------
 
 \chapter{Design and Implementation}
+\section{Design: Package Variables}
+Date last modified: 10/24/2013 \\
+Contributors: ( Doug Jacobsen ) \\
+
+Package variables are defined by modifying the persistence of a particular
+variable. Previously variables could have their persistence defined as
+persistent, or scratch, and now can additionally be defined as package.
+
+The persistence option is added to the var\_struct, and var (nested under a
+var\_array) constructs within the Registry.xml file. When persistence is
+speified on a var\_struct it does not cause the entire var\_struct to be
+persistent, scratch, or package, it simply defines the default persistence for
+all variables defined within that particular var\_struct. This default can be
+overridden by specifying the persistence on a per var, var\_array, or
+constituent var basis.
+
+Additionally, when persistence is set to package, another attribute
+``package\_name'' is required. This defines the name of the package the var,
+var\_struct, var\_array, or constituent var belongs to.
+
+Packages also need to be defined. Witihin registry, at the same level as
+var\_struct a new construct is created called packages. All packages must be
+defined at this level before being used throughout the var\_struct groups.
+Below is an example of a package definition:
+
+{\scriptsize
+\begin{lstlisting}[language=XML]
+   ...
+</nml_record>
+<packages>
+	<package name=``package_a'' description=``Description of package a''/>
+	<package name=``package_b'' description=``Description of package b''/>
+</packages>
+<var_struct name=``mesh'' time_levs=``0''>
+   ...
+\end{lstlisting}
+}
+
+After the package is defined, any var\_struct, var, var\_array, or constituent
+var constructs can be attached to it as follows:
+
+{\scriptsize
+\begin{lstlisting}[language=XML]
+<var_struct name=``physicsA'' time_levs=``0'' persistence=``package'' package_name=``package_a''>
+	<var name=``physVar1'' dimensions=``nCells Time'' .../>
+</var_struct>
+<var_struct name=``physicsB'' time_levs=``0''>
+	<var_array name=``physVarArray'' dimensions=``nVertLevels nCells Time'' persistence=``package'' package_name=``package_b''>
+		<var ... />
+		...
+	</var_array>
+	<var array name=``physVarArray2'' dimensions=``nVertLevels nCells Time''>
+		<var name=``consVar1'' persistence=``package'' package_name=``package_b'' ... />
+		<var name=``consVar2'' ... />
+		...
+	</var_array>
+</var_struct>
+\end{lstlisting}
+}
+
+Within the shared framework, a module named mpas\_packages is created that
+contains logicals of the format ``package\_name\_on''. These logicals are set
+to ``.false.'' by default, but when set to true at the beginning of a
+simulation, they enable the allocation and I/O of the package variables. 
+
+Cores are responsible for the proper initialization of package logicals. This
+is done through a routine called core\_setup\_packages, which should only have
+an error argument. This subroutine is written on a per-core basis, and can
+contain arbitrary logic to enable packages.
+
+For example:
+{\scriptsize
+\begin{lstlisting}
+subroutine mpas_core_setup_package(ierr)
+  use mpas_configure
+
+  implicit none
+
+  integer, intent(out) :: ierr
+
+  if(config_physics_option == trim('A')) then
+    physics_a_on = .true.
+  else if(config_physics_option == trim('B') .and. config_num_halos .ge. 3) then
+    physics_b_on = .true.
+  end if
+end subroutine mpas_core_setup_packages
+\end{lstlisting}
+}
+
+%-----------------------------------------------------------------------
 
 \section{Implementation: Package Variables}
 Date last modified: 10/03/2013 \\
