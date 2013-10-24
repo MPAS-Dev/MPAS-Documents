@@ -84,16 +84,8 @@ must meet the following requirements.
 \item Variables are not required to belong to any package, and the behavior of variables that do
    not belong to any package should not change from current behavior in MPAS.
                                                                                                     
-\item MPAS must support the ability to enable variables based on a conjunction of run-time 
-   conditions (i.e., condition a {\bf and} condition b). For example, we might want to
-   enable a particular variable in MPAS-A only if the user has chosen to run a digital filter initialization
-   and if a certain physics option is set.
-      
-\item MPAS must support the ability to enable variables based on a disjunction of run-time 
-   conditions (i.e., condition a {\bf or} condition b). For example, we might want to enable a
-   particular variable if a physics option is set to either of several possible values, or if either of 
-   two different types of options are set to particular values.
-   
+\item MPAS must support the ability to enable packages using arbitrary logic.
+
 \item MPAS core and infrastructure code must be able to determine whether a variable is
    enabled or disabled.
    
@@ -101,6 +93,10 @@ must meet the following requirements.
    is disabled, and therefore has no associated storage, reading the variable makes no sense; and
    it wouldn't appear to be useful to write garbage or default values for a variable that is never used
    during a particular execution of an MPAS core.
+
+\item MPAS must define packages in the XML Registry files.
+
+\item Packages must allow documentation describing the pacakge and it's intended use.
 
 \end{enumerate}                                                             
 
@@ -180,7 +176,7 @@ contain arbitrary logic to enable packages.
 
 For example:
 {\scriptsize
-\begin{lstlisting}
+\begin{lstlisting}[language=Fortran]
 subroutine mpas_core_setup_package(ierr)
   use mpas_configure
 
