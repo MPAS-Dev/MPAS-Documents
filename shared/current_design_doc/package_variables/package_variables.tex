@@ -98,6 +98,11 @@ must meet the following requirements.
 
 \item Packages must allow documentation describing the pacakge and it's intended use.
 
+
+\item Variables may belong to multiple packages, in which case if any of the packages are enabled the variable will be active.
+
+\item The enabling and disabling of a particular package may depend on other packages being enabled or disabled.
+
 \end{enumerate}                                                             
 
 
@@ -112,17 +117,19 @@ Package variables are defined by modifying the persistence of a particular
 variable. Previously variables could have their persistence defined as
 persistent, or scratch, and now can additionally be defined as package.
 
-The persistence option is added to the var\_struct, and var (nested under a
-var\_array) constructs within the Registry.xml file. When persistence is
+The persistence option is added to the var\_struct constructs within the Registry.xml file. When persistence is
 speified on a var\_struct it does not cause the entire var\_struct to be
 persistent, scratch, or package, it simply defines the default persistence for
 all variables defined within that particular var\_struct. This default can be
-overridden by specifying the persistence on a per var, var\_array, or
-constituent var basis.
+overridden by specifying the persistence on a per var or var\_array basis.
 
 Additionally, when persistence is set to package, another attribute
 ``package\_name'' is required. This defines the name of the package the var,
-var\_struct, var\_array, or constituent var belongs to.
+var\_struct, or var\_array belongs to. The ``package\_name'' attribute is an
+optional attribute on constituent vars within a var\_array. This allows
+constituent vars to be controlled through the package variable process.
+Persistence is not added to constituent variables because a var\_array is not
+allow to have constituents which are persistence, and scratch at the same time.
 
 Packages also need to be defined. Witihin registry, at the same level as
 var\_struct a new construct is created called packages. All packages must be
@@ -156,7 +163,7 @@ var constructs can be attached to it as follows:
 		...
 	</var_array>
 	<var array name=``physVarArray2'' dimensions=``nVertLevels nCells Time''>
-		<var name=``consVar1'' persistence=``package'' package_name=``package_b'' ... />
+		<var name=``consVar1'' package_name=``package_b'' ... />
 		<var name=``consVar2'' ... />
 		...
 	</var_array>
@@ -170,9 +177,10 @@ to ``.false.'' by default, but when set to true at the beginning of a
 simulation, they enable the allocation and I/O of the package variables. 
 
 Cores are responsible for the proper initialization of package logicals. This
-is done through a routine called core\_setup\_packages, which should only have
+is done through a routine called mpas\_core\_setup\_packages, which should only have
 an error argument. This subroutine is written on a per-core basis, and can
-contain arbitrary logic to enable packages.
+contain arbitrary logic to enable packages. This subroutine should be contained
+within the mpas\_core module.
 
 For example:
 {\scriptsize
