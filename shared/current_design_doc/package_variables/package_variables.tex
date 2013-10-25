@@ -124,8 +124,8 @@ all variables defined within that particular var\_struct. This default can be
 overridden by specifying the persistence on a per var or var\_array basis.
 
 Additionally, when persistence is set to package, another attribute
-``package\_name'' is required. This defines the name of the package the var,
-var\_struct, or var\_array belongs to. The ``package\_name'' attribute is an
+``packages'' is required. This defines the name of the package the var,
+var\_struct, or var\_array belongs to. The ``packages'' attribute is an
 optional attribute on constituent vars within a var\_array. This allows
 constituent vars to be controlled through the package variable process.
 Persistence is not added to constituent variables because a var\_array is not
@@ -154,16 +154,16 @@ var constructs can be attached to it as follows:
 
 {\scriptsize
 \begin{lstlisting}[language=XML]
-<var_struct name=``physicsA'' time_levs=``0'' persistence=``package'' package_name=``package_a''>
+<var_struct name=``physicsA'' time_levs=``0'' persistence=``package'' packages=``package_a''>
 	<var name=``physVar1'' dimensions=``nCells Time'' .../>
 </var_struct>
 <var_struct name=``physicsB'' time_levs=``0''>
-	<var_array name=``physVarArray'' dimensions=``nVertLevels nCells Time'' persistence=``package'' package_name=``package_b''>
+	<var_array name=``physVarArray'' dimensions=``nVertLevels nCells Time'' persistence=``package'' packages=``package_b''>
 		<var ... />
 		...
 	</var_array>
 	<var array name=``physVarArray2'' dimensions=``nVertLevels nCells Time''>
-		<var name=``consVar1'' package_name=``package_b'' ... />
+		<var name=``consVar1'' packages=``package_b'' ... />
 		<var name=``consVar2'' ... />
 		...
 	</var_array>
@@ -206,7 +206,7 @@ the package. The core is responsible for ensuring that variables in a package
 that is not active are not used.
 
 There are two methods of determining if a variable is part of an active package
-or not. The first is to check the ``package\_name\_on'' logical in the
+or not. The first is to check the ``packageOn'' logical in the
 mpas\_packages module. The second depends on what type of variable is being
 queried. For all variables that are not constituents of a var\_array, the
 isActive attribute can be queried. If field \% isActive is equal to .true. then
