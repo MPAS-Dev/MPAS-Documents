@@ -171,7 +171,7 @@ var constructs can be attached to it as follows:
 }
 
 Within the shared framework, a module named mpas\_packages is created that
-contains logicals of the format ``package\_name\_on''. These logicals are set
+contains logicals of the format ``package\_nameActive''. These logicals are set
 to ``.false.'' by default, but when set to true at the beginning of a
 simulation, they enable the allocation and I/O of the package variables. 
 
@@ -192,9 +192,9 @@ subroutine mpas_core_setup_package(ierr)
   integer, intent(out) :: ierr
 
   if(config_physics_option == trim('A')) then
-    physics_a_on = .true.
+    physicsAActive = .true.
   else if(config_physics_option == trim('B') .and. config_num_halos .ge. 3) then
-    physics_b_on = .true.
+    physicsBActive = .true.
   end if
 end subroutine mpas_core_setup_packages
 \end{lstlisting}
@@ -205,7 +205,7 @@ the package. The core is responsible for ensuring that variables in a package
 that is not active are not used.
 
 There are two methods of determining if a variable is part of an active package
-or not. The first is to check the ``packageOn'' logical in the
+or not. The first is to check the ``packageActive'' logical in the
 mpas\_packages module. The second depends on what type of variable is being
 queried. For all variables that are not constituents of a var\_array, the
 isActive attribute can be queried. If field \% isActive is equal to .true. then
