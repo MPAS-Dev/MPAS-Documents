@@ -1,0 +1,232 @@
+\documentclass[11pt]{report}
+
+\usepackage{epsf,amsmath,amsfonts}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{color}
+
+\setlength{\topmargin}{0in}
+\setlength{\headheight}{0in}
+\setlength{\headsep}{0in}
+\setlength{\textheight}{9.0in}
+\setlength{\textwidth}{6.0in}
+\setlength{\evensidemargin}{0.25in}
+\setlength{\oddsidemargin}{0.25in}
+
+\definecolor{gray}{rgb}{0.4,0.4,0.4}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.6}
+\definecolor{cyan}{rgb}{0.0,0.6,0.6}
+
+\lstset{
+	basicstyle=\ttfamily,
+		columns=fullflexible,
+		showstringspaces=false,
+		commentstyle=\color{gray}\upshape
+}
+
+\lstdefinelanguage{XML}
+{
+	morestring=[b]",
+	morestring=[s]{>}{<},
+	morecomment=[s]{<?}{?>},
+	stringstyle=\color{black},
+	identifierstyle=\color{darkblue},
+	keywordstyle=\color{cyan},
+	morekeywords={xmlns,version,type,name,type,dimensions,name\_in\_code,units,description,template,streams,persistence}% list your attributes here
+}
+
+\begin{document}
+
+\title{Package Variables: \\
+Requirements and Design}
+\author{MPAS Development Team}
+
+\maketitle
+\tableofcontents
+
+%-----------------------------------------------------------------------
+
+\chapter{Summary}
+
+This document introduces package variables, and describes requirements and
+design specifications for the implementation and use of package variables.
+
+Package variables can most easily be explained through the concept of optional
+physics packages. For example, one simulation might have physics package A on
+while the next might have physics package A off. During a simulation we might
+not want to have all variables allocated for this physics package when it's not
+being used.
+
+As such, package variables are introduced. These are groupings of variables
+whos allocation depends on the choices of namelist options. 
+
+%-----------------------------------------------------------------------
+
+\chapter{Requirements}
+
+To support the increasing complexity and breadth of options in MPAS cores,
+while keeping memory usage to a minimum, the package variable capability in MPAS
+must meet the following requirements.
+
+\begin{enumerate}
+
+\item MPAS must be capable of enabling or disabling individual variables, 
+   constituents of variable arrays, and variable groups at run-time.
+   ``Enabling'' a variable means that the variable should be allocated and fully usable within
+   an MPAS core; ``disabling'' means that a variable should use as little memory as possible 
+   while still allowing an MPAS core to compile and run using a set of options that do not 
+   require the variable. Packages are the means by which MPAS variables can be
+   enabled and disabled.
+   
+\item It must be possible to include arbitrary sets of variables in a package. A package may, therefore,
+   include a mix of regular variables, constituent variables, and variable groups. 
+
+\item Variables are not required to belong to any package, and the behavior of variables that do
+   not belong to any package should not change from current behavior in MPAS.
+                                                                                                    
+\item MPAS must support the ability to enable packages using arbitrary logic.
+
+\item MPAS core and infrastructure code must be able to determine whether a variable is
+   enabled or disabled.
+   
+\item MPAS I/O should only read/write variables and constituents that are enabled. If a variable
+   is disabled, and therefore has no associated storage, reading the variable makes no sense; and
+   it wouldn't appear to be useful to write garbage or default values for a variable that is never used
+   during a particular execution of an MPAS core.
+
+\item MPAS must define packages in the XML Registry files.
+
+\item Packages must allow documentation describing the pacakge and it's intended use.
+
+\item Variables may belong to multiple packages, in which case if any of the packages are enabled the variable will be active.
+
+\item MPAS must not allow a scratch variable to be attached to packages.
+
+\end{enumerate}                                                             
+
+
+%-----------------------------------------------------------------------
+
+\chapter{Design and Implementation}
+\section{Implementation: Package Variables}
+Date last modified: 10/24/2013 \\
+Contributors: ( Doug Jacobsen, Michael Duda ) \\
+
+Package variables are defied as a modification to persistent variables. 
+
+When the ``packages'' attribute is defined, persistent variables now become
+package variables.  This defines the name of the package the var, var\_struct,
+or var\_array belongs to. The ``packages'' attribute is an optional attribute
+on constituent vars within a var\_array. This allows constituent vars to be
+controlled through the package variable process.  
+
+The ``packages'' attribute has been added to var\_structs as well, which
+defines the default packages any variable within a var\_struct will be
+connected with.
+
+{\bf NOTE:} In the event that persistence is set to scratch, the packages
+attribute is not allowed to be defined. If it is defined, the model will fail
+to build, with an error message thrown. This also means that if the packages
+attribute is defined at the var\_struct level, {\bf none} of the nested
+variables or variable arrays are allowed to be scratch.
+
+Packages also need to be defined. Within registry, at the same level as
+var\_struct a new construct is created called packages. All packages must be
+defined at this level before being used throughout the var\_struct groups.
+Below is an example of a package definition:
+
+{\scriptsize
+\begin{lstlisting}[language=XML]
+   ...
+</nml_record>
+<packages>
+	<package name=``package_a'' description=``Description of package a''/>
+	<package name=``package_b'' description=``Description of package b''/>
+</packages>
+<var_struct name=``mesh'' time_levs=``0''>
+   ...
+\end{lstlisting}
+}
+
+After the package is defined, any var\_struct, var, var\_array, or constituent
+var constructs can be attached to it as follows:
+
+{\scriptsize
+\begin{lstlisting}[language=XML]
+<var_struct name=``physicsA'' time_levs=``0'' packages=``package_a''>
+	<var name=``physVar1'' dimensions=``nCells Time'' .../>
+</var_struct>
+<var_struct name=``physicsB'' time_levs=``0''>
+	<var_array name=``physVarArray'' dimensions=``nVertLevels nCells Time'' packages=``package_b''>
+		<var ... />
+		...
+	</var_array>
+	<var array name=``physVarArray2'' dimensions=``nVertLevels nCells Time''>
+		<var name=``consVar1'' packages=``package_b'' ... />
+		<var name=``consVar2'' ... />
+		...
+	</var_array>
+</var_struct>
+\end{lstlisting}
+}
+
+Within the shared framework, a module named mpas\_packages is created that
+contains logicals of the format ``package\_nameActive''. These logicals are set
+to ``.false.'' by default, but when set to true at the beginning of a
+simulation, they enable the allocation and I/O of the package variables. 
+
+Cores are responsible for the proper initialization of package logicals. This
+is done through a routine called mpas\_core\_setup\_packages, which should only have
+an error argument. This subroutine is written on a per-core basis, and can
+contain arbitrary logic to enable packages. This subroutine should be contained
+within the mpas\_core module.
+
+For example:
+{\scriptsize
+\begin{lstlisting}[language=Fortran]
+subroutine mpas_core_setup_package(ierr)
+  use mpas_configure
+
+  implicit none
+
+  integer, intent(out) :: ierr
+
+  if(config_physics_option == trim('A')) then
+    physicsAActive = .true.
+  else if(config_physics_option == trim('B') .and. config_num_halos .ge. 3) then
+    physicsBActive = .true.
+  end if
+end subroutine mpas_core_setup_packages
+\end{lstlisting}
+}
+
+The core should not try to allocate or deallocate the variables contained in
+the package. The core is responsible for ensuring that variables in a package
+that is not active are not used.
+
+There are two methods of determining if a variable is part of an active package
+or not. The first is to check the ``packageActive'' logical in the
+mpas\_packages module. The second depends on what type of variable is being
+queried. For all variables that are not constituents of a var\_array, the
+isActive attribute can be queried. If field \% isActive is equal to .true. then
+the package controling that variables allocation is active. For constituent
+variables that don't conatin an isActive attribute the index\_varname index is
+set to a value of -1. 
+
+%-----------------------------------------------------------------------
+
+\chapter{Testing}
+
+\section{Testing and Validation: Package Variables}
+Date last modified: 10/03/2013 \\
+Contributors: ( Doug Jacobsen ) \\
+
+Package variables will be added to a component.
+
+A run with the package on and off will be performed, and then should both run
+to completion and produce bit-idential results to runs where the package
+variables are defined as persistent.
+
+%-----------------------------------------------------------------------
+
+\end{document}
