@@ -1,7 +1,7 @@
 \chapter{Test Cases}
 \label{chap:landice_test_cases}
 
-Eventually test case will be available for download.  Currently they are only part of the Development code for MPAS-Land Ice.
+Eventually test cases will be available for download.  Currently they are only part of the Development code for MPAS-Land Ice.
 
 %%%All test cases can be downloaded from \url{http://mpas-dev.github.com}  The test cases for this version of the code are available at\\
 %%%\url{http://mpas-dev.github.com/ocean/release_\version/release_\version.}.
@@ -79,6 +79,35 @@ As the dome of ice evolves, its margin advances and its thickness decreases (the
 
 
 \FloatBarrier
+
+\section{EISMINT-1 Test Cases}
+\label{sec:eismint_description}
+This test case is from the European Ice Sheet Modelling INiTiative intercomparison experiments.  These experiments are described at \url{http://homepages.vub.ac.be/~phuybrec/eismint.html} and in \citet{Huybrechts1996}.
+
+Currently only the Moving Margin 1 Test Case from EISMINT-1 is included.
+
+
+\subsection{Provided Files}
+\label{subsec:eismint_files}
+
+
+\begin{itemize}
+\item namelist.input.periodic\_hex \\
+ This file is used for running periodic\_hex to create a grid for the test case.  It needs to be renamed to 'namelist.input' to run periodic\_hex) if mesh needs to be generated.  If you downloaded a tar archive of this test case, you do not need to create the mesh and can ignore this file.
+
+\item namelist.input / namelist.input.landice\_core \\
+This file is used for actually running dome test case in the MPAS land ice core.  It includes most but not all options available to the model.  See the default namelist.input.landice file in the MPAS root directory for a list of all options available.  They are also documented in the User's Guide.  If you downloaded a tar archive of this test case, this should be called namelist.input.
+
+\item setup\_initial\_conditions\_EISMINT1-MovingMargin-1.py \\
+This file can be used to setup the initial conditions for the test case.  If you downloaded a tar archive, you do not need to do this.  However, if you want to modify the IC for some reason, you can edit and run this script.
+
+\item check\_output\_eismint-mm1.py \\
+This script can be used to compare model output to results from the EISMINT intercomparison.
+\end{itemize}
+
+\subsection{Results}
+\label{subsecc:eismint_results}
+As the initial ice sheet evolves, its shape eventually reaches a steady-state with the imposed surface mass balance.  The script \texttt{check\_output\_eismint-mm1.py} will plot the modeled thickness at a specified time, as well as compare the model results to the results from the original EISMINT intercomparison.  Invoke \texttt{check\_output\_eismint-mm1.py --help} for details of its usage.
 
 
 \section{Real World Test Cases}

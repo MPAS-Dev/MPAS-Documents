@@ -3,11 +3,11 @@
 
 The Model for Prediction Across Scales-Land Ice (MPAS-Land Ice) is an unstructured-mesh land ice model (ice sheets or glaciers) capable of using enhanced horizontal resolution in selected regions of the land ice domain.  This allows researchers to perform high-resolution regional simulations at a lower computational cost, while providing realistic ice flow from the low-resolution regions. Model domains may be spherical or on Cartesian domains.  MPAS-Land-Ice is being designed for large-scale, hi-resolution simulations of ice sheet dynamics, using a combination of Finite Difference, Finite Volume, and Finite Element Methods on variable resolution meshes.  MPAS-Land-Ice will initially be released with support for standard test cases used in verifying model performance. Eventually, support for standard ice sheet configurations will also be included (e.g., stand-alone Greenland and Antarctica simulations).
 
-Prototype dynamcial cores for MPAS-Land-Ice have shown good agreement with manufactured solutions and standard test cases, and have been used in land ice evolution experiments aimed at informing the IPCC AR5 on the potential for future sea-level rise from ice sheets (e.g., SeaRISE and Ice2Sea international assessment projects \citep{Shannon2013, Edwards2013b}).  Two dynamical cores are currently under development for implementation within MPAS-Land-Ice. These include a 1st-order accurate approximation to the momentum balance equations, a prototype of which has been described by \citet{Perego2012} , and a "full" Stokes momentum balance, described in \citet{Leng2012}. 
+Prototype dynamcial cores for MPAS-Land-Ice have shown good agreement with manufactured solutions and standard test cases, and have been used in land ice evolution experiments aimed at informing the IPCC AR5 on the potential for future sea-level rise from ice sheets (e.g., Ice2Sea international assessment project \citep{Shannon2013, Edwards2013b}).  Two dynamical cores are currently under development for implementation within MPAS-Land-Ice. These include a 1st-order accurate approximation to the momentum balance equations, a prototype of which has been described by \citet{Perego2012}, and a "full" Stokes momentum balance, described in \citet{Leng2012}. 
 
 MPAS-Land Ice is one component within the MPAS framework of climate models that is developed in cooperation between Los Alamos National Laboratory (LANL) and the National Center for Atmospheric Research (NCAR).  Functionality that is required by all cores, such as i/o, time management, block decomposition, etc, is developed collaboratively, and this code is shared across cores within the same repository.  Each core then solves its own differential equations and physical parameterizations within this framework.  This user's guide reflects the spirit of this collaborative process, where Part I, ``The MPAS Framework'', applies to all cores, and the remaining parts apply to MPAS-Land Ice.
 
-Here we would normally describe the new features of this version.  For the initial release, we will simply review the major features of the basic MPAS-Land Ice model.  We employ a finite-volume discretization of the ice continuity equation using a C-grid staggering in the horizontal.  The vertical coordinate is sigma.  The time-stepping method is Forward Euler (explicit).  Ice advection is performed by first-order upwinding.  No tracer advection is available at present.  
+Here we would normally describe the new features of this version.  For the initial release, we will simply review the major features of the basic MPAS-Land Ice model.  We employ a finite-volume discretization of the ice continuity equation using a C-grid staggering in the horizontal.  The vertical coordinate is sigma.  The time-stepping method is Forward Euler (explicit).  Ice advection is performed by first-order upwinding.  No tracer advection is available at present. In the initial release velocity can only be solved using the Shallow Ice Approximation. 
 
 
 A history of past releases of the Land Ice core within the MPAS version numbering scheme is as follows:
@@ -19,12 +19,12 @@ A history of past releases of the Land Ice core within the MPAS version numberin
 \hline 
 \end{tabular} 
 
-Information about MPAS-Land Ice, including the most recent code, user's guide, and test cases, may be found at \url{http://mpas-dev.github.com}.  This user's guide refers to version \version, with corresponding downloads at \href{http://mpas-dev.github.com/landice/release_\version/release_\version.html}{release \version}. \\
+Information about MPAS-Land Ice, including the most recent code, user's guide, and test cases, may be found at \url{http://mpas-dev.github.com}.  This user's guide refers to version \version.
 
 \vspace{8pt}
 \noindent
 {\bf Contributors to this guide:}\\
-Matt Hoffman\\
+Matt Hoffman, Stephen Price\\
 {\bf Additional contributors to MPAS Framework sections:}\\
 Michael Duda, Douglas Jacobsen
 
