@@ -1157,6 +1157,26 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
     \caption{fVertex: Coriolis parameter at vertices.}
 \end{longtable}
 \end{center}
+\subsection[fCell]{\hyperref[sec:var_tab_mesh]{fCell}}
+\label{subsec:var_sec_mesh_fCell}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $s^{-1}$ \\
+        \hline 
+        Dimension: & nCells \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Input Restart Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% mesh \% fCell \\
+		 \hline 
+    \caption{fCell: Coriolis parameter at cell centers.}
+\end{longtable}
+\end{center}
 \subsection[bottomDepth]{\hyperref[sec:var_tab_mesh]{bottomDepth}}
 \label{subsec:var_sec_mesh_bottomDepth}
 \begin{center}
@@ -1595,26 +1615,6 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
 		 Location in code: & domain \% blocklist \% mesh \% cellMask \\
 		 \hline 
     \caption{cellMask: Mask on cells that determines if computations should be done on cell.}
-\end{longtable}
-\end{center}
-\subsection[normalVelocityForcing]{\hyperref[sec:var_tab_mesh]{normalVelocityForcing}}
-\label{subsec:var_sec_mesh_normalVelocityForcing}
-\begin{center}
-\begin{longtable}{| p{2.0in} | p{4.0in} |}
-        \hline 
-        Type: & real \\
-        \hline 
-        Units: & $N$ $m^{-2}$ \\
-        \hline 
-        Dimension: & nVertLevels nEdges \\
-        \hline 
-        Persistence: & persistent \\
-        \hline 
-		 Default Streams: & Input Restart  \\
-        \hline 
-		 Location in code: & domain \% blocklist \% mesh \% normalVelocityForcing \\
-		 \hline 
-    \caption{normalVelocityForcing: Velocity forcing field. Defines a forcing at an edge.}
 \end{longtable}
 \end{center}
 \subsection[temperatureRestore]{\hyperref[sec:var_tab_mesh]{temperatureRestore}}
@@ -2060,7 +2060,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Index in surfaceVelocity Array: & domain \% blocklist \% diagnostics \% index\_zonalSurfaceVelocity \\
 		 \hline 
@@ -2084,7 +2084,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Index in surfaceVelocity Array: & domain \% blocklist \% diagnostics \% index\_meridionalSurfaceVelocity \\
 		 \hline 
@@ -2108,7 +2108,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Index in SSHGradient Array: & domain \% blocklist \% diagnostics \% index\_zonalSSHGradient \\
 		 \hline 
@@ -2132,7 +2132,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Index in SSHGradient Array: & domain \% blocklist \% diagnostics \% index\_meridionalSSHGradient \\
 		 \hline 
@@ -3056,7 +3056,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Location in code: & domain \% blocklist \% diagnostics \% RiTopOfCell \\
 		 \hline 
@@ -3096,11 +3096,31 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Location in code: & domain \% blocklist \% diagnostics \% vertViscTopOfEdge \\
 		 \hline 
     \caption{vertViscTopOfEdge: vertical viscosity defined at the edge (horizontally) and top (vertically)}
+\end{longtable}
+\end{center}
+\subsection[vertViscTopOfCell]{\hyperref[sec:var_tab_diagnostics]{vertViscTopOfCell}}
+\label{subsec:var_sec_diagnostics_vertViscTopOfCell}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $m^2$ $s^{-1}$ \\
+        \hline 
+        Dimension: & nVertLevelsP1 nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% diagnostics \% vertViscTopOfCell \\
+		 \hline 
+    \caption{vertViscTopOfCell: vertical viscosity defined at the cell center (horizontally) and top (vertically)}
 \end{longtable}
 \end{center}
 \subsection[vertDiffTopOfCell]{\hyperref[sec:var_tab_diagnostics]{vertDiffTopOfCell}}
@@ -3116,7 +3136,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Location in code: & domain \% blocklist \% diagnostics \% vertDiffTopOfCell \\
 		 \hline 
@@ -3203,26 +3223,6 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
     \caption{surfaceFrictionVelocity: diagnosed surface friction velocity defined as square root of (mag(wind stress) / reference density)}
 \end{longtable}
 \end{center}
-\subsection[surfaceBuoyancyForcing]{\hyperref[sec:var_tab_diagnostics]{surfaceBuoyancyForcing}}
-\label{subsec:var_sec_diagnostics_surfaceBuoyancyForcing}
-\begin{center}
-\begin{longtable}{| p{2.0in} | p{4.0in} |}
-        \hline 
-        Type: & real \\
-        \hline 
-        Units: & $m$ $s^{-3}$ \\
-        \hline 
-        Dimension: & nCells Time \\
-        \hline 
-        Persistence: & persistent \\
-        \hline 
-		 Default Streams: & Output  \\
-        \hline 
-		 Location in code: & domain \% blocklist \% diagnostics \% surfaceBuoyancyForcing \\
-		 \hline 
-    \caption{surfaceBuoyancyForcing: diagnosed surface buoyancy forcing due to heat, salt and freshwater fluxes at ocean surface}
-\end{longtable}
-\end{center}
 \subsection[windStressZonalDiag]{\hyperref[sec:var_tab_diagnostics]{windStressZonalDiag}}
 \label{subsec:var_sec_diagnostics_windStressZonalDiag}
 \begin{center}
@@ -3261,6 +3261,46 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
 		 Location in code: & domain \% blocklist \% diagnostics \% windStressMeridionalDiag \\
 		 \hline 
     \caption{windStressMeridionalDiag: reconstructed surface wind stress in the northward direction. User for diagnostics.}
+\end{longtable}
+\end{center}
+\subsection[penetrativeTemperatureFluxOBL]{\hyperref[sec:var_tab_diagnostics]{penetrativeTemperatureFluxOBL}}
+\label{subsec:var_sec_diagnostics_penetrativeTemperatureFluxOBL}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $^\circ$ $C$ $m$ $s^{-1}$ \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & None \\
+        \hline 
+		 Location in code: & domain \% blocklist \% diagnostics \% penetrativeTemperatureFluxOBL \\
+		 \hline 
+    \caption{penetrativeTemperatureFluxOBL: Penetrative temperature flux at the bottom of boundary layer due to solar radiation. Positive is into the ocean.}
+\end{longtable}
+\end{center}
+\subsection[buoyancyForcingOBL]{\hyperref[sec:var_tab_diagnostics]{buoyancyForcingOBL}}
+\label{subsec:var_sec_diagnostics_buoyancyForcingOBL}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $m$ $s^{-3}$ \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% diagnostics \% buoyancyForcingOBL \\
+		 \hline 
+    \caption{buoyancyForcingOBL: diagnosed buoyancy forcing due to heat, salt and freshwater fluxes averaged over ocean boundary layer depth}
 \end{longtable}
 \end{center}
 \subsection[areaCellGlobal]{\hyperref[sec:var_tab_diagnostics]{areaCellGlobal}}
@@ -3600,11 +3640,11 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Input Restart  \\
         \hline 
 		 Location in code: & domain \% blocklist \% forcing \% surfaceWindStress \\
 		 \hline 
-    \caption{surfaceWindStress: Wind stress at the surface of the ocean defined at edge midpoints.}
+    \caption{surfaceWindStress: Wind stress at the surface of the ocean defined at edge midpoints. Magintude in direction of edge normal.}
 \end{longtable}
 \end{center}
 \subsection[surfaceWindStressMagnitude]{\hyperref[sec:var_tab_forcing]{surfaceWindStressMagnitude}}
@@ -3620,7 +3660,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Location in code: & domain \% blocklist \% forcing \% surfaceWindStressMagnitude \\
 		 \hline 
@@ -3640,7 +3680,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Location in code: & domain \% blocklist \% forcing \% surfaceMassFlux \\
 		 \hline 
@@ -3660,7 +3700,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Index in surfaceTracerFlux Array: & domain \% blocklist \% forcing \% index\_surfaceTemperatureFlux \\
 		 \hline 
@@ -3684,7 +3724,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Index in surfaceTracerFlux Array: & domain \% blocklist \% forcing \% index\_surfaceSalinityFlux \\
 		 \hline 
@@ -3693,6 +3733,30 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
 		 Array Group: & dynamics \\
 		 \hline 
     \caption{surfaceSalinityFlux: Flux of salinity through the ocean surface. Positive into ocean.}
+\end{longtable}
+\end{center}
+\subsection[surfaceTracer1Flux]{\hyperref[sec:var_tab_forcing]{surfaceTracer1Flux}}
+\label{subsec:var_sec_forcing_surfaceTracer1Flux}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $percent$ \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Output  \\
+        \hline 
+		 Index in surfaceTracerFlux Array: & domain \% blocklist \% forcing \% index\_surfaceTracer1Flux \\
+		 \hline 
+		 Location in code: & domain \% blocklist \% forcing \% surfaceTracerFlux \\
+		 \hline 
+		 Array Group: & testing \\
+		 \hline 
+    \caption{surfaceTracer1Flux: Flux of tracer1 through the ocean surface. Positive into ocean.}
 \end{longtable}
 \end{center}
 \subsection[seaSurfacePressure]{\hyperref[sec:var_tab_forcing]{seaSurfacePressure}}
@@ -3708,7 +3772,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & Restart  \\
+		 Default Streams: & Output Restart  \\
         \hline 
 		 Location in code: & domain \% blocklist \% forcing \% seaSurfacePressure \\
 		 \hline 
@@ -3728,11 +3792,11 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Location in code: & domain \% blocklist \% forcing \% seaIceEnergy \\
 		 \hline 
-    \caption{seaIceEnergy: Energy per unit area trapped in frazil ice formation. Always >= 0.0.}
+    \caption{seaIceEnergy:  Energy per unit area trapped in frazil ice formation. Always  $\ge$  0.0.}
 \end{longtable}
 \end{center}
 \subsection[penetrativeTemperatureFlux]{\hyperref[sec:var_tab_forcing]{penetrativeTemperatureFlux}}
@@ -3748,11 +3812,31 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Location in code: & domain \% blocklist \% forcing \% penetrativeTemperatureFlux \\
 		 \hline 
     \caption{penetrativeTemperatureFlux: Penetrative temperature flux at the surface due to solar radiation. Positive is into the ocean.}
+\end{longtable}
+\end{center}
+\subsection[transmissionCoefficients]{\hyperref[sec:var_tab_forcing]{transmissionCoefficients}}
+\label{subsec:var_sec_forcing_transmissionCoefficients}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $percent$ \\
+        \hline 
+        Dimension: & nVertLevels nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & Output  \\
+        \hline 
+		 Location in code: & domain \% blocklist \% forcing \% transmissionCoefficients \\
+		 \hline 
+    \caption{transmissionCoefficients: Divergence of transmission through interfaces of surface fluxes below the surface layer at cell centers. These are not applied to short wave.}
 \end{longtable}
 \end{center}
 \subsection[windStressZonal]{\hyperref[sec:var_tab_forcing]{windStressZonal}}
@@ -3768,11 +3852,11 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Location in code: & domain \% blocklist \% forcing \% windStressZonal \\
 		 \hline 
-    \caption{windStressZonal: Zonal (eastward) component of wind stress at cell centers from coupler.}
+    \caption{windStressZonal: Zonal (eastward) component of wind stress at cell centers from coupler. Positive eastward.}
 \end{longtable}
 \end{center}
 \subsection[windStressMeridional]{\hyperref[sec:var_tab_forcing]{windStressMeridional}}
@@ -3788,11 +3872,11 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Location in code: & domain \% blocklist \% forcing \% windStressMeridional \\
 		 \hline 
-    \caption{windStressMeridional: Meridional (northward) component of wind stress at cell centers from coupler.}
+    \caption{windStressMeridional: Meridional (northward) component of wind stress at cell centers from coupler. Positive northward.}
 \end{longtable}
 \end{center}
 \subsection[latentHeatFlux]{\hyperref[sec:var_tab_forcing]{latentHeatFlux}}
@@ -3808,11 +3892,11 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Location in code: & domain \% blocklist \% forcing \% latentHeatFlux \\
 		 \hline 
-    \caption{latentHeatFlux: Latent heat flux at cell centers from coupler.}
+    \caption{latentHeatFlux: Latent heat flux at cell centers from coupler. Positive into the ocean.}
 \end{longtable}
 \end{center}
 \subsection[sensibleHeatFlux]{\hyperref[sec:var_tab_forcing]{sensibleHeatFlux}}
@@ -3828,11 +3912,11 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Location in code: & domain \% blocklist \% forcing \% sensibleHeatFlux \\
 		 \hline 
-    \caption{sensibleHeatFlux: Sensible heat flux at cell centers from coupler.}
+    \caption{sensibleHeatFlux: Sensible heat flux at cell centers from coupler. Positive into the ocean.}
 \end{longtable}
 \end{center}
 \subsection[longWaveHeatFluxUp]{\hyperref[sec:var_tab_forcing]{longWaveHeatFluxUp}}
@@ -3848,11 +3932,11 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Location in code: & domain \% blocklist \% forcing \% longWaveHeatFluxUp \\
 		 \hline 
-    \caption{longWaveHeatFluxUp: Upward long wave heat flux at cell centers from coupler.}
+    \caption{longWaveHeatFluxUp: Upward long wave heat flux at cell centers from coupler. Positive into the ocean.}
 \end{longtable}
 \end{center}
 \subsection[longWaveHeatFluxDown]{\hyperref[sec:var_tab_forcing]{longWaveHeatFluxDown}}
@@ -3868,11 +3952,11 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Location in code: & domain \% blocklist \% forcing \% longWaveHeatFluxDown \\
 		 \hline 
-    \caption{longWaveHeatFluxDown: Downward long wave heat flux at cell centers from coupler.}
+    \caption{longWaveHeatFluxDown: Downward long wave heat flux at cell centers from coupler. Positive into the ocean.}
 \end{longtable}
 \end{center}
 \subsection[seaIceHeatFlux]{\hyperref[sec:var_tab_forcing]{seaIceHeatFlux}}
@@ -3888,11 +3972,11 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Location in code: & domain \% blocklist \% forcing \% seaIceHeatFlux \\
 		 \hline 
-    \caption{seaIceHeatFlux: Sea ice heat flux at cell centers from coupler.}
+    \caption{seaIceHeatFlux: Sea ice heat flux at cell centers from coupler. Positive into the ocean.}
 \end{longtable}
 \end{center}
 \subsection[shortWaveHeatFlux]{\hyperref[sec:var_tab_forcing]{shortWaveHeatFlux}}
@@ -3908,11 +3992,11 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Location in code: & domain \% blocklist \% forcing \% shortWaveHeatFlux \\
 		 \hline 
-    \caption{shortWaveHeatFlux: Short wave flux at cell centers from coupler.}
+    \caption{shortWaveHeatFlux: Short wave flux at cell centers from coupler. Positive into the ocean.}
 \end{longtable}
 \end{center}
 \subsection[evaporationFlux]{\hyperref[sec:var_tab_forcing]{evaporationFlux}}
@@ -3928,11 +4012,11 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Location in code: & domain \% blocklist \% forcing \% evaporationFlux \\
 		 \hline 
-    \caption{evaporationFlux: Evaporation flux at cell centers from coupler.}
+    \caption{evaporationFlux: Evaporation flux at cell centers from coupler. Positive into the ocean.}
 \end{longtable}
 \end{center}
 \subsection[seaIceSalinityFlux]{\hyperref[sec:var_tab_forcing]{seaIceSalinityFlux}}
@@ -3948,11 +4032,11 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Location in code: & domain \% blocklist \% forcing \% seaIceSalinityFlux \\
 		 \hline 
-    \caption{seaIceSalinityFlux: Sea ice salinity flux at cell centers from coupler.}
+    \caption{seaIceSalinityFlux: Sea ice salinity flux at cell centers from coupler. Positive into the ocean.}
 \end{longtable}
 \end{center}
 \subsection[seaIceFreshWaterFlux]{\hyperref[sec:var_tab_forcing]{seaIceFreshWaterFlux}}
@@ -3968,11 +4052,11 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Location in code: & domain \% blocklist \% forcing \% seaIceFreshWaterFlux \\
 		 \hline 
-    \caption{seaIceFreshWaterFlux: Fresh water flux from sea ice at cell centers from coupler.}
+    \caption{seaIceFreshWaterFlux: Fresh water flux from sea ice at cell centers from coupler. Positive into the ocean.}
 \end{longtable}
 \end{center}
 \subsection[riverRunoffFlux]{\hyperref[sec:var_tab_forcing]{riverRunoffFlux}}
@@ -3988,11 +4072,11 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Location in code: & domain \% blocklist \% forcing \% riverRunoffFlux \\
 		 \hline 
-    \caption{riverRunoffFlux: Fresh water flux from river runoff at cell centers from coupler.}
+    \caption{riverRunoffFlux: Fresh water flux from river runoff at cell centers from coupler. Positive into the ocean.}
 \end{longtable}
 \end{center}
 \subsection[iceRunoffFlux]{\hyperref[sec:var_tab_forcing]{iceRunoffFlux}}
@@ -4008,11 +4092,11 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Location in code: & domain \% blocklist \% forcing \% iceRunoffFlux \\
 		 \hline 
-    \caption{iceRunoffFlux: Fresh water flux from ice runoff at cell centers from coupler.}
+    \caption{iceRunoffFlux: Fresh water flux from ice runoff at cell centers from coupler. Positive into the ocean.}
 \end{longtable}
 \end{center}
 \subsection[rainFlux]{\hyperref[sec:var_tab_forcing]{rainFlux}}
@@ -4028,11 +4112,11 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Location in code: & domain \% blocklist \% forcing \% rainFlux \\
 		 \hline 
-    \caption{rainFlux: Fresh water flux from rain at cell centers from coupler.}
+    \caption{rainFlux: Fresh water flux from rain at cell centers from coupler. Positive into the ocean.}
 \end{longtable}
 \end{center}
 \subsection[snowFlux]{\hyperref[sec:var_tab_forcing]{snowFlux}}
@@ -4048,11 +4132,11 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Location in code: & domain \% blocklist \% forcing \% snowFlux \\
 		 \hline 
-    \caption{snowFlux: Fresh water flux from snow at cell centers from coupler.}
+    \caption{snowFlux: Fresh water flux from snow at cell centers from coupler. Positive into the ocean.}
 \end{longtable}
 \end{center}
 \subsection[iceFraction]{\hyperref[sec:var_tab_forcing]{iceFraction}}
@@ -4068,11 +4152,11 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Location in code: & domain \% blocklist \% forcing \% iceFraction \\
 		 \hline 
-    \caption{iceFraction: Fraction of sea ice coverage at cell centers from coupler.}
+    \caption{iceFraction: Fraction of sea ice coverage at cell centers from coupler. Positive into the ocean.}
 \end{longtable}
 \end{center}
 \subsection[prognosticCO2]{\hyperref[sec:var_tab_forcing]{prognosticCO2}}
@@ -4088,11 +4172,11 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Location in code: & domain \% blocklist \% forcing \% prognosticCO2 \\
 		 \hline 
-    \caption{prognosticCO2: Prognostic CO2 at cell centers from coupler.}
+    \caption{prognosticCO2: Prognostic CO2 at cell centers from coupler. Positive into the ocean.}
 \end{longtable}
 \end{center}
 \subsection[diagnosticCO2]{\hyperref[sec:var_tab_forcing]{diagnosticCO2}}
@@ -4108,11 +4192,11 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Location in code: & domain \% blocklist \% forcing \% diagnosticCO2 \\
 		 \hline 
-    \caption{diagnosticCO2: Diagnostic CO2 at cell centers from coupler.}
+    \caption{diagnosticCO2: Diagnostic CO2 at cell centers from coupler. Positive into the ocean.}
 \end{longtable}
 \end{center}
 \subsection[squaredWindSpeed10Meter]{\hyperref[sec:var_tab_forcing]{squaredWindSpeed10Meter}}
@@ -4128,7 +4212,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Location in code: & domain \% blocklist \% forcing \% squaredWindSpeed10Meter \\
 		 \hline 
@@ -4148,7 +4232,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Location in code: & domain \% blocklist \% forcing \% nAccumulatedCoupled \\
 		 \hline 
@@ -4168,7 +4252,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Index in avgTracersSurfaceValue Array: & domain \% blocklist \% forcing \% index\_temperatureSurfaceValue \\
 		 \hline 
@@ -4192,7 +4276,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Index in avgTracersSurfaceValue Array: & domain \% blocklist \% forcing \% index\_salinitySurfaceValue \\
 		 \hline 
@@ -4201,6 +4285,30 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
 		 Array Group: & surfaceValues \\
 		 \hline 
     \caption{avgSalinitySurfaceValue: Time averaged salinity extrapolated to ocean surface}
+\end{longtable}
+\end{center}
+\subsection[avgTracer1SurfaceValue]{\hyperref[sec:var_tab_forcing]{avgTracer1SurfaceValue}}
+\label{subsec:var_sec_forcing_avgTracer1SurfaceValue}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $percent$ \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & None \\
+        \hline 
+		 Index in avgTracersSurfaceValue Array: & domain \% blocklist \% forcing \% index\_avgTracer1SurfaceValue \\
+		 \hline 
+		 Location in code: & domain \% blocklist \% forcing \% avgTracersSurfaceValue \\
+		 \hline 
+		 Array Group: & surfaceValues \\
+		 \hline 
+    \caption{avgTracer1SurfaceValue: Time averaged tracer1 extrapolated to ocean surface}
 \end{longtable}
 \end{center}
 \subsection[avgZonalSurfaceVelocity]{\hyperref[sec:var_tab_forcing]{avgZonalSurfaceVelocity}}
@@ -4216,7 +4324,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Index in avgSurfaceVelocity Array: & domain \% blocklist \% forcing \% index\_avgZonalSurfaceVelocity \\
 		 \hline 
@@ -4240,7 +4348,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Index in avgSurfaceVelocity Array: & domain \% blocklist \% forcing \% index\_avgMeridionalSurfaceVelocity \\
 		 \hline 
@@ -4264,7 +4372,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Index in avgSSHGradient Array: & domain \% blocklist \% forcing \% index\_avgZonalSSHGradient \\
 		 \hline 
@@ -4288,7 +4396,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Index in avgSSHGradient Array: & domain \% blocklist \% forcing \% index\_avgMeridionalSSHGradient \\
 		 \hline 
@@ -4312,7 +4420,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Location in code: & domain \% blocklist \% forcing \% CO2Flux \\
 		 \hline 
@@ -4332,7 +4440,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Location in code: & domain \% blocklist \% forcing \% DMSFlux \\
 		 \hline 
@@ -4341,106 +4449,6 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
 \end{center}
 \section[scratch]{\hyperref[sec:var_tab_scratch]{scratch}}
 \label{sec:var_sec_scratch}
-\subsection[normalVelocityForcingX]{\hyperref[sec:var_tab_scratch]{normalVelocityForcingX}}
-\label{subsec:var_sec_scratch_normalVelocityForcingX}
-\begin{center}
-\begin{longtable}{| p{2.0in} | p{4.0in} |}
-        \hline 
-        Type: & real \\
-        \hline 
-        Units: & $N$ $m^{-2}$ \\
-        \hline 
-        Dimension: & nVertLevels nCells Time \\
-        \hline 
-        Persistence: & persistent \\
-        \hline 
-		 Default Streams: & None \\
-        \hline 
-		 Location in code: & domain \% blocklist \% scratch \% normalVelocityForcingX \\
-		 \hline 
-    \caption{normalVelocityForcingX: reconstructed wind stress in the x-direction (cartesian)}
-\end{longtable}
-\end{center}
-\subsection[normalVelocityForcingY]{\hyperref[sec:var_tab_scratch]{normalVelocityForcingY}}
-\label{subsec:var_sec_scratch_normalVelocityForcingY}
-\begin{center}
-\begin{longtable}{| p{2.0in} | p{4.0in} |}
-        \hline 
-        Type: & real \\
-        \hline 
-        Units: & $N$ $m^{-2}$ \\
-        \hline 
-        Dimension: & nVertLevels nCells Time \\
-        \hline 
-        Persistence: & persistent \\
-        \hline 
-		 Default Streams: & None \\
-        \hline 
-		 Location in code: & domain \% blocklist \% scratch \% normalVelocityForcingY \\
-		 \hline 
-    \caption{normalVelocityForcingY: reconstructed wind stress in the y-direction (cartesian)}
-\end{longtable}
-\end{center}
-\subsection[normalVelocityForcingZ]{\hyperref[sec:var_tab_scratch]{normalVelocityForcingZ}}
-\label{subsec:var_sec_scratch_normalVelocityForcingZ}
-\begin{center}
-\begin{longtable}{| p{2.0in} | p{4.0in} |}
-        \hline 
-        Type: & real \\
-        \hline 
-        Units: & $N$ $m^{-2}$ \\
-        \hline 
-        Dimension: & nVertLevels nCells Time \\
-        \hline 
-        Persistence: & persistent \\
-        \hline 
-		 Default Streams: & None \\
-        \hline 
-		 Location in code: & domain \% blocklist \% scratch \% normalVelocityForcingZ \\
-		 \hline 
-    \caption{normalVelocityForcingZ: reconstructed wind stress in the z-direction (cartesian)}
-\end{longtable}
-\end{center}
-\subsection[normalVelocityForcingZonal]{\hyperref[sec:var_tab_scratch]{normalVelocityForcingZonal}}
-\label{subsec:var_sec_scratch_normalVelocityForcingZonal}
-\begin{center}
-\begin{longtable}{| p{2.0in} | p{4.0in} |}
-        \hline 
-        Type: & real \\
-        \hline 
-        Units: & $N$ $m^{-2}$ \\
-        \hline 
-        Dimension: & nVertLevels nCells Time \\
-        \hline 
-        Persistence: & persistent \\
-        \hline 
-		 Default Streams: & None \\
-        \hline 
-		 Location in code: & domain \% blocklist \% scratch \% normalVelocityForcingZonal \\
-		 \hline 
-    \caption{normalVelocityForcingZonal: reconstructed wind stress in the eastward direction}
-\end{longtable}
-\end{center}
-\subsection[normalVelocityForcingMeridional]{\hyperref[sec:var_tab_scratch]{normalVelocityForcingMeridional}}
-\label{subsec:var_sec_scratch_normalVelocityForcingMeridional}
-\begin{center}
-\begin{longtable}{| p{2.0in} | p{4.0in} |}
-        \hline 
-        Type: & real \\
-        \hline 
-        Units: & $N$ $m^{-2}$ \\
-        \hline 
-        Dimension: & nVertLevels nCells Time \\
-        \hline 
-        Persistence: & persistent \\
-        \hline 
-		 Default Streams: & None \\
-        \hline 
-		 Location in code: & domain \% blocklist \% scratch \% normalVelocityForcingMeridional \\
-		 \hline 
-    \caption{normalVelocityForcingMeridional: reconstructed wind stress in the northward direction}
-\end{longtable}
-\end{center}
 \subsection[vorticityGradientTangentialComponent]{\hyperref[sec:var_tab_scratch]{vorticityGradientTangentialComponent}}
 \label{subsec:var_sec_scratch_vorticityGradientTangentialComponent}
 \begin{center}
@@ -4594,7 +4602,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Location in code: & domain \% blocklist \% scratch \% thermalExpansionCoeff \\
 		 \hline 
@@ -4614,7 +4622,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Persistence: & persistent \\
         \hline 
-		 Default Streams: & None \\
+		 Default Streams: & Output  \\
         \hline 
 		 Location in code: & domain \% blocklist \% scratch \% salineContractionCoeff \\
 		 \hline 
@@ -4919,5 +4927,125 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
 		 Location in code: & domain \% blocklist \% scratch \% tangentialVectorEdge \\
 		 \hline 
     \caption{tangentialVectorEdge: Vector component tangent to an edge.}
+\end{longtable}
+\end{center}
+\subsection[windStressFull]{\hyperref[sec:var_tab_scratch]{windStressFull}}
+\label{subsec:var_sec_scratch_windStressFull}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $N$ $m^{-2}$ \\
+        \hline 
+        Dimension: & nVertLevels nEdges Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & None \\
+        \hline 
+		 Location in code: & domain \% blocklist \% scratch \% windStressFull \\
+		 \hline 
+    \caption{windStressFull: Wind stress used for reconstructing diagnostic output fields.}
+\end{longtable}
+\end{center}
+\subsection[windStressX]{\hyperref[sec:var_tab_scratch]{windStressX}}
+\label{subsec:var_sec_scratch_windStressX}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $N$ $m^{-2}$ \\
+        \hline 
+        Dimension: & nVertLevels nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & None \\
+        \hline 
+		 Location in code: & domain \% blocklist \% scratch \% windStressX \\
+		 \hline 
+    \caption{windStressX: reconstructed surface wind stress in the x direction. Used for diagnostics.}
+\end{longtable}
+\end{center}
+\subsection[windStressY]{\hyperref[sec:var_tab_scratch]{windStressY}}
+\label{subsec:var_sec_scratch_windStressY}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $N$ $m^{-2}$ \\
+        \hline 
+        Dimension: & nVertLevels nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & None \\
+        \hline 
+		 Location in code: & domain \% blocklist \% scratch \% windStressY \\
+		 \hline 
+    \caption{windStressY: reconstructed surface wind stress in the y direction. User for diagnostics.}
+\end{longtable}
+\end{center}
+\subsection[windStressZ]{\hyperref[sec:var_tab_scratch]{windStressZ}}
+\label{subsec:var_sec_scratch_windStressZ}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $N$ $m^{-2}$ \\
+        \hline 
+        Dimension: & nVertLevels nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & None \\
+        \hline 
+		 Location in code: & domain \% blocklist \% scratch \% windStressZ \\
+		 \hline 
+    \caption{windStressZ: reconstructed surface wind stress in the z direction. User for diagnostics.}
+\end{longtable}
+\end{center}
+\subsection[windStressZonal]{\hyperref[sec:var_tab_scratch]{windStressZonal}}
+\label{subsec:var_sec_scratch_windStressZonal}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $N$ $m^{-2}$ \\
+        \hline 
+        Dimension: & nVertLevels nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & None \\
+        \hline 
+		 Location in code: & domain \% blocklist \% scratch \% windStressZonal \\
+		 \hline 
+    \caption{windStressZonal: reconstructed surface wind stress in the eastward direction. Used for diagnostics.}
+\end{longtable}
+\end{center}
+\subsection[windStressMeridional]{\hyperref[sec:var_tab_scratch]{windStressMeridional}}
+\label{subsec:var_sec_scratch_windStressMeridional}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & $N$ $m^{-2}$ \\
+        \hline 
+        Dimension: & nVertLevels nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+		 Default Streams: & None \\
+        \hline 
+		 Location in code: & domain \% blocklist \% scratch \% windStressMeridional \\
+		 \hline 
+    \caption{windStressMeridional: reconstructed surface wind stress in the northward direction. User for diagnostics.}
 \end{longtable}
 \end{center}
