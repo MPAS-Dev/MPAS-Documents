@@ -451,11 +451,61 @@ do (while(associated(block_ptr))
 end do
 \end{lstlisting}
 
+\section{Addition of New Variables}
 In order to create new fields or structures, a developer needs to modify
 Registry.xml for the particular core. The definition of Registry.xml is stored
 in src/registry/Registry.xsd. This schema file can also be used to validate a
 Registry.xml file using any XML validator.
 
+The Registry.xml file currently is allowed to define things like global
+dimensions, namelist records, namelist options, variable structures, variable
+arrays, and variables. The easiest way to add a new option, is to example other
+existing Registry.xml files, and try to mimic something in the file. Each of
+these options contains some required and some optional attributes, which let
+you define specific things about the type or to document it.
+
+The most complilcated are variable structures, variable arrays, and variables,
+so those will be discussed here. For examples of the dimensions and namelist
+options and records, please examine other Registry.xml files and the
+Registry.xsd file.
+
+A variable structure is a larger grouping of variables and variable arrays into
+a derived data type. In the previous section, a variable structure represents
+either struct1 or struct2. Variable structures can be defined with multiple
+time levels, in which case they have access to the time\_levs array.
+
+A variable array is again a larger grouping of variables. However, in this case
+the grouping is into a single array, rather than a group of pointers to
+variables. Here variables contained within the variable array are considered
+constituent variables, and represent one index of the inner most dimension of
+the variable array.
+
+A variable is the lowest level derived data type we have. It contains
+information about the varaible, like if it's a variable array, or what it's
+dimensions are supposed to be. It also contains the actual array of data for
+the variable.
+
+An example of all three of these in registry can be seen below. There is a
+variable structure named state, a variable array named tracers with one
+constituent variable named temperature, and one variable named layerThickness.
+
+{\tiny
+\begin{lstlisting}
+<var_struct name="state" time_levs="2">
+	<var_array name="tracers" type="real" dimensions="nVertLevels nCells Time">
+		<var name="temperature" array_group="dynamics" streams="iro" units="degrees Celsius"
+		     description="potential temperature"
+		/>
+	/>
+	<var name="layerThickness" type="real" dimensions="nVertLevels nCells Time" streams="iro" units="m"
+	     description="Thickness of layer"
+	/>
+/>
+\end{lstlisting}
+}
+
+Additional documentation about the attributes and allowed values for the
+attributes can be found in the Registry.xsd file in src/registry/Registry.xsd.
 
 \section{Parallelization Strategy}
 Currently within MPAS, the only parallelization strategy is MPI. This section
