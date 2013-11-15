@@ -3,12 +3,15 @@
 Embedded links point to more detailed variable information in the appendix.
 \section[state]{\hyperref[sec:var_sec_state]{state}}
 \label{sec:var_tab_state}
-\input{ocean/section_descriptions/state.tex}
+\input{ocean/section_descriptions/state_struct.tex}
+\vspace{0.5in}
 {\small
 \begin{center}
 \begin{longtable}{| p{2.0in} | p{4.0in} |}
 	\hline
-	{\bf Name} & {\bf Description} \\
+	{\bf Name} & {\bf Description} \endfirsthead
+	\hline 
+	{\bf Name} & {\bf Description} (Continued) \endhead
 	\hline
 	\hyperref[subsec:var_sec_state_temperature]{temperature} & potential temperature \\
 	\hline
@@ -28,7 +31,7 @@ Embedded links point to more detailed variable information in the appendix.
 	\hline
 	\hyperref[subsec:var_sec_state_normalBarotropicVelocity]{normalBarotropicVelocity} & barotropic velocity, used in split-explicit time-stepping \\
 	\hline
-	\hyperref[subsec:var_sec_state_normalBarotropicVelocitySubcycle]{normalBarotropicVelocitySubcycle} & barotropic velocity, used in subcycling in stage 2 of split-explicit time-stepping \\
+	\hyperref[subsec:var_sec_state_normalBarotropicVelocitySubcycle]{normalBarotropicVelocitySubcy-}\hyperref[subsec:var_sec_state_normalBarotropicVelocitySubcycle]{cle  }& barotropic velocity, used in subcycling in stage 2 of split-explicit time-stepping \\
 	\hline
 	\hyperref[subsec:var_sec_state_sshSubcycle]{sshSubcycle} & sea surface height, used in subcycling in stage 2 of split-explicit time-stepping \\
 	\hline
@@ -39,12 +42,15 @@ Embedded links point to more detailed variable information in the appendix.
 }
 \section[mesh]{\hyperref[sec:var_sec_mesh]{mesh}}
 \label{sec:var_tab_mesh}
-\input{ocean/section_descriptions/mesh.tex}
+\input{ocean/section_descriptions/mesh_struct.tex}
+\vspace{0.5in}
 {\small
 \begin{center}
 \begin{longtable}{| p{2.0in} | p{4.0in} |}
 	\hline
-	{\bf Name} & {\bf Description} \\
+	{\bf Name} & {\bf Description} \endfirsthead
+	\hline 
+	{\bf Name} & {\bf Description} (Continued) \endhead
 	\hline
 	\hyperref[subsec:var_sec_mesh_latCell]{latCell} & Latitude location of cell centers in radians. \\
 	\hline
@@ -136,6 +142,8 @@ Embedded links point to more detailed variable information in the appendix.
 	\hline
 	\hyperref[subsec:var_sec_mesh_fVertex]{fVertex} & Coriolis parameter at vertices. \\
 	\hline
+	\hyperref[subsec:var_sec_mesh_fCell]{fCell} & Coriolis parameter at cell centers. \\
+	\hline
 	\hyperref[subsec:var_sec_mesh_bottomDepth]{bottomDepth} & Depth of the bottom of the ocean. Given as a positive distance from sea level. \\
 	\hline
 	\hyperref[subsec:var_sec_mesh_derivTwo]{derivTwo} & Value of the second derivative of the polynomial used for reconstruction of cell center quantities at edges. \\
@@ -180,8 +188,6 @@ Embedded links point to more detailed variable information in the appendix.
 	\hline
 	\hyperref[subsec:var_sec_mesh_cellMask]{cellMask} & Mask on cells that determines if computations should be done on cell. \\
 	\hline
-	\hyperref[subsec:var_sec_mesh_normalVelocityForcing]{normalVelocityForcing} & Velocity forcing field. Defines a forcing at an edge. \\
-	\hline
 	\hyperref[subsec:var_sec_mesh_temperatureRestore]{temperatureRestore} & Temperature restoring field, for restoring temperature at the surface. \\
 	\hline
 	\hyperref[subsec:var_sec_mesh_salinityRestore]{salinityRestore} & Salinity restoring field, for restoring salinity at the surface. \\
@@ -197,11 +203,15 @@ Embedded links point to more detailed variable information in the appendix.
 }
 \section[verticalMesh]{\hyperref[sec:var_sec_verticalMesh]{verticalMesh}}
 \label{sec:var_tab_verticalMesh}
+\input{ocean/section_descriptions/verticalMesh_struct.tex}
+\vspace{0.5in}
 {\small
 \begin{center}
 \begin{longtable}{| p{2.0in} | p{4.0in} |}
 	\hline
-	{\bf Name} & {\bf Description} \\
+	{\bf Name} & {\bf Description} \endfirsthead
+	\hline 
+	{\bf Name} & {\bf Description} (Continued) \endhead
 	\hline
 	\hyperref[subsec:var_sec_verticalMesh_restingThickness]{restingThickness} & Layer thickness when the ocean is at rest, i.e. without SSH or internal perturbations. \\
 	\hline
@@ -214,12 +224,15 @@ Embedded links point to more detailed variable information in the appendix.
 }
 \section[tend]{\hyperref[sec:var_sec_tend]{tend}}
 \label{sec:var_tab_tend}
-\input{ocean/section_descriptions/tend.tex}
+\input{ocean/section_descriptions/tend_struct.tex}
+\vspace{0.5in}
 {\small
 \begin{center}
 \begin{longtable}{| p{2.0in} | p{4.0in} |}
 	\hline
-	{\bf Name} & {\bf Description} \\
+	{\bf Name} & {\bf Description} \endfirsthead
+	\hline 
+	{\bf Name} & {\bf Description} (Continued) \endhead
 	\hline
 	\hyperref[subsec:var_sec_tend_tendTemperature]{tendTemperature} & time tendency of potential temperature \\
 	\hline
@@ -242,12 +255,15 @@ Embedded links point to more detailed variable information in the appendix.
 }
 \section[diagnostics]{\hyperref[sec:var_sec_diagnostics]{diagnostics}}
 \label{sec:var_tab_diagnostics}
-\input{ocean/section_descriptions/diagnostics.tex}
+\input{ocean/section_descriptions/diagnostics_struct.tex}
+\vspace{0.5in}
 {\small
 \begin{center}
 \begin{longtable}{| p{2.0in} | p{4.0in} |}
 	\hline
-	{\bf Name} & {\bf Description} \\
+	{\bf Name} & {\bf Description} \endfirsthead
+	\hline 
+	{\bf Name} & {\bf Description} (Continued) \endhead
 	\hline
 	\hyperref[subsec:var_sec_diagnostics_xtime]{xtime} & model time, with format 'YYYY-MM-DD\_HH:MM:SS' \\
 	\hline
@@ -313,7 +329,7 @@ Embedded links point to more detailed variable information in the appendix.
 	\hline
 	\hyperref[subsec:var_sec_diagnostics_normalizedRelativeVorticityEdge]{normalizedRelativeVorticityEdge} & curl of horizontal velocity divided by layer thickness, averaged from vertices to edges \\
 	\hline
-	\hyperref[subsec:var_sec_diagnostics_normalizedPlanetaryVorticityEdge]{normalizedPlanetaryVorticityEdge} & earth's rotational rate (Coriolis parameter, f) divided by layer thickness, averaged from vertices to edges \\
+	\hyperref[subsec:var_sec_diagnostics_normalizedPlanetaryVorticityEdge]{normalizedPlanetaryVorticityEd-}\hyperref[subsec:var_sec_diagnostics_normalizedPlanetaryVorticityEdge]{ge  }& earth's rotational rate (Coriolis parameter, f) divided by layer thickness, averaged from vertices to edges \\
 	\hline
 	\hyperref[subsec:var_sec_diagnostics_normalizedRelativeVorticityCell]{normalizedRelativeVorticityCell} & curl of horizontal velocity divided by layer thickness, averaged from vertices to cell centers \\
 	\hline
@@ -361,6 +377,8 @@ Embedded links point to more detailed variable information in the appendix.
 	\hline
 	\hyperref[subsec:var_sec_diagnostics_vertViscTopOfEdge]{vertViscTopOfEdge} & vertical viscosity defined at the edge (horizontally) and top (vertically) \\
 	\hline
+	\hyperref[subsec:var_sec_diagnostics_vertViscTopOfCell]{vertViscTopOfCell} & vertical viscosity defined at the cell center (horizontally) and top (vertically) \\
+	\hline
 	\hyperref[subsec:var_sec_diagnostics_vertDiffTopOfCell]{vertDiffTopOfCell} & vertical diffusion defined at the cell center (horizontally) and top (vertically) \\
 	\hline
 	\hyperref[subsec:var_sec_diagnostics_bulkRichardsonNumber]{bulkRichardsonNumber} & bulk Richardson number \\
@@ -371,11 +389,13 @@ Embedded links point to more detailed variable information in the appendix.
 	\hline
 	\hyperref[subsec:var_sec_diagnostics_surfaceFrictionVelocity]{surfaceFrictionVelocity} & diagnosed surface friction velocity defined as square root of (mag(wind stress) / reference density) \\
 	\hline
-	\hyperref[subsec:var_sec_diagnostics_surfaceBuoyancyForcing]{surfaceBuoyancyForcing} & diagnosed surface buoyancy forcing due to heat, salt and freshwater fluxes at ocean surface \\
-	\hline
 	\hyperref[subsec:var_sec_diagnostics_windStressZonalDiag]{windStressZonalDiag} & reconstructed surface wind stress in the eastward direction. Used for diagnostics. \\
 	\hline
 	\hyperref[subsec:var_sec_diagnostics_windStressMeridionalDiag]{windStressMeridionalDiag} & reconstructed surface wind stress in the northward direction. User for diagnostics. \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_penetrativeTemperatureFluxOBL]{penetrativeTemperatureFluxO-}\hyperref[subsec:var_sec_diagnostics_penetrativeTemperatureFluxOBL]{BL  }& Penetrative temperature flux at the bottom of boundary layer due to solar radiation. Positive is into the ocean. \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_buoyancyForcingOBL]{buoyancyForcingOBL} & diagnosed buoyancy forcing due to heat, salt and freshwater fluxes averaged over ocean boundary layer depth \\
 	\hline
 	\hyperref[subsec:var_sec_diagnostics_areaCellGlobal]{areaCellGlobal} & sum of the areaCell variable over the full domain, used to normalize global statistics \\
 	\hline
@@ -394,11 +414,15 @@ Embedded links point to more detailed variable information in the appendix.
 }
 \section[average]{\hyperref[sec:var_sec_average]{average}}
 \label{sec:var_tab_average}
+\input{ocean/section_descriptions/average_struct.tex}
+\vspace{0.5in}
 {\small
 \begin{center}
 \begin{longtable}{| p{2.0in} | p{4.0in} |}
 	\hline
-	{\bf Name} & {\bf Description} \\
+	{\bf Name} & {\bf Description} \endfirsthead
+	\hline 
+	{\bf Name} & {\bf Description} (Continued) \endhead
 	\hline
 	\hyperref[subsec:var_sec_average_nAverage]{nAverage} & number of timesteps in time-averaged variables \\
 	\hline
@@ -425,14 +449,17 @@ Embedded links point to more detailed variable information in the appendix.
 }
 \section[forcing]{\hyperref[sec:var_sec_forcing]{forcing}}
 \label{sec:var_tab_forcing}
-\input{ocean/section_descriptions/forcing.tex}
+\input{ocean/section_descriptions/forcing_struct.tex}
+\vspace{0.5in}
 {\small
 \begin{center}
 \begin{longtable}{| p{2.0in} | p{4.0in} |}
 	\hline
-	{\bf Name} & {\bf Description} \\
+	{\bf Name} & {\bf Description} \endfirsthead
+	\hline 
+	{\bf Name} & {\bf Description} (Continued) \endhead
 	\hline
-	\hyperref[subsec:var_sec_forcing_surfaceWindStress]{surfaceWindStress} & Wind stress at the surface of the ocean defined at edge midpoints. \\
+	\hyperref[subsec:var_sec_forcing_surfaceWindStress]{surfaceWindStress} & Wind stress at the surface of the ocean defined at edge midpoints. Magintude in direction of edge normal. \\
 	\hline
 	\hyperref[subsec:var_sec_forcing_surfaceWindStressMagnitude]{surfaceWindStressMagnitude} & Magnitude of wind stress at the surface of the ocean, at cell centers. \\
 	\hline
@@ -442,47 +469,51 @@ Embedded links point to more detailed variable information in the appendix.
 	\hline
 	\hyperref[subsec:var_sec_forcing_surfaceSalinityFlux]{surfaceSalinityFlux} & Flux of salinity through the ocean surface. Positive into ocean. \\
 	\hline
+	\hyperref[subsec:var_sec_forcing_surfaceTracer1Flux]{surfaceTracer1Flux} & Flux of tracer1 through the ocean surface. Positive into ocean. \\
+	\hline
 	\hyperref[subsec:var_sec_forcing_seaSurfacePressure]{seaSurfacePressure} & Pressure defined at the sea surface. \\
 	\hline
-	\hyperref[subsec:var_sec_forcing_seaIceEnergy]{seaIceEnergy} & Energy per unit area trapped in frazil ice formation. Always >= 0.0. \\
+	\hyperref[subsec:var_sec_forcing_seaIceEnergy]{seaIceEnergy} &  Energy per unit area trapped in frazil ice formation. Always  $\ge$  0.0. \\
 	\hline
 	\hyperref[subsec:var_sec_forcing_penetrativeTemperatureFlux]{penetrativeTemperatureFlux} & Penetrative temperature flux at the surface due to solar radiation. Positive is into the ocean. \\
 	\hline
-	\hyperref[subsec:var_sec_forcing_windStressZonal]{windStressZonal} & Zonal (eastward) component of wind stress at cell centers from coupler. \\
+	\hyperref[subsec:var_sec_forcing_transmissionCoefficients]{transmissionCoefficients} & Divergence of transmission through interfaces of surface fluxes below the surface layer at cell centers. These are not applied to short wave. \\
 	\hline
-	\hyperref[subsec:var_sec_forcing_windStressMeridional]{windStressMeridional} & Meridional (northward) component of wind stress at cell centers from coupler. \\
+	\hyperref[subsec:var_sec_forcing_windStressZonal]{windStressZonal} & Zonal (eastward) component of wind stress at cell centers from coupler. Positive eastward. \\
 	\hline
-	\hyperref[subsec:var_sec_forcing_latentHeatFlux]{latentHeatFlux} & Latent heat flux at cell centers from coupler. \\
+	\hyperref[subsec:var_sec_forcing_windStressMeridional]{windStressMeridional} & Meridional (northward) component of wind stress at cell centers from coupler. Positive northward. \\
 	\hline
-	\hyperref[subsec:var_sec_forcing_sensibleHeatFlux]{sensibleHeatFlux} & Sensible heat flux at cell centers from coupler. \\
+	\hyperref[subsec:var_sec_forcing_latentHeatFlux]{latentHeatFlux} & Latent heat flux at cell centers from coupler. Positive into the ocean. \\
 	\hline
-	\hyperref[subsec:var_sec_forcing_longWaveHeatFluxUp]{longWaveHeatFluxUp} & Upward long wave heat flux at cell centers from coupler. \\
+	\hyperref[subsec:var_sec_forcing_sensibleHeatFlux]{sensibleHeatFlux} & Sensible heat flux at cell centers from coupler. Positive into the ocean. \\
 	\hline
-	\hyperref[subsec:var_sec_forcing_longWaveHeatFluxDown]{longWaveHeatFluxDown} & Downward long wave heat flux at cell centers from coupler. \\
+	\hyperref[subsec:var_sec_forcing_longWaveHeatFluxUp]{longWaveHeatFluxUp} & Upward long wave heat flux at cell centers from coupler. Positive into the ocean. \\
 	\hline
-	\hyperref[subsec:var_sec_forcing_seaIceHeatFlux]{seaIceHeatFlux} & Sea ice heat flux at cell centers from coupler. \\
+	\hyperref[subsec:var_sec_forcing_longWaveHeatFluxDown]{longWaveHeatFluxDown} & Downward long wave heat flux at cell centers from coupler. Positive into the ocean. \\
 	\hline
-	\hyperref[subsec:var_sec_forcing_shortWaveHeatFlux]{shortWaveHeatFlux} & Short wave flux at cell centers from coupler. \\
+	\hyperref[subsec:var_sec_forcing_seaIceHeatFlux]{seaIceHeatFlux} & Sea ice heat flux at cell centers from coupler. Positive into the ocean. \\
 	\hline
-	\hyperref[subsec:var_sec_forcing_evaporationFlux]{evaporationFlux} & Evaporation flux at cell centers from coupler. \\
+	\hyperref[subsec:var_sec_forcing_shortWaveHeatFlux]{shortWaveHeatFlux} & Short wave flux at cell centers from coupler. Positive into the ocean. \\
 	\hline
-	\hyperref[subsec:var_sec_forcing_seaIceSalinityFlux]{seaIceSalinityFlux} & Sea ice salinity flux at cell centers from coupler. \\
+	\hyperref[subsec:var_sec_forcing_evaporationFlux]{evaporationFlux} & Evaporation flux at cell centers from coupler. Positive into the ocean. \\
 	\hline
-	\hyperref[subsec:var_sec_forcing_seaIceFreshWaterFlux]{seaIceFreshWaterFlux} & Fresh water flux from sea ice at cell centers from coupler. \\
+	\hyperref[subsec:var_sec_forcing_seaIceSalinityFlux]{seaIceSalinityFlux} & Sea ice salinity flux at cell centers from coupler. Positive into the ocean. \\
 	\hline
-	\hyperref[subsec:var_sec_forcing_riverRunoffFlux]{riverRunoffFlux} & Fresh water flux from river runoff at cell centers from coupler. \\
+	\hyperref[subsec:var_sec_forcing_seaIceFreshWaterFlux]{seaIceFreshWaterFlux} & Fresh water flux from sea ice at cell centers from coupler. Positive into the ocean. \\
 	\hline
-	\hyperref[subsec:var_sec_forcing_iceRunoffFlux]{iceRunoffFlux} & Fresh water flux from ice runoff at cell centers from coupler. \\
+	\hyperref[subsec:var_sec_forcing_riverRunoffFlux]{riverRunoffFlux} & Fresh water flux from river runoff at cell centers from coupler. Positive into the ocean. \\
 	\hline
-	\hyperref[subsec:var_sec_forcing_rainFlux]{rainFlux} & Fresh water flux from rain at cell centers from coupler. \\
+	\hyperref[subsec:var_sec_forcing_iceRunoffFlux]{iceRunoffFlux} & Fresh water flux from ice runoff at cell centers from coupler. Positive into the ocean. \\
 	\hline
-	\hyperref[subsec:var_sec_forcing_snowFlux]{snowFlux} & Fresh water flux from snow at cell centers from coupler. \\
+	\hyperref[subsec:var_sec_forcing_rainFlux]{rainFlux} & Fresh water flux from rain at cell centers from coupler. Positive into the ocean. \\
 	\hline
-	\hyperref[subsec:var_sec_forcing_iceFraction]{iceFraction} & Fraction of sea ice coverage at cell centers from coupler. \\
+	\hyperref[subsec:var_sec_forcing_snowFlux]{snowFlux} & Fresh water flux from snow at cell centers from coupler. Positive into the ocean. \\
 	\hline
-	\hyperref[subsec:var_sec_forcing_prognosticCO2]{prognosticCO2} & Prognostic CO2 at cell centers from coupler. \\
+	\hyperref[subsec:var_sec_forcing_iceFraction]{iceFraction} & Fraction of sea ice coverage at cell centers from coupler. Positive into the ocean. \\
 	\hline
-	\hyperref[subsec:var_sec_forcing_diagnosticCO2]{diagnosticCO2} & Diagnostic CO2 at cell centers from coupler. \\
+	\hyperref[subsec:var_sec_forcing_prognosticCO2]{prognosticCO2} & Prognostic CO2 at cell centers from coupler. Positive into the ocean. \\
+	\hline
+	\hyperref[subsec:var_sec_forcing_diagnosticCO2]{diagnosticCO2} & Diagnostic CO2 at cell centers from coupler. Positive into the ocean. \\
 	\hline
 	\hyperref[subsec:var_sec_forcing_squaredWindSpeed10Meter]{squaredWindSpeed10Meter} & Squared wind speed at 10 meters at cell centers from coupler. \\
 	\hline
@@ -491,6 +522,8 @@ Embedded links point to more detailed variable information in the appendix.
 	\hyperref[subsec:var_sec_forcing_avgTemperatureSurfaceValue]{avgTemperatureSurfaceValue} & Time averaged potential temperature extrapolated to ocean surface \\
 	\hline
 	\hyperref[subsec:var_sec_forcing_avgSalinitySurfaceValue]{avgSalinitySurfaceValue} & Time averaged salinity extrapolated to ocean surface \\
+	\hline
+	\hyperref[subsec:var_sec_forcing_avgTracer1SurfaceValue]{avgTracer1SurfaceValue} & Time averaged tracer1 extrapolated to ocean surface \\
 	\hline
 	\hyperref[subsec:var_sec_forcing_avgZonalSurfaceVelocity]{avgZonalSurfaceVelocity} & Time averaged zonal surface velocity \\
 	\hline
@@ -509,29 +542,23 @@ Embedded links point to more detailed variable information in the appendix.
 }
 \section[scratch]{\hyperref[sec:var_sec_scratch]{scratch}}
 \label{sec:var_tab_scratch}
+\input{ocean/section_descriptions/scratch_struct.tex}
+\vspace{0.5in}
 {\small
 \begin{center}
 \begin{longtable}{| p{2.0in} | p{4.0in} |}
 	\hline
-	{\bf Name} & {\bf Description} \\
+	{\bf Name} & {\bf Description} \endfirsthead
+	\hline 
+	{\bf Name} & {\bf Description} (Continued) \endhead
 	\hline
-	\hyperref[subsec:var_sec_scratch_normalVelocityForcingX]{normalVelocityForcingX} & reconstructed wind stress in the x-direction (cartesian) \\
+	\hyperref[subsec:var_sec_scratch_vorticityGradientTangentialComponent]{vorticityGradientTangentialCom-}\hyperref[subsec:var_sec_scratch_vorticityGradientTangentialComponent]{ponent  }& gradient of vorticity in the tangent direction (positive points from vertex1 to vertex2) \\
 	\hline
-	\hyperref[subsec:var_sec_scratch_normalVelocityForcingY]{normalVelocityForcingY} & reconstructed wind stress in the y-direction (cartesian) \\
+	\hyperref[subsec:var_sec_scratch_vorticityGradientNormalComponent]{vorticityGradientNormalCompon-}\hyperref[subsec:var_sec_scratch_vorticityGradientNormalComponent]{ent  }& gradient of vorticity in the normal direction (positive points from cell1 to cell2) \\
 	\hline
-	\hyperref[subsec:var_sec_scratch_normalVelocityForcingZ]{normalVelocityForcingZ} & reconstructed wind stress in the z-direction (cartesian) \\
+	\hyperref[subsec:var_sec_scratch_normalizedRelativeVorticityVertex]{normalizedRelativeVorticityVert-}\hyperref[subsec:var_sec_scratch_normalizedRelativeVorticityVertex]{ex  }& curl of horizontal velocity divided by layer thickness, defined at vertices \\
 	\hline
-	\hyperref[subsec:var_sec_scratch_normalVelocityForcingZonal]{normalVelocityForcingZonal} & reconstructed wind stress in the eastward direction \\
-	\hline
-	\hyperref[subsec:var_sec_scratch_normalVelocityForcingMeridional]{normalVelocityForcingMeridional} & reconstructed wind stress in the northward direction \\
-	\hline
-	\hyperref[subsec:var_sec_scratch_vorticityGradientTangentialComponent]{vorticityGradientTangentialComponent} & gradient of vorticity in the tangent direction (positive points from vertex1 to vertex2) \\
-	\hline
-	\hyperref[subsec:var_sec_scratch_vorticityGradientNormalComponent]{vorticityGradientNormalComponent} & gradient of vorticity in the normal direction (positive points from cell1 to cell2) \\
-	\hline
-	\hyperref[subsec:var_sec_scratch_normalizedRelativeVorticityVertex]{normalizedRelativeVorticityVertex} & curl of horizontal velocity divided by layer thickness, defined at vertices \\
-	\hline
-	\hyperref[subsec:var_sec_scratch_normalizedPlanetaryVorticityVertex]{normalizedPlanetaryVorticityVertex} & earth's rotational rate (Coriolis parameter, f) divided by layer thickness, defined at vertices \\
+	\hyperref[subsec:var_sec_scratch_normalizedPlanetaryVorticityVertex]{normalizedPlanetaryVorticityVe-}\hyperref[subsec:var_sec_scratch_normalizedPlanetaryVorticityVertex]{rtex  }& earth's rotational rate (Coriolis parameter, f) divided by layer thickness, defined at vertices \\
 	\hline
 	\hyperref[subsec:var_sec_scratch_kineticEnergyVertex]{kineticEnergyVertex} & kinetic energy of horizonal velocity defined at vertices \\
 	\hline
@@ -572,6 +599,18 @@ Embedded links point to more detailed variable information in the appendix.
 	\hyperref[subsec:var_sec_scratch_normalVectorEdge]{normalVectorEdge} & Vector component normal to an edge. \\
 	\hline
 	\hyperref[subsec:var_sec_scratch_tangentialVectorEdge]{tangentialVectorEdge} & Vector component tangent to an edge. \\
+	\hline
+	\hyperref[subsec:var_sec_scratch_windStressFull]{windStressFull} & Wind stress used for reconstructing diagnostic output fields. \\
+	\hline
+	\hyperref[subsec:var_sec_scratch_windStressX]{windStressX} & reconstructed surface wind stress in the x direction. Used for diagnostics. \\
+	\hline
+	\hyperref[subsec:var_sec_scratch_windStressY]{windStressY} & reconstructed surface wind stress in the y direction. User for diagnostics. \\
+	\hline
+	\hyperref[subsec:var_sec_scratch_windStressZ]{windStressZ} & reconstructed surface wind stress in the z direction. User for diagnostics. \\
+	\hline
+	\hyperref[subsec:var_sec_scratch_windStressZonal]{windStressZonal} & reconstructed surface wind stress in the eastward direction. Used for diagnostics. \\
+	\hline
+	\hyperref[subsec:var_sec_scratch_windStressMeridional]{windStressMeridional} & reconstructed surface wind stress in the northward direction. User for diagnostics. \\
 	\hline
 \end{longtable}
 \end{center}
