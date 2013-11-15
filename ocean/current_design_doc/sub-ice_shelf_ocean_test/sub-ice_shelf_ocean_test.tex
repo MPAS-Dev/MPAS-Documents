@@ -36,7 +36,7 @@ The domains are designed to be the simplest possible configurations to test the 
 
 \chapter{Test Set-up}
 
-The test domain is designed to mimic the geometry of the Pine Island Glacier (PIG), which has a steeply sloped ice shelf bottom of 500 m over 30 km (Figure \ref{figure:pig observations}, \citet{Jenkins_ea10ngeo}).  Parameters are listed in Table \ref{table:ideal test parameters}.  The ocean will be run in stand-alone mode, without a land ice model or coupler.  There will be no fluxes from the ice shelf, and the ocean will be depressed but a surface pressure due to the weight of the ice shelf.  The domain is 50 km wide in the periodic x-direction with a constant Coriolis parameter of $-1.4\times10^{-4}$ s$^{-1}$, which is appropriate for the PIG latitude of 75$^o$ S.
+The test domain is designed to mimic the geometry of the Pine Island Glacier (PIG), which has a steeply sloped ice shelf bottom of 500 m over 30 km (Figure \ref{figure:pig observations}, \citet{Jenkins_ea10ngeo}).  Parameters are listed in Table \ref{table:ideal test parameters}.  The ocean will be run in stand-alone mode, without a land ice model or coupler.  There will be no fluxes from the ice shelf, and the ocean will be depressed but a surface pressure due to the weight of the ice shelf.  The domain is 50 km wide with a constant Coriolis parameter of $-1.4\times10^{-4}$ s$^{-1}$, which is appropriate for the PIG latitude of 75$^o$ S.  Simulations will be performed with both periodic and solid  boundaries in the $x$ direction.
 
 The ocean will consist of 22 layers that compress proportionally below the ice sheet, so that they are each 50 m thick in the open ocean and 4.5 m thick at the inlet (Figure \ref{figure:ice shelf domain}a).  The inlet thickness, $A$, will be varied from 100m to 1m to test how thin the layers may function properly.  The inlet thickness will be decreased by increasing the surface pressure so that the whole ice sheet is uniformly deeper.  The upper slope at the end of the ice shelf will be controlled by varying $B$ from 0 to 30 km, to test the model's ability to include steep slopes.
 
@@ -72,7 +72,7 @@ Three tests will be conducted that are each progressively more complex (Figure \
 \begin{tabular}{r|c } 
 \hline\hline & case 1 \\
 \hline 
-domain size $x$ &  50 km, periodic \\
+domain size $x$ &  50 km\\
 domain size $y$ & 200 km\\
 domain size $z$ &  1100 m \\
 number layers& 22 \\
