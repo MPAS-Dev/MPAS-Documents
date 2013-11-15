@@ -11,5 +11,16 @@
 \\ \\
 {\bf Discission:}  The time step must be short enough that the CFL criterion is not violated.  The minimum timestep varies based on resolution, viscosity, diffusion, forcing, and the resulting dynamics.  The simulations presented in \citet{Ringler_ea13om} used a 600s split explicit timestep for the global 15km mesh, and 360s for a global mesh with 7.5km regions.  On a 120km global mesh, we typically use a 3000s for split explicit and 500s for fourth-order Runge-Kutta.  These timesteps may need adjustment for your choice of turbulence closure and parameter values.
 
+\section{PGI version 12.5 fails to run and produces NaNs}
+
+{\bf Symptoms:} Run dies before a single time step, and in debug mode a FPE is thrown.
+\\ \\
+{\bf Cause:} PGI version 12.5 incorrectly computes matmul of non square matrices.
+\\ \\
+{\bf Remedy:}  Use a PGI compiler >= 12.6.
+\\ \\
+{\bf Discission:}  PGI 12.5 Fortran compiler fails to properly compute the matrix multiplcation of two non-square matrices. This produces a NaN during initialization and the model fails to run. To fix, you need to use a more recent version of the compiler.
+
+
 
 
