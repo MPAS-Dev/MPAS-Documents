@@ -307,7 +307,7 @@ are giving consent for it to be included in the next coordinated release.
 
 \section{Release Branches}
 \label{sec:release-branches}
-One of the variable branch types that developers will see in the shared
+One of the various branch types that developers will see in the shared
 repository is a release branch. This release branch is used to prepare the code
 for a new release, and comes with some guidelines of use.
 
@@ -317,7 +317,7 @@ into both develop and master. After they are merged into master, that commit is
 tagged with a new version number, and then pushed into the MPAS-Release
 repository for a public release.
 
-A feature branch can be thought of as a feature freeze. Once the release branch
+A release branch can be thought of as a feature freeze. Once the release branch
 is created, no new features can make it into the next release. The only commits
 that can be appended to a release branch are clean up and bug fix commits.
 
@@ -341,6 +341,12 @@ the group performing the release.
 These guidelines lay out a minimum amount of time a release cycle should
 consume. However, the core group that intends to release should announce the
 targeted date of release as soon as they have one selected.
+
+The creation of a release branch can be delayed. A request for the delay of
+creation should be made through the mpas-developers mailing list. Any other
+core is allowed to deny the request for any reason. It should also be
+understood that delaying the creation of the release branch does not delay the
+actual release itself.
 
 \section{Version Numbers}
 \label{sec:version-numbers}
