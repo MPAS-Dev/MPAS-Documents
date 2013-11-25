@@ -1,0 +1,191 @@
+======================================
+=== MPAS Land Ice Core Quick Start ===
+======================================
+
+Author:  Matt Hoffman
+Date: 1 Oct. 2013
+
+This quick start walks you through setting up the model and running the dome test case.  It assumes you have access to MPAS Developer repositories and know how to checkout code from github.  See the developer guide for more details.
+
+============
+Organization:
+In this document, the following directory convention is used:
+~/mpas   = a root directory to hold all mpas related work
+~/mpas/grids   = an unversioned directory in which to generate grids
+~/mpas/runs   = an unversioned directory in which to actually perform runs
+MPAS github repositories are cloned here:
+~/mpas/MPAS   = a clone of the <remote>/MPAS repository  (eventually this should be the <remote>/MPAS-Release repository)
+~/mpas/MPAS-Tools   = a clone of the <remote>/MPAS-Tools repository
+~/mpas/MPAS-Testing   = a clone of the <remote>/MPAS-Testing repository
+
+
+Currently, the landice specific code is only on my forks of the various MPAS development repositories:
+https://github.com/matthewhoffman?tab=repositories
+but eventually it will be merged into the MPAS-Dev repository:
+https://github.com/MPAS-Dev
+In other words, '<remote>' in the above descriptions should currently be:  git@github.com:matthewhoffman
+A branch name of a given repository is given in brackets, e.g.:
+~/mpas/MPAS-Tools/[grid_gen/landice_grid_tools]
+
+
+========================
+Setting up a workspace - one suggestion for organizing your runs
+========================
+We will create unversioned directories called 'grids' and 'runs' where simulations are performed.  All work can be done in the directories under version control, but this is somewhat cleaner for illustrative purposes.
+mkdir ~/mpas/grids
+mkdir ~/mpas/grids/dome
+mkdir ~/mpas/runs
+cp -R ~/mpas/MPAS-Testing/landice/dome ~/mpas/runs/dome
+(this could also be a symlink)
+
+
+=======================
+Building MPAS: Land Ice
+=======================
+Clone the MPAS repository and checkout the branch: [landice/implement_li_core]
+
+See User's Guide Build Instructions.  Compile using CORE=landice.
+
+
+=============================
+Building with and using LifeV
+=============================
+
+[Note: this is not currently supported.]
+
+If you want to compile with the LifeV velocity solvers, you will need to have LifeV compiled and tested successfully.  LifeV requires Trilinos (10.10.1), ParMetis (3.2), HDF5 (1.8.8).  Parentheses indicate versions that I was successful with - not all versions (and not necessarily the newest) of each will work.
+
+To compile MPAS with LifeV libraries use:
+$ make gfortran DEBUG=true LIFEV=true
+but you first need to define an environment variable called EXTERNAL_LIBS that specifies all of the needed LifeV libraries.  You should be able to obtain the needed information from the Makefile.export.LifeV_install file in your LifeV build directory.  You will need the information from LifeV_LIBRARY_DIRS, LifeV_LIBRARIES, LifeV_TPL_LIBRARY_DIRS, LifeV_TPL_LIBRARIES.  You may also need: -lsz -lmpi_cxx -lmpi_f90 -lstdc++
+For example, I use:
+export TRILINOS=/Users/mhoffman/software/trilinos/trilinos-10.10.1-GCC-MPI-OPT
+export LIFEV=/Users/mhoffman/software/lifev/lifev-build/lifev
+export EXTERNAL_LIBS="-L$LIFEV/ice_sheet/ -llifevicesheetinterface -L$LIFEV/core -llifevcore \
+-L/$TRILINOS/lib \
+-lpiro -lmoochothyra -lmoocho -lrythmos -llocathyra -llocaepetra -llocalapack -lloca -lnoxthyra -lnoxepetra -lnoxlapack -lnox -lanasazitpetra -lModeLaplace -lanasaziepetra -lanasazi -lstratimikos -lstratimikosbelos -lstratimikosaztecoo -lstratimikosamesos -lstratimikosml -lstratimikosifpack -lbelostpetra -lbelosepetra -lbelos -lml -lifpack -lamesos -lgaleri -laztecoo -lisorropia -loptipack -lthyratpetra -lthyraepetraext -lthyraepetra -lthyracore -lepetraext -ltpetraext -ltpetrainout -ltpetra -ltriutils -lglobipack -lzoltan -lepetra -lkokkoslinalg -lkokkosnodeapi -lkokkos -lrtop -lsacado -ltpi -lteuchos \
+-lpiro -lmoochothyra -lmoocho -lrythmos -lmoertel -llocathyra -llocaepetra -llocalapack -lloca -lnoxthyra -lnoxepetra -lnoxlapack -lnox -lintrepid -lanasazitpetra -lModeLaplace -lanasaziepetra -lanasazi -lfei_trilinos -lfei_base -lstratimikos -lstratimikosbelos -lstratimikosaztecoo -lstratimikosamesos -lstratimikosml -lstratimikosifpack -lifpack2 -lbelostpetra -lbelosepetra -lbelos -lml -lkomplex -lifpack -lpamgen_extras -lpamgen -lamesos -lgaleri -laztecoo -ldpliris -lisorropia -loptipack -lthyratpetra -lthyraepetraext -lthyraepetra -lthyracore -lthyratpetra -lthyraepetraext -lthyraepetra -lthyracore -lepetraext -ltpetraext -ltpetrainout -ltpetra -ltriutils -lglobipack -lshards -lzoltan -lepetra -lkokkoslinalg -lkokkosnodeapi -lkokkos -lrtop -lsacado -ltpi -lteuchos \
+/Users/mhoffman/software/hdf/hdf5-1.8.8-mpif90-gcc4.5/lib/libhdf5.a /Users/mhoffman/software/hdf/hdf5-1.8.8-mpif90-gcc4.5/lib/libhdf5_hl.a /usr/lib/libz.dylib /opt/local/lib/libz.dylib /opt/local/lib/libnetcdf.dylib /Users/mhoffman/software/parmetis/ParMetis-3.1.1/libparmetis.a /Users/mhoffman/software/parmetis/ParMetis-3.1.1/libmetis.a /usr/lib/liblapack.dylib /usr/lib/libblas.dylib /usr/lib/libpthread.dylib /Users/mhoffman/software/parmetis/ParMetis-3.1.1/libparmetis.a /Users/mhoffman/software/parmetis/ParMetis-3.1.1/libmetis.a /usr/lib/liblapack.dylib /usr/lib/libblas.dylib \
+-L/opt/local/lib -lsz \
+-lmpi_cxx -lmpi_f90 -lstdc++"
+
+
+To actually perform calls to LifeV, your namelist.config file needs to specify either 'L1L2', 'FO', or 'Stokes' for the config_dycore option.  You can still run the model without calling LifeV if you've compiled with LifeV (e.g. set config_dycore = 'SIA' to use the MPAS-based SIA velocity solver).  If you modify your LifeV libraries, MPAS' Makefile won't know about it - you'll need to 'make clean; make ...', or, faster, 'rm src/land_ice_model.exe; make ...'.
+
+
+=============
+Making a grid
+=============
+Clone the MPAS-Tools repository and checkout the branch: [grid_gen/landice_grid_tools]
+
+$ cd ~/mpas/MPAS-Tools/grid_gen/periodic_hex
+$ vim Makefile
+Modify the Makefile to use your compiler (this one is not smart like the Makefile in mpas/) and the build with:
+$ make
+
+
+Now we will work from our 'grids' directory to actually create the grid:
+$ cd ~/mpas/grids/dome/
+Get the namelist file that will create the appropriately sized grid for the dome test case
+$ cp ~/mpas/MPAS-Testing/landice/dome/namelist.input.periodic_hex ./namelist.input
+$ ln -s ~/mpas/MPAS-Tools/grid_gen/periodic_hex/periodic_grid .
+
+If you'd like, modify the namelist file:
+$ vim namelist.input (or emacs namelist.input)
+&periodic_grid
+   nx = 30, # the number of columns
+   ny = 34, # the number of rows - NOTE: This needs to be an even number!
+   dc = 2000., # the characteristic size of a cell
+   nVertLevels = 9, # the number of vertical levels in the grid
+   nTracers = 1, # the number of tracers - this is not used by the land ice core (gets removed in a subsequent step), but periodic_hex requires a value
+   nproc = 2, 4, 8, # one entry each for the number of processors that should be supported for parallel runs, generates data partitioning in files graph.info.part.*
+/
+
+Create the grid:
+$ ./periodic_grid
+Look for:
+grid.nc
+graph.info.part.2
+graph.info.part.4
+etc.
+
+
+Next the default MPAS grid needs to be converted to a new grid file that includes land ice variables.  This is currently done with a python script.
+The script is located here:  ~/mpas/MPAS-Tools/grid_gen/landice_grid_tools/create_landice_grid_from_generic_MPAS_grid.py
+Run the script from the directory with your new grid file with, e.g.:
+python ~/mpas/MPAS-Tools/grid_gen/landice_grid_tools/create_landice_grid_from_generic_MPAS_grid.py
+(you can also copy or symlink it to the current directory and then run it)
+It will create a new file called landice_grid.nc that contains the land ice variables.  (Note that the script will use grid.nc as the input file by default, but a different file name can be passed in as an argument.)
+You can confirm this worked with: 'ncdump -h landice_grid.nc'    
+At the end of the variable list should be:
+	double layerThicknessFractions(nVertLevels) ;
+	double thickness(Time, nCells) ;
+	double normalVelocity(Time, nEdges, nVertLevels) ;
+	double temperature(Time, nCells, nVertLevels) ;
+	double bedTopography(nCells) ;
+	double sfcMassBal(nCells) ;
+
+
+
+================
+Setting up a Run:
+================
+Clone the MPAS-Testing repository and checkout the branch: [landice/add_dome]
+
+Move to the directory for running the code and gather needed files
+$ cd ~/mpas/runs/dome
+$ ln -s ~/mpas/MPAS/landice_model 
+$ cp namelist.input.landice_core namelist.input
+There should be no need to modify namelist.input as it is setup to run the dome test case, but you can experiment with the settings if you want.
+$ cp ~/mpas/grids/dome/landice_grid.nc .
+(The grid could also be symlinked if it is large, but in this case it is small.)
+
+Now the dome initial conditions need to be added to the grid file.  This is currently done with a python script:
+$ python setup_dome_initial_conditions.py
+(By default this script modifies land_ice_grid.nc, but a different file name can be specified as a command line argument.)
+You can check that the script worked with:
+ncdump -v thickness landice_grid.nc
+You should see a bunch of nonzero values for the thickness.
+
+if running on 1 processor:
+$ ./landice_model
+
+if running on 2 processors:
+$ ln -s ~/mpas/grids/dome/graph.info.part.2 graph.info.part.2
+$ mpirun -np 2 landice_model
+
+The run will generate:
+  output.nc - the output file
+  log.*.out - stdout log files for each processor
+  log.*.err - stderr log files for each processor
+
+The default velocity solver is a SIA solver written in MPAS.  To use a higher-order solver, you need to have MPAS compiled with LifeV support (see above, not currently supported).
+
+
+========================
+Config Options
+========================
+Runs in MPAS are controlled by options set in the namelist.config file in the directory where you execute the run.  Any options not specified in the namelist.config file are determined from defaults set in src/core_landice/Registry.xml  Browse that file to see what valid options exist or read the Land Ice User's Guide. 
+
+
+================
+Examining Output 
+================
+There are a number of options for visualizing output:
+
+* Some simple plots of the dome test case are generated with a python script:
+python visualize_dome.py
+It can take commandline arguments to visualize a different time step (default=the first) or file (default=output.nc) and to save the plots to files.  Get details with: python visualize_dome.py -h
+
+* A series of python scripts for viiewing MPAS input/output files on planar grids can be found at:
+~/mpas/MPAS-Tools/visualization/python/planar_grids/
+The plot_mpas_field.py script is a good general-purpose visualization tool and has a lot of useful options (including animation).
+
+* Use paraview to visualize output.nc (this will have to be a separate tutorial).
+However, paraview's MPAS support is currently limited to variables with dimensions that include [nCells (or nVertices), nVertLevels], i.e. 3d fields only.  Few land ice variables meet that criterion.  A fix for this issue currently exists in nightly builds of Paraview.
+
+* A good option for casually browsing output is a tool written by Doug Jacobsen called MpasDraw.  It is located in the MPAS-Tools repository.  To compile it, simply make sure the Makefile has properly set the NETCDF and PLATFORM variables, and then run 'make'.  The README file has detailed instructions for how to use it.  It is easy to compile and use.
+
+* For more rigorous examination/analysis of the output, python or Matlab can be used.  
+
+

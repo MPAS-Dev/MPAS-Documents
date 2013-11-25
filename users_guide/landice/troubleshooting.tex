@@ -1,0 +1,14 @@
+\chapter{Troubleshooting}
+\label{chap:troubleshooting}
+
+\section{Choice of time step}
+
+{\bf Symptoms:} ``Error in calculating thickness tendency (possibly CFL violation)'' appears in log.0000.err file.
+\\ \\
+{\bf Possible cause:} Time step is too long.
+\\ \\
+{\bf Remedy:}  Shorten time step.  
+\\ \\
+{\bf Discussion:}  The time step must be short enough that the CFL criterion is not violated.  Eventually an adaptive time integrator will be added to MPAS-Land Ice.
+
+
