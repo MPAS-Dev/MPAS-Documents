@@ -115,10 +115,12 @@ In order to get a more complete and up-to-date list of available tagets, one can
 }
 
 The MPAS framework supports multiple {\em cores} --- currently a shallow water
-model, an ocean model, a non-hydrostatic atmosphere model, and a non-hydrostatic atmosphere initialization core --- so the build
-process must be told which core to build. This is done by either setting the environment variable
-{\tt CORE} to the name of the model core to build, or by specifying the core to be built explicitly on the command-line
-when running {\tt make}. For the shallow water core, for example, one may run either
+model, an ocean model, a non-hydrostatic atmosphere model, a non-hydrostatic
+atmosphere initialization core, and a land ice core --- so the build process
+must be told which core to build. This is done by either setting the
+environment variable {\tt CORE} to the name of the model core to build, or by
+specifying the core to be built explicitly on the command-line when running
+{\tt make}. For the shallow water core, for example, one may run either
 
 \vspace{12pt}
 {\tt > setenv CORE sw}
@@ -143,7 +145,7 @@ In order to get a list of available cores, one can simply run the top-level {\tt
 \begin{verbatim}
 > make
 ( make error )
-make[1]: Entering directory `/home/douglasj/Documents/svn-mpas-model.cgd.ucar.edu/trunk/mpas'
+make[1]: Entering directory `mpas'
 
 Usage: make target CORE=[core] [options]
 
@@ -172,7 +174,7 @@ that point to the absolute paths for the libraries.
 No CORE specified. Quitting.
 ************ ERROR ************
 
-make[1]: Leaving directory `/home/douglasj/Documents/svn-mpas-model.cgd.ucar.edu/trunk/mpas'
+make[1]: Leaving directory `mpas'
 \end{verbatim}
 }
 
