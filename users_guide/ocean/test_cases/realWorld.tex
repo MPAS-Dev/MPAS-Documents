@@ -1,5 +1,5 @@
-\section{Real World Configuration}
-\label{sec:realWorld_description}
+\subsection{Real World Configuration}
+\label{subsec:realWorld_description}
 
 Files are provided to run real-world simulations with realistic topography, wind forcing, and temperature and salinity restoring.  
 Most of the horizontal grids are quasi-uniform over the globe, with simulations performed at nominal grid cell widths of 240, 120, 60, 30, and 15 km.  These grids are based on Voronoi tessellations with uniform grid density, which results in grid that is almost all hexagons.  An additional grid file is provided for a variable resolution simulation that has 15 km gridcells in the North Atlantic and 75 km gridcells elsewhere, with a smooth transition in between \citep[Figure 2]{Ringler_ea13om}.
@@ -9,8 +9,8 @@ Initial distributions of potential temperature and salinity are obtained from th
 Simulations are similar to those presented in \citet{Ringler_ea13om}, and include the following: z-star vertical coordinate with 40 vertical layers, ranging in thickness from 10 m near the surface to 250 m in the deep ocean; quadratic bottom drag with a coefficient of 0.01; nonlinear equation of state by \citet{Jackett_McDougall95jaot}; monotonic flux-corrected tracer transport \citep{Skamarock_Gassmann11jcp}, with third order reconstruction of the tracer values at the cell edges.  The horizontal turbulence closure is a simple hyperviscosity ($-\nabla^4$) operator with coefficients of $\nu_h = \nu_0 (\Delta x / \Delta x_0)^3$ with $\nu_0=5\times10^{10}$ and $\Delta x_0=15$ km grid cells.  Zero horizontal diffusion is applied to the tracers.  The vertical mixing is Richardson number-based, with background viscosity and diffusion of $10^{-4}$ and $10^{-5}$ m$^2$ s$^{-1}$, respectively.
 
 
-\subsection{Provided Files}
-\label{subsec:realWorld_files}
+\subsubsection{Provided Files}
+\label{subsubsec:realWorld_files}
 
 \begin{itemize}
 	\item ocean\_QU\_15km.nc, ocean\_NA\_15km\_75km.nc, etc: \\
@@ -25,8 +25,8 @@ Simulations are similar to those presented in \citet{Ringler_ea13om}, and includ
 		It has a default setup which when run provides the results in the next section.
 \end{itemize}
 
-\subsection{Results}
-\label{subsecc:realWorld_results}
+\subsubsection{Results}
+\label{subsubsec:realWorld_results}
 
 The simulations were run for one year using the provided files, and visualized using Paraview (see Chapter \ref{chap:mpas_visualization}).
 

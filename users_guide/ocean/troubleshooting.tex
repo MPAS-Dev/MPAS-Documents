@@ -17,7 +17,7 @@
 \\ \\
 {\bf Cause:} PGI version 12.5 incorrectly computes matmul of non square matrices.
 \\ \\
-{\bf Remedy:}  Use a PGI compiler >= 12.6.
+{\bf Remedy:}  Use a PGI compiler $>=$ 12.6.
 \\ \\
 {\bf Discission:}  PGI 12.5 Fortran compiler fails to properly compute the matrix multiplcation of two non-square matrices. This produces a NaN during initialization and the model fails to run. To fix, you need to use a more recent version of the compiler.
 

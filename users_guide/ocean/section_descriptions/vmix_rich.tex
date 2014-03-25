@@ -1,6 +1,6 @@
 In the Richardson-number based vertical mixing parameterization \citep{Pacanowski_Philander81jpo}, the vertical diffusivity and viscosity are functions of the Richardson Number,
 \begin{eqnarray}   
-\label{Ri1}
+\label{ocean:\mode_Ri1}
 Ri &=& N^2
 \left(\frac{\partial V}{\partial z} \right)^{-2}
  = -\frac{g}{\rho_0}\frac{\partial \rho}{\partial z}
@@ -18,7 +18,7 @@ where $top$ indicates a layer interface, $ke$ is the cell-centered kinetic energ
 The variable $Ri^{top}$ must be available at cell edges for the viscoscity $\nu_v$ and at cell centers for the tracer diffusion $\kappa_v$.  In addition, the computation of shear is native to the edges, while density is native to the cell centers.  
 
 The functional forms for vertical viscosity and diffusivity at each layer interface are as follows,
-\begin{eqnarray} \label{visc1}  
+\begin{eqnarray} \label{ocean:\mode_visc1}  
 \nu_v &=& \nu_{bkrd} + c_{Ri}/(1+5Ri)^2\\
 \kappa_v &=& \kappa_{bkrd} + (\nu_{bkrd} + c_{Ri}/(1+5Ri)^2)/(1+5Ri)
 \end{eqnarray}

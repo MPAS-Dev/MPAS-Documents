@@ -1,5 +1,5 @@
-\section{Baroclinic Channel}
-\label{sec:baroclinic_channel_description}
+\subsection{Baroclinic Channel}
+\label{subsec:baroclinic_channel_description}
 This section describes a periodic channel, that is driven by a baroclinic
 instability generated via meridional temperature gradient. This test case comes from
 \cite{Ilicak_ea12om}. The domain is a planar channel that is periodic in the
@@ -13,8 +13,8 @@ Temperature decreases downward and in the meridional direction. A cosine shape t
 perturbation with a
 wavelength 120 km in the zonal direction is used to instigate the baroclinic instability. 
 
-\subsection{Provided Files}
-\label{subsec:baroclinic_channel_files}
+\subsubsection{Provided Files}
+\label{subsubsec:baroclinic_channel_files}
 Three resolutions of the baroclinic channel are provided for exploration. First
 is a 10 km horizontal resolution, second is a 4 km horizontal resolution, and
 third is a 1 km horizontal resolution. All three horizontal resolutions have 20
@@ -47,8 +47,8 @@ Included in each tar file are the following files.
 		Python visualization script.  See Section \ref{sec:ocean_python}.
 \end{itemize}
 
-\subsection{Results}
-\label{subsecc:baroclinic_channel_results}
+\subsubsection{Results}
+\label{subsubsecc:baroclinic_channel_results}
 The surface temperature fields at day 10 from the 10km, 4 km, and 1 km simulations are shown in Figure \ref{fig:baroclinicChannelTemperature}.
 This results should be reproduced using the default ``run\_directory'' for the 10 km, 4 km, and 1 km resolutions. The python script used to visualize the output is included with the tar file, and described in Section \ref{sec:ocean_python}.
 
@@ -56,8 +56,10 @@ This results should be reproduced using the default ``run\_directory'' for the 1
 	\centering
 	\caption{Baroclinic channel test case results. Surface temperature field after 10 simulation days using default included namelists.}
 	\label{fig:baroclinicChannelTemperature}
-	\subfigure[10km horizontal resolution temperature field after 10 simulation days.]{\includegraphics[scale=0.3]{ocean/figures/baroclinic_channel_10000m_20levs_10days.pdf}}
-	\subfigure[4km horizontal resolution temperature field after 10 simulation days.]{\includegraphics[scale=0.3]{ocean/figures/baroclinic_channel_4000m_20levs_10days.pdf}}
-	\subfigure[1km horizontal resolution temperature field after 10 simulation days.]{\includegraphics[scale=0.3]{ocean/figures/baroclinic_channel_1000m_20levs_10days.pdf}}
+	\subfloat[10km horizontal resolution temperature field after 10 simulation days.]{\includegraphics[scale=0.3]{ocean/figures/baroclinic_channel_10000m_20levs_10days.pdf}}
+	\hfill
+	\subfloat[4km horizontal resolution temperature field after 10 simulation days.]{\includegraphics[scale=0.3]{ocean/figures/baroclinic_channel_4000m_20levs_10days.pdf}}
+	\hfill
+	\subfloat[1km horizontal resolution temperature field after 10 simulation days.]{\includegraphics[scale=0.3]{ocean/figures/baroclinic_channel_1000m_20levs_10days.pdf}}
 \end{figure}
 
