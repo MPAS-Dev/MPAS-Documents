@@ -1,5 +1,17 @@
 \section{Purpose}
+\label{sec:analysis_purpose}
+
+The analysis mode of the ocean core is used to analyze a ocean NetCDF file.
 
 \section{Compilation}
+\label{sec:analysis_compilation}
 
+In order to build the ocean core in analysis mode, one must first select a
+build target. In this example, we'll build using the gfortran build target. The
+build enviroment should be setup as described in Chapter
+\ref{chap:mpas_build_instructions}. After the build environment and target are
+selected, the analysis mode of the ocean core can be built as follows:
+
+\vspace{12pt}
+{\tt > make gfortran CORE=ocean MODE=analysis}
 

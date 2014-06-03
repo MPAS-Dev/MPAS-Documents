@@ -2,7 +2,7 @@
 \label{sec:forward_dimensions}
 {\small
 \begin{center}
-\begin{longtable}{| p{1.0in} || p{1.0in} | p{4.0in} |}
+\begin{longtable}{| p{1.2in} || p{1.0in} | p{4.0in} |}
 	\hline 
 	{\bf Name} & {\bf Units} & {\bf Description} \endfirsthead
 	\hline 
@@ -36,6 +36,10 @@
 	nVertLevels & $unitless$ & The number of levels in the vertical direction. All vertical levels share the same horizontal locations. \\ 
 	\hline
 	nVertLevelsP1 & $unitless$ & The number of interfaces in the vertical direction. \\ 
+	\hline
+	nZonalMeanBins & $unitless$ & Maximum number of bins for zonal mean. \\ 
+	\hline
+	nZonalMeanBinsP1 & $unitless$ & Maximum number of bins for zonal mean, plus one. \\ 
 	\hline
 \end{longtable}
 \end{center}
@@ -248,7 +252,7 @@ Embedded links point to more detailed namelist information in the appendix.
 	{\bf Name} & {\bf Description} (Continued) \endhead
 	\hline
 	\hline
-	\hyperref[sec:nm_sec_config_hmix_ScaleWithMesh]{config\_hmix\_ScaleWithMesh} &  If false, del2 and del4 coefficients are constant throughout the mesh (equivalent to setting  $\rho_m=1$  throughout the mesh).  If true, these coefficients scale as mesh density to the -3/4 power. \\
+	\hyperref[sec:nm_sec_config_hmix_scaleWithMesh]{config\_hmix\_scaleWithMesh} &  If false, del2 and del4 coefficients are constant throughout the mesh (equivalent to setting  $\rho_m=1$  throughout the mesh).  If true, these coefficients scale as mesh density to the -3/4 power. \\
 	\hline
 	\hyperref[sec:nm_sec_config_maxMeshDensity]{config\_maxMeshDensity} & Global maximum of the mesh density \\
 	\hline
@@ -815,8 +819,8 @@ Embedded links point to more detailed namelist information in the appendix.
 \end{longtable}
 \end{center}
 }
-\subsection[ocn\_am\_global\_stats]{ocn\_am\_global\_stats}
-\label{subsec:forward_nm_tab_ocn_am_global_stats}
+\subsection[global\_stats]{global\_stats}
+\label{subsec:forward_nm_tab_global_stats}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -827,7 +831,38 @@ Embedded links point to more detailed namelist information in the appendix.
 	{\bf Name} & {\bf Description} (Continued) \endhead
 	\hline
 	\hline
-	\hyperref[sec:nm_sec_config_ocn_am_global_stats]{config\_ocn\_am\_global\_stats} & If true, ocean analysis member global\_stats is called. \\
+	\hyperref[sec:nm_sec_config_use_global_stats]{config\_use\_global\_stats} & If true, ocean analysis member global\_stats is called. \\
+	\hline
+	\hyperref[sec:nm_sec_config_global_stats_compute_interval]{config\_global\_stats\_compute\_int-}\hyperref[sec:nm_sec_config_global_stats_compute_interval]{erval}& Timestamp determining how often analysis member computation should be performed. \\
+	\hline
+	\hyperref[sec:nm_sec_config_global_stats_compute_startup]{config\_global\_stats\_compute\_st-}\hyperref[sec:nm_sec_config_global_stats_compute_startup]{artup}& Logical flag determining if an analysis member computation occurs on start-up. \\
+	\hline
+\end{longtable}
+\end{center}
+}
+\subsection[zonal\_mean]{zonal\_mean}
+\label{subsec:forward_nm_tab_zonal_mean}
+\vspace{0.5in}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+	\hline
+	{\bf Name} & {\bf Description} \endfirsthead
+	\hline 
+	{\bf Name} & {\bf Description} (Continued) \endhead
+	\hline
+	\hline
+	\hyperref[sec:nm_sec_config_use_zonal_mean]{config\_use\_zonal\_mean} & If true, ocean analysis member zonal\_mean is called. \\
+	\hline
+	\hyperref[sec:nm_sec_config_zonal_mean_compute_interval]{config\_zonal\_mean\_compute\_inte-}\hyperref[sec:nm_sec_config_zonal_mean_compute_interval]{rval}& Timestamp determining how often analysis member computation should be performed. \\
+	\hline
+	\hyperref[sec:nm_sec_config_zonal_mean_compute_startup]{config\_zonal\_mean\_compute\_sta-}\hyperref[sec:nm_sec_config_zonal_mean_compute_startup]{rtup}& Logical flag determining if an analysis member computation occurs on start-up. \\
+	\hline
+	\hyperref[sec:nm_sec_config_number_zonal_mean_bins]{config\_number\_zonal\_mean\_bins} & Number of bins used for zonal mean.  Must be less than or equal to the dimension nZonalMeanBins (set in Registry). \\
+	\hline
+	\hyperref[sec:nm_sec_config_min_zonal_mean_bin]{config\_min\_zonal\_mean\_bin} & minimum bin boundary value.  If set to -1.0e34, the minimum value in the domain is found. \\
+	\hline
+	\hyperref[sec:nm_sec_config_max_zonal_mean_bin]{config\_max\_zonal\_mean\_bin} & maximum bin boundary value.  If set to -1.0e34, the maximum value in the domain is found. \\
 	\hline
 \end{longtable}
 \end{center}
@@ -1434,17 +1469,17 @@ Embedded links point to more detailed variable information in the appendix.
 	\hline
 	\hyperref[subsec:var_sec_scratch_tangentialVectorEdge]{tangentialVectorEdge} & Vector component tangent to an edge. \\
 	\hline
-	\hyperref[subsec:var_sec_scratch_windStressFull]{windStressFull} & Wind stress used for reconstructing diagnostic output fields. \\
+	\hyperref[subsec:var_sec_scratch_windStressFullScratch]{windStressFullScratch} & Wind stress used for reconstructing diagnostic output fields. \\
 	\hline
-	\hyperref[subsec:var_sec_scratch_windStressX]{windStressX} & reconstructed surface wind stress in the x direction. Used for diagnostics. \\
+	\hyperref[subsec:var_sec_scratch_windStressXScratch]{windStressXScratch} & reconstructed surface wind stress in the x direction. Used for diagnostics. \\
 	\hline
-	\hyperref[subsec:var_sec_scratch_windStressY]{windStressY} & reconstructed surface wind stress in the y direction. User for diagnostics. \\
+	\hyperref[subsec:var_sec_scratch_windStressYScratch]{windStressYScratch} & reconstructed surface wind stress in the y direction. User for diagnostics. \\
 	\hline
-	\hyperref[subsec:var_sec_scratch_windStressZ]{windStressZ} & reconstructed surface wind stress in the z direction. User for diagnostics. \\
+	\hyperref[subsec:var_sec_scratch_windStressZScratch]{windStressZScratch} & reconstructed surface wind stress in the z direction. User for diagnostics. \\
 	\hline
-	\hyperref[subsec:var_sec_scratch_windStressZonal]{windStressZonal} & reconstructed surface wind stress in the eastward direction. Used for diagnostics. \\
+	\hyperref[subsec:var_sec_scratch_windStressZonalScratch]{windStressZonalScratch} & reconstructed surface wind stress in the eastward direction. Used for diagnostics. \\
 	\hline
-	\hyperref[subsec:var_sec_scratch_windStressMeridional]{windStressMeridional} & reconstructed surface wind stress in the northward direction. User for diagnostics. \\
+	\hyperref[subsec:var_sec_scratch_windStressMeridionalScratch]{windStressMeridionalScratch} & reconstructed surface wind stress in the northward direction. User for diagnostics. \\
 	\hline
 \end{longtable}
 \end{center}
@@ -1473,6 +1508,34 @@ Embedded links point to more detailed variable information in the appendix.
 	\hyperref[subsec:var_sec_amGlobalStats_vertSumMinGlobalStats]{vertSumMinGlobalStats} & minimum vertical sum over the domain of global statistics variables \\
 	\hline
 	\hyperref[subsec:var_sec_amGlobalStats_vertSumMaxGlobalStats]{vertSumMaxGlobalStats} & maximum vertical sum over the domain of global statistics variables \\
+	\hline
+\end{longtable}
+\end{center}
+}
+\subsection[amZonalMean]{\hyperref[sec:var_sec_amZonalMean]{amZonalMean}}
+\label{subsec:forward_var_tab_amZonalMean}
+\vspace{0.5in}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+	\hline
+	{\bf Name} & {\bf Description} \endfirsthead
+	\hline 
+	{\bf Name} & {\bf Description} (Continued) \endhead
+	\hline
+	\hyperref[subsec:var_sec_amZonalMean_binCenterZonalMean]{binCenterZonalMean} & Central coordinate of zonal mean bin, either in latitude or y, for plotting. \\
+	\hline
+	\hyperref[subsec:var_sec_amZonalMean_binBoundaryZonalMean]{binBoundaryZonalMean} & Coordinate of lower edge of zonal mean bin, either in latitude or y, for plotting. \\
+	\hline
+	\hyperref[subsec:var_sec_amZonalMean_zonalVelocityZonalMean]{zonalVelocityZonalMean} & Zonal mean of component of horizontal velocity in the eastward direction \\
+	\hline
+	\hyperref[subsec:var_sec_amZonalMean_meridionalVelocityZonalMean]{meridionalVelocityZonalMean} & Zonal mean of component of horizontal velocity in the northward direction \\
+	\hline
+	\hyperref[subsec:var_sec_amZonalMean_temperatureZonalMean]{temperatureZonalMean} & Zonal mean of potential temperature \\
+	\hline
+	\hyperref[subsec:var_sec_amZonalMean_salinityZonalMean]{salinityZonalMean} & Zonal mean of salinity \\
+	\hline
+	\hyperref[subsec:var_sec_amZonalMean_tracer1ZonalMean]{tracer1ZonalMean} & Zonal mean of tracer \\
 	\hline
 \end{longtable}
 \end{center}

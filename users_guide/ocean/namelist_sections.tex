@@ -947,7 +947,7 @@
     \hline
     Units: & $C$ \\
     \hline
-    Default Value: & 19.0 \\
+    Default Value: & 5.0 \\
     \hline
     Possible Values: & any real \\
     \hline
@@ -965,7 +965,7 @@
     \hline
     Units: & $kg$ $m^{-3}$ $C^{-1}$ \\
     \hline
-    Default Value: & 2.55e-1 \\
+    Default Value: & 0.2 \\
     \hline
     Possible Values: & any positive real \\
     \hline
@@ -983,7 +983,7 @@
     \hline
     Units: & $kg$ $m^{-3}$ $PSU^{-1}$ \\
     \hline
-    Default Value: & 7.64e-1 \\
+    Default Value: & 0.8 \\
     \hline
     Possible Values: & any positive real \\
     \hline
@@ -1001,7 +1001,7 @@
     \hline
     Units: & $kg$ $m^{-3}$ \\
     \hline
-    Default Value: & 1025.022 \\
+    Default Value: & 1000.0 \\
     \hline
     Possible Values: & any positive real \\
     \hline
@@ -1152,6 +1152,42 @@
     \caption{config\_frazil\_ice\_formation: Logical flag that determines if the formation of frazil ice is allowed.}
 \end{longtable}
 \end{center}
+\section[config\_global\_stats\_compute\_interval]{config\_global\_stats\_compute\_interval}
+\label{sec:nm_sec_config_global_stats_compute_interval}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    In build modes: & \hyperref[subsec:forward_nm_tab_global_stats]{forward} \hyperref[subsec:analysis_nm_tab_global_stats]{analysis} \\
+    \hline
+    Type: & character \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & same\_as\_output \\
+    \hline
+    Possible Values: & 'DDDD\_HH:MM:SS', 'same\_as\_output' \\
+    \hline
+    \caption{config\_global\_stats\_compute\_interval: Timestamp determining how often analysis member computation should be performed.}
+\end{longtable}
+\end{center}
+\section[config\_global\_stats\_compute\_startup]{config\_global\_stats\_compute\_startup}
+\label{sec:nm_sec_config_global_stats_compute_startup}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    In build modes: & \hyperref[subsec:forward_nm_tab_global_stats]{forward} \hyperref[subsec:analysis_nm_tab_global_stats]{analysis} \\
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & .true. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_global\_stats\_compute\_startup: Logical flag determining if an analysis member computation occurs on start-up.}
+\end{longtable}
+\end{center}
 \section[config\_h\_kappa]{config\_h\_kappa}
 \label{sec:nm_sec_config_h_kappa}
 \begin{center}
@@ -1224,8 +1260,8 @@
     \caption{config\_highFreqThick\_restore\_time:  Restoring time scale for high-frequency thickness,  $\tau_{hhf}$ .}
 \end{longtable}
 \end{center}
-\section[config\_hmix\_ScaleWithMesh]{config\_hmix\_ScaleWithMesh}
-\label{sec:nm_sec_config_hmix_ScaleWithMesh}
+\section[config\_hmix\_scaleWithMesh]{config\_hmix\_scaleWithMesh}
+\label{sec:nm_sec_config_hmix_scaleWithMesh}
 \begin{center}
 \begin{longtable}{| p{2.0in} || p{4.0in} |}
     \hline
@@ -1239,7 +1275,7 @@
     \hline
     Possible Values: & .true. or .false. \\
     \hline
-    \caption{config\_hmix\_ScaleWithMesh:  If false, del2 and del4 coefficients are constant throughout the mesh (equivalent to setting  $\rho_m=1$  throughout the mesh).  If true, these coefficients scale as mesh density to the -3/4 power.}
+    \caption{config\_hmix\_scaleWithMesh:  If false, del2 and del4 coefficients are constant throughout the mesh (equivalent to setting  $\rho_m=1$  throughout the mesh).  If true, these coefficients scale as mesh density to the -3/4 power.}
 \end{longtable}
 \end{center}
 \section[config\_horiz\_tracer\_adv\_order]{config\_horiz\_tracer\_adv\_order}
@@ -1386,6 +1422,24 @@
     \caption{config\_max\_visc\_tanh: maximum viscosity value for tanh-fit function}
 \end{longtable}
 \end{center}
+\section[config\_max\_zonal\_mean\_bin]{config\_max\_zonal\_mean\_bin}
+\label{sec:nm_sec_config_max_zonal_mean_bin}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    In build modes: & \hyperref[subsec:forward_nm_tab_zonal_mean]{forward} \hyperref[subsec:analysis_nm_tab_zonal_mean]{analysis} \\
+    \hline
+    Type: & real \\
+    \hline
+    Units: & $varies$ \\
+    \hline
+    Default Value: & -1.0e34 \\
+    \hline
+    Possible Values: & Any real number. \\
+    \hline
+    \caption{config\_max\_zonal\_mean\_bin: maximum bin boundary value.  If set to -1.0e34, the maximum value in the domain is found.}
+\end{longtable}
+\end{center}
 \section[config\_min\_diff\_tanh]{config\_min\_diff\_tanh}
 \label{sec:nm_sec_config_min_diff_tanh}
 \begin{center}
@@ -1456,6 +1510,24 @@
     Possible Values: & Any positive real value. \\
     \hline
     \caption{config\_min\_visc\_tanh: minimum viscosity value for tanh-fit function}
+\end{longtable}
+\end{center}
+\section[config\_min\_zonal\_mean\_bin]{config\_min\_zonal\_mean\_bin}
+\label{sec:nm_sec_config_min_zonal_mean_bin}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    In build modes: & \hyperref[subsec:forward_nm_tab_zonal_mean]{forward} \hyperref[subsec:analysis_nm_tab_zonal_mean]{analysis} \\
+    \hline
+    Type: & real \\
+    \hline
+    Units: & $varies$ \\
+    \hline
+    Default Value: & -1.0e34 \\
+    \hline
+    Possible Values: & Any real number. \\
+    \hline
+    \caption{config\_min\_zonal\_mean\_bin: minimum bin boundary value.  If set to -1.0e34, the minimum value in the domain is found.}
 \end{longtable}
 \end{center}
 \section[config\_mom\_del2]{config\_mom\_del2}
@@ -1669,7 +1741,7 @@
     \hline
     Default Value: & 3 \\
     \hline
-    Possible Values: & Any positive interger value. \\
+    Possible Values: & Any positive integer value. \\
     \hline
     \caption{config\_num\_halos: Determines the number of halo cells extending from a blocks owned cells (Called the 0-Halo). The default of 3 is the minimum that can be used with monotonic advection.}
 \end{longtable}
@@ -1692,22 +1764,22 @@
     \caption{config\_number\_of\_blocks: Determines the number of blocks a simulation should be run with. If it is set to 0, the number of blocks is the same as the number of MPI tasks at run-time.}
 \end{longtable}
 \end{center}
-\section[config\_ocn\_am\_global\_stats]{config\_ocn\_am\_global\_stats}
-\label{sec:nm_sec_config_ocn_am_global_stats}
+\section[config\_number\_zonal\_mean\_bins]{config\_number\_zonal\_mean\_bins}
+\label{sec:nm_sec_config_number_zonal_mean_bins}
 \begin{center}
 \begin{longtable}{| p{2.0in} || p{4.0in} |}
     \hline
-    In build modes: & \hyperref[subsec:forward_nm_tab_ocn_am_global_stats]{forward} \hyperref[subsec:analysis_nm_tab_ocn_am_global_stats]{analysis} \\
+    In build modes: & \hyperref[subsec:forward_nm_tab_zonal_mean]{forward} \hyperref[subsec:analysis_nm_tab_zonal_mean]{analysis} \\
     \hline
-    Type: & logical \\
+    Type: & integer \\
     \hline
     Units: & $unitless$ \\
     \hline
-    Default Value: & .false. \\
+    Default Value: & 180 \\
     \hline
-    Possible Values: & .true. or .false. \\
+    Possible Values: & Any positive integer value less than or equal to nZonalMeanBins. \\
     \hline
-    \caption{config\_ocn\_am\_global\_stats: If true, ocean analysis member global\_stats is called.}
+    \caption{config\_number\_zonal\_mean\_bins: Number of bins used for zonal mean.  Must be less than or equal to the dimension nZonalMeanBins (set in Registry).}
 \end{longtable}
 \end{center}
 \section[config\_output\_interval]{config\_output\_interval}
@@ -2376,6 +2448,24 @@
     \caption{config\_use\_freq\_filtered\_thickness:  If true,  $h^{hf}$  is included in the desired ALE thickness in \ref{ocean:desired thickness}, and the prognostic equations \ref{ocean:Dlf} and \ref{ocean:hhf} are integrated in the code.}
 \end{longtable}
 \end{center}
+\section[config\_use\_global\_stats]{config\_use\_global\_stats}
+\label{sec:nm_sec_config_use_global_stats}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    In build modes: & \hyperref[subsec:forward_nm_tab_global_stats]{forward} \hyperref[subsec:analysis_nm_tab_global_stats]{analysis} \\
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_use\_global\_stats: If true, ocean analysis member global\_stats is called.}
+\end{longtable}
+\end{center}
 \section[config\_use\_highFreqThick\_del2]{config\_use\_highFreqThick\_del2}
 \label{sec:nm_sec_config_use_highFreqThick_del2}
 \begin{center}
@@ -2610,6 +2700,24 @@
     \caption{config\_use\_tracer\_del4: If true, biharmonic horizontal mixing is used on the tracer equation.}
 \end{longtable}
 \end{center}
+\section[config\_use\_zonal\_mean]{config\_use\_zonal\_mean}
+\label{sec:nm_sec_config_use_zonal_mean}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    In build modes: & \hyperref[subsec:forward_nm_tab_zonal_mean]{forward} \hyperref[subsec:analysis_nm_tab_zonal_mean]{analysis} \\
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_use\_zonal\_mean: If true, ocean analysis member zonal\_mean is called.}
+\end{longtable}
+\end{center}
 \section[config\_vel\_correction]{config\_vel\_correction}
 \label{sec:nm_sec_config_vel_correction}
 \begin{center}
@@ -2788,5 +2896,41 @@
     Possible Values: & Any positive real value. \\
     \hline
     \caption{config\_zWidth\_tanh: vertical width parameter for tanh function}
+\end{longtable}
+\end{center}
+\section[config\_zonal\_mean\_compute\_interval]{config\_zonal\_mean\_compute\_interval}
+\label{sec:nm_sec_config_zonal_mean_compute_interval}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    In build modes: & \hyperref[subsec:forward_nm_tab_zonal_mean]{forward} \hyperref[subsec:analysis_nm_tab_zonal_mean]{analysis} \\
+    \hline
+    Type: & character \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & same\_as\_output \\
+    \hline
+    Possible Values: & 'DDDD\_HH:MM:SS', 'same\_as\_output' \\
+    \hline
+    \caption{config\_zonal\_mean\_compute\_interval: Timestamp determining how often analysis member computation should be performed.}
+\end{longtable}
+\end{center}
+\section[config\_zonal\_mean\_compute\_startup]{config\_zonal\_mean\_compute\_startup}
+\label{sec:nm_sec_config_zonal_mean_compute_startup}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    In build modes: & \hyperref[subsec:forward_nm_tab_zonal_mean]{forward} \hyperref[subsec:analysis_nm_tab_zonal_mean]{analysis} \\
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & .true. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_zonal\_mean\_compute\_startup: Logical flag determining if an analysis member computation occurs on start-up.}
 \end{longtable}
 \end{center}

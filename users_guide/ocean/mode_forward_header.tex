@@ -1,5 +1,17 @@
 \section{Purpose}
+\label{sec:forward_purpose}
+
+The forward mode of the ocean core is used to simulate an ocean forward in time. 
 
 \section{Compilation}
+\label{sec:forward_compilation}
 
+In order to build the ocean core in forward mode, one must first select a build
+target. In this example, we'll build using the gfortran build target. The build
+enviroment should be setup as described in Chapter
+\ref{chap:mpas_build_instructions}. After the build environment and target are
+selected, the forward mode of the ocean core can be built as follows:
+
+\vspace{12pt}
+{\tt > make gfortran CORE=ocean MODE=forward}
 
