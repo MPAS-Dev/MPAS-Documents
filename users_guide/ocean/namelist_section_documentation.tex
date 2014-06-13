@@ -326,7 +326,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Possible Values: & 'uniform\_stretching', 'fixed', 'user\_specified', 'impermeable\_interfaces' \\
     \hline
-    \caption{config\_vert\_coord\_movement:  Determines the vertical coordinate movement type. 'uniform\_stretching' distributes SSH perturbations through all vertical levels (z-star vertical coordinate); 'fixed' places them all in the top level (z-level vertical coordinate); 'user\_specified' allows the input file to determine the distribution using the variable vertCoordMovementWeights (weighted z-star vertical coordinate); and 'impermeable\_interfaces' makes the vertical transport between layers zero, i.e.  $w^t=0$  in (\ref{ocean:vert tranport}) (idealized isopycnal).}
+    \caption{config\_vert\_coord\_movement:  Determines the vertical coordinate movement type. 'uniform\_stretching' distributes SSH perturbations through all vertical levels (z-star vertical coordinate); 'fixed' places them all in the top level (z-level vertical coordinate); 'user\_specified' allows the input file to determine the distribution using the variable vertCoordMovementWeights (weighted z-star vertical coordinate); and 'impermeable\_interfaces' makes the vertical transport between layers zero, i.e.  $w^t=0$  (idealized isopycnal).}
 \end{longtable}
 \end{center}
 \subsection[config\_use\_min\_max\_thickness]{\hyperref[sec:nm_tab_ALE_vertical_grid]{config\_use\_min\_max\_thickness}}
@@ -424,7 +424,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Possible Values: & .true. or .false. \\
     \hline
-    \caption{config\_use\_freq\_filtered\_thickness:  If true,  $h^{hf}$  is included in the desired ALE thickness in \ref{ocean:desired thickness}, and the prognostic equations \ref{ocean:Dlf} and \ref{ocean:hhf} are integrated in the code.}
+    \caption{config\_use\_freq\_filtered\_thickness:  If true,  $h^{hf}$  is included in the desired ALE thickness, and the prognostic equations for  $D^{lf}$  and  $h^{hf}$  are integrated in the code.}
 \end{longtable}
 \end{center}
 \subsection[config\_thickness\_filter\_timescale]{\hyperref[sec:nm_tab_ALE_frequency_filtered_thickness]{config\_thickness\_filter\_timescale}}
@@ -456,7 +456,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Possible Values: & .true. or .false. \\
     \hline
-    \caption{config\_use\_highFreqThick\_restore:  If true, the high frequency thickness equation (\ref{ocean:hhf}) includes term 2 on the RHS, the restoring term.  The high frequency thickness is restored to zero with time scale  $\tau_{hhf}$ .}
+    \caption{config\_use\_highFreqThick\_restore:  If true, the high frequency thickness prognostic equation ( $h^{hf}$ ) includes term 2 on the RHS, the restoring term.  The high frequency thickness is restored to zero with time scale  $\tau_{hhf}$ .}
 \end{longtable}
 \end{center}
 \subsection[config\_highFreqThick\_restore\_time]{\hyperref[sec:nm_tab_ALE_frequency_filtered_thickness]{config\_highFreqThick\_restore\_time}}
@@ -488,7 +488,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Possible Values: & .true. or .false. \\
     \hline
-    \caption{config\_use\_highFreqThick\_del2: If true, high frequency thickness equation (\ref{ocean:hhf}) includes term 3 on the RHS, the diffusion term.}
+    \caption{config\_use\_highFreqThick\_del2:  If true, high frequency thickness prognostic equation ( $h^{hf}$ ) includes term 3 on the RHS, the diffusion term.}
 \end{longtable}
 \end{center}
 \subsection[config\_highFreqThick\_del2]{\hyperref[sec:nm_tab_ALE_frequency_filtered_thickness]{config\_highFreqThick\_del2}}
@@ -570,7 +570,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Possible Values: & .true. or .false. \\
     \hline
-    \caption{config\_check\_ssh\_consistency: Enables a check to determine if the SSH is within 2m of the surface, as specified in (\ref{ocean:pbc SSH}).}
+    \caption{config\_check\_ssh\_consistency:  Enables a check to determine if the SSH is within 2m of the surface.  See equation for  $\zeta_i$ .}
 \end{longtable}
 \end{center}
 \section[decomposition]{\hyperref[sec:nm_tab_decomposition]{decomposition}}
@@ -586,7 +586,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 3 \\
     \hline
-    Possible Values: & Any positive interger value. \\
+    Possible Values: & Any positive integer value. \\
     \hline
     \caption{config\_num\_halos: Determines the number of halo cells extending from a blocks owned cells (Called the 0-Halo). The default of 3 is the minimum that can be used with monotonic advection.}
 \end{longtable}
@@ -657,8 +657,8 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
 \end{center}
 \section[hmix]{\hyperref[sec:nm_tab_hmix]{hmix}}
 \label{sec:nm_sec_hmix}
-\subsection[config\_hmix\_ScaleWithMesh]{\hyperref[sec:nm_tab_hmix]{config\_hmix\_ScaleWithMesh}}
-\label{subsec:nm_sec_config_hmix_ScaleWithMesh}
+\subsection[config\_hmix\_scaleWithMesh]{\hyperref[sec:nm_tab_hmix]{config\_hmix\_scaleWithMesh}}
+\label{subsec:nm_sec_config_hmix_scaleWithMesh}
 \begin{center}
 \begin{longtable}{| p{2.0in} || p{4.0in} |}
     \hline
@@ -670,7 +670,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Possible Values: & .true. or .false. \\
     \hline
-    \caption{config\_hmix\_ScaleWithMesh:  If false, del2 and del4 coefficients are constant throughout the mesh (equivalent to setting  $\rho_m=1$  throughout the mesh).  If true, these coefficients scale as mesh density to the -3/4 power.}
+    \caption{config\_hmix\_scaleWithMesh:  If false, del2 and del4 coefficients are constant throughout the mesh (equivalent to setting  $\rho_m=1$  throughout the mesh).  If true, these coefficients scale as mesh density to the -3/4 power.}
 \end{longtable}
 \end{center}
 \subsection[config\_maxMeshDensity]{\hyperref[sec:nm_tab_hmix]{config\_maxMeshDensity}}
@@ -1804,7 +1804,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & pressure\_and\_zmid \\
     \hline
-    Possible Values: & 'pressure\_and\_zmid' or 'MontgomeryPotential' \\
+    Possible Values: & 'pressure\_and\_zmid' or 'Jacobian\_from\_density' or 'Jacobian\_from\_TS' or 'MontgomeryPotential' \\
     \hline
     \caption{config\_pressure\_gradient\_type: Form of pressure gradient terms in momentum equation. For most applications, the gradient of pressure and layer mid-depth are appropriate.  For isopycnal coordinates, one may use the gradient of the Montgomery potential.}
 \end{longtable}
@@ -1823,6 +1823,22 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     Possible Values: & any positive real, but typically 1000-1035 \\
     \hline
     \caption{config\_density0:  Density used as a coefficient of the pressure gradient terms,  $\rho_0$ .  This is a constant due to the Boussinesq approximation.}
+\end{longtable}
+\end{center}
+\subsection[config\_common\_level\_weight]{\hyperref[sec:nm_tab_pressure_gradient]{config\_common\_level\_weight}}
+\label{subsec:nm_sec_config_common_level_weight}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & 0.5 \\
+    \hline
+    Possible Values: & any real between 0 and 1 \\
+    \hline
+    \caption{config\_common\_level\_weight:  The weight between standard Jacobian and weighted Jacobian,  $\gamma$ .}
 \end{longtable}
 \end{center}
 \section[eos]{\hyperref[sec:nm_tab_eos]{eos}}
@@ -1854,7 +1870,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Units: & $kg$ $m^{-3}$ $C^{-1}$ \\
     \hline
-    Default Value: & 2.55e-1 \\
+    Default Value: & 0.2 \\
     \hline
     Possible Values: & any positive real \\
     \hline
@@ -1870,7 +1886,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Units: & $kg$ $m^{-3}$ $PSU^{-1}$ \\
     \hline
-    Default Value: & 7.64e-1 \\
+    Default Value: & 0.8 \\
     \hline
     Possible Values: & any positive real \\
     \hline
@@ -1886,7 +1902,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Units: & $C$ \\
     \hline
-    Default Value: & 19.0 \\
+    Default Value: & 5.0 \\
     \hline
     Possible Values: & any real \\
     \hline
@@ -1918,7 +1934,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Units: & $kg$ $m^{-3}$ \\
     \hline
-    Default Value: & 1025.022 \\
+    Default Value: & 1000.0 \\
     \hline
     Possible Values: & any positive real \\
     \hline

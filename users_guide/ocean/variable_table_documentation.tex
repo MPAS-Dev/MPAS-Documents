@@ -291,6 +291,10 @@ Embedded links point to more detailed variable information in the appendix.
 	\hline
 	\hyperref[subsec:var_sec_diagnostics_potentialDensity]{potentialDensity} & potential density: density displaced adiabatically to the mid-depth of top layer \\
 	\hline
+	\hyperref[subsec:var_sec_diagnostics_inSituThermalExpansionCoeff]{inSituThermalExpansionCoeff} &  Thermal expansion coefficient (alpha), defined as  $-1/\rho d\rho/dT$  (note negative sign).  This is in situ, i.e. not displaced to another depth. \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_inSituSalineContractionCoeff]{inSituSalineContractionCoeff} &  Saline contraction coefficient (beta), defined as  $1/\rho d\rho/dS$ .  This is also called the haline contraction coefficient.  This is in situ, i.e. not displaced to another depth. \\
+	\hline
 	\hyperref[subsec:var_sec_diagnostics_BruntVaisalaFreqTop]{BruntVaisalaFreqTop} & Brunt Vaisala frequency defined at the center (horizontally) and top (vertically) of cell \\
 	\hline
 	\hyperref[subsec:var_sec_diagnostics_montgomeryPotential]{montgomeryPotential} & Montgomery potential, may be used as the pressure for isopycnal coordinates. \\
@@ -517,6 +521,10 @@ Embedded links point to more detailed variable information in the appendix.
 	\hline
 	\hyperref[subsec:var_sec_forcing_squaredWindSpeed10Meter]{squaredWindSpeed10Meter} & Squared wind speed at 10 meters at cell centers from coupler. \\
 	\hline
+	\hyperref[subsec:var_sec_forcing_CO2Flux]{CO2Flux} & CO2 Flux. \\
+	\hline
+	\hyperref[subsec:var_sec_forcing_DMSFlux]{DMSFlux} & DMS Flux. \\
+	\hline
 	\hyperref[subsec:var_sec_forcing_nAccumulatedCoupled]{nAccumulatedCoupled} & Number of accumulations in time averaging of coupler fields \\
 	\hline
 	\hyperref[subsec:var_sec_forcing_avgTemperatureSurfaceValue]{avgTemperatureSurfaceValue} & Time averaged potential temperature extrapolated to ocean surface \\
@@ -532,10 +540,6 @@ Embedded links point to more detailed variable information in the appendix.
 	\hyperref[subsec:var_sec_forcing_avgZonalSSHGradient]{avgZonalSSHGradient} & Time averaged zonal gradient of SSH \\
 	\hline
 	\hyperref[subsec:var_sec_forcing_avgMeridionalSSHGradient]{avgMeridionalSSHGradient} & Time averaged meridional gradient of SSH \\
-	\hline
-	\hyperref[subsec:var_sec_forcing_CO2Flux]{CO2Flux} & CO2 Flux. \\
-	\hline
-	\hyperref[subsec:var_sec_forcing_DMSFlux]{DMSFlux} & DMS Flux. \\
 	\hline
 \end{longtable}
 \end{center}
@@ -600,17 +604,17 @@ Embedded links point to more detailed variable information in the appendix.
 	\hline
 	\hyperref[subsec:var_sec_scratch_tangentialVectorEdge]{tangentialVectorEdge} & Vector component tangent to an edge. \\
 	\hline
-	\hyperref[subsec:var_sec_scratch_windStressFull]{windStressFull} & Wind stress used for reconstructing diagnostic output fields. \\
+	\hyperref[subsec:var_sec_scratch_windStressFullScratch]{windStressFullScratch} & Wind stress used for reconstructing diagnostic output fields. \\
 	\hline
-	\hyperref[subsec:var_sec_scratch_windStressX]{windStressX} & reconstructed surface wind stress in the x direction. Used for diagnostics. \\
+	\hyperref[subsec:var_sec_scratch_windStressXScratch]{windStressXScratch} & reconstructed surface wind stress in the x direction. Used for diagnostics. \\
 	\hline
-	\hyperref[subsec:var_sec_scratch_windStressY]{windStressY} & reconstructed surface wind stress in the y direction. User for diagnostics. \\
+	\hyperref[subsec:var_sec_scratch_windStressYScratch]{windStressYScratch} & reconstructed surface wind stress in the y direction. User for diagnostics. \\
 	\hline
-	\hyperref[subsec:var_sec_scratch_windStressZ]{windStressZ} & reconstructed surface wind stress in the z direction. User for diagnostics. \\
+	\hyperref[subsec:var_sec_scratch_windStressZScratch]{windStressZScratch} & reconstructed surface wind stress in the z direction. User for diagnostics. \\
 	\hline
-	\hyperref[subsec:var_sec_scratch_windStressZonal]{windStressZonal} & reconstructed surface wind stress in the eastward direction. Used for diagnostics. \\
+	\hyperref[subsec:var_sec_scratch_windStressZonalScratch]{windStressZonalScratch} & reconstructed surface wind stress in the eastward direction. Used for diagnostics. \\
 	\hline
-	\hyperref[subsec:var_sec_scratch_windStressMeridional]{windStressMeridional} & reconstructed surface wind stress in the northward direction. User for diagnostics. \\
+	\hyperref[subsec:var_sec_scratch_windStressMeridionalScratch]{windStressMeridionalScratch} & reconstructed surface wind stress in the northward direction. User for diagnostics. \\
 	\hline
 \end{longtable}
 \end{center}
