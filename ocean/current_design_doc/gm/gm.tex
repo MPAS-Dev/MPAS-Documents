@@ -4,11 +4,11 @@
 \usepackage{graphicx}
 
 
-\setlength{\textwidth}{6.5in}
-\setlength{\oddsidemargin}{0in}
-\setlength{\evensidemargin}{0in}
-\setlength{\textheight}{9.0in}
-\setlength{\topmargin}{0in}
+%\setlength{\textwidth}{6.5in}
+%\setlength{\oddsidemargin}{0in}
+%\setlength{\evensidemargin}{0in}
+%\setlength{\textheight}{9.0in}
+%\setlength{\topmargin}{0in}
 
 \setlength{\parskip}{1.2ex}
 \setlength{\parindent}{0mm}
@@ -156,7 +156,7 @@ into the mean transport velocity and the GM bolus velocities,
 &{\bf U}_k = u_k + u^\ast_k,\label{eq:7}\\ 
 & W_k = w_k + w^\ast_k,\label{eq:8},
 \end{align}
-and $\Kb$ is a $3\times 3$ tensor and will be given later in Section
+and $\Kb$ is the symmetric, $3\times 3$ diffusivity tensor and will be given later in Section
 \ref{sec:redi-isopycn-diff}. 
 
 \section{The stream-function formulation of the GM
@@ -182,12 +182,14 @@ Now let
   \label{eq:11}
   \bs{\gamma}_\textrm{GM} = -\kappa\Sb,
 \end{equation}
-where $\Sb$ is a 2D vector representing the slope of the isopycnal
+where $\Sb$ is a 2D vector representing the slope of the neutral
 surfaces, and it is given by 
 \begin{equation}
   \label{eq:9}
   \Sb = -\dfrac{\nabla_z \rho}{\rho_z}.
 \end{equation}
+Here we are approximating neutral surfaces based on the slope 
+of $\rho$, the potential density. 
 Then
 \begin{align}
   &\ub^\ast_\textrm{GM} = -\p_z(\kappa\Sb),  \label{eq:12}\\
@@ -236,7 +238,7 @@ taking dot-product of \eqref{eq:13} with $\ub$,
   \label{eq:18}
   u^\ast = \p_z \gamma.
 \end{equation}
-We obtain a boundry value problem for the normal component $\gamma$ by
+We obtain a boundary value problem for the normal component $\gamma$ by
 taking dot-product of \eqref{eq:15}--~\eqref{eq:3} with $\nb$,
 \begin{align}
   &\left( c^2\dfrac{\ud^2}{\ud z^2} - N^2\right){\gamma} =
@@ -244,23 +246,11 @@ taking dot-product of \eqref{eq:15}--~\eqref{eq:3} with $\nb$,
   &{\gamma}(\eta) = {\gamma}(-H) = 0.\label{eq:20}
 \end{align}
 Here $(\p \rho/\p\mathrm{n})|_z$ refers to the normal derivative of
-the density field on constant height surfaces.
+the potential density field on constant height surfaces.
 
 % \section{Formulae}\label{sec:formulae}
 % Date last modified: 2012/09/21 \\
 % Contributors: Qingshan Chen and Todd Ringler\\
-
-% We label the layers from the top down by $k=1,2,3,\cdots$, and the 
-% layer interface between layers $k$ and $k+1$ by $k+1/2$. The height
-% of the midpoint of layer $k$ is denoted as $z_k$, and the height of 
-% the layer interface $k+1/2$ is denoted as $z_{k+1/2}$. 
-A first order 
-approximation to $\rho_z$ at layer interface $k+1/2$ is given by 
-\begin{equation}
-  \left(\rho_z\right)_{k+\frac{1}{2}} = 
-  \dfrac{\rho_k - \rho_{k+1}}{z_k - z_{k+1}},\label{eq:21}
-\end{equation}
-where $k$ is the layer index.
 
 The calculation of $\p\rho/\p\mathrm{n}$ on constant height surfaces is 
 a bit more complicated, because the general vertical coordinate
@@ -318,21 +308,9 @@ $\nb$ yields
 \dfrac{\p z}{\p\mathrm{n}}\right|_r.
 \label{eq:30}
 \end{equation}
-The discretization of the RHS of \eqref{eq:30} are as follow,
-\begin{align*}
-\left.\dfrac{\p\rho}{\p n}\right|_r &= 
-\dfrac{\rho(\textrm{cell2}) - \rho(\textrm{cell1})}{\textrm{dcEdge}},\\
-\left.\dfrac{\p z}{\p n}\right|_r &= 
-\dfrac{z(\textrm{cell2}) - z(\textrm{cell1})}{\textrm{dcEdge}}.
-\end{align*}
-$\p\rho/\p z$ has been calculated before at the cell centers and on 
-the layer interfaces. The data first needs to be interpolated to the cell 
-edges on the layer interfaces using area weighted averaging, and then
-be interpolated to the cell edges in the middle of the layer 
-interfaces.
 
 
-\section{Redi isopycnal diffusion}\label{sec:redi-isopycn-diff} 
+\section{Redi, along-neutral-surface diffusion}\label{sec:redi-isopycn-diff} 
 Date last modified: 2012/11/19 \\
 Contributors: Qingshan Chen, Todd Ringler, and Peter Gent\\
 
@@ -397,41 +375,41 @@ general ($r$) coordinate system,
       \rho\end{matrix}\right) \equiv M_3\left(\begin{matrix}x^\rho \\
       \\ y^\rho \\ \\ \rho\end{matrix}\right).
 \end{equation}
-The matrix multiplication is carried out with the symbolic algebraic
-system $Mathematica^\textrm{TM}$, and the resulting transformation
-matrix $M_3$ is given below in Mathematica format:
-\begin{multline}
-M_3 = \{\{\text{Cos}[\alpha ] \text{Cos}[\beta ]
-  \text{Cos}[\gamma ] \text{Cos}[\sigma ]+\text{Sin}[\beta ]
-  \text{Sin}[\gamma ]+\text{Cos}[\beta ] \text{Cos}[\gamma ]
-  \text{Sin}[\alpha ] \text{Sin}[\sigma ],\\
--\text{Cos}[\gamma ]
-  \text{Cos}[\sigma ] \text{Sin}[\alpha ]+\text{Cos}[\alpha ]
-  \text{Cos}[\gamma ] \text{Sin}[\sigma ],\\
--\text{Cos}[\alpha ]
-  \text{Cos}[\gamma ] \text{Cos}[\sigma ] \text{Sin}[\beta
-  ]+\text{Cos}[\beta ] \text{Sin}[\gamma ]-\text{Cos}[\gamma ]
-  \text{Sin}[\alpha ] \text{Sin}[\beta ] \text{Sin}[\sigma
-  ]\},\\
-\{\text{Cos}[\beta ] \text{Cos}[\sigma ] \text{Sin}[\alpha
-  ]-\text{Cos}[\alpha ] \text{Cos}[\beta ] \text{Sin}[\sigma
-  ],\text{Cos}[\alpha ] \text{Cos}[\sigma ]+\text{Sin}[\alpha ]
-  \text{Sin}[\sigma ],\\
--\text{Cos}[\sigma ] \text{Sin}[\alpha ]
-  \text{Sin}[\beta ]+\text{Cos}[\alpha ] \text{Sin}[\beta ]
-  \text{Sin}[\sigma ]\},\\
-\{\text{Cos}[\gamma ] \text{Sin}[\beta
-  ]-\text{Cos}[\alpha ] \text{Cos}[\beta ] \text{Cos}[\sigma ]
-  \text{Sin}[\gamma ]-\text{Cos}[\beta ] \text{Sin}[\alpha ]
-  \text{Sin}[\gamma ] \text{Sin}[\sigma ],\\
-\text{Cos}[\sigma ]
-  \text{Sin}[\alpha ] \text{Sin}[\gamma ]-\text{Cos}[\alpha ]
-  \text{Sin}[\gamma ] \text{Sin}[\sigma ],\\
-\text{Cos}[\beta ]
-  \text{Cos}[\gamma ]+\text{Cos}[\alpha ] \text{Cos}[\sigma ]
-  \text{Sin}[\beta ] \text{Sin}[\gamma ]+\text{Sin}[\alpha ]
-  \text{Sin}[\beta ] \text{Sin}[\gamma ] \text{Sin}[\sigma ]\}\} 
-\end{multline}
+%The matrix multiplication is carried out with the symbolic algebraic
+%system $Mathematica^\textrm{TM}$, and the resulting transformation
+%matrix $M_3$ is given below in Mathematica format:
+%\begin{multline}
+%M_3 = \{\{\text{Cos}[\alpha ] \text{Cos}[\beta ]
+%  \text{Cos}[\gamma ] \text{Cos}[\sigma ]+\text{Sin}[\beta ]
+%  \text{Sin}[\gamma ]+\text{Cos}[\beta ] \text{Cos}[\gamma ]
+%  \text{Sin}[\alpha ] \text{Sin}[\sigma ],\\
+%-\text{Cos}[\gamma ]
+%  \text{Cos}[\sigma ] \text{Sin}[\alpha ]+\text{Cos}[\alpha ]
+%  \text{Cos}[\gamma ] \text{Sin}[\sigma ],\\
+%-\text{Cos}[\alpha ]
+%  \text{Cos}[\gamma ] \text{Cos}[\sigma ] \text{Sin}[\beta
+%  ]+\text{Cos}[\beta ] \text{Sin}[\gamma ]-\text{Cos}[\gamma ]
+%  \text{Sin}[\alpha ] \text{Sin}[\beta ] \text{Sin}[\sigma
+%  ]\},\\
+%\{\text{Cos}[\beta ] \text{Cos}[\sigma ] \text{Sin}[\alpha
+%  ]-\text{Cos}[\alpha ] \text{Cos}[\beta ] \text{Sin}[\sigma
+%  ],\text{Cos}[\alpha ] \text{Cos}[\sigma ]+\text{Sin}[\alpha ]
+%  \text{Sin}[\sigma ],\\
+%-\text{Cos}[\sigma ] \text{Sin}[\alpha ]
+%  \text{Sin}[\beta ]+\text{Cos}[\alpha ] \text{Sin}[\beta ]
+%  \text{Sin}[\sigma ]\},\\
+%\{\text{Cos}[\gamma ] \text{Sin}[\beta
+%  ]-\text{Cos}[\alpha ] \text{Cos}[\beta ] \text{Cos}[\sigma ]
+%  \text{Sin}[\gamma ]-\text{Cos}[\beta ] \text{Sin}[\alpha ]
+%  \text{Sin}[\gamma ] \text{Sin}[\sigma ],\\
+%\text{Cos}[\sigma ]
+%  \text{Sin}[\alpha ] \text{Sin}[\gamma ]-\text{Cos}[\alpha ]
+%  \text{Sin}[\gamma ] \text{Sin}[\sigma ],\\
+%\text{Cos}[\beta ]
+%  \text{Cos}[\gamma ]+\text{Cos}[\alpha ] \text{Cos}[\sigma ]
+%  \text{Sin}[\beta ] \text{Sin}[\gamma ]+\text{Sin}[\alpha ]
+%  \text{Sin}[\beta ] \text{Sin}[\gamma ] \text{Sin}[\sigma ]\}\} 
+%\end{multline}
 The transformation $M$ from the density $\rho$ coordinate system to the
 hybrid curvelinear $(x,y,r)$ coordinate system is obtained by
 combining relevant rows from matrices $M_1$ and $M_3$. Specifically,
@@ -495,13 +473,14 @@ instead of across isopycnal surfaces can be realized by setting the
 diffusion tensor to
 \begin{equation}
   \label{eq:39}
-  K^\rho = \left(
+  K^\rho = \kappa_R \left(
     \begin{matrix}
       1 & 0 & 0\\
       0 & 1 & 0\\
       0 & 0 & 0
-    \end{matrix}\right).
+    \end{matrix}\right)
 \end{equation}
+where $\kappa_R$ is the Redi, along-neutral-surface diffusivity.
 Using the relation \eqref{eq:37}, one can formulate the diffusion
 \eqref{eq:38} in the general hybrid coordinate system $(x, y, r)$ as
 \begin{equation}
@@ -510,76 +489,77 @@ Using the relation \eqref{eq:37}, one can formulate the diffusion
   M^\textrm{T}\nabla^r\varphi), 
 \end{equation}
 where $\nabla^r = (\p_x, \p_y, \p_r)^\textrm{T}$. With $K^\rho$ taking
-the form in \eqref{eq:39}, the new tensor $K^r$ can be easily found
-using Mathematica,
-\begin{multline}
-  \label{eq:41}
-  K^r = \{\{\text{Cos}[\alpha ]^2 \text{Cos}[\beta
-      ]^2+\text{Sin}[\alpha ]^2,\\
-      -\text{Cos}[\alpha ] \text{Sin}[\alpha
-      ]+\text{Cos}[\alpha ] \text{Cos}[\beta ]^2 \text{Sin}[\alpha
-      ],\\
-      \text{Cos}[\alpha ] \text{Cos}[\beta ] \text{Cos}[\gamma ]
-      \text{Sin}[\beta ]-\text{Cos}[\alpha ]^2 \text{Cos}[\beta ]^2
-      \text{Cos}[\sigma ] \text{Sin}[\gamma ]-\\
-      \text{Cos}[\sigma ]
-      \text{Sin}[\alpha ]^2 \text{Sin}[\gamma ]+
-      \text{Cos}[\alpha ]
-      \text{Sin}[\alpha ] \text{Sin}[\gamma ] \text{Sin}[\sigma
-      ]-\text{Cos}[\alpha ] \text{Cos}[\beta ]^2 \text{Sin}[\alpha ]
-      \text{Sin}[\gamma ] \text{Sin}[\sigma
-      ]\},\\
-      \{-\text{Cos}[\alpha ] \text{Sin}[\alpha
-      ]+\text{Cos}[\alpha ] \text{Cos}[\beta ]^2 \text{Sin}[\alpha
-      ],\\
-      \text{Cos}[\alpha ]^2+\text{Cos}[\beta ]^2 \text{Sin}[\alpha
-      ]^2,\\
-      \text{Cos}[\beta ] \text{Cos}[\gamma ] \text{Sin}[\alpha ]
-      \text{Sin}[\beta ]+\text{Cos}[\alpha ] \text{Cos}[\sigma ]
-      \text{Sin}[\alpha ] \text{Sin}[\gamma ]-\\
-      \text{Cos}[\alpha ]
-      \text{Cos}[\beta ]^2 \text{Cos}[\sigma ] \text{Sin}[\alpha ]
-      \text{Sin}[\gamma ]-\text{Cos}[\alpha ]^2 \text{Sin}[\gamma ]
-      \text{Sin}[\sigma ]-\text{Cos}[\beta ]^2 \text{Sin}[\alpha ]^2
-      \text{Sin}[\gamma ] \text{Sin}[\sigma
-      ]\},\\
-      \{\text{Cos}[\alpha ] \text{Cos}[\beta ]
-      \text{Cos}[\gamma ] \text{Sin}[\beta ]-\text{Cos}[\alpha ]^2
-      \text{Cos}[\beta ]^2 \text{Cos}[\sigma ] \text{Sin}[\gamma
-      ]-\\
-      \text{Cos}[\sigma ] \text{Sin}[\alpha ]^2 \text{Sin}[\gamma
-      ]+\text{Cos}[\alpha ] \text{Sin}[\alpha ] \text{Sin}[\gamma ]
-      \text{Sin}[\sigma ]-\text{Cos}[\alpha ] \text{Cos}[\beta ]^2
-      \text{Sin}[\alpha ] \text{Sin}[\gamma ] \text{Sin}[\sigma
-      ],\\
-      \text{Cos}[\beta ] \text{Cos}[\gamma ] \text{Sin}[\alpha ]
-      \text{Sin}[\beta ]+\text{Cos}[\alpha ] \text{Cos}[\sigma ]
-      \text{Sin}[\alpha ] \text{Sin}[\gamma ]-\\
-      \text{Cos}[\alpha ]
-      \text{Cos}[\beta ]^2 \text{Cos}[\sigma ] \text{Sin}[\alpha ]
-      \text{Sin}[\gamma ]-\text{Cos}[\alpha ]^2 \text{Sin}[\gamma ]
-      \text{Sin}[\sigma ]-\text{Cos}[\beta ]^2 \text{Sin}[\alpha ]^2
-      \text{Sin}[\gamma ] \text{Sin}[\sigma ],\\
-      \text{Cos}[\gamma ]^2
-      \text{Sin}[\beta ]^2-2 \text{Cos}[\alpha ] \text{Cos}[\beta ]
-      \text{Cos}[\gamma ] \text{Cos}[\sigma ] \text{Sin}[\beta ]
-      \text{Sin}[\gamma ]+\\
-      \text{Cos}[\alpha ]^2 \text{Cos}[\beta ]^2
-      \text{Cos}[\sigma ]^2 \text{Sin}[\gamma ]^2+\text{Cos}[\sigma
-      ]^2 \text{Sin}[\alpha ]^2 \text{Sin}[\gamma ]^2-\\
-      2\text{Cos}[\beta ] \text{Cos}[\gamma ] \text{Sin}[\alpha ]
-      \text{Sin}[\beta ] \text{Sin}[\gamma ] \text{Sin}[\sigma ]-2
-      \text{Cos}[\alpha ] \text{Cos}[\sigma ] \text{Sin}[\alpha ]
-      \text{Sin}[\gamma ]^2 \text{Sin}[\sigma ]+\\
-      2 \text{Cos}[\alpha ]
-      \text{Cos}[\beta ]^2 \text{Cos}[\sigma ] \text{Sin}[\alpha ]
-      \text{Sin}[\gamma ]^2 \text{Sin}[\sigma ]+\\
-      \text{Cos}[\alpha ]^2
-      \text{Sin}[\gamma ]^2 \text{Sin}[\sigma ]^2+\text{Cos}[\beta ]^2
-      \text{Sin}[\alpha ]^2 \text{Sin}[\gamma ]^2 \text{Sin}[\sigma
-      ]^2\}\} 
-\end{multline}
-We denote by $k_x$ and $k_y$ the slopes of the constant density
+the form in \eqref{eq:39}, 
+%the new tensor $K^r$ can be easily found
+%using Mathematica,
+%\begin{multline}
+%  \label{eq:41}
+%  K^r = \{\{\text{Cos}[\alpha ]^2 \text{Cos}[\beta
+ %     ]^2+\text{Sin}[\alpha ]^2,\\
+   %   -\text{Cos}[\alpha ] \text{Sin}[\alpha
+  %    ]+\text{Cos}[\alpha ] \text{Cos}[\beta ]^2 \text{Sin}[\alpha
+  %    ],\\
+  %    \text{Cos}[\alpha ] \text{Cos}[\beta ] \text{Cos}[\gamma ]
+  %    \text{Sin}[\beta ]-\text{Cos}[\alpha ]^2 \text{Cos}[\beta ]^2
+  %    \text{Cos}[\sigma ] \text{Sin}[\gamma ]-\\
+ %     \text{Cos}[\sigma ]
+ %     \text{Sin}[\alpha ]^2 \text{Sin}[\gamma ]+
+ %     \text{Cos}[\alpha ]
+  %    \text{Sin}[\alpha ] \text{Sin}[\gamma ] \text{Sin}[\sigma
+  %    ]-\text{Cos}[\alpha ] \text{Cos}[\beta ]^2 \text{Sin}[\alpha ]
+%      \text{Sin}[\gamma ] \text{Sin}[\sigma
+ %     ]\},\\
+ %     \{-\text{Cos}[\alpha ] \text{Sin}[\alpha
+ %     ]+\text{Cos}[\alpha ] \text{Cos}[\beta ]^2 \text{Sin}[\alpha
+  %    ],\\
+  %    \text{Cos}[\alpha ]^2+\text{Cos}[\beta ]^2 \text{Sin}[\alpha
+  %    ]^2,\\
+  %    \text{Cos}[\beta ] \text{Cos}[\gamma ] \text{Sin}[\alpha ]
+  %    \text{Sin}[\beta ]+\text{Cos}[\alpha ] \text{Cos}[\sigma ]
+  %    \text{Sin}[\alpha ] \text{Sin}[\gamma ]-\\
+  %    \text{Cos}[\alpha ]
+  %    \text{Cos}[\beta ]^2 \text{Cos}[\sigma ] \text{Sin}[\alpha ]
+   %   \text{Sin}[\gamma ]-\text{Cos}[\alpha ]^2 \text{Sin}[\gamma ]
+   %   \text{Sin}[\sigma ]-\text{Cos}[\beta ]^2 \text{Sin}[\alpha ]^2
+ %     \text{Sin}[\gamma ] \text{Sin}[\sigma
+   %   ]\},\\
+ %     \{\text{Cos}[\alpha ] \text{Cos}[\beta ]
+ %     \text{Cos}[\gamma ] \text{Sin}[\beta ]-\text{Cos}[\alpha ]^2
+ %     \text{Cos}[\beta ]^2 \text{Cos}[\sigma ] \text{Sin}[\gamma
+ %     ]-\\
+  %    \text{Cos}[\sigma ] \text{Sin}[\alpha ]^2 \text{Sin}[\gamma
+  %    ]+\text{Cos}[\alpha ] \text{Sin}[\alpha ] \text{Sin}[\gamma ]
+  %    \text{Sin}[\sigma ]-\text{Cos}[\alpha ] \text{Cos}[\beta ]^2
+  %    \text{Sin}[\alpha ] \text{Sin}[\gamma ] \text{Sin}[\sigma
+  %    ],\\
+  %    \text{Cos}[\beta ] \text{Cos}[\gamma ] \text{Sin}[\alpha ]
+  %    \text{Sin}[\beta ]+\text{Cos}[\alpha ] \text{Cos}[\sigma ]
+  %    \text{Sin}[\alpha ] \text{Sin}[\gamma ]-\\
+  %    \text{Cos}[\alpha ]
+  %    \text{Cos}[\beta ]^2 \text{Cos}[\sigma ] \text{Sin}[\alpha ]
+  %    \text{Sin}[\gamma ]-\text{Cos}[\alpha ]^2 \text{Sin}[\gamma ]
+  %    \text{Sin}[\sigma ]-\text{Cos}[\beta ]^2 \text{Sin}[\alpha ]^2
+  %    \text{Sin}[\gamma ] \text{Sin}[\sigma ],\\
+   %   \text{Cos}[\gamma ]^2
+ %     \text{Sin}[\beta ]^2-2 \text{Cos}[\alpha ] \text{Cos}[\beta ]
+   %   \text{Cos}[\gamma ] \text{Cos}[\sigma ] \text{Sin}[\beta ]
+ %     \text{Sin}[\gamma ]+\\
+ %     \text{Cos}[\alpha ]^2 \text{Cos}[\beta ]^2
+  %    \text{Cos}[\sigma ]^2 \text{Sin}[\gamma ]^2+\text{Cos}[\sigma
+  %    ]^2 \text{Sin}[\alpha ]^2 \text{Sin}[\gamma ]^2-\\
+  %    2\text{Cos}[\beta ] \text{Cos}[\gamma ] \text{Sin}[\alpha ]
+   %   \text{Sin}[\beta ] \text{Sin}[\gamma ] \text{Sin}[\sigma ]-2
+  %    \text{Cos}[\alpha ] \text{Cos}[\sigma ] \text{Sin}[\alpha ]
+  %    \text{Sin}[\gamma ]^2 \text{Sin}[\sigma ]+\\
+   %   2 \text{Cos}[\alpha ]
+  %    \text{Cos}[\beta ]^2 \text{Cos}[\sigma ] \text{Sin}[\alpha ]
+  %    \text{Sin}[\gamma ]^2 \text{Sin}[\sigma ]+\\
+  %    \text{Cos}[\alpha ]^2
+  %    \text{Sin}[\gamma ]^2 \text{Sin}[\sigma ]^2+\text{Cos}[\beta ]^2
+   %   \text{Sin}[\alpha ]^2 \text{Sin}[\gamma ]^2 \text{Sin}[\sigma
+   %   ]^2\}\} 
+%\end{multline}
+We denote by $k_x$ and $k_y$ the slopes of the potential density
 surfaces along the $x$ and $y$ axes, respectively, and by $l_x$ and
 $l_y$ the slopes of the constant $r$ surfaces along the $x$ and $y$
 axes respectively. We also note the following relations,
@@ -592,7 +572,7 @@ axes respectively. We also note the following relations,
 Then the tensor matrix $K^r$ can be written as 
 \begin{equation}
   \label{eq:44}
-  K^r = \cos^2\beta\left(
+  K^r = \kappa_R \cos^2\beta\left(
     \begin{matrix}
       1 + k_y^2 & { }  &  -k_xk_y & { } & { }\\
           { }   &     { }   & { } & { } & \cos\gamma{\tilde{\mathbf{S}}}\\
@@ -610,13 +590,13 @@ with
 % l_x^2(1+k_y^2) + l_y^2(1+k_x^2) - 2(k_xl_x + k_yl_y) + k_x^2
 % + k_y^2 - 2k_xk_yl_xl_y.
 \end{align*}
+Note that both $\tilde{\Sb}$ and $K_{33}$ are non-dimensional.
 
-\noindent{\it Sanity checking}\\
 In the case when the $(x^r, y^r, r)$-coordinate system coincides with
 the $(x,y,z)$-coordinate system, ones $\sigma=\gamma=0$, and hence
 $l_x = l_y=0$ according to \eqref{eq:43}. Therefore, $K^r$ reduces to
 \begin{equation*}
-\cos^2\beta\left(
+\kappa_R \cos^2\beta\left(
     \begin{matrix}
       1 + k_y^2 & { }  &  -k_xk_y & { } & {k_x }\\
           { }   &     { }   & { } & { } & { }\\
@@ -630,7 +610,7 @@ traditional $z$-level coordinate. In the case when the constant $r$
 surface coincides with the constant density $\rho$ surface, one has
 $l_x = k_x$ and $l_y=k_y$. Therefore, $K^r$ reduces to 
 \begin{equation*}
-\cos^2\beta\left(
+\kappa_R \cos^2\beta\left(
     \begin{matrix}
       1 + k_y^2 & { }  &  -k_xk_y & { } & { 0 }\\
           { }   &     { }   & { } & { } & { }\\
@@ -643,9 +623,9 @@ In this case, the requirement that there should be no flux across the
 constant density surface carries over to the constant $r$ surface. The
 extra terms in the upper-left $2\times 2$ matrix are due to the fact
 that the horizontal $(x,y)$-, instead of $(x^\rho, y^\rho)$-,
-coordinate system are used. 
+coordinate system are used. \\
 
-\noindent{\it Calculation of the slopes}\\
+\subsection{Calculation the local slope of neutral surfaces}
 We note that 
 \begin{align*}
   (k_x, k_y) &= -\dfrac{\nabla_z\rho}{\rho_z}\\
@@ -685,7 +665,7 @@ The term $K_{33}$ can be written as
    K_{33} = \dfrac{|\nabla_r\rho|^2}{\rho_z^2}+ (k_yl_x - k_xl_y)^2.
 \end{equation}
 
-\noindent{\it Small angle approximation}\\
+\subsection{Small angle approximation}
 The slopes of the constant density surfaces are usually small,
 i.e.~$k_x$ and $k_y$ in \eqref{eq:47} and \eqref{eq:49} are usually
 small.  The high order terms involving $k_x$ and/or $k_y$ are even
@@ -696,7 +676,7 @@ terms of \eqref{eq:47} and the fourth-order terms in \eqref{eq:49},
 that is, we take
 \begin{equation}
   \label{eq:53}
-  K^r = \left(\begin{matrix}
+  K^r = \kappa_R \left(\begin{matrix}
   I_2 & { } & \cos\gamma\tilde{\Sb}\\
 \\
   \cos\gamma\tilde{\mathbf{S}} & { } & \cos^2\gamma K_{33}\end{matrix}\right), 
@@ -714,23 +694,24 @@ and \eqref{eq:52} has no effect on the density field, that is,
   K^r\nabla^r\rho = 0.
 \end{displaymath}
 
-\noindent{\it Weak cross-isopycnal-surface diffusion}\\
+\subsection{Weak cross-isopycnal-surface diffusion}
 If weak cross-isopycnal-surface diffusion is to be considered, then
 $K^\rho$ takes the form
 \begin{equation}
 \label{eq:48}
-  K^\rho = \left(
+  K^\rho = \kappa_R \left(
     \begin{matrix}
       1 & 0 & 0\\
       0 & 1 & 0\\
       0 & 0 & \epsilon
     \end{matrix}\right).
 \end{equation}
-for a small positive number $\epsilon$. Through the same transformation
+for a small positive, non-dimensional, number $\epsilon$ that represents the ratio of the cross-neutral 
+surface mixing to the along-neutral surface mixing. Through the same transformation
 given in \eqref{eq:40}, $K^r$ is found to be
 \begin{equation}
 \label{eq:50}
-  K^r = \cos^2\beta\left(
+  K^r = \kappa_R \cos^2\beta\left(
     \begin{matrix}
       1 + k_y^2 + \epsilon k_x^2& { }  &  -(1-\epsilon)k_xk_y & { } & { }\\
           { }   &     { }   & { } & { } & \cos\gamma{\tilde{\mathbf{S}}}\\
@@ -773,17 +754,59 @@ K_{33} = \dfrac{|\nabla_r\rho|^2}{\rho_z^2}+\epsilon.
 \end{equation}
 
 
-\noindent{\it Implementation}\\
+\section{Discretization}
+
+\subsection{Computing slope of local neutral surface}
+
+Taking dot-product of \eqref{eq:29} with the outer normal unit vector
+$\nb$ yields
+\begin{equation}
+\left.\dfrac{\p\rho}{\p \mathrm{n}}\right|_z = 
+\left.\dfrac{\p\rho}{\p\mathrm{n}}\right|_r - \left.\dfrac{\p\rho}{\p z}
+\dfrac{\p z}{\p\mathrm{n}}\right|_r.
+\label{eq:30}
+\end{equation}
+The discretization of the RHS of \eqref{eq:30} are as follow,
+\begin{align*}
+\left.\dfrac{\p\rho}{\p n}\right|_r &= 
+\dfrac{\rho(\textrm{cell2}) - \rho(\textrm{cell1})}{\textrm{dcEdge}},\\
+\left.\dfrac{\p z}{\p n}\right|_r &= 
+\dfrac{z(\textrm{cell2}) - z(\textrm{cell1})}{\textrm{dcEdge}}.
+\end{align*}
+$\p\rho/\p z$ has been calculated before at the cell centers and on 
+the layer interfaces. The data first needs to be interpolated to the cell 
+edges on the layer interfaces using area weighted averaging, and then
+be interpolated to the cell edges in the middle of the layer 
+interfaces.
+
+\subsection{Computing bolus velocity}
+
+We label the layers from the top down by $k=1,2,3,\cdots$, and the 
+layer interface between layers $k$ and $k+1$ by $k+1/2$. The height
+of the midpoint of layer $k$ is denoted as $z_k$, and the height of 
+the layer interface $k+1/2$ is denoted as $z_{k+1/2}$. 
+A first order 
+approximation to $\rho_z$ at layer interface $k+1/2$ is given by 
+\begin{equation}
+  \left(\rho_z\right)_{k+\frac{1}{2}} = 
+  \dfrac{\rho_k - \rho_{k+1}}{z_k - z_{k+1}},\label{eq:21}
+\end{equation}
+where $k$ is the layer index.
+
+
+
+\subsection{Computing $\nabla^r\cdot(K^r\nabla^r\varphi)$}
+
 With $K^r$ taking the form of \eqref{eq:53}, the Redi
 diffusion can be rearranged as
 \begin{multline}
 \label{eq:54}
-  \nabla^r\cdot(K^r\nabla^r\varphi) = \nabla_r\cdot(\nabla_r\varphi)
-  + \nabla_r\cdot\left(\cos\gamma\tilde{\mathbf{S}}\dfrac{\p\varphi}{\p
-      r}\right) +\\ \dfrac{\p}{\p
+  \nabla^r\cdot(K^r\nabla^r\varphi) = \kappa_R  \nabla_r\cdot(\nabla_r\varphi)
+  + \kappa_R \nabla_r\cdot\left(\cos\gamma\tilde{\mathbf{S}}\dfrac{\p\varphi}{\p
+      r}\right) +\\ \kappa_R \dfrac{\p}{\p
     r}\left(\cos\gamma\tilde{\mathbf{S}}\cdot\nabla_r\varphi\right) +
-  \dfrac{\p}{\p r}\left(\cos^2\gamma K_{33}\dfrac{\p}{\p
-      r}\varphi\right), 
+   \kappa_R \dfrac{\p}{\p r}\left(\cos^2\gamma K_{33}\dfrac{\p}{\p
+      r}\varphi\right) , 
 \end{multline}
 where 
 $$\nabla_r \equiv \left(\left.\frac{\p}{\p x}\right|_r,\, \left.\frac{\p}{\p
@@ -798,20 +821,20 @@ Therefore, the $\cos\gamma$ term in \eqref{eq:54} can be combined with
 $\p/\p r$ to give $\p/\p z$, and \eqref{eq:54} can then be written as
 \begin{multline}
 \label{eq:55}
-  \nabla^r\cdot(K^r\nabla^r\varphi) = \nabla_r\cdot(\nabla_r\varphi)
+  \nabla^r\cdot(K^r\nabla^r\varphi) = \kappa_R \left[ \nabla_r\cdot(\nabla_r\varphi)
   + \nabla_r\cdot\left(\tilde{\mathbf{S}}\dfrac{\p\varphi}{\p
       z}\right) + \dfrac{\p}{\p
     z}\left(\tilde{\mathbf{S}}\cdot\nabla_r\varphi\right) +
   \dfrac{\p}{\p z}\left( K_{33}\dfrac{\p}{\p
-      z}\varphi\right).
+      z}\varphi\right) \right].
 \end{multline}
 The first is the usual horizontal diffusion. The second terms can be
 discretized using the flux form,
 \begin{equation}
   \label{eq:58}
   \left[ \nabla_r\cdot\left(\tilde{\mathbf{S}}\dfrac{\p\varphi}{\p
-      z}\right)\right] = 
-\sum_{e\in EC(i)} \dfrac{\p\varphi}{\p z}\tilde{\mathbf{S}}\cdot\nb_e.
+      z}\right)\right]_i = 
+\frac{1}{A_i} \sum_{e\in EC(i)} \dfrac{\p\varphi}{\p z}\tilde{\mathbf{S}}\cdot\nb_e \, dc_e.
 \end{equation}
  To discretize the
 third term using the FDM, we need the values of
@@ -819,12 +842,14 @@ $\mathbf{S}\cdot\nabla_r\varphi$ at the cell centers, which can be
 approximated by
 \begin{equation}
 \label{eq:59}
-  \left[\tilde{\mathbf{S}}\cdot\nabla_r\varphi\right]_i = 2\sum_{e\in
-    EC(i)}\tilde{\mathbf{S}}\cdot\mathbf{n}_e {\nabla_r\varphi}\cdot\mathbf{n}_e.
+  \left[\tilde{\mathbf{S}}\cdot\nabla_r\varphi\right]_i = \frac{2}{A_i} \sum_{e\in
+    EC(i)} \left( \tilde{\mathbf{S}}\cdot\mathbf{n}_e \right) \left( {\nabla_r\varphi}\cdot\mathbf{n}_e \right) \, \frac{dc_e \, dv_e}{4}.
 %    &= -2\sum_{e\in
  %   EC(i)}\dfrac{1}{[\rho_z]_e}\left.\dfrac{\p\rho}{\p
   %    n_e}\right\vert_r \left.\dfrac{\p\varphi}{\p n_e}\right|_r, 
 \end{equation}
+Note that $\sum_{e\in EC(i)} \frac{dc_e \, dv_e}{4}=A_i$, so (\ref{eq:59}) is a convex combination of dot products at edges with the extra factor of two accounting for only one of the two components being counted at each edge.
+
 The fourth term can be discretized
 using the finite difference method in the vertical.
 % with $(\p/\p n_e)|_r$ denoting the derivative in the normal direction
