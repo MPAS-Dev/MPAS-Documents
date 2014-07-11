@@ -758,7 +758,7 @@ K_{33} = \dfrac{|\nabla_r\rho|^2}{\rho_z^2}+\epsilon.
 
 \subsection{Computing slope of local neutral surface}
 
-Taking dot-product of \eqref{eq:29} with the outer normal unit vector
+Based on potential density, $\rho$, taking dot-product of \eqref{eq:29} with the outer normal unit vector
 $\nb$ yields
 \begin{equation}
 \left.\dfrac{\p\rho}{\p \mathrm{n}}\right|_z = 
@@ -795,17 +795,17 @@ where $k$ is the layer index.
 
 
 
-\subsection{Computing $\nabla^r\cdot(K^r\nabla^r\varphi)$}
+\subsection{Computing $\nabla_r\cdot(hK_r\nabla_r\varphi)$}
 
 With $K^r$ taking the form of \eqref{eq:53}, the Redi
 diffusion can be rearranged as
 \begin{multline}
 \label{eq:54}
-  \nabla^r\cdot(K^r\nabla^r\varphi) = \kappa_R  \nabla_r\cdot(\nabla_r\varphi)
-  + \kappa_R \nabla_r\cdot\left(\cos\gamma\tilde{\mathbf{S}}\dfrac{\p\varphi}{\p
+  \nabla_r\cdot(hK_r\nabla_r\varphi) = \kappa_R  \nabla_r\cdot(h\nabla_r\varphi)
+  + \kappa_R \nabla_r\cdot\left(h (\cos\gamma) \tilde{\mathbf{S}}\dfrac{\p\varphi}{\p
       r}\right) +\\ \kappa_R \dfrac{\p}{\p
-    r}\left(\cos\gamma\tilde{\mathbf{S}}\cdot\nabla_r\varphi\right) +
-   \kappa_R \dfrac{\p}{\p r}\left(\cos^2\gamma K_{33}\dfrac{\p}{\p
+    r}\left(h (\cos\gamma) \tilde{\mathbf{S}}\cdot\nabla_r\varphi\right) +
+   \kappa_R \dfrac{\p}{\p r}\left(h (\cos^2\gamma) K_{33}\dfrac{\p}{\p
       r}\varphi\right) , 
 \end{multline}
 where 
@@ -821,20 +821,25 @@ Therefore, the $\cos\gamma$ term in \eqref{eq:54} can be combined with
 $\p/\p r$ to give $\p/\p z$, and \eqref{eq:54} can then be written as
 \begin{multline}
 \label{eq:55}
-  \nabla^r\cdot(K^r\nabla^r\varphi) = \kappa_R \left[ \nabla_r\cdot(\nabla_r\varphi)
-  + \nabla_r\cdot\left(\tilde{\mathbf{S}}\dfrac{\p\varphi}{\p
+  \nabla^r\cdot( h K^r\nabla^r\varphi) = \kappa_R \left[ \nabla_r\cdot(h \nabla_r\varphi)
+  + \nabla_r\cdot\left(h \tilde{\mathbf{S}}\dfrac{\p\varphi}{\p
       z}\right) + \dfrac{\p}{\p
-    z}\left(\tilde{\mathbf{S}}\cdot\nabla_r\varphi\right) +
-  \dfrac{\p}{\p z}\left( K_{33}\dfrac{\p}{\p
+    z}\left(h \tilde{\mathbf{S}}\cdot\nabla_r\varphi\right) +
+  \dfrac{\p}{\p z}\left(h  K_{33}\dfrac{\p}{\p
       z}\varphi\right) \right].
 \end{multline}
-The first is the usual horizontal diffusion. The second terms can be
+The first is the usual horizontal diffusion computed as
+\begin{equation}
+\kappa_R  \left[ \nabla_r \cdot (h \nabla_r\varphi) \right] =  \frac{\kappa_R}{A_i}\sum_{e\in EC(i)} \left[  h_e \, \frac{\varphi(cell2)-\varphi(cell1)}{dc_e}  \, dv_e \right].
+\end{equation}
+
+The second terms can be
 discretized using the flux form,
 \begin{equation}
   \label{eq:58}
-  \left[ \nabla_r\cdot\left(\tilde{\mathbf{S}}\dfrac{\p\varphi}{\p
+  \left[ \nabla_r\cdot\left(h \tilde{\mathbf{S}}\dfrac{\p\varphi}{\p
       z}\right)\right]_i = 
-\frac{1}{A_i} \sum_{e\in EC(i)} \dfrac{\p\varphi}{\p z}\tilde{\mathbf{S}}\cdot\nb_e \, dc_e.
+\frac{1}{A_i} \sum_{e\in EC(i)}  \left[ h_e \dfrac{\p\varphi}{\p z}\tilde{\mathbf{S}}\cdot\nb_e \, dv_e \right] .
 \end{equation}
  To discretize the
 third term using the FDM, we need the values of
@@ -848,10 +853,17 @@ approximated by
  %   EC(i)}\dfrac{1}{[\rho_z]_e}\left.\dfrac{\p\rho}{\p
   %    n_e}\right\vert_r \left.\dfrac{\p\varphi}{\p n_e}\right|_r, 
 \end{equation}
-Note that $\sum_{e\in EC(i)} \frac{dc_e \, dv_e}{4}=A_i$, so (\ref{eq:59}) is a convex combination of dot products at edges with the extra factor of two accounting for only one of the two components being counted at each edge.
+Note that $\sum_{e\in EC(i)} \frac{dc_e \, dv_e}{4}=A_i$, so (\ref{eq:59}) is a convex combination of dot products at edges with the extra factor of two accounting for only one of the two components being counted at each edge. Now at a given layer interface, $k+1/2$,  setting
+\begin{equation}
+G^{k+1/2}_e = \frac{1}{A_i} \sum_{e\in EC(i)} \left[ \left( \tilde{\mathbf{S}}\cdot\mathbf{n}_e \right)^{k+1/2} \left( {\nabla_r\varphi}\cdot\mathbf{n}_e \right)^{k+1/2} \frac{dc_e \, dv_e}{2} \right]
+\end{equation}
+So the third term can be expressed as
+\begin{equation}
+\left[ \dfrac{\p}{\p z}\left(h \tilde{\mathbf{S}}\cdot\nabla_r\varphi\right) \right]_k = \frac{1}{2} \left( G^{k-1/2} - G^{k+1/2}_e \right)  
+\end{equation}
+Note that the $h$ in the numerator cancels with the $dz$ in the denominator for Bousinessq flows as assumed here.
 
-The fourth term can be discretized
-using the finite difference method in the vertical.
+The fourth term can be discretized using the finite difference method. The $K_{33}$ diffusion is added to other vertical diffusions and solved implicitly.
 % with $(\p/\p n_e)|_r$ denoting the derivative in the normal direction
 % along constant $r$ surfaces on
 % edge $e$.
