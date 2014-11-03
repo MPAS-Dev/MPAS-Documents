@@ -90,6 +90,24 @@
     \caption{config\_Rayleigh\_friction: If true, Rayleigh friction is included in the momentum equation.}
 \end{longtable}
 \end{center}
+\section[config\_Redi\_kappa]{config\_Redi\_kappa}
+\label{sec:nm_sec_config_Redi_kappa}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    In build modes: & \hyperref[subsec:forward_nm_tab_mesoscale_eddy_parameterization]{forward} \hyperref[subsec:analysis_nm_tab_mesoscale_eddy_parameterization]{analysis} \\
+    \hline
+    Type: & real \\
+    \hline
+    Units: & $m^2$ $s^{-1}$ \\
+    \hline
+    Default Value: & 0.0 \\
+    \hline
+    Possible Values: & Positive real numbers \\
+    \hline
+    \caption{config\_Redi\_kappa: The Redi diffusion coefficient}
+\end{longtable}
+\end{center}
 \section[config\_alter\_ICs\_for\_pbcs]{config\_alter\_ICs\_for\_pbcs}
 \label{sec:nm_sec_config_alter_ICs_for_pbcs}
 \begin{center}
@@ -105,7 +123,7 @@
     \hline
     Possible Values: & .true. or .false. \\
     \hline
-    \caption{config\_alter\_ICs\_for\_pbcs: If true, initial conditions are altered according to the config\_pbc\_alteration\_type flag.  The alteration of layer thickness only occurs when config\_do\_restart is false, i.e. on an initial run.}
+    \caption{config\_alter\_ICs\_for\_pbcs: If true, initial conditions are altered according to the config\_pbc\_alteration\_type flag. The alteration of layer thickness only occurs when config\_do\_restart is false, i.e. on an initial run.}
 \end{longtable}
 \end{center}
 \section[config\_apvm\_scale\_factor]{config\_apvm\_scale\_factor}
@@ -123,7 +141,7 @@
     \hline
     Possible Values: & Any non-negative number, typically between zero and one. \\
     \hline
-    \caption{config\_apvm\_scale\_factor:  Anticipated potential vorticity (APV) method scale factor,  $c_{apv}$ .  When zero, APV is off.}
+    \caption{config\_apvm\_scale\_factor:  Anticipated potential vorticity (APV) method scale factor,  $c_{apv}$ . When zero, APV is off.}
 \end{longtable}
 \end{center}
 \section[config\_bkrd\_vert\_diff]{config\_bkrd\_vert\_diff}
@@ -213,7 +231,7 @@
     \hline
     Possible Values: & between 0 and 1 \\
     \hline
-    \caption{config\_btr\_gam1\_velWt1: Weighting of velocity in the SSH predictor step in stage 2.  When zero, previous subcycle time is used; when one, new subcycle time is used.}
+    \caption{config\_btr\_gam1\_velWt1: Weighting of velocity in the SSH predictor step in stage 2. When zero, previous subcycle time is used; when one, new subcycle time is used.}
 \end{longtable}
 \end{center}
 \section[config\_btr\_gam2\_SSHWt1]{config\_btr\_gam2\_SSHWt1}
@@ -231,7 +249,7 @@
     \hline
     Possible Values: & between 0 and 1 \\
     \hline
-    \caption{config\_btr\_gam2\_SSHWt1: Weighting of SSH in the velocity corrector step in stage 2.  When zero, previous subcycle time is used; when one, new subcycle time is used.}
+    \caption{config\_btr\_gam2\_SSHWt1: Weighting of SSH in the velocity corrector step in stage 2. When zero, previous subcycle time is used; when one, new subcycle time is used.}
 \end{longtable}
 \end{center}
 \section[config\_btr\_gam3\_velWt2]{config\_btr\_gam3\_velWt2}
@@ -249,7 +267,7 @@
     \hline
     Possible Values: & between 0 and 1 \\
     \hline
-    \caption{config\_btr\_gam3\_velWt2: Weighting of velocity in the SSH corrector step in stage 2.  When zero, previous subcycle time is used; when one, new subcycle time is used.}
+    \caption{config\_btr\_gam3\_velWt2: Weighting of velocity in the SSH corrector step in stage 2. When zero, previous subcycle time is used; when one, new subcycle time is used.}
 \end{longtable}
 \end{center}
 \section[config\_btr\_solve\_SSH2]{config\_btr\_solve\_SSH2}
@@ -299,9 +317,9 @@
     \hline
     Units: & $unitless$ \\
     \hline
-    Default Value: & 360day \\
+    Default Value: & gregorian\_noleap \\
     \hline
-    Possible Values: & 'gregorian', 'gregorian\_noleap', or '360day' \\
+    Possible Values: & 'gregorian', 'gregorian\_noleap' \\
     \hline
     \caption{config\_calendar\_type: Selection of the type of calendar that should be used in the simulation.}
 \end{longtable}
@@ -321,7 +339,7 @@
     \hline
     Possible Values: & .true. or .false. \\
     \hline
-    \caption{config\_check\_ssh\_consistency: Enables a check to determine if the SSH is within 2m of the surface, as specified in (\ref{ocean:pbc SSH}).}
+    \caption{config\_check\_ssh\_consistency:  Enables a check to determine if the SSH is within 2m of the surface.  See equation for  $\zeta_i$ .}
 \end{longtable}
 \end{center}
 \section[config\_check\_tracer\_monotonicity]{config\_check\_tracer\_monotonicity}
@@ -378,6 +396,24 @@
     \caption{config\_coef\_3rd\_order: Reconstruction of 3rd-order reconstruction to blend with 4th-order reconstuction}
 \end{longtable}
 \end{center}
+\section[config\_common\_level\_weight]{config\_common\_level\_weight}
+\label{sec:nm_sec_config_common_level_weight}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    In build modes: & \hyperref[subsec:forward_nm_tab_pressure_gradient]{forward} \hyperref[subsec:analysis_nm_tab_pressure_gradient]{analysis} \\
+    \hline
+    Type: & real \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & 0.5 \\
+    \hline
+    Possible Values: & any real between 0 and 1 \\
+    \hline
+    \caption{config\_common\_level\_weight:  The weight between standard Jacobian and weighted Jacobian,  $\gamma$ .}
+\end{longtable}
+\end{center}
 \section[config\_conduct\_tests]{config\_conduct\_tests}
 \label{sec:nm_sec_config_conduct_tests}
 \begin{center}
@@ -393,7 +429,7 @@
     \hline
     Possible Values: & .true. or .false. \\
     \hline
-    \caption{config\_conduct\_tests: If true, run testing suite.  This is the overarching control on the test suite.  Individual flags must be set to true below to conduct each test.}
+    \caption{config\_conduct\_tests: If true, run testing suite. This is the overarching control on the test suite. Individual flags must be set to true below to conduct each test.}
 \end{longtable}
 \end{center}
 \section[config\_convective\_diff]{config\_convective\_diff}
@@ -447,7 +483,7 @@
     \hline
     Possible Values: & Any positive real value. \\
     \hline
-    \caption{config\_cvmix\_background\_diffusion: Backround vertical diffusion applied to tracer quantities}
+    \caption{config\_cvmix\_background\_diffusion: Background vertical diffusion applied to tracer quantities}
 \end{longtable}
 \end{center}
 \section[config\_cvmix\_background\_viscosity]{config\_cvmix\_background\_viscosity}
@@ -465,7 +501,25 @@
     \hline
     Possible Values: & Any positive real value. \\
     \hline
-    \caption{config\_cvmix\_background\_viscosity: Backround vertical viscosity applied to horizontal velocity}
+    \caption{config\_cvmix\_background\_viscosity: Background vertical viscosity applied to horizontal velocity}
+\end{longtable}
+\end{center}
+\section[config\_cvmix\_convective\_basedOnBVF]{config\_cvmix\_convective\_basedOnBVF}
+\label{sec:nm_sec_config_cvmix_convective_basedOnBVF}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    In build modes: & \hyperref[subsec:forward_nm_tab_cvmix]{forward} \hyperref[subsec:analysis_nm_tab_cvmix]{analysis} \\
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & $NA$ \\
+    \hline
+    Default Value: & .true. \\
+    \hline
+    Possible Values: & True or False \\
+    \hline
+    \caption{config\_cvmix\_convective\_basedOnBVF: If true, convection is triggered based on value of config\_cvmix\_convective\_triggerBVF}
 \end{longtable}
 \end{center}
 \section[config\_cvmix\_convective\_diffusion]{config\_cvmix\_convective\_diffusion}
@@ -486,6 +540,24 @@
     \caption{config\_cvmix\_convective\_diffusion: Convective vertical diffusion applied to tracer quantities}
 \end{longtable}
 \end{center}
+\section[config\_cvmix\_convective\_triggerBVF]{config\_cvmix\_convective\_triggerBVF}
+\label{sec:nm_sec_config_cvmix_convective_triggerBVF}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    In build modes: & \hyperref[subsec:forward_nm_tab_cvmix]{forward} \hyperref[subsec:analysis_nm_tab_cvmix]{analysis} \\
+    \hline
+    Type: & real \\
+    \hline
+    Units: & $s^{-2}$ \\
+    \hline
+    Default Value: & 0.0 \\
+    \hline
+    Possible Values: & Any real value \\
+    \hline
+    \caption{config\_cvmix\_convective\_triggerBVF: Value of Brunt Viasala frequency squared below which convective mixing is triggered}
+\end{longtable}
+\end{center}
 \section[config\_cvmix\_convective\_viscosity]{config\_cvmix\_convective\_viscosity}
 \label{sec:nm_sec_config_cvmix_convective_viscosity}
 \begin{center}
@@ -501,7 +573,43 @@
     \hline
     Possible Values: & Any positive real value. \\
     \hline
-    \caption{config\_cvmix\_convective\_viscosity: Convective vertical viscosity applied to horizontal velocity}
+    \caption{config\_cvmix\_convective\_viscosity: Convective vertical viscosity applied to horizontal velocity components}
+\end{longtable}
+\end{center}
+\section[config\_cvmix\_kpp\_EkmanOBL]{config\_cvmix\_kpp\_EkmanOBL}
+\label{sec:nm_sec_config_cvmix_kpp_EkmanOBL}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    In build modes: & \hyperref[subsec:forward_nm_tab_cvmix]{forward} \hyperref[subsec:analysis_nm_tab_cvmix]{analysis} \\
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & $NA$ \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & True or False \\
+    \hline
+    \caption{config\_cvmix\_kpp\_EkmanOBL: If true, boundary layer depth is limited by Ekman layer depth}
+\end{longtable}
+\end{center}
+\section[config\_cvmix\_kpp\_MonObOBL]{config\_cvmix\_kpp\_MonObOBL}
+\label{sec:nm_sec_config_cvmix_kpp_MonObOBL}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    In build modes: & \hyperref[subsec:forward_nm_tab_cvmix]{forward} \hyperref[subsec:analysis_nm_tab_cvmix]{analysis} \\
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & $NA$ \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & True or False \\
+    \hline
+    \caption{config\_cvmix\_kpp\_MonObOBL: If true, boundary layer depth is limited by Monin-Obukhov layer depth}
 \end{longtable}
 \end{center}
 \section[config\_cvmix\_kpp\_criticalBulkRichardsonNumber]{config\_cvmix\_kpp\_criticalBulkRichardsonNumber}
@@ -519,7 +627,7 @@
     \hline
     Possible Values: & Any positive real value. \\
     \hline
-    \caption{config\_cvmix\_kpp\_criticalBulkRichardsonNumber: critical bulk Richardson number used to determine bottom of ocean mixed layer}
+    \caption{config\_cvmix\_kpp\_criticalBulkRichardsonNumber: Critical bulk Richardson number used to determine bottom of ocean mixed layer}
 \end{longtable}
 \end{center}
 \section[config\_cvmix\_kpp\_interpolationOMLType]{config\_cvmix\_kpp\_interpolationOMLType}
@@ -531,13 +639,67 @@
     \hline
     Type: & character \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $NA$ \\
     \hline
     Default Value: & quadratic \\
     \hline
     Possible Values: & linear, quadratic, cubic \\
     \hline
-    \caption{config\_cvmix\_kpp\_interpolationOMLType: determine bottom of ocean mixed layer using linear, quadratic or cubic interpolation}
+    \caption{config\_cvmix\_kpp\_interpolationOMLType: Determine bottom of ocean mixed layer using linear, quadratic or cubic interpolation}
+\end{longtable}
+\end{center}
+\section[config\_cvmix\_kpp\_matching]{config\_cvmix\_kpp\_matching}
+\label{sec:nm_sec_config_cvmix_kpp_matching}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    In build modes: & \hyperref[subsec:forward_nm_tab_cvmix]{forward} \hyperref[subsec:analysis_nm_tab_cvmix]{analysis} \\
+    \hline
+    Type: & character \\
+    \hline
+    Units: & $NA$ \\
+    \hline
+    Default Value: & SimpleShapes \\
+    \hline
+    Possible Values: & MatchBoth, MatchGradient, SimpleShapes \\
+    \hline
+    \caption{config\_cvmix\_kpp\_matching: Determines how the KPP diffusivities are matched to values at base of boundary layer}
+\end{longtable}
+\end{center}
+\section[config\_cvmix\_kpp\_niterate]{config\_cvmix\_kpp\_niterate}
+\label{sec:nm_sec_config_cvmix_kpp_niterate}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    In build modes: & \hyperref[subsec:forward_nm_tab_cvmix]{forward} \hyperref[subsec:analysis_nm_tab_cvmix]{analysis} \\
+    \hline
+    Type: & integer \\
+    \hline
+    Units: & $NA$ \\
+    \hline
+    Default Value: & 2 \\
+    \hline
+    Possible Values: & Any positive integer \\
+    \hline
+    \caption{config\_cvmix\_kpp\_niterate: Number of iterations used to solve for KPP ocean boundary layer depth}
+\end{longtable}
+\end{center}
+\section[config\_cvmix\_kpp\_surface\_layer\_extent]{config\_cvmix\_kpp\_surface\_layer\_extent}
+\label{sec:nm_sec_config_cvmix_kpp_surface_layer_extent}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    In build modes: & \hyperref[subsec:forward_nm_tab_cvmix]{forward} \hyperref[subsec:analysis_nm_tab_cvmix]{analysis} \\
+    \hline
+    Type: & real \\
+    \hline
+    Units: & $non-dimensional$ \\
+    \hline
+    Default Value: & 0.1 \\
+    \hline
+    Possible Values: & Any value between 0 and 1 \\
+    \hline
+    \caption{config\_cvmix\_kpp\_surface\_layer\_extent: The non-dimensional extent of the surface layer, measured as fraction of boundary layer depth}
 \end{longtable}
 \end{center}
 \section[config\_cvmix\_prandtl\_number]{config\_cvmix\_prandtl\_number}
@@ -558,6 +720,132 @@
     \caption{config\_cvmix\_prandtl\_number: Prandtl number to be used within the CVMix parameterization suite}
 \end{longtable}
 \end{center}
+\section[config\_cvmix\_shear\_KPP\_Ri\_zero]{config\_cvmix\_shear\_KPP\_Ri\_zero}
+\label{sec:nm_sec_config_cvmix_shear_KPP_Ri_zero}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    In build modes: & \hyperref[subsec:forward_nm_tab_cvmix]{forward} \hyperref[subsec:analysis_nm_tab_cvmix]{analysis} \\
+    \hline
+    Type: & real \\
+    \hline
+    Units: & $non-dimensional$ \\
+    \hline
+    Default Value: & 0.7 \\
+    \hline
+    Possible Values: & Any positive real value \\
+    \hline
+    \caption{config\_cvmix\_shear\_KPP\_Ri\_zero: Theshold gradient Richardson number to produced enhanced diffusivities, See Large et al. (1994) Eq (28a,b,c)}
+\end{longtable}
+\end{center}
+\section[config\_cvmix\_shear\_KPP\_exp]{config\_cvmix\_shear\_KPP\_exp}
+\label{sec:nm_sec_config_cvmix_shear_KPP_exp}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    In build modes: & \hyperref[subsec:forward_nm_tab_cvmix]{forward} \hyperref[subsec:analysis_nm_tab_cvmix]{analysis} \\
+    \hline
+    Type: & real \\
+    \hline
+    Units: & $NA$ \\
+    \hline
+    Default Value: & 3 \\
+    \hline
+    Possible Values: & Any positive real value \\
+    \hline
+    \caption{config\_cvmix\_shear\_KPP\_exp:  Exponent relating diffusivities to  $Ri_g$ . Referred to as  $p_1$  in Large et al. (1994) Eq (28b)}
+\end{longtable}
+\end{center}
+\section[config\_cvmix\_shear\_KPP\_nu\_zero]{config\_cvmix\_shear\_KPP\_nu\_zero}
+\label{sec:nm_sec_config_cvmix_shear_KPP_nu_zero}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    In build modes: & \hyperref[subsec:forward_nm_tab_cvmix]{forward} \hyperref[subsec:analysis_nm_tab_cvmix]{analysis} \\
+    \hline
+    Type: & real \\
+    \hline
+    Units: & $m^2$ $s^{-1}$ \\
+    \hline
+    Default Value: & 0.005 \\
+    \hline
+    Possible Values: & Any positive real value \\
+    \hline
+    \caption{config\_cvmix\_shear\_KPP\_nu\_zero: Maximum diffusivity produced by shear-generated mixing}
+\end{longtable}
+\end{center}
+\section[config\_cvmix\_shear\_PP\_alpha]{config\_cvmix\_shear\_PP\_alpha}
+\label{sec:nm_sec_config_cvmix_shear_PP_alpha}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    In build modes: & \hyperref[subsec:forward_nm_tab_cvmix]{forward} \hyperref[subsec:analysis_nm_tab_cvmix]{analysis} \\
+    \hline
+    Type: & real \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & 5.0 \\
+    \hline
+    Possible Values: & Any positive real value \\
+    \hline
+    \caption{config\_cvmix\_shear\_PP\_alpha: Alpha values used in Pacanowski and Philander (1981) Eqs (1) and (2)}
+\end{longtable}
+\end{center}
+\section[config\_cvmix\_shear\_PP\_exp]{config\_cvmix\_shear\_PP\_exp}
+\label{sec:nm_sec_config_cvmix_shear_PP_exp}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    In build modes: & \hyperref[subsec:forward_nm_tab_cvmix]{forward} \hyperref[subsec:analysis_nm_tab_cvmix]{analysis} \\
+    \hline
+    Type: & real \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & 2.0 \\
+    \hline
+    Possible Values: & Any positive real value \\
+    \hline
+    \caption{config\_cvmix\_shear\_PP\_exp: Exponent used in denominator of Pacanowski and Philander (1981) Eqs (1)}
+\end{longtable}
+\end{center}
+\section[config\_cvmix\_shear\_PP\_nu\_zero]{config\_cvmix\_shear\_PP\_nu\_zero}
+\label{sec:nm_sec_config_cvmix_shear_PP_nu_zero}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    In build modes: & \hyperref[subsec:forward_nm_tab_cvmix]{forward} \hyperref[subsec:analysis_nm_tab_cvmix]{analysis} \\
+    \hline
+    Type: & real \\
+    \hline
+    Units: & $m^2$ $s^{-1}$ \\
+    \hline
+    Default Value: & 0.005 \\
+    \hline
+    Possible Values: & Any positive real value \\
+    \hline
+    \caption{config\_cvmix\_shear\_PP\_nu\_zero: Numerator of Pacanowski and Philander (1981) Eq (1)}
+\end{longtable}
+\end{center}
+\section[config\_cvmix\_shear\_mixing\_scheme]{config\_cvmix\_shear\_mixing\_scheme}
+\label{sec:nm_sec_config_cvmix_shear_mixing_scheme}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    In build modes: & \hyperref[subsec:forward_nm_tab_cvmix]{forward} \hyperref[subsec:analysis_nm_tab_cvmix]{analysis} \\
+    \hline
+    Type: & character \\
+    \hline
+    Units: & $NA$ \\
+    \hline
+    Default Value: & PP \\
+    \hline
+    Possible Values: & PP or KPP \\
+    \hline
+    \caption{config\_cvmix\_shear\_mixing\_scheme: Choose between Pacanowski/Philander or Large et al. shear mixing}
+\end{longtable}
+\end{center}
 \section[config\_density0]{config\_density0}
 \label{sec:nm_sec_config_density0}
 \begin{center}
@@ -573,7 +861,79 @@
     \hline
     Possible Values: & any positive real, but typically 1000-1035 \\
     \hline
-    \caption{config\_density0:  Density used as a coefficient of the pressure gradient terms,  $\rho_0$ .  This is a constant due to the Boussinesq approximation.}
+    \caption{config\_density0:  Density used as a coefficient of the pressure gradient terms,  $\rho_0$ . This is a constant due to the Boussinesq approximation.}
+\end{longtable}
+\end{center}
+\section[config\_disable\_redi\_horizontal\_term1]{config\_disable\_redi\_horizontal\_term1}
+\label{sec:nm_sec_config_disable_redi_horizontal_term1}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    In build modes: & \hyperref[subsec:forward_nm_tab_debug]{forward} \hyperref[subsec:analysis_nm_tab_debug]{analysis} \\
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_disable\_redi\_horizontal\_term1: If true, disables first term in horizonal mixing of Redi neutral surface mixing.}
+\end{longtable}
+\end{center}
+\section[config\_disable\_redi\_horizontal\_term2]{config\_disable\_redi\_horizontal\_term2}
+\label{sec:nm_sec_config_disable_redi_horizontal_term2}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    In build modes: & \hyperref[subsec:forward_nm_tab_debug]{forward} \hyperref[subsec:analysis_nm_tab_debug]{analysis} \\
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_disable\_redi\_horizontal\_term2: If true, disables first term in horizonal mixing of Redi neutral surface mixing.}
+\end{longtable}
+\end{center}
+\section[config\_disable\_redi\_horizontal\_term3]{config\_disable\_redi\_horizontal\_term3}
+\label{sec:nm_sec_config_disable_redi_horizontal_term3}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    In build modes: & \hyperref[subsec:forward_nm_tab_debug]{forward} \hyperref[subsec:analysis_nm_tab_debug]{analysis} \\
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_disable\_redi\_horizontal\_term3: If true, disables first term in horizonal mixing of Redi neutral surface mixing.}
+\end{longtable}
+\end{center}
+\section[config\_disable\_redi\_k33]{config\_disable\_redi\_k33}
+\label{sec:nm_sec_config_disable_redi_k33}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    In build modes: & \hyperref[subsec:forward_nm_tab_debug]{forward} \hyperref[subsec:analysis_nm_tab_debug]{analysis} \\
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_disable\_redi\_k33: If true, disables k33 portion of Redi neutral surface mixing.}
 \end{longtable}
 \end{center}
 \section[config\_disable\_thick\_all\_tend]{config\_disable\_thick\_all\_tend}
@@ -700,6 +1060,24 @@
     Possible Values: & .true. or .false. \\
     \hline
     \caption{config\_disable\_tr\_hmix: Disables tendencies on tracer fields from horizontal mixing.}
+\end{longtable}
+\end{center}
+\section[config\_disable\_tr\_nonlocalflux]{config\_disable\_tr\_nonlocalflux}
+\label{sec:nm_sec_config_disable_tr_nonlocalflux}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    In build modes: & \hyperref[subsec:forward_nm_tab_debug]{forward} \hyperref[subsec:analysis_nm_tab_debug]{analysis} \\
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_disable\_tr\_nonlocalflux: Disables tendencies on the tracer fields from CVMix/KPP nonlocal fluxes.}
 \end{longtable}
 \end{center}
 \section[config\_disable\_tr\_sflux]{config\_disable\_tr\_sflux}
@@ -889,13 +1267,13 @@
     \hline
     In build modes: & \hyperref[subsec:forward_nm_tab_time_integration]{forward} \hyperref[subsec:analysis_nm_tab_time_integration]{analysis} \\
     \hline
-    Type: & real \\
+    Type: & character \\
     \hline
-    Units: & $s$ \\
+    Units: & $unitless$ \\
     \hline
-    Default Value: & 300.0 \\
+    Default Value: & 00:05:00 \\
     \hline
-    Possible Values: & Any positive real value, but limited by CFL condition. \\
+    Possible Values: & Any time stamp in 'YYYY-MM-DD\_hh:mm:ss' format. Items can be removed from the left if they are unused. \\
     \hline
     \caption{config\_dt: Length of model time-step.}
 \end{longtable}
@@ -1116,24 +1494,6 @@
     \caption{config\_forcing\_type: Defines the forcing type for the simulation.}
 \end{longtable}
 \end{center}
-\section[config\_frames\_per\_outfile]{config\_frames\_per\_outfile}
-\label{sec:nm_sec_config_frames_per_outfile}
-\begin{center}
-\begin{longtable}{| p{2.0in} || p{4.0in} |}
-    \hline
-    In build modes: & \hyperref[subsec:forward_nm_tab_io]{forward} \hyperref[subsec:analysis_nm_tab_io]{analysis} \\
-    \hline
-    Type: & integer \\
-    \hline
-    Units: & $unitless$ \\
-    \hline
-    Default Value: & 1000 \\
-    \hline
-    Possible Values: & Any positive integer value greater than 0 \\
-    \hline
-    \caption{config\_frames\_per\_outfile: Integer specifying how many time frames should be included in an output file. Once the maximum is reached, a new output file is created.}
-\end{longtable}
-\end{center}
 \section[config\_frazil\_ice\_formation]{config\_frazil\_ice\_formation}
 \label{sec:nm_sec_config_frazil_ice_formation}
 \begin{center}
@@ -1145,7 +1505,7 @@
     \hline
     Units: & $unitless$ \\
     \hline
-    Default Value: & .true. \\
+    Default Value: & .false. \\
     \hline
     Possible Values: & .true. or .false. \\
     \hline
@@ -1165,7 +1525,7 @@
     \hline
     Default Value: & same\_as\_output \\
     \hline
-    Possible Values: & 'DDDD\_HH:MM:SS', 'same\_as\_output' \\
+    Possible Values: & 'DDDD\_HH:MM:SS' \\
     \hline
     \caption{config\_global\_stats\_compute\_interval: Timestamp determining how often analysis member computation should be performed.}
 \end{longtable}
@@ -1188,40 +1548,22 @@
     \caption{config\_global\_stats\_compute\_startup: Logical flag determining if an analysis member computation occurs on start-up.}
 \end{longtable}
 \end{center}
-\section[config\_h\_kappa]{config\_h\_kappa}
-\label{sec:nm_sec_config_h_kappa}
+\section[config\_gravWaveSpeed\_trunc]{config\_gravWaveSpeed\_trunc}
+\label{sec:nm_sec_config_gravWaveSpeed_trunc}
 \begin{center}
 \begin{longtable}{| p{2.0in} || p{4.0in} |}
     \hline
-    In build modes: & \hyperref[subsec:forward_nm_tab_standard_GM]{forward} \hyperref[subsec:analysis_nm_tab_standard_GM]{analysis} \\
+    In build modes: & \hyperref[subsec:forward_nm_tab_mesoscale_eddy_parameterization]{forward} \hyperref[subsec:analysis_nm_tab_mesoscale_eddy_parameterization]{analysis} \\
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $m/s$ \\
     \hline
-    Default Value: & 0.0 \\
+    Default Value: & 0.3 \\
     \hline
-    Possible Values: & Any positive real value. \\
+    Possible Values: & Positive real numbers that represents the gravity wave speed of the first, second, etc., baroclinic modes \\
     \hline
-    \caption{config\_h\_kappa: kappa parameter for Gent-McWilliams eddy parameterization}
-\end{longtable}
-\end{center}
-\section[config\_h\_kappa\_q]{config\_h\_kappa\_q}
-\label{sec:nm_sec_config_h_kappa_q}
-\begin{center}
-\begin{longtable}{| p{2.0in} || p{4.0in} |}
-    \hline
-    In build modes: & \hyperref[subsec:forward_nm_tab_standard_GM]{forward} \hyperref[subsec:analysis_nm_tab_standard_GM]{analysis} \\
-    \hline
-    Type: & real \\
-    \hline
-    Units: & {\bf \color{red} MISSING} \\
-    \hline
-    Default Value: & 0.0 \\
-    \hline
-    Possible Values: & Any positive real value. \\
-    \hline
-    \caption{config\_h\_kappa\_q: kappa-q parameter for Gent-McWilliams eddy parameterization}
+    \caption{config\_gravWaveSpeed\_trunc: Gravity wave speed truncation threshold for the vertical BVP}
 \end{longtable}
 \end{center}
 \section[config\_highFreqThick\_del2]{config\_highFreqThick\_del2}
@@ -1314,24 +1656,6 @@
     \caption{config\_include\_KE\_vertex: If true, the kinetic energy in each cell is computed by blending cell-based and vertex-based values of kinetic energy.}
 \end{longtable}
 \end{center}
-\section[config\_input\_name]{config\_input\_name}
-\label{sec:nm_sec_config_input_name}
-\begin{center}
-\begin{longtable}{| p{2.0in} || p{4.0in} |}
-    \hline
-    In build modes: & \hyperref[subsec:forward_nm_tab_io]{forward} \hyperref[subsec:analysis_nm_tab_io]{analysis} \\
-    \hline
-    Type: & character \\
-    \hline
-    Units: & $unitless$ \\
-    \hline
-    Default Value: & grid.nc \\
-    \hline
-    Possible Values: & path/to/grid.nc \\
-    \hline
-    \caption{config\_input\_name: The path to the input file for the simulation.}
-\end{longtable}
-\end{center}
 \section[config\_jerlov\_water\_type]{config\_jerlov\_water\_type}
 \label{sec:nm_sec_config_jerlov_water_type}
 \begin{center}
@@ -1386,6 +1710,24 @@
     \caption{config\_max\_diff\_tanh: maximum diffusion value for tanh-fit function}
 \end{longtable}
 \end{center}
+\section[config\_max\_relative\_slope]{config\_max\_relative\_slope}
+\label{sec:nm_sec_config_max_relative_slope}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    In build modes: & \hyperref[subsec:forward_nm_tab_mesoscale_eddy_parameterization]{forward} \hyperref[subsec:analysis_nm_tab_mesoscale_eddy_parameterization]{analysis} \\
+    \hline
+    Type: & real \\
+    \hline
+    Units: & $non-dimensional$ \\
+    \hline
+    Default Value: & 0.01 \\
+    \hline
+    Possible Values: & Positive real numbers \\
+    \hline
+    \caption{config\_max\_relative\_slope: Tapering of Redi diffusion coeffient occurs when relativeSlopeTopOfEdge is greater than config\_max\_relative\_slope}
+\end{longtable}
+\end{center}
 \section[config\_max\_thickness\_factor]{config\_max\_thickness\_factor}
 \label{sec:nm_sec_config_max_thickness_factor}
 \begin{center}
@@ -1401,7 +1743,7 @@
     \hline
     Possible Values: & any positive real value, but typically 2-4. \\
     \hline
-    \caption{config\_max\_thickness\_factor:  Maximum thickness allowed.  This is a factor times the resting thickness, i.e., maximum thickness = config\_max\_thickness\_factor* $h^{rest}$ .}
+    \caption{config\_max\_thickness\_factor:  Maximum thickness allowed. This is a factor times the resting thickness, i.e., maximum thickness = config\_max\_thickness\_factor* $h^{rest}$ .}
 \end{longtable}
 \end{center}
 \section[config\_max\_visc\_tanh]{config\_max\_visc\_tanh}
@@ -1473,7 +1815,7 @@
     \hline
     Possible Values: & Any real between 0 and 1. \\
     \hline
-    \caption{config\_min\_pbc\_fraction: Determines the minimum fraction of a cell altering the initial conditions can create.  The alteration of layer thickness only occurs when config\_do\_restart is false, i.e. on an initial run.}
+    \caption{config\_min\_pbc\_fraction: Determines the minimum fraction of a cell altering the initial conditions can create. The alteration of layer thickness only occurs when config\_do\_restart is false, i.e. on an initial run.}
 \end{longtable}
 \end{center}
 \section[config\_min\_thickness]{config\_min\_thickness}
@@ -1759,7 +2101,7 @@
     \hline
     Default Value: & 0 \\
     \hline
-    Possible Values: & Any integer $>=$ 0. \\
+    Possible Values: & Any integer greaterh than or equal to 0. \\
     \hline
     \caption{config\_number\_of\_blocks: Determines the number of blocks a simulation should be run with. If it is set to 0, the number of blocks is the same as the number of MPI tasks at run-time.}
 \end{longtable}
@@ -1782,42 +2124,6 @@
     \caption{config\_number\_zonal\_mean\_bins: Number of bins used for zonal mean.  Must be less than or equal to the dimension nZonalMeanBins (set in Registry).}
 \end{longtable}
 \end{center}
-\section[config\_output\_interval]{config\_output\_interval}
-\label{sec:nm_sec_config_output_interval}
-\begin{center}
-\begin{longtable}{| p{2.0in} || p{4.0in} |}
-    \hline
-    In build modes: & \hyperref[subsec:forward_nm_tab_io]{forward} \hyperref[subsec:analysis_nm_tab_io]{analysis} \\
-    \hline
-    Type: & character \\
-    \hline
-    Units: & $unitless$ \\
-    \hline
-    Default Value: & 0001\_00:00:00 \\
-    \hline
-    Possible Values: & 'DDDD\_HH:MM:SS' \\
-    \hline
-    \caption{config\_output\_interval: Timestamp determining how often an output file should be written.}
-\end{longtable}
-\end{center}
-\section[config\_output\_name]{config\_output\_name}
-\label{sec:nm_sec_config_output_name}
-\begin{center}
-\begin{longtable}{| p{2.0in} || p{4.0in} |}
-    \hline
-    In build modes: & \hyperref[subsec:forward_nm_tab_io]{forward} \hyperref[subsec:analysis_nm_tab_io]{analysis} \\
-    \hline
-    Type: & character \\
-    \hline
-    Units: & $unitless$ \\
-    \hline
-    Default Value: & output.nc \\
-    \hline
-    Possible Values: & path/to/output.nc \\
-    \hline
-    \caption{config\_output\_name: The template path and name to the output file from the simulation. A time stamp is prepended to the extension of the file (.nc).}
-\end{longtable}
-\end{center}
 \section[config\_pbc\_alteration\_type]{config\_pbc\_alteration\_type}
 \label{sec:nm_sec_config_pbc_alteration_type}
 \begin{center}
@@ -1833,7 +2139,7 @@
     \hline
     Possible Values: & 'full\_cell' or 'partial\_cell' \\
     \hline
-    \caption{config\_pbc\_alteration\_type: Determines the method of initial condition alteration for partial bottom cells.  'partial\_cell' alters layerThickness, interpolates all tracers in the bottom cell based on the bottomDepth variable, and alters bottomDepth to enforce the minimum pbc fraction.  'full\_cell' alters bottomDepth to have full cells everywhere, based on the refBottomDepth variable.}
+    \caption{config\_pbc\_alteration\_type: Determines the method of initial condition alteration for partial bottom cells. 'partial\_cell' alters layerThickness, interpolates all tracers in the bottom cell based on the bottomDepth variable, and alters bottomDepth to enforce the minimum pbc fraction. 'full\_cell' alters bottomDepth to have full cells everywhere, based on the refBottomDepth variable.}
 \end{longtable}
 \end{center}
 \section[config\_pio\_num\_iotasks]{config\_pio\_num\_iotasks}
@@ -1921,7 +2227,7 @@
     \hline
     Default Value: & pressure\_and\_zmid \\
     \hline
-    Possible Values: & 'pressure\_and\_zmid' or 'MontgomeryPotential' \\
+    Possible Values: & 'pressure\_and\_zmid' or 'Jacobian\_from\_density' or 'Jacobian\_from\_TS' or 'MontgomeryPotential' \\
     \hline
     \caption{config\_pressure\_gradient\_type: Form of pressure gradient terms in momentum equation. For most applications, the gradient of pressure and layer mid-depth are appropriate.  For isopycnal coordinates, one may use the gradient of the Montgomery potential.}
 \end{longtable}
@@ -1942,60 +2248,6 @@
     Possible Values: & Any path/prefix to a processor decomposition file. \\
     \hline
     \caption{config\_proc\_decomp\_file\_prefix: Defines the prefix for the processor decomposition file. This file is only read if config\_explicit\_proc\_decomp is .true. The number of processors is appended to the end of the prefix at run-time.}
-\end{longtable}
-\end{center}
-\section[config\_restart\_interval]{config\_restart\_interval}
-\label{sec:nm_sec_config_restart_interval}
-\begin{center}
-\begin{longtable}{| p{2.0in} || p{4.0in} |}
-    \hline
-    In build modes: & \hyperref[subsec:forward_nm_tab_io]{forward} \hyperref[subsec:analysis_nm_tab_io]{analysis} \\
-    \hline
-    Type: & character \\
-    \hline
-    Units: & $unitless$ \\
-    \hline
-    Default Value: & 0001\_00:00:00 \\
-    \hline
-    Possible Values: & 'DDDD\_HH:MM:SS' \\
-    \hline
-    \caption{config\_restart\_interval: Timestamp determining how often a restart file should be written.}
-\end{longtable}
-\end{center}
-\section[config\_restart\_name]{config\_restart\_name}
-\label{sec:nm_sec_config_restart_name}
-\begin{center}
-\begin{longtable}{| p{2.0in} || p{4.0in} |}
-    \hline
-    In build modes: & \hyperref[subsec:forward_nm_tab_io]{forward} \hyperref[subsec:analysis_nm_tab_io]{analysis} \\
-    \hline
-    Type: & character \\
-    \hline
-    Units: & $unitless$ \\
-    \hline
-    Default Value: & restart.nc \\
-    \hline
-    Possible Values: & path/to/restart.nc \\
-    \hline
-    \caption{config\_restart\_name: The template path and name to the restart file for the simulation. A time stamp is prepended to the extension of the file (.nc) both for input and output.}
-\end{longtable}
-\end{center}
-\section[config\_restart\_timestamp\_name]{config\_restart\_timestamp\_name}
-\label{sec:nm_sec_config_restart_timestamp_name}
-\begin{center}
-\begin{longtable}{| p{2.0in} || p{4.0in} |}
-    \hline
-    In build modes: & \hyperref[subsec:forward_nm_tab_io]{forward} \hyperref[subsec:analysis_nm_tab_io]{analysis} \\
-    \hline
-    Type: & character \\
-    \hline
-    Units: & $unitless$ \\
-    \hline
-    Default Value: & restart\_timestamp \\
-    \hline
-    Possible Values: & path/to/restart\_timestamp \\
-    \hline
-    \caption{config\_restart\_timestamp\_name: The name of the file timestamps for latest restart files are written to. This file is also read when config\_start\_time is set to 'file' and config\_do\_restart is set to .true.}
 \end{longtable}
 \end{center}
 \section[config\_restoreS\_lengthscale]{config\_restoreS\_lengthscale}
@@ -2121,7 +2373,25 @@
     \hline
     Possible Values: & .true. or .false. \\
     \hline
-    \caption{config\_set\_restingThickness\_to\_IC: If true, set restingThickness to be the same as layerThickness upon start-up.  This only occurs when config\_do\_restart is false, i.e. on an initial run.}
+    \caption{config\_set\_restingThickness\_to\_IC: If true, set restingThickness to be the same as layerThickness upon start-up. This only occurs when config\_do\_restart is false, i.e. on an initial run.}
+\end{longtable}
+\end{center}
+\section[config\_standardGM\_tracer\_kappa]{config\_standardGM\_tracer\_kappa}
+\label{sec:nm_sec_config_standardGM_tracer_kappa}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    In build modes: & \hyperref[subsec:forward_nm_tab_mesoscale_eddy_parameterization]{forward} \hyperref[subsec:analysis_nm_tab_mesoscale_eddy_parameterization]{analysis} \\
+    \hline
+    Type: & real \\
+    \hline
+    Units: & $m^2$ $s^{-1}$ \\
+    \hline
+    Default Value: & 0.0 \\
+    \hline
+    Possible Values: & Any positive real value. \\
+    \hline
+    \caption{config\_standardGM\_tracer\_kappa: Coefficient of standard GM parametrization of eddy transport}
 \end{longtable}
 \end{center}
 \section[config\_start\_time]{config\_start\_time}
@@ -2387,7 +2657,7 @@
     \hline
     Units: & $NA$ \\
     \hline
-    Default Value: & .false. \\
+    Default Value: & .true. \\
     \hline
     Possible Values: & True or False \\
     \hline
@@ -2412,6 +2682,24 @@
     \caption{config\_use\_cvmix\_convection: If true, convective diffusivity and viscosity is computed using CVMix}
 \end{longtable}
 \end{center}
+\section[config\_use\_cvmix\_double\_diffusion]{config\_use\_cvmix\_double\_diffusion}
+\label{sec:nm_sec_config_use_cvmix_double_diffusion}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    In build modes: & \hyperref[subsec:forward_nm_tab_cvmix]{forward} \hyperref[subsec:analysis_nm_tab_cvmix]{analysis} \\
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & $NA$ \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & True or False \\
+    \hline
+    \caption{config\_use\_cvmix\_double\_diffusion: If true, diffusivity and viscosity is computed using CVMix double diffusion}
+\end{longtable}
+\end{center}
 \section[config\_use\_cvmix\_kpp]{config\_use\_cvmix\_kpp}
 \label{sec:nm_sec_config_use_cvmix_kpp}
 \begin{center}
@@ -2430,6 +2718,42 @@
     \caption{config\_use\_cvmix\_kpp: If true, diffusivity and viscosity is computed using CVMix KPP}
 \end{longtable}
 \end{center}
+\section[config\_use\_cvmix\_shear]{config\_use\_cvmix\_shear}
+\label{sec:nm_sec_config_use_cvmix_shear}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    In build modes: & \hyperref[subsec:forward_nm_tab_cvmix]{forward} \hyperref[subsec:analysis_nm_tab_cvmix]{analysis} \\
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & $NA$ \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & True or False \\
+    \hline
+    \caption{config\_use\_cvmix\_shear: If true, shear-based mixing is computed using CVMix}
+\end{longtable}
+\end{center}
+\section[config\_use\_cvmix\_tidal\_mixing]{config\_use\_cvmix\_tidal\_mixing}
+\label{sec:nm_sec_config_use_cvmix_tidal_mixing}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    In build modes: & \hyperref[subsec:forward_nm_tab_cvmix]{forward} \hyperref[subsec:analysis_nm_tab_cvmix]{analysis} \\
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & $NA$ \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & True or False \\
+    \hline
+    \caption{config\_use\_cvmix\_tidal\_mixing: If true, diffusivity and viscosity is computed using CVMix tidal mixing}
+\end{longtable}
+\end{center}
 \section[config\_use\_freq\_filtered\_thickness]{config\_use\_freq\_filtered\_thickness}
 \label{sec:nm_sec_config_use_freq_filtered_thickness}
 \begin{center}
@@ -2445,7 +2769,7 @@
     \hline
     Possible Values: & .true. or .false. \\
     \hline
-    \caption{config\_use\_freq\_filtered\_thickness:  If true,  $h^{hf}$  is included in the desired ALE thickness in \ref{ocean:desired thickness}, and the prognostic equations \ref{ocean:Dlf} and \ref{ocean:hhf} are integrated in the code.}
+    \caption{config\_use\_freq\_filtered\_thickness:  If true,  $h^{hf}$  is included in the desired ALE thickness, and the prognostic equations for  $D^{lf}$  and  $h^{hf}$  are integrated in the code.}
 \end{longtable}
 \end{center}
 \section[config\_use\_global\_stats]{config\_use\_global\_stats}
@@ -2481,7 +2805,7 @@
     \hline
     Possible Values: & .true. or .false. \\
     \hline
-    \caption{config\_use\_highFreqThick\_del2: If true, high frequency thickness equation (\ref{ocean:hhf}) includes term 3 on the RHS, the diffusion term.}
+    \caption{config\_use\_highFreqThick\_del2:  If true, high frequency thickness prognostic equation ( $h^{hf}$ ) includes term 3 on the RHS, the diffusion term.}
 \end{longtable}
 \end{center}
 \section[config\_use\_highFreqThick\_restore]{config\_use\_highFreqThick\_restore}
@@ -2499,7 +2823,7 @@
     \hline
     Possible Values: & .true. or .false. \\
     \hline
-    \caption{config\_use\_highFreqThick\_restore:  If true, the high frequency thickness equation (\ref{ocean:hhf}) includes term 2 on the RHS, the restoring term.  The high frequency thickness is restored to zero with time scale  $\tau_{hhf}$ .}
+    \caption{config\_use\_highFreqThick\_restore:  If true, the high frequency thickness prognostic equation ( $h^{hf}$ ) includes term 2 on the RHS, the restoring term.  The high frequency thickness is restored to zero with time scale  $\tau_{hhf}$ .}
 \end{longtable}
 \end{center}
 \section[config\_use\_min\_max\_thickness]{config\_use\_min\_max\_thickness}
@@ -2553,7 +2877,7 @@
     \hline
     Possible Values: & .true. or .false. \\
     \hline
-    \caption{config\_use\_mom\_del2\_tensor: If true, tensor-based Laplacian horizontal mixing is used on the momentum equation.  The tensor-based mixing operations are provided to show the functionality of the tensor subroutines.  Tensor-based del2 mixing is not fully vetted and not recommended for production simulations.}
+    \caption{config\_use\_mom\_del2\_tensor: If true, tensor-based Laplacian horizontal mixing is used on the momentum equation. The tensor-based mixing operations are provided to show the functionality of the tensor subroutines. Tensor-based del2 mixing is not fully vetted and not recommended for production simulations.}
 \end{longtable}
 \end{center}
 \section[config\_use\_mom\_del4]{config\_use\_mom\_del4}
@@ -2589,7 +2913,7 @@
     \hline
     Possible Values: & .true. or .false. \\
     \hline
-    \caption{config\_use\_mom\_del4\_tensor: If true, tensor-based biharmonic horizontal mixing is used on the momentum equation.  The tensor-based mixing operations are provided to show the functionality of the tensor subroutines.  Tensor-based del4 mixing is not fully vetted and not recommended for production simulations.}
+    \caption{config\_use\_mom\_del4\_tensor: If true, tensor-based biharmonic horizontal mixing is used on the momentum equation. The tensor-based mixing operations are provided to show the functionality of the tensor subroutines. Tensor-based del4 mixing is not fully vetted and not recommended for production simulations.}
 \end{longtable}
 \end{center}
 \section[config\_use\_rich\_diff]{config\_use\_rich\_diff}
@@ -2626,6 +2950,24 @@
     Possible Values: & .true. or .false. \\
     \hline
     \caption{config\_use\_rich\_visc: If true, Richardson-number based vertical viscosity is included in the momentum equation}
+\end{longtable}
+\end{center}
+\section[config\_use\_standardGM]{config\_use\_standardGM}
+\label{sec:nm_sec_config_use_standardGM}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    In build modes: & \hyperref[subsec:forward_nm_tab_mesoscale_eddy_parameterization]{forward} \hyperref[subsec:analysis_nm_tab_mesoscale_eddy_parameterization]{analysis} \\
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & $NA$ \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_use\_standardGM: If true, the standard GM for the tracer advection and mixing is turned on.}
 \end{longtable}
 \end{center}
 \section[config\_use\_tanh\_diff]{config\_use\_tanh\_diff}
@@ -2751,7 +3093,7 @@
     \hline
     Possible Values: & 'uniform\_stretching', 'fixed', 'user\_specified', 'impermeable\_interfaces' \\
     \hline
-    \caption{config\_vert\_coord\_movement:  Determines the vertical coordinate movement type. 'uniform\_stretching' distributes SSH perturbations through all vertical levels (z-star vertical coordinate); 'fixed' places them all in the top level (z-level vertical coordinate); 'user\_specified' allows the input file to determine the distribution using the variable vertCoordMovementWeights (weighted z-star vertical coordinate); and 'impermeable\_interfaces' makes the vertical transport between layers zero, i.e.  $w^t=0$  in (\ref{ocean:vert tranport}) (idealized isopycnal).}
+    \caption{config\_vert\_coord\_movement:  Determines the vertical coordinate movement type. 'uniform\_stretching' distributes SSH perturbations through all vertical levels (z-star vertical coordinate); 'fixed' places them all in the top level (z-level vertical coordinate); 'user\_specified' allows the input file to determine the distribution using the variable vertCoordMovementWeights (weighted z-star vertical coordinate); and 'impermeable\_interfaces' makes the vertical transport between layers zero, i.e.  $w^t=0$  (idealized isopycnal).}
 \end{longtable}
 \end{center}
 \section[config\_vert\_diff]{config\_vert\_diff}
@@ -2911,7 +3253,7 @@
     \hline
     Default Value: & same\_as\_output \\
     \hline
-    Possible Values: & 'DDDD\_HH:MM:SS', 'same\_as\_output' \\
+    Possible Values: & 'DDDD\_HH:MM:SS' \\
     \hline
     \caption{config\_zonal\_mean\_compute\_interval: Timestamp determining how often analysis member computation should be performed.}
 \end{longtable}

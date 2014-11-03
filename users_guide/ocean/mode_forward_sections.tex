@@ -86,25 +86,11 @@ Embedded links point to more detailed namelist information in the appendix.
 	{\bf Name} & {\bf Description} (Continued) \endhead
 	\hline
 	\hline
-	\hyperref[sec:nm_sec_config_input_name]{config\_input\_name} & The path to the input file for the simulation. \\
-	\hline
-	\hyperref[sec:nm_sec_config_output_name]{config\_output\_name} & The template path and name to the output file from the simulation. A time stamp is prepended to the extension of the file (.nc). \\
-	\hline
-	\hyperref[sec:nm_sec_config_restart_name]{config\_restart\_name} & The template path and name to the restart file for the simulation. A time stamp is prepended to the extension of the file (.nc) both for input and output. \\
-	\hline
-	\hyperref[sec:nm_sec_config_restart_timestamp_name]{config\_restart\_timestamp\_name} & The name of the file timestamps for latest restart files are written to. This file is also read when config\_start\_time is set to 'file' and config\_do\_restart is set to .true. \\
-	\hline
-	\hyperref[sec:nm_sec_config_restart_interval]{config\_restart\_interval} & Timestamp determining how often a restart file should be written. \\
-	\hline
-	\hyperref[sec:nm_sec_config_output_interval]{config\_output\_interval} & Timestamp determining how often an output file should be written. \\
-	\hline
 	\hyperref[sec:nm_sec_config_stats_interval]{config\_stats\_interval} & Timestamp determining how often a global statistics files should be written. \\
 	\hline
 	\hyperref[sec:nm_sec_config_write_stats_on_startup]{config\_write\_stats\_on\_startup} & Logical flag determining if statistics files should be written prior to the first time step. \\
 	\hline
 	\hyperref[sec:nm_sec_config_write_output_on_startup]{config\_write\_output\_on\_startu-}\hyperref[sec:nm_sec_config_write_output_on_startup]{p}& Logical flag determining if an output file should be written prior to the first time step. \\
-	\hline
-	\hyperref[sec:nm_sec_config_frames_per_outfile]{config\_frames\_per\_outfile} & Integer specifying how many time frames should be included in an output file. Once the maximum is reached, a new output file is created. \\
 	\hline
 	\hyperref[sec:nm_sec_config_pio_num_iotasks]{config\_pio\_num\_iotasks} & Integer specifying how many IO tasks should be used within the PIO library. A value of 0 causes all MPI tasks to also be IO tasks. IO tasks are requried to write contiguous blocks of data to a file. \\
 	\hline
@@ -146,15 +132,15 @@ Embedded links point to more detailed namelist information in the appendix.
 	{\bf Name} & {\bf Description} (Continued) \endhead
 	\hline
 	\hline
-	\hyperref[sec:nm_sec_config_vert_coord_movement]{config\_vert\_coord\_movement} &  Determines the vertical coordinate movement type. 'uniform\_stretching' distributes SSH perturbations through all vertical levels (z-star vertical coordinate); 'fixed' places them all in the top level (z-level vertical coordinate); 'user\_specified' allows the input file to determine the distribution using the variable vertCoordMovementWeights (weighted z-star vertical coordinate); and 'impermeable\_interfaces' makes the vertical transport between layers zero, i.e.  $w^t=0$  in (\ref{ocean:vert tranport}) (idealized isopycnal). \\
+	\hyperref[sec:nm_sec_config_vert_coord_movement]{config\_vert\_coord\_movement} &  Determines the vertical coordinate movement type. 'uniform\_stretching' distributes SSH perturbations through all vertical levels (z-star vertical coordinate); 'fixed' places them all in the top level (z-level vertical coordinate); 'user\_specified' allows the input file to determine the distribution using the variable vertCoordMovementWeights (weighted z-star vertical coordinate); and 'impermeable\_interfaces' makes the vertical transport between layers zero, i.e.  $w^t=0$  (idealized isopycnal). \\
 	\hline
 	\hyperref[sec:nm_sec_config_use_min_max_thickness]{config\_use\_min\_max\_thickness} & If true, a minimum and maximum thicknesses are enforced to prevent massless and very thick layers. \\
 	\hline
 	\hyperref[sec:nm_sec_config_min_thickness]{config\_min\_thickness} & Minimum thickness allowed. \\
 	\hline
-	\hyperref[sec:nm_sec_config_max_thickness_factor]{config\_max\_thickness\_factor} &  Maximum thickness allowed.  This is a factor times the resting thickness, i.e., maximum thickness = config\_max\_thickness\_factor* $h^{rest}$ . \\
+	\hyperref[sec:nm_sec_config_max_thickness_factor]{config\_max\_thickness\_factor} &  Maximum thickness allowed. This is a factor times the resting thickness, i.e., maximum thickness = config\_max\_thickness\_factor* $h^{rest}$ . \\
 	\hline
-	\hyperref[sec:nm_sec_config_set_restingThickness_to_IC]{config\_set\_restingThickness\_t-}\hyperref[sec:nm_sec_config_set_restingThickness_to_IC]{o\_IC}& If true, set restingThickness to be the same as layerThickness upon start-up.  This only occurs when config\_do\_restart is false, i.e. on an initial run. \\
+	\hyperref[sec:nm_sec_config_set_restingThickness_to_IC]{config\_set\_restingThickness\_t-}\hyperref[sec:nm_sec_config_set_restingThickness_to_IC]{o\_IC}& If true, set restingThickness to be the same as layerThickness upon start-up. This only occurs when config\_do\_restart is false, i.e. on an initial run. \\
 	\hline
 	\hyperref[sec:nm_sec_config_dzdk_positive]{config\_dzdk\_positive} & Determines if the positive Z axis is aligned with the positive K index direction. \\
 	\hline
@@ -174,15 +160,15 @@ Embedded links point to more detailed namelist information in the appendix.
 	{\bf Name} & {\bf Description} (Continued) \endhead
 	\hline
 	\hline
-	\hyperref[sec:nm_sec_config_use_freq_filtered_thickness]{config\_use\_freq\_filtered\_thickn-}\hyperref[sec:nm_sec_config_use_freq_filtered_thickness]{ess}&  If true,  $h^{hf}$  is included in the desired ALE thickness in \ref{ocean:desired thickness}, and the prognostic equations \ref{ocean:Dlf} and \ref{ocean:hhf} are integrated in the code. \\
+	\hyperref[sec:nm_sec_config_use_freq_filtered_thickness]{config\_use\_freq\_filtered\_thickn-}\hyperref[sec:nm_sec_config_use_freq_filtered_thickness]{ess}&  If true,  $h^{hf}$  is included in the desired ALE thickness, and the prognostic equations for  $D^{lf}$  and  $h^{hf}$  are integrated in the code. \\
 	\hline
 	\hyperref[sec:nm_sec_config_thickness_filter_timescale]{config\_thickness\_filter\_timescal-}\hyperref[sec:nm_sec_config_thickness_filter_timescale]{e}&  Filter time scale for the low-frequency baroclinic divergence,  $\tau_{Dlf}$ . \\
 	\hline
-	\hyperref[sec:nm_sec_config_use_highFreqThick_restore]{config\_use\_highFreqThick\_rest-}\hyperref[sec:nm_sec_config_use_highFreqThick_restore]{ore}&  If true, the high frequency thickness equation (\ref{ocean:hhf}) includes term 2 on the RHS, the restoring term.  The high frequency thickness is restored to zero with time scale  $\tau_{hhf}$ . \\
+	\hyperref[sec:nm_sec_config_use_highFreqThick_restore]{config\_use\_highFreqThick\_rest-}\hyperref[sec:nm_sec_config_use_highFreqThick_restore]{ore}&  If true, the high frequency thickness prognostic equation ( $h^{hf}$ ) includes term 2 on the RHS, the restoring term.  The high frequency thickness is restored to zero with time scale  $\tau_{hhf}$ . \\
 	\hline
 	\hyperref[sec:nm_sec_config_highFreqThick_restore_time]{config\_highFreqThick\_restore\_-}\hyperref[sec:nm_sec_config_highFreqThick_restore_time]{time}&  Restoring time scale for high-frequency thickness,  $\tau_{hhf}$ . \\
 	\hline
-	\hyperref[sec:nm_sec_config_use_highFreqThick_del2]{config\_use\_highFreqThick\_del2} & If true, high frequency thickness equation (\ref{ocean:hhf}) includes term 3 on the RHS, the diffusion term. \\
+	\hyperref[sec:nm_sec_config_use_highFreqThick_del2]{config\_use\_highFreqThick\_del2} &  If true, high frequency thickness prognostic equation ( $h^{hf}$ ) includes term 3 on the RHS, the diffusion term. \\
 	\hline
 	\hyperref[sec:nm_sec_config_highFreqThick_del2]{config\_highFreqThick\_del2} &  Horizonal high frequency thickness diffusion,  $\kappa_{hhf}$ . \\
 	\hline
@@ -202,13 +188,13 @@ Embedded links point to more detailed namelist information in the appendix.
 	{\bf Name} & {\bf Description} (Continued) \endhead
 	\hline
 	\hline
-	\hyperref[sec:nm_sec_config_alter_ICs_for_pbcs]{config\_alter\_ICs\_for\_pbcs} & If true, initial conditions are altered according to the config\_pbc\_alteration\_type flag.  The alteration of layer thickness only occurs when config\_do\_restart is false, i.e. on an initial run. \\
+	\hyperref[sec:nm_sec_config_alter_ICs_for_pbcs]{config\_alter\_ICs\_for\_pbcs} & If true, initial conditions are altered according to the config\_pbc\_alteration\_type flag. The alteration of layer thickness only occurs when config\_do\_restart is false, i.e. on an initial run. \\
 	\hline
-	\hyperref[sec:nm_sec_config_pbc_alteration_type]{config\_pbc\_alteration\_type} & Determines the method of initial condition alteration for partial bottom cells.  'partial\_cell' alters layerThickness, interpolates all tracers in the bottom cell based on the bottomDepth variable, and alters bottomDepth to enforce the minimum pbc fraction.  'full\_cell' alters bottomDepth to have full cells everywhere, based on the refBottomDepth variable. \\
+	\hyperref[sec:nm_sec_config_pbc_alteration_type]{config\_pbc\_alteration\_type} & Determines the method of initial condition alteration for partial bottom cells. 'partial\_cell' alters layerThickness, interpolates all tracers in the bottom cell based on the bottomDepth variable, and alters bottomDepth to enforce the minimum pbc fraction. 'full\_cell' alters bottomDepth to have full cells everywhere, based on the refBottomDepth variable. \\
 	\hline
-	\hyperref[sec:nm_sec_config_min_pbc_fraction]{config\_min\_pbc\_fraction} & Determines the minimum fraction of a cell altering the initial conditions can create.  The alteration of layer thickness only occurs when config\_do\_restart is false, i.e. on an initial run. \\
+	\hyperref[sec:nm_sec_config_min_pbc_fraction]{config\_min\_pbc\_fraction} & Determines the minimum fraction of a cell altering the initial conditions can create. The alteration of layer thickness only occurs when config\_do\_restart is false, i.e. on an initial run. \\
 	\hline
-	\hyperref[sec:nm_sec_config_check_ssh_consistency]{config\_check\_ssh\_consistency} & Enables a check to determine if the SSH is within 2m of the surface, as specified in (\ref{ocean:pbc SSH}). \\
+	\hyperref[sec:nm_sec_config_check_ssh_consistency]{config\_check\_ssh\_consistency} &  Enables a check to determine if the SSH is within 2m of the surface.  See equation for  $\zeta_i$ . \\
 	\hline
 \end{longtable}
 \end{center}
@@ -256,7 +242,7 @@ Embedded links point to more detailed namelist information in the appendix.
 	\hline
 	\hyperref[sec:nm_sec_config_maxMeshDensity]{config\_maxMeshDensity} & Global maximum of the mesh density \\
 	\hline
-	\hyperref[sec:nm_sec_config_apvm_scale_factor]{config\_apvm\_scale\_factor} &  Anticipated potential vorticity (APV) method scale factor,  $c_{apv}$ .  When zero, APV is off. \\
+	\hyperref[sec:nm_sec_config_apvm_scale_factor]{config\_apvm\_scale\_factor} &  Anticipated potential vorticity (APV) method scale factor,  $c_{apv}$ . When zero, APV is off. \\
 	\hline
 \end{longtable}
 \end{center}
@@ -333,9 +319,8 @@ Embedded links point to more detailed namelist information in the appendix.
 \end{longtable}
 \end{center}
 }
-\subsection[standard\_GM]{standard\_GM}
-\label{subsec:forward_nm_tab_standard_GM}
-\input{ocean/section_descriptions/standard_GM.tex}
+\subsection[mesoscale\_eddy\_parameterization]{mesoscale\_eddy\_parameterization}
+\label{subsec:forward_nm_tab_mesoscale_eddy_parameterization}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -346,9 +331,15 @@ Embedded links point to more detailed namelist information in the appendix.
 	{\bf Name} & {\bf Description} (Continued) \endhead
 	\hline
 	\hline
-	\hyperref[sec:nm_sec_config_h_kappa]{config\_h\_kappa} & kappa parameter for Gent-McWilliams eddy parameterization \\
+	\hyperref[sec:nm_sec_config_use_standardGM]{config\_use\_standardGM} & If true, the standard GM for the tracer advection and mixing is turned on. \\
 	\hline
-	\hyperref[sec:nm_sec_config_h_kappa_q]{config\_h\_kappa\_q} & kappa-q parameter for Gent-McWilliams eddy parameterization \\
+	\hyperref[sec:nm_sec_config_standardGM_tracer_kappa]{config\_standardGM\_tracer\_kappa} & Coefficient of standard GM parametrization of eddy transport \\
+	\hline
+	\hyperref[sec:nm_sec_config_Redi_kappa]{config\_Redi\_kappa} & The Redi diffusion coefficient \\
+	\hline
+	\hyperref[sec:nm_sec_config_gravWaveSpeed_trunc]{config\_gravWaveSpeed\_trunc} & Gravity wave speed truncation threshold for the vertical BVP \\
+	\hline
+	\hyperref[sec:nm_sec_config_max_relative_slope]{config\_max\_relative\_slope} & Tapering of Redi diffusion coeffient occurs when relativeSlopeTopOfEdge is greater than config\_max\_relative\_slope \\
 	\hline
 \end{longtable}
 \end{center}
@@ -366,7 +357,7 @@ Embedded links point to more detailed namelist information in the appendix.
 	{\bf Name} & {\bf Description} (Continued) \endhead
 	\hline
 	\hline
-	\hyperref[sec:nm_sec_config_use_mom_del2_tensor]{config\_use\_mom\_del2\_tensor} & If true, tensor-based Laplacian horizontal mixing is used on the momentum equation.  The tensor-based mixing operations are provided to show the functionality of the tensor subroutines.  Tensor-based del2 mixing is not fully vetted and not recommended for production simulations. \\
+	\hyperref[sec:nm_sec_config_use_mom_del2_tensor]{config\_use\_mom\_del2\_tensor} & If true, tensor-based Laplacian horizontal mixing is used on the momentum equation. The tensor-based mixing operations are provided to show the functionality of the tensor subroutines. Tensor-based del2 mixing is not fully vetted and not recommended for production simulations. \\
 	\hline
 	\hyperref[sec:nm_sec_config_mom_del2_tensor]{config\_mom\_del2\_tensor} &  Horizonal viscosity,  $\nu_h$ . \\
 	\hline
@@ -386,7 +377,7 @@ Embedded links point to more detailed namelist information in the appendix.
 	{\bf Name} & {\bf Description} (Continued) \endhead
 	\hline
 	\hline
-	\hyperref[sec:nm_sec_config_use_mom_del4_tensor]{config\_use\_mom\_del4\_tensor} & If true, tensor-based biharmonic horizontal mixing is used on the momentum equation.  The tensor-based mixing operations are provided to show the functionality of the tensor subroutines.  Tensor-based del4 mixing is not fully vetted and not recommended for production simulations. \\
+	\hyperref[sec:nm_sec_config_use_mom_del4_tensor]{config\_use\_mom\_del4\_tensor} & If true, tensor-based biharmonic horizontal mixing is used on the momentum equation. The tensor-based mixing operations are provided to show the functionality of the tensor subroutines. Tensor-based del4 mixing is not fully vetted and not recommended for production simulations. \\
 	\hline
 	\hyperref[sec:nm_sec_config_mom_del4_tensor]{config\_mom\_del4\_tensor} & Coefficient for horizontal biharmonic operator on momentum. \\
 	\hline
@@ -534,21 +525,55 @@ Embedded links point to more detailed namelist information in the appendix.
 	\hline
 	\hyperref[sec:nm_sec_config_use_cvmix_background]{config\_use\_cvmix\_background} & If true, background diffusivity and viscosity is computed using CVMix \\
 	\hline
-	\hyperref[sec:nm_sec_config_cvmix_background_diffusion]{config\_cvmix\_background\_diffusi-}\hyperref[sec:nm_sec_config_cvmix_background_diffusion]{on}& Backround vertical diffusion applied to tracer quantities \\
+	\hyperref[sec:nm_sec_config_cvmix_background_diffusion]{config\_cvmix\_background\_diffusi-}\hyperref[sec:nm_sec_config_cvmix_background_diffusion]{on}& Background vertical diffusion applied to tracer quantities \\
 	\hline
-	\hyperref[sec:nm_sec_config_cvmix_background_viscosity]{config\_cvmix\_background\_viscosi-}\hyperref[sec:nm_sec_config_cvmix_background_viscosity]{ty}& Backround vertical viscosity applied to horizontal velocity \\
+	\hyperref[sec:nm_sec_config_cvmix_background_viscosity]{config\_cvmix\_background\_viscosi-}\hyperref[sec:nm_sec_config_cvmix_background_viscosity]{ty}& Background vertical viscosity applied to horizontal velocity \\
 	\hline
 	\hyperref[sec:nm_sec_config_use_cvmix_convection]{config\_use\_cvmix\_convection} & If true, convective diffusivity and viscosity is computed using CVMix \\
 	\hline
 	\hyperref[sec:nm_sec_config_cvmix_convective_diffusion]{config\_cvmix\_convective\_diffusio-}\hyperref[sec:nm_sec_config_cvmix_convective_diffusion]{n}& Convective vertical diffusion applied to tracer quantities \\
 	\hline
-	\hyperref[sec:nm_sec_config_cvmix_convective_viscosity]{config\_cvmix\_convective\_viscosit-}\hyperref[sec:nm_sec_config_cvmix_convective_viscosity]{y}& Convective vertical viscosity applied to horizontal velocity \\
+	\hyperref[sec:nm_sec_config_cvmix_convective_viscosity]{config\_cvmix\_convective\_viscosit-}\hyperref[sec:nm_sec_config_cvmix_convective_viscosity]{y}& Convective vertical viscosity applied to horizontal velocity components \\
+	\hline
+	\hyperref[sec:nm_sec_config_cvmix_convective_basedOnBVF]{config\_cvmix\_convective\_based-}\hyperref[sec:nm_sec_config_cvmix_convective_basedOnBVF]{OnBVF}& If true, convection is triggered based on value of config\_cvmix\_convective\_triggerBVF \\
+	\hline
+	\hyperref[sec:nm_sec_config_cvmix_convective_triggerBVF]{config\_cvmix\_convective\_trigger-}\hyperref[sec:nm_sec_config_cvmix_convective_triggerBVF]{BVF}& Value of Brunt Viasala frequency squared below which convective mixing is triggered \\
+	\hline
+	\hyperref[sec:nm_sec_config_use_cvmix_shear]{config\_use\_cvmix\_shear} & If true, shear-based mixing is computed using CVMix \\
+	\hline
+	\hyperref[sec:nm_sec_config_cvmix_shear_mixing_scheme]{config\_cvmix\_shear\_mixing\_schem-}\hyperref[sec:nm_sec_config_cvmix_shear_mixing_scheme]{e}& Choose between Pacanowski/Philander or Large et al. shear mixing \\
+	\hline
+	\hyperref[sec:nm_sec_config_cvmix_shear_PP_nu_zero]{config\_cvmix\_shear\_PP\_nu\_zero} & Numerator of Pacanowski and Philander (1981) Eq (1) \\
+	\hline
+	\hyperref[sec:nm_sec_config_cvmix_shear_PP_alpha]{config\_cvmix\_shear\_PP\_alpha} & Alpha values used in Pacanowski and Philander (1981) Eqs (1) and (2) \\
+	\hline
+	\hyperref[sec:nm_sec_config_cvmix_shear_PP_exp]{config\_cvmix\_shear\_PP\_exp} & Exponent used in denominator of Pacanowski and Philander (1981) Eqs (1) \\
+	\hline
+	\hyperref[sec:nm_sec_config_cvmix_shear_KPP_nu_zero]{config\_cvmix\_shear\_KPP\_nu\_zero} & Maximum diffusivity produced by shear-generated mixing \\
+	\hline
+	\hyperref[sec:nm_sec_config_cvmix_shear_KPP_Ri_zero]{config\_cvmix\_shear\_KPP\_Ri\_zero} & Theshold gradient Richardson number to produced enhanced diffusivities, See Large et al. (1994) Eq (28a,b,c) \\
+	\hline
+	\hyperref[sec:nm_sec_config_cvmix_shear_KPP_exp]{config\_cvmix\_shear\_KPP\_exp} &  Exponent relating diffusivities to  $Ri_g$ . Referred to as  $p_1$  in Large et al. (1994) Eq (28b) \\
+	\hline
+	\hyperref[sec:nm_sec_config_use_cvmix_tidal_mixing]{config\_use\_cvmix\_tidal\_mixing} & If true, diffusivity and viscosity is computed using CVMix tidal mixing \\
+	\hline
+	\hyperref[sec:nm_sec_config_use_cvmix_double_diffusion]{config\_use\_cvmix\_double\_diffusio-}\hyperref[sec:nm_sec_config_use_cvmix_double_diffusion]{n}& If true, diffusivity and viscosity is computed using CVMix double diffusion \\
 	\hline
 	\hyperref[sec:nm_sec_config_use_cvmix_kpp]{config\_use\_cvmix\_kpp} & If true, diffusivity and viscosity is computed using CVMix KPP \\
 	\hline
-	\hyperref[sec:nm_sec_config_cvmix_kpp_criticalBulkRichardsonNumber]{config\_cvmix\_kpp\_criticalBulkRic-}\hyperref[sec:nm_sec_config_cvmix_kpp_criticalBulkRichardsonNumber]{hardsonNumber}& critical bulk Richardson number used to determine bottom of ocean mixed layer \\
+	\hyperref[sec:nm_sec_config_cvmix_kpp_niterate]{config\_cvmix\_kpp\_niterate} & Number of iterations used to solve for KPP ocean boundary layer depth \\
 	\hline
-	\hyperref[sec:nm_sec_config_cvmix_kpp_interpolationOMLType]{config\_cvmix\_kpp\_interpolationO-}\hyperref[sec:nm_sec_config_cvmix_kpp_interpolationOMLType]{MLType}& determine bottom of ocean mixed layer using linear, quadratic or cubic interpolation \\
+	\hyperref[sec:nm_sec_config_cvmix_kpp_criticalBulkRichardsonNumber]{config\_cvmix\_kpp\_criticalBulkRic-}\hyperref[sec:nm_sec_config_cvmix_kpp_criticalBulkRichardsonNumber]{hardsonNumber}& Critical bulk Richardson number used to determine bottom of ocean mixed layer \\
+	\hline
+	\hyperref[sec:nm_sec_config_cvmix_kpp_matching]{config\_cvmix\_kpp\_matching} & Determines how the KPP diffusivities are matched to values at base of boundary layer \\
+	\hline
+	\hyperref[sec:nm_sec_config_cvmix_kpp_EkmanOBL]{config\_cvmix\_kpp\_EkmanOBL} & If true, boundary layer depth is limited by Ekman layer depth \\
+	\hline
+	\hyperref[sec:nm_sec_config_cvmix_kpp_MonObOBL]{config\_cvmix\_kpp\_MonObOBL} & If true, boundary layer depth is limited by Monin-Obukhov layer depth \\
+	\hline
+	\hyperref[sec:nm_sec_config_cvmix_kpp_interpolationOMLType]{config\_cvmix\_kpp\_interpolationO-}\hyperref[sec:nm_sec_config_cvmix_kpp_interpolationOMLType]{MLType}& Determine bottom of ocean mixed layer using linear, quadratic or cubic interpolation \\
+	\hline
+	\hyperref[sec:nm_sec_config_cvmix_kpp_surface_layer_extent]{config\_cvmix\_kpp\_surface\_layer-}\hyperref[sec:nm_sec_config_cvmix_kpp_surface_layer_extent]{\_extent}& The non-dimensional extent of the surface layer, measured as fraction of boundary layer depth \\
 	\hline
 \end{longtable}
 \end{center}
@@ -648,7 +673,9 @@ Embedded links point to more detailed namelist information in the appendix.
 	\hline
 	\hyperref[sec:nm_sec_config_pressure_gradient_type]{config\_pressure\_gradient\_type} & Form of pressure gradient terms in momentum equation. For most applications, the gradient of pressure and layer mid-depth are appropriate.  For isopycnal coordinates, one may use the gradient of the Montgomery potential. \\
 	\hline
-	\hyperref[sec:nm_sec_config_density0]{config\_density0} &  Density used as a coefficient of the pressure gradient terms,  $\rho_0$ .  This is a constant due to the Boussinesq approximation. \\
+	\hyperref[sec:nm_sec_config_density0]{config\_density0} &  Density used as a coefficient of the pressure gradient terms,  $\rho_0$ . This is a constant due to the Boussinesq approximation. \\
+	\hline
+	\hyperref[sec:nm_sec_config_common_level_weight]{config\_common\_level\_weight} &  The weight between standard Jacobian and weighted Jacobian,  $\gamma$ . \\
 	\hline
 \end{longtable}
 \end{center}
@@ -726,11 +753,11 @@ Embedded links point to more detailed namelist information in the appendix.
 	\hline
 	\hyperref[sec:nm_sec_config_btr_subcycle_loop_factor]{config\_btr\_subcycle\_loop\_facto-}\hyperref[sec:nm_sec_config_btr_subcycle_loop_factor]{r}&  Barotropic subcycles proceed from  $t$  to  $t+n\Delta t$ , where  $n$  is this configuration option. \\
 	\hline
-	\hyperref[sec:nm_sec_config_btr_gam1_velWt1]{config\_btr\_gam1\_velWt1} & Weighting of velocity in the SSH predictor step in stage 2.  When zero, previous subcycle time is used; when one, new subcycle time is used. \\
+	\hyperref[sec:nm_sec_config_btr_gam1_velWt1]{config\_btr\_gam1\_velWt1} & Weighting of velocity in the SSH predictor step in stage 2. When zero, previous subcycle time is used; when one, new subcycle time is used. \\
 	\hline
-	\hyperref[sec:nm_sec_config_btr_gam2_SSHWt1]{config\_btr\_gam2\_SSHWt1} & Weighting of SSH in the velocity corrector step in stage 2.  When zero, previous subcycle time is used; when one, new subcycle time is used. \\
+	\hyperref[sec:nm_sec_config_btr_gam2_SSHWt1]{config\_btr\_gam2\_SSHWt1} & Weighting of SSH in the velocity corrector step in stage 2. When zero, previous subcycle time is used; when one, new subcycle time is used. \\
 	\hline
-	\hyperref[sec:nm_sec_config_btr_gam3_velWt2]{config\_btr\_gam3\_velWt2} & Weighting of velocity in the SSH corrector step in stage 2.  When zero, previous subcycle time is used; when one, new subcycle time is used. \\
+	\hyperref[sec:nm_sec_config_btr_gam3_velWt2]{config\_btr\_gam3\_velWt2} & Weighting of velocity in the SSH corrector step in stage 2. When zero, previous subcycle time is used; when one, new subcycle time is used. \\
 	\hline
 	\hyperref[sec:nm_sec_config_btr_solve_SSH2]{config\_btr\_solve\_SSH2} & If true, execute the SSH corrector step in stage 2 \\
 	\hline
@@ -750,7 +777,7 @@ Embedded links point to more detailed namelist information in the appendix.
 	{\bf Name} & {\bf Description} (Continued) \endhead
 	\hline
 	\hline
-	\hyperref[sec:nm_sec_config_conduct_tests]{config\_conduct\_tests} & If true, run testing suite.  This is the overarching control on the test suite.  Individual flags must be set to true below to conduct each test. \\
+	\hyperref[sec:nm_sec_config_conduct_tests]{config\_conduct\_tests} & If true, run testing suite. This is the overarching control on the test suite. Individual flags must be set to true below to conduct each test. \\
 	\hline
 	\hyperref[sec:nm_sec_config_test_tensors]{config\_test\_tensors} & If true, tensor operations are tested upon start-up. \\
 	\hline
@@ -771,6 +798,14 @@ Embedded links point to more detailed namelist information in the appendix.
 	\hline 
 	{\bf Name} & {\bf Description} (Continued) \endhead
 	\hline
+	\hline
+	\hyperref[sec:nm_sec_config_disable_redi_k33]{config\_disable\_redi\_k33} & If true, disables k33 portion of Redi neutral surface mixing. \\
+	\hline
+	\hyperref[sec:nm_sec_config_disable_redi_horizontal_term1]{config\_disable\_redi\_horizontal\_t-}\hyperref[sec:nm_sec_config_disable_redi_horizontal_term1]{erm1}& If true, disables first term in horizonal mixing of Redi neutral surface mixing. \\
+	\hline
+	\hyperref[sec:nm_sec_config_disable_redi_horizontal_term2]{config\_disable\_redi\_horizontal\_t-}\hyperref[sec:nm_sec_config_disable_redi_horizontal_term2]{erm2}& If true, disables first term in horizonal mixing of Redi neutral surface mixing. \\
+	\hline
+	\hyperref[sec:nm_sec_config_disable_redi_horizontal_term3]{config\_disable\_redi\_horizontal\_t-}\hyperref[sec:nm_sec_config_disable_redi_horizontal_term3]{erm3}& If true, disables first term in horizonal mixing of Redi neutral surface mixing. \\
 	\hline
 	\hyperref[sec:nm_sec_config_check_zlevel_consistency]{config\_check\_zlevel\_consistency} & Enables a run-time check for consistency for a zlevel grid. Ensures relevant variables correctly define the bottom of the ocean. \\
 	\hline
@@ -815,6 +850,8 @@ Embedded links point to more detailed namelist information in the appendix.
 	\hyperref[sec:nm_sec_config_disable_tr_vmix]{config\_disable\_tr\_vmix} & Disables tendencies on tracer fields from vertical mixing. \\
 	\hline
 	\hyperref[sec:nm_sec_config_disable_tr_sflux]{config\_disable\_tr\_sflux} & Disables tendencies on tracer fields from surface fluxes. \\
+	\hline
+	\hyperref[sec:nm_sec_config_disable_tr_nonlocalflux]{config\_disable\_tr\_nonlocalflux} & Disables tendencies on the tracer fields from CVMix/KPP nonlocal fluxes. \\
 	\hline
 \end{longtable}
 \end{center}
@@ -1084,7 +1121,7 @@ Embedded links point to more detailed variable information in the appendix.
 	\hline
 	\hyperref[subsec:var_sec_verticalMesh_restingThickness]{restingThickness} & Layer thickness when the ocean is at rest, i.e. without SSH or internal perturbations. \\
 	\hline
-	\hyperref[subsec:var_sec_verticalMesh_refZMid]{refZMid} & Reference mid z-coordinate of ocean for each vertical level.  This has a negative value. \\
+	\hyperref[subsec:var_sec_verticalMesh_refZMid]{refZMid} & Reference mid z-coordinate of ocean for each vertical level. This has a negative value. \\
 	\hline
 	\hyperref[subsec:var_sec_verticalMesh_refLayerThickness]{refLayerThickness} & Reference layerThickness of ocean for each vertical level. \\
 	\hline
@@ -1113,7 +1150,7 @@ Embedded links point to more detailed variable information in the appendix.
 	\hline
 	\hyperref[subsec:var_sec_tend_tendLayerThickness]{tendLayerThickness} & time tendency of layer thickness \\
 	\hline
-	\hyperref[subsec:var_sec_tend_tendSsh]{tendSsh} & time tendency of sea-surface height \\
+	\hyperref[subsec:var_sec_tend_tendSSH]{tendSSH} & time tendency of sea-surface height \\
 	\hline
 	\hyperref[subsec:var_sec_tend_tendHighFreqThickness]{tendHighFreqThickness} & time tendency of high frequency-filtered layer thickness \\
 	\hline
@@ -1142,13 +1179,21 @@ Embedded links point to more detailed variable information in the appendix.
 	\hline
 	\hyperref[subsec:var_sec_diagnostics_tracer1SurfaceValue]{tracer1SurfaceValue} & Tracer of 1 extrapolated to ocean surface \\
 	\hline
-	\hyperref[subsec:var_sec_diagnostics_zonalSurfaceVelocity]{zonalSurfaceVelocity} & Zonal surface velocity reconstructed at cell centers \\
+	\hyperref[subsec:var_sec_diagnostics_temperatureSurfaceLayerValue]{temperatureSurfaceLayerValu-}\hyperref[subsec:var_sec_diagnostics_temperatureSurfaceLayerValue]{e}  & potential temperature averaged over ocean surface layer (generally 0.1 of the ocean boundary layer) \\
 	\hline
-	\hyperref[subsec:var_sec_diagnostics_meridionalSurfaceVelocity]{meridionalSurfaceVelocity} & Meridional surface velocity reconstructed at cell centers \\
+	\hyperref[subsec:var_sec_diagnostics_salinitySurfaceLayerValue]{salinitySurfaceLayerValue} & salinity averaged over ocean surface layer (generally 0.1 of the ocean boundary layer) \\
 	\hline
-	\hyperref[subsec:var_sec_diagnostics_zonalSSHGradient]{zonalSSHGradient} & Zonal gradient of SSH reconstructed at cell centers \\
+	\hyperref[subsec:var_sec_diagnostics_tracer1SurfaceLayerValue]{tracer1SurfaceLayerValue} & Tracer of 1 averaged over ocean surface layer (generally 0.1 of the ocean boundary layer) \\
 	\hline
-	\hyperref[subsec:var_sec_diagnostics_meridionalSSHGradient]{meridionalSSHGradient} & Meridional gradient of SSH reconstructed at cell centers \\
+	\hyperref[subsec:var_sec_diagnostics_normalVelocitySurfaceLayer]{normalVelocitySurfaceLayer} & normal velocity averaged over ocean surface layer (generally 0.1 of the ocean boundary layer) \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_surfaceVelocityZonal]{surfaceVelocityZonal} & Zonal surface velocity reconstructed at cell centers \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_surfaceVelocityMeridional]{surfaceVelocityMeridional} & Meridional surface velocity reconstructed at cell centers \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_SSHGradientZonal]{SSHGradientZonal} & Zonal gradient of SSH reconstructed at cell centers \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_SSHGradientMeridional]{SSHGradientMeridional} & Meridional gradient of SSH reconstructed at cell centers \\
 	\hline
 	\hyperref[subsec:var_sec_diagnostics_zMid]{zMid} & z-coordinate of the mid-depth of the layer \\
 	\hline
@@ -1160,17 +1205,25 @@ Embedded links point to more detailed variable information in the appendix.
 	\hline
 	\hyperref[subsec:var_sec_diagnostics_potentialDensity]{potentialDensity} & potential density: density displaced adiabatically to the mid-depth of top layer \\
 	\hline
+	\hyperref[subsec:var_sec_diagnostics_inSituThermalExpansionCoeff]{inSituThermalExpansionCoeff} &  Thermal expansion coefficient (alpha), defined as  $-1/\rho d\rho/dT$  (note negative sign).  This is in situ, i.e. not displaced to another depth. \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_inSituSalineContractionCoeff]{inSituSalineContractionCoeff} &  Saline contraction coefficient (beta), defined as  $1/\rho d\rho/dS$ .  This is also called the haline contraction coefficient.  This is in situ, i.e. not displaced to another depth. \\
+	\hline
 	\hyperref[subsec:var_sec_diagnostics_BruntVaisalaFreqTop]{BruntVaisalaFreqTop} & Brunt Vaisala frequency defined at the center (horizontally) and top (vertically) of cell \\
 	\hline
 	\hyperref[subsec:var_sec_diagnostics_montgomeryPotential]{montgomeryPotential} & Montgomery potential, may be used as the pressure for isopycnal coordinates. \\
 	\hline
 	\hyperref[subsec:var_sec_diagnostics_pressure]{pressure} & pressure used in the momentum equation \\
 	\hline
-	\hyperref[subsec:var_sec_diagnostics_uTransport]{uTransport} & horizontal velocity used to transport mass and tracers \\
+	\hyperref[subsec:var_sec_diagnostics_normalTransportVelocity]{normalTransportVelocity} & horizontal velocity used to transport mass and tracers \\
 	\hline
-	\hyperref[subsec:var_sec_diagnostics_vertTransportVelocityTop]{vertTransportVelocityTop} & vertical transport through the layer interface at the top of the cell \\
+	\hyperref[subsec:var_sec_diagnostics_vertAleTransportTop]{vertAleTransportTop} & vertical transport through the layer interface at the top of the cell \\
 	\hline
 	\hyperref[subsec:var_sec_diagnostics_vertVelocityTop]{vertVelocityTop} & vertical velocity defined at center (horizonally) and top (vertically) of cell \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_vertTransportVelocityTop]{vertTransportVelocityTop} & vertical tracer-transport velocity defined at center (horizonally) and top (vertically) of cell.  This is not the vertical ALE transport, but is Eulerian (fixed-frame) in the vertical, and computed from the continuity equation from the horizontal total tracer-transport velocity. \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_vertGMBolusVelocityTop]{vertGMBolusVelocityTop} & vertical tracer-transport velocity defined at center (horizonally) and top (vertically) of cell.  This is not the vertical ALE transport, but is Eulerian (fixed-frame) in the vertical, and computed from the continuity equation from the horizontal GM Bolus velocity. \\
 	\hline
 	\hyperref[subsec:var_sec_diagnostics_tangentialVelocity]{tangentialVelocity} & horizontal velocity, tangential to an edge \\
 	\hline
@@ -1206,15 +1259,25 @@ Embedded links point to more detailed variable information in the appendix.
 	\hline
 	\hyperref[subsec:var_sec_diagnostics_barotropicThicknessFlux]{barotropicThicknessFlux} & Barotropic thickness flux at each edge, used to advance sea surface height in each subcycle of stage 2 of the split-explicit algorithm. \\
 	\hline
-	\hyperref[subsec:var_sec_diagnostics_normalVelocityX]{normalVelocityX} & component of horizontal velocity in the x-direction (cartesian) \\
+	\hyperref[subsec:var_sec_diagnostics_velocityX]{velocityX} & component of horizontal velocity in the x-direction (cartesian) \\
 	\hline
-	\hyperref[subsec:var_sec_diagnostics_normalVelocityY]{normalVelocityY} & component of horizontal velocity in the y-direction (cartesian) \\
+	\hyperref[subsec:var_sec_diagnostics_velocityY]{velocityY} & component of horizontal velocity in the y-direction (cartesian) \\
 	\hline
-	\hyperref[subsec:var_sec_diagnostics_normalVelocityZ]{normalVelocityZ} & component of horizontal velocity in the z-direction (cartesian) \\
+	\hyperref[subsec:var_sec_diagnostics_velocityZ]{velocityZ} & component of horizontal velocity in the z-direction (cartesian) \\
 	\hline
-	\hyperref[subsec:var_sec_diagnostics_normalVelocityZonal]{normalVelocityZonal} & component of horizontal velocity in the eastward direction \\
+	\hyperref[subsec:var_sec_diagnostics_velocityZonal]{velocityZonal} & component of horizontal velocity in the eastward direction \\
 	\hline
-	\hyperref[subsec:var_sec_diagnostics_normalVelocityMeridional]{normalVelocityMeridional} & component of horizontal velocity in the northward \\
+	\hyperref[subsec:var_sec_diagnostics_velocityMeridional]{velocityMeridional} & component of horizontal velocity in the northward direction \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_transportVelocityX]{transportVelocityX} & component of horizontal velocity used to transport mass and tracers in the x-direction (cartesian) \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_transportVelocityY]{transportVelocityY} & component of horizontal velocity used to transport mass and tracers in the y-direction (cartesian) \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_transportVelocityZ]{transportVelocityZ} & component of horizontal velocity used to transport mass and tracers in the z-direction (cartesian) \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_transportVelocityZonal]{transportVelocityZonal} & component of horizontal velocity used to transport mass and tracers in the eastward direction \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_transportVelocityMeridional]{transportVelocityMeridional} & component of horizontal velocity used to transport mass and tracers in the northward direction \\
 	\hline
 	\hyperref[subsec:var_sec_diagnostics_gradSSH]{gradSSH} & Gradient of sea surface height at edges. \\
 	\hline
@@ -1228,17 +1291,17 @@ Embedded links point to more detailed variable information in the appendix.
 	\hline
 	\hyperref[subsec:var_sec_diagnostics_gradSSHMeridional]{gradSSHMeridional} & Meridional Component of the gradient of sea surface height at cell centers. \\
 	\hline
-	\hyperref[subsec:var_sec_diagnostics_uBolusGM]{uBolusGM} & Bolus velocity in Gent-McWilliams eddy parameterization \\
+	\hyperref[subsec:var_sec_diagnostics_normalGMBolusVelocity]{normalGMBolusVelocity} & Bolus velocity in Gent-McWilliams eddy parameterization \\
 	\hline
-	\hyperref[subsec:var_sec_diagnostics_uBolusGMX]{uBolusGMX} & Bolus velocity in Gent-McWilliams eddy parameterization, x-direction \\
+	\hyperref[subsec:var_sec_diagnostics_GMBolusVelocityX]{GMBolusVelocityX} & Bolus velocity in Gent-McWilliams eddy parameterization, x-direction \\
 	\hline
-	\hyperref[subsec:var_sec_diagnostics_uBolusGMY]{uBolusGMY} & Bolus velocity in Gent-McWilliams eddy parameterization, y-direction \\
+	\hyperref[subsec:var_sec_diagnostics_GMBolusVelocityY]{GMBolusVelocityY} & Bolus velocity in Gent-McWilliams eddy parameterization, y-direction \\
 	\hline
-	\hyperref[subsec:var_sec_diagnostics_uBolusGMZ]{uBolusGMZ} & Bolus velocity in Gent-McWilliams eddy parameterization, z-direction \\
+	\hyperref[subsec:var_sec_diagnostics_GMBolusVelocityZ]{GMBolusVelocityZ} & Bolus velocity in Gent-McWilliams eddy parameterization, z-direction \\
 	\hline
-	\hyperref[subsec:var_sec_diagnostics_uBolusGMZonal]{uBolusGMZonal} & Bolus velocity in Gent-McWilliams eddy parameterization, zonal-direction \\
+	\hyperref[subsec:var_sec_diagnostics_GMBolusVelocityZonal]{GMBolusVelocityZonal} & Bolus velocity in Gent-McWilliams eddy parameterization, zonal-direction \\
 	\hline
-	\hyperref[subsec:var_sec_diagnostics_uBolusGMMeridional]{uBolusGMMeridional} & Bolus velocity in Gent-McWilliams eddy parameterization, meridional-direction \\
+	\hyperref[subsec:var_sec_diagnostics_GMBolusVelocityMeridional]{GMBolusVelocityMeridional} & Bolus velocity in Gent-McWilliams eddy parameterization, meridional-direction \\
 	\hline
 	\hyperref[subsec:var_sec_diagnostics_RiTopOfCell]{RiTopOfCell} & gradient Richardson number defined at the center (horizontally) and top (vertically) \\
 	\hline
@@ -1250,21 +1313,31 @@ Embedded links point to more detailed variable information in the appendix.
 	\hline
 	\hyperref[subsec:var_sec_diagnostics_vertDiffTopOfCell]{vertDiffTopOfCell} & vertical diffusion defined at the cell center (horizontally) and top (vertically) \\
 	\hline
-	\hyperref[subsec:var_sec_diagnostics_bulkRichardsonNumber]{bulkRichardsonNumber} & bulk Richardson number \\
+	\hyperref[subsec:var_sec_diagnostics_bulkRichardsonNumber]{bulkRichardsonNumber} & CVMix/KPP: bulk Richardson number \\
 	\hline
-	\hyperref[subsec:var_sec_diagnostics_boundaryLayerDepth]{boundaryLayerDepth} & diagnosed depth of the ocean surface boundary layer \\
+	\hyperref[subsec:var_sec_diagnostics_bulkRichardsonNumberBuoy]{bulkRichardsonNumberBuoy} & CVMix/KPP: contribution of buoyancy to bulk Richardson number \\
 	\hline
-	\hyperref[subsec:var_sec_diagnostics_indexBoundaryLayerDepth]{indexBoundaryLayerDepth} & int(indexBoundaryLayerDepth) is vertical layer within which boundaryLayerDepth resides. mod(indexBoundaryLayerDepth) is fractional position within that layer. \\
+	\hyperref[subsec:var_sec_diagnostics_bulkRichardsonNumberShear]{bulkRichardsonNumberShear} & CVMix/KPP: contribution of shear to bulk Richardson number \\
 	\hline
-	\hyperref[subsec:var_sec_diagnostics_surfaceFrictionVelocity]{surfaceFrictionVelocity} & diagnosed surface friction velocity defined as square root of (mag(wind stress) / reference density) \\
+	\hyperref[subsec:var_sec_diagnostics_boundaryLayerDepth]{boundaryLayerDepth} & CVMix/KPP: diagnosed depth of the ocean surface boundary layer \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_boundaryLayerDepthEdge]{boundaryLayerDepthEdge} & CVMix/KPP: diagnosed depth of the ocean surface boundary layer averaged to cell edges \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_vertNonLocalFluxTemp]{vertNonLocalFluxTemp} & CVMix/KPP: nonlocal boundary layer mixing term for temperature \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_indexBoundaryLayerDepth]{indexBoundaryLayerDepth} & CVMix/KPP: int(indexBoundaryLayerDepth) is vertical layer within which boundaryLayerDepth resides. mod(indexBoundaryLayerDepth) indicates whether boundaryLayerDepth resides above layer center (value = 0.25) or below layer center (value=0.75) \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_indexSurfaceLayerDepth]{indexSurfaceLayerDepth} & CVMix/KPP: surface layer entirely encompasses int(indexSurfaceLayerDepth) vertical layers and fraction(indexSurfaceLayerDepth) of the int(indexSurfaceLayerDepth)+1 layer. \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_surfaceFrictionVelocity]{surfaceFrictionVelocity} & CVMix/KPP: diagnosed surface friction velocity defined as square root of (mag(wind stress) / reference density) \\
 	\hline
 	\hyperref[subsec:var_sec_diagnostics_windStressZonalDiag]{windStressZonalDiag} & reconstructed surface wind stress in the eastward direction. Used for diagnostics. \\
 	\hline
 	\hyperref[subsec:var_sec_diagnostics_windStressMeridionalDiag]{windStressMeridionalDiag} & reconstructed surface wind stress in the northward direction. User for diagnostics. \\
 	\hline
-	\hyperref[subsec:var_sec_diagnostics_penetrativeTemperatureFluxOBL]{penetrativeTemperatureFluxO-}\hyperref[subsec:var_sec_diagnostics_penetrativeTemperatureFluxOBL]{BL  }& Penetrative temperature flux at the bottom of boundary layer due to solar radiation. Positive is into the ocean. \\
+	\hyperref[subsec:var_sec_diagnostics_penetrativeTemperatureFluxOBL]{penetrativeTemperatureFluxO-}\hyperref[subsec:var_sec_diagnostics_penetrativeTemperatureFluxOBL]{BL  }& CVMix/KPP: Penetrative temperature flux at the bottom of boundary layer due to solar radiation. Positive is into the ocean. \\
 	\hline
-	\hyperref[subsec:var_sec_diagnostics_buoyancyForcingOBL]{buoyancyForcingOBL} & diagnosed buoyancy forcing due to heat, salt and freshwater fluxes averaged over ocean boundary layer depth \\
+	\hyperref[subsec:var_sec_diagnostics_surfaceBuoyancyForcing]{surfaceBuoyancyForcing} & CVMix/KPP: diagnosed surface buoyancy flux due to heat, salt and freshwater fluxes. Positive flux increases buoyancy. \\
 	\hline
 	\hyperref[subsec:var_sec_diagnostics_areaCellGlobal]{areaCellGlobal} & sum of the areaCell variable over the full domain, used to normalize global statistics \\
 	\hline
@@ -1277,6 +1350,40 @@ Embedded links point to more detailed variable information in the appendix.
 	\hyperref[subsec:var_sec_diagnostics_volumeEdgeGlobal]{volumeEdgeGlobal} & sum of the volumeEdge variable over the full domain, used to normalize global statistics \\
 	\hline
 	\hyperref[subsec:var_sec_diagnostics_CFLNumberGlobal]{CFLNumberGlobal} & maximum CFL number over the full domain \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_relativeSlopeTopOfEdge]{relativeSlopeTopOfEdge} & Slope of isopycnal surface relative to constant coordinate surface \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_relativeSlopeTopOfCell]{relativeSlopeTopOfCell} & Magnitude of slope of isopycnal surface relative to constant coordinate surface averaged to cell centers \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_relativeSlopeTapering]{relativeSlopeTapering} & scalar tapering function applied to limit magnitude of isopycnal mixing in regions where relativeSlopeTopOfCell is greater than config\_gm\_max\_slope \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_relativeSlopeTaperingCell]{relativeSlopeTaperingCell} & averaging of relativeSlopeTapering function to cell centers \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_relativeSlopeTopOfCellX]{relativeSlopeTopOfCellX} & Slope of isopycnal surface relative to constant coordinate surface \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_relativeSlopeTopOfCellY]{relativeSlopeTopOfCellY} & Slope of isopycnal surface relative to constant coordinate surface \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_relativeSlopeTopOfCellZ]{relativeSlopeTopOfCellZ} & Slope of isopycnal surface relative to constant coordinate surface \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_relativeSlopeTopOfCellZonal]{relativeSlopeTopOfCellZonal} & Slope of isopycnal surface relative to constant coordinate surface \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_relativeSlopeTopOfCellMeridional]{relativeSlopeTopOfCellMeridional} & Slope of isopycnal surface relative to constant coordinate surface \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_k33]{k33} & The (3,3) entry of the Redi diffusion tensor. Added to the model vertical diffusion. \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_gmStreamFuncTopOfEdge]{gmStreamFuncTopOfEdge} & GM stream function \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_gmStreamFuncTopOfCell]{gmStreamFuncTopOfCell} & GM stream function reconstructed to the cell centers \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_GMStreamFuncX]{GMStreamFuncX} & GM stream function \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_GMStreamFuncY]{GMStreamFuncY} & GM stream function \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_GMStreamFuncZ]{GMStreamFuncZ} & GM stream function \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_GMStreamFuncZonal]{GMStreamFuncZonal} & GM stream function \\
+	\hline
+	\hyperref[subsec:var_sec_diagnostics_GMStreamFuncMeridional]{GMStreamFuncMeridional} & GM stream function \\
 	\hline
 \end{longtable}
 \end{center}
@@ -1295,23 +1402,39 @@ Embedded links point to more detailed variable information in the appendix.
 	\hline
 	\hyperref[subsec:var_sec_average_nAverage]{nAverage} & number of timesteps in time-averaged variables \\
 	\hline
-	\hyperref[subsec:var_sec_average_avgSsh]{avgSsh} & time-averaged sea surface height \\
+	\hyperref[subsec:var_sec_average_avgSSH]{avgSSH} & time-averaged sea surface height \\
 	\hline
-	\hyperref[subsec:var_sec_average_varSsh]{varSsh} & variance of sea surface height \\
+	\hyperref[subsec:var_sec_average_varSSH]{varSSH} & variance of sea surface height \\
+	\hline
+	\hyperref[subsec:var_sec_average_avgNormalVelocity]{avgNormalVelocity} & time-averaged velocity, normal to cell edge \\
 	\hline
 	\hyperref[subsec:var_sec_average_avgVelocityZonal]{avgVelocityZonal} & time-averaged velocity in the eastward direction \\
 	\hline
 	\hyperref[subsec:var_sec_average_avgVelocityMeridional]{avgVelocityMeridional} & time-averaged velocity in the northward direction \\
 	\hline
+	\hyperref[subsec:var_sec_average_varNormalVelocity]{varNormalVelocity} & variance of velocity, normal to cell edge \\
+	\hline
 	\hyperref[subsec:var_sec_average_varVelocityZonal]{varVelocityZonal} & variance of velocity in the eastward direction \\
 	\hline
 	\hyperref[subsec:var_sec_average_varVelocityMeridional]{varVelocityMeridional} & variance of velocity in the northward direction \\
 	\hline
-	\hyperref[subsec:var_sec_average_avgNormalVelocity]{avgNormalVelocity} & time-averaged velocity, normal to cell edge \\
+	\hyperref[subsec:var_sec_average_avgNormalTransportVelocity]{avgNormalTransportVelocity} & time-averaged total tracer-transport velocity, normal to cell edge \\
 	\hline
-	\hyperref[subsec:var_sec_average_varNormalVelocity]{varNormalVelocity} & variance of velocity, normal to cell edge \\
+	\hyperref[subsec:var_sec_average_avgTransportVelocityZonal]{avgTransportVelocityZonal} & time-averaged total tracer-transport velocity in the eastward direction \\
+	\hline
+	\hyperref[subsec:var_sec_average_avgTransportVelocityMeridional]{avgTransportVelocityMeridional} & time-averaged total tracer-transport velocity in the northward direction \\
 	\hline
 	\hyperref[subsec:var_sec_average_avgVertVelocityTop]{avgVertVelocityTop} & time-averaged vertical velocity at top of cell \\
+	\hline
+	\hyperref[subsec:var_sec_average_avgVertTransportVelocityTop]{avgVertTransportVelocityTop} & time-averaged vertical total tracer-transport velocity at top of cell.  This is not the vertical ALE transport, but is Eulerian (fixed-frame) in the vertical, and computed from the continuity equation from the horizontal total tracer-transport velocity. \\
+	\hline
+	\hyperref[subsec:var_sec_average_avgNormalGMBolusVelocity]{avgNormalGMBolusVelocity} & time-averaged GM Bolus velocity, normal to cell edge \\
+	\hline
+	\hyperref[subsec:var_sec_average_avgGMBolusVelocityZonal]{avgGMBolusVelocityZonal} & time-averaged GM Bolus velocity in the eastward direction \\
+	\hline
+	\hyperref[subsec:var_sec_average_avgGMBolusVelocityMeridional]{avgGMBolusVelocityMeridional} & time-averaged GM Bolus velocity in the northward direction \\
+	\hline
+	\hyperref[subsec:var_sec_average_avgVertGMBolusVelocityTop]{avgVertGMBolusVelocityTop} & time-averaged vertical GM Bolus velocity at top of cell.  This is not the vertical ALE transport, but is Eulerian (fixed-frame) in the vertical, and computed from the continuity equation from the horizontal GM Bolus velocity. \\
 	\hline
 \end{longtable}
 \end{center}
@@ -1398,13 +1521,13 @@ Embedded links point to more detailed variable information in the appendix.
 	\hline
 	\hyperref[subsec:var_sec_forcing_avgTracer1SurfaceValue]{avgTracer1SurfaceValue} & Time averaged tracer1 extrapolated to ocean surface \\
 	\hline
-	\hyperref[subsec:var_sec_forcing_avgZonalSurfaceVelocity]{avgZonalSurfaceVelocity} & Time averaged zonal surface velocity \\
+	\hyperref[subsec:var_sec_forcing_avgSurfaceVelocityZonal]{avgSurfaceVelocityZonal} & Time averaged zonal surface velocity \\
 	\hline
-	\hyperref[subsec:var_sec_forcing_avgMeridionalSurfaceVelocity]{avgMeridionalSurfaceVelocity} & Time averaged meridional surface velocity \\
+	\hyperref[subsec:var_sec_forcing_avgSurfaceVelocityMeridional]{avgSurfaceVelocityMeridional} & Time averaged meridional surface velocity \\
 	\hline
-	\hyperref[subsec:var_sec_forcing_avgZonalSSHGradient]{avgZonalSSHGradient} & Time averaged zonal gradient of SSH \\
+	\hyperref[subsec:var_sec_forcing_avgSSHGradientZonal]{avgSSHGradientZonal} & Time averaged zonal gradient of SSH \\
 	\hline
-	\hyperref[subsec:var_sec_forcing_avgMeridionalSSHGradient]{avgMeridionalSSHGradient} & Time averaged meridional gradient of SSH \\
+	\hyperref[subsec:var_sec_forcing_avgSSHGradientMeridional]{avgSSHGradientMeridional} & Time averaged meridional gradient of SSH \\
 	\hline
 \end{longtable}
 \end{center}
@@ -1437,7 +1560,7 @@ Embedded links point to more detailed variable information in the appendix.
 	\hline
 	\hyperref[subsec:var_sec_scratch_thermalExpansionCoeff]{thermalExpansionCoeff} &  Thermal expansion coefficient (alpha), defined as  $-1/\rho d\rho/dT$  (note negative sign). \\
 	\hline
-	\hyperref[subsec:var_sec_scratch_salineContractionCoeff]{salineContractionCoeff} &  Saline contraction coefficient (beta), defined as  $1/\rho d\rho/dS$ .  This is also called the haline contraction coefficient. \\
+	\hyperref[subsec:var_sec_scratch_salineContractionCoeff]{salineContractionCoeff} &  Saline contraction coefficient (beta), defined as  $1/\rho d\rho/dS$ . This is also called the haline contraction coefficient. \\
 	\hline
 	\hyperref[subsec:var_sec_scratch_normalVelocityTest]{normalVelocityTest} & horizonal velocity, normal component to an edge, for testing \\
 	\hline
@@ -1480,6 +1603,50 @@ Embedded links point to more detailed variable information in the appendix.
 	\hyperref[subsec:var_sec_scratch_windStressZonalScratch]{windStressZonalScratch} & reconstructed surface wind stress in the eastward direction. Used for diagnostics. \\
 	\hline
 	\hyperref[subsec:var_sec_scratch_windStressMeridionalScratch]{windStressMeridionalScratch} & reconstructed surface wind stress in the northward direction. User for diagnostics. \\
+	\hline
+	\hyperref[subsec:var_sec_scratch_gradDensityEdge]{gradDensityEdge} & Normal gradient of density \\
+	\hline
+	\hyperref[subsec:var_sec_scratch_gradDensityConstZTopOfEdge]{gradDensityConstZTopOfEdg-}\hyperref[subsec:var_sec_scratch_gradDensityConstZTopOfEdge]{e  }& Normal gradient of density along constant z-level surface \\
+	\hline
+	\hyperref[subsec:var_sec_scratch_gradDensityTopOfEdge]{gradDensityTopOfEdge} & Normal gradient of density at layer interfaces \\
+	\hline
+	\hyperref[subsec:var_sec_scratch_gradTracerEdge]{gradTracerEdge} & Normal gradient of tracer field at edges \\
+	\hline
+	\hyperref[subsec:var_sec_scratch_gradTracerTopOfEdge]{gradTracerTopOfEdge} & Normal gradient of tracer field at layer interfaces \\
+	\hline
+	\hyperref[subsec:var_sec_scratch_gradHTracerSlopedTopOfCell]{gradHTracerSlopedTopOfCell} & Dot product of relative slope with gradient of tracer averaged to cell centers \\
+	\hline
+	\hyperref[subsec:var_sec_scratch_dDensityDzTopOfCell]{dDensityDzTopOfCell} & Vertical gradient of potential density \\
+	\hline
+	\hyperref[subsec:var_sec_scratch_dDensityDzTopOfEdge]{dDensityDzTopOfEdge} & Vertical gradient of potential density at edge and top of layer. \\
+	\hline
+	\hyperref[subsec:var_sec_scratch_dDispDensityDzTopOfCell]{dDispDensityDzTopOfCell} & Vertical gradient of density \\
+	\hline
+	\hyperref[subsec:var_sec_scratch_dDispDensityDzTopOfEdge]{dDispDensityDzTopOfEdge} & Vertical gradient of density at edge and top of layer. \\
+	\hline
+	\hyperref[subsec:var_sec_scratch_dTracerdZTopOfCell]{dTracerdZTopOfCell} & Vertical gradient of tracer field at cell centers \\
+	\hline
+	\hyperref[subsec:var_sec_scratch_dTracerdZTopOfEdge]{dTracerdZTopOfEdge} & Vertical gradient of tracer field at cell edges \\
+	\hline
+	\hyperref[subsec:var_sec_scratch_gradZMidEdge]{gradZMidEdge} & Gradient of zMid \\
+	\hline
+	\hyperref[subsec:var_sec_scratch_gradZMidTopOfEdge]{gradZMidTopOfEdge} & Gradient of zMid at layer interfaces \\
+	\hline
+	\hyperref[subsec:var_sec_scratch_tridiagA]{tridiagA} & The lower band of a tridiagonal matrix \\
+	\hline
+	\hyperref[subsec:var_sec_scratch_tridiagB]{tridiagB} & The central band of a tridiagonal matrix \\
+	\hline
+	\hyperref[subsec:var_sec_scratch_tridiagC]{tridiagC} & The upper band of a tridiagonal matrix \\
+	\hline
+	\hyperref[subsec:var_sec_scratch_areaCellSum]{areaCellSum} & Accumulated cell area for normalization \\
+	\hline
+	\hyperref[subsec:var_sec_scratch_rightHandSide]{rightHandSide} & A vector \\
+	\hline
+	\hyperref[subsec:var_sec_scratch_yRelativeSlopeSolution]{yRelativeSlopeSolution} & Slope of isopycnal surface for analytic solution \\
+	\hline
+	\hyperref[subsec:var_sec_scratch_yGMStreamFuncSolution]{yGMStreamFuncSolution} & GM stream function reconstructed to the cell centers, for analytic solution \\
+	\hline
+	\hyperref[subsec:var_sec_scratch_yGMBolusVelocitySolution]{yGMBolusVelocitySolution} & Bolus velocity in Gent-McWilliams eddy parameterization, y-direction, for analytic solution \\
 	\hline
 \end{longtable}
 \end{center}
@@ -1527,9 +1694,9 @@ Embedded links point to more detailed variable information in the appendix.
 	\hline
 	\hyperref[subsec:var_sec_amZonalMean_binBoundaryZonalMean]{binBoundaryZonalMean} & Coordinate of lower edge of zonal mean bin, either in latitude or y, for plotting. \\
 	\hline
-	\hyperref[subsec:var_sec_amZonalMean_zonalVelocityZonalMean]{zonalVelocityZonalMean} & Zonal mean of component of horizontal velocity in the eastward direction \\
+	\hyperref[subsec:var_sec_amZonalMean_velocityZonalZonalMean]{velocityZonalZonalMean} & Zonal mean of component of horizontal velocity in the eastward direction \\
 	\hline
-	\hyperref[subsec:var_sec_amZonalMean_meridionalVelocityZonalMean]{meridionalVelocityZonalMean} & Zonal mean of component of horizontal velocity in the northward direction \\
+	\hyperref[subsec:var_sec_amZonalMean_velocityMeridionalZonalMean]{velocityMeridionalZonalMean} & Zonal mean of component of horizontal velocity in the northward direction \\
 	\hline
 	\hyperref[subsec:var_sec_amZonalMean_temperatureZonalMean]{temperatureZonalMean} & Zonal mean of potential temperature \\
 	\hline
