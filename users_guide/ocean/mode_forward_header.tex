@@ -1,7 +1,7 @@
 \section{Purpose}
 \label{sec:forward_purpose}
 
-The forward mode of the ocean core is used to simulate an ocean forward in time. 
+The MPAS-Ocean model may be compiled in two modes, forward (this chapter) and analysis (chapter \ref{chap:analysis_mode}).  Forward mode is the typical configuration for an ocean model, where the model is initialized at start-up, steps forward through time, and periodically writes output and restart files to disk.  Namelist options for forward mode are set in the namelist.ocean\_forward file in the run directory.  The user may specify any number of output streams, each with a list of variables and write frequency, in the streams.ocean\_forward file.  Analysis members are available for computation and i/o in forward mode.  For example, see global\_stats under Namelist Options.  
 
 \section{Compilation}
 \label{sec:forward_compilation}

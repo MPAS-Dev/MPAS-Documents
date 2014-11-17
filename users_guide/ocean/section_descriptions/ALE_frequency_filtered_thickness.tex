@@ -1,4 +1,6 @@
-The high-frequency thickness alteration, $h^{hf}$, in (\ref{ocean:\mode_desired thickness}) allows the thicknesses to oscillate so that high-frequency motions, such as internal gravity waves, are treated in a Lagrangian manner.  Low-freqency motions, such as seasonal changes or slow motions of water masses, are treated in an Eulerian manner.  This is the ``z-tilde'' scheme of \citet{Leclair_Madec11om}, which generally reduces spurious vertical mixing and preserves water mass properties.  Two additional prognostic equations are solved when config\_use\_freq\_filtered\_thickness is true,
+The high-frequency thickness alteration, $h^{hf}$, in (\ref{ocean:\mode_desired thickness}) allows the thicknesses to oscillate so that high-frequency motions, such as internal gravity waves, are treated in a Lagrangian manner.  Low-freqency motions, such as seasonal changes or slow motions of water masses, are treated in an Eulerian manner.  This is the ``z-tilde'' scheme of \citet{Leclair_Madec11om}, which generally reduces spurious vertical mixing and preserves water mass properties.  Simulations using z-tilde in MPAS-Ocean are shown in \citet{Petersen_ea14om} for both idealized and real-world configurations.  
+
+Two additional prognostic equations are solved when config\_use\_freq\_filtered\_thickness is true,
 \begin{eqnarray}
 \label{ocean:\mode_Dlf}
  & \displaystyle

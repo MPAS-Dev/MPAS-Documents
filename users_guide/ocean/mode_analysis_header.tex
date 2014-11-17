@@ -1,7 +1,9 @@
 \section{Purpose}
 \label{sec:analysis_purpose}
 
-The analysis mode of the ocean core is used to analyze a ocean NetCDF file.
+The MPAS-Ocean model may be compiled in two modes, forward (chapter \ref{chap:forward_mode}) and analysis (this chapter).  In analysis mode, the ocean model does not step forward in time.  Rather, it initiates from a restart file, conducts the requested analysis, and then stops.  Analysis mode is equivalent to running in forward mode with the run duration set to zero.  All analysis and output capability in forward mode is available in analysis mode, and vice versa.  For example, output variables may be specified in the streams.ocean\_analysis file, and analysis member flags may be specified in the namelist.ocean\_analysis file.  A common use of analysis mode is to conduct additional analysis after a large simulation is complete.
+
+Because forward mode and analysis mode contain much of the same capability, the namelist options are mostly identical at this time, with the exception of timestepping namelists.  Dimensions, namelists, and variables that apply to both modes are included in both chapters \ref{chap:forward_mode} and \ref{chap:analysis_mode} for clarity, despite the redundancy.
 
 \section{Compilation}
 \label{sec:analysis_compilation}
