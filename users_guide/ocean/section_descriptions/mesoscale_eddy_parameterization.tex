@@ -1,0 +1,66 @@
+
+
+Mesoscale eddy parameterization (MEP) is an important process in determining the distribution of temperature, salinity and, as a result, density throughout the world ocean.   The MPAS-Ocean MEP includes the Gent-McWilliams (GM) parameterization (\cite{Gent_McWilliams90jpo,Gent_ea95jpo,Gent2011om}), which is composed of an enhanced tracer advection (Bolus component), and a tracer diffusion that is aligned with isopycnals (Redi component).
+
+For the purpose of this section, consider the thickness and the passive tracer equations of MPAS-Ocean with advective terms only,
+\begin{align}   
+\dfrac{\partial h_k}{\partial t} 
+ + \nabla \cdot \left( h_k {\bf u}_k \right) 
+% + w^{top}_{k+1} - w^{top}_{k} = 0
+ + w_k^\textrm{t} - w_k^\textrm{b} = 0\label{ocean:GM:1},
+\\
+\dfrac{\partial h_k\varphi_k}{\partial t} 
+ + \nabla \cdot \left( h_k\varphi_k {\bf u}_k \right) 
+%+  w^{top}_{k+1}\varphi^{top}_{k+1} - w^{top}_{k}\varphi^{top}_{k}
+  + \varphi_k^\textrm{t} w_k^\textrm{t} - \varphi_k^\textrm{b} w_k^\textrm{b}
+= 0.\label{ocean:GM:4}
+\end{align}
+Here the superscripts 't' and 'b' denote the top and bottom surfaces,
+respectively, of a fluid layer with index $k$.
+The Gent-McWilliams closure replaces the mean transport velocity ${\bf u}$
+and $w$ by the effective transport velocity ${\bf U}$ and $W$,
+\begin{align}   
+\dfrac{\partial h_k}{\partial t} 
+ + \nabla \cdot \left( h_k {\bf U}_k \right) 
+% + w^{top}_{k+1} - w^{top}_{k} = 0
+ + W_k^\textrm{t} - W_k^\textrm{b} = 0,\label{ocean:GM:5}
+\\
+\dfrac{\partial h_k\varphi_k}{\partial t} 
+ + \nabla \cdot \left( h_k\varphi_k{\bf U}_k \right) 
+%+  w^{top}_{k+1}\varphi^{top}_{k+1} - w^{top}_{k}\varphi^{top}_{k}
+  + \varphi_k^\textrm{t} W_k^\textrm{t} - \varphi_k^\textrm{b} W_k^\textrm{b}  
+= \nabla\cdot\left(h_k {\bf K} \cdot \nabla\varphi_k \right).\label{ocean:GM:6}
+\end{align}
+In the above, the effective transport velocities can be decomposed
+into the mean transport velocity and the GM bolus velocities, 
+\begin{align}
+&{\bf U}_k = u_k + u^\ast_k,\label{ocean:GM:7}\\ 
+& W_k = w_k + w^\ast_k,\label{ocean:GM:8},
+\end{align}
+and ${\bf K}$ is a $3\times 3$ tensor that specifies the Redi diffusion.
+
+The Bolus velocities are computed using a stream function formulation.  The stream function is defined as
+\begin{equation}
+  \label{ocean:GM:10}
+  \Psi = \boldsymbol{\gamma}\times{\bf k},
+\end{equation}
+where $\boldsymbol{\gamma}$ is a horizontal 2D vector and ${\bf k}$ is the
+vertical unit vector. Let 
+\begin{equation}
+  \label{ocean:GM:2}
+  {\bf v} \equiv ({\bf u}^\ast,\,w^\ast) = \nabla_3 \times\Psi.
+\end{equation}
+Then we find that 
+\begin{align}
+  &{\bf u}^\ast = \partial_z\boldsymbol{\gamma},\label{ocean:GM:13}\\
+ &w^\ast = -\nabla_z\cdot\boldsymbol{\gamma}.\label{ocean:GM:14}
+\end{align}
+Following \cite{Ferrari_ea10om}, one solves a boundary value
+problem for the horizontal 2D vector
+$\boldsymbol{\gamma}$ in \eqref{ocean:GM:13} and \eqref{ocean:GM:14},
+\begin{align}
+  &\left( c^2\dfrac{\,\mathrm{d}^2}{\,\mathrm{d} z^2} - N^2\right)\boldsymbol{\gamma} =
+  (g/\rho_0)\kappa \nabla_z\rho,\label{ocean:GM:15}\\
+  &\boldsymbol{\gamma}(\eta) = \boldsymbol{\gamma}(-H) = 0.\label{ocean:GM:3}
+\end{align}
+Here $\kappa$ is the GM eddy transport coefficient, and is the main parameter to adjust the strength of the Bolus component; $c$ is the gravity wave speed for the boundary value problem; $\eta$ is the sea surface; $-H$ is the bottom; $N^2$ is the Brunt-Vasalai frequency, and is given by $N^2 = -(g/\rho_0)\partial_z\rho$. 
