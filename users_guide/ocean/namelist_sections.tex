@@ -1563,7 +1563,7 @@
     \hline
     Possible Values: & Positive real numbers that represents the gravity wave speed of the first, second, etc., baroclinic modes \\
     \hline
-    \caption{config\_gravWaveSpeed\_trunc: Gravity wave speed truncation threshold for the vertical BVP}
+    \caption{config\_gravWaveSpeed\_trunc:  Gravity wave speed truncation threshold for the vertical stream function boundary value problem,  $c$ }
 \end{longtable}
 \end{center}
 \section[config\_highFreqThick\_del2]{config\_highFreqThick\_del2}
@@ -1725,7 +1725,7 @@
     \hline
     Possible Values: & Positive real numbers \\
     \hline
-    \caption{config\_max\_relative\_slope: Tapering of Redi diffusion coeffient occurs when relativeSlopeTopOfEdge is greater than config\_max\_relative\_slope}
+    \caption{config\_max\_relative\_slope: Tapering parameter for Redi diffusion coeffient.  Tapering occurs when relativeSlopeTopOfEdge is greater than config\_max\_relative\_slope}
 \end{longtable}
 \end{center}
 \section[config\_max\_thickness\_factor]{config\_max\_thickness\_factor}
@@ -2101,7 +2101,7 @@
     \hline
     Default Value: & 0 \\
     \hline
-    Possible Values: & Any integer greaterh than or equal to 0. \\
+    Possible Values: & Any integer greater than or equal to 0. \\
     \hline
     \caption{config\_number\_of\_blocks: Determines the number of blocks a simulation should be run with. If it is set to 0, the number of blocks is the same as the number of MPI tasks at run-time.}
 \end{longtable}
@@ -2250,6 +2250,24 @@
     \caption{config\_proc\_decomp\_file\_prefix: Defines the prefix for the processor decomposition file. This file is only read if config\_explicit\_proc\_decomp is .true. The number of processors is appended to the end of the prefix at run-time.}
 \end{longtable}
 \end{center}
+\section[config\_restart\_timestamp\_name]{config\_restart\_timestamp\_name}
+\label{sec:nm_sec_config_restart_timestamp_name}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    In build modes: & \hyperref[subsec:forward_nm_tab_time_management]{forward} \hyperref[subsec:analysis_nm_tab_time_management]{analysis} \\
+    \hline
+    Type: & character \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & Restart\_timestamp \\
+    \hline
+    Possible Values: & Path to a file. \\
+    \hline
+    \caption{config\_restart\_timestamp\_name: Path to the filename for restart timestamps to be read and written from.}
+\end{longtable}
+\end{center}
 \section[config\_restoreS\_lengthscale]{config\_restoreS\_lengthscale}
 \label{sec:nm_sec_config_restoreS_lengthscale}
 \begin{center}
@@ -2351,7 +2369,7 @@
     \hline
     Units: & $unitless$ \\
     \hline
-    Default Value: & 0001\_00:00:00 \\
+    Default Value: & 0010\_00:00:00 \\
     \hline
     Possible Values: & 'DDDD\_HH:MM:SS' or 'none' \\
     \hline
@@ -2391,7 +2409,7 @@
     \hline
     Possible Values: & Any positive real value. \\
     \hline
-    \caption{config\_standardGM\_tracer\_kappa: Coefficient of standard GM parametrization of eddy transport}
+    \caption{config\_standardGM\_tracer\_kappa:  Coefficient of standard GM parametrization of eddy transport (Bolus component),  $\kappa$ }
 \end{longtable}
 \end{center}
 \section[config\_start\_time]{config\_start\_time}
@@ -2603,7 +2621,7 @@
     \hline
     Units: & $unitless$ \\
     \hline
-    Default Value: & .true. \\
+    Default Value: & .false. \\
     \hline
     Possible Values: & .true. or .false. \\
     \hline
@@ -2783,7 +2801,7 @@
     \hline
     Units: & $unitless$ \\
     \hline
-    Default Value: & .false. \\
+    Default Value: & .true. \\
     \hline
     Possible Values: & .true. or .false. \\
     \hline
@@ -2927,7 +2945,7 @@
     \hline
     Units: & $unitless$ \\
     \hline
-    Default Value: & .true. \\
+    Default Value: & .false. \\
     \hline
     Possible Values: & .true. or .false. \\
     \hline
@@ -2945,7 +2963,7 @@
     \hline
     Units: & $unitless$ \\
     \hline
-    Default Value: & .true. \\
+    Default Value: & .false. \\
     \hline
     Possible Values: & .true. or .false. \\
     \hline
@@ -3107,7 +3125,7 @@
     \hline
     Units: & $m^2$ $s^{-1}$ \\
     \hline
-    Default Value: & 1.0e-4 \\
+    Default Value: & 1.0e-5 \\
     \hline
     Possible Values: & Any positive real value. \\
     \hline

@@ -62,6 +62,8 @@ Embedded links point to more detailed namelist information in the appendix.
 	\hline
 	\hyperref[sec:nm_sec_config_do_restart]{config\_do\_restart} & Determines if the initial conditions should be read from a restart file, or an input file. \\
 	\hline
+	\hyperref[sec:nm_sec_config_restart_timestamp_name]{config\_restart\_timestamp\_name} & Path to the filename for restart timestamps to be read and written from. \\
+	\hline
 	\hyperref[sec:nm_sec_config_start_time]{config\_start\_time} & Timestamp describing the initial time of the simulation. If it is set to 'file', the initial time is read from restart\_timestamp. \\
 	\hline
 	\hyperref[sec:nm_sec_config_stop_time]{config\_stop\_time} & Timestamp descriping the final time of the simulation. If it is set to 'none' the final time is determined from config\_start\_time and config\_run\_duration. \\
@@ -321,6 +323,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \subsection[mesoscale\_eddy\_parameterization]{mesoscale\_eddy\_parameterization}
 \label{subsec:forward_nm_tab_mesoscale_eddy_parameterization}
+\input{ocean/section_descriptions/mesoscale_eddy_parameterization.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -333,13 +336,13 @@ Embedded links point to more detailed namelist information in the appendix.
 	\hline
 	\hyperref[sec:nm_sec_config_use_standardGM]{config\_use\_standardGM} & If true, the standard GM for the tracer advection and mixing is turned on. \\
 	\hline
-	\hyperref[sec:nm_sec_config_standardGM_tracer_kappa]{config\_standardGM\_tracer\_kappa} & Coefficient of standard GM parametrization of eddy transport \\
+	\hyperref[sec:nm_sec_config_standardGM_tracer_kappa]{config\_standardGM\_tracer\_kappa} &  Coefficient of standard GM parametrization of eddy transport (Bolus component),  $\kappa$  \\
 	\hline
 	\hyperref[sec:nm_sec_config_Redi_kappa]{config\_Redi\_kappa} & The Redi diffusion coefficient \\
 	\hline
-	\hyperref[sec:nm_sec_config_gravWaveSpeed_trunc]{config\_gravWaveSpeed\_trunc} & Gravity wave speed truncation threshold for the vertical BVP \\
+	\hyperref[sec:nm_sec_config_gravWaveSpeed_trunc]{config\_gravWaveSpeed\_trunc} &  Gravity wave speed truncation threshold for the vertical stream function boundary value problem,  $c$  \\
 	\hline
-	\hyperref[sec:nm_sec_config_max_relative_slope]{config\_max\_relative\_slope} & Tapering of Redi diffusion coeffient occurs when relativeSlopeTopOfEdge is greater than config\_max\_relative\_slope \\
+	\hyperref[sec:nm_sec_config_max_relative_slope]{config\_max\_relative\_slope} & Tapering parameter for Redi diffusion coeffient.  Tapering occurs when relativeSlopeTopOfEdge is greater than config\_max\_relative\_slope \\
 	\hline
 \end{longtable}
 \end{center}
@@ -858,6 +861,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \subsection[global\_stats]{global\_stats}
 \label{subsec:forward_nm_tab_global_stats}
+\input{ocean/section_descriptions/global_stats.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -879,6 +883,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \subsection[zonal\_mean]{zonal\_mean}
 \label{subsec:forward_nm_tab_zonal_mean}
+\input{ocean/section_descriptions/zonal_mean.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -1662,19 +1667,243 @@ Embedded links point to more detailed variable information in the appendix.
 	\hline 
 	{\bf Name} & {\bf Description} (Continued) \endhead
 	\hline
-	\hyperref[subsec:var_sec_amGlobalStats_minGlobalStats]{minGlobalStats} & minimum over the domain of global statistics variables \\
+	\hyperref[subsec:var_sec_amGlobalStats_layerThicknessMin]{layerThicknessMin} & Minimum global value of layerThickness in ocean cells. \\
 	\hline
-	\hyperref[subsec:var_sec_amGlobalStats_maxGlobalStats]{maxGlobalStats} & maximum over the domain of global statistics variables \\
+	\hyperref[subsec:var_sec_amGlobalStats_normalVelocityMin]{normalVelocityMin} & Minimum global value of normalVelocity on ocean edges. \\
 	\hline
-	\hyperref[subsec:var_sec_amGlobalStats_sumGlobalStats]{sumGlobalStats} & summation over the domain of global statistics variables \\
+	\hyperref[subsec:var_sec_amGlobalStats_tangentialVelocityMin]{tangentialVelocityMin} & Minimum global value of tangentialVelocity on ocean edges. \\
 	\hline
-	\hyperref[subsec:var_sec_amGlobalStats_rmsGlobalStats]{rmsGlobalStats} & root mean square over the domain of global statistics variables \\
+	\hyperref[subsec:var_sec_amGlobalStats_layerThicknessEdgeMin]{layerThicknessEdgeMin} & Minimum global value of layerThicknessEdge on ocean edges. \\
 	\hline
-	\hyperref[subsec:var_sec_amGlobalStats_avgGlobalStats]{avgGlobalStats} & average over the domain of global statistics variables \\
+	\hyperref[subsec:var_sec_amGlobalStats_relativeVorticityMin]{relativeVorticityMin} & Minimum global value of relativeVorticity on ocean vertices. \\
 	\hline
-	\hyperref[subsec:var_sec_amGlobalStats_vertSumMinGlobalStats]{vertSumMinGlobalStats} & minimum vertical sum over the domain of global statistics variables \\
+	\hyperref[subsec:var_sec_amGlobalStats_enstrophyMin]{enstrophyMin} & Minimum global value of enstrophy in ocean cells. \\
 	\hline
-	\hyperref[subsec:var_sec_amGlobalStats_vertSumMaxGlobalStats]{vertSumMaxGlobalStats} & maximum vertical sum over the domain of global statistics variables \\
+	\hyperref[subsec:var_sec_amGlobalStats_kineticEnergyCellMin]{kineticEnergyCellMin} & Minimum global value of kineticEnergy in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_normalizedAbsoluteVorticityMin]{normalizedAbsoluteVorticityMin} & Minimum global value of normalizedAbsoluteVorticity on ocean vertices. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_pressureMin]{pressureMin} & Minimum global value of pressure in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_montgomeryPotentialMin]{montgomeryPotentialMin} & Minimum global value of the Montgomery Potential in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_vertVelocityTopMin]{vertVelocityTopMin} & Minimum global value of vertVelocityTop in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_vertAleTransportTopMin]{vertAleTransportTopMin} & Minimum global value of vertAleTransportTop in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_lowFreqDivergenceMin]{lowFreqDivergenceMin} & Minimum global value of lowFreqDivergence in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_highFreqThicknessMin]{highFreqThicknessMin} & Minimum global value of highFreqThickness in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_temperatureMin]{temperatureMin} & Minimum global value of temperature in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_salinityMin]{salinityMin} & Minimum global value of salinity in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_tracer1Min]{tracer1Min} & Minimum global value of tracer 1 in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_layerThicknessMax]{layerThicknessMax} & Maximum global value of layerThickness in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_normalVelocityMax]{normalVelocityMax} & Maximum global value of normalVelocity on ocean edges. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_tangentialVelocityMax]{tangentialVelocityMax} & Maximum global value of tangentialVelocity on ocean edges. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_layerThicknessEdgeMax]{layerThicknessEdgeMax} & Maximum global value of layerThicknessEdge on ocean edges. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_relativeVorticityMax]{relativeVorticityMax} & Maximum global value of relativeVorticity on ocean vertices. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_enstrophyMax]{enstrophyMax} & Maximum global value of enstrophy in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_kineticEnergyCellMax]{kineticEnergyCellMax} & Maximum global value of kineticEnergy in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_normalizedAbsoluteVorticityMax]{normalizedAbsoluteVorticityMax} & Maximum global value of normalizedAbsoluteVorticity on ocean vertices. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_pressureMax]{pressureMax} & Maximum global value of pressure in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_montgomeryPotentialMax]{montgomeryPotentialMax} & Maximum global value of the Montgomery Potential in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_vertVelocityTopMax]{vertVelocityTopMax} & Maximum global value of vertVelocityTop in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_vertAleTransportTopMax]{vertAleTransportTopMax} & Maximum global value of vertAleTransportTop in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_lowFreqDivergenceMax]{lowFreqDivergenceMax} & Maximum global value of lowFreqDivergence in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_highFreqThicknessMax]{highFreqThicknessMax} & Maximum global value of highFreqThickness in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_temperatureMax]{temperatureMax} & Maximum global value of temperature in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_salinityMax]{salinityMax} & Maximum global value of salinity in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_tracer1Max]{tracer1Max} & Maximum global value of tracer 1 in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_layerThicknessSum]{layerThicknessSum} & Accumulated global value of layerThickness in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_normalVelocitySum]{normalVelocitySum} & Accumulated global value of normalVelocity on ocean edges. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_tangentialVelocitySum]{tangentialVelocitySum} & Accumulated global value of tangentialVelocity on ocean edges. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_layerThicknessEdgeSum]{layerThicknessEdgeSum} & Accumulated global value of layerThicknessEdge on ocean edges. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_relativeVorticitySum]{relativeVorticitySum} & Accumulated global value of relativeVorticity on ocean vertices. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_enstrophySum]{enstrophySum} & Accumulated global value of enstrophy in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_kineticEnergyCellSum]{kineticEnergyCellSum} & Accumulated global value of kineticEnergy in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_normalizedAbsoluteVorticitySum]{normalizedAbsoluteVorticitySum} & Accumulated global value of normalizedAbsoluteVorticity on ocean vertices. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_pressureSum]{pressureSum} & Accumulated global value of pressure in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_montgomeryPotentialSum]{montgomeryPotentialSum} & Accumulated global value of the Montgomery Potential in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_vertVelocityTopSum]{vertVelocityTopSum} & Accumulated global value of vertVelocityTop in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_vertAleTransportTopSum]{vertAleTransportTopSum} & Accumulated global value of vertAleTransportTop in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_lowFreqDivergenceSum]{lowFreqDivergenceSum} & Accumulated global value of lowFreqDivergence in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_highFreqThicknessSum]{highFreqThicknessSum} & Accumulated global value of highFreqThickness in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_temperatureSum]{temperatureSum} & Accumulated global value of temperature in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_salinitySum]{salinitySum} & Accumulated global value of salinity in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_tracer1Sum]{tracer1Sum} & Accumulated global value of tracer 1 in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_layerThicknessRms]{layerThicknessRms} & Global root mean square value of layerThickness in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_normalVelocityRms]{normalVelocityRms} & Global root mean square value of normalVelocity on ocean edges. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_tangentialVelocityRms]{tangentialVelocityRms} & Global root mean square value of tangentialVelocity on ocean edges. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_layerThicknessEdgeRms]{layerThicknessEdgeRms} & Global root mean square value of layerThicknessEdge on ocean edges. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_relativeVorticityRms]{relativeVorticityRms} & Global root mean square value of relativeVorticity on ocean vertices. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_enstrophyRms]{enstrophyRms} & Global root mean square value of enstrophy in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_kineticEnergyCellRms]{kineticEnergyCellRms} & Global root mean square value of kineticEnergy in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_normalizedAbsoluteVorticityRms]{normalizedAbsoluteVorticityRms} & Global root mean square value of normalizedAbsoluteVorticity on ocean vertices. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_pressureRms]{pressureRms} & Global root mean square value of pressure in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_montgomeryPotentialRms]{montgomeryPotentialRms} & Global root mean square value of the Montgomery Potential in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_vertVelocityTopRms]{vertVelocityTopRms} & Global root mean square value of vertVelocityTop in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_vertAleTransportTopRms]{vertAleTransportTopRms} & Global root mean square value of vertAleTransportTop in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_lowFreqDivergenceRms]{lowFreqDivergenceRms} & Global root mean square value of lowFreqDivergence in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_highFreqThicknessRms]{highFreqThicknessRms} & Global root mean square value of highFreqThickness in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_temperatureRms]{temperatureRms} & Global root mean square value of temperature in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_salinityRms]{salinityRms} & Global root mean square value of salinity in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_tracer1Rms]{tracer1Rms} & Global root mean square value of tracer 1 in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_layerThicknessAvg]{layerThicknessAvg} & Average value of layerThickness in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_normalVelocityAvg]{normalVelocityAvg} & Average value of normalVelocity on ocean edges. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_tangentialVelocityAvg]{tangentialVelocityAvg} & Average value of tangentialVelocity on ocean edges. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_layerThicknessEdgeAvg]{layerThicknessEdgeAvg} & Average value of layerThicknessEdge on ocean edges. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_relativeVorticityAvg]{relativeVorticityAvg} & Average value of relativeVorticity on ocean vertices. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_enstrophyAvg]{enstrophyAvg} & Average value of enstrophy in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_kineticEnergyCellAvg]{kineticEnergyCellAvg} & Average value of kineticEnergy in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_normalizedAbsoluteVorticityAvg]{normalizedAbsoluteVorticityAvg} & Average value of normalizedAbsoluteVorticity on ocean vertices. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_pressureAvg]{pressureAvg} & Average value of pressure in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_montgomeryPotentialAvg]{montgomeryPotentialAvg} & Average value of the Montgomery Potential in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_vertVelocityTopAvg]{vertVelocityTopAvg} & Average value of vertVelocityTop in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_vertAleTransportTopAvg]{vertAleTransportTopAvg} & Average value of vertAleTransportTop in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_lowFreqDivergenceAvg]{lowFreqDivergenceAvg} & Average value of lowFreqDivergence in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_highFreqThicknessAvg]{highFreqThicknessAvg} & Average value of highFreqThickness in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_temperatureAvg]{temperatureAvg} & Average value of temperature in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_salinityAvg]{salinityAvg} & Average value of salinity in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_tracer1Avg]{tracer1Avg} & Average value of salinity in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_layerThicknessMinVertSum]{layerThicknessMinVertSum} & Minimum vertical sum of layerThickness in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_normalVelocityMinVertSum]{normalVelocityMinVertSum} & Minimum vertical sum of normalVelocity on ocean edges. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_tangentialVelocityMinVertSum]{tangentialVelocityMinVertSum} & Minimum vertical sum of tangentialVelocity on ocean edges. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_layerThicknessEdgeMinVertSum]{layerThicknessEdgeMinVertSu-}\hyperref[subsec:var_sec_amGlobalStats_layerThicknessEdgeMinVertSum]{m}  & Minimum vertical sum of layerThicknessEdge on ocean edges. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_relativeVorticityMinVertSum]{relativeVorticityMinVertSum} & Minimum vertical sum of relativeVorticity on ocean vertices. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_enstrophyMinVertSum]{enstrophyMinVertSum} & Minimum vertical sum of enstrophy in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_kineticEnergyCellMinVertSum]{kineticEnergyCellMinVertSum} & Minimum vertical sum of kineticEnergy in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_normalizedAbsoluteVorticityMinVertSum]{normalizedAbsoluteVorticityMin-}\hyperref[subsec:var_sec_amGlobalStats_normalizedAbsoluteVorticityMinVertSum]{VertSum}  & Minimum vertical sum of normalizedAbsoluteVorticity on ocean vertices. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_pressureMinVertSum]{pressureMinVertSum} & Minimum vertical sum of pressure in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_montgomeryPotentialMinVertSum]{montgomeryPotentialMinVertSu-}\hyperref[subsec:var_sec_amGlobalStats_montgomeryPotentialMinVertSum]{m}  & Minimum vertical sum of the Montgomery Potential in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_vertVelocityTopMinVertSum]{vertVelocityTopMinVertSum} & Minimum vertical sum of vertVelocityTop in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_vertAleTransportTopMinVertSum]{vertAleTransportTopMinVert-}\hyperref[subsec:var_sec_amGlobalStats_vertAleTransportTopMinVertSum]{Sum}  & Minimum vertical sum of vertAleTransportTop in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_lowFreqDivergenceMinVertSum]{lowFreqDivergenceMinVertSum} & Minimum vertical sum of lowFreqDivergence in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_highFreqThicknessMinVertSum]{highFreqThicknessMinVertSum} & Minimum vertical sum of highFreqThickness in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_temperatureMinVertSum]{temperatureMinVertSum} & Minimum vertical sum of temperature in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_salinityMinVertSum]{salinityMinVertSum} & Minimum vertical sum of salinity in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_tracer1MinVertSum]{tracer1MinVertSum} & Minimum vertical sum of tracer 1 in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_layerThicknessMaxVertSum]{layerThicknessMaxVertSum} & Maximum vertical sum of layerThickness in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_normalVelocityMaxVertSum]{normalVelocityMaxVertSum} & Maximum vertical sum of normalVelocity on ocean edges. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_tangentialVelocityMaxVertSum]{tangentialVelocityMaxVertSum} & Maximum vertical sum of tangentialVelocity on ocean edges. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_layerThicknessEdgeMaxVertSum]{layerThicknessEdgeMaxVertSu-}\hyperref[subsec:var_sec_amGlobalStats_layerThicknessEdgeMaxVertSum]{m}  & Maximum vertical sum of layerThicknessEdge on ocean edges. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_relativeVorticityMaxVertSum]{relativeVorticityMaxVertSum} & Maximum vertical sum of relativeVorticity on ocean vertices. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_enstrophyMaxVertSum]{enstrophyMaxVertSum} & Maximum vertical sum of enstrophy in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_kineticEnergyCellMaxVertSum]{kineticEnergyCellMaxVertSum} & Maximum vertical sum of kineticEnergy in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_normalizedAbsoluteVorticityMaxVertSum]{normalizedAbsoluteVorticityMax-}\hyperref[subsec:var_sec_amGlobalStats_normalizedAbsoluteVorticityMaxVertSum]{VertSum}  & Maximum vertical sum of normalizedAbsoluteVorticity on ocean vertices. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_pressureMaxVertSum]{pressureMaxVertSum} & Maximum vertical sum of pressure in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_montgomeryPotentialMaxVertSum]{montgomeryPotentialMaxVertS-}\hyperref[subsec:var_sec_amGlobalStats_montgomeryPotentialMaxVertSum]{um}  & Maximum vertical sum of the Montgomery Potential in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_vertVelocityTopMaxVertSum]{vertVelocityTopMaxVertSum} & Maximum vertical sum of vertVelocityTop in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_vertAleTransportTopMaxVertSum]{vertAleTransportTopMaxVert-}\hyperref[subsec:var_sec_amGlobalStats_vertAleTransportTopMaxVertSum]{Sum}  & Maximum vertical sum of vertAleTransportTop in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_lowFreqDivergenceMaxVertSum]{lowFreqDivergenceMaxVertSum} & Maximum vertical sum of lowFreqDivergence in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_highFreqThicknessMaxVertSum]{highFreqThicknessMaxVertSum} & Maximum vertical sum of highFreqThickness in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_temperatureMaxVertSum]{temperatureMaxVertSum} & Maximum vertical sum of temperature in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_salinityMaxVertSum]{salinityMaxVertSum} & Maximum vertical sum of salinity in ocean cells. \\
+	\hline
+	\hyperref[subsec:var_sec_amGlobalStats_tracer1MaxVertSum]{tracer1MaxVertSum} & Maximum vertical sum of tracer 1 in ocean cells. \\
 	\hline
 \end{longtable}
 \end{center}
