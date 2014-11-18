@@ -1,0 +1,267 @@
+\chapter{Configuring Model Input and Output}
+\label{chap:mpas_io}
+
+\newlength{\immindent}
+\settowidth{\immindent}{{\tt <immutable\_stream }}
+
+
+\newlength{\mutindent}
+\settowidth{\mutindent}{{\tt <stream }}
+
+The reading and writing of model fields in MPAS is handled by user-configurable {\em streams}. 
+A stream represents a fixed set of model fields, together with dimensions and attributes, that are
+all written or read together to or from the same file or set of files. Each MPAS model core may define
+its own set of default streams that it typically uses for reading initial conditions, for writing and reading
+restart fields, and for writing additional model history fields. Besides these default streams, users may define
+new streams to, e.g., write certain diagnostic fields at a higher temporal frequency than the usual model
+history fields.
+
+Streams are defined in XML configuration files that are created at build time for each model core. The name
+of this XML file is simply `streams.' suffixed with the name of the core. For example, the streams for
+the {\em sw} (shallow-water) core are defined in a file named `streams.sw'. An XML stream
+file may further reference other text files that contain lists of the model fields that are read or written in
+each of the streams defined in the XML stream file.
+
+Changes to the XML stream configuration file will take effect the next time an MPAS core is run; there is no need
+to re-compile after making modifications to the XML files. As described in the next section, it is therefore possible, e.g.,
+to change the interval at which a stream is written, the template for the filenames associated with a stream, or the 
+set of fields that are written to a stream, without the need to re-compile any code.
+
+Two classes of streams exist in MPAS: {\em immutable} streams and {\em mutable} streams. Immutable streams
+are those for which the set of fields that belong to the stream may not be modified at model run-time; however, it is
+possible to modify the interval at which the stream is read or written, the filename template describing the files
+containing the stream on disk, and several other parameters of the stream. In contrast, all aspects of mutable streams,
+including the set of fields that belong to the stream, may be modified at run-time. The motivation for the creation of
+two stream classes is the idea that an MPAS core may not function correctly if certain fields are not read in upon 
+model start-up or written to restart files, and it is therefore not reasonable for users to modify this set of required fields 
+at run-time. An MPAS core developer may choose to implement such streams as immutable streams. Since fields may
+not be added to an immutable stream at run-time, new immutable streams may not be defined at run-time, and the only 
+type of new stream that may be defined at run-time is the mutable stream type.
+
+\section{XML stream configuration files}
+\label{sec:xml_stream_format} 
+
+The XML stream configuration file for an MPAS core always has a parent XML {\em element} named {\tt streams}, within which 
+individual streams are defined:
+
+\vspace{12pt}
+\noindent {\tt <streams>} \newline
+\newline
+\hspace*{1cm}... one or more stream definitions ... \newline
+\newline
+\noindent {\tt </streams>} \newline
+\vspace{12pt}
+
+Immutable streams are defined with the {\tt immutable\_stream} element, and mutable streams are defined with the {\tt stream}
+element: 
+
+\vspace{12pt}
+\noindent {\tt <immutable\_stream name="initial\_conditions"} \newline
+\hspace*{\immindent}{\tt type="input"} \newline
+\hspace*{\immindent}{\tt filename\_template="init.nc"} \newline
+\hspace*{\immindent}{\tt input\_interval="initial\_only"} \newline
+\hspace*{\immindent}{\tt />} \newline
+\vspace{12pt} \newline
+\noindent {\tt <stream name="history"} \newline
+\hspace*{\mutindent}{\tt type="output"} \newline
+\hspace*{\mutindent}{\tt filename\_template="output.\$Y-\$M-\$D\_\$h.\$m.\$s.nc"} \newline
+\hspace*{\mutindent}{\tt output\_interval="6:00:00" />} \newline
+\newline
+\hspace*{1cm}... model fields belonging to this stream ... \newline
+\newline
+\noindent {\tt </stream>} \newline
+\vspace{12pt}
+
+As shown in the example stream definitions, above, both classes of stream have the following required attributes:
+
+\begin{itemize}
+\item {\tt name} --- A unique name used to refer to the stream.
+\item {\tt type} --- The type of stream, either {\tt "input"}, {\tt "output"}, {\tt "input;output"}, or {\tt "none"}. A stream may be both an input
+and an output stream (i.e., {\tt "input;output"}) if, for example, it is read once at model start-up to provide initial conditions and thereafter written 
+periodically to provide model checkpoints. A stream may be defined as neither input nor output (i.e., {\tt "none"}) for the purposes of defining a 
+set of fields for inclusion other streams. Note that, for immutable streams, the type attribute may not be changed at run-time.
+\item {\tt filename\_template} --- The template for files that exist or will be created by the stream. The filename template may include any of the
+following variables, which are expanded based on the simulated time at which files are first created.
+\begin{itemize}
+\item {\tt \$Y} --- Year
+\item {\tt \$M} --- Month
+\item {\tt \$D} --- Day of the month
+\item {\tt \$d} --- Day of the year
+\item {\tt \$h} --- Hour
+\item {\tt \$m} --- Minute
+\item {\tt \$s} --- Second
+\end{itemize}
+A filename template may include either a relative or an absolute path, in which case MPAS will attempt to create any directories 
+in the path that do not exist, subject to filesystem permissions.
+\item {\tt input\_interval} --- For streams that have type {\tt "input"} or {\tt "input;output"}, the interval, beginning at the model initial time,
+at which the stream will be read. Possible values include a time interval specification in the format {\tt "YYYY-MM-DD\_hh:mm:ss"}; the value 
+{\tt "initial\_only"}, which specifies that the stream is read only once at the model initial time; or the value {\tt "none"}, which specifies that 
+the stream is not read during a model run.
+\item {\tt output\_interval} --- For streams that have type {\tt "output"} or {\tt "input;output"}, the interval, beginning at the model initial time,
+at which the stream will be written. Possible values include a time interval specification in the format {\tt "YYYY-MM-DD\_hh:mm:ss"}; the value 
+{\tt "initial\_only"}, which specifies that the stream is written only once at the model initial time; or the value {\tt "none"}, which specifies that 
+the stream is not written during a model run.
+\end{itemize}
+
+Finally, the set of fields that belong to a mutable stream may be specified with any combination of the following elements. Note that, for 
+immutable streams, no fields are specified at run-time in the XML configuration file.
+
+\begin{itemize}
+\item {\tt var} --- Associates the specified variable with the stream. The variable may be any of those defined in an MPAS core's Registry.xml file, but may
+not include individual constituent arrays from a var\_array.
+\item {\tt var\_array} --- Associates all constituent variables in a var\_array, defined in an MPAS core's Registry.xml file, with the stream.
+\item {\tt var\_struct} --- Associates all variables in a var\_struct, defined in an MPAS core's Registry.xml file, with the stream.
+\item {\tt stream} --- Associates all explicitly associated fields in the specified stream with the stream; streams are not recursively included.
+\item {\tt file} --- Associates all variables listed in the specified text file, with one field per line, with the stream.
+\end{itemize}
+
+\section{Optional stream attributes}
+\label{sec:optional_stream_atts} 
+
+Besides the required attributes described in the preceding section, several additional, optional attributes may be added to
+the definition of a stream.
+
+\begin{itemize}
+\item {\tt filename\_interval} --- The interval between the timestamps used in the construction of the names of files associated with
+a stream. Possible values include a time interval specification in the format {\tt "YYYY-MM-DD\_hh:mm:ss"}; the value {\tt "none"}, indicating
+that only one file containing all times is associated with the stream; the value {\tt "input\_interval"} that, for input type streams, indicates that
+each time to be read from the stream will come from a unique file; or the value {\tt "output\_interval"} that, for output type streams, indicates 
+that each time to be written to the stream will go to a unique file whose name is based on the timestamp of the data being written. The default
+value is {\tt "input\_interval"} for input type streams and {\tt "output\_interval"} for output type streams. For streams of type {\tt "input;output"}, the
+default filename interval is {\tt "input\_interval"} if the input interval is an interval (i.e., not {\tt "initial\_only"}), or {\tt "output\_interval"} otherwise. 
+Refer to Section \ref{sec:filename_interval_example}
+for an example of the use of the filename\_interval attribute.
+\item {\tt reference\_time} --- A time that is an integral number of filename intervals from the timestamp of any file associated with the stream.
+The default value is the start time of the model simulation. Refer to Section \ref{sec:reference_time_example} for an example of 
+the use of the reference\_time attribute.
+\item {\tt clobber\_mode} --- Specifies how a stream should handle attempts to write to a file that already exists. Possible values
+for the mode include:
+\begin{itemize}
+\item {\tt "overwrite"} --- The stream is allowed to overwrite records in existing files and to append new records 
+to existing files; records not explicitly written to are left untouched.
+\item {\tt "truncate"} or {\tt "replace\_files"} --- The stream is allowed to overwrite existing files, which are first truncated 
+to remove any existing records; this is equivalent to replacing any existing files with newly created files of the same name.
+\item {\tt "append"} --- The stream is only allowed to append new records to existing files; existing records may not be overwritten.
+\item {\tt "never\_modify"} --- The stream is not allowed to modify existing files in any way.
+\end{itemize}
+The default clobber mode for streams is {\tt "never\_modify"}. Refer to Section \ref{sec:append_example} for an example of the use of
+the clobber\_mode attribute.
+\item {\tt precision} --- The precision with which real-valued fields will be written or read in a stream. Possible values include 
+{\tt "single"} for 4-byte real values, {\tt "double"} for 8-byte real values, or {\tt "native"}, which specifies that real-valued fields
+will be written or read in whatever precision the MPAS core was compiled. The default value is {\tt "native"}. Refer to Section \ref{sec:filename_interval_example}
+for an example of the use of the precision attribute.
+\item {\tt packages} --- A list of packages attached to the stream. A stream will be active (i.e., read or written) only if at least one of 
+the packages attached to it is active, or if no packages at all are attached. Package names are provided as a semi-colon-separated
+list. Note that packages may only be defined in an MPAS core's Registry.xml file at build time. By default, no packages are attached
+to a stream.
+\end{itemize}
+
+\section{Stream definition examples}
+\label{sec:stream_example} 
+
+This section provides several example streams that make use of the optional stream attributes described in Section \ref{sec:optional_stream_atts}.
+All examples are of output streams, since it is more likely that a user will need to write additional fields than to read additional fields, which a model would need to be aware of; however, the concepts that are illustrated here translate directly to input streams as well.
+
+\subsection{Example: a single-precision output stream with one month of data per file}
+\label{sec:filename_interval_example}
+
+In this example, the optional attribute specification {\tt filename\_interval="01-00\_00:00:00"} is added to force a new
+output file to be created for the stream every month. Note that the general format for time interval specifications is {\tt YYYY-MM-DD\_hh:mm:ss},
+where any leading terms can be omitted; in this case, the year part of the interval is omitted. To reduce the file size, the specification
+{\tt precision="single"} is also added to force real-valued fields to be written as 4-byte floating-point values, rather than the default of 8 bytes.
+
+\vspace{12pt}
+\noindent {\tt <stream name="diagnostics"} \newline
+\hspace*{\mutindent}{\tt type="output"} \newline
+\hspace*{\mutindent}{\tt filename\_template="diagnostics.\$Y-\$M.nc"} \newline
+\hspace*{\mutindent}{\tt filename\_interval="01-00\_00:00:00"} \newline
+\hspace*{\mutindent}{\tt precision="single"} \newline
+\hspace*{\mutindent}{\tt output\_interval="6:00:00" />} \newline
+\newline
+\hspace*{1cm}{\tt <var name="u10"/>} \newline
+\hspace*{1cm}{\tt <var name="v10"/>} \newline
+\hspace*{1cm}{\tt <var name="t2"/>} \newline
+\hspace*{1cm}{\tt <var name="q2"/>} \newline
+\newline
+\noindent {\tt </stream>} \newline
+\vspace{12pt}
+
+The only fields that will be written to this stream are the hypothetical 10-m diagnosed wind components, the 2-m temperature, 
+and the 2-m specific humidity variables. Also, note that the filename template only includes the year and month from the model 
+valid time; this can be problematic when the simulation starts in the middle of a month, and a solution for this problem 
+is illustrated in the example of Section \ref{sec:reference_time_example}.
+
+\subsection{Example: appending records to existing output files}
+\label{sec:append_example}
+
+By default, streams will never modify existing files whose filenames match the name of a file that would otherwise be written
+during the course of a simulation. However, when restarting a simulation that is expected to add more records to existing output 
+files, it can be useful to instruct the MPAS I/O system to append these records, thereby modifying existing files. This may be 
+accomplished with the {\tt clobber\_mode} attribute.
+
+\vspace{12pt}
+\noindent {\tt <stream name="diagnostics"} \newline
+\hspace*{\mutindent}{\tt type="output"} \newline
+\hspace*{\mutindent}{\tt filename\_template="diagnostics.\$Y-\$M.nc"} \newline
+\hspace*{\mutindent}{\tt filename\_interval="01-00\_00:00:00"} \newline
+\hspace*{\mutindent}{\tt precision="single"} \newline
+\hspace*{\mutindent}{\tt clobber\_mode="append"} \newline
+\hspace*{\mutindent}{\tt output\_interval="6:00:00" />} \newline
+\newline
+\hspace*{1cm}{\tt <var name="u10"/>} \newline
+\hspace*{1cm}{\tt <var name="v10"/>} \newline
+\hspace*{1cm}{\tt <var name="t2"/>} \newline
+\hspace*{1cm}{\tt <var name="q2"/>} \newline
+\newline
+\noindent {\tt </stream>} \newline
+\vspace{12pt}
+
+In general, if MPAS were to attempt to write a record at a time that already existed in an output file, a clobber\_mode 
+of `append' would not permit the write to take place, since this would modify existing data; in `append' mode, only new
+records may be added. However, due to a peculiarity in the implementation of the `append' clobber mode, it may be 
+possible for an output file to contain duplicate times. This can happen when the first record that is appended to 
+an existing file has a timestamp not matching any in the file, after which, any record that is written --- regardless of 
+whether its timestamp matches one already in the file --- will be appended to the end of the file. This situation may arise, 
+for example, when restarting a model simulation with a shorter {\tt output\_interval} than was used in the original model simulation 
+with an MPAS core that does not write the first output time for restart runs.
+
+\subsection{Example: referencing filename intervals to a time other than the start time}
+\label{sec:reference_time_example}
+
+The example stream of the previous sections creates a new file each month during the simulation, and the filenames
+contain only the year and month of the timestamp when the file was created. If a simulation begins at 00 UTC on the
+first day of a month, then each file in the diagnostic stream will contain only output times that fall within the month
+in the filename. However, if a simulation were to begin in the middle of a month --- for example, the month of June, 2014 --- 
+the first diagnostics output file would have a filename of `diagnostics.2014-06.nc', but rather than containing only output
+fields valid in June, it would contain all fields written between the middle of June and the middle of July, at which point
+one month of simulation would have elapsed, and a new output file, `diagnostics.2014-07.nc', would be created.
+
+In order to ensure that the file `diagnostics.2014-06.nc' contained only data from June 2014, the {\tt reference\_time}
+attribute may be added such that the day, hour, minute, and second in the date and time represent the first day of the month
+at 00 UTC. In this example, the year and month of the reference time are not important, since the purpose of the reference time
+here is to describe to MPAS that the monthly filename interval begins (i.e., is referenced to) the first day of the month.
+
+\vspace{12pt}
+\noindent {\tt <stream name="diagnostics"} \newline
+\hspace*{\mutindent}{\tt type="output"} \newline
+\hspace*{\mutindent}{\tt filename\_template="diagnostics.\$Y-\$M.nc"} \newline
+\hspace*{\mutindent}{\tt filename\_interval="01-00\_00:00:00"} \newline
+\hspace*{\mutindent}{\tt reference\_time="2014-01-01\_00:00:00"} \newline
+\hspace*{\mutindent}{\tt precision="single"} \newline
+\hspace*{\mutindent}{\tt clobber\_mode="append"} \newline
+\hspace*{\mutindent}{\tt output\_interval="6:00:00" />} \newline
+\newline
+\hspace*{1cm}{\tt <var name="u10"/>} \newline
+\hspace*{1cm}{\tt <var name="v10"/>} \newline
+\hspace*{1cm}{\tt <var name="t2"/>} \newline
+\hspace*{1cm}{\tt <var name="q2"/>} \newline
+\newline
+\noindent {\tt </stream>} \newline
+\vspace{12pt}
+
+In general, the components of a timestamp, {\tt YYYY-MM-DD\_hh:mm:ss}, that are less significant than (i.e., to the right of) 
+those contained in a filename template are important in a reference\_time. For example, with a {\tt filename\_template} that contained
+only the year, the month component of the {\tt reference\_time} would become important to identify the month of the year on which
+the yearly basis for filenames would begin.
+
+

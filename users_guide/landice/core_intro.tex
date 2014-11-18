@@ -13,11 +13,19 @@ Within a column, at any point in the model domain in map view, the depth-depende
 
 \begin{equation}
     \label{sia}
-	\vect{u}(z) = -\frac{1}{2} A (\rho g )^3 (\nabla s)^3 \left[H^4 - (h-z)^4 \right]
+	\vect{u}(z) = -\frac{1}{2} A (\rho g )^n |\nabla s|^{n-1} \nabla s \left[H^{n+1} - (h-z)^{n+1} \right]
 \end{equation}
-where $\vect{u}(z)$ is the horizontal velocity vector, $A$ is the flow rate factor (primarily a function of ice temperature), $\rho$ is the density of ice, $g$ is acceleration due to gravity, $s$ is the ice surface elevation, $H$ is ice thickness, and $z$ is the vertical coordinate. Velocities are (nonlinearly) proportional to both the ice thickness and the ice surface slope.
+where $\vect{u}(z)$ is the horizontal velocity vector, $A$ is the flow rate factor (primarily a function of ice temperature), $n$ is the Glen flow law exponent (typically taken as 3), $\rho$ is the density of ice, $g$ is acceleration due to gravity, $s$ is the ice surface elevation, $H$ is ice thickness, and $z$ is the vertical coordinate. Velocities are (nonlinearly) proportional to both the ice thickness and the ice surface slope.
 
-Velocities and fluxes are calculated on the midpoint of Voronoi cell edges.  Surface slope is calculated on cell edges based on surface elevation at adjacent cell centers.  Ice thickness on edges is calculated as the average of the adjacent cell center values (2nd-order approximation).
+Velocities and fluxes are calculated on the midpoint of Voronoi cell edges.  
+The normal component of surface slope is calculated on cell edges 
+using surface elevation at adjacent cell centers.  
+The tangential component of surface slope is calculated on cell edges using 
+surface elevation at adjacent vertices.  
+The surface elevation at vertices is calculated from the values at adjacent 
+cell centers using barycentric interpolation.
+Ice thickness on edges is calculated as the average of the 
+adjacent cell center values (2nd-order approximation).
 
 
 \section{Time Integration}

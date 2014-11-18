@@ -486,14 +486,42 @@ We now change to longidude-latitude-radial coordinates using the variables $(\la
  - \frac{1}{2r}u_\phi  & 0
 \end{array}\right].
 \end{eqnarray}
-Although this seems like a straight forward substitution, some of the signs are not correct.  Going back the the derivation of the stress tensor in curvilinear coordinates \cite[Appendix 2]{Batchelor67book}, as summarized in \cite[Section 2b]{Hunke_Dukowicz02mwr}, $\xi_1=\lambda$ (longitude), $\xi_2=\phi$ (latitude), $\xi_3=r$.  Then the scale factors are $h_1=r \cos\phi$, $h_2=r$, and $h_3=1$, and the strain rate is 
+Although this seems like a straight forward substitution, some of the signs are not correct.  Going back the the derivation of the stress tensor in curvilinear coordinates \cite[Appendix 2, page 600]{Batchelor67book}, as summarized in \cite[Section 2b]{Hunke_Dukowicz02mwr}, 
 \begin{eqnarray}
-\epsilon_{11}&=&\frac{1}{h_1} \frac{\partial u}{\partial \xi_1} + \frac{1}{h_1 h_2}\frac{\partial h_1}{\partial \xi_2} v \\
-\epsilon_{22}&=&\frac{2}{h_2} \frac{\partial v}{\partial \xi_2} + \frac{2}{h_1 h_2}\frac{\partial h_2}{\partial \xi_1} u \\
-\epsilon_{12}&=&\frac{h_1}{h_2} \frac{\partial }{\partial \xi_2}\left(\frac{u}{h_1}\right) 
-           + \frac{h_2}{h_1} \frac{\partial }{\partial \xi_1}\left(\frac{v}{h_2}\right).
+\epsilon_{11}&=&\frac{1}{h_1}\frac{\partial u_1 }{\partial \xi_1} + \frac{u_2}{h_1 h_2}\frac{\partial h_1 }{\partial \xi_2} + \frac{u_3}{h_3 h_1}\frac{\partial h_1 }{\partial \xi_3} \\
+\epsilon_{22}&=&\frac{1}{h_2}\frac{\partial u_2 }{\partial \xi_2} + \frac{u_3}{h_2 h_3}\frac{\partial h_2 }{\partial \xi_3} + \frac{u_1}{h_1 h_2}\frac{\partial h_2 }{\partial \xi_1} \\
+\epsilon_{33}&=&\frac{1}{h_3}\frac{\partial u_3 }{\partial \xi_3} + \frac{u_1}{h_3 h_1}\frac{\partial h_3 }{\partial \xi_1} + \frac{u_2}{h_2 h_3}\frac{\partial h_3 }{\partial \xi_2} \\
+\epsilon_{12}&=&\frac{h_2}{2h_1} \frac{\partial }{\partial \xi_1}\left(\frac{u_2}{h_2}\right) + \frac{h_1}{2h_2} \frac{\partial }{\partial \xi_2}\left(\frac{u_1}{h_1}\right) \\
+\epsilon_{23}&=&\frac{h_3}{2h_2} \frac{\partial }{\partial \xi_2}\left(\frac{u_3}{h_3}\right) + \frac{h_2}{2h_3} \frac{\partial }{\partial \xi_3}\left(\frac{u_2}{h_2}\right) \\
+\epsilon_{31}&=&\frac{h_1}{2h_3} \frac{\partial }{\partial \xi_3}\left(\frac{u_1}{h_1}\right) + \frac{h_3}{2h_1} \frac{\partial }{\partial \xi_1}\left(\frac{u_3}{h_3}\right) 
 \end{eqnarray}
-The correct strain rate tensor in spherical coordinates is then
+where subscripts after commas are derivatives.  For the longidude-latitude-radial coordinates, set $u_3=0$, $\xi_1=\lambda$ (longitude), $\xi_2=\phi$ (latitude), $\xi_3=r$.  Then the scale factors are $h_1=r \cos\phi$, $h_2=r$, and $h_3=1$, and the strain rate is 
+\begin{eqnarray}
+\epsilon_{11}&=&\frac{1}{r \cos\phi} \frac{\partial u_\lambda }{\partial \lambda} + \frac{u_\phi}{r \cos\phi r}\frac{\partial r \cos\phi }{\partial \phi} \\
+\epsilon_{22}&=&\frac{1}{r} \frac{\partial u_\phi }{\partial \phi} + \frac{u_\lambda}{r \cos\phi r}\frac{\partial r }{\partial \lambda} \\
+\epsilon_{33}&=& \frac{u_1}{ r \cos\phi}\frac{\partial 1 }{\partial \lambda} + \frac{u_2}{r }\frac{\partial 1 }{\partial \phi} \\
+\epsilon_{12}&=&\frac{r}{2r \cos\phi} \frac{\partial }{\partial \lambda}\left(\frac{u_\phi}{r}\right) + \frac{r \cos\phi}{2r} \frac{\partial }{\partial \phi}\left(\frac{u_\lambda}{r \cos\phi}\right) \\
+\epsilon_{23}&=&\frac{r}{2} \frac{\partial }{\partial r}\left(\frac{u_\phi}{r}\right) \\
+\epsilon_{31}&=&\frac{r \cos\phi}{2} \frac{\partial }{\partial r}\left(\frac{u_\lambda}{r \cos\phi}\right) 
+\end{eqnarray}
+
+The strain rate tensor in spherical coordinates is then
+\begin{eqnarray}
+\epsilon = \left[\begin{array}{ccc}
+\displaystyle
+\frac{1}{r\cos\phi} \left( u_{\lambda,\lambda} -  u_\phi\sin\phi \right) &  & (sym) \\
+\displaystyle
+\frac{1}{2r}\left(u_{\lambda,\phi} + u_\lambda \tan\phi  +  \frac{1}{\cos\phi}u_{\phi,\lambda}  \right)
+\displaystyle
+   & \frac{1}{r} u_{\phi,\phi}  & \\
+\displaystyle
+ - \frac{1}{2r}u_\lambda &  
+\displaystyle
+ - \frac{1}{2r}u_\phi  & 0
+\end{array}\right].
+\end{eqnarray}
+
+In my numerical simulations, I found that $\epsilon_{23}$ and $\epsilon_{31}$ were off by a factor of three from this derivation.  That is, my numerical solutions converged to
 \begin{eqnarray}
 \epsilon = \left[\begin{array}{ccc}
 \displaystyle
