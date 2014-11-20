@@ -1,6 +1,6 @@
 There are several formulations for the pressure gradient.
 
-\subsection{ config\_pressure\_gradient\_type = 'pressure\_and\_zmid'}
+{\bf config\_pressure\_gradient\_type = 'pressure\_and\_zmid'}\\
 This is the standard setting, and may be used for most configurations.  Here the pressure gradient terms in the momentum equation will have the form
 \begin{equation}
 \label{ocean:\mode_grad p}
@@ -8,7 +8,7 @@ This is the standard setting, and may be used for most configurations.  Here the
 \end{equation}
 where $\nabla_z$ is the horizonal gradient along a constant $z$ surface and $\nabla_s$ is the gradient along a layer, which is a natural way to compute horizontal derivatives within the model.  Note that if a layer's depth is constant in the horizontal, then the second term is zero.
 
-\subsection{ config\_pressure\_gradient\_type = 'Jacobian\_from\_density'}
+{\bf config\_pressure\_gradient\_type = 'Jacobian\_from\_density'}\\
 In this formulation the pressure gradient is rewritten in terms of a sea surface height gradient and the vertical integral of a Jacobian,
 \begin{eqnarray}
 \label{ocean:\mode_grad p Jacobian}
@@ -35,7 +35,7 @@ where $z_c$ is the depth for the weighted Jacobian method by \citet{Song98mwr}, 
 \label{oceanFigure:\mode_common level}
 \end{figure}
 
-\subsection{ config\_pressure\_gradient\_type = 'Jacobian\_from\_TS'}
+{\bf config\_pressure\_gradient\_type = 'Jacobian\_from\_TS'}\\
 This formulation is the same as the previous, except that the Jacobian is computed using a linear expansion in potential temperature and salinity.  This option must be used when layers are extremely tilted, such as with sigma coordinates or under an ice shelf, in combination with a nonlinear equation of state.
 \begin{eqnarray}
  {\mathcal J}(\rho,z) &=& -\alpha  {\mathcal J}(\theta,z) + \beta  {\mathcal J}(S,z), 
@@ -47,7 +47,7 @@ where
 \end{eqnarray}
 are the thermal expansion and saline contraction coefficients, computed at a particular  $\left(\theta, S, p\right)$ by the equation of state \citep[eqn 7.16]{Shchepetkin_McWilliams03jgr}.
 
-\subsection{ config\_pressure\_gradient\_type = 'MontgomeryPotential'}
+{\bf config\_pressure\_gradient\_type = 'MontgomeryPotential'}\\
 For isopycnal vertical coordinates, the user may choose to use the Montgomery potential,
 \begin{equation}
 \label{ocean:\mode_Montgomery Potential}
@@ -59,7 +59,7 @@ and replace the pressure terms above with
 \end{equation}
 See \citet[section 2.1]{Higdon05jcp} for details on the derivation and computation of the Montgomery potential.
 
-% \subsection{ config\_pressure\_gradient\_type = 'MontgomeryPotential\_and\_density'}
+% {\bf config\_pressure\_gradient\_type = 'MontgomeryPotential\_and\_density'}
 % Same as previous, but this formulation includes an extra term,
 % \begin{equation}
 % - \nabla_s M + p \nabla_s\left(\frac{1}{\rho} \right),
