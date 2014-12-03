@@ -6,12 +6,17 @@
 \usepackage{rotating}
 
 \textwidth=7.0in
-\textheight=9.8in
+\textheight=8.75in
 \topmargin=-0.5in
 \headsep=0.0in
-\headheight=0.0in
+\headheight=0.5in
 \oddsidemargin=-0.25in
 \evensidemargin=-0.25in
+
+\usepackage{array}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 
 \begin{document}
 {\bf Proposed repository workflow for MPAS cores within LANL.}\\
@@ -37,58 +42,116 @@ Mark Petersen\\
 
 \clearpage
 
+{\bf Definitions:}\\
+
 Developer: designs, codes, and tests new features.  Responsible for their own feature branches.
 
 Maintainer: developer, plus responsible for shared branches (release, development, and private branches)\\
 
-{\bf Workflow:}\\
+{\bf Branches:}
+\begin{enumerate}
+\item \verb| MPAS_Dev/develop|  Framework development branch and release branch.  Framework-level changes are branched from and merged back into here.   All commits to this branch are releasable.  Public releases are tagged from this branch.
 
- \begin{tabular}[c]{l|l}
-{\bf developer} & {\bf maintainer} \\
-\hline 
- Start a new feature & \\
-\includegraphics[width=3.5in]{f/MPASworkflow_1.pdf}& \\
-\verb| git checkout MPAS-Dev/ocean/develop | & \\
-\verb| git branch --no-track my_branch|  & \\
-\verb| git push my_fork my_branch|  & \\
-\hline 
- Commit changes to feature & \\
-\includegraphics[width=3.5in]{f/MPASworkflow_2.pdf}& \\
-\hline 
- Completion of releasable feature & \\
-\includegraphics[width=3.5in]{f/MPASworkflow_3.pdf}& \\
-\hline 
- Completion of private feature & \\
-\includegraphics[width=3.5in]{f/MPASworkflow_4.pdf}& \\
-\hline 
- Alterations of releasable feature after completion & \\
-\hline 
- Alterations of private feature after completion & \\
-\hline 
- Feature changes from private to releasable & \\
-\hline 
- Keep private branched synchronized with & \\
- development branch  & \\
+\item \verb| MPAS_Dev/core/develop|  Core development branch.  Core-level changes are branched from and merged back into here.  All commits to this branch are releasable.
+
+\item \verb| MPAS_Dev/core/private_v*|  Internal LANL branch.  This ideally is the core/develop branch with completed private features added in, but the branch will sometimes lag behind core/develop.  These branches are permanent, and are intended for simulations within LANL where private features are needed.
+
+\item \verb| core/feature_branch|  Feature development branch, private to the developer, and on his/her fork.  These are not permanent, and are intended for eventual merger into the development or private branch after completion.
+\end{enumerate}
+
+{\bf Workflow:}
+
+\begin{enumerate}
+\item Start a new feature
+
+ \begin{tabular}[c]{L{3.25in}|L{3.25in}}
+developer & maintainer \\
+\hline
+\includegraphics[width=3.25in]{f/MPASworkflow_1.pdf} \\
+\\
+\verb| git checkout MPAS-Dev/ocean/develop | \\
+\verb| git branch --no-track my_branch|  \\
+\verb| git push my_fork my_branch|  & 
+ \end{tabular}
+\item Commit changes to feature 
+
+ \begin{tabular}[c]{L{3.25in}|L{3.25in}}
+developer & maintainer \\
+\hline
+\includegraphics[width=3.25in]{f/MPASworkflow_2.pdf} \\
+\verb| git commit -a|  \\
+\verb| git push my_fork my_branch|  
  \end{tabular}
 
-%  \begin{tabular}[c]{c|c}
-% \hspace{3in} & \hspace{3in}\\
-% developer & maintainer 
-%  \end{tabular}
-% \begin{enumerate}
-% \item Start a new feature \\
-%  \begin{tabular}[c]{c|c}
-% \hspace{3in} & \hspace{3in}\\
-% developer & maintainer 
-%  \end{tabular}
-% \item Commit changes to feature & \\
-% \item Completion of releasable feature
-% \item Completion of private feature
-% \item Alterations of releasable feature after completion
-% \item Alterations of private feature after completion
-% \item Feature changes from private to releasable
-% \item Keep private branched synchronized with development branch 
-% \end{enumerate}
+\clearpage
+\item Completion of releasable feature
+
+\begin{centering}
+\end{centering}
+ \begin{tabular}[c]{L{3.25in}|L{3.25in}}
+developer & maintainer \\
+\hline
+\includegraphics[width=3.25in]{f/MPASworkflow_3d.pdf} & \includegraphics[width=3.25in]{f/MPASworkflow_3.pdf} \\
+All development and testing must be complete.
+Create a test merge branch: \\
+\verb| git branch --no-track test_merge|  \\
+\verb| git merge MPAS-Dev/ocean/develop|  \\
+Test, resolve conflicts \\
+\verb| git commit -a|  \\
+\verb| git push my_fork test_merge| \\
+Create pull request from \verb|my_branch| to \verb|MPAS-Dev/ocean/develop| at github.com \\
+& merge feature branch onto ocean/develop \\
+& merge ocean/develop onto ocean/private\_v* (if desired)\\
+delete local and remote feature branches: \\
+\verb| git branch -D my_branch|  \\
+\verb| git branch -D test_merge|  \\
+\verb| git push my_fork :my_branch| \\
+\verb| git push my_fork :test_merge| \\
+ \end{tabular}
+
+\clearpage
+\item Completion of private feature
+
+\begin{centering}
+\end{centering}
+ \begin{tabular}[c]{L{3.25in}|L{3.25in}}
+developer & maintainer \\
+\hline
+\includegraphics[width=3.25in]{f/MPASworkflow_4d.pdf} & \includegraphics[width=3.25in]{f/MPASworkflow_4.pdf} \\
+All development and testing must be complete.
+Create a test merge branch: \\
+\verb| git branch --no-track test_merge|  \\
+\verb| git merge MPAS-Dev/ocean/private_v*|  \\
+Test, resolve conflicts \\
+\verb| git commit -a|  \\
+\verb| git push my_fork test_merge| \\
+Create pull request from \verb|my_branch| to both \verb|MPAS-Dev/ocean/develop| and \verb|MPAS-Dev/ocean/private_v*| at github.com. \\
+& merge feature branch onto ocean/private\_v* \\
+delete local and remote test branches: \\
+\verb| git branch -D test_merge|  \\
+\verb| git push my_fork :test_merge| \\
+ \end{tabular}
+
+Note that for a private feature, the feature branch is not deleted, and the pull request to ocean/develop remains open.  This is a way to track completed private features, which are not on ocean/develop.
+
+\item Alterations of releasable feature after completion\\
+Treat this as a new feature or bug fix, follow steps 1--3.
+
+\item Alterations of private feature after completion\\
+Commit additional changes to feature branch per step 2, then merge to the private branch per step 4.  If ocean/develop has changed substantially, the developer may prefer to rebase the feature branch on ocean/develop, or just completely recreate it, repeating step 1 and deleting the old feature branch.
+
+\item Feature changes from private to releasable \\
+Merge feature onto ocean/develop per step 3.  Again, if ocean/develop has changed substantially, the developer may prefer to rebase the feature branch on ocean/develop, or just completely recreate it, repeating step 1 and deleting the old feature branch.
+
+\item Keep private branch synchronized with development branch.
+
+Method 1: Merge ocean/develop onto ocean/private\_v*.  This may be done when new features on ocean/develop are needed on ocean/private\_v*, as in step 3 above.
+
+Method 2: Create new ocean/private\_v*, and then merge in all completed private features.  This will be done rarely, like once every release cycle or less, but is important for compatibility of private feature branches between ocean/develop and ocean/private\_v*.  Maintainers create the new branch, but developers are responsibile for updating their private feature branches to the new version, if desired, essentially repeating step 4 above.
+
+All ocean/private\_v* branches are kept permanently on a private branch at \verb|MPAS-Dev|, and are available to all LANL users.  LANL users and developers may remain on an older version of ocean/private\_v* to complete particular projects, if desired.
+
+\end{enumerate}
 
 
 
