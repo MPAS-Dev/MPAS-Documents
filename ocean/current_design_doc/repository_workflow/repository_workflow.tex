@@ -19,25 +19,25 @@
 \newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 
 \begin{document}
-{\bf Proposed repository workflow for MPAS cores within LANL.}\\
-December 12, 2014\\
+{\bf Proposed repository workflow for MPAS-Ocean.}\\
+December 4, 2014\\
 Mark Petersen\\
 
 {\bf Requirements}
 \begin{enumerate}
 \item Upon completion, a new feature may be labeled as releasable or private.
-\item Releasable features will be available to the public in the next release that the core participates in.
+\item Releasable features will be available to the public in the next release that the ocean core participates in.
 \item Private features will be available on the private branch, which is for LANL use only.
 \item A development branch will be provided, which includes all releasable features.  
 \item The development branch must be ready to release at any time.
 \item A private branch will be provided for simulations internal to LANL, which includes both private and releasable features.
 \item When private features are deemed releasable, they may be added to the development branch.
 \item The private branch will occasionally be synchronized with the development branch, so that the private branch does not drift too far.  Ideally, the private branch is identical to the development branch, but with all private features added in.
-\item Simulations for publications should be conducted on a permanent hash (a state the will be in the repository indefinitely).  We can't require this, but the the functionality should be there in the repository.
+\item Simulations for publications should be conducted on a permanent hash (a state that will be in the repository indefinitely).  We can't require this, but the the functionality should be there in the repository.
 \item ACME can only point to a permanent hash.
 \item The ability to release one feature should not depend on the private/releasable status of any other feature.
-\item The ACME repository can only point to an MPAS-Core hash that can be public when ACME is eventually released.
-\item ACME may be changed locally to point to other MPAS-core hashes.  These must be permanent hashes, and may be future-releasable or forever-private branches.
+\item The ACME repository can only point to an MPAS-Ocean core hash that can be public when ACME is eventually released.
+\item ACME may be changed locally to point to other MPAS-Ocean core hashes.  These must be permanent hashes, and may be future-releasable or forever-private branches.
 \end{enumerate}
 
 \clearpage
@@ -52,11 +52,11 @@ Maintainer: developer, plus responsible for shared branches (release, developmen
 \begin{enumerate}
 \item \verb| MPAS_Dev/develop|  Framework development branch and release branch.  Framework-level changes are branched from and merged back into here.   All commits to this branch are releasable.  Public releases are tagged from this branch.
 
-\item \verb| MPAS_Dev/core/develop|  Core development branch.  Core-level changes are branched from and merged back into here.  All commits to this branch are releasable.
+\item \verb| MPAS_Dev/ocean/develop|  Ocean core development branch.  Core-level changes are branched from and merged back into here.  All commits to this branch are releasable.
 
-\item \verb| MPAS_Dev/core/private_v*|  Internal LANL branch.  This ideally is the core/develop branch with completed private features added in, but the branch will sometimes lag behind core/develop.  These branches are permanent, and are intended for simulations within LANL where private features are needed.
+\item \verb| MPAS_Dev/ocean/private|  Internal LANL branch.  This ideally is the ocean/develop branch with completed private features added in, but the branch will sometimes lag behind ocean/develop.  These branches are permanent, and are intended for simulations within LANL where private features are needed.
 
-\item \verb| core/feature_branch|  Feature development branch, private to the developer, and on his/her fork.  These are not permanent, and are intended for eventual merger into the development or private branch after completion.
+\item \verb| ocean/feature_branch|  Feature development branch, private to the developer, and on his/her fork.  These are not permanent, and are intended for eventual merger into the development or private branch after completion.
 \end{enumerate}
 
 {\bf Workflow:}
@@ -64,23 +64,24 @@ Maintainer: developer, plus responsible for shared branches (release, developmen
 \begin{enumerate}
 \item Start a new feature
 
- \begin{tabular}[c]{L{3.25in}|L{3.25in}}
+ \begin{tabular}[c]{L{3.3in}|L{3.3in}}
 developer & maintainer \\
 \hline
 \includegraphics[width=3.25in]{f/MPASworkflow_1.pdf} \\
 \\
-\verb| git checkout MPAS-Dev/ocean/develop | \\
-\verb| git branch --no-track my_branch|  \\
-\verb| git push my_fork my_branch|  & 
+\verb| git fetch MPAS-Dev| \\
+\verb| git checkout -b feature_branch \|
+\verb|    MPAS-Dev/ocean/develop | \\
+\verb| git push my_fork feature_branch|  & 
  \end{tabular}
 \item Commit changes to feature 
 
- \begin{tabular}[c]{L{3.25in}|L{3.25in}}
+ \begin{tabular}[c]{L{3.3in}|L{3.3in}}
 developer & maintainer \\
 \hline
 \includegraphics[width=3.25in]{f/MPASworkflow_2.pdf} \\
 \verb| git commit -a|  \\
-\verb| git push my_fork my_branch|  
+\verb| git push my_fork feature_branch|  
  \end{tabular}
 
 \clearpage
@@ -88,24 +89,32 @@ developer & maintainer \\
 
 \begin{centering}
 \end{centering}
- \begin{tabular}[c]{L{3.25in}|L{3.25in}}
+ \begin{tabular}[c]{L{3.3in}|L{3.3in}}
 developer & maintainer \\
 \hline
 \includegraphics[width=3.25in]{f/MPASworkflow_3d.pdf} & \includegraphics[width=3.25in]{f/MPASworkflow_3.pdf} \\
 All development and testing must be complete.
 Create a test merge branch: \\
-\verb| git branch --no-track test_merge|  \\
-\verb| git merge MPAS-Dev/ocean/develop|  \\
+\verb|git checkout -b test_merge feature_branch|  \\
+\verb|git fetch MPAS-Dev| \\
+\verb|git merge MPAS-Dev/ocean/develop|  \\
 Test, resolve conflicts \\
 \verb| git commit -a|  \\
 \verb| git push my_fork test_merge| \\
-Create pull request from \verb|my_branch| to \verb|MPAS-Dev/ocean/develop| at github.com \\
-& merge feature branch onto ocean/develop \\
-& merge ocean/develop onto ocean/private\_v* (if desired)\\
+Create pull request from \verb|feature_branch| to \verb|MPAS-Dev/ocean/develop| at github.com \\
+& merge feature branch onto ocean/develop: \\
+& \verb| git checkout ocean/develop| \\
+& \verb| git fetch MPAS-Dev| \\
+& \verb| git reset --hard MPAS-Dev/ocean/develop | \\
+& \verb| git fetch user| \\
+& \verb| git merge user/feature_branch| \\
+& resolve commits based on test\_merge branch \\
+& \verb| git push MPAS-Dev ocean/develop| \\
+& merge ocean/develop onto ocean/private (if desired)\\
 delete local and remote feature branches: \\
-\verb| git branch -D my_branch|  \\
+\verb| git branch -D feature_branch|  \\
 \verb| git branch -D test_merge|  \\
-\verb| git push my_fork :my_branch| \\
+\verb| git push my_fork :feature_branch| \\
 \verb| git push my_fork :test_merge| \\
  \end{tabular}
 
@@ -114,19 +123,27 @@ delete local and remote feature branches: \\
 
 \begin{centering}
 \end{centering}
- \begin{tabular}[c]{L{3.25in}|L{3.25in}}
+ \begin{tabular}[c]{L{3.3in}|L{3.3in}}
 developer & maintainer \\
 \hline
 \includegraphics[width=3.25in]{f/MPASworkflow_4d.pdf} & \includegraphics[width=3.25in]{f/MPASworkflow_4.pdf} \\
 All development and testing must be complete.
 Create a test merge branch: \\
-\verb| git branch --no-track test_merge|  \\
-\verb| git merge MPAS-Dev/ocean/private_v*|  \\
+\verb|git checkout -b test_merge feature_branch|  \\
+\verb|git fetch MPAS-Dev| \\
+\verb|git merge MPAS-Dev/ocean/private|  \\
 Test, resolve conflicts \\
 \verb| git commit -a|  \\
 \verb| git push my_fork test_merge| \\
-Create pull request from \verb|my_branch| to both \verb|MPAS-Dev/ocean/develop| and \verb|MPAS-Dev/ocean/private_v*| at github.com. \\
-& merge feature branch onto ocean/private\_v* \\
+Create pull request from \verb|feature_branch| to \verb|MPAS-Dev/ocean/develop| at github.com. \\
+& merge feature branch onto ocean/private \\
+& \verb| git checkout ocean/private| \\
+& \verb| git fetch MPAS-Dev| \\
+& \verb| git reset --hard MPAS-Dev/ocean/private | \\
+& \verb| git fetch user| \\
+& \verb| git merge user/feature_branch| \\
+& resolve commits based on test\_merge branch \\
+& \verb| git push MPAS-Dev ocean/private| \\
 delete local and remote test branches: \\
 \verb| git branch -D test_merge|  \\
 \verb| git push my_fork :test_merge| \\
@@ -143,13 +160,35 @@ Commit additional changes to feature branch per step 2, then merge to the privat
 \item Feature changes from private to releasable \\
 Merge feature onto ocean/develop per step 3.  Again, if ocean/develop has changed substantially, the developer may prefer to rebase the feature branch on ocean/develop, or just completely recreate it, repeating step 1 and deleting the old feature branch.
 
+\clearpage
 \item Keep private branch synchronized with development branch.
 
-Method 1: Merge ocean/develop onto ocean/private\_v*.  This may be done when new features on ocean/develop are needed on ocean/private\_v*, as in step 3 above.
+{\bf Method 1:} Merge ocean/develop onto ocean/private.  \\
+\includegraphics[width=3.25in]{f/MPASworkflow_8a.pdf}
 
-Method 2: Create new ocean/private\_v*, and then merge in all completed private features.  This will be done rarely, like once every release cycle or less, but is important for compatibility of private feature branches between ocean/develop and ocean/private\_v*.  Maintainers create the new branch, but developers are responsibile for updating their private feature branches to the new version, if desired, essentially repeating step 4 above.
+This may be done when new features on ocean/develop are needed on ocean/private, as in step 3 above.
 
-All ocean/private\_v* branches are kept permanently on a private branch at \verb|MPAS-Dev|, and are available to all LANL users.  LANL users and developers may remain on an older version of ocean/private\_v* to complete particular projects, if desired.
+{\bf Method 2:} Create new ocean/private, and then merge in all completed private features.  \\
+\includegraphics[width=4.25in]{f/MPASworkflow_8b.pdf}
+
+This will be done rarely, like once every release cycle or less, but is important for compatibility of private feature branches between ocean/develop and ocean/private.  Maintainers create the new branch, but developers are responsibile for updating their private feature branches to the new version, if desired, essentially repeating step 4 above.
+
+The old ocean/private branch is renamed as an archive, and kept permanently at \verb|MPAS-Dev|.  These archive branches remain private, but are available to all LANL users.  LANL users and developers may remain on archived versions of ocean/private to complete particular projects, if desired.
+
+Method 2 is important to keep ocean/private more closely aligned with ocean/develop.  This will help make mergers of private features into ocean/private have fewer conflits.
+
+\item Using ocean/private for simulations within LANL. \\
+
+To create a local copy of ocean/private:\\
+\verb| git fetch MPAS-Dev| \\
+\verb| git checkout -b local/ocean/develop MPAS-Dev/ocean/develop | \\
+
+To update you local copy of ocean/private:\\
+\verb| git fetch MPAS-Dev| \\
+\verb| git checkout local/ocean/private| \\
+\verb| git reset --hard MPAS-Dev/ocean/private | \\
+
+
 
 \end{enumerate}
 
