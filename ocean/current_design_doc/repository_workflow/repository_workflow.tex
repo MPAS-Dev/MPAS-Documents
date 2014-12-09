@@ -96,7 +96,7 @@ developer & maintainer \\
 All development and testing must be complete.
 Create a test merge branch: \\
 \verb|git checkout -b test_merge feature_branch|  \\
-\verb|git fetch MPAS-Dev| \\
+\verb|git fetch MPAS-Dev| \\ 
 \verb|git merge MPAS-Dev/ocean/develop|  \\
 Test, resolve conflicts \\
 \verb| git commit -a|  \\
@@ -183,12 +183,11 @@ To create a local copy of ocean/private:\\
 \verb| git fetch MPAS-Dev| \\
 \verb| git checkout -b local/ocean/develop MPAS-Dev/ocean/develop | \\
 
-To update you local copy of ocean/private:\\
+To update your local copy of ocean/private:\\
 \verb| git fetch MPAS-Dev| \\
 \verb| git checkout local/ocean/private| \\
 \verb| git reset --hard MPAS-Dev/ocean/private | \\
-
-
+Note: Do not use git pull, because it is a combination of git fetch and git merge, and we want to avoid merges into your local branch.
 
 \end{enumerate}
 
