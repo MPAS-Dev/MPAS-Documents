@@ -59,7 +59,7 @@ Maintainer: developer, plus responsible for shared branches (release, developmen
 \item \verb| ocean/feature_branch|  Feature development branch, private to the developer, and on his/her fork.  These are not permanent, and are intended for eventual merger into the development or private branch after completion.
 \end{enumerate}
 
-{\bf Workflow:}
+{\bf Workflow for LANL internal developers:}
 
 \begin{enumerate}
 \item Start a new feature
@@ -225,6 +225,49 @@ Note: Do not use git pull, because it is a combination of git fetch and git merg
 \end{enumerate}
 
 
+\clearpage
+
+{\bf Workflow for external collaborators, or on public branches:}
+
+\begin{enumerate}
+\item Start a new feature
+
+ \begin{tabular}[c]{L{3.3in}|L{3.3in}}
+developer & maintainer \\
+\hline
+\includegraphics[width=3.25in]{f/MPASworkflow_ext1.pdf} \\
+\\
+\verb| git fetch MPAS-Release| \\
+\verb| git checkout -b feature_branch v3.0 | \\
+\verb| git push my_fork feature_branch|  & 
+ \end{tabular}
+
+\item Commit changes to feature 
+
+ \begin{tabular}[c]{L{3.3in}|L{3.3in}}
+developer & maintainer \\
+\hline
+\includegraphics[width=3.25in]{f/MPASworkflow_ext2.pdf} \\
+\verb| git commit -a|  \\
+\verb| git push my_fork feature_branch|  
+ \end{tabular}
+
+\item Completion of feature
+
+\begin{centering}
+\end{centering}
+ \begin{tabular}[c]{L{3.3in}|L{3.3in}}
+developer & maintainer \\
+\hline
+\includegraphics[width=3.25in]{f/MPASworkflow_ext3.pdf} \\
+All development and testing must be complete.
+Create pull request from \verb|feature_branch| to \verb|MPAS-Dev/ocean/develop| at github.com. \\
+& Maintainer reviews and merges to ocean/develop.\\
+& \includegraphics[width=3.25in]{f/MPASworkflow_ext4.pdf} \\
+ \end{tabular}
+
+
+\end{enumerate}
 
 
 
