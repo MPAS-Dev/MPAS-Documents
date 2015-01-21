@@ -20,7 +20,7 @@
 
 \begin{document}
 {\bf Proposed repository workflow for MPAS-Ocean.}\\
-December 4, 2014\\
+Januaary, 2015\\
 Mark Petersen\\
 
 {\bf Requirements}
@@ -85,48 +85,78 @@ developer & maintainer \\
  \end{tabular}
 
 \clearpage
-\item Completion of releasable feature
+\item Completion of feature
 
 \begin{centering}
 \end{centering}
  \begin{tabular}[c]{L{3.3in}|L{3.3in}}
 developer & maintainer \\
 \hline
-\includegraphics[width=3.25in]{f/MPASworkflow_3d.pdf} & \includegraphics[width=3.25in]{f/MPASworkflow_3.pdf} \\
+\includegraphics[width=3.25in]{f/MPASworkflow_3a.pdf} \\
 All development and testing must be complete.
+Create pull request from \verb|feature_branch| to \verb|MPAS-Dev/ocean/develop| at github.com. \\
+If private, pull request title begins with PRIVATE: \\
+& If releasable, maintainer merges to ocean/develop.\\
+& Maintainer may also merge to ocean/private: \\
+& \includegraphics[width=3.25in]{f/MPASworkflow_3b.pdf} \\
+& If private, maintainer merges to ocean/private:\\
+& \includegraphics[width=3.25in]{f/MPASworkflow_3c.pdf} \\
+If private, the feature branch is retained and pull request remains open.\\
+If releasable, the developer may want to delete local and remote feature branches: \\
+\verb| git branch -D feature_branch|  \\
+\verb| git push my_fork :feature_branch| \\
+ \end{tabular}
+
+Note that for a private feature, the feature branch is not deleted, and the pull request to ocean/develop remains open.  This is a way to track completed private features, which are not on ocean/develop.  When a feature changes from private to releasable see step 8.
+
+
+
+\clearpage
+\item Completion of releasable feature, with test merge
+
+\begin{centering}
+\end{centering}
+ \begin{tabular}[c]{L{3.3in}|L{3.3in}}
+developer & maintainer \\
+\hline
+& If merge is difficult, maintainer may ask developer to create a test-merge branch.\\
 Create a test merge branch: \\
+\includegraphics[width=3.25in]{f/MPASworkflow_3d.pdf} \\
 \verb|git checkout -b test_merge feature_branch|  \\
 \verb|git fetch MPAS-Dev| \\ 
 \verb|git merge MPAS-Dev/ocean/develop|  \\
 Test, resolve conflicts \\
 \verb| git commit -a|  \\
 \verb| git push my_fork test_merge| \\
-Create pull request from \verb|feature_branch| to \verb|MPAS-Dev/ocean/develop| at github.com \\
-& merge feature branch onto ocean/develop: \\
+& \includegraphics[width=3.25in]{f/MPASworkflow_3.pdf} \\
+& Merge feature branch onto ocean/develop: \\
 & \verb| git checkout ocean/develop| \\
 & \verb| git fetch MPAS-Dev| \\
 & \verb| git reset --hard MPAS-Dev/ocean/develop | \\
 & \verb| git fetch user| \\
 & \verb| git merge user/feature_branch| \\
-& resolve commits based on test\_merge branch \\
+& Resolve commits based on test\_merge branch \\
 & \verb| git push MPAS-Dev ocean/develop| \\
-& merge ocean/develop onto ocean/private (if desired)\\
-delete local and remote feature branches: \\
+& Merge ocean/develop onto ocean/private (if desired)\\
+Delete local and remote feature branches: \\
 \verb| git branch -D feature_branch|  \\
 \verb| git branch -D test_merge|  \\
 \verb| git push my_fork :feature_branch| \\
 \verb| git push my_fork :test_merge| \\
  \end{tabular}
 
+
 \clearpage
-\item Completion of private feature
+\item Completion of private feature, with test merge
 
 \begin{centering}
 \end{centering}
  \begin{tabular}[c]{L{3.3in}|L{3.3in}}
 developer & maintainer \\
 \hline
-\includegraphics[width=3.25in]{f/MPASworkflow_4d.pdf} & \includegraphics[width=3.25in]{f/MPASworkflow_4.pdf} \\
+& If merge is difficult, maintainer may ask developer to create a test-merge branch.\\
+Create a test merge branch: \\
+\includegraphics[width=3.25in]{f/MPASworkflow_4d.pdf} \\
 All development and testing must be complete.
 Create a test merge branch: \\
 \verb|git checkout -b test_merge feature_branch|  \\
@@ -135,32 +165,33 @@ Create a test merge branch: \\
 Test, resolve conflicts \\
 \verb| git commit -a|  \\
 \verb| git push my_fork test_merge| \\
-Create pull request from \verb|feature_branch| to \verb|MPAS-Dev/ocean/develop| at github.com. \\
-& merge feature branch onto ocean/private \\
+& \includegraphics[width=3.25in]{f/MPASworkflow_4.pdf} \\
+& Merge feature branch onto ocean/private \\
 & \verb| git checkout ocean/private| \\
 & \verb| git fetch MPAS-Dev| \\
 & \verb| git reset --hard MPAS-Dev/ocean/private | \\
 & \verb| git fetch user| \\
 & \verb| git merge user/feature_branch| \\
-& resolve commits based on test\_merge branch \\
+& Resolve commits based on test\_merge branch \\
 & \verb| git push MPAS-Dev ocean/private| \\
-delete local and remote test branches: \\
+Delete local and remote test branches: \\
 \verb| git branch -D test_merge|  \\
 \verb| git push my_fork :test_merge| \\
+Note that feature branch and pull request remains for a private feature.
  \end{tabular}
 
-Note that for a private feature, the feature branch is not deleted, and the pull request to ocean/develop remains open.  This is a way to track completed private features, which are not on ocean/develop.
+
+\clearpage
 
 \item Alterations of releasable feature after completion\\
 Treat this as a new feature or bug fix, follow steps 1--3.
 
 \item Alterations of private feature after completion\\
-Commit additional changes to feature branch per step 2, then merge to the private branch per step 4.  If ocean/develop has changed substantially, the developer may prefer to rebase the feature branch on ocean/develop, or just completely recreate it, repeating step 1 and deleting the old feature branch.
+Commit additional changes to feature branch per step 2, then merge to the private branch per step 3.  If ocean/develop has changed substantially, the developer may prefer to rebase the feature branch on ocean/develop, or just completely recreate it, repeating step 1 and deleting the old feature branch.
 
 \item Feature changes from private to releasable \\
 Merge feature onto ocean/develop per step 3.  Again, if ocean/develop has changed substantially, the developer may prefer to rebase the feature branch on ocean/develop, or just completely recreate it, repeating step 1 and deleting the old feature branch.
 
-\clearpage
 \item Keep private branch synchronized with development branch.
 
 {\bf Method 1:} Merge ocean/develop onto ocean/private.  \\
@@ -176,6 +207,8 @@ This will be done rarely, like once every release cycle or less, but is importan
 The old ocean/private branch is renamed as an archive, and kept permanently at \verb|MPAS-Dev|.  These archive branches remain private, but are available to all LANL users.  LANL users and developers may remain on archived versions of ocean/private to complete particular projects, if desired.
 
 Method 2 is important to keep ocean/private more closely aligned with ocean/develop.  This will help make mergers of private features into ocean/private have fewer conflits.
+
+\clearpage
 
 \item Using ocean/private for simulations within LANL. \\
 
