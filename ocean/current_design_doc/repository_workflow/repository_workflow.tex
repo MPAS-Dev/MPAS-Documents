@@ -98,7 +98,7 @@ Create pull request from \verb|feature_branch| to \verb|MPAS-Dev/ocean/develop| 
 If private, pull request title begins with PRIVATE: \\
 & If releasable, maintainer merges to ocean/develop.\\
 & Maintainer may also merge to ocean/private: \\
-& \includegraphics[width=3.25in]{f/MPASworkflow_3b.pdf} \\
+& \includegraphics[width=3.25in]{f/MPASworkflow_3e.pdf} \\
 & If private, maintainer merges to ocean/private:\\
 & \includegraphics[width=3.25in]{f/MPASworkflow_3c.pdf} \\
 If private, the feature branch is retained and pull request remains open.\\
@@ -210,17 +210,23 @@ Method 2 is important to keep ocean/private more closely aligned with ocean/deve
 
 \clearpage
 
-\item Using ocean/private for simulations within LANL. \\
+\item Using ocean/private, develop, or ocean/develop for simulations.  Here we show ocean/private, but process is the same for all three branches. \\
 
 To create a local copy of ocean/private:\\
 \verb| git fetch MPAS-Dev| \\
-\verb| git checkout -b local/ocean/develop MPAS-Dev/ocean/develop | \\
+\verb| git checkout -b local/ocean/private MPAS-Dev/ocean/private | \\
 
 To update your local copy of ocean/private:\\
 \verb| git fetch MPAS-Dev| \\
 \verb| git checkout local/ocean/private| \\
 \verb| git reset --hard MPAS-Dev/ocean/private | \\
-Note: Do not use git pull, because it is a combination of git fetch and git merge, and we want to avoid merges into your local branch.
+
+
+Notes: 
+\begin{itemize}
+\item Do not use git pull, because it is a combination of git fetch and git merge, and we want to avoid merges into your local branch.
+\item It is strongly advised to not make changes in your copy of local/ocean/private.  That is, your local copy should be an exact copy of the branch on MPAS-Dev.  To make local alterations, you should make a feature branch, as in steps 1--3 above.
+\end{itemize}
 
 \end{enumerate}
 
@@ -237,7 +243,9 @@ developer & maintainer \\
 \hline
 \includegraphics[width=3.25in]{f/MPASworkflow_ext1.pdf} \\
 \\
-\verb| git fetch MPAS-Release| \\
+\verb| git clone git@github.com:MPAS-Dev/MPAS-Release.git|\\
+\verb| cd MPAS-Release|\\
+\verb| git fetch origin| (to update, as needed)\\
 \verb| git checkout -b feature_branch v3.0 | \\
 \verb| git push my_fork feature_branch|  & 
  \end{tabular}
