@@ -1,12 +1,14 @@
 \documentclass[11pt]{report}
 
+\usepackage{tocloft}
 \usepackage{epsf,amsmath,amsfonts}
 \usepackage{graphicx}
 \usepackage{longtable}
-\usepackage{hyperref}
+\usepackage[pagebackref=true]{hyperref}
 \usepackage{color}
-\usepackage{caption}
-\usepackage[hang]{subfigure}
+\usepackage[hang]{caption}
+%\usepackage[hang]{subfigure}
+\usepackage{subfig}
 \usepackage{natbib}
 \usepackage{placeins}
 \usepackage{eso-pic}
@@ -15,7 +17,18 @@
 \definecolor{darkblue}{rgb}{0.0,0.0,0.5}
 \hypersetup{colorlinks,breaklinks,
             linkcolor=blue,urlcolor=blue,
-            anchorcolor=black,citecolor=black}
+            anchorcolor=black,citecolor=blue}
+			
+
+\renewcommand\cftsecaftersnumb{
+\,\,
+}
+\renewcommand\cftsubsecaftersnumb{
+\,\,
+}
+\renewcommand\cftsubsubsecaftersnumb{
+\,\,
+}
 
 \setlength{\topmargin}{0in}
 \setlength{\headheight}{0in}
@@ -25,9 +38,9 @@
 \setlength{\evensidemargin}{0in}
 \setlength{\oddsidemargin}{0in}
 
-\captionsetup{width=6in}
+%\captionsetup{width=2in}
 \captionsetup{format=hang}
-\captionsetup{justification=RaggedRight}
+%\captionsetup{justification=RaggedRight}
 
 \input{ocean/define_version.tex}
 
@@ -40,7 +53,7 @@
 			\centering
 			\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{ocean/figures/MPAS_LOGO_Ocean.png}%
 			\vfill
-			\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{ocean/figures/ke_x1_15km.pdf}%
+			\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{ocean/figures/cover_V3_KE_NA37-7km_cropped_d.png}%
 }}}
 
 \newcommand{\core}{ocean}
@@ -57,7 +70,7 @@
 \LARGE Los Alamos National Laboratory
 }
 
-\date{Novembeer 15, 2013}
+\date{November 18, 2014}
 
 \maketitle
 
@@ -73,22 +86,33 @@
 \part{The MPAS Framework}
 \input{shared/mpas_build_instructions.tex}
 \input{shared/mpas_grid_description.tex}
+\input{shared/mpas_io.tex}
 % Grid generation is not included in MPAS release 1.0:
 %\input{shared/mpas_grid_generation.tex}
 \input{shared/mpas_visualization.tex}
 
 \part{MPAS-Ocean}
 \input{ocean/core_intro.tex}
+
 % Grid generation is not included in MPAS release 1.0.
 % In a future release, describe here ocean-specific grid
 % generation, currently the basin.F program.
 %\input{ocean/mpas_grid_generation.tex}
-\input{ocean/dimension_table_documentation.tex}
-\input{ocean/namelist_table_documentation.tex}
-\input{ocean/variable_table_documentation.tex}
 
+\chapter{Forward Mode}
+\label{chap:forward_mode}
+\newcommand{\mode}{forward}
+\input{ocean/mode_forward_header.tex}
+\input{ocean/mode_forward_sections.tex}
 \input{ocean/test_case_descriptions.tex}
 \input{ocean/global_statistics.tex}
+
+\chapter{Analysis Mode}
+\label{chap:analysis_mode}
+\renewcommand{\mode}{analysis}
+\input{ocean/mode_analysis_header.tex}
+\input{ocean/mode_analysis_sections.tex}
+
 \input{ocean/visualization.tex}
 \input{ocean/cesm_coupling.tex}
 \input{ocean/troubleshooting.tex}
@@ -101,8 +125,11 @@
 
 \part{Appendices}
 \appendix
-\input{ocean/namelist_section_documentation.tex}
-\input{ocean/variable_section_documentation.tex}
+%\input{ocean/namelist_section_documentation.tex}
+%\input{ocean/variable_section_documentation.tex}
+
+\input{ocean/namelist_sections.tex}
+\input{ocean/variable_sections.tex}
 
 \end{document}
 

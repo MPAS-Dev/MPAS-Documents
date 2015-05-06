@@ -12,10 +12,10 @@ governing equations (\ref{ocean:momentum},
 $D^\varphi_h$ for tracers.  No horizontal mixing is applied to the
 thickness equation.
 
-All horizontal mixing coefficients can be set to scale with the mesh as $\rho_m^{-3/4}$ in equations (\ref{ocean:h_mom_del2}, \ref{ocean:h_tr_del2}, \ref{ocean:h_mom_del4}, \ref{ocean:h_tr_del4}).  The mesh density, $\rho_m$, is a variable in the input and restart file.  It can vary between zero and one, and is one in the highest resolution region.  Scaling with the mesh can be turned off, as described in the options below.
+All horizontal mixing coefficients can be set to scale with the mesh as $\rho_m^{-3/4}$ in equations (\ref{ocean:\mode_h_mom_del2}, \ref{ocean:\mode_h_tr_del2}, \ref{ocean:\mode_h_mom_del4}, \ref{ocean:\mode_h_tr_del4}).  The mesh density, $\rho_m$, is a variable in the input and restart file.  It can vary between zero and one, and is one in the highest resolution region.  Scaling with the mesh can be turned off, as described in the options below.
 
 The anticipated potential Vorticity (APV) method is a parameterization of the effects of subgrid or unresolved scales on those explicitly resolved \citep{Vallis_Hua88jas}.  It contributes an upstream bias to the vorticity in the del2 and del4 momentum terms as follows,
 \begin{equation}
 \eta_{apv} = \eta - c_{apv} dt \left({\bf u}\cdot \nabla \eta\right),
 \end{equation}
-where the altered vorticity $\eta_{apv}$ is used in equations (\ref{ocean:h_mom_del2}, \ref{ocean:h_mom_del4a}, \ref{ocean:h_mom_del4b}).
+where the altered vorticity $\eta_{apv}$ is used in equations (\ref{ocean:\mode_h_mom_del2}, \ref{ocean:\mode_h_mom_del4a}, \ref{ocean:\mode_h_mom_del4b}).

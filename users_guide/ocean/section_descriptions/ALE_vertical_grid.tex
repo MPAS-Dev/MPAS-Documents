@@ -1,35 +1,35 @@
-The MPAS-Ocean vertical grid is structured arbitrary Lagrangian-Eulerian (ALE).   ALE provides a great deal of freedom in the choice of vertical coordinate: when fully Eulerian, MPAS-Ocean is a z-level model with fixed thicknesses; when fully Lagrangian, there is no vertical transport between layers, and layers expand and contract like an isopycnal ocean model.  In between are many additional options, such as z-star where layers expand in proportion to the sea surface height, and sigma, where coordinates are terrain-following.
+The MPAS-Ocean vertical grid is structured, and uses the arbitrary Lagrangian-Eulerian (ALE) method \citet{Petersen_ea14om}.   ALE provides a great deal of freedom in the choice of vertical coordinate: when fully Eulerian, MPAS-Ocean is a z-level model with fixed thicknesses; when fully Lagrangian, there is no vertical transport between layers, and layers expand and contract like an isopycnal ocean model.  In between are many additional options, such as z-star where layers expand in proportion to the sea surface height, and sigma, where coordinates are terrain-following.
 
 MPAS-Ocean employs the continuity equation,
 \begin{eqnarray}
-\label{ocean:continuity thickness}
+\label{ocean:\mode_continuity thickness}
 \frac{\partial h_{k}}{\partial t} + D_k + w^t_k - w^t_{k+1} =0
 \end{eqnarray}
-for the ALE formulation, where variables are defined in Table \ref{oceanTable:ALE_variables}.  The ALE algorithm is as follows:
+for the ALE formulation, where variables are defined in Table \ref{oceanTable:\mode_ALE_variables}.  The ALE algorithm is as follows:
 \begin{enumerate}
 \item ALE step: Compute desired thickness for the new time,
 \begin{eqnarray}
-\label{ocean:desired thickness}
+\label{ocean:\mode_desired thickness}
 h_k^{ALE} = h_k^{rest} + h_k^{SSH} + h_k^{hf} + h_k^{min}
 \end{eqnarray}
-\item ALE step: Solve for vertical transport $w^t$ from (\ref{ocean:continuity thickness}),
+\item ALE step: Solve for vertical transport $w^t$ from (\ref{ocean:\mode_continuity thickness}),
 \begin{eqnarray}
-\label{ocean:vert tranport}
+\label{ocean:\mode vert tranport}
 w^t_k = w^t_{k+1} - D_k - \frac{h^{ALE}_k - h^n_k}{\Delta t}
 \end{eqnarray}
-\item Solve for new thickness, $h_{k}^{n+1}$, using the continuity equation (\ref{ocean:continuity thickness}) within the time integration routine.
+\item Solve for new thickness, $h_{k}^{n+1}$, using the continuity equation (\ref{ocean:\mode_continuity thickness}) within the time integration routine.
 \end{enumerate}
 The redundancy in steps 2 and 3 are intentional, so that step 2 is isolated within the ALE subroutine, and step 3 is solved in the timestepping subroutine in the identical manner as the tracer equation (\ref{ocean:tracer}).
 
-The desired ALE thickness includes contributions from four terms (\ref{ocean:desired thickness}):
+The desired ALE thickness includes contributions from four terms (\ref{ocean:\mode_desired thickness}):
 \begin{enumerate}
 \item {\bf Resting thickness}, $h^{rest}$, is the layer thickness when the ocean is at rest, i.e. without SSH or internal perturbations.  For z-type coordinates, the resting thickness is constant in each horizontal layer.
 \item {\bf SSH alteration}, $h^{SSH}$, alters layer thicknesses so that they change in proportion to the sea surface height (SSH),
 \begin{eqnarray}
-\label{ocean:h ssh}
+\label{ocean:\mode_h ssh}
    h_k^{SSH} =  \zeta \frac{W_k h^{rest}_k}{\sum_{k'=1}^{kmax}W_{k'}h^{rest}_{k'}}
 \end{eqnarray}
-The weights $W_k$ determine how SSH oscillations are distributed amongst the layers, as described in Table \ref{oceanTable:vertical coordinates}.
+The weights $W_k$ determine how SSH oscillations are distributed amongst the layers, as described in Table \ref{oceanTable:\mode_vertical coordinates}.
 \item {\bf High-frequency thickness}, $h^{hf}$, allows high-frequency thickness oscillations, such as internal gravity waves, to be treated in a Lagrangian manner.  This is the ``z-tilde'' scheme of \citet{Leclair_Madec11om} described in the next section.
 \item {\bf Minimum thickness alteration}, $h^{min}$, is the change in thickness required to enforce the minimum thickness in each cell.  When a cell is too thin, $h^{min}$ is positive, while nearby cells in the vertical incur a corresponding negative $h^{min}$ to conserve volume in the column.
 \end{enumerate}
@@ -42,10 +42,10 @@ Of the four terms, resting thickness is always positive, while the others are sm
 \end{eqnarray}
 Thus the first two terms are always included so that the column thickness sums to $H+\zeta$, while the second two terms are optional and may be turned on with flags.
 
-In order to assist users in choosing the correct settings, we provide a description of traditional vertical coordinate names in Table \ref{oceanTable:vertical coordinates}.
-The vertical coordinate type also depends upon the set-up of the layerThickness variable in the initial condition file.  For all Z-type vertical coordinates, initial layer thicknesses are horizontally constant.  For sigma coordinates, layers are terrain-following and all layers are employed.  In this case, the user may still choose amongst the flags in SSH may be distributed through the column just like with z-type models in Table \ref{oceanTable:vertical coordinates}.
+In order to assist users in choosing the correct settings, we provide a description of traditional vertical coordinate names in Table \ref{oceanTable:\mode_vertical coordinates}.
+The vertical coordinate type also depends upon the set-up of the layerThickness variable in the initial condition file.  For all Z-type vertical coordinates, initial layer thicknesses are horizontally constant.  For sigma coordinates, layers are terrain-following and all layers are employed.  In this case, the user may still choose amongst the flags in SSH may be distributed through the column just like with z-type models in Table \ref{oceanTable:\mode_vertical coordinates}.
 
-In order to run an isopycnal configuration, use config\_vert\_coord\_movement='impermeable\_interfaces' and set initial temperature and salinity to be constant within each layer.  All vertical tracer diffusion must be off so that the density in each layer remains constant.  For an isopycnal set-up, the equation of state is still called at each timestep, so a linear equation of state is recommended to avoid depth-dependancy of the density.  The user may choose a Montgomery Potential (\ref{ocean:Montgomery Potential}) or standard pressure gradient (\ref{ocean:grad p}); Montgomery Potential is a more common choice for isopycnal configurations, but both are tested and functional.  MPAS-Ocean does not support massless layers at this time, so isopycnal vertical coordinates may only be used for idealized domains.
+In order to run an isopycnal configuration, use config\_vert\_coord\_movement='impermeable\_interfaces' and set initial temperature and salinity to be constant within each layer.  All vertical tracer diffusion must be off so that the density in each layer remains constant.  For an isopycnal set-up, the equation of state is still called at each timestep, so a linear equation of state is recommended to avoid depth-dependancy of the density.  The user may choose a Montgomery Potential (\ref{ocean:\mode_Montgomery Potential}) or standard pressure gradient (\ref{ocean:\mode_grad p}); Montgomery Potential is a more common choice for isopycnal configurations, but both are tested and functional.  MPAS-Ocean does not support massless layers at this time, so isopycnal vertical coordinates may only be used for idealized domains.
 
 \begin{table}[ht] 
 \caption{Vertical coordinate settings for traditional names.}
@@ -58,7 +58,7 @@ coord\_movement & & & & interfaces'
 \\
 weights & $W_k =\left\{ \begin{array}{c} 1\; k=1\\ 0\; k>1 \end{array}\right.$ & $W_k=1\;\;\forall\;\;k$ & input file & not applicable \\
 \hline 
-\end{tabular} \label{oceanTable:vertical coordinates} 
+\end{tabular} \label{oceanTable:\mode_vertical coordinates} 
 \end{table}
 
 \begin{table}[h!t] 
@@ -70,13 +70,13 @@ weights & $W_k =\left\{ \begin{array}{c} 1\; k=1\\ 0\; k>1 \end{array}\right.$ &
 $D$  & thickness-weighted divergence & cell & $D_k = \nabla \cdot  \left( h_k {\bf u}_k \right)$  \\ 
 ${\bar D}$ & barotropic divergence & cell & ${\overline D} = \sum\limits_{k=1}^{kmax} D_k$  \\ 
 $D'$  & baroclinic divergence & cell & $D'_k = D_k-\frac{h_k}{H}{\bar D}$  \\ 
-$D^{lf}$  & low-frequency divergence & cell & see (\ref{ocean:Dlf})  \\ 
+$D^{lf}$  & low-frequency divergence & cell & see (\ref{ocean:\mode_Dlf})  \\ 
 $D^{hf}$  & high-frequency divergence & cell & $D^{hf}_k = D'_k - D^{lf}_k$  \\ 
 $h$  & layer thickness & cell &   \\ 
-$h^{ALE}$  & desired ALE thickness & cell & see (\ref{ocean:desired thickness})  \\ 
+$h^{ALE}$  & desired ALE thickness & cell & see (\ref{ocean:\mode_desired thickness})  \\ 
 $h^{rest}$  & resting thickness & cell &   \\ 
-$h^{SSH}$  & SSH thickness alteration & cell & see (\ref{ocean:h ssh})  \\ 
-$h^{hf}$  & high-freq. thickness alteration & cell &   see (\ref{ocean:hhf})  \\ 
+$h^{SSH}$  & SSH thickness alteration & cell & see (\ref{ocean:\mode_h ssh})  \\ 
+$h^{hf}$  & high-freq. thickness alteration & cell &   see (\ref{ocean:\mode_hhf})  \\ 
 $h^{min}$  & minimum thickness alteration & cell &   \\ 
 $H$  & total resting thickness & cell & $H= \sum\limits_{k=1}^{kmax} h_k^{rest}$  \\ 
 ${\bf u}$  & velocity & edge &   \\ 
@@ -87,6 +87,6 @@ $\tau_{hhf}$  & restoring time scale for $h^{hf}$ & constant &   \\
 $\kappa_{hhf}$  & $h^{hf}$ diffusion & constant &   \\ 
 $\zeta$  & sea surface height & cell &  $\zeta= \sum\limits_{k=1}^{kmax} h_k^{rest} - H$  \\ 
 \hline 
-\end{tabular} \label{oceanTable:ALE_variables} 
+\end{tabular} \label{oceanTable:\mode_ALE_variables} 
 \end{table}
 

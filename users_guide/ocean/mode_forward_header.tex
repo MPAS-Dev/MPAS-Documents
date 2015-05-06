@@ -1,0 +1,17 @@
+\section{Purpose}
+\label{sec:forward_purpose}
+
+The MPAS-Ocean model may be compiled in two modes, forward (this chapter) and analysis (chapter \ref{chap:analysis_mode}).  Forward mode is the typical configuration for an ocean model, where the model is initialized at start-up, steps forward through time, and periodically writes output and restart files to disk.  Namelist options for forward mode are set in the namelist.ocean\_forward file in the run directory.  The user may specify any number of output streams, each with a list of variables and write frequency, in the streams.ocean\_forward file.  Analysis members are available for computation and i/o in forward mode.  For example, see global\_stats under Namelist Options.  
+
+\section{Compilation}
+\label{sec:forward_compilation}
+
+In order to build the ocean core in forward mode, one must first select a build
+target. In this example, we'll build using the gfortran build target. The build
+enviroment should be setup as described in Chapter
+\ref{chap:mpas_build_instructions}. After the build environment and target are
+selected, the forward mode of the ocean core can be built as follows:
+
+\vspace{12pt}
+{\tt > make gfortran CORE=ocean MODE=forward}
+

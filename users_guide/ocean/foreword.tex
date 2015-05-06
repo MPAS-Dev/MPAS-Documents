@@ -1,10 +1,10 @@
 \chapter*{Foreword}
 \label{chap:foreword}
-The Model for Prediction Across Scales-Ocean (MPAS-Ocean) is an unstructured-mesh ocean model capable of using enhanced horizontal resolution in selected regions of the ocean domain.  Model domains may be spherical with bottom topography to simulate the earth's oceans, or on Cartesian domains for idealized experiments.  The global meshes, created using Spherical Centroidal Voronoi Tesselations \citep{Ringler_ea08od,Ringler_ea11mwr} consist of gridcells that vary smoothly from low to high resolution regions. Numerical algorithms specifically designed for these grids guarantee that mass, tracers, potential vorticity (in isopycnal mode) and energy are conserved \citep{Thurburn_ea09jcp,Ringler_ea10jcp}.  MPAS-Ocean high-resolution and variable-resolution global simulations, as well as descriptions of mesh generation, model capabilities, and algorithms, are presented in \citet{Ringler_ea13om}.
+The Model for Prediction Across Scales-Ocean (MPAS-Ocean) is an unstructured-mesh ocean model capable of using enhanced horizontal resolution in selected regions of the ocean domain.  Model domains may be spherical with bottom topography to simulate the earth's oceans, or on Cartesian domains for idealized experiments.  The global meshes, created using Spherical Centroidal Voronoi Tesselations \citep{Ringler_ea08od,Ringler_ea11mwr} consist of gridcells that vary smoothly from low to high resolution regions. Numerical algorithms specifically designed for these grids guarantee that mass, tracers, potential vorticity (in isopycnal mode) and energy are conserved \citep{Thurburn_ea09jcp,Ringler_ea10jcp}.  MPAS-Ocean high-resolution and variable-resolution global simulations, as well as descriptions of mesh generation, model capabilities, and algorithms, are presented in \citet{Ringler_ea13om}.  The vertical grid is detailed in \citet{Petersen_ea14om}, including the Arbitrary Lagrangian Eulerian method, a variety of vertical coordinates, and results from five test cases.
 
 MPAS-Ocean is one component within the MPAS framework of climate models that is developed in cooperation between Los Alamos National Laboratory (LANL) and the National Center for Atmospheric Research (NCAR).  Functionality that is required by all cores, such as i/o, time management, block decomposition, etc, is developed collaboratively, and this code is shared across cores within the same repository.  Each core then solves its own differential equations and physical parameterizations within this framework.  This user's guide reflects the spirit of this collaborative process, where Part I, ``The MPAS Framework'', applies to all cores, and the remaining parts apply to MPAS-Ocean.
 
-In this release, the forcing capabilities of the ocean model have been modified significantly, including the ability to apply surface fluxes. These capabilities are further documented in this users guide. Additionally the MPAS framework now provides shared operators for tensor operations and tracer advection. As with previous releases, {\bf this release does not include the ability to create or modify ocean grids or ocean initial conditions}. 
+This release of the ocean model brings with it several physics improvements, including support for CVMix to provide additional vertical mixing parameterizations, and the Gent-McWilliams mesoscale eddy parameterization. In addition to physics improvements, this release includes support for the ocean analysis core. Please see chapter \ref{chap:analysis_mode} for more information about how to use this mode. Within the MPAS framework, this release brings with it a large change in internal data structures (variable pools), and support for flexible run-time configurable I/O. 
 
 Information about MPAS-Ocean, including the most recent code, user's guide, and test cases, may be found at \url{http://mpas-dev.github.com}.  This user's guide refers to version \version, with corresponding downloads at \href{http://mpas-dev.github.com/ocean/release_\version/release_\version.html}{release \version}. \\
 
@@ -19,7 +19,7 @@ Michael Duda
 \noindent
 {\scriptsize
 {\it Funding for the development of MPAS-Ocean was provided by the United States Department of Energy, Office of Science.} \\
-LA-UR-13-24348}
+LA-UR-13-24348. Cover image created with assistance from Phillip Wolfram.}
 
 
 
