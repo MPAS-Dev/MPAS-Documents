@@ -1,0 +1,27 @@
+\section{Layer-volume-averages with depth}
+\label{sec:layer_volume_average_with_depth}
+
+This analysis members computes areal-averages, areal-minimum and areal-maximum of three dimensional fields at each vertical level. Except for the loop over the vertical index $k$, this analysis member is self-similar to that described in Section \ref{area_average_at_surface}. As the vertical index increases, the area associated with the region might reduce. Let $R$ contain the cells within some subset to ocean surface cells and $R(k)$ to contain the ocean cells that are contained in $R$ at vertical index $k$. Then the total volume of region $R(k)$ is given as
+
+\begin{equation}
+sumVolume(R(k)) = \sum_{i \in R \,\, \& \,\, k \le maxLevelCell(i)} layerThickness(k,i) * areaCell(i)
+\end{equation}
+where $i$ denotes any ocean surface cell, $areaCell(i)$ is the area of that cell and $maxLevelCell(i)$ is the vertical depth of cell $i$ measured in index space. The variable $layerThickness$ represent the vertical depth of cell $i$ at depth $k$.
+
+For any function $g(k,i)$ representing a 3D field (e.g. temperature) we have
+
+\begin{equation}
+avg(g(R(k))) = \sum_{i \in R \,\, \& \,\, k \le maxLevelCell(i)} g(k,i)*layerThickness(i,k)*areaCell(i) / sumVolume(R(k))
+\end{equation}
+
+In addition to computing averages for each region at each depth index, the analysis member also computes the minimum and maximum values of $g$ with region $R(k)$ as
+
+\begin{equation}
+minval(g(R))=min(g(i)) \, \, \forall i \in R \,\, \& \,\, k \le maxLevelCell(i)
+\end{equation}
+\begin{equation}
+maxval(g(R))=max(g(i)) \, \, \forall i \in R \,\, \& \,\, k \le maxLevelCell(i)
+\end{equation}
+
+{\noindent}To be added to AM before release 5.0 .....\\
+The region $R$ is defined using surfaceRegionMask that has values of 0 for cells not in region $R$ and a values of 1 for cells within region $R$. As a result, the analysis member operates on an arbitrary number regions.
