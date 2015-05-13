@@ -1,0 +1,25 @@
+\section{Surface-area average}
+\label{sec:surface_area_average}
+
+This analysis members computes areal-averages, areal-minimum and areal-maximum of two dimensional fields that are defined primarily at the surface. Let $R$ represent some subset to ocean surface cells and $f$ be some field defined on these ocean cells. Then the total area of region $R$ is given as
+
+\begin{equation}
+sumArea(R) = \sum_{i \in R} areaCell(i)
+\end{equation}
+where $i$ denotes any ocean surface cell and $areaCell(i)$ is the area of that cell. For any function $f$ defined at ocean surface cells we have
+
+\begin{equation}
+avg(f(R)) = \frac{\sum_{i \in R} f(i)*areaCell(i)}{sumArea(R)}
+\end{equation}
+
+In addition to computing averages, the analysis member also computes the minimum and maximum values of $f$ with region $R$ as
+
+\begin{equation}
+minval(f(R))=min(f(i)) \, \, \forall i \in R
+\end{equation}
+\begin{equation}
+maxval(f(R))=max(f(i)) \, \, \forall i \in R
+\end{equation}
+
+{\noindent}To be added to AM before release 5.0 .....\\
+The region $R$ is defined using surfaceRegionMask that have values of 0 for cells not in region $R$ and a values of 1 for cells within region $R$. As a result, the analysis member operates on an arbitrary number regions.
