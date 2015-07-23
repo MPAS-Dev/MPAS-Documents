@@ -1,0 +1,45 @@
+\section{Time filter}
+\label{sec:timeFilter}
+
+The time filter analysis member can partition a given field into high and low pass 
+components via a recursive filter design.  The simplest use case is to directly
+calculate the mean and eddy velocities in-situ within a simulation.  
+
+This analysis member implements a simple recursive filtering approach based on an impulse model.
+Let $V$ be the velocity signal and $V_L$ the low-pass filtered velocity, corresponding to some 
+timescale $\tau$ such that $\tau > \Delta t$, the time step.  Thus, this process can be represented by a simple ODE
+for the impulse $I = V-V_L$: 
+
+\begin{equation}
+  \frac{dV_L}{dt} = \frac{I}{\tau} = \frac{V-V_L}{\tau},
+\end{equation}
+where the initial condition is that $V_L(t=t_0) = V(t=t_0)$.  
+Discretizing in terms of the current time step level $n$ and previous time step level $n-1$ yields
+
+\begin{equation}
+  \frac{V_L^n-V_L^{n-1}}{\Delta t} = \frac{V^n -V_L^n}{\tau},
+\end{equation}
+with rearrangement yielding
+\begin{equation}
+  V_L^n = V_L^{n-1}\left(1-\frac{\Delta t}{\tau}\right) + \frac{\Delta t}{\tau} V^n.
+  \label{eq:convexCombo}
+\end{equation}
+In the limit that $\tau \rightarrow \Delta t$, $V_L \rightarrow V$ and for 
+$\tau \rightarrow \infty$, $V_L \rightarrow V(t=t_0)$.  Additional filtering techniques 
+using $V^{n-1}$ could also be used but are avoided to maintain conceptual
+simplicity.
+The high-pass filtered value $V_H$ is then given by 
+\begin{equation}
+  V_H^n = V^n - V_L^n.
+  \label{eq:highPass}
+\end{equation}
+
+The filter is implemented within the time filter analysis member via Equations (\ref{eq:convexCombo}) and (\ref{eq:highPass}).  $V_L$ terms will be designated via the 
+variable prefix \verb+LowPass+ and $V_H$ by \verb+HighPass+.  This requires initialization of the following fields in the analysis member registry: 
+\begin{itemize}
+  \item normalVelocityLowPass 
+  \item normalVelocityHighPass 
+\end{itemize}
+These fields can then be utilized by other analysis members, e.g., LIGHT for high-performance particle tracking.
+
+The analysis member is easily extensible to any field because the filter is an element-wise operation.
