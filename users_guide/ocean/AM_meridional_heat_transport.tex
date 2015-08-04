@@ -1,0 +1,25 @@
+\section{Meridional Heat Transport}
+\label{sec:meridional heat transport}
+
+This analysis members computes the meridional heat transport (MHT), i.e. the northward flow of thermal energy across a given latitude line.  The MHT in a single layer, using continuous variables, is
+\begin{eqnarray}
+MHT(\phi,z) &=& \rho_0 c_p \int_{\phi'=-90^o}^{\phi}  A \nabla \cdot (h u T) d \phi'
+\end{eqnarray}
+where $\phi$ is latitude, h is layer thickness, $u$ is velocity, $T$ is temperature, $ \rho_0$ is the reference density, and $c_p$ is the specific heat of ocean water, and$A$ is the surface area.  MHT has units of watts in these equations, and model output is in petawatts.
+
+Now discretize into cells with index $i$, edges with index $e$, and vertical index $k$.  Separate the earth into zonal stripes, $\Omega_j$, extending from latitudinal boundaries $\phi_j$ to $\phi_{j+1}$, where $\phi_1, \phi_2, \ldots \phi_n$ are monotonically increasing from south to north.  The MHT at $\phi_n$ in layer $k$ is
+\begin{eqnarray}
+MHT_{n,k} &=& \rho_0 c_p 
+\sum_{j=1}^{n}
+{\sum_{i \in \Omega_j} A_i \left[\nabla \cdot ({\overline h}_{e,k} u_{e,k} {\overline T}_{e,k}) \right]_{i,k} }
+\end{eqnarray}
+where the overbar indicates an averaging from cell centers to edge.  For MHT over the full depth, just sum in $k$,
+\begin{eqnarray}
+MHT_{n} &=& \rho_0 c_p 
+\sum_{k=1}^{kMax}
+\sum_{j=1}^{n}
+{\sum_{i \in \Omega_j} A_i \left[\nabla \cdot ({\overline h}_{e,k} u_{e,k} {\overline T}_{e,k}) \right]_{i,k} }
+\end{eqnarray}
+
+
+
