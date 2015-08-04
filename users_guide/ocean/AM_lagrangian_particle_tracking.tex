@@ -1,0 +1,71 @@
+\section{Lagrangian In-situ Global High-performance particle Tracking (LIGHT)}
+\label{sec:LIGHT}
+
+The Lagrangian In-situ Global High-performance particle Tracking (LIGHT) \citep{Wolfram_di15jpo}
+analysis member computes particle trajectories on-line, providing a 
+Lagrangian description of the flow that is comparable to the flow computed 
+with the Eulerian dynamic core.  Interpolation schemes and time integration used to
+advect particles are described in \citet{Wolfram_di15jpo}.  
+
+\subsection{Different particle transport modes}
+
+There are several different particle modes which are specified by assigning values to the \inlineCode{verticalTreatment} particle
+variable.  These modes are used to determine the method used to assign the horizontal velocity for each particle's location,
+relative to its horizontal location and associated cell:
+
+\begin{enumerate}
+  \item \inlineCode{indexLevel} -- specifies that particles are constrained to a specified \inlineCode{indexLevel} variable.
+  \item \inlineCode{fixedZLevel} -- specifies that particles are constrained to a specified z-level (\inlineCode{fixedZLevel}).
+  \item \inlineCode{passiveFloat} -- particles are advected by the full three-dimensional velocity field and are passive floats.
+  \item \inlineCode{buoyancySurface} -- particles are constrained to buoyancy surfaces designated by the \inlineCode{buoyancyParticle} potential density surface.  For example, this approach was used in \citet{Wolfram_di15jpo}.
+\end{enumerate}
+
+The horizontal interpolation scheme is specified by the
+\inlineCode{vertexReconstMethod} and \inlineCode{horizontalTreatment} variables. Currently
+all horizontal interpolations are performed by interpolating cell-centered
+Radial Basis Function (RBF) values onto cell vertices via linear interpolation
+(specified by \inlineCode{vertexReconstMethod}) with Wachspress interpolation used to
+interpolate vertex-located velocities onto arbitrary points within each cell
+(specified by the \inlineCode{horizontalTreatment} variable).  
+
+\subsection{Parallel decomposition}
+
+Particle transport is dependent upon {\it a priori} knowledge of the block
+decomposition used in the host Eulerian dynamic core and this information is
+specified via the \inlineCode{currentBlock} variable which is used at run-time to
+determine the destination block for particle computations.  Input/output blocks
+are automatically assigned based on a uniform decomposition of particle across blocks.
+The number of times each particle is transferred across computational blocks is 
+stored via the \inlineCode{transfered} variable.
+
+\subsection{Particle time stepping}
+
+Particle time stepping is accomplished via sub-steps in between Eulerian dynamic core time steps
+and is specified by \inlineCode{dtParticle}.  
+
+\subsection{Storage of buoyancy-surface velocities and depth}
+
+LIGHT can also interpolate the Eulerian dynamical core velocity field onto buoyancy surfaces.
+The number of buoyancy surfaces is specified by the dimension \inlineCode{nBuoyancySurfaces} and 
+the values of the buoyancy surfaces designated by \inlineCode{buoyancySurfaceValues}.  Velocities are 
+returned via \inlineCode{buoyancySurfaceVelocityZonal} and \inlineCode{buoyancySurfaceVelocityMeridional} and 
+buoyancy surface depth in \inlineCode{buoyancySurfaceDepth}.
+
+\subsection{Pre-filtering of the Eulerian velocity field}
+
+Unstructured second-order Shapiro filters are used to low-pass filter the Eulerian velocity fields 
+\citep{Wolfram_di15jpo, wolfram2013mitigating}.  The number of filter passes, which determines the 
+attenuation of high-frequencies, is specified via the 
+
+{\noindent} \inlineCode{config{\_}lagrangian{\_}particle{\_}tracking{\_}filter{\_}number} namelist configuration option.  Filtered velocities are stored in the \inlineCode{filteredVelocityU} and \inlineCode{filteredVelocityV}
+variables.
+
+%Provide a table for 2dx, 4dx, 8dx filtering?
+
+\subsection{Computation of Lagrangian mean, eddy velocities, and integral timescales}
+LIGHT also provides the capability to store summed velocities and velocity
+products, useful in determining mean velocities, eddy velocities, and
+Lagrangian timescales: \inlineCode{sumU}, \inlineCode{sumV}, \inlineCode{sumUU}, \inlineCode{sumUV},
+and \inlineCode{sumVV} corresponding to the time-integrated $u$, $v$, $uu$, $uv$, and
+$vv$ velocity components.
+
