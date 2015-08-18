@@ -47,7 +47,7 @@ The time tendency of Ertel potential vorticity caused by eddy-mean flow interact
 %
 where $\mathbf{E}^u$ and $\mathbf{E}^v$ are the first and second columns of the EPFT, respectively.
 
-Calculations are performed in buoyancy coordinates by interpolating the state to \verb+nBuoyancyLayers+ buoyancy layers uniformly distributed between \verb+rhomin+ and \verb+rhomax+. 
+Calculations are performed in buoyancy coordinates by interpolating the state to a reference vertical grid \verb+potentialDensityMidRef+ with \verb+nBuoyancyLayers+ layers uniformly distributed between \verb+rhomin+ and \verb+rhomax+. 
 A running time average of relevant quantities is updated every \verb+compute_interval+.
 
 Diagnosed quantities include, among others: 
