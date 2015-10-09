@@ -1,0 +1,102 @@
+MPAS-Ocean supports the option to compute fluxes across 
+the land ice-ocean interface in either ``standalone'' or ``coupled''
+mode.  
+
+In either mode, quadratic top drag is applied as a surface stress 
+in (\ref{ocean:\mode_mom_surf_forcing}), where
+\begin{align}
+\tau = & \rho_0 C_\textrm{D,top} \overline{\left(|u| u\right)}^\textrm{BL},
+\end{align}
+and where $C_\textrm{D,top}$ is the dimensionless top drag coefficient
+and the operator $\overline{\left(\cdot\right)}^\textrm{BL}$ indicates 
+the vertical average over the boundary layer below land ice, which
+has a depth $H_\textrm{BL}$.  Several additional diagnostics are computed
+in either mode:
+\begin{align}
+u_* = & \sqrt{C_\textrm{D,top} \overline{\left(|u|^2+u_\textrm{tidal}^2\right)}^\textrm{BL}}, \\
+\Theta_\textrm{BL} = & \overline{\left(\Theta\right)}^\textrm{BL}, \\
+S_\textrm{BL} = & \overline{\left(S\right)}^\textrm{BL}.
+\end{align}
+
+The boundary conditions at the ice-ocean interface arise
+from conservation of enthalpy and salt across the interface and the requirement that the interface
+be at the pressure- and salinity-dependent potential freezing point:
+\begin{align}
+   \rho_\textrm{fw} L m_w & = \mathcal{F}_\textrm{H,ice} - \rho_\textrm{sw} c_p \gamma_\Theta \left(\Theta_b - \Theta_\textrm{BL} \right), \label{ocean:\mode_land_ice_enthalpy_balance}\\
+   \rho_\textrm{fw} m_w S_b & = - \rho_\textrm{sw} \gamma_S \left(S_b - S_\textrm{BL}\right),  \\
+   \Theta_b & = \Theta_f(S,p), \\
+\end{align}
+where $\rho_\textrm{fw}$ is the density of freshwater, $L$ is the latent heat of fusion of
+water, $\mathcal{F}_\textrm{H,ice}$ is the sensible heat flux into the ice (always negative),
+$\rho_\textrm{sw}$ is the reference denstiy of seawater $c_p$ is the heat capacity of seawater
+$\gamma_\Theta$ and $\gamma_S$ are thermal- and salt-transfer velocities,
+$\Theta_f$ is the freezing potential temperature and $\Theta_b$, $S_b$ and $m_w$ are the
+unknown potential temperature and salinity at the boundary and the melt rate (expressed in 
+water-equivalent).  The associated surface freshwater, heat and salt fluxes are
+\begin{align}
+   \mathcal{F}_\textrm{fw} & = \rho_\textrm{fw} m_w, \\
+   \mathcal{F}_\textrm{H} & = c_p \left[F_\textrm{fw} \Theta_b + \rho_\textrm{sw} \gamma_\Theta \left(\Theta_b - \Theta_\textrm{BL}\right)\right], \\
+   \mathcal{F}_\textrm{S} & = 0.
+\end{align}
+
+In ``coupled'' mode, the time-averaged values of $\Theta_\textrm{BL}$, $S_\textrm{BL}$,
+$\gamma_\Theta$ and $\gamma_S$ are computed in MPAS-Ocean, and the fluxes are computed
+in the coupler.
+
+In ``standalone'' mode, the boundary conditions are solved and the fluxes computed in 
+MPAS-Ocean.  Three flux formulations are supported, ``isomip'', ``jenkins'' and 
+``hollandJenkins'', each with its own definition of the freezing potential temperature
+and the transfer velocities.
+
+\hfill \break \noindent \textit{isomip:}
+
+\noindent The ISOMIP formulation \citep{Hunter2006} is the simplest, using the 
+boundary-layer salinity to compute the freezing potential temperature and a 
+velocity independent heat-transfer velocity:
+\begin{align}
+  \Theta_f & = \lambda_1 S_\textrm{BL} + \lambda_2 + \lambda_3 p_b, \\
+  \gamma_\Theta & = \gamma_\textrm{ISO}.
+\end{align}
+The salt-transfer velocity $\gamma_S$ and the salinity at the boundary $S_b$
+are not needed for the flux computation and are not computed for this
+formulation.
+
+\hfill \break \noindent \textit{jenkins:}
+
+\noindent The \citet{Jenkins2010} boundary conditions are more sophisticated, 
+using the interface salinity in the freezing potential temperature 
+and including the spatially variable friction velocity in the computation of 
+heat and salt transfer across the boundary layer:
+\begin{align}
+  \Theta_f & = \lambda_1 S_b + \lambda_2 + \lambda_3 p_b, \\
+  \gamma_\Theta & = u_* \Gamma_\Theta, \\
+  \gamma_S & = u_* \Gamma_S,
+\end{align}
+where $\Gamma_\Theta$ and $\Gamma_S$ are constants calibrated from observations 
+\citep[e.g.][]{Jenkins2010}.
+
+\hfill \break \noindent \textit{holland-jenkins:}
+
+\noindent The \citet{Holland1999} formulation includes slightly nonlinear velocity 
+dependence in heat and salt transfer velocities, and is commonly used in many studies.  
+The boundary conditions are as in the ``jenkins'' case except that $\Gamma_\Theta$ and 
+$\Gamma_S$ are not constants, but are given by
+\begin{align}
+  \Gamma_{\Theta,S} & = \frac{1}{\Lambda_\textrm{turb} + \Lambda_\textrm{mol}^{\Theta,S}}, \\
+  \Lambda_\textrm{turb} & = \frac{1}{k} \textrm{ln}\left(\frac{u_* \xi_N}{f h_\nu}\right) + \frac{1}{2 \xi_N} - \frac{1}{k}, \\
+  \Lambda_\textrm{mol}^{\Theta,S} & = 12.5~(\textrm{Pr},\textrm{Sc})^{2/3} - 6, \\
+  h_\nu & = 5 \frac{\nu}{u_*},
+\end{align}
+where the various parameters $k$, $\xi_n$, $h_\nu$, $\textrm{Pr}$ and $\textrm{Sc}$ have the values defined 
+in \citet{Holland1999}.
+
+The sensible heat flux $\mathcal{F}_\textrm{H,ice}$ into the ice in 
+(\ref{ocean:\mode_land_ice_enthalpy_balance}) is not known in ``standalone'' mode.  This flux
+is generally small, with the dominant balance between latent heat released through melting
+and ocean sensible heat fluxes.  The default assumption is that 
+$\mathcal{F}_\textrm{H,ice} = 0$, meaning that the ice is perfectly insulating.  An alternative
+is to use the advection-diffusion method of \citet{Holland1999}, where the ice is assumed
+to advect vertically at the melt rate and its temperature is assumed
+to be at a reference surface temperature under melting conditions and at 
+the freezing point for freezing conditions.
+
