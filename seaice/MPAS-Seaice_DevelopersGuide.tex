@@ -1,0 +1,284 @@
+\documentclass{article}
+
+\begin{document}
+
+\title{MPAS-Seaice developer guide}
+\author{Adrian K. Turner} 
+\date{\today}
+\maketitle
+
+%-------------------------------------------------------------------------------------------------------------------
+
+\section{Preliminaries}
+\label{sec:preliminaries}
+
+Here we describe preliminary tasks required before MPAS can be installed.
+
+\begin{enumerate}
+
+\item Gain access to the MPAS git repository
+
+\item Create a git fork of the MPAS/MPAS-Dev repository on Github
+
+\item Install the libraries required for MPAS: netcdf, pnetcdf and PIO
+
+\begin{itemize}
+
+\item On institutional computing use the pre-compiled libary modules:
+
+\verb+module use /usr/projects/climate/SHARED_CLIMATE/modulefiles/all/+
+
+\verb+module load gcc/4.8.2 openmpi/1.6.5 netcdf/4.4.0 parallel-netcdf/1.5.0 pio/1.7.2+
+
+\item Otherwise, manually install and set the \verb+$NETCDF+, \verb+$PNETCDF+ and \verb+$PIO+ environment variables. Netcdf version 3.1.4, Pnetcdf version 1.7.0 and PIO version 1.7.2 are known to work.
+
+\end{itemize}
+
+\item Install fortran compilers including MPI versions.
+
+\end{enumerate}
+
+%-------------------------------------------------------------------------------------------------------------------
+
+\section{Quick start guide}
+\label{sec:quick_start_guide}
+
+Here we describe how to download, build and run MPAS-Seaice using the gfortran compiler.
+
+\begin{enumerate}
+
+\item Check out the code from the git repository
+
+\verb+git clone git@github.com:<git_username>/MPAS.git+
+
+Here \verb+<git_username>+ is your MPAS repository username
+
+\item Move into the MPAS repository
+
+\verb+cd MPAS+
+
+\item Checkout the \verb+cice/develop+ branch
+
+\verb+git checkout cice/develop+
+
+\item Compile the code
+
+\verb+make CORE=cice gfortran+
+
+\item Create a run directory
+
+\verb+cd ../ ; mkdir rundir ; cd rundir+
+
+\item Set up the run directory (see section \ref{sec:standard_run}; in this case \verb+<MPAS_directory>+ is \verb+../MPAS/+) 
+
+\item Run the model
+
+\verb+./cice_model+
+
+\end{enumerate}
+
+%-------------------------------------------------------------------------------------------------------------------
+
+\section{Setting up a standard run in a run directory}
+\label{sec:standard_run}
+
+Here we describe how to set up a standard QU120km run of MPAS-Seaice in a run directory
+
+\begin{enumerate}
+
+\item Move to your run directory
+
+\verb+cd <run_directory>+
+
+\item Create symbolic links to the grid file, standard forcing files and graph files for a QU120km domain
+
+\verb+<MPAS-Seaice_data_directory>/domains/domain_QU120km/get_domain.py+
+
+\item Add the namelist and streams file for a standard test run
+
+\verb+cp <MPAS-Seaice_data_directory>/configurations/standard_physics/* .+
+
+\item Copy the namelist and streams file to the names used by MPAS. This step is so a pristine version of these files remain in your run directory even if you modify the ones used by MPAS-seaice.
+
+\verb+cp namelist.cice.base namelist.cice ; cp streams.cice.base streams.cice+
+
+\item Get a symbolic link to the MPAS-Seaice executable
+
+\verb+ln -s <MPAS_directory>/cice_model .+
+
+\end{enumerate}
+
+Note: On IC machines at LANL \verb+<MPAS-Seaice_data_directory>+ is \verb+wibble+
+
+%-------------------------------------------------------------------------------------------------------------------
+
+\section{Development workflow}
+\label{sec:development}
+
+Here we describe the work flow needed to add new features to the sea ice model.
+
+\begin{enumerate}
+
+\item Create a run directory in the base directory.
+
+\verb+mkdir <feature_directory>+
+
+\verb+cd <feature_directory>+
+
+\item Create a development and base directory within this feature directory. Code changes will be made in the development directory and compared during testing against an unchanged version in base.
+
+\verb+mkdir development+
+
+\verb+mkdir base+
+
+\item Create the run directory that will be used for bit reproducible testing
+
+\verb+cd base/+
+
+\verb+mkdir rundir+
+
+\item Clone and compile \verb+cice/develop+ in the base directory.
+\begin{verbatim}
+git clone git@github.com:MPAS-Dev/MPAS.git
+cd MPAS/
+git checkout cice/develop
+make CORE=cice gfortran
+\end{verbatim}
+
+\item Enter the development directory and create a testing run directory
+
+\verb+cd ../../development+
+
+\verb+mkdir rundir+
+
+
+\item Create a new feature branch from cice/develop to develop the new feature in and compile it.
+\begin{verbatim}
+git clone git@github.com:<git_username>/MPAS.git
+cd MPAS/
+git remote add MPAS-Dev git@github.com:MPAS-Dev/MPAS.git
+git fetch --all
+git checkout -b cice/<feature_branch_name> MPAS-Dev/cice/develop
+make CORE=cice gfortran
+\end{verbatim}
+ 
+\item Make the changes to the code needed to implement the desired feature
+
+\item Test that your changes haven't broken the code (see section \ref{sec:testing}).
+
+\item Commit your changes to the repository (see section \ref{sec:committing}).
+
+\item Push your changes to your fork on Github and create a pull request for these features to be merged into \verb+cice/develop+ (see section \ref{sec:pull_request}).
+  
+\end{enumerate}
+
+%-------------------------------------------------------------------------------------------------------------------
+
+\section{Testing MPAS-Seaice}
+\label{sec:testing}
+
+Currently testing in MPAS-Seaice relies on the development structure as described in section \ref{sec:development}.
+
+\begin{enumerate}
+
+\item Go to the development run directory
+
+\verb+cd <feature_directory>/development/rundir+
+
+\item Create the testing namelists and streams
+
+\begin{verbatim}
+<MPAS-Seaice_data_directory>/configurations/create_testing_configuration.py /
+    namelist.cice.base streams.cice.base
+\end{verbatim}
+
+This creates a series of namelists and streams files used by the testing scripts based on namelist.cice.base and streams.cice.base
+
+\item Repeat the above in \verb+<feature_directory>/base/rundir+
+
+\item From \verb+<feature_directory>/development/rundir+ run the testing scripts
+
+\verb+<MPAS-Seaice_data_directory>/testing_scripts/bit_reproducible.py+
+
+\verb+<MPAS-Seaice_data_directory>/testing_scripts/bit_restartable.py+
+
+\verb+<MPAS-Seaice_data_directory>/testing_scripts/bit_parallel.py+
+
+\end{enumerate}
+
+%-------------------------------------------------------------------------------------------------------------------
+
+\section{Committing changes to the repository}
+\label{sec:committing}
+
+Once you are happy with the changes made to your code the changes must be committed to the local repository
+
+\begin{enumerate}
+
+\item Move to the MPAS main directory
+
+\verb+cd <MPAS_directory>+
+
+\item See what files have changed since the last commit
+
+\verb+git status+
+
+\item See what has changed within those files
+
+\verb+git diff+
+
+\item Add newly created files to the commit
+
+\verb+git add <new_file>+
+
+\item Add changed files to the commit
+
+\verb+git add <changed_file>+
+
+\item Commit all the changes that have been queued up for commit by the last two sets of command
+
+\verb+git commit+
+
+This should open up a text editor that allows a commit message to be written. Saving and closing this file triggers the commit.
+
+\item Alternatively, all the file changes can be added to the commit in a single command. Note: this doesn't add new files.
+
+\verb+git commit -a+
+
+
+\end{enumerate}
+
+%-------------------------------------------------------------------------------------------------------------------
+
+\section{Making pull requests into cice/develop}
+\label{sec:pull_request}
+
+Once all the changes and new files needed to implement a new feature are implemented then a request must be made to have this feature merged into \verb+cice/develop+. We assume all desired changes have been committed into the local repository as described in section \ref{sec:committing}.
+
+\begin{enumerate}
+
+\item Firstly, its useful to see what branch we are currently on.
+
+\verb+git branch+
+
+The current branch is highlighted with an asterix.
+
+\item Move to the branch we want to submit the pull request for (you're most likely already on it if you're following these instructions).
+
+\verb+git checkout <feature_branch>+
+
+\item Push the branch to your fork on Github
+
+\verb+git push origin <feature_branch>+
+
+\item Go to github.com and find the branch you just pushed there. Click on the submit pull request button and make sure the pull request is into \verb+cice/develop+ and not \verb+develop+ (which is the default). Add the current MPAS-Seaice integrator (currently \verb+akturner+) as the assignee and add a \verb+Sea ice+ label.
+
+\item Go tell the MPAS-Seaice integrator that you have submitted a pull request (currently Adrian Turner). Do not rely on them seeing the automated Github notification email.
+
+\end{enumerate}
+
+
+
+%-------------------------------------------------------------------------------------------------------------------
+
+\end{document}
