@@ -24,11 +24,17 @@ Here we describe preliminary tasks required before MPAS can be installed.
 
 \begin{itemize}
 
-\item On institutional computing use the pre-compiled libary modules:
+\item On LANL institutional computing use the pre-compiled library modules:
 
-\verb+module use /usr/projects/climate/SHARED_CLIMATE/modulefiles/all/+
-
-\verb+module load gcc/4.8.2 openmpi/1.6.5 netcdf/4.4.0 parallel-netcdf/1.5.0 pio/1.7.2+
+\begin{verbatim}
+module use /usr/projects/climate/SHARED_CLIMATE/modulefiles/all/
+module load \
+  gcc/4.8.2 \
+  openmpi/1.6.5 \
+  netcdf/4.4.0 \
+  parallel-netcdf/1.5.0 \
+  pio/1.7.2
+\end{verbatim}
 
 \item Otherwise, manually install and set the \verb+$NETCDF+, \verb+$PNETCDF+ and \verb+$PIO+ environment variables. Netcdf version 3.1.4, Pnetcdf version 1.7.0 and PIO version 1.7.2 are known to work.
 
@@ -96,11 +102,7 @@ Here we describe how to set up a standard QU120km run of MPAS-Seaice in a run di
 
 \item Add the namelist and streams file for a standard test run
 
-\verb+cp <MPAS-Seaice_data_directory>/configurations/standard_physics/* .+
-
-\item Copy the namelist and streams file to the names used by MPAS. This step is so a pristine version of these files remain in your run directory even if you modify the ones used by MPAS-seaice.
-
-\verb+cp namelist.cice.base namelist.cice ; cp streams.cice.base streams.cice+
+\verb+cp <MPAS_Directory>/testing_and_setup/seaice/configurations/standard_physics/* .+
 
 \item Get a symbolic link to the MPAS-Seaice executable
 
@@ -108,7 +110,7 @@ Here we describe how to set up a standard QU120km run of MPAS-Seaice in a run di
 
 \end{enumerate}
 
-Note: On IC machines at LANL \verb+<MPAS-Seaice_data_directory>+ is \verb+wibble+
+Note: On LANL IC machines at LANL \verb+<MPAS-Seaice_data_directory>+ is \verb+/turquoise/usr/projects/climate/akt/MPAS-seaice/+
 
 %-------------------------------------------------------------------------------------------------------------------
 
@@ -119,7 +121,7 @@ Here we describe the work flow needed to add new features to the sea ice model.
 
 \begin{enumerate}
 
-\item Create a run directory in the base directory.
+\item Create a feature branch directory:
 
 \verb+mkdir <feature_directory>+
 
@@ -135,8 +137,6 @@ Here we describe the work flow needed to add new features to the sea ice model.
 
 \verb+cd base/+
 
-\verb+mkdir rundir+
-
 \item Clone and compile \verb+cice/develop+ in the base directory.
 \begin{verbatim}
 git clone git@github.com:MPAS-Dev/MPAS.git
@@ -149,7 +149,6 @@ make CORE=cice gfortran
 
 \verb+cd ../../development+
 
-\verb+mkdir rundir+
 
 
 \item Create a new feature branch from cice/develop to develop the new feature in and compile it.
@@ -177,34 +176,27 @@ make CORE=cice gfortran
 \section{Testing MPAS-Seaice}
 \label{sec:testing}
 
-Currently testing in MPAS-Seaice relies on the development structure as described in section \ref{sec:development}.
+Here we describe how to run the standard MPAS-Seaice tests:
 
 \begin{enumerate}
 
-\item Go to the development run directory
+\item Create a testing directory and cd into it
 
-\verb+cd <feature_directory>/development/rundir+
+\verb+mkdir testdir ; cd testdir+
 
-\item Create the testing namelists and streams
+\item Run the MPAS testing system
 
 \begin{verbatim}
-<MPAS-Seaice_data_directory>/configurations/create_testing_configuration.py /
-    namelist.cice.base streams.cice.base
+<MPAS_Directory>/testing_and_setup/seaice/testing/test_mpas-seaice.py \
+   -d <Development_MPAS_Dir> \
+   -b <Base_MPAS_Dir>
 \end{verbatim}
 
-This creates a series of namelists and streams files used by the testing scripts based on namelist.cice.base and streams.cice.base
-
-\item Repeat the above in \verb+<feature_directory>/base/rundir+
-
-\item From \verb+<feature_directory>/development/rundir+ run the testing scripts
-
-\verb+<MPAS-Seaice_data_directory>/testing_scripts/bit_reproducible.py+
-
-\verb+<MPAS-Seaice_data_directory>/testing_scripts/bit_restartable.py+
-
-\verb+<MPAS-Seaice_data_directory>/testing_scripts/bit_parallel.py+
+\verb+<Development_MPAS_Dir>+ is the development MPAS directory, and \verb+<Base_MPAS_Dir>+ is the base MPAS directory that will be compared against the development MPAS directory.
 
 \end{enumerate}
+
+Note: the testing system assumes that python 2.7 is used and a number of python packages are installed.
 
 %-------------------------------------------------------------------------------------------------------------------
 
