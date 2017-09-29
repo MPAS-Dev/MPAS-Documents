@@ -65,7 +65,7 @@ element:
 \noindent {\tt <stream name="history"} \newline
 \hspace*{\mutindent}{\tt type="output"} \newline
 \hspace*{\mutindent}{\tt filename\_template="output.\$Y-\$M-\$D\_\$h.\$m.\$s.nc"} \newline
-\hspace*{\mutindent}{\tt output\_interval="6:00:00" />} \newline
+\hspace*{\mutindent}{\tt output\_interval="6:00:00" >} \newline
 \newline
 \hspace*{1cm}... model fields belonging to this stream ... \newline
 \newline
@@ -154,6 +154,15 @@ for an example of the use of the precision attribute.
 the packages attached to it is active, or if no packages at all are attached. Package names are provided as a semi-colon-separated
 list. Note that packages may only be defined in an MPAS core's Registry.xml file at build time. By default, no packages are attached
 to a stream.
+\item {\tt io\_type} --- The underlying library and file format that will be used to read or write a stream. Possible values include:
+\begin{itemize}
+\item{\tt "pnetcdf"} --- Read/write the stream with classic large-file NetCDF files (CDF-2) using the ANL Parallel-NetCDF library.
+\item{\tt "pnetcdf,cdf5"} --- Read/write the stream with large-variable files (CDF-5) using the ANL Parallel-NetCDF library. 
+\item{\tt "netcdf"} --- Read/write the stream with classic large-file NetCDF files (CDF-2) using the Unidata serial NetCDF library.
+\item{\tt "netcdf4"} --- Read/write the stream with HDF-5 files using the Unidata parallel NetCDF-4 library.
+\end{itemize}
+Note that the PIO library must have been built with support for the selected {\tt io\_type}. By default, all input and output streams are
+read and written using the {\tt "pnetcdf"} option.
 \end{itemize}
 
 \section{Stream definition examples}
@@ -176,7 +185,7 @@ where any leading terms can be omitted; in this case, the year part of the inter
 \hspace*{\mutindent}{\tt filename\_template="diagnostics.\$Y-\$M.nc"} \newline
 \hspace*{\mutindent}{\tt filename\_interval="01-00\_00:00:00"} \newline
 \hspace*{\mutindent}{\tt precision="single"} \newline
-\hspace*{\mutindent}{\tt output\_interval="6:00:00" />} \newline
+\hspace*{\mutindent}{\tt output\_interval="6:00:00" >} \newline
 \newline
 \hspace*{1cm}{\tt <var name="u10"/>} \newline
 \hspace*{1cm}{\tt <var name="v10"/>} \newline
@@ -206,7 +215,7 @@ accomplished with the {\tt clobber\_mode} attribute.
 \hspace*{\mutindent}{\tt filename\_interval="01-00\_00:00:00"} \newline
 \hspace*{\mutindent}{\tt precision="single"} \newline
 \hspace*{\mutindent}{\tt clobber\_mode="append"} \newline
-\hspace*{\mutindent}{\tt output\_interval="6:00:00" />} \newline
+\hspace*{\mutindent}{\tt output\_interval="6:00:00" >} \newline
 \newline
 \hspace*{1cm}{\tt <var name="u10"/>} \newline
 \hspace*{1cm}{\tt <var name="v10"/>} \newline
@@ -249,7 +258,7 @@ here is to describe to MPAS that the monthly filename interval begins (i.e., is 
 \hspace*{\mutindent}{\tt reference\_time="2014-01-01\_00:00:00"} \newline
 \hspace*{\mutindent}{\tt precision="single"} \newline
 \hspace*{\mutindent}{\tt clobber\_mode="append"} \newline
-\hspace*{\mutindent}{\tt output\_interval="6:00:00" />} \newline
+\hspace*{\mutindent}{\tt output\_interval="6:00:00" >} \newline
 \newline
 \hspace*{1cm}{\tt <var name="u10"/>} \newline
 \hspace*{1cm}{\tt <var name="v10"/>} \newline
