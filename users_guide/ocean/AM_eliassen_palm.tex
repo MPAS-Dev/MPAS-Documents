@@ -1,0 +1,63 @@
+\newcommand{\Dt}[1]{ \frac{D {#1}}{D t} }
+\newcommand{\Dts}[1]{ \frac{D^\sharp {#1}}{D t} }
+\newcommand{\ddt}[1]{ \frac{\partial {#1}}{\partial t} }
+\newcommand{\ddx}[1]{ \frac{\partial {#1}}{\partial x} }
+\newcommand{\ddy}[1]{ \frac{\partial {#1}}{\partial y} }
+\newcommand{\ddz}[1]{ \frac{\partial {#1}}{\partial z} }
+\newcommand{\ddtb}[1]{ \frac{\partial {#1}}{\partial \tilde{t}} }
+\newcommand{\ddxb}[1]{ \frac{\partial {#1}}{\partial \tilde{x}} }
+\newcommand{\ddyb}[1]{ \frac{\partial {#1}}{\partial \tilde{y}} }
+\newcommand{\ddb}[1]{ \frac{\partial {#1}}{\partial \tilde{b}} }
+\newcommand{\ol}{ \overline }
+
+
+\section{Eliassen-Palm Flux Tensor and related quantities}
+\label{sec:AM_eliassen_palm}
+
+This analysis member computes the Eliassen-Palm flux tensor and related quantities \citep{young_2012, maddison_marshall_2013}, which represents forces from eddy-mean flow interactions in the thickness-weighted averaged (TWA) Boussinesq momentum equations.
+The notation used here is based on that used in \cite{young_2012} and \cite{saenz_etal_2015a}.
+The Eliassen-Palm flux tensor (EPFT), $\mathbf{E}$, is given by
+%
+\begin{equation}
+\mathbf{E} = \left(
+\begin{matrix}
+  \vspace{0.2 cm}
+  \widehat{u^{''}u^{''}} +  \frac{1}{2 \overline \sigma} \overline{{\zeta'^2}} & \widehat{u^{''}v^{''}} & 0 \\
+  \vspace{0.2 cm}
+  \widehat{u^{''}v^{''}} & \widehat{v^{''}v^{''}} +  \frac{1}{2 \overline \sigma} \overline{{\zeta'^2}} & 0 \\
+  \widehat{u'' \varpi''} + \frac{1}{\overline \sigma} \overline{{\zeta' m'_{\tilde x}}}  & \widehat{v'' \varpi''} +  \frac{1}{\overline \sigma} \overline{{\zeta' m'_{\tilde y}}} & 0
+ \end{matrix}
+ \right ).
+\label{eq:fullEPFT}
+\end{equation}
+%
+In the current implementation, $\widehat{u'' \varpi''}$ and $\widehat{v'' \varpi''}$ are assumed to be zero.
+Ertel potential vorticity associated with the residual mean flow is defined as
+\begin{equation}
+\Pi^\sharp = \frac{f + \ddxb{ \hat v } - \ddyb{ \hat u }}{\ol \sigma}.
+\label{eq:EPVtwa}
+\end{equation}
+%
+The time tendency of Ertel potential vorticity caused by eddy-mean flow interactions, $\nabla \cdot \mathbf{F}^\sharp$, with the Ertel potential vorticity flux defines as
+%
+\begin{equation}
+\mathbf{F^\sharp} = \frac{\nabla \cdot \mathbf{E}^v}{\ol \sigma} \mathbf{\ol e_1} - 
+	\frac{\nabla \cdot \mathbf{E}^u}{\ol \sigma} \mathbf{\ol e_2}, \label{eq:EPV_fluxes_twa}
+\end{equation}
+%
+where $\mathbf{E}^u$ and $\mathbf{E}^v$ are the first and second columns of the EPFT, respectively.
+
+Calculations are performed in buoyancy coordinates by interpolating the state to a reference vertical grid \verb+potentialDensityMidRef+ with \verb+nBuoyancyLayers+ layers uniformly distributed between \verb+rhomin+ and \verb+rhomax+. The user must set \verb+rhomin+ and \verb+rhomax+ so that potential density in the model run is within \verb+rhomin+ and \verb+rhomax+.
+A running time average of relevant quantities is updated every \verb+compute_interval+.
+
+Diagnosed quantities include, among others: 
+\begin{itemize}
+\item the reference potential density used as vertical coordinate in the calculations, \verb+potentialDensityMidRef+, \verb+potentialDensityTopRef+;
+\item ensemble averages \verb+sigmaEA+, the montgomery potential \verb+montgPotBuoyCoorEA+ and its gradients \verb+montgPotGradZonalEA+ and \verb+montgPotGradMeridEA+; 
+\item TWA velocities \verb+uTWA+ and \verb+vTWA+ and their vertical gradients \verb+duTWAdz+ and \verb+duTWAdz+; 
+\item the EPFT \verb+EPFT+ and, for ease of manipulation in output files, quantities required to reconstruct terms of the EPFT, namely \verb+uuTWACorr+, \verb+vvTWACorr+, \verb+uvTWACorr+, \verb+epeTWA+, \verb+eddyFormDragZonal+, \verb+eddyFormDragMerid+;
+\item the forces on the TWA momentum equations, given by the divergence of the EPFT, \verb+divEPFT+, and its components \verb+divEPFTshear1+, \verb+divEPFTshear2+, \verb+divEPFTdrag1+, \verb+divEPFTdrag2+;
+\item Ertel potential vorticity flux, \verb+ErtelPVFlux+;
+\item the Ertel potential vorticity tendency by the eddy-mean flow interactions, \verb+ErtelPVTendency+;
+\item and the Ertel potential vorticity \verb+ErtelPV+ and its divergence \verb+ErtelPVGradZonal+, \verb+ErtelPVGradMerid+.
+\end{itemize}
