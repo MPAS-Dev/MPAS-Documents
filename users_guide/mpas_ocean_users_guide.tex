@@ -73,7 +73,7 @@
 \LARGE Los Alamos National Laboratory
 }
 
-\date{November 18, 2014}
+\date{PUT RELEASE DATE HERE May 1, 2018}
 
 \maketitle
 
@@ -102,11 +102,13 @@
 % generation, currently the basin.F program.
 %\input{ocean/mpas_grid_generation.tex}
 
-\chapter{Forward Mode}
+\chapter{Description (edit name)}
 \label{chap:forward_mode}
 \newcommand{\mode}{forward}
 \input{ocean/mode_forward_header.tex}
-\input{ocean/mode_forward_sections.tex}
+\input{ocean/mode_analysis_header.tex}
+\input{ocean/namelist_table_documentation.tex}
+\input{ocean/variable_table_documentation.tex}
 \input{ocean/test_case_descriptions.tex}
 \input{ocean/global_statistics.tex}
 \input{ocean/AM_surface_area_averages.tex}
@@ -115,13 +117,6 @@
 \input{ocean/AM_lagrangian_particle_tracking.tex}
 \input{ocean/AM_meridional_heat_transport.tex}
 \input{ocean/AM_eliassen_palm.tex}
-
-\chapter{Analysis Mode}
-\label{chap:analysis_mode}
-\renewcommand{\mode}{analysis}
-\input{ocean/mode_analysis_header.tex}
-\input{ocean/mode_analysis_sections.tex}
-
 \input{ocean/visualization.tex}
 \input{ocean/cesm_coupling.tex}
 \input{ocean/troubleshooting.tex}
@@ -134,11 +129,8 @@
 
 \part{Appendices}
 \appendix
-%\input{ocean/namelist_section_documentation.tex}
-%\input{ocean/variable_section_documentation.tex}
-
-\input{ocean/namelist_sections.tex}
-\input{ocean/variable_sections.tex}
+\input{ocean/namelist_section_documentation.tex}
+\input{ocean/variable_section_documentation.tex}
 
 \end{document}
 

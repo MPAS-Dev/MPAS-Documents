@@ -3,40 +3,112 @@
 {\small
 \begin{center}
 \begin{longtable}{| p{1.0in} || p{1.0in} | p{4.0in} |}
-	\hline 
-	{\bf Name} & {\bf Units} & {\bf Description} \endfirsthead
-	\hline 
-	{\bf Name} & {\bf Units} & {\bf Description} (Continued) \endhead
-	\hline 
-	\hline 
-	nCells & $unitless$ & The number of polygons in the primary grid. \\ 
-	\hline
-	nEdges & $unitless$ & The number of edge midpoints in either the primary or dual grid. \\ 
-	\hline
-	maxEdges & $unitless$ & The largest number of edges any polygon within the grid has. \\ 
-	\hline
-	maxEdges2 & $unitless$ & Two times the largest number of edges any polygon within the grid has. \\ 
-	\hline
-	nAdvectionCells & $unitless$ & The largest number of advection cells for any edge. \\ 
-	\hline
-	nVertices & $unitless$ & The total number of cells in the dual grid. Also the number of corners in the primary grid. \\ 
-	\hline
-	TWO & $unitless$ & The number two as a dimension. \\ 
-	\hline
-	R3 & $unitless$ & The number three as a dimension. \\ 
-	\hline
-	SIX & $unitless$ & The number six as a dimension. \\ 
-	\hline
-	FIFTEEN & $unitless$ & The number 15 as a dimension. \\ 
-	\hline
-	TWENTYONE & $unitless$ & The number 21 as a dimension. \\ 
-	\hline
-	vertexDegree & $unitless$ & The number of cells or edges touching each vertex. \\ 
-	\hline
-	nVertLevels & $unitless$ & The number of levels in the vertical direction. All vertical levels share the same horizontal locations. \\ 
-	\hline
-	nVertLevelsP1 & $unitless$ & The number of interfaces in the vertical direction. \\ 
-	\hline
+    \hline 
+    {\bf Name} & {\bf Units} & {\bf Description} \endfirsthead
+    \hline 
+    {\bf Name} & {\bf Units} & {\bf Description} (Continued) \endhead
+    \hline 
+    \hline 
+    nCells & $unitless$ & The number of polygons in the primary grid. \\ 
+    \hline
+    nCellsP1 & $unitless$ & The number of polygons in the primary grid. \\ 
+    \hline
+    nEdges & $unitless$ & The number of edge midpoints in either the primary or dual grid. \\ 
+    \hline
+    nEdgesP1 & $unitless$ & The number of edge midpoints in either the primary or dual grid. \\ 
+    \hline
+    maxEdges & $unitless$ & The largest number of edges any polygon within the grid has. \\ 
+    \hline
+    maxEdges2 & $unitless$ & Two times the largest number of edges any polygon within the grid has. \\ 
+    \hline
+    nAdvectionCells & $unitless$ & The largest number of advection cells for any edge. \\ 
+    \hline
+    nVertices & $unitless$ & The total number of cells in the dual grid. Also the number of corners in the primary grid. \\ 
+    \hline
+    nVerticesP1 & $unitless$ & The total number of cells in the dual grid. Also the number of corners in the primary grid. \\ 
+    \hline
+    TWO & $unitless$ & The number two as a dimension. \\ 
+    \hline
+    R3 & $unitless$ & The number three as a dimension. \\ 
+    \hline
+    FOUR & $unitless$ & The number four as a dimension. \\ 
+    \hline
+    SIX & $unitless$ & The number six as a dimension. \\ 
+    \hline
+    FIFTEEN & $unitless$ & The number 15 as a dimension. \\ 
+    \hline
+    TWENTYONE & $unitless$ & The number 21 as a dimension. \\ 
+    \hline
+    vertexDegree & $unitless$ & The number of cells or edges touching each vertex. \\ 
+    \hline
+    nVertLevels & $unitless$ & The number of levels in the vertical direction. All vertical levels share the same horizontal locations. \\ 
+    \hline
+    nVertLevelsP1 & $unitless$ & The number of interfaces in the vertical direction. \\ 
+    \hline
+    nPoints & $unitless$ & The number of points for AM\\_pointwiseStats \\ 
+    \hline
+    nPointGroups & $unitless$ & The number of points groups \\ 
+    \hline
+    maxPointsInGroup & $unitless$ & The maximum number of points in any group. \\ 
+    \hline
+    nRegions & $unitless$ & Number of regions. \\ 
+    \hline
+    nRegionGroups & $unitless$ & Number of groups of regions. \\ 
+    \hline
+    maxRegionsInGroup & $unitless$ & Maximum number of regions in a group. \\ 
+    \hline
+    nTransects & $unitless$ & The number of transects for AM transectTransport \\ 
+    \hline
+    nTransectGroups & $unitless$ & Number of groups of regions. \\ 
+    \hline
+    maxTransectsInGroup & $unitless$ & Maximum number of regions in a group. \\ 
+    \hline
+    maxEdgesInTransect & $unitless$ & Max number of edges in a transect for AM transectTransport \\ 
+    \hline
+    nForcingGroupsMax & {\bf \color{red} MISSING} & Number of forcing groups \\ 
+    \hline
+    nDepthTracerIC & $unitless$ & The number of levels in the vertical direction for tracer initial conditions \\ 
+    \hline
+    nDepthEcosysIC & $unitless$ & The number of levels in the vertical direction for ecosystem tracer initial conditions \\ 
+    \hline
+    nSfcAreaWeightedAvgFields & $unitless$ & A number equal to or greater than the number of var arrays in the surfaceAreaWeightedAveragesAM var structure below. \\ 
+    \hline
+    nOceanRegions & $unitless$ & The number of regions defined within the global ocean (will eventually be moved up and used uniformly across MPAS-O. \\ 
+    \hline
+    nTemperatureBins & $unitless$ & The number of temperature bins to be used to span from minTemperature to maxTemperature \\ 
+    \hline
+    nSalinityBins & $unitless$ & The number of salinity bins to be used to span from minSalinity to maxSalinity \\ 
+    \hline
+    nTemperatureBinsP1 & $unitless$ & The number of temperature bin edge values to be used to span from minTemperature to maxTemperature \\ 
+    \hline
+    nSalinityBinsP1 & $unitless$ & The number of salinity bins edge values to be used to span from minSalinity to maxSalinity \\ 
+    \hline
+    nOceanRegionsTmpCensus & $unitless$ & The number of regions defined within the global ocean (will eventually be moved up and used uniformly across MPAS-O. \\ 
+    \hline
+    nLayerVolWeightedAvgFields & $unitless$ & A number equal to or greater than the number of var arrays in the layerVolumeWeightedAverageAM var structure below. \\ 
+    \hline
+    nOceanRegionsTmp & $unitless$ & The number of regions defined within the global ocean (will eventually be moved up and used uniformly across MPAS-O. \\ 
+    \hline
+    nZonalMeanBins & $unitless$ & Number of bins for zonal mean. \\ 
+    \hline
+    nZonalMeanBinsP1 & $unitless$ & Number of bins for zonal mean, plus one. \\ 
+    \hline
+    nMerHeatTransBins & $unitless$ & Maximum number of bins for meridional heat transport. \\ 
+    \hline
+    nMerHeatTransBinsP1 & $unitless$ & Maximum number of bins for meridional heat transport, plus one. \\ 
+    \hline
+    nParticles & $unitless$ & The total number of particles in the simlulation. \\ 
+    \hline
+    nBuoyancySurfaces & $unitless$ & The total number of buoyancy surfaces on which to interpolate velocity. \\ 
+    \hline
+    nBuoyancyLayers & {\bf \color{red} MISSING} & The number of buoyancy layers used for buoyancy coordinates. \\ 
+    \hline
+    nBuoyancyLayersP1 & {\bf \color{red} MISSING} & The number of interfaces between buoyancy layers used for buoyancy coordinates. \\ 
+    \hline
+    nMocStreamfunctionBins & $unitless$ & Maximum number of bins in South-to-North direction for moc streamfunction. \\ 
+    \hline
+    nMocStreamfunctionBinsP1 & $unitless$ & Maximum number of Lat bins for moc streamfunction, plus one. \\ 
+    \hline
 \end{longtable}
 \end{center}
 }
