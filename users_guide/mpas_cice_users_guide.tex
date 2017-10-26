@@ -1,0 +1,115 @@
+\documentclass[11pt]{report}
+
+\usepackage{tocloft}
+\usepackage{epsf,amsmath,amsfonts}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage[pagebackref=true]{hyperref}
+\usepackage{color}
+\usepackage[hang]{caption}
+%\usepackage[hang]{subfigure}
+\usepackage{subfig}
+\usepackage{natbib}
+\usepackage{placeins}
+\usepackage{eso-pic}
+\usepackage{float}
+
+\definecolor{black}{rgb}{0.0,0.0,0.0}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.5}
+\hypersetup{colorlinks,breaklinks,
+            linkcolor=blue,urlcolor=blue,
+            anchorcolor=black,citecolor=blue}
+			
+
+\renewcommand\cftsecaftersnumb{
+\,\,
+}
+\renewcommand\cftsubsecaftersnumb{
+\,\,
+}
+\renewcommand\cftsubsubsecaftersnumb{
+\,\,
+}
+
+\setlength{\topmargin}{0in}
+\setlength{\headheight}{0in}
+\setlength{\headsep}{0in}
+\setlength{\textheight}{9.0in}
+\setlength{\textwidth}{6.5in}
+\setlength{\evensidemargin}{0in}
+\setlength{\oddsidemargin}{0in}
+
+%\captionsetup{width=2in}
+\captionsetup{format=hang}
+%\captionsetup{justification=RaggedRight}
+
+%\input{ocean/define_version.tex}
+
+\setlength\LTleft\parindent
+\setlength\LTright\fill
+
+\newcommand\BackgroundPic{%
+	\put(0,0){%
+		\parbox[b][\paperheight]{\paperwidth}{%
+			\centering
+			\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{ocean/figures/MPAS_LOGO_Ocean.png}%
+			\vfill
+			\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{ocean/figures/cover_V3_KE_NA37-7km_cropped_d.png}%
+}}}
+
+\newcommand{\inlineCode}[1]{\textbf{#1}}
+
+\newcommand{\core}{seaice}
+
+\begin{document}
+%\AddToShipoutPicture*{\BackgroundPic}
+
+\title{
+\Huge MPAS-Seaice Model User's Guide \\
+%\LARGE Version: \version
+}
+
+\author{
+\LARGE Climate, Ocean, Sea-Ice Modeling Team\\ \\
+\LARGE Los Alamos National Laboratory
+}
+
+\date{PUT RELEASE DATE HERE May 1, 2018}
+
+\maketitle
+
+\input{shared/mpas_copyright.tex}
+
+\tableofcontents
+
+\part{The MPAS Framework}
+\input{shared/mpas_build_instructions.tex}
+\input{shared/mpas_grid_description.tex}
+\input{shared/mpas_io.tex}
+% Grid generation is not included in MPAS release 1.0:
+%\input{shared/mpas_grid_generation.tex}
+\input{shared/mpas_visualization.tex}
+
+\part{MPAS-Seaice}
+
+% Grid generation is not included in MPAS release 1.0.
+% In a future release, describe here ocean-specific grid
+% generation, currently the basin.F program.
+%\input{ocean/mpas_grid_generation.tex}
+
+\chapter{Description (edit name)}
+\label{chap:forward_mode}
+\newcommand{\mode}{forward}
+
+
+\part{Bibliography}
+\bibliographystyle{shared/ametsoc}
+\bibliography{shared/mpas_shared}
+
+\part{Appendices}
+\appendix
+
+\end{document}
+
+
+
