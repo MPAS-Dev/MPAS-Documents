@@ -43,7 +43,7 @@
 \captionsetup{format=hang}
 %\captionsetup{justification=RaggedRight}
 
-%\input{ocean/define_version.tex}
+\input{seaice/define_version.tex}
 
 \setlength\LTleft\parindent
 \setlength\LTright\fill
@@ -66,7 +66,7 @@
 
 \title{
 \Huge MPAS-Seaice Model User's Guide \\
-%\LARGE Version: \version
+\LARGE Version: \version
 }
 
 \author{
@@ -100,7 +100,8 @@
 \chapter{Description (edit name)}
 \label{chap:forward_mode}
 \newcommand{\mode}{forward}
-
+\input{seaice/namelist_table_documentation.tex}
+\input{seaice/variable_table_documentation.tex}
 
 \part{Bibliography}
 \bibliographystyle{shared/ametsoc}
@@ -108,6 +109,8 @@
 
 \part{Appendices}
 \appendix
+\input{seaice/namelist_section_documentation.tex}
+\input{seaice/variable_section_documentation.tex}
 
 \end{document}
 
