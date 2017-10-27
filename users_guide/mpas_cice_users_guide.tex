@@ -97,9 +97,28 @@
 % generation, currently the basin.F program.
 %\input{ocean/mpas_grid_generation.tex}
 
-\chapter{Description (edit name)}
-\label{chap:forward_mode}
-\newcommand{\mode}{forward}
+\chapter{Model Description}
+\label{chap:model_description}
+
+\input{seaice/velocity_solver.tex}
+\input{seaice/transport.tex}
+\input{seaice/column_physics.tex}
+\input{seaice/forcing.tex}
+
+\chapter{Analysis Members}
+\label{chap:analysis_members}
+
+\input{seaice/am_time_series_stats.tex}
+
+\chapter{Standalone Simulations}
+\label{chap:standalone_simulations}
+
+\input{seaice/input_data.tex}
+\input{seaice/standard_configurations.tex}
+\input{seaice/testing.tex}
+
+
+% new chapters
 \input{seaice/namelist_table_documentation.tex}
 \input{seaice/variable_table_documentation.tex}
 

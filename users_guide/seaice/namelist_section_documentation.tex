@@ -10,13 +10,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $Seconds$ \\
     \hline
     Default Value: & 3600.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any positive real number. \\
     \hline
-    \caption{config\_dt: {\bf \color{red} MISSING}}
+    \caption{config\_dt: Length of model time-step.}
 \end{longtable}
 \end{center}
 \subsection[config\_calendar\_type]{\hyperref[sec:nm_tab_cice_model]{config\_calendar\_type}}
@@ -26,13 +26,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & character \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & gregorian\_noleap \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & 'gregorian', 'gregorian\_noleap' \\
     \hline
-    \caption{config\_calendar\_type: {\bf \color{red} MISSING}}
+    \caption{config\_calendar\_type: Selection of the type of calendar that should be used in the simulation.}
 \end{longtable}
 \end{center}
 \subsection[config\_start\_time]{\hyperref[sec:nm_tab_cice_model]{config\_start\_time}}
@@ -42,13 +42,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & character \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 2000-01-01\_00:00:00 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & 'YYYY-MM-DD\_HH:MM:SS' or 'file' \\
     \hline
-    \caption{config\_start\_time: {\bf \color{red} MISSING}}
+    \caption{config\_start\_time: Timestamp describing the initial time of the simulation. If it is set to 'file', the initial time is read from restart\_timestamp.}
 \end{longtable}
 \end{center}
 \subsection[config\_stop\_time]{\hyperref[sec:nm_tab_cice_model]{config\_stop\_time}}
@@ -58,13 +58,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & character \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & none \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & 'YYYY-MM-DD\_HH:MM:SS' or 'none' \\
     \hline
-    \caption{config\_stop\_time: {\bf \color{red} MISSING}}
+    \caption{config\_stop\_time: Timestamp descriping the final time of the simulation. If it is set to 'none' the final time is determined from config\_start\_time and config\_run\_duration.}
 \end{longtable}
 \end{center}
 \subsection[config\_run\_duration]{\hyperref[sec:nm_tab_cice_model]{config\_run\_duration}}
@@ -74,13 +74,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & character \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 00-00-01\_00:00:00 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & ''YYYY-MM-DD\_HH:MM:SS' or 'none' \\
     \hline
-    \caption{config\_run\_duration: {\bf \color{red} MISSING}}
+    \caption{config\_run\_duration: Timestamp describing the length of the simulation. If it is set to 'none' the duration is determined from config\_start\_time and config\_stop\_time. config\_run\_duration overrides inconsistent values of config\_stop\_time.}
 \end{longtable}
 \end{center}
 \subsection[config\_num\_halos]{\hyperref[sec:nm_tab_cice_model]{config\_num\_halos}}
@@ -90,13 +90,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & integer \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 2 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any positive integer value. \\
     \hline
-    \caption{config\_num\_halos: {\bf \color{red} MISSING}}
+    \caption{config\_num\_halos: Determines the number of halo cells extending from a blocks owned cells (Called the 0-Halo). The default of 3 is the minimum that can be used with monotonic advection.}
 \end{longtable}
 \end{center}
 \section[io]{\hyperref[sec:nm_tab_io]{io}}
@@ -108,13 +108,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & integer \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any positive integer value greater than or equal to 0. \\
     \hline
-    \caption{config\_pio\_num\_iotasks: {\bf \color{red} MISSING}}
+    \caption{config\_pio\_num\_iotasks: Integer specifying how many IO tasks should be used within the PIO library. A value of 0 causes all MPI tasks to also be IO tasks. IO tasks are requried to write contiguous blocks of data to a file.}
 \end{longtable}
 \end{center}
 \subsection[config\_pio\_stride]{\hyperref[sec:nm_tab_io]{config\_pio\_stride}}
@@ -124,13 +124,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & integer \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 1 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any positive integer value greater than 0. \\
     \hline
-    \caption{config\_pio\_stride: {\bf \color{red} MISSING}}
+    \caption{config\_pio\_stride: Integer specifying the stride of each IO task.}
 \end{longtable}
 \end{center}
 \subsection[config\_write\_output\_on\_startup]{\hyperref[sec:nm_tab_io]{config\_write\_output\_on\_startup}}
@@ -140,13 +140,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & .true. or .false. \\
     \hline
-    \caption{config\_write\_output\_on\_startup: {\bf \color{red} MISSING}}
+    \caption{config\_write\_output\_on\_startup: If true write the output streams to disk after model initialization but before time stepping.}
 \end{longtable}
 \end{center}
 \subsection[config\_test\_case\_diag]{\hyperref[sec:nm_tab_io]{config\_test\_case\_diag}}
@@ -156,13 +156,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & .true. or .false. \\
     \hline
-    \caption{config\_test\_case\_diag: {\bf \color{red} MISSING}}
+    \caption{config\_test\_case\_diag: Perform a test case}
 \end{longtable}
 \end{center}
 \subsection[config\_test\_case\_diag\_type]{\hyperref[sec:nm_tab_io]{config\_test\_case\_diag\_type}}
@@ -172,13 +172,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & character \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & none \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & 'global\_velocity', 'square\_advection' or 'advection' \\
     \hline
-    \caption{config\_test\_case\_diag\_type: {\bf \color{red} MISSING}}
+    \caption{config\_test\_case\_diag\_type: Test case type}
 \end{longtable}
 \end{center}
 \subsection[config\_full\_abort\_write]{\hyperref[sec:nm_tab_io]{config\_full\_abort\_write}}
@@ -188,13 +188,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & true \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & .true. or .false. \\
     \hline
-    \caption{config\_full\_abort\_write: {\bf \color{red} MISSING}}
+    \caption{config\_full\_abort\_write: If true write the abort stream to disk after a critical error for the entire domain, not just failing block.}
 \end{longtable}
 \end{center}
 \section[decomposition]{\hyperref[sec:nm_tab_decomposition]{decomposition}}
@@ -206,13 +206,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & character \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & graphs/graph.info.part. \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any path/prefix to a block decomposition file. \\
     \hline
-    \caption{config\_block\_decomp\_file\_prefix: {\bf \color{red} MISSING}}
+    \caption{config\_block\_decomp\_file\_prefix: Defines the prefix for the block decomposition file. Can include a path. The number of blocks is appended to the end of the prefix at run-time.}
 \end{longtable}
 \end{center}
 \subsection[config\_number\_of\_blocks]{\hyperref[sec:nm_tab_decomposition]{config\_number\_of\_blocks}}
@@ -222,13 +222,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & integer \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any integer greater than or equal to 0. \\
     \hline
-    \caption{config\_number\_of\_blocks: {\bf \color{red} MISSING}}
+    \caption{config\_number\_of\_blocks: Determines the number of blocks a simulation should be run with. If it is set to 0, the number of blocks is the same as the number of MPI tasks at run-time.}
 \end{longtable}
 \end{center}
 \subsection[config\_explicit\_proc\_decomp]{\hyperref[sec:nm_tab_decomposition]{config\_explicit\_proc\_decomp}}
@@ -238,13 +238,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & .true. or .false. \\
     \hline
-    \caption{config\_explicit\_proc\_decomp: {\bf \color{red} MISSING}}
+    \caption{config\_explicit\_proc\_decomp: Determines if an explicit processor decomposition should be used. This is only useful if multiple blocks per processor are used.}
 \end{longtable}
 \end{center}
 \subsection[config\_proc\_decomp\_file\_prefix]{\hyperref[sec:nm_tab_decomposition]{config\_proc\_decomp\_file\_prefix}}
@@ -254,13 +254,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & character \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & graphs/graph.info.part. \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any path/prefix to a processor decomposition file. \\
     \hline
-    \caption{config\_proc\_decomp\_file\_prefix: {\bf \color{red} MISSING}}
+    \caption{config\_proc\_decomp\_file\_prefix: Defines the prefix for the processor decomposition file. This file is only read if config\_explicit\_proc\_decomp is .true. The number of processors is appended to the end of the prefix at run-time.}
 \end{longtable}
 \end{center}
 \section[restart]{\hyperref[sec:nm_tab_restart]{restart}}
@@ -272,13 +272,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & .true. or .false. \\
     \hline
-    \caption{config\_do\_restart: {\bf \color{red} MISSING}}
+    \caption{config\_do\_restart: Determines if the initial conditions should be read from a restart file, or an input file.}
 \end{longtable}
 \end{center}
 \subsection[config\_restart\_timestamp\_name]{\hyperref[sec:nm_tab_restart]{config\_restart\_timestamp\_name}}
@@ -288,13 +288,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & character \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & restart\_timestamp \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Path to a file. \\
     \hline
-    \caption{config\_restart\_timestamp\_name: {\bf \color{red} MISSING}}
+    \caption{config\_restart\_timestamp\_name: Path to the filename for restart timestamps to be read and written from.}
 \end{longtable}
 \end{center}
 \subsection[config\_do\_restart\_hbrine]{\hyperref[sec:nm_tab_restart]{config\_do\_restart\_hbrine}}
@@ -304,7 +304,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & false \\
     \hline
@@ -320,7 +320,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & false \\
     \hline
@@ -336,7 +336,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & false \\
     \hline
@@ -354,13 +354,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & integer \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 5 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any positive integer. \\
     \hline
-    \caption{config\_nCategories: {\bf \color{red} MISSING}}
+    \caption{config\_nCategories: The number of ice thickness categories to use.}
 \end{longtable}
 \end{center}
 \subsection[config\_nIceLayers]{\hyperref[sec:nm_tab_dimensions]{config\_nIceLayers}}
@@ -370,13 +370,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & integer \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 7 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any positive integer. \\
     \hline
-    \caption{config\_nIceLayers: {\bf \color{red} MISSING}}
+    \caption{config\_nIceLayers: The number of ice layers in the vertical direction to use.}
 \end{longtable}
 \end{center}
 \subsection[config\_nSnowLayers]{\hyperref[sec:nm_tab_dimensions]{config\_nSnowLayers}}
@@ -386,13 +386,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & integer \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 1 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any positive integer. \\
     \hline
-    \caption{config\_nSnowLayers: {\bf \color{red} MISSING}}
+    \caption{config\_nSnowLayers: The number of snow layers in the vertical direction to use.}
 \end{longtable}
 \end{center}
 \section[initialize]{\hyperref[sec:nm_tab_initialize]{initialize}}
@@ -404,13 +404,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & character \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & cice\_default \\
     \hline
     Possible Values: & 'restart', 'uniform', 'circle', 'square' or 'uniform\_interior' \\
     \hline
-    \caption{config\_initial\_condition\_type: {\bf \color{red} MISSING}}
+    \caption{config\_initial\_condition\_type: Initial condition type for sea ice state.}
 \end{longtable}
 \end{center}
 \subsection[config\_initial\_ice\_area]{\hyperref[sec:nm_tab_initialize]{config\_initial\_ice\_area}}
@@ -420,13 +420,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 1.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & A real number between 0.0 and 1.0 inclusive. \\
     \hline
-    \caption{config\_initial\_ice\_area: {\bf \color{red} MISSING}}
+    \caption{config\_initial\_ice\_area: Sea ice concentration at initialization.}
 \end{longtable}
 \end{center}
 \subsection[config\_initial\_ice\_volume]{\hyperref[sec:nm_tab_initialize]{config\_initial\_ice\_volume}}
@@ -436,13 +436,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $m$ \\
     \hline
     Default Value: & 1.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any positive real number. \\
     \hline
-    \caption{config\_initial\_ice\_volume: {\bf \color{red} MISSING}}
+    \caption{config\_initial\_ice\_volume: Sea ice volume at initialization.}
 \end{longtable}
 \end{center}
 \subsection[config\_initial\_snow\_volume]{\hyperref[sec:nm_tab_initialize]{config\_initial\_snow\_volume}}
@@ -452,13 +452,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $m$ \\
     \hline
     Default Value: & 0.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any positive real number. \\
     \hline
-    \caption{config\_initial\_snow\_volume: {\bf \color{red} MISSING}}
+    \caption{config\_initial\_snow\_volume: Sea ice snow volume at initialization.}
 \end{longtable}
 \end{center}
 \subsection[config\_initial\_latitude\_north]{\hyperref[sec:nm_tab_initialize]{config\_initial\_latitude\_north}}
@@ -468,13 +468,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $degrees$ $latitude$ \\
     \hline
     Default Value: & 70.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any real number. \\
     \hline
-    \caption{config\_initial\_latitude\_north: {\bf \color{red} MISSING}}
+    \caption{config\_initial\_latitude\_north: Minimum latitude limit for initial northern hemisphere sea ice extent.}
 \end{longtable}
 \end{center}
 \subsection[config\_initial\_latitude\_south]{\hyperref[sec:nm_tab_initialize]{config\_initial\_latitude\_south}}
@@ -484,13 +484,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $degrees$ $latitude$ \\
     \hline
     Default Value: & -60.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any real number. \\
     \hline
-    \caption{config\_initial\_latitude\_south: {\bf \color{red} MISSING}}
+    \caption{config\_initial\_latitude\_south: Maximum latitude limit for initial southern hemisphere sea ice extent.}
 \end{longtable}
 \end{center}
 \subsection[config\_initial\_velocity\_type]{\hyperref[sec:nm_tab_initialize]{config\_initial\_velocity\_type}}
@@ -500,13 +500,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & character \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & uniform \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & 'uniform', 'ocean', 'random', 'special', or 'none' \\
     \hline
-    \caption{config\_initial\_velocity\_type: {\bf \color{red} MISSING}}
+    \caption{config\_initial\_velocity\_type: Initial condition type for sea ice velocity.}
 \end{longtable}
 \end{center}
 \subsection[config\_initial\_uvelocity]{\hyperref[sec:nm_tab_initialize]{config\_initial\_uvelocity}}
@@ -516,13 +516,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $m$ $s^{-2}$ \\
     \hline
     Default Value: & 0.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any real number. \\
     \hline
-    \caption{config\_initial\_uvelocity: {\bf \color{red} MISSING}}
+    \caption{config\_initial\_uvelocity: Sea ice velocity in the U direction at initialization. ???Geo or native???}
 \end{longtable}
 \end{center}
 \subsection[config\_initial\_vvelocity]{\hyperref[sec:nm_tab_initialize]{config\_initial\_vvelocity}}
@@ -532,13 +532,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $m$ $s^{-2}$ \\
     \hline
     Default Value: & 0.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any real number. \\
     \hline
-    \caption{config\_initial\_vvelocity: {\bf \color{red} MISSING}}
+    \caption{config\_initial\_vvelocity: Sea ice velocity in the V direction at initialization. ???Geo or native???}
 \end{longtable}
 \end{center}
 \subsection[config\_calculate\_coriolis]{\hyperref[sec:nm_tab_initialize]{config\_calculate\_coriolis}}
@@ -548,13 +548,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & true \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & .true. or .false \\
     \hline
-    \caption{config\_calculate\_coriolis: {\bf \color{red} MISSING}}
+    \caption{config\_calculate\_coriolis: If True calculate the Coriolis parameter at initialization from the latitude.}
 \end{longtable}
 \end{center}
 \section[use\_sections]{\hyperref[sec:nm_tab_use_sections]{use\_sections}}
@@ -566,13 +566,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & true \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & .true. or .false \\
     \hline
-    \caption{config\_use\_velocity\_solver: {\bf \color{red} MISSING}}
+    \caption{config\_use\_velocity\_solver: If true calculate the sea ice velocity.}
 \end{longtable}
 \end{center}
 \subsection[config\_use\_advection]{\hyperref[sec:nm_tab_use_sections]{config\_use\_advection}}
@@ -582,13 +582,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & true \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & .true. or .false \\
     \hline
-    \caption{config\_use\_advection: {\bf \color{red} MISSING}}
+    \caption{config\_use\_advection: If true perform advection of the sea ice.}
 \end{longtable}
 \end{center}
 \subsection[config\_use\_forcing]{\hyperref[sec:nm_tab_use_sections]{config\_use\_forcing}}
@@ -598,13 +598,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & true \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & .true. or .false \\
     \hline
-    \caption{config\_use\_forcing: {\bf \color{red} MISSING}}
+    \caption{config\_use\_forcing: If true calculate input forcing fields.}
 \end{longtable}
 \end{center}
 \subsection[config\_use\_column\_package]{\hyperref[sec:nm_tab_use_sections]{config\_use\_column\_package}}
@@ -614,13 +614,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & true \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & .true. or .false \\
     \hline
-    \caption{config\_use\_column\_package: {\bf \color{red} MISSING}}
+    \caption{config\_use\_column\_package: If true perform calculations from the column physics package.}
 \end{longtable}
 \end{center}
 \section[forcing]{\hyperref[sec:nm_tab_forcing]{forcing}}
@@ -636,7 +636,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & CORE \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & 'CORE' \\
     \hline
     \caption{config\_atmospheric\_forcing\_type: {\bf \color{red} MISSING}}
 \end{longtable}
@@ -652,7 +652,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 2000-01-01\_00:00:00 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & 'YYYY-MM-DD\_HH:MM:SS \\
     \hline
     \caption{config\_forcing\_start\_time: {\bf \color{red} MISSING}}
 \end{longtable}
@@ -668,7 +668,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 2000-01-01\_00:00:00 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & 'YYYY-MM-DD\_HH:MM:SS \\
     \hline
     \caption{config\_forcing\_cycle\_start: {\bf \color{red} MISSING}}
 \end{longtable}
@@ -684,7 +684,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 2-00-00\_00:00:00 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & 'YYYY-MM-DD\_HH:MM:SS \\
     \hline
     \caption{config\_forcing\_cycle\_duration: {\bf \color{red} MISSING}}
 \end{longtable}
@@ -700,7 +700,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & mm\_per\_sec \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & 'mm\_per\_month', 'mm\_per\_day', or 'mm\_per\_sec' \\
     \hline
     \caption{config\_forcing\_precipitation\_units: {\bf \color{red} MISSING}}
 \end{longtable}
@@ -716,7 +716,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & ncar \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & 'ncar' \\
     \hline
     \caption{config\_forcing\_sst\_type: {\bf \color{red} MISSING}}
 \end{longtable}
@@ -732,7 +732,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & .true. or .false \\
     \hline
     \caption{config\_update\_ocean\_fluxes: {\bf \color{red} MISSING}}
 \end{longtable}
@@ -748,7 +748,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & .true. or .false \\
     \hline
     \caption{config\_include\_pond\_freshwater\_feedback: {\bf \color{red} MISSING}}
 \end{longtable}
@@ -766,7 +766,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & .true. or .false. \\
     \hline
     \caption{config\_perform\_unit\_test: {\bf \color{red} MISSING}}
 \end{longtable}
@@ -814,7 +814,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & .true. or .false. \\
     \hline
     \caption{config\_use\_test\_ice\_shelf: {\bf \color{red} MISSING}}
 \end{longtable}
@@ -830,7 +830,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & .true. or .false. \\
     \hline
     \caption{config\_testing\_system\_test: {\bf \color{red} MISSING}}
 \end{longtable}
@@ -848,7 +848,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 1 \\
     \hline
-    Possible Values: & any positive integer \\
+    Possible Values: & Any positive integer. \\
     \hline
     \caption{config\_dynamics\_subcycle\_number: {\bf \color{red} MISSING}}
 \end{longtable}
@@ -864,7 +864,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & true \\
     \hline
-    Possible Values: & true or false \\
+    Possible Values: & .true. or. false. \\
     \hline
     \caption{config\_rotate\_cartesian\_grid: {\bf \color{red} MISSING}}
 \end{longtable}
@@ -880,7 +880,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & true \\
     \hline
-    Possible Values: & true or false \\
+    Possible Values: & .true. or. false. \\
     \hline
     \caption{config\_include\_metric\_terms: {\bf \color{red} MISSING}}
 \end{longtable}
@@ -896,7 +896,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 120 \\
     \hline
-    Possible Values: & any positive integer \\
+    Possible Values: & Any positive integer. \\
     \hline
     \caption{config\_elastic\_subcycle\_number: {\bf \color{red} MISSING}}
 \end{longtable}
@@ -960,7 +960,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 8 \\
     \hline
-    Possible Values: & positive integers \\
+    Possible Values: & 'trapezoidal': any positive integer, 'dunavant':1-10,12, 'fekete':1-6,8,9 \\
     \hline
     \caption{config\_wachspress\_integration\_order: {\bf \color{red} MISSING}}
 \end{longtable}
@@ -972,11 +972,11 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & true or false \\
+    Possible Values: & .true. or. false. \\
     \hline
     \caption{config\_revised\_evp: {\bf \color{red} MISSING}}
 \end{longtable}
@@ -988,11 +988,11 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & true \\
     \hline
-    Possible Values: & true or false \\
+    Possible Values: & .true. or. false. \\
     \hline
     \caption{config\_use\_air\_stress: {\bf \color{red} MISSING}}
 \end{longtable}
@@ -1004,11 +1004,11 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & true \\
     \hline
-    Possible Values: & true or false \\
+    Possible Values: & .true. or. false. \\
     \hline
     \caption{config\_use\_ocean\_stress: {\bf \color{red} MISSING}}
 \end{longtable}
@@ -1020,11 +1020,11 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & true \\
     \hline
-    Possible Values: & true or false \\
+    Possible Values: & .true. or. false. \\
     \hline
     \caption{config\_use\_surface\_tilt: {\bf \color{red} MISSING}}
 \end{longtable}
@@ -1036,11 +1036,11 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & true \\
     \hline
-    Possible Values: & true or false \\
+    Possible Values: & .true. or. false. \\
     \hline
     \caption{config\_geostrophic\_surface\_tilt: {\bf \color{red} MISSING}}
 \end{longtable}
@@ -1086,7 +1086,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & false \\
     \hline
@@ -1102,7 +1102,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & false \\
     \hline
@@ -1118,7 +1118,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & false \\
     \hline
@@ -1136,11 +1136,11 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & true \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
     \caption{config\_use\_column\_shortwave: {\bf \color{red} MISSING}}
 \end{longtable}
@@ -1152,11 +1152,11 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & true \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
     \caption{config\_use\_column\_vertical\_thermodynamics: {\bf \color{red} MISSING}}
 \end{longtable}
@@ -1168,11 +1168,11 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
     \caption{config\_use\_column\_biogeochemistry: {\bf \color{red} MISSING}}
 \end{longtable}
@@ -1184,11 +1184,11 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & true \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
     \caption{config\_use\_column\_itd\_thermodynamics: {\bf \color{red} MISSING}}
 \end{longtable}
@@ -1200,11 +1200,11 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & true \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
     \caption{config\_use\_column\_ridging: {\bf \color{red} MISSING}}
 \end{longtable}
@@ -1218,11 +1218,11 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & true \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
     \caption{config\_use\_ice\_age: {\bf \color{red} MISSING}}
 \end{longtable}
@@ -1234,11 +1234,11 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & true \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
     \caption{config\_use\_first\_year\_ice: {\bf \color{red} MISSING}}
 \end{longtable}
@@ -1250,11 +1250,11 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & true \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
     \caption{config\_use\_level\_ice: {\bf \color{red} MISSING}}
 \end{longtable}
@@ -1266,11 +1266,11 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
     \caption{config\_use\_cesm\_meltponds: {\bf \color{red} MISSING}}
 \end{longtable}
@@ -1282,11 +1282,11 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & true \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
     \caption{config\_use\_level\_meltponds: {\bf \color{red} MISSING}}
 \end{longtable}
@@ -1298,11 +1298,11 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
     \caption{config\_use\_topo\_meltponds: {\bf \color{red} MISSING}}
 \end{longtable}
@@ -1314,11 +1314,11 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
     \caption{config\_use\_aerosols: {\bf \color{red} MISSING}}
 \end{longtable}
@@ -1332,7 +1332,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & false \\
     \hline
@@ -1348,7 +1348,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & false \\
     \hline
@@ -1364,7 +1364,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & false \\
     \hline
@@ -1380,7 +1380,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & false \\
     \hline
@@ -1396,7 +1396,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & false \\
     \hline
@@ -1412,7 +1412,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & false \\
     \hline
@@ -1428,7 +1428,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & false \\
     \hline
@@ -1444,7 +1444,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & false \\
     \hline
@@ -1460,7 +1460,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & false \\
     \hline
@@ -1476,7 +1476,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & false \\
     \hline
@@ -1492,7 +1492,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & false \\
     \hline
@@ -1508,7 +1508,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & false \\
     \hline
@@ -1524,7 +1524,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & false \\
     \hline
@@ -1540,7 +1540,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & false \\
     \hline
@@ -1556,7 +1556,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & false \\
     \hline
@@ -1572,7 +1572,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & false \\
     \hline
@@ -1588,7 +1588,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & false \\
     \hline
@@ -1604,7 +1604,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & false \\
     \hline
@@ -1620,7 +1620,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & character \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & Jin2006 \\
     \hline
@@ -1636,7 +1636,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & false \\
     \hline
@@ -1652,7 +1652,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.006 \\
     \hline
@@ -1668,7 +1668,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.006 \\
     \hline
@@ -1684,7 +1684,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.024 \\
     \hline
@@ -1700,7 +1700,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.0 \\
     \hline
@@ -1716,7 +1716,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.028 \\
     \hline
@@ -1732,7 +1732,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & -0.3 \\
     \hline
@@ -1748,7 +1748,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.80 \\
     \hline
@@ -1764,7 +1764,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.80 \\
     \hline
@@ -1780,7 +1780,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 1.80 \\
     \hline
@@ -1796,7 +1796,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.00 \\
     \hline
@@ -1812,7 +1812,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.00 \\
     \hline
@@ -1828,7 +1828,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.03 \\
     \hline
@@ -1844,7 +1844,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.03 \\
     \hline
@@ -1860,7 +1860,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.03 \\
     \hline
@@ -1876,7 +1876,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.0033 \\
     \hline
@@ -1892,7 +1892,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.0033 \\
     \hline
@@ -1908,7 +1908,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.1 \\
     \hline
@@ -1924,7 +1924,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.023 \\
     \hline
@@ -1940,7 +1940,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.023 \\
     \hline
@@ -1956,7 +1956,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.7 \\
     \hline
@@ -1972,7 +1972,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.023 \\
     \hline
@@ -1988,7 +1988,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.1 \\
     \hline
@@ -2004,7 +2004,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.033 \\
     \hline
@@ -2020,7 +2020,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.05 \\
     \hline
@@ -2036,7 +2036,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 5200.0 \\
     \hline
@@ -2052,7 +2052,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 173000.0 \\
     \hline
@@ -2068,7 +2068,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.0000000111 \\
     \hline
@@ -2084,7 +2084,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.035 \\
     \hline
@@ -2100,7 +2100,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.005 \\
     \hline
@@ -2116,7 +2116,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.03 \\
     \hline
@@ -2132,7 +2132,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.01 \\
     \hline
@@ -2148,7 +2148,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.05 \\
     \hline
@@ -2164,7 +2164,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.8 \\
     \hline
@@ -2180,7 +2180,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.67 \\
     \hline
@@ -2196,7 +2196,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.67 \\
     \hline
@@ -2212,7 +2212,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.018 \\
     \hline
@@ -2228,7 +2228,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.0025 \\
     \hline
@@ -2244,7 +2244,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.01 \\
     \hline
@@ -2260,7 +2260,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 1.44 \\
     \hline
@@ -2276,7 +2276,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.851 \\
     \hline
@@ -2292,7 +2292,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.851 \\
     \hline
@@ -2308,7 +2308,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.06 \\
     \hline
@@ -2324,7 +2324,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.06 \\
     \hline
@@ -2340,7 +2340,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.06 \\
     \hline
@@ -2356,7 +2356,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.0 \\
     \hline
@@ -2372,7 +2372,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.1 \\
     \hline
@@ -2388,7 +2388,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.1 \\
     \hline
@@ -2404,7 +2404,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.007 \\
     \hline
@@ -2420,7 +2420,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.007 \\
     \hline
@@ -2436,7 +2436,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.007 \\
     \hline
@@ -2452,7 +2452,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.03 \\
     \hline
@@ -2468,7 +2468,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.03 \\
     \hline
@@ -2484,7 +2484,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.03 \\
     \hline
@@ -2500,7 +2500,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.0 \\
     \hline
@@ -2516,7 +2516,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.0 \\
     \hline
@@ -2532,7 +2532,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.0 \\
     \hline
@@ -2548,7 +2548,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 1.0 \\
     \hline
@@ -2564,7 +2564,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 1.0 \\
     \hline
@@ -2580,7 +2580,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 1.0 \\
     \hline
@@ -2596,7 +2596,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.3 \\
     \hline
@@ -2612,7 +2612,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.3 \\
     \hline
@@ -2628,7 +2628,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.3 \\
     \hline
@@ -2644,7 +2644,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 4.0 \\
     \hline
@@ -2660,7 +2660,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.0 \\
     \hline
@@ -2676,7 +2676,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.0 \\
     \hline
@@ -2692,7 +2692,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 1.0 \\
     \hline
@@ -2708,7 +2708,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.2 \\
     \hline
@@ -2724,7 +2724,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.1 \\
     \hline
@@ -2740,7 +2740,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.6 \\
     \hline
@@ -2756,7 +2756,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.03 \\
     \hline
@@ -2772,7 +2772,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.25 \\
     \hline
@@ -2788,7 +2788,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.4 \\
     \hline
@@ -2804,7 +2804,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.4 \\
     \hline
@@ -2820,7 +2820,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 1.0 \\
     \hline
@@ -2836,7 +2836,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 1.0 \\
     \hline
@@ -2852,7 +2852,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.03 \\
     \hline
@@ -2868,7 +2868,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.03 \\
     \hline
@@ -2884,7 +2884,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.0 \\
     \hline
@@ -2900,7 +2900,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 1.0 \\
     \hline
@@ -2916,7 +2916,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.1 \\
     \hline
@@ -2932,7 +2932,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.5 \\
     \hline
@@ -2948,7 +2948,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.5 \\
     \hline
@@ -2964,7 +2964,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.5 \\
     \hline
@@ -2980,7 +2980,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.3 \\
     \hline
@@ -2996,7 +2996,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.0 \\
     \hline
@@ -3012,7 +3012,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 3065.0 \\
     \hline
@@ -3028,7 +3028,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.9 \\
     \hline
@@ -3044,7 +3044,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.2 \\
     \hline
@@ -3060,7 +3060,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.75 \\
     \hline
@@ -3076,7 +3076,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.5 \\
     \hline
@@ -3092,7 +3092,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 3.0 \\
     \hline
@@ -3108,7 +3108,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 10.0 \\
     \hline
@@ -3124,7 +3124,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.0 \\
     \hline
@@ -3140,7 +3140,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.5 \\
     \hline
@@ -3156,7 +3156,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.5 \\
     \hline
@@ -3172,7 +3172,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & -1.0 \\
     \hline
@@ -3188,7 +3188,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 1.0 \\
     \hline
@@ -3204,7 +3204,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & -1.0 \\
     \hline
@@ -3220,7 +3220,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.5 \\
     \hline
@@ -3236,7 +3236,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & -1.0 \\
     \hline
@@ -3252,7 +3252,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 1.0 \\
     \hline
@@ -3268,7 +3268,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.5 \\
     \hline
@@ -3284,7 +3284,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.5 \\
     \hline
@@ -3300,7 +3300,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.5 \\
     \hline
@@ -3316,7 +3316,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.5 \\
     \hline
@@ -3332,7 +3332,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.5 \\
     \hline
@@ -3348,7 +3348,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 1.0 \\
     \hline
@@ -3364,7 +3364,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 1.0 \\
     \hline
@@ -3380,7 +3380,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 1.0 \\
     \hline
@@ -3396,7 +3396,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 1.0 \\
     \hline
@@ -3412,7 +3412,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 1.0 \\
     \hline
@@ -3428,7 +3428,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 1.0 \\
     \hline
@@ -3444,7 +3444,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 7.0 \\
     \hline
@@ -3460,7 +3460,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 7.0 \\
     \hline
@@ -3476,7 +3476,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 7.0 \\
     \hline
@@ -3492,7 +3492,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 2.1 \\
     \hline
@@ -3508,7 +3508,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 1.1 \\
     \hline
@@ -3524,7 +3524,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.84 \\
     \hline
@@ -3540,7 +3540,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 2.0 \\
     \hline
@@ -3556,7 +3556,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 4.0 \\
     \hline
@@ -3572,7 +3572,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 5.0 \\
     \hline
@@ -3588,7 +3588,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 7.0 \\
     \hline
