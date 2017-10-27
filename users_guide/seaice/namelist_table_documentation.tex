@@ -3,6 +3,7 @@
 Embedded links point to more detailed namelist information in the appendix.
 \section[cice\_model]{\hyperref[sec:nm_sec_cice_model]{cice\_model}}
 \label{sec:nm_tab_cice_model}
+\input{seaice/section_descriptions/cice_model.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -13,23 +14,24 @@ Embedded links point to more detailed namelist information in the appendix.
     {\bf Name} & {\bf Description} (Continued) \endhead
     \hline
     \hline
-    \hyperref[subsec:nm_sec_config_dt]{config\_dt} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_dt]{config\_dt} & Length of model time-step. \\
     \hline
-    \hyperref[subsec:nm_sec_config_calendar_type]{config\_calendar\_type} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_calendar_type]{config\_calendar\_type} & Selection of the type of calendar that should be used in the simulation. \\
     \hline
-    \hyperref[subsec:nm_sec_config_start_time]{config\_start\_time} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_start_time]{config\_start\_time} & Timestamp describing the initial time of the simulation. If it is set to 'file', the initial time is read from restart\_timestamp. \\
     \hline
-    \hyperref[subsec:nm_sec_config_stop_time]{config\_stop\_time} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_stop_time]{config\_stop\_time} & Timestamp descriping the final time of the simulation. If it is set to 'none' the final time is determined from config\_start\_time and config\_run\_duration. \\
     \hline
-    \hyperref[subsec:nm_sec_config_run_duration]{config\_run\_duration} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_run_duration]{config\_run\_duration} & Timestamp describing the length of the simulation. If it is set to 'none' the duration is determined from config\_start\_time and config\_stop\_time. config\_run\_duration overrides inconsistent values of config\_stop\_time. \\
     \hline
-    \hyperref[subsec:nm_sec_config_num_halos]{config\_num\_halos} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_num_halos]{config\_num\_halos} & Determines the number of halo cells extending from a blocks owned cells (Called the 0-Halo). The default of 3 is the minimum that can be used with monotonic advection. \\
     \hline
 \end{longtable}
 \end{center}
 }
 \section[io]{\hyperref[sec:nm_sec_io]{io}}
 \label{sec:nm_tab_io}
+\input{seaice/section_descriptions/io.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -40,23 +42,24 @@ Embedded links point to more detailed namelist information in the appendix.
     {\bf Name} & {\bf Description} (Continued) \endhead
     \hline
     \hline
-    \hyperref[subsec:nm_sec_config_pio_num_iotasks]{config\_pio\_num\_iotasks} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_pio_num_iotasks]{config\_pio\_num\_iotasks} & Integer specifying how many IO tasks should be used within the PIO library. A value of 0 causes all MPI tasks to also be IO tasks. IO tasks are requried to write contiguous blocks of data to a file. \\
     \hline
-    \hyperref[subsec:nm_sec_config_pio_stride]{config\_pio\_stride} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_pio_stride]{config\_pio\_stride} & Integer specifying the stride of each IO task. \\
     \hline
-    \hyperref[subsec:nm_sec_config_write_output_on_startup]{config\_write\_output\_on\_startu-}\hyperref[subsec:nm_sec_config_write_output_on_startup]{p}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_write_output_on_startup]{config\_write\_output\_on\_startu-}\hyperref[subsec:nm_sec_config_write_output_on_startup]{p}& If true write the output streams to disk after model initialization but before time stepping. \\
     \hline
-    \hyperref[subsec:nm_sec_config_test_case_diag]{config\_test\_case\_diag} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_test_case_diag]{config\_test\_case\_diag} & Perform a test case \\
     \hline
-    \hyperref[subsec:nm_sec_config_test_case_diag_type]{config\_test\_case\_diag\_type} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_test_case_diag_type]{config\_test\_case\_diag\_type} & Test case type \\
     \hline
-    \hyperref[subsec:nm_sec_config_full_abort_write]{config\_full\_abort\_write} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_full_abort_write]{config\_full\_abort\_write} & If true write the abort stream to disk after a critical error for the entire domain, not just failing block. \\
     \hline
 \end{longtable}
 \end{center}
 }
 \section[decomposition]{\hyperref[sec:nm_sec_decomposition]{decomposition}}
 \label{sec:nm_tab_decomposition}
+\input{seaice/section_descriptions/decomposition.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -67,19 +70,20 @@ Embedded links point to more detailed namelist information in the appendix.
     {\bf Name} & {\bf Description} (Continued) \endhead
     \hline
     \hline
-    \hyperref[subsec:nm_sec_config_block_decomp_file_prefix]{config\_block\_decomp\_file\_prefix} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_block_decomp_file_prefix]{config\_block\_decomp\_file\_prefix} & Defines the prefix for the block decomposition file. Can include a path. The number of blocks is appended to the end of the prefix at run-time. \\
     \hline
-    \hyperref[subsec:nm_sec_config_number_of_blocks]{config\_number\_of\_blocks} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_number_of_blocks]{config\_number\_of\_blocks} & Determines the number of blocks a simulation should be run with. If it is set to 0, the number of blocks is the same as the number of MPI tasks at run-time. \\
     \hline
-    \hyperref[subsec:nm_sec_config_explicit_proc_decomp]{config\_explicit\_proc\_decomp} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_explicit_proc_decomp]{config\_explicit\_proc\_decomp} & Determines if an explicit processor decomposition should be used. This is only useful if multiple blocks per processor are used. \\
     \hline
-    \hyperref[subsec:nm_sec_config_proc_decomp_file_prefix]{config\_proc\_decomp\_file\_prefix} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_proc_decomp_file_prefix]{config\_proc\_decomp\_file\_prefix} & Defines the prefix for the processor decomposition file. This file is only read if config\_explicit\_proc\_decomp is .true. The number of processors is appended to the end of the prefix at run-time. \\
     \hline
 \end{longtable}
 \end{center}
 }
 \section[restart]{\hyperref[sec:nm_sec_restart]{restart}}
 \label{sec:nm_tab_restart}
+\input{seaice/section_descriptions/restart.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -90,9 +94,9 @@ Embedded links point to more detailed namelist information in the appendix.
     {\bf Name} & {\bf Description} (Continued) \endhead
     \hline
     \hline
-    \hyperref[subsec:nm_sec_config_do_restart]{config\_do\_restart} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_do_restart]{config\_do\_restart} & Determines if the initial conditions should be read from a restart file, or an input file. \\
     \hline
-    \hyperref[subsec:nm_sec_config_restart_timestamp_name]{config\_restart\_timestamp\_name} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_restart_timestamp_name]{config\_restart\_timestamp\_name} & Path to the filename for restart timestamps to be read and written from. \\
     \hline
     \hyperref[subsec:nm_sec_config_do_restart_hbrine]{config\_do\_restart\_hbrine} & {\bf \color{red} MISSING} \\
     \hline
@@ -105,6 +109,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[dimensions]{\hyperref[sec:nm_sec_dimensions]{dimensions}}
 \label{sec:nm_tab_dimensions}
+\input{seaice/section_descriptions/dimensions.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -115,17 +120,18 @@ Embedded links point to more detailed namelist information in the appendix.
     {\bf Name} & {\bf Description} (Continued) \endhead
     \hline
     \hline
-    \hyperref[subsec:nm_sec_config_nCategories]{config\_nCategories} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_nCategories]{config\_nCategories} & The number of ice thickness categories to use. \\
     \hline
-    \hyperref[subsec:nm_sec_config_nIceLayers]{config\_nIceLayers} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_nIceLayers]{config\_nIceLayers} & The number of ice layers in the vertical direction to use. \\
     \hline
-    \hyperref[subsec:nm_sec_config_nSnowLayers]{config\_nSnowLayers} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_nSnowLayers]{config\_nSnowLayers} & The number of snow layers in the vertical direction to use. \\
     \hline
 \end{longtable}
 \end{center}
 }
 \section[initialize]{\hyperref[sec:nm_sec_initialize]{initialize}}
 \label{sec:nm_tab_initialize}
+\input{seaice/section_descriptions/initialize.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -136,31 +142,32 @@ Embedded links point to more detailed namelist information in the appendix.
     {\bf Name} & {\bf Description} (Continued) \endhead
     \hline
     \hline
-    \hyperref[subsec:nm_sec_config_initial_condition_type]{config\_initial\_condition\_type} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_initial_condition_type]{config\_initial\_condition\_type} & Initial condition type for sea ice state. \\
     \hline
-    \hyperref[subsec:nm_sec_config_initial_ice_area]{config\_initial\_ice\_area} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_initial_ice_area]{config\_initial\_ice\_area} & Sea ice concentration at initialization. \\
     \hline
-    \hyperref[subsec:nm_sec_config_initial_ice_volume]{config\_initial\_ice\_volume} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_initial_ice_volume]{config\_initial\_ice\_volume} & Sea ice volume at initialization. \\
     \hline
-    \hyperref[subsec:nm_sec_config_initial_snow_volume]{config\_initial\_snow\_volume} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_initial_snow_volume]{config\_initial\_snow\_volume} & Sea ice snow volume at initialization. \\
     \hline
-    \hyperref[subsec:nm_sec_config_initial_latitude_north]{config\_initial\_latitude\_north} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_initial_latitude_north]{config\_initial\_latitude\_north} & Minimum latitude limit for initial northern hemisphere sea ice extent. \\
     \hline
-    \hyperref[subsec:nm_sec_config_initial_latitude_south]{config\_initial\_latitude\_south} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_initial_latitude_south]{config\_initial\_latitude\_south} & Maximum latitude limit for initial southern hemisphere sea ice extent. \\
     \hline
-    \hyperref[subsec:nm_sec_config_initial_velocity_type]{config\_initial\_velocity\_type} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_initial_velocity_type]{config\_initial\_velocity\_type} & Initial condition type for sea ice velocity. \\
     \hline
-    \hyperref[subsec:nm_sec_config_initial_uvelocity]{config\_initial\_uvelocity} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_initial_uvelocity]{config\_initial\_uvelocity} & Sea ice velocity in the U direction at initialization. ???Geo or native??? \\
     \hline
-    \hyperref[subsec:nm_sec_config_initial_vvelocity]{config\_initial\_vvelocity} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_initial_vvelocity]{config\_initial\_vvelocity} & Sea ice velocity in the V direction at initialization. ???Geo or native??? \\
     \hline
-    \hyperref[subsec:nm_sec_config_calculate_coriolis]{config\_calculate\_coriolis} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_calculate_coriolis]{config\_calculate\_coriolis} & If True calculate the Coriolis parameter at initialization from the latitude. \\
     \hline
 \end{longtable}
 \end{center}
 }
 \section[use\_sections]{\hyperref[sec:nm_sec_use_sections]{use\_sections}}
 \label{sec:nm_tab_use_sections}
+\input{seaice/section_descriptions/use_sections.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -171,19 +178,20 @@ Embedded links point to more detailed namelist information in the appendix.
     {\bf Name} & {\bf Description} (Continued) \endhead
     \hline
     \hline
-    \hyperref[subsec:nm_sec_config_use_velocity_solver]{config\_use\_velocity\_solver} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_use_velocity_solver]{config\_use\_velocity\_solver} & If true calculate the sea ice velocity. \\
     \hline
-    \hyperref[subsec:nm_sec_config_use_advection]{config\_use\_advection} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_use_advection]{config\_use\_advection} & If true perform advection of the sea ice. \\
     \hline
-    \hyperref[subsec:nm_sec_config_use_forcing]{config\_use\_forcing} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_use_forcing]{config\_use\_forcing} & If true calculate input forcing fields. \\
     \hline
-    \hyperref[subsec:nm_sec_config_use_column_package]{config\_use\_column\_package} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_use_column_package]{config\_use\_column\_package} & If true perform calculations from the column physics package. \\
     \hline
 \end{longtable}
 \end{center}
 }
 \section[forcing]{\hyperref[sec:nm_sec_forcing]{forcing}}
 \label{sec:nm_tab_forcing}
+\input{seaice/section_descriptions/forcing.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -215,6 +223,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[unit\_test]{\hyperref[sec:nm_sec_unit_test]{unit\_test}}
 \label{sec:nm_tab_unit_test}
+\input{seaice/section_descriptions/unit_test.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -240,6 +249,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[velocity\_solver]{\hyperref[sec:nm_sec_velocity_solver]{velocity\_solver}}
 \label{sec:nm_tab_velocity_solver}
+\input{seaice/section_descriptions/velocity_solver.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -281,6 +291,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[advection]{\hyperref[sec:nm_sec_advection]{advection}}
 \label{sec:nm_tab_advection}
+\input{seaice/section_descriptions/advection.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -306,6 +317,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[column\_package]{\hyperref[sec:nm_sec_column_package]{column\_package}}
 \label{sec:nm_tab_column_package}
+\input{seaice/section_descriptions/column_package.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -331,6 +343,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[column\_tracers]{\hyperref[sec:nm_sec_column_tracers]{column\_tracers}}
 \label{sec:nm_tab_column_tracers}
+\input{seaice/section_descriptions/column_tracers.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -360,6 +373,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[biogeochemistry]{\hyperref[sec:nm_sec_biogeochemistry]{biogeochemistry}}
 \label{sec:nm_tab_biogeochemistry}
+\input{seaice/section_descriptions/biogeochemistry.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -659,6 +673,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[shortwave]{\hyperref[sec:nm_sec_shortwave]{shortwave}}
 \label{sec:nm_tab_shortwave}
+\input{seaice/section_descriptions/shortwave.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -700,6 +715,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[meltponds]{\hyperref[sec:nm_sec_meltponds]{meltponds}}
 \label{sec:nm_tab_meltponds}
+\input{seaice/section_descriptions/meltponds.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -731,6 +747,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[thermodynamics]{\hyperref[sec:nm_sec_thermodynamics]{thermodynamics}}
 \label{sec:nm_tab_thermodynamics}
+\input{seaice/section_descriptions/thermodynamics.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -762,6 +779,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[itd]{\hyperref[sec:nm_sec_itd]{itd}}
 \label{sec:nm_tab_itd}
+\input{seaice/section_descriptions/itd.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -781,6 +799,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[ridging]{\hyperref[sec:nm_sec_ridging]{ridging}}
 \label{sec:nm_tab_ridging}
+\input{seaice/section_descriptions/ridging.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -806,6 +825,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[atmosphere]{\hyperref[sec:nm_sec_atmosphere]{atmosphere}}
 \label{sec:nm_tab_atmosphere}
+\input{seaice/section_descriptions/atmosphere.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -833,6 +853,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[ocean]{\hyperref[sec:nm_sec_ocean]{ocean}}
 \label{sec:nm_tab_ocean}
+\input{seaice/section_descriptions/ocean.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -858,6 +879,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[diagnostics]{\hyperref[sec:nm_sec_diagnostics]{diagnostics}}
 \label{sec:nm_tab_diagnostics}
+\input{seaice/section_descriptions/diagnostics.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -875,6 +897,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[AM\_highFrequencyOutput]{\hyperref[sec:nm_sec_AM_highFrequencyOutput]{AM\_highFrequencyOutput}}
 \label{sec:nm_tab_AM_highFrequencyOutput}
+\input{seaice/section_descriptions/AM_highFrequencyOutput.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -900,6 +923,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[AM\_temperatures]{\hyperref[sec:nm_sec_AM_temperatures]{AM\_temperatures}}
 \label{sec:nm_tab_AM_temperatures}
+\input{seaice/section_descriptions/AM_temperatures.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -925,6 +949,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[AM\_regionalStatistics]{\hyperref[sec:nm_sec_AM_regionalStatistics]{AM\_regionalStatistics}}
 \label{sec:nm_tab_AM_regionalStatistics}
+\input{seaice/section_descriptions/AM_regionalStatistics.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -952,6 +977,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[AM\_ridgingDiagnostics]{\hyperref[sec:nm_sec_AM_ridgingDiagnostics]{AM\_ridgingDiagnostics}}
 \label{sec:nm_tab_AM_ridgingDiagnostics}
+\input{seaice/section_descriptions/AM_ridgingDiagnostics.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -977,6 +1003,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[AM\_conservationCheck]{\hyperref[sec:nm_sec_AM_conservationCheck]{AM\_conservationCheck}}
 \label{sec:nm_tab_AM_conservationCheck}
+\input{seaice/section_descriptions/AM_conservationCheck.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -1004,6 +1031,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[AM\_geographicalVectors]{\hyperref[sec:nm_sec_AM_geographicalVectors]{AM\_geographicalVectors}}
 \label{sec:nm_tab_AM_geographicalVectors}
+\input{seaice/section_descriptions/AM_geographicalVectors.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -1029,6 +1057,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[AM\_loadBalance]{\hyperref[sec:nm_sec_AM_loadBalance]{AM\_loadBalance}}
 \label{sec:nm_tab_AM_loadBalance}
+\input{seaice/section_descriptions/AM_loadBalance.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -1056,6 +1085,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[AM\_maximumIcePresence]{\hyperref[sec:nm_sec_AM_maximumIcePresence]{AM\_maximumIcePresence}}
 \label{sec:nm_tab_AM_maximumIcePresence}
+\input{seaice/section_descriptions/AM_maximumIcePresence.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -1083,6 +1113,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[AM\_miscellaneous]{\hyperref[sec:nm_sec_AM_miscellaneous]{AM\_miscellaneous}}
 \label{sec:nm_tab_AM_miscellaneous}
+\input{seaice/section_descriptions/AM_miscellaneous.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -1108,6 +1139,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[AM\_areaVariables]{\hyperref[sec:nm_sec_AM_areaVariables]{AM\_areaVariables}}
 \label{sec:nm_tab_AM_areaVariables}
+\input{seaice/section_descriptions/AM_areaVariables.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -1133,6 +1165,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[AM\_pondDiagnostics]{\hyperref[sec:nm_sec_AM_pondDiagnostics]{AM\_pondDiagnostics}}
 \label{sec:nm_tab_AM_pondDiagnostics}
+\input{seaice/section_descriptions/AM_pondDiagnostics.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -1158,6 +1191,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[AM\_unitConversion]{\hyperref[sec:nm_sec_AM_unitConversion]{AM\_unitConversion}}
 \label{sec:nm_tab_AM_unitConversion}
+\input{seaice/section_descriptions/AM_unitConversion.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -1183,6 +1217,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[AM\_pointwiseStats]{\hyperref[sec:nm_sec_AM_pointwiseStats]{AM\_pointwiseStats}}
 \label{sec:nm_tab_AM_pointwiseStats}
+\input{seaice/section_descriptions/AM_pointwiseStats.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -1258,6 +1293,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[AM\_timeSeriesStatsDaily]{\hyperref[sec:nm_sec_AM_timeSeriesStatsDaily]{AM\_timeSeriesStatsDaily}}
 \label{sec:nm_tab_AM_timeSeriesStatsDaily}
+\input{seaice/section_descriptions/AM_timeSeriesStatsDaily.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -1297,6 +1333,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[AM\_timeSeriesStatsMonthly]{\hyperref[sec:nm_sec_AM_timeSeriesStatsMonthly]{AM\_timeSeriesStatsMonthly}}
 \label{sec:nm_tab_AM_timeSeriesStatsMonthly}
+\input{seaice/section_descriptions/AM_timeSeriesStatsMonthly.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -1336,6 +1373,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[AM\_timeSeriesStatsClimatology]{\hyperref[sec:nm_sec_AM_timeSeriesStatsClimatology]{AM\_timeSeriesStatsClimatology}}
 \label{sec:nm_tab_AM_timeSeriesStatsClimatology}
+\input{seaice/section_descriptions/AM_timeSeriesStatsClimatology.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -1375,6 +1413,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[AM\_timeSeriesStatsCustom]{\hyperref[sec:nm_sec_AM_timeSeriesStatsCustom]{AM\_timeSeriesStatsCustom}}
 \label{sec:nm_tab_AM_timeSeriesStatsCustom}
+\input{seaice/section_descriptions/AM_timeSeriesStatsCustom.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
