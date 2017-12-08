@@ -144,7 +144,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & .true. or .false. \\
+    Possible Values: & true or false \\
     \hline
     \caption{config\_write\_output\_on\_startup: If true write the output streams to disk after model initialization but before time stepping.}
 \end{longtable}
@@ -160,9 +160,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & .true. or .false. \\
+    Possible Values: & true or false \\
     \hline
-    \caption{config\_test\_case\_diag: Perform a test case}
+    \caption{config\_test\_case\_diag: If true output test case diagnostics.}
 \end{longtable}
 \end{center}
 \subsection[config\_test\_case\_diag\_type]{\hyperref[sec:nm_tab_io]{config\_test\_case\_diag\_type}}
@@ -178,7 +178,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Possible Values: & 'global\_velocity', 'square\_advection' or 'advection' \\
     \hline
-    \caption{config\_test\_case\_diag\_type: Test case type}
+    \caption{config\_test\_case\_diag\_type: Test case diagnostic type.}
 \end{longtable}
 \end{center}
 \subsection[config\_full\_abort\_write]{\hyperref[sec:nm_tab_io]{config\_full\_abort\_write}}
@@ -192,7 +192,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & true \\
     \hline
-    Possible Values: & .true. or .false. \\
+    Possible Values: & true or false \\
     \hline
     \caption{config\_full\_abort\_write: If true write the abort stream to disk after a critical error for the entire domain, not just failing block.}
 \end{longtable}
@@ -242,7 +242,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & .true. or .false. \\
+    Possible Values: & true or false \\
     \hline
     \caption{config\_explicit\_proc\_decomp: Determines if an explicit processor decomposition should be used. This is only useful if multiple blocks per processor are used.}
 \end{longtable}
@@ -260,7 +260,23 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Possible Values: & Any path/prefix to a processor decomposition file. \\
     \hline
-    \caption{config\_proc\_decomp\_file\_prefix: Defines the prefix for the processor decomposition file. This file is only read if config\_explicit\_proc\_decomp is .true. The number of processors is appended to the end of the prefix at run-time.}
+    \caption{config\_proc\_decomp\_file\_prefix: Defines the prefix for the processor decomposition file. This file is only read if config\_explicit\_proc\_decomp is true The number of processors is appended to the end of the prefix at run-time.}
+\end{longtable}
+\end{center}
+\subsection[config\_aggregate\_halo\_exch]{\hyperref[sec:nm_tab_decomposition]{config\_aggregate\_halo\_exch}}
+\label{subsec:nm_sec_config_aggregate_halo_exch}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & false \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_aggregate\_halo\_exch: Determines if aggregated halo exchanges are used in some places.}
 \end{longtable}
 \end{center}
 \section[restart]{\hyperref[sec:nm_tab_restart]{restart}}
@@ -276,7 +292,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & .true. or .false. \\
+    Possible Values: & true or false \\
     \hline
     \caption{config\_do\_restart: Determines if the initial conditions should be read from a restart file, or an input file.}
 \end{longtable}
@@ -308,9 +324,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
-    \caption{config\_do\_restart\_hbrine: {\bf \color{red} MISSING}}
+    \caption{config\_do\_restart\_hbrine: Restart the brine height tracer needed for vertical bgc}
 \end{longtable}
 \end{center}
 \subsection[config\_do\_restart\_zsalinity]{\hyperref[sec:nm_tab_restart]{config\_do\_restart\_zsalinity}}
@@ -324,9 +340,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & false \\
     \hline
-    \caption{config\_do\_restart\_zsalinity: {\bf \color{red} MISSING}}
+    \caption{config\_do\_restart\_zsalinity: Restart the z-salinity tracer}
 \end{longtable}
 \end{center}
 \subsection[config\_do\_restart\_bgc]{\hyperref[sec:nm_tab_restart]{config\_do\_restart\_bgc}}
@@ -340,9 +356,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
-    \caption{config\_do\_restart\_bgc: {\bf \color{red} MISSING}}
+    \caption{config\_do\_restart\_bgc: Restart the ice biogeochemistry}
 \end{longtable}
 \end{center}
 \section[dimensions]{\hyperref[sec:nm_tab_dimensions]{dimensions}}
@@ -552,7 +568,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & true \\
     \hline
-    Possible Values: & .true. or .false \\
+    Possible Values: & true or .false \\
     \hline
     \caption{config\_calculate\_coriolis: If True calculate the Coriolis parameter at initialization from the latitude.}
 \end{longtable}
@@ -570,7 +586,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & true \\
     \hline
-    Possible Values: & .true. or .false \\
+    Possible Values: & true or .false \\
     \hline
     \caption{config\_use\_velocity\_solver: If true calculate the sea ice velocity.}
 \end{longtable}
@@ -586,7 +602,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & true \\
     \hline
-    Possible Values: & .true. or .false \\
+    Possible Values: & true or .false \\
     \hline
     \caption{config\_use\_advection: If true perform advection of the sea ice.}
 \end{longtable}
@@ -602,7 +618,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & true \\
     \hline
-    Possible Values: & .true. or .false \\
+    Possible Values: & true or .false \\
     \hline
     \caption{config\_use\_forcing: If true calculate input forcing fields.}
 \end{longtable}
@@ -618,7 +634,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & true \\
     \hline
-    Possible Values: & .true. or .false \\
+    Possible Values: & true or .false \\
     \hline
     \caption{config\_use\_column\_package: If true perform calculations from the column physics package.}
 \end{longtable}
@@ -632,13 +648,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & character \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & CORE \\
     \hline
     Possible Values: & 'CORE' \\
     \hline
-    \caption{config\_atmospheric\_forcing\_type: {\bf \color{red} MISSING}}
+    \caption{config\_atmospheric\_forcing\_type: Atmospheric forcing type.}
 \end{longtable}
 \end{center}
 \subsection[config\_forcing\_start\_time]{\hyperref[sec:nm_tab_forcing]{config\_forcing\_start\_time}}
@@ -648,13 +664,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & character \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 2000-01-01\_00:00:00 \\
     \hline
     Possible Values: & 'YYYY-MM-DD\_HH:MM:SS \\
     \hline
-    \caption{config\_forcing\_start\_time: {\bf \color{red} MISSING}}
+    \caption{config\_forcing\_start\_time: Forcing time to use at the simulation start time}
 \end{longtable}
 \end{center}
 \subsection[config\_forcing\_cycle\_start]{\hyperref[sec:nm_tab_forcing]{config\_forcing\_cycle\_start}}
@@ -664,13 +680,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & character \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 2000-01-01\_00:00:00 \\
     \hline
     Possible Values: & 'YYYY-MM-DD\_HH:MM:SS \\
     \hline
-    \caption{config\_forcing\_cycle\_start: {\bf \color{red} MISSING}}
+    \caption{config\_forcing\_cycle\_start: Start time for the forcing cycle.}
 \end{longtable}
 \end{center}
 \subsection[config\_forcing\_cycle\_duration]{\hyperref[sec:nm_tab_forcing]{config\_forcing\_cycle\_duration}}
@@ -680,13 +696,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & character \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 2-00-00\_00:00:00 \\
     \hline
     Possible Values: & 'YYYY-MM-DD\_HH:MM:SS \\
     \hline
-    \caption{config\_forcing\_cycle\_duration: {\bf \color{red} MISSING}}
+    \caption{config\_forcing\_cycle\_duration: Duration of the forcing cycle.}
 \end{longtable}
 \end{center}
 \subsection[config\_forcing\_precipitation\_units]{\hyperref[sec:nm_tab_forcing]{config\_forcing\_precipitation\_units}}
@@ -696,13 +712,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & character \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & mm\_per\_sec \\
     \hline
     Possible Values: & 'mm\_per\_month', 'mm\_per\_day', or 'mm\_per\_sec' \\
     \hline
-    \caption{config\_forcing\_precipitation\_units: {\bf \color{red} MISSING}}
+    \caption{config\_forcing\_precipitation\_units: Forcing input precipitation units.}
 \end{longtable}
 \end{center}
 \subsection[config\_forcing\_sst\_type]{\hyperref[sec:nm_tab_forcing]{config\_forcing\_sst\_type}}
@@ -712,13 +728,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & character \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & ncar \\
     \hline
     Possible Values: & 'ncar' \\
     \hline
-    \caption{config\_forcing\_sst\_type: {\bf \color{red} MISSING}}
+    \caption{config\_forcing\_sst\_type: Sea surface temperature ocean forcing type.}
 \end{longtable}
 \end{center}
 \subsection[config\_update\_ocean\_fluxes]{\hyperref[sec:nm_tab_forcing]{config\_update\_ocean\_fluxes}}
@@ -728,11 +744,11 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & .true. or .false \\
+    Possible Values: & true or false \\
     \hline
     \caption{config\_update\_ocean\_fluxes: {\bf \color{red} MISSING}}
 \end{longtable}
@@ -744,13 +760,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & .true. or .false \\
+    Possible Values: & true or false \\
     \hline
-    \caption{config\_include\_pond\_freshwater\_feedback: {\bf \color{red} MISSING}}
+    \caption{config\_include\_pond\_freshwater\_feedback: Reduce the ocean fresh water flux by the pond fresh water flux for coupling.}
 \end{longtable}
 \end{center}
 \section[unit\_test]{\hyperref[sec:nm_tab_unit_test]{unit\_test}}
@@ -762,13 +778,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & .true. or .false. \\
+    Possible Values: & true or false \\
     \hline
-    \caption{config\_perform\_unit\_test: {\bf \color{red} MISSING}}
+    \caption{config\_perform\_unit\_test: If true perform a unit test.}
 \end{longtable}
 \end{center}
 \subsection[config\_unit\_test\_type]{\hyperref[sec:nm_tab_unit_test]{config\_unit\_test\_type}}
@@ -778,13 +794,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & character \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: &  \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & 'strain rate operator', 'stress divergence operator', or 'constitutive relationship' \\
     \hline
-    \caption{config\_unit\_test\_type: {\bf \color{red} MISSING}}
+    \caption{config\_unit\_test\_type: Unit test type.}
 \end{longtable}
 \end{center}
 \subsection[config\_unit\_test\_subtype]{\hyperref[sec:nm_tab_unit_test]{config\_unit\_test\_subtype}}
@@ -794,13 +810,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & character \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: &  \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & ('strain rate operator'): 'all', 'zero', 'zonal', 'meridonal', 'solid\_body', 'sinusoidal1', or 'sinusoidal2', (stress divergence operator): 'all', 'zero', 'const11', 'const22', 'const12', 'test1', 'test2', 'test3', or 'test4' \\
     \hline
-    \caption{config\_unit\_test\_subtype: {\bf \color{red} MISSING}}
+    \caption{config\_unit\_test\_subtype: Unit test subtype.}
 \end{longtable}
 \end{center}
 \subsection[config\_use\_test\_ice\_shelf]{\hyperref[sec:nm_tab_unit_test]{config\_use\_test\_ice\_shelf}}
@@ -810,13 +826,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & .true. or .false. \\
+    Possible Values: & true or false \\
     \hline
-    \caption{config\_use\_test\_ice\_shelf: {\bf \color{red} MISSING}}
+    \caption{config\_use\_test\_ice\_shelf: If true test add a test ice shelf to the ice shelf mask.}
 \end{longtable}
 \end{center}
 \subsection[config\_testing\_system\_test]{\hyperref[sec:nm_tab_unit_test]{config\_testing\_system\_test}}
@@ -826,13 +842,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & .true. or .false. \\
+    Possible Values: & true or false \\
     \hline
-    \caption{config\_testing\_system\_test: {\bf \color{red} MISSING}}
+    \caption{config\_testing\_system\_test: If true initialize variables that will fail the testing system tests.}
 \end{longtable}
 \end{center}
 \section[velocity\_solver]{\hyperref[sec:nm_tab_velocity_solver]{velocity\_solver}}
@@ -844,13 +860,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & integer \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 1 \\
     \hline
     Possible Values: & Any positive integer. \\
     \hline
-    \caption{config\_dynamics\_subcycle\_number: {\bf \color{red} MISSING}}
+    \caption{config\_dynamics\_subcycle\_number: The number of dynamics subcycles to perform per thermodynamic time step (config\_dt)}
 \end{longtable}
 \end{center}
 \subsection[config\_rotate\_cartesian\_grid]{\hyperref[sec:nm_tab_velocity_solver]{config\_rotate\_cartesian\_grid}}
@@ -860,13 +876,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & true \\
     \hline
-    Possible Values: & .true. or. false. \\
+    Possible Values: & true or. false. \\
     \hline
-    \caption{config\_rotate\_cartesian\_grid: {\bf \color{red} MISSING}}
+    \caption{config\_rotate\_cartesian\_grid: Rotate the velocity directions from geographic so their pole lies on the equator.}
 \end{longtable}
 \end{center}
 \subsection[config\_include\_metric\_terms]{\hyperref[sec:nm_tab_velocity_solver]{config\_include\_metric\_terms}}
@@ -876,13 +892,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & true \\
     \hline
-    Possible Values: & .true. or. false. \\
+    Possible Values: & true or. false. \\
     \hline
-    \caption{config\_include\_metric\_terms: {\bf \color{red} MISSING}}
+    \caption{config\_include\_metric\_terms: Include metric terms due to Earth curvature in velocity solver horizontal operators.}
 \end{longtable}
 \end{center}
 \subsection[config\_elastic\_subcycle\_number]{\hyperref[sec:nm_tab_velocity_solver]{config\_elastic\_subcycle\_number}}
@@ -892,13 +908,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & integer \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 120 \\
     \hline
     Possible Values: & Any positive integer. \\
     \hline
-    \caption{config\_elastic\_subcycle\_number: {\bf \color{red} MISSING}}
+    \caption{config\_elastic\_subcycle\_number: The number of elastic EVP subcycles to perform per dynamics time step.}
 \end{longtable}
 \end{center}
 \subsection[config\_stress\_divergence\_scheme]{\hyperref[sec:nm_tab_velocity_solver]{config\_stress\_divergence\_scheme}}
@@ -908,13 +924,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & character \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & variational \\
     \hline
     Possible Values: & 'weak' or 'variational' \\
     \hline
-    \caption{config\_stress\_divergence\_scheme: {\bf \color{red} MISSING}}
+    \caption{config\_stress\_divergence\_scheme: Choice of stress divergence scheme to use in the velocity solver.}
 \end{longtable}
 \end{center}
 \subsection[config\_variational\_basis]{\hyperref[sec:nm_tab_velocity_solver]{config\_variational\_basis}}
@@ -924,13 +940,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & character \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & wachspress \\
     \hline
     Possible Values: & 'wachspress' or 'pwl' \\
     \hline
-    \caption{config\_variational\_basis: {\bf \color{red} MISSING}}
+    \caption{config\_variational\_basis: Type of basis functions to use with the variational stress divergence scheme.}
 \end{longtable}
 \end{center}
 \subsection[config\_wachspress\_integration\_type]{\hyperref[sec:nm_tab_velocity_solver]{config\_wachspress\_integration\_type}}
@@ -940,13 +956,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & character \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & dunavant \\
     \hline
     Possible Values: & 'trapezoidal', 'dunavant' or 'fekete' \\
     \hline
-    \caption{config\_wachspress\_integration\_type: {\bf \color{red} MISSING}}
+    \caption{config\_wachspress\_integration\_type: Type of integration to perform with the Wachspress variational stress divergence scheme.}
 \end{longtable}
 \end{center}
 \subsection[config\_wachspress\_integration\_order]{\hyperref[sec:nm_tab_velocity_solver]{config\_wachspress\_integration\_order}}
@@ -956,13 +972,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & integer \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 8 \\
     \hline
     Possible Values: & 'trapezoidal': any positive integer, 'dunavant':1-10,12, 'fekete':1-6,8,9 \\
     \hline
-    \caption{config\_wachspress\_integration\_order: {\bf \color{red} MISSING}}
+    \caption{config\_wachspress\_integration\_order: Order of integration for Wachspress basis integrations.}
 \end{longtable}
 \end{center}
 \subsection[config\_revised\_evp]{\hyperref[sec:nm_tab_velocity_solver]{config\_revised\_evp}}
@@ -976,9 +992,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & .true. or. false. \\
+    Possible Values: & true or. false. \\
     \hline
-    \caption{config\_revised\_evp: {\bf \color{red} MISSING}}
+    \caption{config\_revised\_evp: If true use the revised EVP rheology (Bouillon et al., Ocean Modelling)}
 \end{longtable}
 \end{center}
 \subsection[config\_use\_air\_stress]{\hyperref[sec:nm_tab_velocity_solver]{config\_use\_air\_stress}}
@@ -992,9 +1008,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & true \\
     \hline
-    Possible Values: & .true. or. false. \\
+    Possible Values: & true or. false. \\
     \hline
-    \caption{config\_use\_air\_stress: {\bf \color{red} MISSING}}
+    \caption{config\_use\_air\_stress: If true include the air stress term in the velocity solver calculations.}
 \end{longtable}
 \end{center}
 \subsection[config\_use\_ocean\_stress]{\hyperref[sec:nm_tab_velocity_solver]{config\_use\_ocean\_stress}}
@@ -1008,9 +1024,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & true \\
     \hline
-    Possible Values: & .true. or. false. \\
+    Possible Values: & true or. false. \\
     \hline
-    \caption{config\_use\_ocean\_stress: {\bf \color{red} MISSING}}
+    \caption{config\_use\_ocean\_stress: If true include the ocean stress term in the velocity solver calculations.}
 \end{longtable}
 \end{center}
 \subsection[config\_use\_surface\_tilt]{\hyperref[sec:nm_tab_velocity_solver]{config\_use\_surface\_tilt}}
@@ -1024,9 +1040,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & true \\
     \hline
-    Possible Values: & .true. or. false. \\
+    Possible Values: & true or. false. \\
     \hline
-    \caption{config\_use\_surface\_tilt: {\bf \color{red} MISSING}}
+    \caption{config\_use\_surface\_tilt: If true include the sea surface tilt stress term in the velocity solver calculations.}
 \end{longtable}
 \end{center}
 \subsection[config\_geostrophic\_surface\_tilt]{\hyperref[sec:nm_tab_velocity_solver]{config\_geostrophic\_surface\_tilt}}
@@ -1040,9 +1056,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & true \\
     \hline
-    Possible Values: & .true. or. false. \\
+    Possible Values: & true or. false. \\
     \hline
-    \caption{config\_geostrophic\_surface\_tilt: {\bf \color{red} MISSING}}
+    \caption{config\_geostrophic\_surface\_tilt: If true calculate the sea surface tilt stress assuming currents are geostrophic.}
 \end{longtable}
 \end{center}
 \section[advection]{\hyperref[sec:nm_tab_advection]{advection}}
@@ -1060,7 +1076,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Possible Values: & 'upwind' and 'incremental\_remap' \\
     \hline
-    \caption{config\_advection\_type: Type of advection scheme (upwind or incremental remapping)}
+    \caption{config\_advection\_type: Type of advection scheme (upwind or incremental remapping).}
 \end{longtable}
 \end{center}
 \subsection[config\_monotonic]{\hyperref[sec:nm_tab_advection]{config\_monotonic}}
@@ -1076,7 +1092,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Possible Values: & true and false \\
     \hline
-    \caption{config\_monotonic: If true then fluxes are limited to produce a monotonic advection scheme}
+    \caption{config\_monotonic: If true then fluxes are limited to produce a monotonic advection scheme.}
 \end{longtable}
 \end{center}
 \subsection[config\_conservation\_check]{\hyperref[sec:nm_tab_advection]{config\_conservation\_check}}
@@ -1092,7 +1108,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Possible Values: & true or false \\
     \hline
-    \caption{config\_conservation\_check: {\bf \color{red} MISSING}}
+    \caption{config\_conservation\_check: If true test the advection results for tracer conservation (incremental remap only).}
 \end{longtable}
 \end{center}
 \subsection[config\_monotonicity\_check]{\hyperref[sec:nm_tab_advection]{config\_monotonicity\_check}}
@@ -1108,7 +1124,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Possible Values: & true or false \\
     \hline
-    \caption{config\_monotonicity\_check: {\bf \color{red} MISSING}}
+    \caption{config\_monotonicity\_check: If true test the advection results for monotonicity (incremental remap only).}
 \end{longtable}
 \end{center}
 \subsection[config\_recover\_tracer\_means\_check]{\hyperref[sec:nm_tab_advection]{config\_recover\_tracer\_means\_check}}
@@ -1124,7 +1140,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Possible Values: & true or false \\
     \hline
-    \caption{config\_recover\_tracer\_means\_check: {\bf \color{red} MISSING}}
+    \caption{config\_recover\_tracer\_means\_check: If true compare mass*tracer products for incremental remapping with analytical values.}
 \end{longtable}
 \end{center}
 \section[column\_package]{\hyperref[sec:nm_tab_column_package]{column\_package}}
@@ -1142,7 +1158,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Possible Values: & true or false \\
     \hline
-    \caption{config\_use\_column\_shortwave: {\bf \color{red} MISSING}}
+    \caption{config\_use\_column\_shortwave: Run the shortwave radiation column physics calculation.}
 \end{longtable}
 \end{center}
 \subsection[config\_use\_column\_vertical\_thermodynamics]{\hyperref[sec:nm_tab_column_package]{config\_use\_column\_vertical\_thermodynamics}}
@@ -1158,7 +1174,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Possible Values: & true or false \\
     \hline
-    \caption{config\_use\_column\_vertical\_thermodynamics: {\bf \color{red} MISSING}}
+    \caption{config\_use\_column\_vertical\_thermodynamics: Run the vertical thermodynamics column physics calculation.}
 \end{longtable}
 \end{center}
 \subsection[config\_use\_column\_biogeochemistry]{\hyperref[sec:nm_tab_column_package]{config\_use\_column\_biogeochemistry}}
@@ -1174,7 +1190,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Possible Values: & true or false \\
     \hline
-    \caption{config\_use\_column\_biogeochemistry: {\bf \color{red} MISSING}}
+    \caption{config\_use\_column\_biogeochemistry: Use biological and chemical tracers in the ice}
 \end{longtable}
 \end{center}
 \subsection[config\_use\_column\_itd\_thermodynamics]{\hyperref[sec:nm_tab_column_package]{config\_use\_column\_itd\_thermodynamics}}
@@ -1190,7 +1206,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Possible Values: & true or false \\
     \hline
-    \caption{config\_use\_column\_itd\_thermodynamics: {\bf \color{red} MISSING}}
+    \caption{config\_use\_column\_itd\_thermodynamics: Run the ice thickness distribution thermodynamics column physics calculation.}
 \end{longtable}
 \end{center}
 \subsection[config\_use\_column\_ridging]{\hyperref[sec:nm_tab_column_package]{config\_use\_column\_ridging}}
@@ -1206,7 +1222,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Possible Values: & true or false \\
     \hline
-    \caption{config\_use\_column\_ridging: {\bf \color{red} MISSING}}
+    \caption{config\_use\_column\_ridging: Run the ridging column physics calculation.}
 \end{longtable}
 \end{center}
 \section[column\_tracers]{\hyperref[sec:nm_tab_column_tracers]{column\_tracers}}
@@ -1224,7 +1240,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Possible Values: & true or false \\
     \hline
-    \caption{config\_use\_ice\_age: {\bf \color{red} MISSING}}
+    \caption{config\_use\_ice\_age: If true use the ice age tracer.}
 \end{longtable}
 \end{center}
 \subsection[config\_use\_first\_year\_ice]{\hyperref[sec:nm_tab_column_tracers]{config\_use\_first\_year\_ice}}
@@ -1240,7 +1256,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Possible Values: & true or false \\
     \hline
-    \caption{config\_use\_first\_year\_ice: {\bf \color{red} MISSING}}
+    \caption{config\_use\_first\_year\_ice: If true use the first year ice tracer.}
 \end{longtable}
 \end{center}
 \subsection[config\_use\_level\_ice]{\hyperref[sec:nm_tab_column_tracers]{config\_use\_level\_ice}}
@@ -1256,7 +1272,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Possible Values: & true or false \\
     \hline
-    \caption{config\_use\_level\_ice: {\bf \color{red} MISSING}}
+    \caption{config\_use\_level\_ice: If true use the level ice tracers.}
 \end{longtable}
 \end{center}
 \subsection[config\_use\_cesm\_meltponds]{\hyperref[sec:nm_tab_column_tracers]{config\_use\_cesm\_meltponds}}
@@ -1272,7 +1288,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Possible Values: & true or false \\
     \hline
-    \caption{config\_use\_cesm\_meltponds: {\bf \color{red} MISSING}}
+    \caption{config\_use\_cesm\_meltponds: If true use the cesm meltponds tracers.}
 \end{longtable}
 \end{center}
 \subsection[config\_use\_level\_meltponds]{\hyperref[sec:nm_tab_column_tracers]{config\_use\_level\_meltponds}}
@@ -1288,7 +1304,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Possible Values: & true or false \\
     \hline
-    \caption{config\_use\_level\_meltponds: {\bf \color{red} MISSING}}
+    \caption{config\_use\_level\_meltponds: If true use the level ice meltponds tracers.}
 \end{longtable}
 \end{center}
 \subsection[config\_use\_topo\_meltponds]{\hyperref[sec:nm_tab_column_tracers]{config\_use\_topo\_meltponds}}
@@ -1304,7 +1320,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Possible Values: & true or false \\
     \hline
-    \caption{config\_use\_topo\_meltponds: {\bf \color{red} MISSING}}
+    \caption{config\_use\_topo\_meltponds: If true use the topo meltpond tracers.}
 \end{longtable}
 \end{center}
 \subsection[config\_use\_aerosols]{\hyperref[sec:nm_tab_column_tracers]{config\_use\_aerosols}}
@@ -1320,7 +1336,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Possible Values: & true or false \\
     \hline
-    \caption{config\_use\_aerosols: {\bf \color{red} MISSING}}
+    \caption{config\_use\_aerosols: Carry aerosols in the ice (NCAR scheme)}
 \end{longtable}
 \end{center}
 \section[biogeochemistry]{\hyperref[sec:nm_tab_biogeochemistry]{biogeochemistry}}
@@ -1336,9 +1352,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
-    \caption{config\_use\_brine: {\bf \color{red} MISSING}}
+    \caption{config\_use\_brine: Use the brine height tracer}
 \end{longtable}
 \end{center}
 \subsection[config\_use\_vertical\_zsalinity]{\hyperref[sec:nm_tab_biogeochemistry]{config\_use\_vertical\_zsalinity}}
@@ -1352,9 +1368,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & false \\
     \hline
-    \caption{config\_use\_vertical\_zsalinity: {\bf \color{red} MISSING}}
+    \caption{config\_use\_vertical\_zsalinity: Use z-salinity (with Bitz and Lipscomb 1999 thermodynamics)}
 \end{longtable}
 \end{center}
 \subsection[config\_use\_vertical\_biochemistry]{\hyperref[sec:nm_tab_biogeochemistry]{config\_use\_vertical\_biochemistry}}
@@ -1368,9 +1384,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
-    \caption{config\_use\_vertical\_biochemistry: {\bf \color{red} MISSING}}
+    \caption{config\_use\_vertical\_biochemistry: Turn on the reaction terms for vertical biological tracers}
 \end{longtable}
 \end{center}
 \subsection[config\_use\_shortwave\_bioabsorption]{\hyperref[sec:nm_tab_biogeochemistry]{config\_use\_shortwave\_bioabsorption}}
@@ -1384,9 +1400,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
-    \caption{config\_use\_shortwave\_bioabsorption: {\bf \color{red} MISSING}}
+    \caption{config\_use\_shortwave\_bioabsorption: Permit radiative transfer calculations that include dynamic chlorophyll and aerosols if active}
 \end{longtable}
 \end{center}
 \subsection[config\_use\_vertical\_tracers]{\hyperref[sec:nm_tab_biogeochemistry]{config\_use\_vertical\_tracers}}
@@ -1400,9 +1416,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
-    \caption{config\_use\_vertical\_tracers: {\bf \color{red} MISSING}}
+    \caption{config\_use\_vertical\_tracers: Allow vertically resolved biological and chemical tracers}
 \end{longtable}
 \end{center}
 \subsection[config\_use\_skeletal\_biochemistry]{\hyperref[sec:nm_tab_biogeochemistry]{config\_use\_skeletal\_biochemistry}}
@@ -1416,9 +1432,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
-    \caption{config\_use\_skeletal\_biochemistry: {\bf \color{red} MISSING}}
+    \caption{config\_use\_skeletal\_biochemistry: Use the bottom 1-layer biogeochemistry}
 \end{longtable}
 \end{center}
 \subsection[config\_use\_nitrate]{\hyperref[sec:nm_tab_biogeochemistry]{config\_use\_nitrate}}
@@ -1432,9 +1448,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
-    \caption{config\_use\_nitrate: {\bf \color{red} MISSING}}
+    \caption{config\_use\_nitrate: Use the nitrate tracer}
 \end{longtable}
 \end{center}
 \subsection[config\_use\_carbon]{\hyperref[sec:nm_tab_biogeochemistry]{config\_use\_carbon}}
@@ -1448,9 +1464,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
-    \caption{config\_use\_carbon: {\bf \color{red} MISSING}}
+    \caption{config\_use\_carbon: Use dissolved organic and inorganic carbon tracers}
 \end{longtable}
 \end{center}
 \subsection[config\_use\_chlorophyll]{\hyperref[sec:nm_tab_biogeochemistry]{config\_use\_chlorophyll}}
@@ -1464,9 +1480,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & false \\
     \hline
-    \caption{config\_use\_chlorophyll: {\bf \color{red} MISSING}}
+    \caption{config\_use\_chlorophyll: Use the chlorophyll tracer (currently not implemented!)}
 \end{longtable}
 \end{center}
 \subsection[config\_use\_ammonium]{\hyperref[sec:nm_tab_biogeochemistry]{config\_use\_ammonium}}
@@ -1480,9 +1496,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
-    \caption{config\_use\_ammonium: {\bf \color{red} MISSING}}
+    \caption{config\_use\_ammonium: Use the ammonium tracer}
 \end{longtable}
 \end{center}
 \subsection[config\_use\_silicate]{\hyperref[sec:nm_tab_biogeochemistry]{config\_use\_silicate}}
@@ -1496,9 +1512,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
-    \caption{config\_use\_silicate: {\bf \color{red} MISSING}}
+    \caption{config\_use\_silicate: Use the silicate tracer}
 \end{longtable}
 \end{center}
 \subsection[config\_use\_DMS]{\hyperref[sec:nm_tab_biogeochemistry]{config\_use\_DMS}}
@@ -1512,9 +1528,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
-    \caption{config\_use\_DMS: {\bf \color{red} MISSING}}
+    \caption{config\_use\_DMS: Use DMS/DMSPd/DMSPp species}
 \end{longtable}
 \end{center}
 \subsection[config\_use\_nonreactive]{\hyperref[sec:nm_tab_biogeochemistry]{config\_use\_nonreactive}}
@@ -1528,9 +1544,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
-    \caption{config\_use\_nonreactive: {\bf \color{red} MISSING}}
+    \caption{config\_use\_nonreactive: Use a non-reactive nitrate tracer}
 \end{longtable}
 \end{center}
 \subsection[config\_use\_humics]{\hyperref[sec:nm_tab_biogeochemistry]{config\_use\_humics}}
@@ -1544,9 +1560,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
-    \caption{config\_use\_humics: {\bf \color{red} MISSING}}
+    \caption{config\_use\_humics: Use the humic matter tracer}
 \end{longtable}
 \end{center}
 \subsection[config\_use\_DON]{\hyperref[sec:nm_tab_biogeochemistry]{config\_use\_DON}}
@@ -1560,9 +1576,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
-    \caption{config\_use\_DON: {\bf \color{red} MISSING}}
+    \caption{config\_use\_DON: Use dissolved organic nitrogen (proteins and amino acids)}
 \end{longtable}
 \end{center}
 \subsection[config\_use\_iron]{\hyperref[sec:nm_tab_biogeochemistry]{config\_use\_iron}}
@@ -1576,9 +1592,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
-    \caption{config\_use\_iron: {\bf \color{red} MISSING}}
+    \caption{config\_use\_iron: Use particulate and dissolved iron tracers}
 \end{longtable}
 \end{center}
 \subsection[config\_use\_modal\_aerosols]{\hyperref[sec:nm_tab_biogeochemistry]{config\_use\_modal\_aerosols}}
@@ -1592,9 +1608,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
-    \caption{config\_use\_modal\_aerosols: {\bf \color{red} MISSING}}
+    \caption{config\_use\_modal\_aerosols: Aerosols are consistent with the CAM modal aerosol scheme}
 \end{longtable}
 \end{center}
 \subsection[config\_use\_zaerosols]{\hyperref[sec:nm_tab_biogeochemistry]{config\_use\_zaerosols}}
@@ -1608,9 +1624,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
-    \caption{config\_use\_zaerosols: {\bf \color{red} MISSING}}
+    \caption{config\_use\_zaerosols: Aerosols in the ice use the z-aerosol scheme}
 \end{longtable}
 \end{center}
 \subsection[config\_skeletal\_bgc\_flux\_type]{\hyperref[sec:nm_tab_biogeochemistry]{config\_skeletal\_bgc\_flux\_type}}
@@ -1624,9 +1640,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & Jin2006 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Jin2006 or default \\
     \hline
-    \caption{config\_skeletal\_bgc\_flux\_type: {\bf \color{red} MISSING}}
+    \caption{config\_skeletal\_bgc\_flux\_type: Determines the ocean-ice fluxes of biogeochemistry for the bottom1-layer model: in Jin2006,    the piston velocity is a function of ice growth/melt rate, in default, the piston velocity    is constant}
 \end{longtable}
 \end{center}
 \subsection[config\_scale\_initial\_vertical\_bgc]{\hyperref[sec:nm_tab_biogeochemistry]{config\_scale\_initial\_vertical\_bgc}}
@@ -1640,9 +1656,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
-    \caption{config\_scale\_initial\_vertical\_bgc: {\bf \color{red} MISSING}}
+    \caption{config\_scale\_initial\_vertical\_bgc: initialize the vertical ice biogeochemistry profile to scale with    the salinity restart/initial profile}
 \end{longtable}
 \end{center}
 \subsection[config\_biogrid\_bottom\_molecular\_sublayer]{\hyperref[sec:nm_tab_biogeochemistry]{config\_biogrid\_bottom\_molecular\_sublayer}}
@@ -1652,13 +1668,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $m$ \\
     \hline
     Default Value: & 0.006 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real number less than 1 \\
     \hline
-    \caption{config\_biogrid\_bottom\_molecular\_sublayer: {\bf \color{red} MISSING}}
+    \caption{config\_biogrid\_bottom\_molecular\_sublayer: Sets the value of the ice/ocean molecular sublayer for the vertical biogeochemistry model}
 \end{longtable}
 \end{center}
 \subsection[config\_biogrid\_top\_molecular\_sublayer]{\hyperref[sec:nm_tab_biogeochemistry]{config\_biogrid\_top\_molecular\_sublayer}}
@@ -1668,13 +1684,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $m$ \\
     \hline
     Default Value: & 0.006 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real number less than 1 \\
     \hline
-    \caption{config\_biogrid\_top\_molecular\_sublayer: {\bf \color{red} MISSING}}
+    \caption{config\_biogrid\_top\_molecular\_sublayer: Sets the value of the ice surface molecular sublayer for the vertical biogeochemistry model}
 \end{longtable}
 \end{center}
 \subsection[config\_bio\_gravity\_drainage\_length\_scale]{\hyperref[sec:nm_tab_biogeochemistry]{config\_bio\_gravity\_drainage\_length\_scale}}
@@ -1684,13 +1700,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $m$ \\
     \hline
     Default Value: & 0.024 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Sets the gravity drainage length scale in the biological transport model \\
     \hline
-    \caption{config\_bio\_gravity\_drainage\_length\_scale: {\bf \color{red} MISSING}}
+    \caption{config\_bio\_gravity\_drainage\_length\_scale: positive real number less than 1}
 \end{longtable}
 \end{center}
 \subsection[config\_zsalinity\_molecular\_sublayer]{\hyperref[sec:nm_tab_biogeochemistry]{config\_zsalinity\_molecular\_sublayer}}
@@ -1700,13 +1716,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $m$ \\
     \hline
     Default Value: & 0.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & zero or positive real number less than 1 \\
     \hline
-    \caption{config\_zsalinity\_molecular\_sublayer: {\bf \color{red} MISSING}}
+    \caption{config\_zsalinity\_molecular\_sublayer: Sets the ice/ocean molecular sublayer for the z-salinity model}
 \end{longtable}
 \end{center}
 \subsection[config\_zsalinity\_gravity\_drainage\_scale]{\hyperref[sec:nm_tab_biogeochemistry]{config\_zsalinity\_gravity\_drainage\_scale}}
@@ -1716,13 +1732,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $m$ \\
     \hline
     Default Value: & 0.028 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real number less than 1 \\
     \hline
-    \caption{config\_zsalinity\_gravity\_drainage\_scale: {\bf \color{red} MISSING}}
+    \caption{config\_zsalinity\_gravity\_drainage\_scale: Sets the gravity drainage length scale in the z-salinity model}
 \end{longtable}
 \end{center}
 \subsection[config\_snow\_porosity\_at\_ice\_surface]{\hyperref[sec:nm_tab_biogeochemistry]{config\_snow\_porosity\_at\_ice\_surface}}
@@ -1736,9 +1752,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & -0.3 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & real between 0 and 1 or negative.  If negative, compute porosity from snow density \\
     \hline
-    \caption{config\_snow\_porosity\_at\_ice\_surface: {\bf \color{red} MISSING}}
+    \caption{config\_snow\_porosity\_at\_ice\_surface: Specifies the snow porosity (volume of air/total volume) at the ice surface}
 \end{longtable}
 \end{center}
 \subsection[config\_new\_ice\_fraction\_biotracer]{\hyperref[sec:nm_tab_biogeochemistry]{config\_new\_ice\_fraction\_biotracer}}
@@ -1752,9 +1768,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 0.80 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real number less than or equal to 1 \\
     \hline
-    \caption{config\_new\_ice\_fraction\_biotracer: {\bf \color{red} MISSING}}
+    \caption{config\_new\_ice\_fraction\_biotracer: Fraction of biological tracer retained as new sea ice is formed from ocean water}
 \end{longtable}
 \end{center}
 \subsection[config\_fraction\_biotracer\_in\_frazil]{\hyperref[sec:nm_tab_biogeochemistry]{config\_fraction\_biotracer\_in\_frazil}}
@@ -1768,9 +1784,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 0.80 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real number \\
     \hline
-    \caption{config\_fraction\_biotracer\_in\_frazil: {\bf \color{red} MISSING}}
+    \caption{config\_fraction\_biotracer\_in\_frazil: Factor multiplying the ocean concentration of a biological tracer in new frazil ice}
 \end{longtable}
 \end{center}
 \subsection[config\_ratio\_Si\_to\_N\_diatoms]{\hyperref[sec:nm_tab_biogeochemistry]{config\_ratio\_Si\_to\_N\_diatoms}}
@@ -1780,13 +1796,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $mol$ $silicate/mol$ $nitrogen$ \\
     \hline
     Default Value: & 1.80 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real of order 1.8 \\
     \hline
-    \caption{config\_ratio\_Si\_to\_N\_diatoms: {\bf \color{red} MISSING}}
+    \caption{config\_ratio\_Si\_to\_N\_diatoms: Sets the ratio of silicate to nitrogen in diatoms}
 \end{longtable}
 \end{center}
 \subsection[config\_ratio\_Si\_to\_N\_small\_plankton]{\hyperref[sec:nm_tab_biogeochemistry]{config\_ratio\_Si\_to\_N\_small\_plankton}}
@@ -1796,13 +1812,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $mol$ $silicate/mol$ $nitrogen$ \\
     \hline
     Default Value: & 0.00 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & 0 \\
     \hline
-    \caption{config\_ratio\_Si\_to\_N\_small\_plankton: {\bf \color{red} MISSING}}
+    \caption{config\_ratio\_Si\_to\_N\_small\_plankton: Sets the ratio of silicate to nitrogen in small plankton}
 \end{longtable}
 \end{center}
 \subsection[config\_ratio\_Si\_to\_N\_phaeocystis]{\hyperref[sec:nm_tab_biogeochemistry]{config\_ratio\_Si\_to\_N\_phaeocystis}}
@@ -1812,13 +1828,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $mol$ $silicate/mol$ $nitrogen$ \\
     \hline
     Default Value: & 0.00 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & 0 \\
     \hline
-    \caption{config\_ratio\_Si\_to\_N\_phaeocystis: {\bf \color{red} MISSING}}
+    \caption{config\_ratio\_Si\_to\_N\_phaeocystis: Sets the ratio of silicate to nitrogen in phaeocystis}
 \end{longtable}
 \end{center}
 \subsection[config\_ratio\_S\_to\_N\_diatoms]{\hyperref[sec:nm_tab_biogeochemistry]{config\_ratio\_S\_to\_N\_diatoms}}
@@ -1828,13 +1844,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $mol$ $Sulfur/mol$ $nitrogen$ \\
     \hline
     Default Value: & 0.03 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & order of 0.03 \\
     \hline
-    \caption{config\_ratio\_S\_to\_N\_diatoms: {\bf \color{red} MISSING}}
+    \caption{config\_ratio\_S\_to\_N\_diatoms: Sets the ratio of sulfur to nitrogen in diatoms}
 \end{longtable}
 \end{center}
 \subsection[config\_ratio\_S\_to\_N\_small\_plankton]{\hyperref[sec:nm_tab_biogeochemistry]{config\_ratio\_S\_to\_N\_small\_plankton}}
@@ -1844,13 +1860,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $mol$ $sulfur/mol$ $nitrogen$ \\
     \hline
     Default Value: & 0.03 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & order of 0.03 \\
     \hline
-    \caption{config\_ratio\_S\_to\_N\_small\_plankton: {\bf \color{red} MISSING}}
+    \caption{config\_ratio\_S\_to\_N\_small\_plankton: Sets the ratio of sulfur to nitrogen in small plankeon}
 \end{longtable}
 \end{center}
 \subsection[config\_ratio\_S\_to\_N\_phaeocystis]{\hyperref[sec:nm_tab_biogeochemistry]{config\_ratio\_S\_to\_N\_phaeocystis}}
@@ -1860,13 +1876,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $mol$ $sulfur/mol$ $nitrogen$ \\
     \hline
     Default Value: & 0.03 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & order of 0.03 \\
     \hline
-    \caption{config\_ratio\_S\_to\_N\_phaeocystis: {\bf \color{red} MISSING}}
+    \caption{config\_ratio\_S\_to\_N\_phaeocystis: Sets the ratio of sulfur to nitrogen in phaeocystis}
 \end{longtable}
 \end{center}
 \subsection[config\_ratio\_Fe\_to\_C\_diatoms]{\hyperref[sec:nm_tab_biogeochemistry]{config\_ratio\_Fe\_to\_C\_diatoms}}
@@ -1876,13 +1892,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $mmol$ $iron/mol$ $Carbon$ \\
     \hline
     Default Value: & 0.0033 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
-    \caption{config\_ratio\_Fe\_to\_C\_diatoms: {\bf \color{red} MISSING}}
+    \caption{config\_ratio\_Fe\_to\_C\_diatoms: Sets the ratio of iron to carbon in diatoms}
 \end{longtable}
 \end{center}
 \subsection[config\_ratio\_Fe\_to\_C\_small\_plankton]{\hyperref[sec:nm_tab_biogeochemistry]{config\_ratio\_Fe\_to\_C\_small\_plankton}}
@@ -1892,13 +1908,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $mmol$ $iron/mol$ $carbon$ \\
     \hline
     Default Value: & 0.0033 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
-    \caption{config\_ratio\_Fe\_to\_C\_small\_plankton: {\bf \color{red} MISSING}}
+    \caption{config\_ratio\_Fe\_to\_C\_small\_plankton: Sets the ratio of iron to carbon in small plankton}
 \end{longtable}
 \end{center}
 \subsection[config\_ratio\_Fe\_to\_C\_phaeocystis]{\hyperref[sec:nm_tab_biogeochemistry]{config\_ratio\_Fe\_to\_C\_phaeocystis}}
@@ -1908,13 +1924,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $mmol$ $iron/mol$ $carbon$ \\
     \hline
     Default Value: & 0.1 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
-    \caption{config\_ratio\_Fe\_to\_C\_phaeocystis: {\bf \color{red} MISSING}}
+    \caption{config\_ratio\_Fe\_to\_C\_phaeocystis: Sets the ratio of iron to carbon in phaeocystis}
 \end{longtable}
 \end{center}
 \subsection[config\_ratio\_Fe\_to\_N\_diatoms]{\hyperref[sec:nm_tab_biogeochemistry]{config\_ratio\_Fe\_to\_N\_diatoms}}
@@ -1924,13 +1940,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $mmol$ $iron/mol$ $nitrogen$ \\
     \hline
     Default Value: & 0.023 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
-    \caption{config\_ratio\_Fe\_to\_N\_diatoms: {\bf \color{red} MISSING}}
+    \caption{config\_ratio\_Fe\_to\_N\_diatoms: Sets the ratio of iron to nitrogen in diatoms}
 \end{longtable}
 \end{center}
 \subsection[config\_ratio\_Fe\_to\_N\_small\_plankton]{\hyperref[sec:nm_tab_biogeochemistry]{config\_ratio\_Fe\_to\_N\_small\_plankton}}
@@ -1940,13 +1956,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $mmol$ $iron/mol$ $nitrogen$ \\
     \hline
     Default Value: & 0.023 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
-    \caption{config\_ratio\_Fe\_to\_N\_small\_plankton: {\bf \color{red} MISSING}}
+    \caption{config\_ratio\_Fe\_to\_N\_small\_plankton: Sets the ratio of iron to nitrogen in small plankton}
 \end{longtable}
 \end{center}
 \subsection[config\_ratio\_Fe\_to\_N\_phaeocystis]{\hyperref[sec:nm_tab_biogeochemistry]{config\_ratio\_Fe\_to\_N\_phaeocystis}}
@@ -1956,13 +1972,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $mmol$ $iron/mol$ $nitrogen$ \\
     \hline
     Default Value: & 0.7 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
-    \caption{config\_ratio\_Fe\_to\_N\_phaeocystis: {\bf \color{red} MISSING}}
+    \caption{config\_ratio\_Fe\_to\_N\_phaeocystis: Sets the ratio of iron to nitrogen in phaeocystis}
 \end{longtable}
 \end{center}
 \subsection[config\_ratio\_Fe\_to\_DON]{\hyperref[sec:nm_tab_biogeochemistry]{config\_ratio\_Fe\_to\_DON}}
@@ -1972,13 +1988,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $mmol$ $iron/mol$ $nitrogen$ \\
     \hline
     Default Value: & 0.023 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
-    \caption{config\_ratio\_Fe\_to\_DON: {\bf \color{red} MISSING}}
+    \caption{config\_ratio\_Fe\_to\_DON: Sets the ratio of iron to dissolved organic nitrogen}
 \end{longtable}
 \end{center}
 \subsection[config\_ratio\_Fe\_to\_DOC\_saccharids]{\hyperref[sec:nm_tab_biogeochemistry]{config\_ratio\_Fe\_to\_DOC\_saccharids}}
@@ -1988,13 +2004,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $mmol$ $iron/mol$ $carbon$ \\
     \hline
     Default Value: & 0.1 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real number \\
     \hline
-    \caption{config\_ratio\_Fe\_to\_DOC\_saccharids: {\bf \color{red} MISSING}}
+    \caption{config\_ratio\_Fe\_to\_DOC\_saccharids: Sets the ratio of iron to poly/saccharid carbon}
 \end{longtable}
 \end{center}
 \subsection[config\_ratio\_Fe\_to\_DOC\_lipids]{\hyperref[sec:nm_tab_biogeochemistry]{config\_ratio\_Fe\_to\_DOC\_lipids}}
@@ -2004,13 +2020,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $mmol$ $iron/mol$ $carbon$ \\
     \hline
     Default Value: & 0.033 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real number \\
     \hline
-    \caption{config\_ratio\_Fe\_to\_DOC\_lipids: {\bf \color{red} MISSING}}
+    \caption{config\_ratio\_Fe\_to\_DOC\_lipids: Sets the ratio of iron to lipid carbon}
 \end{longtable}
 \end{center}
 \subsection[config\_respiration\_fraction\_of\_growth]{\hyperref[sec:nm_tab_biogeochemistry]{config\_respiration\_fraction\_of\_growth}}
@@ -2024,9 +2040,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 0.05 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real less than one \\
     \hline
-    \caption{config\_respiration\_fraction\_of\_growth: {\bf \color{red} MISSING}}
+    \caption{config\_respiration\_fraction\_of\_growth: Fraction of algal growth that is lost due to respiration}
 \end{longtable}
 \end{center}
 \subsection[config\_rapid\_mobile\_to\_stationary\_time]{\hyperref[sec:nm_tab_biogeochemistry]{config\_rapid\_mobile\_to\_stationary\_time}}
@@ -2036,13 +2052,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $seconds$ \\
     \hline
     Default Value: & 5200.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & zero or positive real number \\
     \hline
-    \caption{config\_rapid\_mobile\_to\_stationary\_time: {\bf \color{red} MISSING}}
+    \caption{config\_rapid\_mobile\_to\_stationary\_time: Rapid adsorption timescale  }
 \end{longtable}
 \end{center}
 \subsection[config\_long\_mobile\_to\_stationary\_time]{\hyperref[sec:nm_tab_biogeochemistry]{config\_long\_mobile\_to\_stationary\_time}}
@@ -2052,13 +2068,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $seconds$ \\
     \hline
     Default Value: & 173000.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & zero or positive real number \\
     \hline
-    \caption{config\_long\_mobile\_to\_stationary\_time: {\bf \color{red} MISSING}}
+    \caption{config\_long\_mobile\_to\_stationary\_time: Slow adsorption timescale}
 \end{longtable}
 \end{center}
 \subsection[config\_algal\_maximum\_velocity]{\hyperref[sec:nm_tab_biogeochemistry]{config\_algal\_maximum\_velocity}}
@@ -2068,13 +2084,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $m/s$ \\
     \hline
     Default Value: & 0.0000000111 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & zero or positive real number  \\
     \hline
-    \caption{config\_algal\_maximum\_velocity: {\bf \color{red} MISSING}}
+    \caption{config\_algal\_maximum\_velocity: Maximum speed at which diatoms can move}
 \end{longtable}
 \end{center}
 \subsection[config\_ratio\_Fe\_to\_dust]{\hyperref[sec:nm_tab_biogeochemistry]{config\_ratio\_Fe\_to\_dust}}
@@ -2084,13 +2100,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $mg$ $iron/g$ $dust$ \\
     \hline
     Default Value: & 0.035 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & zero or positive real number \\
     \hline
-    \caption{config\_ratio\_Fe\_to\_dust: {\bf \color{red} MISSING}}
+    \caption{config\_ratio\_Fe\_to\_dust: Mass ratio of iron in dust}
 \end{longtable}
 \end{center}
 \subsection[config\_solubility\_of\_Fe\_in\_dust]{\hyperref[sec:nm_tab_biogeochemistry]{config\_solubility\_of\_Fe\_in\_dust}}
@@ -2104,9 +2120,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 0.005 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & real number between and including zero and one \\
     \hline
-    \caption{config\_solubility\_of\_Fe\_in\_dust: {\bf \color{red} MISSING}}
+    \caption{config\_solubility\_of\_Fe\_in\_dust: Fraction of iron that is soluble}
 \end{longtable}
 \end{center}
 \subsection[config\_chla\_absorptivity\_of\_diatoms]{\hyperref[sec:nm_tab_biogeochemistry]{config\_chla\_absorptivity\_of\_diatoms}}
@@ -2116,13 +2132,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $1/m/(mg$ $chla/m^3)$ \\
     \hline
     Default Value: & 0.03 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real \\
     \hline
-    \caption{config\_chla\_absorptivity\_of\_diatoms: {\bf \color{red} MISSING}}
+    \caption{config\_chla\_absorptivity\_of\_diatoms: Absorptivity of chlorophyll in diatoms}
 \end{longtable}
 \end{center}
 \subsection[config\_chla\_absorptivity\_of\_small\_plankton]{\hyperref[sec:nm_tab_biogeochemistry]{config\_chla\_absorptivity\_of\_small\_plankton}}
@@ -2132,13 +2148,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $1/m/(mg$ $chla/m^3)$ \\
     \hline
     Default Value: & 0.01 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real \\
     \hline
-    \caption{config\_chla\_absorptivity\_of\_small\_plankton: {\bf \color{red} MISSING}}
+    \caption{config\_chla\_absorptivity\_of\_small\_plankton: Absorptivity of chlorophyll in small plankton}
 \end{longtable}
 \end{center}
 \subsection[config\_chla\_absorptivity\_of\_phaeocystis]{\hyperref[sec:nm_tab_biogeochemistry]{config\_chla\_absorptivity\_of\_phaeocystis}}
@@ -2148,13 +2164,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $1/m/(mg$ $chla/m^3)$ \\
     \hline
     Default Value: & 0.05 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real \\
     \hline
-    \caption{config\_chla\_absorptivity\_of\_phaeocystis: {\bf \color{red} MISSING}}
+    \caption{config\_chla\_absorptivity\_of\_phaeocystis: Absorptivity of chlorophyll in phaeocystis}
 \end{longtable}
 \end{center}
 \subsection[config\_light\_attenuation\_diatoms]{\hyperref[sec:nm_tab_biogeochemistry]{config\_light\_attenuation\_diatoms}}
@@ -2164,13 +2180,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $1/(W/m^2)$ \\
     \hline
     Default Value: & 0.8 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real less than 1 \\
     \hline
-    \caption{config\_light\_attenuation\_diatoms: {\bf \color{red} MISSING}}
+    \caption{config\_light\_attenuation\_diatoms: Controls the ability of diatoms to utilize light}
 \end{longtable}
 \end{center}
 \subsection[config\_light\_attenuation\_small\_plankton]{\hyperref[sec:nm_tab_biogeochemistry]{config\_light\_attenuation\_small\_plankton}}
@@ -2180,13 +2196,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $1/(W/m^2)$ \\
     \hline
     Default Value: & 0.67 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real less than 1 \\
     \hline
-    \caption{config\_light\_attenuation\_small\_plankton: {\bf \color{red} MISSING}}
+    \caption{config\_light\_attenuation\_small\_plankton: Controls the ability of small plankton to utilize light}
 \end{longtable}
 \end{center}
 \subsection[config\_light\_attenuation\_phaeocystis]{\hyperref[sec:nm_tab_biogeochemistry]{config\_light\_attenuation\_phaeocystis}}
@@ -2196,13 +2212,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $1/(W/m^2)$ \\
     \hline
     Default Value: & 0.67 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real less than 1 \\
     \hline
-    \caption{config\_light\_attenuation\_phaeocystis: {\bf \color{red} MISSING}}
+    \caption{config\_light\_attenuation\_phaeocystis: Controls the ability of phaeocystis to utilize light}
 \end{longtable}
 \end{center}
 \subsection[config\_light\_inhibition\_diatoms]{\hyperref[sec:nm_tab_biogeochemistry]{config\_light\_inhibition\_diatoms}}
@@ -2212,13 +2228,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $1/(W/m^2)$ \\
     \hline
     Default Value: & 0.018 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real less than 1 \\
     \hline
-    \caption{config\_light\_inhibition\_diatoms: {\bf \color{red} MISSING}}
+    \caption{config\_light\_inhibition\_diatoms: Controls the strength of light inhibition to growth for diatoms}
 \end{longtable}
 \end{center}
 \subsection[config\_light\_inhibition\_small\_plankton]{\hyperref[sec:nm_tab_biogeochemistry]{config\_light\_inhibition\_small\_plankton}}
@@ -2228,13 +2244,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $1/(W/m^2)$ \\
     \hline
     Default Value: & 0.0025 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real less than 1 \\
     \hline
-    \caption{config\_light\_inhibition\_small\_plankton: {\bf \color{red} MISSING}}
+    \caption{config\_light\_inhibition\_small\_plankton: Controls the strength of light inhibition to growth for small plankton}
 \end{longtable}
 \end{center}
 \subsection[config\_light\_inhibition\_phaeocystis]{\hyperref[sec:nm_tab_biogeochemistry]{config\_light\_inhibition\_phaeocystis}}
@@ -2244,13 +2260,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $1/(W/m^2)$ \\
     \hline
     Default Value: & 0.01 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real less than 1 \\
     \hline
-    \caption{config\_light\_inhibition\_phaeocystis: {\bf \color{red} MISSING}}
+    \caption{config\_light\_inhibition\_phaeocystis: Controls the strength of light inhibition to growth for phaeocystis}
 \end{longtable}
 \end{center}
 \subsection[config\_maximum\_growth\_rate\_diatoms]{\hyperref[sec:nm_tab_biogeochemistry]{config\_maximum\_growth\_rate\_diatoms}}
@@ -2260,13 +2276,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $1/day$ \\
     \hline
     Default Value: & 1.44 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real \\
     \hline
-    \caption{config\_maximum\_growth\_rate\_diatoms: {\bf \color{red} MISSING}}
+    \caption{config\_maximum\_growth\_rate\_diatoms: Maximum growth rate for diatoms}
 \end{longtable}
 \end{center}
 \subsection[config\_maximum\_growth\_rate\_small\_plankton]{\hyperref[sec:nm_tab_biogeochemistry]{config\_maximum\_growth\_rate\_small\_plankton}}
@@ -2276,13 +2292,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $1/day$ \\
     \hline
     Default Value: & 0.851 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real \\
     \hline
-    \caption{config\_maximum\_growth\_rate\_small\_plankton: {\bf \color{red} MISSING}}
+    \caption{config\_maximum\_growth\_rate\_small\_plankton: Maximum growth rate for small plankton}
 \end{longtable}
 \end{center}
 \subsection[config\_maximum\_growth\_rate\_phaeocystis]{\hyperref[sec:nm_tab_biogeochemistry]{config\_maximum\_growth\_rate\_phaeocystis}}
@@ -2292,13 +2308,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $1/day$ \\
     \hline
     Default Value: & 0.851 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real \\
     \hline
-    \caption{config\_maximum\_growth\_rate\_phaeocystis: {\bf \color{red} MISSING}}
+    \caption{config\_maximum\_growth\_rate\_phaeocystis: Maximum growth rate for phaeocystis}
 \end{longtable}
 \end{center}
 \subsection[config\_temperature\_growth\_diatoms]{\hyperref[sec:nm_tab_biogeochemistry]{config\_temperature\_growth\_diatoms}}
@@ -2308,13 +2324,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $1/C$ \\
     \hline
     Default Value: & 0.06 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real less than 1 \\
     \hline
-    \caption{config\_temperature\_growth\_diatoms: {\bf \color{red} MISSING}}
+    \caption{config\_temperature\_growth\_diatoms: Controls the temperature dependence of growth for diatoms}
 \end{longtable}
 \end{center}
 \subsection[config\_temperature\_growth\_small\_plankton]{\hyperref[sec:nm_tab_biogeochemistry]{config\_temperature\_growth\_small\_plankton}}
@@ -2324,13 +2340,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $1/C$ \\
     \hline
     Default Value: & 0.06 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real less than 1 \\
     \hline
-    \caption{config\_temperature\_growth\_small\_plankton: {\bf \color{red} MISSING}}
+    \caption{config\_temperature\_growth\_small\_plankton: Controls the temperature dependence of growth for small plankton}
 \end{longtable}
 \end{center}
 \subsection[config\_temperature\_growth\_phaeocystis]{\hyperref[sec:nm_tab_biogeochemistry]{config\_temperature\_growth\_phaeocystis}}
@@ -2340,13 +2356,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $1/C$ \\
     \hline
     Default Value: & 0.06 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real less than 1 \\
     \hline
-    \caption{config\_temperature\_growth\_phaeocystis: {\bf \color{red} MISSING}}
+    \caption{config\_temperature\_growth\_phaeocystis: Controls the temperature dependence of growth for phaeocystis}
 \end{longtable}
 \end{center}
 \subsection[config\_grazed\_fraction\_diatoms]{\hyperref[sec:nm_tab_biogeochemistry]{config\_grazed\_fraction\_diatoms}}
@@ -2360,9 +2376,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 0.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & zero or positive real less than 1 \\
     \hline
-    \caption{config\_grazed\_fraction\_diatoms: {\bf \color{red} MISSING}}
+    \caption{config\_grazed\_fraction\_diatoms: Fraction of diatom biomass grazed}
 \end{longtable}
 \end{center}
 \subsection[config\_grazed\_fraction\_small\_plankton]{\hyperref[sec:nm_tab_biogeochemistry]{config\_grazed\_fraction\_small\_plankton}}
@@ -2376,9 +2392,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 0.1 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & zero or positive real less than 1 \\
     \hline
-    \caption{config\_grazed\_fraction\_small\_plankton: {\bf \color{red} MISSING}}
+    \caption{config\_grazed\_fraction\_small\_plankton: Fraction of small plankton biomass grazed}
 \end{longtable}
 \end{center}
 \subsection[config\_grazed\_fraction\_phaeocystis]{\hyperref[sec:nm_tab_biogeochemistry]{config\_grazed\_fraction\_phaeocystis}}
@@ -2392,9 +2408,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 0.1 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & zero or positive real less than 1 \\
     \hline
-    \caption{config\_grazed\_fraction\_phaeocystis: {\bf \color{red} MISSING}}
+    \caption{config\_grazed\_fraction\_phaeocystis: Fraction of phaeocystis biomass grazed}
 \end{longtable}
 \end{center}
 \subsection[config\_mortality\_diatoms]{\hyperref[sec:nm_tab_biogeochemistry]{config\_mortality\_diatoms}}
@@ -2404,13 +2420,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $1/day$ \\
     \hline
     Default Value: & 0.007 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real \\
     \hline
-    \caption{config\_mortality\_diatoms: {\bf \color{red} MISSING}}
+    \caption{config\_mortality\_diatoms: Mortality rate of diatoms}
 \end{longtable}
 \end{center}
 \subsection[config\_mortality\_small\_plankton]{\hyperref[sec:nm_tab_biogeochemistry]{config\_mortality\_small\_plankton}}
@@ -2420,13 +2436,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $1/day$ \\
     \hline
     Default Value: & 0.007 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real \\
     \hline
-    \caption{config\_mortality\_small\_plankton: {\bf \color{red} MISSING}}
+    \caption{config\_mortality\_small\_plankton: Mortality rate of small plankton}
 \end{longtable}
 \end{center}
 \subsection[config\_mortality\_phaeocystis]{\hyperref[sec:nm_tab_biogeochemistry]{config\_mortality\_phaeocystis}}
@@ -2436,13 +2452,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $1/day$ \\
     \hline
     Default Value: & 0.007 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real \\
     \hline
-    \caption{config\_mortality\_phaeocystis: {\bf \color{red} MISSING}}
+    \caption{config\_mortality\_phaeocystis: Mortality rate of phaeocystis}
 \end{longtable}
 \end{center}
 \subsection[config\_temperature\_mortality\_diatoms]{\hyperref[sec:nm_tab_biogeochemistry]{config\_temperature\_mortality\_diatoms}}
@@ -2452,13 +2468,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $1/C$ \\
     \hline
     Default Value: & 0.03 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real \\
     \hline
-    \caption{config\_temperature\_mortality\_diatoms: {\bf \color{red} MISSING}}
+    \caption{config\_temperature\_mortality\_diatoms: Temperature dependence of diatom mortality rate}
 \end{longtable}
 \end{center}
 \subsection[config\_temperature\_mortality\_small\_plankton]{\hyperref[sec:nm_tab_biogeochemistry]{config\_temperature\_mortality\_small\_plankton}}
@@ -2468,13 +2484,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $1/C$ \\
     \hline
     Default Value: & 0.03 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real \\
     \hline
-    \caption{config\_temperature\_mortality\_small\_plankton: {\bf \color{red} MISSING}}
+    \caption{config\_temperature\_mortality\_small\_plankton: Temperature dependence of small plankton mortality rate}
 \end{longtable}
 \end{center}
 \subsection[config\_temperature\_mortality\_phaeocystis]{\hyperref[sec:nm_tab_biogeochemistry]{config\_temperature\_mortality\_phaeocystis}}
@@ -2484,13 +2500,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $1/C$ \\
     \hline
     Default Value: & 0.03 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real \\
     \hline
-    \caption{config\_temperature\_mortality\_phaeocystis: {\bf \color{red} MISSING}}
+    \caption{config\_temperature\_mortality\_phaeocystis: Temperature dependence of phaeocystis mortality rate}
 \end{longtable}
 \end{center}
 \subsection[config\_exudation\_diatoms]{\hyperref[sec:nm_tab_biogeochemistry]{config\_exudation\_diatoms}}
@@ -2500,13 +2516,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $1/day$ \\
     \hline
     Default Value: & 0.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & zero or positive real \\
     \hline
-    \caption{config\_exudation\_diatoms: {\bf \color{red} MISSING}}
+    \caption{config\_exudation\_diatoms: Rate diatoms exude DOC}
 \end{longtable}
 \end{center}
 \subsection[config\_exudation\_small\_plankton]{\hyperref[sec:nm_tab_biogeochemistry]{config\_exudation\_small\_plankton}}
@@ -2516,13 +2532,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $1/day$ \\
     \hline
     Default Value: & 0.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & zero or positive real \\
     \hline
-    \caption{config\_exudation\_small\_plankton: {\bf \color{red} MISSING}}
+    \caption{config\_exudation\_small\_plankton: Rate small plankton exude DOC}
 \end{longtable}
 \end{center}
 \subsection[config\_exudation\_phaeocystis]{\hyperref[sec:nm_tab_biogeochemistry]{config\_exudation\_phaeocystis}}
@@ -2532,13 +2548,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $1/day$ \\
     \hline
     Default Value: & 0.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & zero or positive real \\
     \hline
-    \caption{config\_exudation\_phaeocystis: {\bf \color{red} MISSING}}
+    \caption{config\_exudation\_phaeocystis: Rate phaeocystis exude DOC}
 \end{longtable}
 \end{center}
 \subsection[config\_nitrate\_saturation\_diatoms]{\hyperref[sec:nm_tab_biogeochemistry]{config\_nitrate\_saturation\_diatoms}}
@@ -2548,13 +2564,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $mmol$ $nitrogen/m^3$ \\
     \hline
     Default Value: & 1.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real \\
     \hline
-    \caption{config\_nitrate\_saturation\_diatoms: {\bf \color{red} MISSING}}
+    \caption{config\_nitrate\_saturation\_diatoms: Nitrate half saturation for diatom growth}
 \end{longtable}
 \end{center}
 \subsection[config\_nitrate\_saturation\_small\_plankton]{\hyperref[sec:nm_tab_biogeochemistry]{config\_nitrate\_saturation\_small\_plankton}}
@@ -2564,13 +2580,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $mmol$ $nitrogen/m^3$ \\
     \hline
     Default Value: & 1.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real \\
     \hline
-    \caption{config\_nitrate\_saturation\_small\_plankton: {\bf \color{red} MISSING}}
+    \caption{config\_nitrate\_saturation\_small\_plankton: Nitrate half saturation for small plankton growth}
 \end{longtable}
 \end{center}
 \subsection[config\_nitrate\_saturation\_phaeocystis]{\hyperref[sec:nm_tab_biogeochemistry]{config\_nitrate\_saturation\_phaeocystis}}
@@ -2580,13 +2596,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $mmol$ $nitrogen/m^3$ \\
     \hline
     Default Value: & 1.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real \\
     \hline
-    \caption{config\_nitrate\_saturation\_phaeocystis: {\bf \color{red} MISSING}}
+    \caption{config\_nitrate\_saturation\_phaeocystis: Nitrate half saturation for phaeocystis growth}
 \end{longtable}
 \end{center}
 \subsection[config\_ammonium\_saturation\_diatoms]{\hyperref[sec:nm_tab_biogeochemistry]{config\_ammonium\_saturation\_diatoms}}
@@ -2596,13 +2612,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $mmol$ $nitrogen/m^3$ \\
     \hline
     Default Value: & 0.3 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real \\
     \hline
-    \caption{config\_ammonium\_saturation\_diatoms: {\bf \color{red} MISSING}}
+    \caption{config\_ammonium\_saturation\_diatoms: Ammonium half saturation for diatom growth}
 \end{longtable}
 \end{center}
 \subsection[config\_ammonium\_saturation\_small\_plankton]{\hyperref[sec:nm_tab_biogeochemistry]{config\_ammonium\_saturation\_small\_plankton}}
@@ -2612,13 +2628,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $mmol$ $nitrogen/m^3$ \\
     \hline
     Default Value: & 0.3 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real \\
     \hline
-    \caption{config\_ammonium\_saturation\_small\_plankton: {\bf \color{red} MISSING}}
+    \caption{config\_ammonium\_saturation\_small\_plankton: Ammonium half saturation for small plankton growth}
 \end{longtable}
 \end{center}
 \subsection[config\_ammonium\_saturation\_phaeocystis]{\hyperref[sec:nm_tab_biogeochemistry]{config\_ammonium\_saturation\_phaeocystis}}
@@ -2628,13 +2644,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $mmol$ $nitrogen/m^3$ \\
     \hline
     Default Value: & 0.3 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real \\
     \hline
-    \caption{config\_ammonium\_saturation\_phaeocystis: {\bf \color{red} MISSING}}
+    \caption{config\_ammonium\_saturation\_phaeocystis: Ammonium half saturation for phaeocystis growth}
 \end{longtable}
 \end{center}
 \subsection[config\_silicate\_saturation\_diatoms]{\hyperref[sec:nm_tab_biogeochemistry]{config\_silicate\_saturation\_diatoms}}
@@ -2644,13 +2660,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $mmol$ $Si/m^3$ \\
     \hline
     Default Value: & 4.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & zero or positive real \\
     \hline
-    \caption{config\_silicate\_saturation\_diatoms: {\bf \color{red} MISSING}}
+    \caption{config\_silicate\_saturation\_diatoms: Silicate half saturation for diatom growth}
 \end{longtable}
 \end{center}
 \subsection[config\_silicate\_saturation\_small\_plankton]{\hyperref[sec:nm_tab_biogeochemistry]{config\_silicate\_saturation\_small\_plankton}}
@@ -2660,13 +2676,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $mmol$ $Si/m^3$ \\
     \hline
     Default Value: & 0.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & zero or positive real \\
     \hline
-    \caption{config\_silicate\_saturation\_small\_plankton: {\bf \color{red} MISSING}}
+    \caption{config\_silicate\_saturation\_small\_plankton: Silicate half saturation for small plankton growth}
 \end{longtable}
 \end{center}
 \subsection[config\_silicate\_saturation\_phaeocystis]{\hyperref[sec:nm_tab_biogeochemistry]{config\_silicate\_saturation\_phaeocystis}}
@@ -2676,13 +2692,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $mmol$ $Si/m^3$ \\
     \hline
     Default Value: & 0.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & zero or positive real \\
     \hline
-    \caption{config\_silicate\_saturation\_phaeocystis: {\bf \color{red} MISSING}}
+    \caption{config\_silicate\_saturation\_phaeocystis: Silicate half saturation for phaeocystis growth}
 \end{longtable}
 \end{center}
 \subsection[config\_iron\_saturation\_diatoms]{\hyperref[sec:nm_tab_biogeochemistry]{config\_iron\_saturation\_diatoms}}
@@ -2692,13 +2708,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $umol$ $iron/m^3$ \\
     \hline
     Default Value: & 1.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real \\
     \hline
-    \caption{config\_iron\_saturation\_diatoms: {\bf \color{red} MISSING}}
+    \caption{config\_iron\_saturation\_diatoms: Iron half saturation for diatom growth}
 \end{longtable}
 \end{center}
 \subsection[config\_iron\_saturation\_small\_plankton]{\hyperref[sec:nm_tab_biogeochemistry]{config\_iron\_saturation\_small\_plankton}}
@@ -2708,13 +2724,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $umol$ $iron/m^3$ \\
     \hline
     Default Value: & 0.2 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real \\
     \hline
-    \caption{config\_iron\_saturation\_small\_plankton: {\bf \color{red} MISSING}}
+    \caption{config\_iron\_saturation\_small\_plankton: Iron half saturation for small plankton growth}
 \end{longtable}
 \end{center}
 \subsection[config\_iron\_saturation\_phaeocystis]{\hyperref[sec:nm_tab_biogeochemistry]{config\_iron\_saturation\_phaeocystis}}
@@ -2724,13 +2740,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $umol$ $iron/m^3$ \\
     \hline
     Default Value: & 0.1 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real \\
     \hline
-    \caption{config\_iron\_saturation\_phaeocystis: {\bf \color{red} MISSING}}
+    \caption{config\_iron\_saturation\_phaeocystis: Iron half saturation for phaeocystis growth}
 \end{longtable}
 \end{center}
 \subsection[config\_fraction\_spilled\_to\_DON]{\hyperref[sec:nm_tab_biogeochemistry]{config\_fraction\_spilled\_to\_DON}}
@@ -2744,9 +2760,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 0.6 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & zero or positive real less than or equal to 1 \\
     \hline
-    \caption{config\_fraction\_spilled\_to\_DON: {\bf \color{red} MISSING}}
+    \caption{config\_fraction\_spilled\_to\_DON: Fraction of spilled grazing to proteins}
 \end{longtable}
 \end{center}
 \subsection[config\_degredation\_of\_DON]{\hyperref[sec:nm_tab_biogeochemistry]{config\_degredation\_of\_DON}}
@@ -2756,13 +2772,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $1/day$ \\
     \hline
     Default Value: & 0.03 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real \\
     \hline
-    \caption{config\_degredation\_of\_DON: {\bf \color{red} MISSING}}
+    \caption{config\_degredation\_of\_DON: Bacterial degredation of DON}
 \end{longtable}
 \end{center}
 \subsection[config\_fraction\_DON\_ammonium]{\hyperref[sec:nm_tab_biogeochemistry]{config\_fraction\_DON\_ammonium}}
@@ -2776,9 +2792,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 0.25 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & zero or positive real less than or equal to 1 \\
     \hline
-    \caption{config\_fraction\_DON\_ammonium: {\bf \color{red} MISSING}}
+    \caption{config\_fraction\_DON\_ammonium: Fraction of remineralized DON converted to ammonium}
 \end{longtable}
 \end{center}
 \subsection[config\_fraction\_loss\_to\_saccharids]{\hyperref[sec:nm_tab_biogeochemistry]{config\_fraction\_loss\_to\_saccharids}}
@@ -2792,9 +2808,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 0.4 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & zero or positive real less than 1 \\
     \hline
-    \caption{config\_fraction\_loss\_to\_saccharids: {\bf \color{red} MISSING}}
+    \caption{config\_fraction\_loss\_to\_saccharids: Fraction of mortality to poly/saccharids}
 \end{longtable}
 \end{center}
 \subsection[config\_fraction\_loss\_to\_lipids]{\hyperref[sec:nm_tab_biogeochemistry]{config\_fraction\_loss\_to\_lipids}}
@@ -2808,9 +2824,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 0.4 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & zero or positive real less than 1 \\
     \hline
-    \caption{config\_fraction\_loss\_to\_lipids: {\bf \color{red} MISSING}}
+    \caption{config\_fraction\_loss\_to\_lipids: Fraction of mortality to lipids}
 \end{longtable}
 \end{center}
 \subsection[config\_fraction\_exudation\_to\_saccharids]{\hyperref[sec:nm_tab_biogeochemistry]{config\_fraction\_exudation\_to\_saccharids}}
@@ -2824,9 +2840,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 1.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & zero or positive real less than or equal to 1 \\
     \hline
-    \caption{config\_fraction\_exudation\_to\_saccharids: {\bf \color{red} MISSING}}
+    \caption{config\_fraction\_exudation\_to\_saccharids: Fracton of exudation to poly/saccharids}
 \end{longtable}
 \end{center}
 \subsection[config\_fraction\_exudation\_to\_lipids]{\hyperref[sec:nm_tab_biogeochemistry]{config\_fraction\_exudation\_to\_lipids}}
@@ -2840,9 +2856,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 1.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & zero or positive real less than or equal to 1 \\
     \hline
-    \caption{config\_fraction\_exudation\_to\_lipids: {\bf \color{red} MISSING}}
+    \caption{config\_fraction\_exudation\_to\_lipids: Fraction of exudation to lipids}
 \end{longtable}
 \end{center}
 \subsection[config\_remineralization\_saccharids]{\hyperref[sec:nm_tab_biogeochemistry]{config\_remineralization\_saccharids}}
@@ -2852,13 +2868,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $1/day$ \\
     \hline
     Default Value: & 0.03 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real \\
     \hline
-    \caption{config\_remineralization\_saccharids: {\bf \color{red} MISSING}}
+    \caption{config\_remineralization\_saccharids: Bacterial degredaton rate of poly/saccarids}
 \end{longtable}
 \end{center}
 \subsection[config\_remineralization\_lipids]{\hyperref[sec:nm_tab_biogeochemistry]{config\_remineralization\_lipids}}
@@ -2868,13 +2884,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $1/day$ \\
     \hline
     Default Value: & 0.03 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real \\
     \hline
-    \caption{config\_remineralization\_lipids: {\bf \color{red} MISSING}}
+    \caption{config\_remineralization\_lipids: Bacterial degredation rate of lipids}
 \end{longtable}
 \end{center}
 \subsection[config\_maximum\_brine\_temperature]{\hyperref[sec:nm_tab_biogeochemistry]{config\_maximum\_brine\_temperature}}
@@ -2884,13 +2900,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $C$ \\
     \hline
     Default Value: & 0.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real \\
     \hline
-    \caption{config\_maximum\_brine\_temperature: {\bf \color{red} MISSING}}
+    \caption{config\_maximum\_brine\_temperature: Maximum brine temperature}
 \end{longtable}
 \end{center}
 \subsection[config\_salinity\_dependence\_of\_growth]{\hyperref[sec:nm_tab_biogeochemistry]{config\_salinity\_dependence\_of\_growth}}
@@ -2900,13 +2916,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $ppt$ \\
     \hline
     Default Value: & 1.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real \\
     \hline
-    \caption{config\_salinity\_dependence\_of\_growth: {\bf \color{red} MISSING}}
+    \caption{config\_salinity\_dependence\_of\_growth: Salinity limitation factor}
 \end{longtable}
 \end{center}
 \subsection[config\_minimum\_optical\_depth]{\hyperref[sec:nm_tab_biogeochemistry]{config\_minimum\_optical\_depth}}
@@ -2920,9 +2936,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 0.1 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real \\
     \hline
-    \caption{config\_minimum\_optical\_depth: {\bf \color{red} MISSING}}
+    \caption{config\_minimum\_optical\_depth: Minimum optical depth above which light attenuates}
 \end{longtable}
 \end{center}
 \subsection[config\_slopped\_grazing\_fraction]{\hyperref[sec:nm_tab_biogeochemistry]{config\_slopped\_grazing\_fraction}}
@@ -2936,9 +2952,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 0.5 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & zero or positive real less than 1 \\
     \hline
-    \caption{config\_slopped\_grazing\_fraction: {\bf \color{red} MISSING}}
+    \caption{config\_slopped\_grazing\_fraction: Fraction of grazing spilled or slopped}
 \end{longtable}
 \end{center}
 \subsection[config\_excreted\_fraction]{\hyperref[sec:nm_tab_biogeochemistry]{config\_excreted\_fraction}}
@@ -2952,9 +2968,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 0.5 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & zero or positive real less than 1 \\
     \hline
-    \caption{config\_excreted\_fraction: {\bf \color{red} MISSING}}
+    \caption{config\_excreted\_fraction: Fraction of assimilation excreted}
 \end{longtable}
 \end{center}
 \subsection[config\_fraction\_mortality\_to\_ammonium]{\hyperref[sec:nm_tab_biogeochemistry]{config\_fraction\_mortality\_to\_ammonium}}
@@ -2968,9 +2984,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 0.5 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & zero or positive real less than 1 \\
     \hline
-    \caption{config\_fraction\_mortality\_to\_ammonium: {\bf \color{red} MISSING}}
+    \caption{config\_fraction\_mortality\_to\_ammonium: Fraction of mortality to ammonium}
 \end{longtable}
 \end{center}
 \subsection[config\_fraction\_iron\_remineralized]{\hyperref[sec:nm_tab_biogeochemistry]{config\_fraction\_iron\_remineralized}}
@@ -2984,9 +3000,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 0.3 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & zero or positive real less than or equal to 1 \\
     \hline
-    \caption{config\_fraction\_iron\_remineralized: {\bf \color{red} MISSING}}
+    \caption{config\_fraction\_iron\_remineralized: Fraction of remineralized iron }
 \end{longtable}
 \end{center}
 \subsection[config\_nitrification\_rate]{\hyperref[sec:nm_tab_biogeochemistry]{config\_nitrification\_rate}}
@@ -2996,13 +3012,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $1/day$ \\
     \hline
     Default Value: & 0.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & zero or positive real \\
     \hline
-    \caption{config\_nitrification\_rate: {\bf \color{red} MISSING}}
+    \caption{config\_nitrification\_rate: Nitrification rate}
 \end{longtable}
 \end{center}
 \subsection[config\_desorption\_loss\_particulate\_iron]{\hyperref[sec:nm_tab_biogeochemistry]{config\_desorption\_loss\_particulate\_iron}}
@@ -3012,13 +3028,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $day$ \\
     \hline
     Default Value: & 3065.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real \\
     \hline
-    \caption{config\_desorption\_loss\_particulate\_iron: {\bf \color{red} MISSING}}
+    \caption{config\_desorption\_loss\_particulate\_iron: Desorption rate of particulate iron to dissolved iron}
 \end{longtable}
 \end{center}
 \subsection[config\_maximum\_loss\_fraction]{\hyperref[sec:nm_tab_biogeochemistry]{config\_maximum\_loss\_fraction}}
@@ -3032,9 +3048,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 0.9 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & zero or positive real less than 1 \\
     \hline
-    \caption{config\_maximum\_loss\_fraction: {\bf \color{red} MISSING}}
+    \caption{config\_maximum\_loss\_fraction: Maximum uptake fraction in a single timestep}
 \end{longtable}
 \end{center}
 \subsection[config\_maximum\_ratio\_iron\_to\_saccharids]{\hyperref[sec:nm_tab_biogeochemistry]{config\_maximum\_ratio\_iron\_to\_saccharids}}
@@ -3048,9 +3064,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 0.2 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real \\
     \hline
-    \caption{config\_maximum\_ratio\_iron\_to\_saccharids: {\bf \color{red} MISSING}}
+    \caption{config\_maximum\_ratio\_iron\_to\_saccharids: Optimal ratio of dissolved iron to poly/saccharids in the brine}
 \end{longtable}
 \end{center}
 \subsection[config\_respiration\_loss\_to\_DMSPd]{\hyperref[sec:nm_tab_biogeochemistry]{config\_respiration\_loss\_to\_DMSPd}}
@@ -3064,9 +3080,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 0.75 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & zero or positive real less than or equal to 1 \\
     \hline
-    \caption{config\_respiration\_loss\_to\_DMSPd: {\bf \color{red} MISSING}}
+    \caption{config\_respiration\_loss\_to\_DMSPd: Fraction of respiration loss as DMSPd}
 \end{longtable}
 \end{center}
 \subsection[config\_DMSP\_to\_DMS\_conversion\_fraction]{\hyperref[sec:nm_tab_biogeochemistry]{config\_DMSP\_to\_DMS\_conversion\_fraction}}
@@ -3080,9 +3096,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 0.5 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & zero or positive real less than or equal to 1 \\
     \hline
-    \caption{config\_DMSP\_to\_DMS\_conversion\_fraction: {\bf \color{red} MISSING}}
+    \caption{config\_DMSP\_to\_DMS\_conversion\_fraction: Fraction of conversion to DMS given high yield}
 \end{longtable}
 \end{center}
 \subsection[config\_DMSP\_to\_DMS\_conversion\_time]{\hyperref[sec:nm_tab_biogeochemistry]{config\_DMSP\_to\_DMS\_conversion\_time}}
@@ -3092,13 +3108,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $day$ \\
     \hline
     Default Value: & 3.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real \\
     \hline
-    \caption{config\_DMSP\_to\_DMS\_conversion\_time: {\bf \color{red} MISSING}}
+    \caption{config\_DMSP\_to\_DMS\_conversion\_time: Stefels conversion time}
 \end{longtable}
 \end{center}
 \subsection[config\_DMS\_oxidation\_time]{\hyperref[sec:nm_tab_biogeochemistry]{config\_DMS\_oxidation\_time}}
@@ -3108,13 +3124,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $day$ \\
     \hline
     Default Value: & 10.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real \\
     \hline
-    \caption{config\_DMS\_oxidation\_time: {\bf \color{red} MISSING}}
+    \caption{config\_DMS\_oxidation\_time: DMS oxidation time}
 \end{longtable}
 \end{center}
 \subsection[config\_mobility\_type\_diatoms]{\hyperref[sec:nm_tab_biogeochemistry]{config\_mobility\_type\_diatoms}}
@@ -3128,9 +3144,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 0.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & -1 = entirely in the mobile phase; 0 = retention dominated;     1 = release dominated; 0.5 = equal but rapid exchange;     2 = equal but slow exchange \\
     \hline
-    \caption{config\_mobility\_type\_diatoms: {\bf \color{red} MISSING}}
+    \caption{config\_mobility\_type\_diatoms: Transport type of diatoms}
 \end{longtable}
 \end{center}
 \subsection[config\_mobility\_type\_small\_plankton]{\hyperref[sec:nm_tab_biogeochemistry]{config\_mobility\_type\_small\_plankton}}
@@ -3144,9 +3160,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 0.5 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & -1 = entirely in the mobile phase; 0 = retention dominated;     1 = release dominated; 0.5 = equal but rapid exchange;     2 = equal but slow exchange \\
     \hline
-    \caption{config\_mobility\_type\_small\_plankton: {\bf \color{red} MISSING}}
+    \caption{config\_mobility\_type\_small\_plankton: Transport type of small plankton}
 \end{longtable}
 \end{center}
 \subsection[config\_mobility\_type\_phaeocystis]{\hyperref[sec:nm_tab_biogeochemistry]{config\_mobility\_type\_phaeocystis}}
@@ -3160,9 +3176,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 0.5 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & -1 = entirely in the mobile phase; 0 = retention dominated;     1 = release dominated; 0.5 = equal but rapid exchange;     2 = equal but slow exchange \\
     \hline
-    \caption{config\_mobility\_type\_phaeocystis: {\bf \color{red} MISSING}}
+    \caption{config\_mobility\_type\_phaeocystis: Transport type of phaeocystis}
 \end{longtable}
 \end{center}
 \subsection[config\_mobility\_type\_nitrate]{\hyperref[sec:nm_tab_biogeochemistry]{config\_mobility\_type\_nitrate}}
@@ -3176,9 +3192,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & -1.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & -1 = entirely in the mobile phase; 0 = retention dominated;     1 = release dominated; 0.5 = equal but rapid exchange;     2 = equal but slow exchange \\
     \hline
-    \caption{config\_mobility\_type\_nitrate: {\bf \color{red} MISSING}}
+    \caption{config\_mobility\_type\_nitrate: Transport type of nitrate}
 \end{longtable}
 \end{center}
 \subsection[config\_mobility\_type\_ammonium]{\hyperref[sec:nm_tab_biogeochemistry]{config\_mobility\_type\_ammonium}}
@@ -3192,9 +3208,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 1.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & -1 = entirely in the mobile phase; 0 = retention dominated;     1 = release dominated; 0.5 = equal but rapid exchange;     2 = equal but slow exchange \\
     \hline
-    \caption{config\_mobility\_type\_ammonium: {\bf \color{red} MISSING}}
+    \caption{config\_mobility\_type\_ammonium: Transport type of ammonium}
 \end{longtable}
 \end{center}
 \subsection[config\_mobility\_type\_silicate]{\hyperref[sec:nm_tab_biogeochemistry]{config\_mobility\_type\_silicate}}
@@ -3208,9 +3224,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & -1.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & -1 = entirely in the mobile phase; 0 = retention dominated;     1 = release dominated; 0.5 = equal but rapid exchange;     2 = equal but slow exchange \\
     \hline
-    \caption{config\_mobility\_type\_silicate: {\bf \color{red} MISSING}}
+    \caption{config\_mobility\_type\_silicate: Transport type of silicate}
 \end{longtable}
 \end{center}
 \subsection[config\_mobility\_type\_DMSPp]{\hyperref[sec:nm_tab_biogeochemistry]{config\_mobility\_type\_DMSPp}}
@@ -3224,9 +3240,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 0.5 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & -1 = entirely in the mobile phase; 0 = retention dominated;     1 = release dominated; 0.5 = equal but rapid exchange;     2 = equal but slow exchange \\
     \hline
-    \caption{config\_mobility\_type\_DMSPp: {\bf \color{red} MISSING}}
+    \caption{config\_mobility\_type\_DMSPp: Transport type of particulate DMSP}
 \end{longtable}
 \end{center}
 \subsection[config\_mobility\_type\_DMSPd]{\hyperref[sec:nm_tab_biogeochemistry]{config\_mobility\_type\_DMSPd}}
@@ -3240,9 +3256,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & -1.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & -1 = entirely in the mobile phase; 0 = retention dominated;     1 = release dominated; 0.5 = equal but rapid exchange;     2 = equal but slow exchange \\
     \hline
-    \caption{config\_mobility\_type\_DMSPd: {\bf \color{red} MISSING}}
+    \caption{config\_mobility\_type\_DMSPd: Transport type of dissolved DMSP}
 \end{longtable}
 \end{center}
 \subsection[config\_mobility\_type\_humics]{\hyperref[sec:nm_tab_biogeochemistry]{config\_mobility\_type\_humics}}
@@ -3256,9 +3272,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 1.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & -1 = entirely in the mobile phase; 0 = retention dominated;     1 = release dominated; 0.5 = equal but rapid exchange;     2 = equal but slow exchange \\
     \hline
-    \caption{config\_mobility\_type\_humics: {\bf \color{red} MISSING}}
+    \caption{config\_mobility\_type\_humics: Transport type of humics}
 \end{longtable}
 \end{center}
 \subsection[config\_mobility\_type\_saccharids]{\hyperref[sec:nm_tab_biogeochemistry]{config\_mobility\_type\_saccharids}}
@@ -3272,9 +3288,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 0.5 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & -1 = entirely in the mobile phase; 0 = retention dominated;     1 = release dominated; 0.5 = equal but rapid exchange;     2 = equal but slow exchange \\
     \hline
-    \caption{config\_mobility\_type\_saccharids: {\bf \color{red} MISSING}}
+    \caption{config\_mobility\_type\_saccharids: Transport type of poly/saccharids}
 \end{longtable}
 \end{center}
 \subsection[config\_mobility\_type\_lipids]{\hyperref[sec:nm_tab_biogeochemistry]{config\_mobility\_type\_lipids}}
@@ -3288,9 +3304,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 0.5 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & -1 = entirely in the mobile phase; 0 = retention dominated;     1 = release dominated; 0.5 = equal but rapid exchange;     2 = equal but slow exchange \\
     \hline
-    \caption{config\_mobility\_type\_lipids: {\bf \color{red} MISSING}}
+    \caption{config\_mobility\_type\_lipids: Transport type of lipids}
 \end{longtable}
 \end{center}
 \subsection[config\_mobility\_type\_proteins]{\hyperref[sec:nm_tab_biogeochemistry]{config\_mobility\_type\_proteins}}
@@ -3304,9 +3320,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 0.5 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & -1 = entirely in the mobile phase; 0 = retention dominated;     1 = release dominated; 0.5 = equal but rapid exchange;     2 = equal but slow exchange \\
     \hline
-    \caption{config\_mobility\_type\_proteins: {\bf \color{red} MISSING}}
+    \caption{config\_mobility\_type\_proteins: Transport type of proteins}
 \end{longtable}
 \end{center}
 \subsection[config\_mobility\_type\_dissolved\_iron]{\hyperref[sec:nm_tab_biogeochemistry]{config\_mobility\_type\_dissolved\_iron}}
@@ -3320,9 +3336,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 0.5 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & -1 = entirely in the mobile phase; 0 = retention dominated;     1 = release dominated; 0.5 = equal but rapid exchange;     2 = equal but slow exchange \\
     \hline
-    \caption{config\_mobility\_type\_dissolved\_iron: {\bf \color{red} MISSING}}
+    \caption{config\_mobility\_type\_dissolved\_iron: Transport type of dissolved iron}
 \end{longtable}
 \end{center}
 \subsection[config\_mobility\_type\_particulate\_iron]{\hyperref[sec:nm_tab_biogeochemistry]{config\_mobility\_type\_particulate\_iron}}
@@ -3336,9 +3352,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 0.5 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & -1 = entirely in the mobile phase; 0 = retention dominated;     1 = release dominated; 0.5 = equal but rapid exchange;     2 = equal but slow exchange \\
     \hline
-    \caption{config\_mobility\_type\_particulate\_iron: {\bf \color{red} MISSING}}
+    \caption{config\_mobility\_type\_particulate\_iron: Transport type of particulate iron}
 \end{longtable}
 \end{center}
 \subsection[config\_mobility\_type\_black\_carbon1]{\hyperref[sec:nm_tab_biogeochemistry]{config\_mobility\_type\_black\_carbon1}}
@@ -3352,9 +3368,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 1.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & -1 = entirely in the mobile phase; 0 = retention dominated;     1 = release dominated; 0.5 = equal but rapid exchange;     2 = equal but slow exchange \\
     \hline
-    \caption{config\_mobility\_type\_black\_carbon1: {\bf \color{red} MISSING}}
+    \caption{config\_mobility\_type\_black\_carbon1: Transport type of black carbon 1 pool}
 \end{longtable}
 \end{center}
 \subsection[config\_mobility\_type\_black\_carbon2]{\hyperref[sec:nm_tab_biogeochemistry]{config\_mobility\_type\_black\_carbon2}}
@@ -3368,9 +3384,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 1.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & -1 = entirely in the mobile phase; 0 = retention dominated;     1 = release dominated; 0.5 = equal but rapid exchange;     2 = equal but slow exchange \\
     \hline
-    \caption{config\_mobility\_type\_black\_carbon2: {\bf \color{red} MISSING}}
+    \caption{config\_mobility\_type\_black\_carbon2: Transport type of black carbon 1 pool}
 \end{longtable}
 \end{center}
 \subsection[config\_mobility\_type\_dust1]{\hyperref[sec:nm_tab_biogeochemistry]{config\_mobility\_type\_dust1}}
@@ -3384,9 +3400,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 1.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & -1 = entirely in the mobile phase; 0 = retention dominated;     1 = release dominated; 0.5 = equal but rapid exchange;     2 = equal but slow exchange \\
     \hline
-    \caption{config\_mobility\_type\_dust1: {\bf \color{red} MISSING}}
+    \caption{config\_mobility\_type\_dust1: Transport type of dust pool 1}
 \end{longtable}
 \end{center}
 \subsection[config\_mobility\_type\_dust2]{\hyperref[sec:nm_tab_biogeochemistry]{config\_mobility\_type\_dust2}}
@@ -3400,9 +3416,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 1.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & -1 = entirely in the mobile phase; 0 = retention dominated;     1 = release dominated; 0.5 = equal but rapid exchange;     2 = equal but slow exchange \\
     \hline
-    \caption{config\_mobility\_type\_dust2: {\bf \color{red} MISSING}}
+    \caption{config\_mobility\_type\_dust2: Transport type of dust pool 2}
 \end{longtable}
 \end{center}
 \subsection[config\_mobility\_type\_dust3]{\hyperref[sec:nm_tab_biogeochemistry]{config\_mobility\_type\_dust3}}
@@ -3416,9 +3432,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 1.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & -1 = entirely in the mobile phase; 0 = retention dominated;     1 = release dominated; 0.5 = equal but rapid exchange;     2 = equal but slow exchange \\
     \hline
-    \caption{config\_mobility\_type\_dust3: {\bf \color{red} MISSING}}
+    \caption{config\_mobility\_type\_dust3: Transport type of dust pool 3}
 \end{longtable}
 \end{center}
 \subsection[config\_mobility\_type\_dust4]{\hyperref[sec:nm_tab_biogeochemistry]{config\_mobility\_type\_dust4}}
@@ -3432,9 +3448,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 1.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & -1 = entirely in the mobile phase; 0 = retention dominated;     1 = release dominated; 0.5 = equal but rapid exchange;     2 = equal but slow exchange \\
     \hline
-    \caption{config\_mobility\_type\_dust4: {\bf \color{red} MISSING}}
+    \caption{config\_mobility\_type\_dust4: Transport type of dust pool 4}
 \end{longtable}
 \end{center}
 \subsection[config\_ratio\_C\_to\_N\_diatoms]{\hyperref[sec:nm_tab_biogeochemistry]{config\_ratio\_C\_to\_N\_diatoms}}
@@ -3444,13 +3460,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $mol$ $carbon/mol$ $nitrogen$ \\
     \hline
     Default Value: & 7.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real \\
     \hline
-    \caption{config\_ratio\_C\_to\_N\_diatoms: {\bf \color{red} MISSING}}
+    \caption{config\_ratio\_C\_to\_N\_diatoms: Algal carbon to nitrogen mole ratio for diatoms}
 \end{longtable}
 \end{center}
 \subsection[config\_ratio\_C\_to\_N\_small\_plankton]{\hyperref[sec:nm_tab_biogeochemistry]{config\_ratio\_C\_to\_N\_small\_plankton}}
@@ -3460,13 +3476,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $mol$ $carbon/mol$ $nitrogen$ \\
     \hline
     Default Value: & 7.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real \\
     \hline
-    \caption{config\_ratio\_C\_to\_N\_small\_plankton: {\bf \color{red} MISSING}}
+    \caption{config\_ratio\_C\_to\_N\_small\_plankton: Algal carbon to nitrogen mole ratio for small plankton}
 \end{longtable}
 \end{center}
 \subsection[config\_ratio\_C\_to\_N\_phaeocystis]{\hyperref[sec:nm_tab_biogeochemistry]{config\_ratio\_C\_to\_N\_phaeocystis}}
@@ -3476,13 +3492,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $mol$ $carbon/mol$ $nitrogen$ \\
     \hline
     Default Value: & 7.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real \\
     \hline
-    \caption{config\_ratio\_C\_to\_N\_phaeocystis: {\bf \color{red} MISSING}}
+    \caption{config\_ratio\_C\_to\_N\_phaeocystis: Algal carbon to nitrogen mole ratio for phaeocystis}
 \end{longtable}
 \end{center}
 \subsection[config\_ratio\_chla\_to\_N\_diatoms]{\hyperref[sec:nm_tab_biogeochemistry]{config\_ratio\_chla\_to\_N\_diatoms}}
@@ -3492,13 +3508,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $g$ $chla/mol$ $nitrogen$ \\
     \hline
     Default Value: & 2.1 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real \\
     \hline
-    \caption{config\_ratio\_chla\_to\_N\_diatoms: {\bf \color{red} MISSING}}
+    \caption{config\_ratio\_chla\_to\_N\_diatoms: Algal chlorophyll to nitrogen ratio for diatoms}
 \end{longtable}
 \end{center}
 \subsection[config\_ratio\_chla\_to\_N\_small\_plankton]{\hyperref[sec:nm_tab_biogeochemistry]{config\_ratio\_chla\_to\_N\_small\_plankton}}
@@ -3508,13 +3524,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $g$ $chla/mol$ $nitrogen$ \\
     \hline
     Default Value: & 1.1 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real \\
     \hline
-    \caption{config\_ratio\_chla\_to\_N\_small\_plankton: {\bf \color{red} MISSING}}
+    \caption{config\_ratio\_chla\_to\_N\_small\_plankton: Algal chlorophyll to nitrogen ratio for small plankton}
 \end{longtable}
 \end{center}
 \subsection[config\_ratio\_chla\_to\_N\_phaeocystis]{\hyperref[sec:nm_tab_biogeochemistry]{config\_ratio\_chla\_to\_N\_phaeocystis}}
@@ -3524,13 +3540,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $g$ $chla/mol$ $nitrogen$ \\
     \hline
     Default Value: & 0.84 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real \\
     \hline
-    \caption{config\_ratio\_chla\_to\_N\_phaeocystis: {\bf \color{red} MISSING}}
+    \caption{config\_ratio\_chla\_to\_N\_phaeocystis: Algal chlorophyll to nitrogen ratio for phaeocystis}
 \end{longtable}
 \end{center}
 \subsection[config\_scales\_absorption\_diatoms]{\hyperref[sec:nm_tab_biogeochemistry]{config\_scales\_absorption\_diatoms}}
@@ -3544,9 +3560,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 2.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real \\
     \hline
-    \caption{config\_scales\_absorption\_diatoms: {\bf \color{red} MISSING}}
+    \caption{config\_scales\_absorption\_diatoms: Scales absorbed radiation for diatoms}
 \end{longtable}
 \end{center}
 \subsection[config\_scales\_absorption\_small\_plankton]{\hyperref[sec:nm_tab_biogeochemistry]{config\_scales\_absorption\_small\_plankton}}
@@ -3560,9 +3576,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 4.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real \\
     \hline
-    \caption{config\_scales\_absorption\_small\_plankton: {\bf \color{red} MISSING}}
+    \caption{config\_scales\_absorption\_small\_plankton: Scales absorbed radiation for small plankton}
 \end{longtable}
 \end{center}
 \subsection[config\_scales\_absorption\_phaeocystis]{\hyperref[sec:nm_tab_biogeochemistry]{config\_scales\_absorption\_phaeocystis}}
@@ -3576,9 +3592,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & 5.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real \\
     \hline
-    \caption{config\_scales\_absorption\_phaeocystis: {\bf \color{red} MISSING}}
+    \caption{config\_scales\_absorption\_phaeocystis: Scales absorbed radiation for phaeocystis}
 \end{longtable}
 \end{center}
 \subsection[config\_ratio\_C\_to\_N\_proteins]{\hyperref[sec:nm_tab_biogeochemistry]{config\_ratio\_C\_to\_N\_proteins}}
@@ -3588,13 +3604,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & $unitless$ \\
+    Units: & $mol$ $carbon/mol$ $nitrogen$ \\
     \hline
     Default Value: & 7.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & positive real \\
     \hline
-    \caption{config\_ratio\_C\_to\_N\_proteins: {\bf \color{red} MISSING}}
+    \caption{config\_ratio\_C\_to\_N\_proteins: Ratio of carbon to nitrogen in proteins}
 \end{longtable}
 \end{center}
 \section[shortwave]{\hyperref[sec:nm_tab_shortwave]{shortwave}}
@@ -3606,13 +3622,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & character \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & dEdd \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & 'ccsm3' or 'dEdd' \\
     \hline
-    \caption{config\_shortwave\_type: {\bf \color{red} MISSING}}
+    \caption{config\_shortwave\_type: Shortwave radiation method.}
 \end{longtable}
 \end{center}
 \subsection[config\_albedo\_type]{\hyperref[sec:nm_tab_shortwave]{config\_albedo\_type}}
@@ -3622,13 +3638,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & character \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & ccsm3 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & 'ccsm3' or 'constant' \\
     \hline
-    \caption{config\_albedo\_type: {\bf \color{red} MISSING}}
+    \caption{config\_albedo\_type: Albedo parameterization type.}
 \end{longtable}
 \end{center}
 \subsection[config\_visible\_ice\_albedo]{\hyperref[sec:nm_tab_shortwave]{config\_visible\_ice\_albedo}}
@@ -3638,13 +3654,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.78 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any real number between 0 and 1. \\
     \hline
-    \caption{config\_visible\_ice\_albedo: {\bf \color{red} MISSING}}
+    \caption{config\_visible\_ice\_albedo: Visible ice albedo for ice thickness greater than config\_variable\_albedo\_thickness\_limit.}
 \end{longtable}
 \end{center}
 \subsection[config\_infrared\_ice\_albedo]{\hyperref[sec:nm_tab_shortwave]{config\_infrared\_ice\_albedo}}
@@ -3654,13 +3670,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.36 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any real number between 0 and 1. \\
     \hline
-    \caption{config\_infrared\_ice\_albedo: {\bf \color{red} MISSING}}
+    \caption{config\_infrared\_ice\_albedo: Near-IR ice albedo for ice thickness greater than config\_variable\_albedo\_thickness\_limit.}
 \end{longtable}
 \end{center}
 \subsection[config\_visible\_snow\_albedo]{\hyperref[sec:nm_tab_shortwave]{config\_visible\_snow\_albedo}}
@@ -3670,13 +3686,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.98 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any real number between 0 and 1. \\
     \hline
-    \caption{config\_visible\_snow\_albedo: {\bf \color{red} MISSING}}
+    \caption{config\_visible\_snow\_albedo: Visible cold snow albedo.}
 \end{longtable}
 \end{center}
 \subsection[config\_infrared\_snow\_albedo]{\hyperref[sec:nm_tab_shortwave]{config\_infrared\_snow\_albedo}}
@@ -3686,13 +3702,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.70 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any real number between 0 and 1. \\
     \hline
-    \caption{config\_infrared\_snow\_albedo: {\bf \color{red} MISSING}}
+    \caption{config\_infrared\_snow\_albedo: Near-IR cold snow albedo.}
 \end{longtable}
 \end{center}
 \subsection[config\_variable\_albedo\_thickness\_limit]{\hyperref[sec:nm_tab_shortwave]{config\_variable\_albedo\_thickness\_limit}}
@@ -3702,13 +3718,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $m$ \\
     \hline
     Default Value: & 0.3 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any positive real number. \\
     \hline
-    \caption{config\_variable\_albedo\_thickness\_limit: {\bf \color{red} MISSING}}
+    \caption{config\_variable\_albedo\_thickness\_limit: Ice thickness above which the ice albedo is constant.}
 \end{longtable}
 \end{center}
 \subsection[config\_ice\_shortwave\_tuning\_parameter]{\hyperref[sec:nm_tab_shortwave]{config\_ice\_shortwave\_tuning\_parameter}}
@@ -3724,7 +3740,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Possible Values: & {\bf \color{red} MISSING} \\
     \hline
-    \caption{config\_ice\_shortwave\_tuning\_parameter: {\bf \color{red} MISSING}}
+    \caption{config\_ice\_shortwave\_tuning\_parameter: Sea ice tuning parameter; +1 for 1sig increase in albedo.}
 \end{longtable}
 \end{center}
 \subsection[config\_pond\_shortwave\_tuning\_parameter]{\hyperref[sec:nm_tab_shortwave]{config\_pond\_shortwave\_tuning\_parameter}}
@@ -3740,7 +3756,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Possible Values: & {\bf \color{red} MISSING} \\
     \hline
-    \caption{config\_pond\_shortwave\_tuning\_parameter: {\bf \color{red} MISSING}}
+    \caption{config\_pond\_shortwave\_tuning\_parameter: Ponded ice tuning parameter; +1 for 1sig increase in albedo.}
 \end{longtable}
 \end{center}
 \subsection[config\_snow\_shortwave\_tuning\_parameter]{\hyperref[sec:nm_tab_shortwave]{config\_snow\_shortwave\_tuning\_parameter}}
@@ -3756,7 +3772,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Possible Values: & {\bf \color{red} MISSING} \\
     \hline
-    \caption{config\_snow\_shortwave\_tuning\_parameter: {\bf \color{red} MISSING}}
+    \caption{config\_snow\_shortwave\_tuning\_parameter: Snow tuning parameter; +1 for ~.01 change in broadband albedo.}
 \end{longtable}
 \end{center}
 \subsection[config\_temp\_change\_snow\_grain\_radius\_change]{\hyperref[sec:nm_tab_shortwave]{config\_temp\_change\_snow\_grain\_radius\_change}}
@@ -3766,13 +3782,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $C$ \\
     \hline
     Default Value: & 1.5 \\
     \hline
     Possible Values: & {\bf \color{red} MISSING} \\
     \hline
-    \caption{config\_temp\_change\_snow\_grain\_radius\_change: {\bf \color{red} MISSING}}
+    \caption{config\_temp\_change\_snow\_grain\_radius\_change: Change in temperture for non-melt to melt snow grain radius change.}
 \end{longtable}
 \end{center}
 \subsection[config\_max\_melting\_snow\_grain\_radius]{\hyperref[sec:nm_tab_shortwave]{config\_max\_melting\_snow\_grain\_radius}}
@@ -3782,13 +3798,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $10e-6$ $m$ \\
     \hline
     Default Value: & 1500.0 \\
     \hline
     Possible Values: & {\bf \color{red} MISSING} \\
     \hline
-    \caption{config\_max\_melting\_snow\_grain\_radius: {\bf \color{red} MISSING}}
+    \caption{config\_max\_melting\_snow\_grain\_radius: Maximum melting snow grain radius.}
 \end{longtable}
 \end{center}
 \subsection[config\_algae\_absorption\_coefficient]{\hyperref[sec:nm_tab_shortwave]{config\_algae\_absorption\_coefficient}}
@@ -3804,7 +3820,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Possible Values: & {\bf \color{red} MISSING} \\
     \hline
-    \caption{config\_algae\_absorption\_coefficient: {\bf \color{red} MISSING}}
+    \caption{config\_algae\_absorption\_coefficient: Algae absorption coefficient for 0.5 m thick layer.}
 \end{longtable}
 \end{center}
 \section[meltponds]{\hyperref[sec:nm_tab_meltponds]{meltponds}}
@@ -3816,13 +3832,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $m$ \\
     \hline
     Default Value: & 0.0 \\
     \hline
     Possible Values: & {\bf \color{red} MISSING} \\
     \hline
-    \caption{config\_snow\_to\_ice\_transition\_depth: {\bf \color{red} MISSING}}
+    \caption{config\_snow\_to\_ice\_transition\_depth: Snow depth for transition to bare sea ice.}
 \end{longtable}
 \end{center}
 \subsection[config\_pond\_refreezing\_type]{\hyperref[sec:nm_tab_meltponds]{config\_pond\_refreezing\_type}}
@@ -3832,13 +3848,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & character \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & hlid \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & 'cesm' or 'hlid' \\
     \hline
-    \caption{config\_pond\_refreezing\_type: {\bf \color{red} MISSING}}
+    \caption{config\_pond\_refreezing\_type: Pond refreezing parameterization.}
 \end{longtable}
 \end{center}
 \subsection[config\_pond\_flushing\_timescale]{\hyperref[sec:nm_tab_meltponds]{config\_pond\_flushing\_timescale}}
@@ -3854,7 +3870,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Possible Values: & {\bf \color{red} MISSING} \\
     \hline
-    \caption{config\_pond\_flushing\_timescale: {\bf \color{red} MISSING}}
+    \caption{config\_pond\_flushing\_timescale: Alter e-folding time scale for flushing.?????}
 \end{longtable}
 \end{center}
 \subsection[config\_min\_meltwater\_retained\_fraction]{\hyperref[sec:nm_tab_meltponds]{config\_min\_meltwater\_retained\_fraction}}
@@ -3864,13 +3880,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.15 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any real number between 0 and 1 \\
     \hline
-    \caption{config\_min\_meltwater\_retained\_fraction: {\bf \color{red} MISSING}}
+    \caption{config\_min\_meltwater\_retained\_fraction: Minimum retained fraction of meltwater.}
 \end{longtable}
 \end{center}
 \subsection[config\_max\_meltwater\_retained\_fraction]{\hyperref[sec:nm_tab_meltponds]{config\_max\_meltwater\_retained\_fraction}}
@@ -3880,13 +3896,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 1.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any real number between 0 and 1 \\
     \hline
-    \caption{config\_max\_meltwater\_retained\_fraction: {\bf \color{red} MISSING}}
+    \caption{config\_max\_meltwater\_retained\_fraction: Maximum retained fraction of meltwater.}
 \end{longtable}
 \end{center}
 \subsection[config\_pond\_depth\_to\_fraction\_ratio]{\hyperref[sec:nm_tab_meltponds]{config\_pond\_depth\_to\_fraction\_ratio}}
@@ -3896,13 +3912,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.8 \\
     \hline
     Possible Values: & {\bf \color{red} MISSING} \\
     \hline
-    \caption{config\_pond\_depth\_to\_fraction\_ratio: {\bf \color{red} MISSING}}
+    \caption{config\_pond\_depth\_to\_fraction\_ratio: Ratio of pond depth to pond fraction.}
 \end{longtable}
 \end{center}
 \subsection[config\_snow\_on\_pond\_ice\_tapering\_parameter]{\hyperref[sec:nm_tab_meltponds]{config\_snow\_on\_pond\_ice\_tapering\_parameter}}
@@ -3918,7 +3934,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Possible Values: & {\bf \color{red} MISSING} \\
     \hline
-    \caption{config\_snow\_on\_pond\_ice\_tapering\_parameter: {\bf \color{red} MISSING}}
+    \caption{config\_snow\_on\_pond\_ice\_tapering\_parameter: Tapering parameter for snow on pond ice.}
 \end{longtable}
 \end{center}
 \subsection[config\_critical\_pond\_ice\_thickness]{\hyperref[sec:nm_tab_meltponds]{config\_critical\_pond\_ice\_thickness}}
@@ -3934,7 +3950,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Possible Values: & {\bf \color{red} MISSING} \\
     \hline
-    \caption{config\_critical\_pond\_ice\_thickness: {\bf \color{red} MISSING}}
+    \caption{config\_critical\_pond\_ice\_thickness: Critical parameter for pond ice thickness.}
 \end{longtable}
 \end{center}
 \section[thermodynamics]{\hyperref[sec:nm_tab_thermodynamics]{thermodynamics}}
@@ -3946,13 +3962,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & character \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & mushy \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & 'zero layer', 'BL99', or 'mushy' \\
     \hline
-    \caption{config\_thermodynamics\_type: {\bf \color{red} MISSING}}
+    \caption{config\_thermodynamics\_type: Vertical themodynamics type.}
 \end{longtable}
 \end{center}
 \subsection[config\_heat\_conductivity\_type]{\hyperref[sec:nm_tab_thermodynamics]{config\_heat\_conductivity\_type}}
@@ -3962,13 +3978,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & character \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & bubbly \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & 'MU71' or 'bubbly' \\
     \hline
-    \caption{config\_heat\_conductivity\_type: {\bf \color{red} MISSING}}
+    \caption{config\_heat\_conductivity\_type: Thermal conductivity type for BL99 thermodynamics. Options are Maykut and Untersteiner 1971 form (with Wettlaufer 1991 constants), or Pringle et al JGR 2007 'bubbly brine'}
 \end{longtable}
 \end{center}
 \subsection[config\_rapid\_mode\_channel\_radius]{\hyperref[sec:nm_tab_thermodynamics]{config\_rapid\_mode\_channel\_radius}}
@@ -3978,13 +3994,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $m$ \\
     \hline
     Default Value: & 0.5e-3 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any positive real number. \\
     \hline
-    \caption{config\_rapid\_mode\_channel\_radius: {\bf \color{red} MISSING}}
+    \caption{config\_rapid\_mode\_channel\_radius: Channel radius for rapid gravity drainage mode.}
 \end{longtable}
 \end{center}
 \subsection[config\_rapid\_model\_critical\_Ra]{\hyperref[sec:nm_tab_thermodynamics]{config\_rapid\_model\_critical\_Ra}}
@@ -3994,13 +4010,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 10.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any positive real number. \\
     \hline
-    \caption{config\_rapid\_model\_critical\_Ra: {\bf \color{red} MISSING}}
+    \caption{config\_rapid\_model\_critical\_Ra: Critical Rayleigh number for rapid gravity drainage mode.}
 \end{longtable}
 \end{center}
 \subsection[config\_rapid\_mode\_aspect\_ratio]{\hyperref[sec:nm_tab_thermodynamics]{config\_rapid\_mode\_aspect\_ratio}}
@@ -4010,13 +4026,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 1.0 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any positive real number. \\
     \hline
-    \caption{config\_rapid\_mode\_aspect\_ratio: {\bf \color{red} MISSING}}
+    \caption{config\_rapid\_mode\_aspect\_ratio: Aspect ratio for rapid gravity drainage mode (larger=wider).}
 \end{longtable}
 \end{center}
 \subsection[config\_slow\_mode\_drainage\_strength]{\hyperref[sec:nm_tab_thermodynamics]{config\_slow\_mode\_drainage\_strength}}
@@ -4026,13 +4042,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $m$ $s^-1$ $K^-1$ \\
     \hline
     Default Value: & -5.0e-8 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any negative real number. \\
     \hline
-    \caption{config\_slow\_mode\_drainage\_strength: {\bf \color{red} MISSING}}
+    \caption{config\_slow\_mode\_drainage\_strength: Slow gravity drainage mode drainage strength.}
 \end{longtable}
 \end{center}
 \subsection[config\_slow\_mode\_critical\_porosity]{\hyperref[sec:nm_tab_thermodynamics]{config\_slow\_mode\_critical\_porosity}}
@@ -4042,13 +4058,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.05 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any real number between 0 and 1. \\
     \hline
-    \caption{config\_slow\_mode\_critical\_porosity: {\bf \color{red} MISSING}}
+    \caption{config\_slow\_mode\_critical\_porosity: Liquid fraction porosity cutoff for slow gravity drainage mode.}
 \end{longtable}
 \end{center}
 \subsection[config\_congelation\_ice\_porosity]{\hyperref[sec:nm_tab_thermodynamics]{config\_congelation\_ice\_porosity}}
@@ -4058,13 +4074,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 0.85 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any real number between 0 and 1. \\
     \hline
-    \caption{config\_congelation\_ice\_porosity: {\bf \color{red} MISSING}}
+    \caption{config\_congelation\_ice\_porosity: Liquid fraction of congelation ice.}
 \end{longtable}
 \end{center}
 \section[itd]{\hyperref[sec:nm_tab_itd]{itd}}
@@ -4076,13 +4092,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & character \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & linear remap \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & 'delta function' or 'linear remap' \\
     \hline
-    \caption{config\_itd\_conversion\_type: {\bf \color{red} MISSING}}
+    \caption{config\_itd\_conversion\_type: Type of ice thickness distribution conversions.}
 \end{longtable}
 \end{center}
 \subsection[config\_category\_bounds\_type]{\hyperref[sec:nm_tab_itd]{config\_category\_bounds\_type}}
@@ -4092,13 +4108,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & character \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & original \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & 'single category', 'original', 'new', 'WMO', or 'asymptotic' \\
     \hline
-    \caption{config\_category\_bounds\_type: {\bf \color{red} MISSING}}
+    \caption{config\_category\_bounds\_type: Type of ice thickness category bounds.}
 \end{longtable}
 \end{center}
 \section[ridging]{\hyperref[sec:nm_tab_ridging]{ridging}}
@@ -4110,13 +4126,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & character \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & Rothrock75 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & 'Hibler79' or 'Rothrock75' \\
     \hline
-    \caption{config\_ice\_strength\_formulation: {\bf \color{red} MISSING}}
+    \caption{config\_ice\_strength\_formulation: Type of ice strength formulation.}
 \end{longtable}
 \end{center}
 \subsection[config\_ridging\_participation\_function]{\hyperref[sec:nm_tab_ridging]{config\_ridging\_participation\_function}}
@@ -4126,13 +4142,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & character \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & exponential \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & 'Thorndike75' or 'exponential' \\
     \hline
-    \caption{config\_ridging\_participation\_function: {\bf \color{red} MISSING}}
+    \caption{config\_ridging\_participation\_function: Type of ridging participation function.}
 \end{longtable}
 \end{center}
 \subsection[config\_ridging\_redistribution\_function]{\hyperref[sec:nm_tab_ridging]{config\_ridging\_redistribution\_function}}
@@ -4142,13 +4158,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & character \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & exponential \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & 'Hibler80' or 'exponential' \\
     \hline
-    \caption{config\_ridging\_redistribution\_function: {\bf \color{red} MISSING}}
+    \caption{config\_ridging\_redistribution\_function: Type of ridging redistribution function.}
 \end{longtable}
 \end{center}
 \subsection[config\_ridiging\_efolding\_scale]{\hyperref[sec:nm_tab_ridging]{config\_ridiging\_efolding\_scale}}
@@ -4158,13 +4174,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $m^0.5$ \\
     \hline
     Default Value: & 3.0 \\
     \hline
     Possible Values: & {\bf \color{red} MISSING} \\
     \hline
-    \caption{config\_ridiging\_efolding\_scale: {\bf \color{red} MISSING}}
+    \caption{config\_ridiging\_efolding\_scale: E-folding scale of ridged ice (krdg\_redist = 1)}
 \end{longtable}
 \end{center}
 \subsection[config\_ratio\_ridging\_work\_to\_PE]{\hyperref[sec:nm_tab_ridging]{config\_ratio\_ridging\_work\_to\_PE}}
@@ -4174,13 +4190,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & real \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 17.0 \\
     \hline
     Possible Values: & {\bf \color{red} MISSING} \\
     \hline
-    \caption{config\_ratio\_ridging\_work\_to\_PE: {\bf \color{red} MISSING}}
+    \caption{config\_ratio\_ridging\_work\_to\_PE: Ratio of ridging work to PE change in ridging (kstrength = 1)}
 \end{longtable}
 \end{center}
 \section[atmosphere]{\hyperref[sec:nm_tab_atmosphere]{atmosphere}}
@@ -4192,13 +4208,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & character \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & ccsm3 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & 'ccsm3' or 'constant' \\
     \hline
-    \caption{config\_atmos\_boundary\_method: {\bf \color{red} MISSING}}
+    \caption{config\_atmos\_boundary\_method: Atmosphere boundary method.}
 \end{longtable}
 \end{center}
 \subsection[config\_calc\_surface\_stresses]{\hyperref[sec:nm_tab_atmosphere]{config\_calc\_surface\_stresses}}
@@ -4208,13 +4224,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & true \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
-    \caption{config\_calc\_surface\_stresses: {\bf \color{red} MISSING}}
+    \caption{config\_calc\_surface\_stresses: If true calculate wind stress components.}
 \end{longtable}
 \end{center}
 \subsection[config\_calc\_surface\_temperature]{\hyperref[sec:nm_tab_atmosphere]{config\_calc\_surface\_temperature}}
@@ -4224,13 +4240,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & true \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
-    \caption{config\_calc\_surface\_temperature: {\bf \color{red} MISSING}}
+    \caption{config\_calc\_surface\_temperature: If true calculate surface temperature. If false surface temperature is computed elsewhere and atmos-ice fluxes are provided.}
 \end{longtable}
 \end{center}
 \subsection[config\_use\_form\_drag]{\hyperref[sec:nm_tab_atmosphere]{config\_use\_form\_drag}}
@@ -4240,13 +4256,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
-    \caption{config\_use\_form\_drag: {\bf \color{red} MISSING}}
+    \caption{config\_use\_form\_drag: If true calculate form drag.}
 \end{longtable}
 \end{center}
 \subsection[config\_use\_high\_frequency\_coupling]{\hyperref[sec:nm_tab_atmosphere]{config\_use\_high\_frequency\_coupling}}
@@ -4256,13 +4272,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
-    \caption{config\_use\_high\_frequency\_coupling: {\bf \color{red} MISSING}}
+    \caption{config\_use\_high\_frequency\_coupling: If true use high frequency coupling.}
 \end{longtable}
 \end{center}
 \subsection[config\_boundary\_layer\_iteration\_number]{\hyperref[sec:nm_tab_atmosphere]{config\_boundary\_layer\_iteration\_number}}
@@ -4272,13 +4288,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & integer \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & 5 \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & Any positive integer. \\
     \hline
-    \caption{config\_boundary\_layer\_iteration\_number: {\bf \color{red} MISSING}}
+    \caption{config\_boundary\_layer\_iteration\_number: Number of iterations for boundary layer calculations}
 \end{longtable}
 \end{center}
 \section[ocean]{\hyperref[sec:nm_tab_ocean]{ocean}}
@@ -4290,13 +4306,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & true \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
-    \caption{config\_use\_ocean\_mixed\_layer: {\bf \color{red} MISSING}}
+    \caption{config\_use\_ocean\_mixed\_layer: If true use an ocean mixed layer.}
 \end{longtable}
 \end{center}
 \subsection[config\_min\_friction\_velocity]{\hyperref[sec:nm_tab_ocean]{config\_min\_friction\_velocity}}
@@ -4312,7 +4328,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Possible Values: & {\bf \color{red} MISSING} \\
     \hline
-    \caption{config\_min\_friction\_velocity: {\bf \color{red} MISSING}}
+    \caption{config\_min\_friction\_velocity: Minimum friction velocity for ice-ocean heat flux.}
 \end{longtable}
 \end{center}
 \subsection[config\_ocean\_heat\_transfer\_type]{\hyperref[sec:nm_tab_ocean]{config\_ocean\_heat\_transfer\_type}}
@@ -4322,13 +4338,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & character \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & constant \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & 'constant' or 'Cdn\_ocn' \\
     \hline
-    \caption{config\_ocean\_heat\_transfer\_type: {\bf \color{red} MISSING}}
+    \caption{config\_ocean\_heat\_transfer\_type: Transfer coefficient type for ice-ocean heat flux.}
 \end{longtable}
 \end{center}
 \subsection[config\_sea\_freezing\_temperature\_type]{\hyperref[sec:nm_tab_ocean]{config\_sea\_freezing\_temperature\_type}}
@@ -4338,13 +4354,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & character \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & mushy \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & 'mushy', 'linear\_salt', or DEFAULT \\
     \hline
-    \caption{config\_sea\_freezing\_temperature\_type: {\bf \color{red} MISSING}}
+    \caption{config\_sea\_freezing\_temperature\_type: Form of ocean freezing temperature.}
 \end{longtable}
 \end{center}
 \subsection[config\_ocean\_surface\_type]{\hyperref[sec:nm_tab_ocean]{config\_ocean\_surface\_type}}
@@ -4354,13 +4370,29 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & character \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & free \\
     \hline
     Possible Values: & 'free' or 'non-free' \\
     \hline
-    \caption{config\_ocean\_surface\_type: {\bf \color{red} MISSING}}
+    \caption{config\_ocean\_surface\_type: Type of coupled ocean surface: (MPAS-O:'free'), (SOM:'non-free')}
+\end{longtable}
+\end{center}
+\subsection[config\_couple\_biogeochemistry\_fields]{\hyperref[sec:nm_tab_ocean]{config\_couple\_biogeochemistry\_fields}}
+\label{subsec:nm_sec_config_couple_biogeochemistry_fields}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & $unitless$ \\
+    \hline
+    Default Value: & false \\
+    \hline
+    Possible Values: & true or false \\
+    \hline
+    \caption{config\_couple\_biogeochemistry\_fields: {\bf \color{red} MISSING}}
 \end{longtable}
 \end{center}
 \section[diagnostics]{\hyperref[sec:nm_tab_diagnostics]{diagnostics}}
@@ -4372,13 +4404,13 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Type: & logical \\
     \hline
-    Units: & {\bf \color{red} MISSING} \\
+    Units: & $unitless$ \\
     \hline
     Default Value: & false \\
     \hline
-    Possible Values: & {\bf \color{red} MISSING} \\
+    Possible Values: & true or false \\
     \hline
-    \caption{config\_check\_state: {\bf \color{red} MISSING}}
+    \caption{config\_check\_state: If true perform a check at runtime of the model state.}
 \end{longtable}
 \end{center}
 \section[AM\_highFrequencyOutput]{\hyperref[sec:nm_tab_AM_highFrequencyOutput]{AM\_highFrequencyOutput}}

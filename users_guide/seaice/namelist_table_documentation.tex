@@ -3,7 +3,7 @@
 Embedded links point to more detailed namelist information in the appendix.
 \section[cice\_model]{\hyperref[sec:nm_sec_cice_model]{cice\_model}}
 \label{sec:nm_tab_cice_model}
-\input{seaice/section_descriptions/cice_model.tex}
+\input{seaice/section_descriptions//cice_model.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -31,7 +31,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[io]{\hyperref[sec:nm_sec_io]{io}}
 \label{sec:nm_tab_io}
-\input{seaice/section_descriptions/io.tex}
+\input{seaice/section_descriptions//io.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -48,9 +48,9 @@ Embedded links point to more detailed namelist information in the appendix.
     \hline
     \hyperref[subsec:nm_sec_config_write_output_on_startup]{config\_write\_output\_on\_startu-}\hyperref[subsec:nm_sec_config_write_output_on_startup]{p}& If true write the output streams to disk after model initialization but before time stepping. \\
     \hline
-    \hyperref[subsec:nm_sec_config_test_case_diag]{config\_test\_case\_diag} & Perform a test case \\
+    \hyperref[subsec:nm_sec_config_test_case_diag]{config\_test\_case\_diag} & If true output test case diagnostics. \\
     \hline
-    \hyperref[subsec:nm_sec_config_test_case_diag_type]{config\_test\_case\_diag\_type} & Test case type \\
+    \hyperref[subsec:nm_sec_config_test_case_diag_type]{config\_test\_case\_diag\_type} & Test case diagnostic type. \\
     \hline
     \hyperref[subsec:nm_sec_config_full_abort_write]{config\_full\_abort\_write} & If true write the abort stream to disk after a critical error for the entire domain, not just failing block. \\
     \hline
@@ -59,7 +59,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[decomposition]{\hyperref[sec:nm_sec_decomposition]{decomposition}}
 \label{sec:nm_tab_decomposition}
-\input{seaice/section_descriptions/decomposition.tex}
+\input{seaice/section_descriptions//decomposition.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -76,14 +76,16 @@ Embedded links point to more detailed namelist information in the appendix.
     \hline
     \hyperref[subsec:nm_sec_config_explicit_proc_decomp]{config\_explicit\_proc\_decomp} & Determines if an explicit processor decomposition should be used. This is only useful if multiple blocks per processor are used. \\
     \hline
-    \hyperref[subsec:nm_sec_config_proc_decomp_file_prefix]{config\_proc\_decomp\_file\_prefix} & Defines the prefix for the processor decomposition file. This file is only read if config\_explicit\_proc\_decomp is .true. The number of processors is appended to the end of the prefix at run-time. \\
+    \hyperref[subsec:nm_sec_config_proc_decomp_file_prefix]{config\_proc\_decomp\_file\_prefix} & Defines the prefix for the processor decomposition file. This file is only read if config\_explicit\_proc\_decomp is true The number of processors is appended to the end of the prefix at run-time. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_aggregate_halo_exch]{config\_aggregate\_halo\_exch} & Determines if aggregated halo exchanges are used in some places. \\
     \hline
 \end{longtable}
 \end{center}
 }
 \section[restart]{\hyperref[sec:nm_sec_restart]{restart}}
 \label{sec:nm_tab_restart}
-\input{seaice/section_descriptions/restart.tex}
+\input{seaice/section_descriptions//restart.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -98,18 +100,18 @@ Embedded links point to more detailed namelist information in the appendix.
     \hline
     \hyperref[subsec:nm_sec_config_restart_timestamp_name]{config\_restart\_timestamp\_name} & Path to the filename for restart timestamps to be read and written from. \\
     \hline
-    \hyperref[subsec:nm_sec_config_do_restart_hbrine]{config\_do\_restart\_hbrine} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_do_restart_hbrine]{config\_do\_restart\_hbrine} & Restart the brine height tracer needed for vertical bgc \\
     \hline
-    \hyperref[subsec:nm_sec_config_do_restart_zsalinity]{config\_do\_restart\_zsalinity} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_do_restart_zsalinity]{config\_do\_restart\_zsalinity} & Restart the z-salinity tracer \\
     \hline
-    \hyperref[subsec:nm_sec_config_do_restart_bgc]{config\_do\_restart\_bgc} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_do_restart_bgc]{config\_do\_restart\_bgc} & Restart the ice biogeochemistry \\
     \hline
 \end{longtable}
 \end{center}
 }
 \section[dimensions]{\hyperref[sec:nm_sec_dimensions]{dimensions}}
 \label{sec:nm_tab_dimensions}
-\input{seaice/section_descriptions/dimensions.tex}
+\input{seaice/section_descriptions//dimensions.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -131,7 +133,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[initialize]{\hyperref[sec:nm_sec_initialize]{initialize}}
 \label{sec:nm_tab_initialize}
-\input{seaice/section_descriptions/initialize.tex}
+\input{seaice/section_descriptions//initialize.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -167,7 +169,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[use\_sections]{\hyperref[sec:nm_sec_use_sections]{use\_sections}}
 \label{sec:nm_tab_use_sections}
-\input{seaice/section_descriptions/use_sections.tex}
+\input{seaice/section_descriptions//use_sections.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -191,7 +193,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[forcing]{\hyperref[sec:nm_sec_forcing]{forcing}}
 \label{sec:nm_tab_forcing}
-\input{seaice/section_descriptions/forcing.tex}
+\input{seaice/section_descriptions//forcing.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -202,28 +204,28 @@ Embedded links point to more detailed namelist information in the appendix.
     {\bf Name} & {\bf Description} (Continued) \endhead
     \hline
     \hline
-    \hyperref[subsec:nm_sec_config_atmospheric_forcing_type]{config\_atmospheric\_forcing\_typ-}\hyperref[subsec:nm_sec_config_atmospheric_forcing_type]{e}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_atmospheric_forcing_type]{config\_atmospheric\_forcing\_typ-}\hyperref[subsec:nm_sec_config_atmospheric_forcing_type]{e}& Atmospheric forcing type. \\
     \hline
-    \hyperref[subsec:nm_sec_config_forcing_start_time]{config\_forcing\_start\_time} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_forcing_start_time]{config\_forcing\_start\_time} & Forcing time to use at the simulation start time \\
     \hline
-    \hyperref[subsec:nm_sec_config_forcing_cycle_start]{config\_forcing\_cycle\_start} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_forcing_cycle_start]{config\_forcing\_cycle\_start} & Start time for the forcing cycle. \\
     \hline
-    \hyperref[subsec:nm_sec_config_forcing_cycle_duration]{config\_forcing\_cycle\_duration} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_forcing_cycle_duration]{config\_forcing\_cycle\_duration} & Duration of the forcing cycle. \\
     \hline
-    \hyperref[subsec:nm_sec_config_forcing_precipitation_units]{config\_forcing\_precipitation\_uni-}\hyperref[subsec:nm_sec_config_forcing_precipitation_units]{ts}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_forcing_precipitation_units]{config\_forcing\_precipitation\_uni-}\hyperref[subsec:nm_sec_config_forcing_precipitation_units]{ts}& Forcing input precipitation units. \\
     \hline
-    \hyperref[subsec:nm_sec_config_forcing_sst_type]{config\_forcing\_sst\_type} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_forcing_sst_type]{config\_forcing\_sst\_type} & Sea surface temperature ocean forcing type. \\
     \hline
     \hyperref[subsec:nm_sec_config_update_ocean_fluxes]{config\_update\_ocean\_fluxes} & {\bf \color{red} MISSING} \\
     \hline
-    \hyperref[subsec:nm_sec_config_include_pond_freshwater_feedback]{config\_include\_pond\_freshwater-}\hyperref[subsec:nm_sec_config_include_pond_freshwater_feedback]{\_feedback}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_include_pond_freshwater_feedback]{config\_include\_pond\_freshwater-}\hyperref[subsec:nm_sec_config_include_pond_freshwater_feedback]{\_feedback}& Reduce the ocean fresh water flux by the pond fresh water flux for coupling. \\
     \hline
 \end{longtable}
 \end{center}
 }
 \section[unit\_test]{\hyperref[sec:nm_sec_unit_test]{unit\_test}}
 \label{sec:nm_tab_unit_test}
-\input{seaice/section_descriptions/unit_test.tex}
+\input{seaice/section_descriptions//unit_test.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -234,22 +236,22 @@ Embedded links point to more detailed namelist information in the appendix.
     {\bf Name} & {\bf Description} (Continued) \endhead
     \hline
     \hline
-    \hyperref[subsec:nm_sec_config_perform_unit_test]{config\_perform\_unit\_test} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_perform_unit_test]{config\_perform\_unit\_test} & If true perform a unit test. \\
     \hline
-    \hyperref[subsec:nm_sec_config_unit_test_type]{config\_unit\_test\_type} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_unit_test_type]{config\_unit\_test\_type} & Unit test type. \\
     \hline
-    \hyperref[subsec:nm_sec_config_unit_test_subtype]{config\_unit\_test\_subtype} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_unit_test_subtype]{config\_unit\_test\_subtype} & Unit test subtype. \\
     \hline
-    \hyperref[subsec:nm_sec_config_use_test_ice_shelf]{config\_use\_test\_ice\_shelf} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_use_test_ice_shelf]{config\_use\_test\_ice\_shelf} & If true test add a test ice shelf to the ice shelf mask. \\
     \hline
-    \hyperref[subsec:nm_sec_config_testing_system_test]{config\_testing\_system\_test} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_testing_system_test]{config\_testing\_system\_test} & If true initialize variables that will fail the testing system tests. \\
     \hline
 \end{longtable}
 \end{center}
 }
 \section[velocity\_solver]{\hyperref[sec:nm_sec_velocity_solver]{velocity\_solver}}
 \label{sec:nm_tab_velocity_solver}
-\input{seaice/section_descriptions/velocity_solver.tex}
+\input{seaice/section_descriptions//velocity_solver.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -260,38 +262,38 @@ Embedded links point to more detailed namelist information in the appendix.
     {\bf Name} & {\bf Description} (Continued) \endhead
     \hline
     \hline
-    \hyperref[subsec:nm_sec_config_dynamics_subcycle_number]{config\_dynamics\_subcycle\_numbe-}\hyperref[subsec:nm_sec_config_dynamics_subcycle_number]{r}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_dynamics_subcycle_number]{config\_dynamics\_subcycle\_numbe-}\hyperref[subsec:nm_sec_config_dynamics_subcycle_number]{r}& The number of dynamics subcycles to perform per thermodynamic time step (config\_dt) \\
     \hline
-    \hyperref[subsec:nm_sec_config_rotate_cartesian_grid]{config\_rotate\_cartesian\_grid} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_rotate_cartesian_grid]{config\_rotate\_cartesian\_grid} & Rotate the velocity directions from geographic so their pole lies on the equator. \\
     \hline
-    \hyperref[subsec:nm_sec_config_include_metric_terms]{config\_include\_metric\_terms} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_include_metric_terms]{config\_include\_metric\_terms} & Include metric terms due to Earth curvature in velocity solver horizontal operators. \\
     \hline
-    \hyperref[subsec:nm_sec_config_elastic_subcycle_number]{config\_elastic\_subcycle\_number} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_elastic_subcycle_number]{config\_elastic\_subcycle\_number} & The number of elastic EVP subcycles to perform per dynamics time step. \\
     \hline
-    \hyperref[subsec:nm_sec_config_stress_divergence_scheme]{config\_stress\_divergence\_sche-}\hyperref[subsec:nm_sec_config_stress_divergence_scheme]{me}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_stress_divergence_scheme]{config\_stress\_divergence\_sche-}\hyperref[subsec:nm_sec_config_stress_divergence_scheme]{me}& Choice of stress divergence scheme to use in the velocity solver. \\
     \hline
-    \hyperref[subsec:nm_sec_config_variational_basis]{config\_variational\_basis} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_variational_basis]{config\_variational\_basis} & Type of basis functions to use with the variational stress divergence scheme. \\
     \hline
-    \hyperref[subsec:nm_sec_config_wachspress_integration_type]{config\_wachspress\_integration\_-}\hyperref[subsec:nm_sec_config_wachspress_integration_type]{type}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_wachspress_integration_type]{config\_wachspress\_integration\_-}\hyperref[subsec:nm_sec_config_wachspress_integration_type]{type}& Type of integration to perform with the Wachspress variational stress divergence scheme. \\
     \hline
-    \hyperref[subsec:nm_sec_config_wachspress_integration_order]{config\_wachspress\_integration\_-}\hyperref[subsec:nm_sec_config_wachspress_integration_order]{order}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_wachspress_integration_order]{config\_wachspress\_integration\_-}\hyperref[subsec:nm_sec_config_wachspress_integration_order]{order}& Order of integration for Wachspress basis integrations. \\
     \hline
-    \hyperref[subsec:nm_sec_config_revised_evp]{config\_revised\_evp} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_revised_evp]{config\_revised\_evp} & If true use the revised EVP rheology (Bouillon et al., Ocean Modelling) \\
     \hline
-    \hyperref[subsec:nm_sec_config_use_air_stress]{config\_use\_air\_stress} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_use_air_stress]{config\_use\_air\_stress} & If true include the air stress term in the velocity solver calculations. \\
     \hline
-    \hyperref[subsec:nm_sec_config_use_ocean_stress]{config\_use\_ocean\_stress} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_use_ocean_stress]{config\_use\_ocean\_stress} & If true include the ocean stress term in the velocity solver calculations. \\
     \hline
-    \hyperref[subsec:nm_sec_config_use_surface_tilt]{config\_use\_surface\_tilt} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_use_surface_tilt]{config\_use\_surface\_tilt} & If true include the sea surface tilt stress term in the velocity solver calculations. \\
     \hline
-    \hyperref[subsec:nm_sec_config_geostrophic_surface_tilt]{config\_geostrophic\_surface\_tilt} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_geostrophic_surface_tilt]{config\_geostrophic\_surface\_tilt} & If true calculate the sea surface tilt stress assuming currents are geostrophic. \\
     \hline
 \end{longtable}
 \end{center}
 }
 \section[advection]{\hyperref[sec:nm_sec_advection]{advection}}
 \label{sec:nm_tab_advection}
-\input{seaice/section_descriptions/advection.tex}
+\input{seaice/section_descriptions//advection.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -302,22 +304,22 @@ Embedded links point to more detailed namelist information in the appendix.
     {\bf Name} & {\bf Description} (Continued) \endhead
     \hline
     \hline
-    \hyperref[subsec:nm_sec_config_advection_type]{config\_advection\_type} & Type of advection scheme (upwind or incremental remapping) \\
+    \hyperref[subsec:nm_sec_config_advection_type]{config\_advection\_type} & Type of advection scheme (upwind or incremental remapping). \\
     \hline
-    \hyperref[subsec:nm_sec_config_monotonic]{config\_monotonic} & If true then fluxes are limited to produce a monotonic advection scheme \\
+    \hyperref[subsec:nm_sec_config_monotonic]{config\_monotonic} & If true then fluxes are limited to produce a monotonic advection scheme. \\
     \hline
-    \hyperref[subsec:nm_sec_config_conservation_check]{config\_conservation\_check} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_conservation_check]{config\_conservation\_check} & If true test the advection results for tracer conservation (incremental remap only). \\
     \hline
-    \hyperref[subsec:nm_sec_config_monotonicity_check]{config\_monotonicity\_check} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_monotonicity_check]{config\_monotonicity\_check} & If true test the advection results for monotonicity (incremental remap only). \\
     \hline
-    \hyperref[subsec:nm_sec_config_recover_tracer_means_check]{config\_recover\_tracer\_means\_check} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_recover_tracer_means_check]{config\_recover\_tracer\_means\_check} & If true compare mass*tracer products for incremental remapping with analytical values. \\
     \hline
 \end{longtable}
 \end{center}
 }
 \section[column\_package]{\hyperref[sec:nm_sec_column_package]{column\_package}}
 \label{sec:nm_tab_column_package}
-\input{seaice/section_descriptions/column_package.tex}
+\input{seaice/section_descriptions//column_package.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -328,22 +330,22 @@ Embedded links point to more detailed namelist information in the appendix.
     {\bf Name} & {\bf Description} (Continued) \endhead
     \hline
     \hline
-    \hyperref[subsec:nm_sec_config_use_column_shortwave]{config\_use\_column\_shortwave} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_use_column_shortwave]{config\_use\_column\_shortwave} & Run the shortwave radiation column physics calculation. \\
     \hline
-    \hyperref[subsec:nm_sec_config_use_column_vertical_thermodynamics]{config\_use\_column\_vertical\_ther-}\hyperref[subsec:nm_sec_config_use_column_vertical_thermodynamics]{modynamics}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_use_column_vertical_thermodynamics]{config\_use\_column\_vertical\_ther-}\hyperref[subsec:nm_sec_config_use_column_vertical_thermodynamics]{modynamics}& Run the vertical thermodynamics column physics calculation. \\
     \hline
-    \hyperref[subsec:nm_sec_config_use_column_biogeochemistry]{config\_use\_column\_biogeochemist-}\hyperref[subsec:nm_sec_config_use_column_biogeochemistry]{ry}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_use_column_biogeochemistry]{config\_use\_column\_biogeochemist-}\hyperref[subsec:nm_sec_config_use_column_biogeochemistry]{ry}& Use biological and chemical tracers in the ice \\
     \hline
-    \hyperref[subsec:nm_sec_config_use_column_itd_thermodynamics]{config\_use\_column\_itd\_thermody-}\hyperref[subsec:nm_sec_config_use_column_itd_thermodynamics]{namics}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_use_column_itd_thermodynamics]{config\_use\_column\_itd\_thermody-}\hyperref[subsec:nm_sec_config_use_column_itd_thermodynamics]{namics}& Run the ice thickness distribution thermodynamics column physics calculation. \\
     \hline
-    \hyperref[subsec:nm_sec_config_use_column_ridging]{config\_use\_column\_ridging} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_use_column_ridging]{config\_use\_column\_ridging} & Run the ridging column physics calculation. \\
     \hline
 \end{longtable}
 \end{center}
 }
 \section[column\_tracers]{\hyperref[sec:nm_sec_column_tracers]{column\_tracers}}
 \label{sec:nm_tab_column_tracers}
-\input{seaice/section_descriptions/column_tracers.tex}
+\input{seaice/section_descriptions//column_tracers.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -354,26 +356,26 @@ Embedded links point to more detailed namelist information in the appendix.
     {\bf Name} & {\bf Description} (Continued) \endhead
     \hline
     \hline
-    \hyperref[subsec:nm_sec_config_use_ice_age]{config\_use\_ice\_age} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_use_ice_age]{config\_use\_ice\_age} & If true use the ice age tracer. \\
     \hline
-    \hyperref[subsec:nm_sec_config_use_first_year_ice]{config\_use\_first\_year\_ice} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_use_first_year_ice]{config\_use\_first\_year\_ice} & If true use the first year ice tracer. \\
     \hline
-    \hyperref[subsec:nm_sec_config_use_level_ice]{config\_use\_level\_ice} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_use_level_ice]{config\_use\_level\_ice} & If true use the level ice tracers. \\
     \hline
-    \hyperref[subsec:nm_sec_config_use_cesm_meltponds]{config\_use\_cesm\_meltponds} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_use_cesm_meltponds]{config\_use\_cesm\_meltponds} & If true use the cesm meltponds tracers. \\
     \hline
-    \hyperref[subsec:nm_sec_config_use_level_meltponds]{config\_use\_level\_meltponds} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_use_level_meltponds]{config\_use\_level\_meltponds} & If true use the level ice meltponds tracers. \\
     \hline
-    \hyperref[subsec:nm_sec_config_use_topo_meltponds]{config\_use\_topo\_meltponds} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_use_topo_meltponds]{config\_use\_topo\_meltponds} & If true use the topo meltpond tracers. \\
     \hline
-    \hyperref[subsec:nm_sec_config_use_aerosols]{config\_use\_aerosols} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_use_aerosols]{config\_use\_aerosols} & Carry aerosols in the ice (NCAR scheme) \\
     \hline
 \end{longtable}
 \end{center}
 }
 \section[biogeochemistry]{\hyperref[sec:nm_sec_biogeochemistry]{biogeochemistry}}
 \label{sec:nm_tab_biogeochemistry}
-\input{seaice/section_descriptions/biogeochemistry.tex}
+\input{seaice/section_descriptions//biogeochemistry.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -384,296 +386,296 @@ Embedded links point to more detailed namelist information in the appendix.
     {\bf Name} & {\bf Description} (Continued) \endhead
     \hline
     \hline
-    \hyperref[subsec:nm_sec_config_use_brine]{config\_use\_brine} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_use_brine]{config\_use\_brine} & Use the brine height tracer \\
     \hline
-    \hyperref[subsec:nm_sec_config_use_vertical_zsalinity]{config\_use\_vertical\_zsalinity} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_use_vertical_zsalinity]{config\_use\_vertical\_zsalinity} & Use z-salinity (with Bitz and Lipscomb 1999 thermodynamics) \\
     \hline
-    \hyperref[subsec:nm_sec_config_use_vertical_biochemistry]{config\_use\_vertical\_biochemistry} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_use_vertical_biochemistry]{config\_use\_vertical\_biochemistry} & Turn on the reaction terms for vertical biological tracers \\
     \hline
-    \hyperref[subsec:nm_sec_config_use_shortwave_bioabsorption]{config\_use\_shortwave\_bioabsor-}\hyperref[subsec:nm_sec_config_use_shortwave_bioabsorption]{ption}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_use_shortwave_bioabsorption]{config\_use\_shortwave\_bioabsor-}\hyperref[subsec:nm_sec_config_use_shortwave_bioabsorption]{ption}& Permit radiative transfer calculations that include dynamic chlorophyll and aerosols if active \\
     \hline
-    \hyperref[subsec:nm_sec_config_use_vertical_tracers]{config\_use\_vertical\_tracers} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_use_vertical_tracers]{config\_use\_vertical\_tracers} & Allow vertically resolved biological and chemical tracers \\
     \hline
-    \hyperref[subsec:nm_sec_config_use_skeletal_biochemistry]{config\_use\_skeletal\_biochemistry} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_use_skeletal_biochemistry]{config\_use\_skeletal\_biochemistry} & Use the bottom 1-layer biogeochemistry \\
     \hline
-    \hyperref[subsec:nm_sec_config_use_nitrate]{config\_use\_nitrate} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_use_nitrate]{config\_use\_nitrate} & Use the nitrate tracer \\
     \hline
-    \hyperref[subsec:nm_sec_config_use_carbon]{config\_use\_carbon} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_use_carbon]{config\_use\_carbon} & Use dissolved organic and inorganic carbon tracers \\
     \hline
-    \hyperref[subsec:nm_sec_config_use_chlorophyll]{config\_use\_chlorophyll} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_use_chlorophyll]{config\_use\_chlorophyll} & Use the chlorophyll tracer (currently not implemented!) \\
     \hline
-    \hyperref[subsec:nm_sec_config_use_ammonium]{config\_use\_ammonium} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_use_ammonium]{config\_use\_ammonium} & Use the ammonium tracer \\
     \hline
-    \hyperref[subsec:nm_sec_config_use_silicate]{config\_use\_silicate} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_use_silicate]{config\_use\_silicate} & Use the silicate tracer \\
     \hline
-    \hyperref[subsec:nm_sec_config_use_DMS]{config\_use\_DMS} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_use_DMS]{config\_use\_DMS} & Use DMS/DMSPd/DMSPp species \\
     \hline
-    \hyperref[subsec:nm_sec_config_use_nonreactive]{config\_use\_nonreactive} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_use_nonreactive]{config\_use\_nonreactive} & Use a non-reactive nitrate tracer \\
     \hline
-    \hyperref[subsec:nm_sec_config_use_humics]{config\_use\_humics} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_use_humics]{config\_use\_humics} & Use the humic matter tracer \\
     \hline
-    \hyperref[subsec:nm_sec_config_use_DON]{config\_use\_DON} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_use_DON]{config\_use\_DON} & Use dissolved organic nitrogen (proteins and amino acids) \\
     \hline
-    \hyperref[subsec:nm_sec_config_use_iron]{config\_use\_iron} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_use_iron]{config\_use\_iron} & Use particulate and dissolved iron tracers \\
     \hline
-    \hyperref[subsec:nm_sec_config_use_modal_aerosols]{config\_use\_modal\_aerosols} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_use_modal_aerosols]{config\_use\_modal\_aerosols} & Aerosols are consistent with the CAM modal aerosol scheme \\
     \hline
-    \hyperref[subsec:nm_sec_config_use_zaerosols]{config\_use\_zaerosols} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_use_zaerosols]{config\_use\_zaerosols} & Aerosols in the ice use the z-aerosol scheme \\
     \hline
-    \hyperref[subsec:nm_sec_config_skeletal_bgc_flux_type]{config\_skeletal\_bgc\_flux\_type} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_skeletal_bgc_flux_type]{config\_skeletal\_bgc\_flux\_type} & Determines the ocean-ice fluxes of biogeochemistry for the bottom1-layer model: in Jin2006,    the piston velocity is a function of ice growth/melt rate, in default, the piston velocity    is constant \\
     \hline
-    \hyperref[subsec:nm_sec_config_scale_initial_vertical_bgc]{config\_scale\_initial\_vertical\_bgc} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_scale_initial_vertical_bgc]{config\_scale\_initial\_vertical\_bgc} & initialize the vertical ice biogeochemistry profile to scale with    the salinity restart/initial profile \\
     \hline
-    \hyperref[subsec:nm_sec_config_biogrid_bottom_molecular_sublayer]{config\_biogrid\_bottom\_molecular\_-}\hyperref[subsec:nm_sec_config_biogrid_bottom_molecular_sublayer]{sublayer}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_biogrid_bottom_molecular_sublayer]{config\_biogrid\_bottom\_molecular\_-}\hyperref[subsec:nm_sec_config_biogrid_bottom_molecular_sublayer]{sublayer}& Sets the value of the ice/ocean molecular sublayer for the vertical biogeochemistry model \\
     \hline
-    \hyperref[subsec:nm_sec_config_biogrid_top_molecular_sublayer]{config\_biogrid\_top\_molecular\_sub-}\hyperref[subsec:nm_sec_config_biogrid_top_molecular_sublayer]{layer}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_biogrid_top_molecular_sublayer]{config\_biogrid\_top\_molecular\_sub-}\hyperref[subsec:nm_sec_config_biogrid_top_molecular_sublayer]{layer}& Sets the value of the ice surface molecular sublayer for the vertical biogeochemistry model \\
     \hline
-    \hyperref[subsec:nm_sec_config_bio_gravity_drainage_length_scale]{config\_bio\_gravity\_drainage\_leng-}\hyperref[subsec:nm_sec_config_bio_gravity_drainage_length_scale]{th\_scale}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_bio_gravity_drainage_length_scale]{config\_bio\_gravity\_drainage\_leng-}\hyperref[subsec:nm_sec_config_bio_gravity_drainage_length_scale]{th\_scale}& positive real number less than 1 \\
     \hline
-    \hyperref[subsec:nm_sec_config_zsalinity_molecular_sublayer]{config\_zsalinity\_molecular\_sublay-}\hyperref[subsec:nm_sec_config_zsalinity_molecular_sublayer]{er}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_zsalinity_molecular_sublayer]{config\_zsalinity\_molecular\_sublay-}\hyperref[subsec:nm_sec_config_zsalinity_molecular_sublayer]{er}& Sets the ice/ocean molecular sublayer for the z-salinity model \\
     \hline
-    \hyperref[subsec:nm_sec_config_zsalinity_gravity_drainage_scale]{config\_zsalinity\_gravity\_drainag-}\hyperref[subsec:nm_sec_config_zsalinity_gravity_drainage_scale]{e\_scale}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_zsalinity_gravity_drainage_scale]{config\_zsalinity\_gravity\_drainag-}\hyperref[subsec:nm_sec_config_zsalinity_gravity_drainage_scale]{e\_scale}& Sets the gravity drainage length scale in the z-salinity model \\
     \hline
-    \hyperref[subsec:nm_sec_config_snow_porosity_at_ice_surface]{config\_snow\_porosity\_at\_ice\_su-}\hyperref[subsec:nm_sec_config_snow_porosity_at_ice_surface]{rface}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_snow_porosity_at_ice_surface]{config\_snow\_porosity\_at\_ice\_su-}\hyperref[subsec:nm_sec_config_snow_porosity_at_ice_surface]{rface}& Specifies the snow porosity (volume of air/total volume) at the ice surface \\
     \hline
-    \hyperref[subsec:nm_sec_config_new_ice_fraction_biotracer]{config\_new\_ice\_fraction\_biotrac-}\hyperref[subsec:nm_sec_config_new_ice_fraction_biotracer]{er}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_new_ice_fraction_biotracer]{config\_new\_ice\_fraction\_biotrac-}\hyperref[subsec:nm_sec_config_new_ice_fraction_biotracer]{er}& Fraction of biological tracer retained as new sea ice is formed from ocean water \\
     \hline
-    \hyperref[subsec:nm_sec_config_fraction_biotracer_in_frazil]{config\_fraction\_biotracer\_in\_fr-}\hyperref[subsec:nm_sec_config_fraction_biotracer_in_frazil]{azil}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_fraction_biotracer_in_frazil]{config\_fraction\_biotracer\_in\_fr-}\hyperref[subsec:nm_sec_config_fraction_biotracer_in_frazil]{azil}& Factor multiplying the ocean concentration of a biological tracer in new frazil ice \\
     \hline
-    \hyperref[subsec:nm_sec_config_ratio_Si_to_N_diatoms]{config\_ratio\_Si\_to\_N\_diatoms} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_ratio_Si_to_N_diatoms]{config\_ratio\_Si\_to\_N\_diatoms} & Sets the ratio of silicate to nitrogen in diatoms \\
     \hline
-    \hyperref[subsec:nm_sec_config_ratio_Si_to_N_small_plankton]{config\_ratio\_Si\_to\_N\_small\_plan-}\hyperref[subsec:nm_sec_config_ratio_Si_to_N_small_plankton]{kton}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_ratio_Si_to_N_small_plankton]{config\_ratio\_Si\_to\_N\_small\_plan-}\hyperref[subsec:nm_sec_config_ratio_Si_to_N_small_plankton]{kton}& Sets the ratio of silicate to nitrogen in small plankton \\
     \hline
-    \hyperref[subsec:nm_sec_config_ratio_Si_to_N_phaeocystis]{config\_ratio\_Si\_to\_N\_phaeocys-}\hyperref[subsec:nm_sec_config_ratio_Si_to_N_phaeocystis]{tis}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_ratio_Si_to_N_phaeocystis]{config\_ratio\_Si\_to\_N\_phaeocys-}\hyperref[subsec:nm_sec_config_ratio_Si_to_N_phaeocystis]{tis}& Sets the ratio of silicate to nitrogen in phaeocystis \\
     \hline
-    \hyperref[subsec:nm_sec_config_ratio_S_to_N_diatoms]{config\_ratio\_S\_to\_N\_diatoms} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_ratio_S_to_N_diatoms]{config\_ratio\_S\_to\_N\_diatoms} & Sets the ratio of sulfur to nitrogen in diatoms \\
     \hline
-    \hyperref[subsec:nm_sec_config_ratio_S_to_N_small_plankton]{config\_ratio\_S\_to\_N\_small\_plank-}\hyperref[subsec:nm_sec_config_ratio_S_to_N_small_plankton]{ton}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_ratio_S_to_N_small_plankton]{config\_ratio\_S\_to\_N\_small\_plank-}\hyperref[subsec:nm_sec_config_ratio_S_to_N_small_plankton]{ton}& Sets the ratio of sulfur to nitrogen in small plankeon \\
     \hline
-    \hyperref[subsec:nm_sec_config_ratio_S_to_N_phaeocystis]{config\_ratio\_S\_to\_N\_phaeocystis} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_ratio_S_to_N_phaeocystis]{config\_ratio\_S\_to\_N\_phaeocystis} & Sets the ratio of sulfur to nitrogen in phaeocystis \\
     \hline
-    \hyperref[subsec:nm_sec_config_ratio_Fe_to_C_diatoms]{config\_ratio\_Fe\_to\_C\_diatoms} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_ratio_Fe_to_C_diatoms]{config\_ratio\_Fe\_to\_C\_diatoms} & Sets the ratio of iron to carbon in diatoms \\
     \hline
-    \hyperref[subsec:nm_sec_config_ratio_Fe_to_C_small_plankton]{config\_ratio\_Fe\_to\_C\_small\_plan-}\hyperref[subsec:nm_sec_config_ratio_Fe_to_C_small_plankton]{kton}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_ratio_Fe_to_C_small_plankton]{config\_ratio\_Fe\_to\_C\_small\_plan-}\hyperref[subsec:nm_sec_config_ratio_Fe_to_C_small_plankton]{kton}& Sets the ratio of iron to carbon in small plankton \\
     \hline
-    \hyperref[subsec:nm_sec_config_ratio_Fe_to_C_phaeocystis]{config\_ratio\_Fe\_to\_C\_phaeocystis} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_ratio_Fe_to_C_phaeocystis]{config\_ratio\_Fe\_to\_C\_phaeocystis} & Sets the ratio of iron to carbon in phaeocystis \\
     \hline
-    \hyperref[subsec:nm_sec_config_ratio_Fe_to_N_diatoms]{config\_ratio\_Fe\_to\_N\_diatoms} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_ratio_Fe_to_N_diatoms]{config\_ratio\_Fe\_to\_N\_diatoms} & Sets the ratio of iron to nitrogen in diatoms \\
     \hline
-    \hyperref[subsec:nm_sec_config_ratio_Fe_to_N_small_plankton]{config\_ratio\_Fe\_to\_N\_small\_plan-}\hyperref[subsec:nm_sec_config_ratio_Fe_to_N_small_plankton]{kton}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_ratio_Fe_to_N_small_plankton]{config\_ratio\_Fe\_to\_N\_small\_plan-}\hyperref[subsec:nm_sec_config_ratio_Fe_to_N_small_plankton]{kton}& Sets the ratio of iron to nitrogen in small plankton \\
     \hline
-    \hyperref[subsec:nm_sec_config_ratio_Fe_to_N_phaeocystis]{config\_ratio\_Fe\_to\_N\_phaeocystis} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_ratio_Fe_to_N_phaeocystis]{config\_ratio\_Fe\_to\_N\_phaeocystis} & Sets the ratio of iron to nitrogen in phaeocystis \\
     \hline
-    \hyperref[subsec:nm_sec_config_ratio_Fe_to_DON]{config\_ratio\_Fe\_to\_DON} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_ratio_Fe_to_DON]{config\_ratio\_Fe\_to\_DON} & Sets the ratio of iron to dissolved organic nitrogen \\
     \hline
-    \hyperref[subsec:nm_sec_config_ratio_Fe_to_DOC_saccharids]{config\_ratio\_Fe\_to\_DOC\_saccharids} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_ratio_Fe_to_DOC_saccharids]{config\_ratio\_Fe\_to\_DOC\_saccharids} & Sets the ratio of iron to poly/saccharid carbon \\
     \hline
-    \hyperref[subsec:nm_sec_config_ratio_Fe_to_DOC_lipids]{config\_ratio\_Fe\_to\_DOC\_lipids} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_ratio_Fe_to_DOC_lipids]{config\_ratio\_Fe\_to\_DOC\_lipids} & Sets the ratio of iron to lipid carbon \\
     \hline
-    \hyperref[subsec:nm_sec_config_respiration_fraction_of_growth]{config\_respiration\_fraction\_of\_-}\hyperref[subsec:nm_sec_config_respiration_fraction_of_growth]{growth}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_respiration_fraction_of_growth]{config\_respiration\_fraction\_of\_-}\hyperref[subsec:nm_sec_config_respiration_fraction_of_growth]{growth}& Fraction of algal growth that is lost due to respiration \\
     \hline
-    \hyperref[subsec:nm_sec_config_rapid_mobile_to_stationary_time]{config\_rapid\_mobile\_to\_stationar-}\hyperref[subsec:nm_sec_config_rapid_mobile_to_stationary_time]{y\_time}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_rapid_mobile_to_stationary_time]{config\_rapid\_mobile\_to\_stationar-}\hyperref[subsec:nm_sec_config_rapid_mobile_to_stationary_time]{y\_time}& Rapid adsorption timescale   \\
     \hline
-    \hyperref[subsec:nm_sec_config_long_mobile_to_stationary_time]{config\_long\_mobile\_to\_stationary-}\hyperref[subsec:nm_sec_config_long_mobile_to_stationary_time]{\_time}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_long_mobile_to_stationary_time]{config\_long\_mobile\_to\_stationary-}\hyperref[subsec:nm_sec_config_long_mobile_to_stationary_time]{\_time}& Slow adsorption timescale \\
     \hline
-    \hyperref[subsec:nm_sec_config_algal_maximum_velocity]{config\_algal\_maximum\_velocity} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_algal_maximum_velocity]{config\_algal\_maximum\_velocity} & Maximum speed at which diatoms can move \\
     \hline
-    \hyperref[subsec:nm_sec_config_ratio_Fe_to_dust]{config\_ratio\_Fe\_to\_dust} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_ratio_Fe_to_dust]{config\_ratio\_Fe\_to\_dust} & Mass ratio of iron in dust \\
     \hline
-    \hyperref[subsec:nm_sec_config_solubility_of_Fe_in_dust]{config\_solubility\_of\_Fe\_in\_dust} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_solubility_of_Fe_in_dust]{config\_solubility\_of\_Fe\_in\_dust} & Fraction of iron that is soluble \\
     \hline
-    \hyperref[subsec:nm_sec_config_chla_absorptivity_of_diatoms]{config\_chla\_absorptivity\_of\_diat-}\hyperref[subsec:nm_sec_config_chla_absorptivity_of_diatoms]{oms}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_chla_absorptivity_of_diatoms]{config\_chla\_absorptivity\_of\_diat-}\hyperref[subsec:nm_sec_config_chla_absorptivity_of_diatoms]{oms}& Absorptivity of chlorophyll in diatoms \\
     \hline
-    \hyperref[subsec:nm_sec_config_chla_absorptivity_of_small_plankton]{config\_chla\_absorptivity\_of\_smal-}\hyperref[subsec:nm_sec_config_chla_absorptivity_of_small_plankton]{l\_plankton}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_chla_absorptivity_of_small_plankton]{config\_chla\_absorptivity\_of\_smal-}\hyperref[subsec:nm_sec_config_chla_absorptivity_of_small_plankton]{l\_plankton}& Absorptivity of chlorophyll in small plankton \\
     \hline
-    \hyperref[subsec:nm_sec_config_chla_absorptivity_of_phaeocystis]{config\_chla\_absorptivity\_of\_pha-}\hyperref[subsec:nm_sec_config_chla_absorptivity_of_phaeocystis]{eocystis}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_chla_absorptivity_of_phaeocystis]{config\_chla\_absorptivity\_of\_pha-}\hyperref[subsec:nm_sec_config_chla_absorptivity_of_phaeocystis]{eocystis}& Absorptivity of chlorophyll in phaeocystis \\
     \hline
-    \hyperref[subsec:nm_sec_config_light_attenuation_diatoms]{config\_light\_attenuation\_diatoms} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_light_attenuation_diatoms]{config\_light\_attenuation\_diatoms} & Controls the ability of diatoms to utilize light \\
     \hline
-    \hyperref[subsec:nm_sec_config_light_attenuation_small_plankton]{config\_light\_attenuation\_small\_pl-}\hyperref[subsec:nm_sec_config_light_attenuation_small_plankton]{ankton}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_light_attenuation_small_plankton]{config\_light\_attenuation\_small\_pl-}\hyperref[subsec:nm_sec_config_light_attenuation_small_plankton]{ankton}& Controls the ability of small plankton to utilize light \\
     \hline
-    \hyperref[subsec:nm_sec_config_light_attenuation_phaeocystis]{config\_light\_attenuation\_phaeoc-}\hyperref[subsec:nm_sec_config_light_attenuation_phaeocystis]{ystis}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_light_attenuation_phaeocystis]{config\_light\_attenuation\_phaeoc-}\hyperref[subsec:nm_sec_config_light_attenuation_phaeocystis]{ystis}& Controls the ability of phaeocystis to utilize light \\
     \hline
-    \hyperref[subsec:nm_sec_config_light_inhibition_diatoms]{config\_light\_inhibition\_diatoms} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_light_inhibition_diatoms]{config\_light\_inhibition\_diatoms} & Controls the strength of light inhibition to growth for diatoms \\
     \hline
-    \hyperref[subsec:nm_sec_config_light_inhibition_small_plankton]{config\_light\_inhibition\_small\_plankt-}\hyperref[subsec:nm_sec_config_light_inhibition_small_plankton]{on}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_light_inhibition_small_plankton]{config\_light\_inhibition\_small\_plankt-}\hyperref[subsec:nm_sec_config_light_inhibition_small_plankton]{on}& Controls the strength of light inhibition to growth for small plankton \\
     \hline
-    \hyperref[subsec:nm_sec_config_light_inhibition_phaeocystis]{config\_light\_inhibition\_phaeocysti-}\hyperref[subsec:nm_sec_config_light_inhibition_phaeocystis]{s}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_light_inhibition_phaeocystis]{config\_light\_inhibition\_phaeocysti-}\hyperref[subsec:nm_sec_config_light_inhibition_phaeocystis]{s}& Controls the strength of light inhibition to growth for phaeocystis \\
     \hline
-    \hyperref[subsec:nm_sec_config_maximum_growth_rate_diatoms]{config\_maximum\_growth\_rate\_dia-}\hyperref[subsec:nm_sec_config_maximum_growth_rate_diatoms]{toms}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_maximum_growth_rate_diatoms]{config\_maximum\_growth\_rate\_dia-}\hyperref[subsec:nm_sec_config_maximum_growth_rate_diatoms]{toms}& Maximum growth rate for diatoms \\
     \hline
-    \hyperref[subsec:nm_sec_config_maximum_growth_rate_small_plankton]{config\_maximum\_growth\_rate\_sm-}\hyperref[subsec:nm_sec_config_maximum_growth_rate_small_plankton]{all\_plankton}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_maximum_growth_rate_small_plankton]{config\_maximum\_growth\_rate\_sm-}\hyperref[subsec:nm_sec_config_maximum_growth_rate_small_plankton]{all\_plankton}& Maximum growth rate for small plankton \\
     \hline
-    \hyperref[subsec:nm_sec_config_maximum_growth_rate_phaeocystis]{config\_maximum\_growth\_rate\_ph-}\hyperref[subsec:nm_sec_config_maximum_growth_rate_phaeocystis]{aeocystis}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_maximum_growth_rate_phaeocystis]{config\_maximum\_growth\_rate\_ph-}\hyperref[subsec:nm_sec_config_maximum_growth_rate_phaeocystis]{aeocystis}& Maximum growth rate for phaeocystis \\
     \hline
-    \hyperref[subsec:nm_sec_config_temperature_growth_diatoms]{config\_temperature\_growth\_dia-}\hyperref[subsec:nm_sec_config_temperature_growth_diatoms]{toms}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_temperature_growth_diatoms]{config\_temperature\_growth\_dia-}\hyperref[subsec:nm_sec_config_temperature_growth_diatoms]{toms}& Controls the temperature dependence of growth for diatoms \\
     \hline
-    \hyperref[subsec:nm_sec_config_temperature_growth_small_plankton]{config\_temperature\_growth\_small\_plankton} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_temperature_growth_small_plankton]{config\_temperature\_growth\_small\_plankton} & Controls the temperature dependence of growth for small plankton \\
     \hline
-    \hyperref[subsec:nm_sec_config_temperature_growth_phaeocystis]{config\_temperature\_growth\_phaeocystis} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_temperature_growth_phaeocystis]{config\_temperature\_growth\_phaeocystis} & Controls the temperature dependence of growth for phaeocystis \\
     \hline
-    \hyperref[subsec:nm_sec_config_grazed_fraction_diatoms]{config\_grazed\_fraction\_diatoms} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_grazed_fraction_diatoms]{config\_grazed\_fraction\_diatoms} & Fraction of diatom biomass grazed \\
     \hline
-    \hyperref[subsec:nm_sec_config_grazed_fraction_small_plankton]{config\_grazed\_fraction\_small\_pla-}\hyperref[subsec:nm_sec_config_grazed_fraction_small_plankton]{nkton}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_grazed_fraction_small_plankton]{config\_grazed\_fraction\_small\_pla-}\hyperref[subsec:nm_sec_config_grazed_fraction_small_plankton]{nkton}& Fraction of small plankton biomass grazed \\
     \hline
-    \hyperref[subsec:nm_sec_config_grazed_fraction_phaeocystis]{config\_grazed\_fraction\_phaeoc-}\hyperref[subsec:nm_sec_config_grazed_fraction_phaeocystis]{ystis}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_grazed_fraction_phaeocystis]{config\_grazed\_fraction\_phaeoc-}\hyperref[subsec:nm_sec_config_grazed_fraction_phaeocystis]{ystis}& Fraction of phaeocystis biomass grazed \\
     \hline
-    \hyperref[subsec:nm_sec_config_mortality_diatoms]{config\_mortality\_diatoms} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_mortality_diatoms]{config\_mortality\_diatoms} & Mortality rate of diatoms \\
     \hline
-    \hyperref[subsec:nm_sec_config_mortality_small_plankton]{config\_mortality\_small\_plankton} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_mortality_small_plankton]{config\_mortality\_small\_plankton} & Mortality rate of small plankton \\
     \hline
-    \hyperref[subsec:nm_sec_config_mortality_phaeocystis]{config\_mortality\_phaeocystis} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_mortality_phaeocystis]{config\_mortality\_phaeocystis} & Mortality rate of phaeocystis \\
     \hline
-    \hyperref[subsec:nm_sec_config_temperature_mortality_diatoms]{config\_temperature\_mortality\_di-}\hyperref[subsec:nm_sec_config_temperature_mortality_diatoms]{atoms}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_temperature_mortality_diatoms]{config\_temperature\_mortality\_di-}\hyperref[subsec:nm_sec_config_temperature_mortality_diatoms]{atoms}& Temperature dependence of diatom mortality rate \\
     \hline
-    \hyperref[subsec:nm_sec_config_temperature_mortality_small_plankton]{config\_temperature\_mortality\_s-}\hyperref[subsec:nm_sec_config_temperature_mortality_small_plankton]{mall\_plankton}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_temperature_mortality_small_plankton]{config\_temperature\_mortality\_s-}\hyperref[subsec:nm_sec_config_temperature_mortality_small_plankton]{mall\_plankton}& Temperature dependence of small plankton mortality rate \\
     \hline
-    \hyperref[subsec:nm_sec_config_temperature_mortality_phaeocystis]{config\_temperature\_mortality\_p-}\hyperref[subsec:nm_sec_config_temperature_mortality_phaeocystis]{haeocystis}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_temperature_mortality_phaeocystis]{config\_temperature\_mortality\_p-}\hyperref[subsec:nm_sec_config_temperature_mortality_phaeocystis]{haeocystis}& Temperature dependence of phaeocystis mortality rate \\
     \hline
-    \hyperref[subsec:nm_sec_config_exudation_diatoms]{config\_exudation\_diatoms} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_exudation_diatoms]{config\_exudation\_diatoms} & Rate diatoms exude DOC \\
     \hline
-    \hyperref[subsec:nm_sec_config_exudation_small_plankton]{config\_exudation\_small\_plankton} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_exudation_small_plankton]{config\_exudation\_small\_plankton} & Rate small plankton exude DOC \\
     \hline
-    \hyperref[subsec:nm_sec_config_exudation_phaeocystis]{config\_exudation\_phaeocystis} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_exudation_phaeocystis]{config\_exudation\_phaeocystis} & Rate phaeocystis exude DOC \\
     \hline
-    \hyperref[subsec:nm_sec_config_nitrate_saturation_diatoms]{config\_nitrate\_saturation\_diato-}\hyperref[subsec:nm_sec_config_nitrate_saturation_diatoms]{ms}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_nitrate_saturation_diatoms]{config\_nitrate\_saturation\_diato-}\hyperref[subsec:nm_sec_config_nitrate_saturation_diatoms]{ms}& Nitrate half saturation for diatom growth \\
     \hline
-    \hyperref[subsec:nm_sec_config_nitrate_saturation_small_plankton]{config\_nitrate\_saturation\_small\_-}\hyperref[subsec:nm_sec_config_nitrate_saturation_small_plankton]{plankton}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_nitrate_saturation_small_plankton]{config\_nitrate\_saturation\_small\_-}\hyperref[subsec:nm_sec_config_nitrate_saturation_small_plankton]{plankton}& Nitrate half saturation for small plankton growth \\
     \hline
-    \hyperref[subsec:nm_sec_config_nitrate_saturation_phaeocystis]{config\_nitrate\_saturation\_phae-}\hyperref[subsec:nm_sec_config_nitrate_saturation_phaeocystis]{ocystis}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_nitrate_saturation_phaeocystis]{config\_nitrate\_saturation\_phae-}\hyperref[subsec:nm_sec_config_nitrate_saturation_phaeocystis]{ocystis}& Nitrate half saturation for phaeocystis growth \\
     \hline
-    \hyperref[subsec:nm_sec_config_ammonium_saturation_diatoms]{config\_ammonium\_saturation\_diat-}\hyperref[subsec:nm_sec_config_ammonium_saturation_diatoms]{oms}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_ammonium_saturation_diatoms]{config\_ammonium\_saturation\_diat-}\hyperref[subsec:nm_sec_config_ammonium_saturation_diatoms]{oms}& Ammonium half saturation for diatom growth \\
     \hline
-    \hyperref[subsec:nm_sec_config_ammonium_saturation_small_plankton]{config\_ammonium\_saturation\_small-}\hyperref[subsec:nm_sec_config_ammonium_saturation_small_plankton]{\_plankton}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_ammonium_saturation_small_plankton]{config\_ammonium\_saturation\_small-}\hyperref[subsec:nm_sec_config_ammonium_saturation_small_plankton]{\_plankton}& Ammonium half saturation for small plankton growth \\
     \hline
-    \hyperref[subsec:nm_sec_config_ammonium_saturation_phaeocystis]{config\_ammonium\_saturation\_pha-}\hyperref[subsec:nm_sec_config_ammonium_saturation_phaeocystis]{eocystis}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_ammonium_saturation_phaeocystis]{config\_ammonium\_saturation\_pha-}\hyperref[subsec:nm_sec_config_ammonium_saturation_phaeocystis]{eocystis}& Ammonium half saturation for phaeocystis growth \\
     \hline
-    \hyperref[subsec:nm_sec_config_silicate_saturation_diatoms]{config\_silicate\_saturation\_diato-}\hyperref[subsec:nm_sec_config_silicate_saturation_diatoms]{ms}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_silicate_saturation_diatoms]{config\_silicate\_saturation\_diato-}\hyperref[subsec:nm_sec_config_silicate_saturation_diatoms]{ms}& Silicate half saturation for diatom growth \\
     \hline
-    \hyperref[subsec:nm_sec_config_silicate_saturation_small_plankton]{config\_silicate\_saturation\_small\_-}\hyperref[subsec:nm_sec_config_silicate_saturation_small_plankton]{plankton}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_silicate_saturation_small_plankton]{config\_silicate\_saturation\_small\_-}\hyperref[subsec:nm_sec_config_silicate_saturation_small_plankton]{plankton}& Silicate half saturation for small plankton growth \\
     \hline
-    \hyperref[subsec:nm_sec_config_silicate_saturation_phaeocystis]{config\_silicate\_saturation\_phaeo-}\hyperref[subsec:nm_sec_config_silicate_saturation_phaeocystis]{cystis}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_silicate_saturation_phaeocystis]{config\_silicate\_saturation\_phaeo-}\hyperref[subsec:nm_sec_config_silicate_saturation_phaeocystis]{cystis}& Silicate half saturation for phaeocystis growth \\
     \hline
-    \hyperref[subsec:nm_sec_config_iron_saturation_diatoms]{config\_iron\_saturation\_diatoms} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_iron_saturation_diatoms]{config\_iron\_saturation\_diatoms} & Iron half saturation for diatom growth \\
     \hline
-    \hyperref[subsec:nm_sec_config_iron_saturation_small_plankton]{config\_iron\_saturation\_small\_pla-}\hyperref[subsec:nm_sec_config_iron_saturation_small_plankton]{nkton}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_iron_saturation_small_plankton]{config\_iron\_saturation\_small\_pla-}\hyperref[subsec:nm_sec_config_iron_saturation_small_plankton]{nkton}& Iron half saturation for small plankton growth \\
     \hline
-    \hyperref[subsec:nm_sec_config_iron_saturation_phaeocystis]{config\_iron\_saturation\_phaeocy-}\hyperref[subsec:nm_sec_config_iron_saturation_phaeocystis]{stis}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_iron_saturation_phaeocystis]{config\_iron\_saturation\_phaeocy-}\hyperref[subsec:nm_sec_config_iron_saturation_phaeocystis]{stis}& Iron half saturation for phaeocystis growth \\
     \hline
-    \hyperref[subsec:nm_sec_config_fraction_spilled_to_DON]{config\_fraction\_spilled\_to\_DON} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_fraction_spilled_to_DON]{config\_fraction\_spilled\_to\_DON} & Fraction of spilled grazing to proteins \\
     \hline
-    \hyperref[subsec:nm_sec_config_degredation_of_DON]{config\_degredation\_of\_DON} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_degredation_of_DON]{config\_degredation\_of\_DON} & Bacterial degredation of DON \\
     \hline
-    \hyperref[subsec:nm_sec_config_fraction_DON_ammonium]{config\_fraction\_DON\_ammonium} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_fraction_DON_ammonium]{config\_fraction\_DON\_ammonium} & Fraction of remineralized DON converted to ammonium \\
     \hline
-    \hyperref[subsec:nm_sec_config_fraction_loss_to_saccharids]{config\_fraction\_loss\_to\_saccha-}\hyperref[subsec:nm_sec_config_fraction_loss_to_saccharids]{rids}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_fraction_loss_to_saccharids]{config\_fraction\_loss\_to\_saccha-}\hyperref[subsec:nm_sec_config_fraction_loss_to_saccharids]{rids}& Fraction of mortality to poly/saccharids \\
     \hline
-    \hyperref[subsec:nm_sec_config_fraction_loss_to_lipids]{config\_fraction\_loss\_to\_lipids} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_fraction_loss_to_lipids]{config\_fraction\_loss\_to\_lipids} & Fraction of mortality to lipids \\
     \hline
-    \hyperref[subsec:nm_sec_config_fraction_exudation_to_saccharids]{config\_fraction\_exudation\_to\_s-}\hyperref[subsec:nm_sec_config_fraction_exudation_to_saccharids]{accharids}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_fraction_exudation_to_saccharids]{config\_fraction\_exudation\_to\_s-}\hyperref[subsec:nm_sec_config_fraction_exudation_to_saccharids]{accharids}& Fracton of exudation to poly/saccharids \\
     \hline
-    \hyperref[subsec:nm_sec_config_fraction_exudation_to_lipids]{config\_fraction\_exudation\_to\_lip-}\hyperref[subsec:nm_sec_config_fraction_exudation_to_lipids]{ids}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_fraction_exudation_to_lipids]{config\_fraction\_exudation\_to\_lip-}\hyperref[subsec:nm_sec_config_fraction_exudation_to_lipids]{ids}& Fraction of exudation to lipids \\
     \hline
-    \hyperref[subsec:nm_sec_config_remineralization_saccharids]{config\_remineralization\_sacchari-}\hyperref[subsec:nm_sec_config_remineralization_saccharids]{ds}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_remineralization_saccharids]{config\_remineralization\_sacchari-}\hyperref[subsec:nm_sec_config_remineralization_saccharids]{ds}& Bacterial degredaton rate of poly/saccarids \\
     \hline
-    \hyperref[subsec:nm_sec_config_remineralization_lipids]{config\_remineralization\_lipids} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_remineralization_lipids]{config\_remineralization\_lipids} & Bacterial degredation rate of lipids \\
     \hline
-    \hyperref[subsec:nm_sec_config_maximum_brine_temperature]{config\_maximum\_brine\_temperatu-}\hyperref[subsec:nm_sec_config_maximum_brine_temperature]{re}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_maximum_brine_temperature]{config\_maximum\_brine\_temperatu-}\hyperref[subsec:nm_sec_config_maximum_brine_temperature]{re}& Maximum brine temperature \\
     \hline
-    \hyperref[subsec:nm_sec_config_salinity_dependence_of_growth]{config\_salinity\_dependence\_of\_g-}\hyperref[subsec:nm_sec_config_salinity_dependence_of_growth]{rowth}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_salinity_dependence_of_growth]{config\_salinity\_dependence\_of\_g-}\hyperref[subsec:nm_sec_config_salinity_dependence_of_growth]{rowth}& Salinity limitation factor \\
     \hline
-    \hyperref[subsec:nm_sec_config_minimum_optical_depth]{config\_minimum\_optical\_depth} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_minimum_optical_depth]{config\_minimum\_optical\_depth} & Minimum optical depth above which light attenuates \\
     \hline
-    \hyperref[subsec:nm_sec_config_slopped_grazing_fraction]{config\_slopped\_grazing\_fraction} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_slopped_grazing_fraction]{config\_slopped\_grazing\_fraction} & Fraction of grazing spilled or slopped \\
     \hline
-    \hyperref[subsec:nm_sec_config_excreted_fraction]{config\_excreted\_fraction} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_excreted_fraction]{config\_excreted\_fraction} & Fraction of assimilation excreted \\
     \hline
-    \hyperref[subsec:nm_sec_config_fraction_mortality_to_ammonium]{config\_fraction\_mortality\_to\_am-}\hyperref[subsec:nm_sec_config_fraction_mortality_to_ammonium]{monium}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_fraction_mortality_to_ammonium]{config\_fraction\_mortality\_to\_am-}\hyperref[subsec:nm_sec_config_fraction_mortality_to_ammonium]{monium}& Fraction of mortality to ammonium \\
     \hline
-    \hyperref[subsec:nm_sec_config_fraction_iron_remineralized]{config\_fraction\_iron\_remineraliz-}\hyperref[subsec:nm_sec_config_fraction_iron_remineralized]{ed}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_fraction_iron_remineralized]{config\_fraction\_iron\_remineraliz-}\hyperref[subsec:nm_sec_config_fraction_iron_remineralized]{ed}& Fraction of remineralized iron  \\
     \hline
-    \hyperref[subsec:nm_sec_config_nitrification_rate]{config\_nitrification\_rate} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_nitrification_rate]{config\_nitrification\_rate} & Nitrification rate \\
     \hline
-    \hyperref[subsec:nm_sec_config_desorption_loss_particulate_iron]{config\_desorption\_loss\_particula-}\hyperref[subsec:nm_sec_config_desorption_loss_particulate_iron]{te\_iron}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_desorption_loss_particulate_iron]{config\_desorption\_loss\_particula-}\hyperref[subsec:nm_sec_config_desorption_loss_particulate_iron]{te\_iron}& Desorption rate of particulate iron to dissolved iron \\
     \hline
-    \hyperref[subsec:nm_sec_config_maximum_loss_fraction]{config\_maximum\_loss\_fraction} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_maximum_loss_fraction]{config\_maximum\_loss\_fraction} & Maximum uptake fraction in a single timestep \\
     \hline
-    \hyperref[subsec:nm_sec_config_maximum_ratio_iron_to_saccharids]{config\_maximum\_ratio\_iron\_to\_sa-}\hyperref[subsec:nm_sec_config_maximum_ratio_iron_to_saccharids]{ccharids}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_maximum_ratio_iron_to_saccharids]{config\_maximum\_ratio\_iron\_to\_sa-}\hyperref[subsec:nm_sec_config_maximum_ratio_iron_to_saccharids]{ccharids}& Optimal ratio of dissolved iron to poly/saccharids in the brine \\
     \hline
-    \hyperref[subsec:nm_sec_config_respiration_loss_to_DMSPd]{config\_respiration\_loss\_to\_DM-}\hyperref[subsec:nm_sec_config_respiration_loss_to_DMSPd]{SPd}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_respiration_loss_to_DMSPd]{config\_respiration\_loss\_to\_DM-}\hyperref[subsec:nm_sec_config_respiration_loss_to_DMSPd]{SPd}& Fraction of respiration loss as DMSPd \\
     \hline
-    \hyperref[subsec:nm_sec_config_DMSP_to_DMS_conversion_fraction]{config\_DMSP\_to\_DMS\_conversion\_fraction} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_DMSP_to_DMS_conversion_fraction]{config\_DMSP\_to\_DMS\_conversion\_fraction} & Fraction of conversion to DMS given high yield \\
     \hline
-    \hyperref[subsec:nm_sec_config_DMSP_to_DMS_conversion_time]{config\_DMSP\_to\_DMS\_conversion\_time} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_DMSP_to_DMS_conversion_time]{config\_DMSP\_to\_DMS\_conversion\_time} & Stefels conversion time \\
     \hline
-    \hyperref[subsec:nm_sec_config_DMS_oxidation_time]{config\_DMS\_oxidation\_time} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_DMS_oxidation_time]{config\_DMS\_oxidation\_time} & DMS oxidation time \\
     \hline
-    \hyperref[subsec:nm_sec_config_mobility_type_diatoms]{config\_mobility\_type\_diatoms} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_mobility_type_diatoms]{config\_mobility\_type\_diatoms} & Transport type of diatoms \\
     \hline
-    \hyperref[subsec:nm_sec_config_mobility_type_small_plankton]{config\_mobility\_type\_small\_plankt-}\hyperref[subsec:nm_sec_config_mobility_type_small_plankton]{on}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_mobility_type_small_plankton]{config\_mobility\_type\_small\_plankt-}\hyperref[subsec:nm_sec_config_mobility_type_small_plankton]{on}& Transport type of small plankton \\
     \hline
-    \hyperref[subsec:nm_sec_config_mobility_type_phaeocystis]{config\_mobility\_type\_phaeocystis} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_mobility_type_phaeocystis]{config\_mobility\_type\_phaeocystis} & Transport type of phaeocystis \\
     \hline
-    \hyperref[subsec:nm_sec_config_mobility_type_nitrate]{config\_mobility\_type\_nitrate} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_mobility_type_nitrate]{config\_mobility\_type\_nitrate} & Transport type of nitrate \\
     \hline
-    \hyperref[subsec:nm_sec_config_mobility_type_ammonium]{config\_mobility\_type\_ammonium} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_mobility_type_ammonium]{config\_mobility\_type\_ammonium} & Transport type of ammonium \\
     \hline
-    \hyperref[subsec:nm_sec_config_mobility_type_silicate]{config\_mobility\_type\_silicate} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_mobility_type_silicate]{config\_mobility\_type\_silicate} & Transport type of silicate \\
     \hline
-    \hyperref[subsec:nm_sec_config_mobility_type_DMSPp]{config\_mobility\_type\_DMSPp} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_mobility_type_DMSPp]{config\_mobility\_type\_DMSPp} & Transport type of particulate DMSP \\
     \hline
-    \hyperref[subsec:nm_sec_config_mobility_type_DMSPd]{config\_mobility\_type\_DMSPd} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_mobility_type_DMSPd]{config\_mobility\_type\_DMSPd} & Transport type of dissolved DMSP \\
     \hline
-    \hyperref[subsec:nm_sec_config_mobility_type_humics]{config\_mobility\_type\_humics} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_mobility_type_humics]{config\_mobility\_type\_humics} & Transport type of humics \\
     \hline
-    \hyperref[subsec:nm_sec_config_mobility_type_saccharids]{config\_mobility\_type\_saccharids} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_mobility_type_saccharids]{config\_mobility\_type\_saccharids} & Transport type of poly/saccharids \\
     \hline
-    \hyperref[subsec:nm_sec_config_mobility_type_lipids]{config\_mobility\_type\_lipids} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_mobility_type_lipids]{config\_mobility\_type\_lipids} & Transport type of lipids \\
     \hline
-    \hyperref[subsec:nm_sec_config_mobility_type_proteins]{config\_mobility\_type\_proteins} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_mobility_type_proteins]{config\_mobility\_type\_proteins} & Transport type of proteins \\
     \hline
-    \hyperref[subsec:nm_sec_config_mobility_type_dissolved_iron]{config\_mobility\_type\_dissolved\_ir-}\hyperref[subsec:nm_sec_config_mobility_type_dissolved_iron]{on}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_mobility_type_dissolved_iron]{config\_mobility\_type\_dissolved\_ir-}\hyperref[subsec:nm_sec_config_mobility_type_dissolved_iron]{on}& Transport type of dissolved iron \\
     \hline
-    \hyperref[subsec:nm_sec_config_mobility_type_particulate_iron]{config\_mobility\_type\_particulate-}\hyperref[subsec:nm_sec_config_mobility_type_particulate_iron]{\_iron}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_mobility_type_particulate_iron]{config\_mobility\_type\_particulate-}\hyperref[subsec:nm_sec_config_mobility_type_particulate_iron]{\_iron}& Transport type of particulate iron \\
     \hline
-    \hyperref[subsec:nm_sec_config_mobility_type_black_carbon1]{config\_mobility\_type\_black\_carbo-}\hyperref[subsec:nm_sec_config_mobility_type_black_carbon1]{n1}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_mobility_type_black_carbon1]{config\_mobility\_type\_black\_carbo-}\hyperref[subsec:nm_sec_config_mobility_type_black_carbon1]{n1}& Transport type of black carbon 1 pool \\
     \hline
-    \hyperref[subsec:nm_sec_config_mobility_type_black_carbon2]{config\_mobility\_type\_black\_carbo-}\hyperref[subsec:nm_sec_config_mobility_type_black_carbon2]{n2}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_mobility_type_black_carbon2]{config\_mobility\_type\_black\_carbo-}\hyperref[subsec:nm_sec_config_mobility_type_black_carbon2]{n2}& Transport type of black carbon 1 pool \\
     \hline
-    \hyperref[subsec:nm_sec_config_mobility_type_dust1]{config\_mobility\_type\_dust1} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_mobility_type_dust1]{config\_mobility\_type\_dust1} & Transport type of dust pool 1 \\
     \hline
-    \hyperref[subsec:nm_sec_config_mobility_type_dust2]{config\_mobility\_type\_dust2} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_mobility_type_dust2]{config\_mobility\_type\_dust2} & Transport type of dust pool 2 \\
     \hline
-    \hyperref[subsec:nm_sec_config_mobility_type_dust3]{config\_mobility\_type\_dust3} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_mobility_type_dust3]{config\_mobility\_type\_dust3} & Transport type of dust pool 3 \\
     \hline
-    \hyperref[subsec:nm_sec_config_mobility_type_dust4]{config\_mobility\_type\_dust4} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_mobility_type_dust4]{config\_mobility\_type\_dust4} & Transport type of dust pool 4 \\
     \hline
-    \hyperref[subsec:nm_sec_config_ratio_C_to_N_diatoms]{config\_ratio\_C\_to\_N\_diatoms} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_ratio_C_to_N_diatoms]{config\_ratio\_C\_to\_N\_diatoms} & Algal carbon to nitrogen mole ratio for diatoms \\
     \hline
-    \hyperref[subsec:nm_sec_config_ratio_C_to_N_small_plankton]{config\_ratio\_C\_to\_N\_small\_plank-}\hyperref[subsec:nm_sec_config_ratio_C_to_N_small_plankton]{ton}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_ratio_C_to_N_small_plankton]{config\_ratio\_C\_to\_N\_small\_plank-}\hyperref[subsec:nm_sec_config_ratio_C_to_N_small_plankton]{ton}& Algal carbon to nitrogen mole ratio for small plankton \\
     \hline
-    \hyperref[subsec:nm_sec_config_ratio_C_to_N_phaeocystis]{config\_ratio\_C\_to\_N\_phaeocystis} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_ratio_C_to_N_phaeocystis]{config\_ratio\_C\_to\_N\_phaeocystis} & Algal carbon to nitrogen mole ratio for phaeocystis \\
     \hline
-    \hyperref[subsec:nm_sec_config_ratio_chla_to_N_diatoms]{config\_ratio\_chla\_to\_N\_diatoms} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_ratio_chla_to_N_diatoms]{config\_ratio\_chla\_to\_N\_diatoms} & Algal chlorophyll to nitrogen ratio for diatoms \\
     \hline
-    \hyperref[subsec:nm_sec_config_ratio_chla_to_N_small_plankton]{config\_ratio\_chla\_to\_N\_small\_pla-}\hyperref[subsec:nm_sec_config_ratio_chla_to_N_small_plankton]{nkton}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_ratio_chla_to_N_small_plankton]{config\_ratio\_chla\_to\_N\_small\_pla-}\hyperref[subsec:nm_sec_config_ratio_chla_to_N_small_plankton]{nkton}& Algal chlorophyll to nitrogen ratio for small plankton \\
     \hline
-    \hyperref[subsec:nm_sec_config_ratio_chla_to_N_phaeocystis]{config\_ratio\_chla\_to\_N\_phaeoc-}\hyperref[subsec:nm_sec_config_ratio_chla_to_N_phaeocystis]{ystis}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_ratio_chla_to_N_phaeocystis]{config\_ratio\_chla\_to\_N\_phaeoc-}\hyperref[subsec:nm_sec_config_ratio_chla_to_N_phaeocystis]{ystis}& Algal chlorophyll to nitrogen ratio for phaeocystis \\
     \hline
-    \hyperref[subsec:nm_sec_config_scales_absorption_diatoms]{config\_scales\_absorption\_diatom-}\hyperref[subsec:nm_sec_config_scales_absorption_diatoms]{s}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_scales_absorption_diatoms]{config\_scales\_absorption\_diatom-}\hyperref[subsec:nm_sec_config_scales_absorption_diatoms]{s}& Scales absorbed radiation for diatoms \\
     \hline
-    \hyperref[subsec:nm_sec_config_scales_absorption_small_plankton]{config\_scales\_absorption\_small\_p-}\hyperref[subsec:nm_sec_config_scales_absorption_small_plankton]{lankton}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_scales_absorption_small_plankton]{config\_scales\_absorption\_small\_p-}\hyperref[subsec:nm_sec_config_scales_absorption_small_plankton]{lankton}& Scales absorbed radiation for small plankton \\
     \hline
-    \hyperref[subsec:nm_sec_config_scales_absorption_phaeocystis]{config\_scales\_absorption\_phaeo-}\hyperref[subsec:nm_sec_config_scales_absorption_phaeocystis]{cystis}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_scales_absorption_phaeocystis]{config\_scales\_absorption\_phaeo-}\hyperref[subsec:nm_sec_config_scales_absorption_phaeocystis]{cystis}& Scales absorbed radiation for phaeocystis \\
     \hline
-    \hyperref[subsec:nm_sec_config_ratio_C_to_N_proteins]{config\_ratio\_C\_to\_N\_proteins} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_ratio_C_to_N_proteins]{config\_ratio\_C\_to\_N\_proteins} & Ratio of carbon to nitrogen in proteins \\
     \hline
 \end{longtable}
 \end{center}
 }
 \section[shortwave]{\hyperref[sec:nm_sec_shortwave]{shortwave}}
 \label{sec:nm_tab_shortwave}
-\input{seaice/section_descriptions/shortwave.tex}
+\input{seaice/section_descriptions//shortwave.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -684,38 +686,38 @@ Embedded links point to more detailed namelist information in the appendix.
     {\bf Name} & {\bf Description} (Continued) \endhead
     \hline
     \hline
-    \hyperref[subsec:nm_sec_config_shortwave_type]{config\_shortwave\_type} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_shortwave_type]{config\_shortwave\_type} & Shortwave radiation method. \\
     \hline
-    \hyperref[subsec:nm_sec_config_albedo_type]{config\_albedo\_type} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_albedo_type]{config\_albedo\_type} & Albedo parameterization type. \\
     \hline
-    \hyperref[subsec:nm_sec_config_visible_ice_albedo]{config\_visible\_ice\_albedo} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_visible_ice_albedo]{config\_visible\_ice\_albedo} & Visible ice albedo for ice thickness greater than config\_variable\_albedo\_thickness\_limit. \\
     \hline
-    \hyperref[subsec:nm_sec_config_infrared_ice_albedo]{config\_infrared\_ice\_albedo} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_infrared_ice_albedo]{config\_infrared\_ice\_albedo} & Near-IR ice albedo for ice thickness greater than config\_variable\_albedo\_thickness\_limit. \\
     \hline
-    \hyperref[subsec:nm_sec_config_visible_snow_albedo]{config\_visible\_snow\_albedo} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_visible_snow_albedo]{config\_visible\_snow\_albedo} & Visible cold snow albedo. \\
     \hline
-    \hyperref[subsec:nm_sec_config_infrared_snow_albedo]{config\_infrared\_snow\_albedo} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_infrared_snow_albedo]{config\_infrared\_snow\_albedo} & Near-IR cold snow albedo. \\
     \hline
-    \hyperref[subsec:nm_sec_config_variable_albedo_thickness_limit]{config\_variable\_albedo\_thickness-}\hyperref[subsec:nm_sec_config_variable_albedo_thickness_limit]{\_limit}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_variable_albedo_thickness_limit]{config\_variable\_albedo\_thickness-}\hyperref[subsec:nm_sec_config_variable_albedo_thickness_limit]{\_limit}& Ice thickness above which the ice albedo is constant. \\
     \hline
-    \hyperref[subsec:nm_sec_config_ice_shortwave_tuning_parameter]{config\_ice\_shortwave\_tuning\_pa-}\hyperref[subsec:nm_sec_config_ice_shortwave_tuning_parameter]{rameter}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_ice_shortwave_tuning_parameter]{config\_ice\_shortwave\_tuning\_pa-}\hyperref[subsec:nm_sec_config_ice_shortwave_tuning_parameter]{rameter}& Sea ice tuning parameter; +1 for 1sig increase in albedo. \\
     \hline
-    \hyperref[subsec:nm_sec_config_pond_shortwave_tuning_parameter]{config\_pond\_shortwave\_tuning\_-}\hyperref[subsec:nm_sec_config_pond_shortwave_tuning_parameter]{parameter}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_pond_shortwave_tuning_parameter]{config\_pond\_shortwave\_tuning\_-}\hyperref[subsec:nm_sec_config_pond_shortwave_tuning_parameter]{parameter}& Ponded ice tuning parameter; +1 for 1sig increase in albedo. \\
     \hline
-    \hyperref[subsec:nm_sec_config_snow_shortwave_tuning_parameter]{config\_snow\_shortwave\_tuning\_-}\hyperref[subsec:nm_sec_config_snow_shortwave_tuning_parameter]{parameter}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_snow_shortwave_tuning_parameter]{config\_snow\_shortwave\_tuning\_-}\hyperref[subsec:nm_sec_config_snow_shortwave_tuning_parameter]{parameter}& Snow tuning parameter; +1 for ~.01 change in broadband albedo. \\
     \hline
-    \hyperref[subsec:nm_sec_config_temp_change_snow_grain_radius_change]{config\_temp\_change\_snow\_grain-}\hyperref[subsec:nm_sec_config_temp_change_snow_grain_radius_change]{\_radius\_change}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_temp_change_snow_grain_radius_change]{config\_temp\_change\_snow\_grain-}\hyperref[subsec:nm_sec_config_temp_change_snow_grain_radius_change]{\_radius\_change}& Change in temperture for non-melt to melt snow grain radius change. \\
     \hline
-    \hyperref[subsec:nm_sec_config_max_melting_snow_grain_radius]{config\_max\_melting\_snow\_grain\_r-}\hyperref[subsec:nm_sec_config_max_melting_snow_grain_radius]{adius}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_max_melting_snow_grain_radius]{config\_max\_melting\_snow\_grain\_r-}\hyperref[subsec:nm_sec_config_max_melting_snow_grain_radius]{adius}& Maximum melting snow grain radius. \\
     \hline
-    \hyperref[subsec:nm_sec_config_algae_absorption_coefficient]{config\_algae\_absorption\_coeffici-}\hyperref[subsec:nm_sec_config_algae_absorption_coefficient]{ent}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_algae_absorption_coefficient]{config\_algae\_absorption\_coeffici-}\hyperref[subsec:nm_sec_config_algae_absorption_coefficient]{ent}& Algae absorption coefficient for 0.5 m thick layer. \\
     \hline
 \end{longtable}
 \end{center}
 }
 \section[meltponds]{\hyperref[sec:nm_sec_meltponds]{meltponds}}
 \label{sec:nm_tab_meltponds}
-\input{seaice/section_descriptions/meltponds.tex}
+\input{seaice/section_descriptions//meltponds.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -726,28 +728,28 @@ Embedded links point to more detailed namelist information in the appendix.
     {\bf Name} & {\bf Description} (Continued) \endhead
     \hline
     \hline
-    \hyperref[subsec:nm_sec_config_snow_to_ice_transition_depth]{config\_snow\_to\_ice\_transition\_d-}\hyperref[subsec:nm_sec_config_snow_to_ice_transition_depth]{epth}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_snow_to_ice_transition_depth]{config\_snow\_to\_ice\_transition\_d-}\hyperref[subsec:nm_sec_config_snow_to_ice_transition_depth]{epth}& Snow depth for transition to bare sea ice. \\
     \hline
-    \hyperref[subsec:nm_sec_config_pond_refreezing_type]{config\_pond\_refreezing\_type} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_pond_refreezing_type]{config\_pond\_refreezing\_type} & Pond refreezing parameterization. \\
     \hline
-    \hyperref[subsec:nm_sec_config_pond_flushing_timescale]{config\_pond\_flushing\_timescale} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_pond_flushing_timescale]{config\_pond\_flushing\_timescale} & Alter e-folding time scale for flushing.????? \\
     \hline
-    \hyperref[subsec:nm_sec_config_min_meltwater_retained_fraction]{config\_min\_meltwater\_retained\_f-}\hyperref[subsec:nm_sec_config_min_meltwater_retained_fraction]{raction}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_min_meltwater_retained_fraction]{config\_min\_meltwater\_retained\_f-}\hyperref[subsec:nm_sec_config_min_meltwater_retained_fraction]{raction}& Minimum retained fraction of meltwater. \\
     \hline
-    \hyperref[subsec:nm_sec_config_max_meltwater_retained_fraction]{config\_max\_meltwater\_retained\_-}\hyperref[subsec:nm_sec_config_max_meltwater_retained_fraction]{fraction}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_max_meltwater_retained_fraction]{config\_max\_meltwater\_retained\_-}\hyperref[subsec:nm_sec_config_max_meltwater_retained_fraction]{fraction}& Maximum retained fraction of meltwater. \\
     \hline
-    \hyperref[subsec:nm_sec_config_pond_depth_to_fraction_ratio]{config\_pond\_depth\_to\_fraction-}\hyperref[subsec:nm_sec_config_pond_depth_to_fraction_ratio]{\_ratio}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_pond_depth_to_fraction_ratio]{config\_pond\_depth\_to\_fraction-}\hyperref[subsec:nm_sec_config_pond_depth_to_fraction_ratio]{\_ratio}& Ratio of pond depth to pond fraction. \\
     \hline
-    \hyperref[subsec:nm_sec_config_snow_on_pond_ice_tapering_parameter]{config\_snow\_on\_pond\_ice\_taperi-}\hyperref[subsec:nm_sec_config_snow_on_pond_ice_tapering_parameter]{ng\_parameter}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_snow_on_pond_ice_tapering_parameter]{config\_snow\_on\_pond\_ice\_taperi-}\hyperref[subsec:nm_sec_config_snow_on_pond_ice_tapering_parameter]{ng\_parameter}& Tapering parameter for snow on pond ice. \\
     \hline
-    \hyperref[subsec:nm_sec_config_critical_pond_ice_thickness]{config\_critical\_pond\_ice\_thickne-}\hyperref[subsec:nm_sec_config_critical_pond_ice_thickness]{ss}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_critical_pond_ice_thickness]{config\_critical\_pond\_ice\_thickne-}\hyperref[subsec:nm_sec_config_critical_pond_ice_thickness]{ss}& Critical parameter for pond ice thickness. \\
     \hline
 \end{longtable}
 \end{center}
 }
 \section[thermodynamics]{\hyperref[sec:nm_sec_thermodynamics]{thermodynamics}}
 \label{sec:nm_tab_thermodynamics}
-\input{seaice/section_descriptions/thermodynamics.tex}
+\input{seaice/section_descriptions//thermodynamics.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -758,28 +760,28 @@ Embedded links point to more detailed namelist information in the appendix.
     {\bf Name} & {\bf Description} (Continued) \endhead
     \hline
     \hline
-    \hyperref[subsec:nm_sec_config_thermodynamics_type]{config\_thermodynamics\_type} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_thermodynamics_type]{config\_thermodynamics\_type} & Vertical themodynamics type. \\
     \hline
-    \hyperref[subsec:nm_sec_config_heat_conductivity_type]{config\_heat\_conductivity\_type} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_heat_conductivity_type]{config\_heat\_conductivity\_type} & Thermal conductivity type for BL99 thermodynamics. Options are Maykut and Untersteiner 1971 form (with Wettlaufer 1991 constants), or Pringle et al JGR 2007 'bubbly brine' \\
     \hline
-    \hyperref[subsec:nm_sec_config_rapid_mode_channel_radius]{config\_rapid\_mode\_channel\_radiu-}\hyperref[subsec:nm_sec_config_rapid_mode_channel_radius]{s}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_rapid_mode_channel_radius]{config\_rapid\_mode\_channel\_radiu-}\hyperref[subsec:nm_sec_config_rapid_mode_channel_radius]{s}& Channel radius for rapid gravity drainage mode. \\
     \hline
-    \hyperref[subsec:nm_sec_config_rapid_model_critical_Ra]{config\_rapid\_model\_critical\_Ra} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_rapid_model_critical_Ra]{config\_rapid\_model\_critical\_Ra} & Critical Rayleigh number for rapid gravity drainage mode. \\
     \hline
-    \hyperref[subsec:nm_sec_config_rapid_mode_aspect_ratio]{config\_rapid\_mode\_aspect\_ratio} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_rapid_mode_aspect_ratio]{config\_rapid\_mode\_aspect\_ratio} & Aspect ratio for rapid gravity drainage mode (larger=wider). \\
     \hline
-    \hyperref[subsec:nm_sec_config_slow_mode_drainage_strength]{config\_slow\_mode\_drainage\_stre-}\hyperref[subsec:nm_sec_config_slow_mode_drainage_strength]{ngth}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_slow_mode_drainage_strength]{config\_slow\_mode\_drainage\_stre-}\hyperref[subsec:nm_sec_config_slow_mode_drainage_strength]{ngth}& Slow gravity drainage mode drainage strength. \\
     \hline
-    \hyperref[subsec:nm_sec_config_slow_mode_critical_porosity]{config\_slow\_mode\_critical\_porosi-}\hyperref[subsec:nm_sec_config_slow_mode_critical_porosity]{ty}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_slow_mode_critical_porosity]{config\_slow\_mode\_critical\_porosi-}\hyperref[subsec:nm_sec_config_slow_mode_critical_porosity]{ty}& Liquid fraction porosity cutoff for slow gravity drainage mode. \\
     \hline
-    \hyperref[subsec:nm_sec_config_congelation_ice_porosity]{config\_congelation\_ice\_porosity} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_congelation_ice_porosity]{config\_congelation\_ice\_porosity} & Liquid fraction of congelation ice. \\
     \hline
 \end{longtable}
 \end{center}
 }
 \section[itd]{\hyperref[sec:nm_sec_itd]{itd}}
 \label{sec:nm_tab_itd}
-\input{seaice/section_descriptions/itd.tex}
+\input{seaice/section_descriptions//itd.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -790,16 +792,16 @@ Embedded links point to more detailed namelist information in the appendix.
     {\bf Name} & {\bf Description} (Continued) \endhead
     \hline
     \hline
-    \hyperref[subsec:nm_sec_config_itd_conversion_type]{config\_itd\_conversion\_type} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_itd_conversion_type]{config\_itd\_conversion\_type} & Type of ice thickness distribution conversions. \\
     \hline
-    \hyperref[subsec:nm_sec_config_category_bounds_type]{config\_category\_bounds\_type} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_category_bounds_type]{config\_category\_bounds\_type} & Type of ice thickness category bounds. \\
     \hline
 \end{longtable}
 \end{center}
 }
 \section[ridging]{\hyperref[sec:nm_sec_ridging]{ridging}}
 \label{sec:nm_tab_ridging}
-\input{seaice/section_descriptions/ridging.tex}
+\input{seaice/section_descriptions//ridging.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -810,22 +812,22 @@ Embedded links point to more detailed namelist information in the appendix.
     {\bf Name} & {\bf Description} (Continued) \endhead
     \hline
     \hline
-    \hyperref[subsec:nm_sec_config_ice_strength_formulation]{config\_ice\_strength\_formulation} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_ice_strength_formulation]{config\_ice\_strength\_formulation} & Type of ice strength formulation. \\
     \hline
-    \hyperref[subsec:nm_sec_config_ridging_participation_function]{config\_ridging\_participation\_fun-}\hyperref[subsec:nm_sec_config_ridging_participation_function]{ction}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_ridging_participation_function]{config\_ridging\_participation\_fun-}\hyperref[subsec:nm_sec_config_ridging_participation_function]{ction}& Type of ridging participation function. \\
     \hline
-    \hyperref[subsec:nm_sec_config_ridging_redistribution_function]{config\_ridging\_redistribution\_fu-}\hyperref[subsec:nm_sec_config_ridging_redistribution_function]{nction}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_ridging_redistribution_function]{config\_ridging\_redistribution\_fu-}\hyperref[subsec:nm_sec_config_ridging_redistribution_function]{nction}& Type of ridging redistribution function. \\
     \hline
-    \hyperref[subsec:nm_sec_config_ridiging_efolding_scale]{config\_ridiging\_efolding\_scale} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_ridiging_efolding_scale]{config\_ridiging\_efolding\_scale} & E-folding scale of ridged ice (krdg\_redist = 1) \\
     \hline
-    \hyperref[subsec:nm_sec_config_ratio_ridging_work_to_PE]{config\_ratio\_ridging\_work\_to\_P-}\hyperref[subsec:nm_sec_config_ratio_ridging_work_to_PE]{E}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_ratio_ridging_work_to_PE]{config\_ratio\_ridging\_work\_to\_P-}\hyperref[subsec:nm_sec_config_ratio_ridging_work_to_PE]{E}& Ratio of ridging work to PE change in ridging (kstrength = 1) \\
     \hline
 \end{longtable}
 \end{center}
 }
 \section[atmosphere]{\hyperref[sec:nm_sec_atmosphere]{atmosphere}}
 \label{sec:nm_tab_atmosphere}
-\input{seaice/section_descriptions/atmosphere.tex}
+\input{seaice/section_descriptions//atmosphere.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -836,24 +838,24 @@ Embedded links point to more detailed namelist information in the appendix.
     {\bf Name} & {\bf Description} (Continued) \endhead
     \hline
     \hline
-    \hyperref[subsec:nm_sec_config_atmos_boundary_method]{config\_atmos\_boundary\_method} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_atmos_boundary_method]{config\_atmos\_boundary\_method} & Atmosphere boundary method. \\
     \hline
-    \hyperref[subsec:nm_sec_config_calc_surface_stresses]{config\_calc\_surface\_stresses} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_calc_surface_stresses]{config\_calc\_surface\_stresses} & If true calculate wind stress components. \\
     \hline
-    \hyperref[subsec:nm_sec_config_calc_surface_temperature]{config\_calc\_surface\_temperatu-}\hyperref[subsec:nm_sec_config_calc_surface_temperature]{re}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_calc_surface_temperature]{config\_calc\_surface\_temperatu-}\hyperref[subsec:nm_sec_config_calc_surface_temperature]{re}& If true calculate surface temperature. If false surface temperature is computed elsewhere and atmos-ice fluxes are provided. \\
     \hline
-    \hyperref[subsec:nm_sec_config_use_form_drag]{config\_use\_form\_drag} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_use_form_drag]{config\_use\_form\_drag} & If true calculate form drag. \\
     \hline
-    \hyperref[subsec:nm_sec_config_use_high_frequency_coupling]{config\_use\_high\_frequency\_cou-}\hyperref[subsec:nm_sec_config_use_high_frequency_coupling]{pling}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_use_high_frequency_coupling]{config\_use\_high\_frequency\_cou-}\hyperref[subsec:nm_sec_config_use_high_frequency_coupling]{pling}& If true use high frequency coupling. \\
     \hline
-    \hyperref[subsec:nm_sec_config_boundary_layer_iteration_number]{config\_boundary\_layer\_iteration-}\hyperref[subsec:nm_sec_config_boundary_layer_iteration_number]{\_number}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_boundary_layer_iteration_number]{config\_boundary\_layer\_iteration-}\hyperref[subsec:nm_sec_config_boundary_layer_iteration_number]{\_number}& Number of iterations for boundary layer calculations \\
     \hline
 \end{longtable}
 \end{center}
 }
 \section[ocean]{\hyperref[sec:nm_sec_ocean]{ocean}}
 \label{sec:nm_tab_ocean}
-\input{seaice/section_descriptions/ocean.tex}
+\input{seaice/section_descriptions//ocean.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -864,22 +866,24 @@ Embedded links point to more detailed namelist information in the appendix.
     {\bf Name} & {\bf Description} (Continued) \endhead
     \hline
     \hline
-    \hyperref[subsec:nm_sec_config_use_ocean_mixed_layer]{config\_use\_ocean\_mixed\_layer} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_use_ocean_mixed_layer]{config\_use\_ocean\_mixed\_layer} & If true use an ocean mixed layer. \\
     \hline
-    \hyperref[subsec:nm_sec_config_min_friction_velocity]{config\_min\_friction\_velocity} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_min_friction_velocity]{config\_min\_friction\_velocity} & Minimum friction velocity for ice-ocean heat flux. \\
     \hline
-    \hyperref[subsec:nm_sec_config_ocean_heat_transfer_type]{config\_ocean\_heat\_transfer\_type} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_ocean_heat_transfer_type]{config\_ocean\_heat\_transfer\_type} & Transfer coefficient type for ice-ocean heat flux. \\
     \hline
-    \hyperref[subsec:nm_sec_config_sea_freezing_temperature_type]{config\_sea\_freezing\_temperatu-}\hyperref[subsec:nm_sec_config_sea_freezing_temperature_type]{re\_type}& {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_sea_freezing_temperature_type]{config\_sea\_freezing\_temperatu-}\hyperref[subsec:nm_sec_config_sea_freezing_temperature_type]{re\_type}& Form of ocean freezing temperature. \\
     \hline
-    \hyperref[subsec:nm_sec_config_ocean_surface_type]{config\_ocean\_surface\_type} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_ocean_surface_type]{config\_ocean\_surface\_type} & Type of coupled ocean surface: (MPAS-O:'free'), (SOM:'non-free') \\
+    \hline
+    \hyperref[subsec:nm_sec_config_couple_biogeochemistry_fields]{config\_couple\_biogeochemistry\_fi-}\hyperref[subsec:nm_sec_config_couple_biogeochemistry_fields]{elds}& {\bf \color{red} MISSING} \\
     \hline
 \end{longtable}
 \end{center}
 }
 \section[diagnostics]{\hyperref[sec:nm_sec_diagnostics]{diagnostics}}
 \label{sec:nm_tab_diagnostics}
-\input{seaice/section_descriptions/diagnostics.tex}
+\input{seaice/section_descriptions//diagnostics.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -890,14 +894,14 @@ Embedded links point to more detailed namelist information in the appendix.
     {\bf Name} & {\bf Description} (Continued) \endhead
     \hline
     \hline
-    \hyperref[subsec:nm_sec_config_check_state]{config\_check\_state} & {\bf \color{red} MISSING} \\
+    \hyperref[subsec:nm_sec_config_check_state]{config\_check\_state} & If true perform a check at runtime of the model state. \\
     \hline
 \end{longtable}
 \end{center}
 }
 \section[AM\_highFrequencyOutput]{\hyperref[sec:nm_sec_AM_highFrequencyOutput]{AM\_highFrequencyOutput}}
 \label{sec:nm_tab_AM_highFrequencyOutput}
-\input{seaice/section_descriptions/AM_highFrequencyOutput.tex}
+\input{seaice/section_descriptions//AM_highFrequencyOutput.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -923,7 +927,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[AM\_temperatures]{\hyperref[sec:nm_sec_AM_temperatures]{AM\_temperatures}}
 \label{sec:nm_tab_AM_temperatures}
-\input{seaice/section_descriptions/AM_temperatures.tex}
+\input{seaice/section_descriptions//AM_temperatures.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -949,7 +953,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[AM\_regionalStatistics]{\hyperref[sec:nm_sec_AM_regionalStatistics]{AM\_regionalStatistics}}
 \label{sec:nm_tab_AM_regionalStatistics}
-\input{seaice/section_descriptions/AM_regionalStatistics.tex}
+\input{seaice/section_descriptions//AM_regionalStatistics.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -977,7 +981,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[AM\_ridgingDiagnostics]{\hyperref[sec:nm_sec_AM_ridgingDiagnostics]{AM\_ridgingDiagnostics}}
 \label{sec:nm_tab_AM_ridgingDiagnostics}
-\input{seaice/section_descriptions/AM_ridgingDiagnostics.tex}
+\input{seaice/section_descriptions//AM_ridgingDiagnostics.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -1003,7 +1007,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[AM\_conservationCheck]{\hyperref[sec:nm_sec_AM_conservationCheck]{AM\_conservationCheck}}
 \label{sec:nm_tab_AM_conservationCheck}
-\input{seaice/section_descriptions/AM_conservationCheck.tex}
+\input{seaice/section_descriptions//AM_conservationCheck.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -1031,7 +1035,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[AM\_geographicalVectors]{\hyperref[sec:nm_sec_AM_geographicalVectors]{AM\_geographicalVectors}}
 \label{sec:nm_tab_AM_geographicalVectors}
-\input{seaice/section_descriptions/AM_geographicalVectors.tex}
+\input{seaice/section_descriptions//AM_geographicalVectors.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -1057,7 +1061,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[AM\_loadBalance]{\hyperref[sec:nm_sec_AM_loadBalance]{AM\_loadBalance}}
 \label{sec:nm_tab_AM_loadBalance}
-\input{seaice/section_descriptions/AM_loadBalance.tex}
+\input{seaice/section_descriptions//AM_loadBalance.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -1085,7 +1089,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[AM\_maximumIcePresence]{\hyperref[sec:nm_sec_AM_maximumIcePresence]{AM\_maximumIcePresence}}
 \label{sec:nm_tab_AM_maximumIcePresence}
-\input{seaice/section_descriptions/AM_maximumIcePresence.tex}
+\input{seaice/section_descriptions//AM_maximumIcePresence.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -1113,7 +1117,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[AM\_miscellaneous]{\hyperref[sec:nm_sec_AM_miscellaneous]{AM\_miscellaneous}}
 \label{sec:nm_tab_AM_miscellaneous}
-\input{seaice/section_descriptions/AM_miscellaneous.tex}
+\input{seaice/section_descriptions//AM_miscellaneous.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -1139,7 +1143,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[AM\_areaVariables]{\hyperref[sec:nm_sec_AM_areaVariables]{AM\_areaVariables}}
 \label{sec:nm_tab_AM_areaVariables}
-\input{seaice/section_descriptions/AM_areaVariables.tex}
+\input{seaice/section_descriptions//AM_areaVariables.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -1165,7 +1169,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[AM\_pondDiagnostics]{\hyperref[sec:nm_sec_AM_pondDiagnostics]{AM\_pondDiagnostics}}
 \label{sec:nm_tab_AM_pondDiagnostics}
-\input{seaice/section_descriptions/AM_pondDiagnostics.tex}
+\input{seaice/section_descriptions//AM_pondDiagnostics.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -1191,7 +1195,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[AM\_unitConversion]{\hyperref[sec:nm_sec_AM_unitConversion]{AM\_unitConversion}}
 \label{sec:nm_tab_AM_unitConversion}
-\input{seaice/section_descriptions/AM_unitConversion.tex}
+\input{seaice/section_descriptions//AM_unitConversion.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -1217,7 +1221,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[AM\_pointwiseStats]{\hyperref[sec:nm_sec_AM_pointwiseStats]{AM\_pointwiseStats}}
 \label{sec:nm_tab_AM_pointwiseStats}
-\input{seaice/section_descriptions/AM_pointwiseStats.tex}
+\input{seaice/section_descriptions//AM_pointwiseStats.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -1293,7 +1297,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[AM\_timeSeriesStatsDaily]{\hyperref[sec:nm_sec_AM_timeSeriesStatsDaily]{AM\_timeSeriesStatsDaily}}
 \label{sec:nm_tab_AM_timeSeriesStatsDaily}
-\input{seaice/section_descriptions/AM_timeSeriesStatsDaily.tex}
+\input{seaice/section_descriptions//AM_timeSeriesStatsDaily.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -1333,7 +1337,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[AM\_timeSeriesStatsMonthly]{\hyperref[sec:nm_sec_AM_timeSeriesStatsMonthly]{AM\_timeSeriesStatsMonthly}}
 \label{sec:nm_tab_AM_timeSeriesStatsMonthly}
-\input{seaice/section_descriptions/AM_timeSeriesStatsMonthly.tex}
+\input{seaice/section_descriptions//AM_timeSeriesStatsMonthly.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -1373,7 +1377,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[AM\_timeSeriesStatsClimatology]{\hyperref[sec:nm_sec_AM_timeSeriesStatsClimatology]{AM\_timeSeriesStatsClimatology}}
 \label{sec:nm_tab_AM_timeSeriesStatsClimatology}
-\input{seaice/section_descriptions/AM_timeSeriesStatsClimatology.tex}
+\input{seaice/section_descriptions//AM_timeSeriesStatsClimatology.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
@@ -1413,7 +1417,7 @@ Embedded links point to more detailed namelist information in the appendix.
 }
 \section[AM\_timeSeriesStatsCustom]{\hyperref[sec:nm_sec_AM_timeSeriesStatsCustom]{AM\_timeSeriesStatsCustom}}
 \label{sec:nm_tab_AM_timeSeriesStatsCustom}
-\input{seaice/section_descriptions/AM_timeSeriesStatsCustom.tex}
+\input{seaice/section_descriptions//AM_timeSeriesStatsCustom.tex}
 \vspace{0.5in}
 {\small
 \begin{center}
