@@ -1,0 +1,4379 @@
+\chapter[Variable definitions]{\hyperref[chap:variable_tables]{Variable definitions}}
+\label{chap:variable_sections}
+Embedded links point to information in chapter \ref{chap:variable_tables}
+\section[mesh]{\hyperref[sec:var_tab_mesh]{mesh}}
+\label{sec:var_sec_mesh}
+\subsection[latCell]{\hyperref[sec:var_tab_mesh]{latCell}}
+\label{subsec:var_sec_mesh_latCell}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{radians} \\
+        \hline 
+        Dimension: & nCells \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% latCell \\
+         \hline 
+    \caption{latCell: Latitude location of cell centers in radians.}
+\end{longtable}
+\end{center}
+\subsection[lonCell]{\hyperref[sec:var_tab_mesh]{lonCell}}
+\label{subsec:var_sec_mesh_lonCell}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{radians} \\
+        \hline 
+        Dimension: & nCells \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% lonCell \\
+         \hline 
+    \caption{lonCell: Longitude location of cell centers in radians.}
+\end{longtable}
+\end{center}
+\subsection[xCell]{\hyperref[sec:var_tab_mesh]{xCell}}
+\label{subsec:var_sec_mesh_xCell}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{unitless} \\
+        \hline 
+        Dimension: & nCells \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% xCell \\
+         \hline 
+    \caption{xCell: X Coordinate in cartesian space of cell centers.}
+\end{longtable}
+\end{center}
+\subsection[yCell]{\hyperref[sec:var_tab_mesh]{yCell}}
+\label{subsec:var_sec_mesh_yCell}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{unitless} \\
+        \hline 
+        Dimension: & nCells \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% yCell \\
+         \hline 
+    \caption{yCell: Y Coordinate in cartesian space of cell centers.}
+\end{longtable}
+\end{center}
+\subsection[zCell]{\hyperref[sec:var_tab_mesh]{zCell}}
+\label{subsec:var_sec_mesh_zCell}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{unitless} \\
+        \hline 
+        Dimension: & nCells \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% zCell \\
+         \hline 
+    \caption{zCell: Z Coordinate in cartesian space of cell centers.}
+\end{longtable}
+\end{center}
+\subsection[indexToCellID]{\hyperref[sec:var_tab_mesh]{indexToCellID}}
+\label{subsec:var_sec_mesh_indexToCellID}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & \si{unitless} \\
+        \hline 
+        Dimension: & nCells \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% indexToCellID \\
+         \hline 
+    \caption{indexToCellID: List of global cell IDs.}
+\end{longtable}
+\end{center}
+\subsection[latEdge]{\hyperref[sec:var_tab_mesh]{latEdge}}
+\label{subsec:var_sec_mesh_latEdge}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{radians} \\
+        \hline 
+        Dimension: & nEdges \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% latEdge \\
+         \hline 
+    \caption{latEdge: Latitude location of edge midpoints in radians.}
+\end{longtable}
+\end{center}
+\subsection[lonEdge]{\hyperref[sec:var_tab_mesh]{lonEdge}}
+\label{subsec:var_sec_mesh_lonEdge}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{radians} \\
+        \hline 
+        Dimension: & nEdges \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% lonEdge \\
+         \hline 
+    \caption{lonEdge: Longitude location of edge midpoints in radians.}
+\end{longtable}
+\end{center}
+\subsection[xEdge]{\hyperref[sec:var_tab_mesh]{xEdge}}
+\label{subsec:var_sec_mesh_xEdge}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{unitless} \\
+        \hline 
+        Dimension: & nEdges \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% xEdge \\
+         \hline 
+    \caption{xEdge: X Coordinate in cartesian space of edge midpoints.}
+\end{longtable}
+\end{center}
+\subsection[yEdge]{\hyperref[sec:var_tab_mesh]{yEdge}}
+\label{subsec:var_sec_mesh_yEdge}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{unitless} \\
+        \hline 
+        Dimension: & nEdges \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% yEdge \\
+         \hline 
+    \caption{yEdge: Y Coordinate in cartesian space of edge midpoints.}
+\end{longtable}
+\end{center}
+\subsection[zEdge]{\hyperref[sec:var_tab_mesh]{zEdge}}
+\label{subsec:var_sec_mesh_zEdge}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{unitless} \\
+        \hline 
+        Dimension: & nEdges \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% zEdge \\
+         \hline 
+    \caption{zEdge: Z Coordinate in cartesian space of edge midpoints.}
+\end{longtable}
+\end{center}
+\subsection[indexToEdgeID]{\hyperref[sec:var_tab_mesh]{indexToEdgeID}}
+\label{subsec:var_sec_mesh_indexToEdgeID}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & \si{unitless} \\
+        \hline 
+        Dimension: & nEdges \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% indexToEdgeID \\
+         \hline 
+    \caption{indexToEdgeID: List of global edge IDs.}
+\end{longtable}
+\end{center}
+\subsection[latVertex]{\hyperref[sec:var_tab_mesh]{latVertex}}
+\label{subsec:var_sec_mesh_latVertex}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{radians} \\
+        \hline 
+        Dimension: & nVertices \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% latVertex \\
+         \hline 
+    \caption{latVertex: Latitude location of vertices in radians.}
+\end{longtable}
+\end{center}
+\subsection[lonVertex]{\hyperref[sec:var_tab_mesh]{lonVertex}}
+\label{subsec:var_sec_mesh_lonVertex}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{radians} \\
+        \hline 
+        Dimension: & nVertices \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% lonVertex \\
+         \hline 
+    \caption{lonVertex: Longitude location of vertices in radians.}
+\end{longtable}
+\end{center}
+\subsection[xVertex]{\hyperref[sec:var_tab_mesh]{xVertex}}
+\label{subsec:var_sec_mesh_xVertex}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{unitless} \\
+        \hline 
+        Dimension: & nVertices \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% xVertex \\
+         \hline 
+    \caption{xVertex: X Coordinate in cartesian space of vertices.}
+\end{longtable}
+\end{center}
+\subsection[yVertex]{\hyperref[sec:var_tab_mesh]{yVertex}}
+\label{subsec:var_sec_mesh_yVertex}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{unitless} \\
+        \hline 
+        Dimension: & nVertices \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% yVertex \\
+         \hline 
+    \caption{yVertex: Y Coordinate in cartesian space of vertices.}
+\end{longtable}
+\end{center}
+\subsection[zVertex]{\hyperref[sec:var_tab_mesh]{zVertex}}
+\label{subsec:var_sec_mesh_zVertex}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{unitless} \\
+        \hline 
+        Dimension: & nVertices \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% zVertex \\
+         \hline 
+    \caption{zVertex: Z Coordinate in cartesian space of vertices.}
+\end{longtable}
+\end{center}
+\subsection[indexToVertexID]{\hyperref[sec:var_tab_mesh]{indexToVertexID}}
+\label{subsec:var_sec_mesh_indexToVertexID}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & \si{unitless} \\
+        \hline 
+        Dimension: & nVertices \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% indexToVertexID \\
+         \hline 
+    \caption{indexToVertexID: List of global vertex IDs.}
+\end{longtable}
+\end{center}
+\subsection[nEdgesOnCell]{\hyperref[sec:var_tab_mesh]{nEdgesOnCell}}
+\label{subsec:var_sec_mesh_nEdgesOnCell}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & \si{unitless} \\
+        \hline 
+        Dimension: & nCells \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% nEdgesOnCell \\
+         \hline 
+    \caption{nEdgesOnCell: Number of edges that border each cell.}
+\end{longtable}
+\end{center}
+\subsection[nEdgesOnEdge]{\hyperref[sec:var_tab_mesh]{nEdgesOnEdge}}
+\label{subsec:var_sec_mesh_nEdgesOnEdge}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & \si{unitless} \\
+        \hline 
+        Dimension: & nEdges \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% nEdgesOnEdge \\
+         \hline 
+    \caption{nEdgesOnEdge: Number of edges that surround each of the cells that straddle each edge. These edges are used to reconstruct the tangential velocities.}
+\end{longtable}
+\end{center}
+\subsection[cellsOnEdge]{\hyperref[sec:var_tab_mesh]{cellsOnEdge}}
+\label{subsec:var_sec_mesh_cellsOnEdge}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & \si{unitless} \\
+        \hline 
+        Dimension: & TWO nEdges \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% cellsOnEdge \\
+         \hline 
+    \caption{cellsOnEdge: List of cells that straddle each edge.}
+\end{longtable}
+\end{center}
+\subsection[edgesOnCell]{\hyperref[sec:var_tab_mesh]{edgesOnCell}}
+\label{subsec:var_sec_mesh_edgesOnCell}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & \si{unitless} \\
+        \hline 
+        Dimension: & maxEdges nCells \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% edgesOnCell \\
+         \hline 
+    \caption{edgesOnCell: List of edges that border each cell.}
+\end{longtable}
+\end{center}
+\subsection[edgesOnEdge]{\hyperref[sec:var_tab_mesh]{edgesOnEdge}}
+\label{subsec:var_sec_mesh_edgesOnEdge}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & \si{unitless} \\
+        \hline 
+        Dimension: & maxEdges2 nEdges \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% edgesOnEdge \\
+         \hline 
+    \caption{edgesOnEdge: List of edges that border each of the cells that straddle each edge.}
+\end{longtable}
+\end{center}
+\subsection[cellsOnCell]{\hyperref[sec:var_tab_mesh]{cellsOnCell}}
+\label{subsec:var_sec_mesh_cellsOnCell}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & \si{unitless} \\
+        \hline 
+        Dimension: & maxEdges nCells \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% cellsOnCell \\
+         \hline 
+    \caption{cellsOnCell: List of cells that neighbor each cell.}
+\end{longtable}
+\end{center}
+\subsection[verticesOnCell]{\hyperref[sec:var_tab_mesh]{verticesOnCell}}
+\label{subsec:var_sec_mesh_verticesOnCell}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & \si{unitless} \\
+        \hline 
+        Dimension: & maxEdges nCells \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% verticesOnCell \\
+         \hline 
+    \caption{verticesOnCell: List of vertices that border each cell.}
+\end{longtable}
+\end{center}
+\subsection[verticesOnEdge]{\hyperref[sec:var_tab_mesh]{verticesOnEdge}}
+\label{subsec:var_sec_mesh_verticesOnEdge}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & \si{unitless} \\
+        \hline 
+        Dimension: & TWO nEdges \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% verticesOnEdge \\
+         \hline 
+    \caption{verticesOnEdge: List of vertices that straddle each edge.}
+\end{longtable}
+\end{center}
+\subsection[edgesOnVertex]{\hyperref[sec:var_tab_mesh]{edgesOnVertex}}
+\label{subsec:var_sec_mesh_edgesOnVertex}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & \si{unitless} \\
+        \hline 
+        Dimension: & vertexDegree nVertices \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% edgesOnVertex \\
+         \hline 
+    \caption{edgesOnVertex: List of edges that share a vertex as an endpoint.}
+\end{longtable}
+\end{center}
+\subsection[cellsOnVertex]{\hyperref[sec:var_tab_mesh]{cellsOnVertex}}
+\label{subsec:var_sec_mesh_cellsOnVertex}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & \si{unitless} \\
+        \hline 
+        Dimension: & vertexDegree nVertices \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% cellsOnVertex \\
+         \hline 
+    \caption{cellsOnVertex: List of cells that share a vertex.}
+\end{longtable}
+\end{center}
+\subsection[weightsOnEdge]{\hyperref[sec:var_tab_mesh]{weightsOnEdge}}
+\label{subsec:var_sec_mesh_weightsOnEdge}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{unitless} \\
+        \hline 
+        Dimension: & maxEdges2 nEdges \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% weightsOnEdge \\
+         \hline 
+    \caption{weightsOnEdge: Reconstruction weights associated with each of the edgesOnEdge.}
+\end{longtable}
+\end{center}
+\subsection[dvEdge]{\hyperref[sec:var_tab_mesh]{dvEdge}}
+\label{subsec:var_sec_mesh_dvEdge}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m} \\
+        \hline 
+        Dimension: & nEdges \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% dvEdge \\
+         \hline 
+    \caption{dvEdge: Length of each edge, computed as the distance between verticesOnEdge.}
+\end{longtable}
+\end{center}
+\subsection[dcEdge]{\hyperref[sec:var_tab_mesh]{dcEdge}}
+\label{subsec:var_sec_mesh_dcEdge}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m} \\
+        \hline 
+        Dimension: & nEdges \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% dcEdge \\
+         \hline 
+    \caption{dcEdge: Length of each edge, computed as the distance between cellsOnEdge.}
+\end{longtable}
+\end{center}
+\subsection[angleEdge]{\hyperref[sec:var_tab_mesh]{angleEdge}}
+\label{subsec:var_sec_mesh_angleEdge}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{radians} \\
+        \hline 
+        Dimension: & nEdges \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% angleEdge \\
+         \hline 
+    \caption{angleEdge: Angle the edge normal makes with local eastward direction.}
+\end{longtable}
+\end{center}
+\subsection[areaCell]{\hyperref[sec:var_tab_mesh]{areaCell}}
+\label{subsec:var_sec_mesh_areaCell}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m^2} \\
+        \hline 
+        Dimension: & nCells \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% areaCell \\
+         \hline 
+    \caption{areaCell: Area of each cell in the primary grid.}
+\end{longtable}
+\end{center}
+\subsection[areaTriangle]{\hyperref[sec:var_tab_mesh]{areaTriangle}}
+\label{subsec:var_sec_mesh_areaTriangle}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m^2} \\
+        \hline 
+        Dimension: & nVertices \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% areaTriangle \\
+         \hline 
+    \caption{areaTriangle: Area of each cell (triangle) in the dual grid.}
+\end{longtable}
+\end{center}
+\subsection[kiteAreasOnVertex]{\hyperref[sec:var_tab_mesh]{kiteAreasOnVertex}}
+\label{subsec:var_sec_mesh_kiteAreasOnVertex}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m^2} \\
+        \hline 
+        Dimension: & vertexDegree nVertices \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% kiteAreasOnVertex \\
+         \hline 
+    \caption{kiteAreasOnVertex: Area of the portions of each dual cell that are part of each cellsOnVertex.}
+\end{longtable}
+\end{center}
+\subsection[meshDensity]{\hyperref[sec:var_tab_mesh]{meshDensity}}
+\label{subsec:var_sec_mesh_meshDensity}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{unitless} \\
+        \hline 
+        Dimension: & nCells \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% meshDensity \\
+         \hline 
+    \caption{meshDensity: The value of the generating density function at each cell center.}
+\end{longtable}
+\end{center}
+\subsection[localVerticalUnitVectors]{\hyperref[sec:var_tab_mesh]{localVerticalUnitVectors}}
+\label{subsec:var_sec_mesh_localVerticalUnitVectors}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{unitless} \\
+        \hline 
+        Dimension: & R3 nCells \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% localVerticalUnitVectors \\
+         \hline 
+    \caption{localVerticalUnitVectors: Unit surface normal vectors defined at cell centers.}
+\end{longtable}
+\end{center}
+\subsection[edgeNormalVectors]{\hyperref[sec:var_tab_mesh]{edgeNormalVectors}}
+\label{subsec:var_sec_mesh_edgeNormalVectors}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{unitless} \\
+        \hline 
+        Dimension: & R3 nEdges \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% edgeNormalVectors \\
+         \hline 
+    \caption{edgeNormalVectors: Normal vector defined at an edge.}
+\end{longtable}
+\end{center}
+\subsection[cellTangentPlane]{\hyperref[sec:var_tab_mesh]{cellTangentPlane}}
+\label{subsec:var_sec_mesh_cellTangentPlane}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{unitless} \\
+        \hline 
+        Dimension: & R3 TWO nCells \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% cellTangentPlane \\
+         \hline 
+    \caption{cellTangentPlane: The two vectors that define a tangent plane at a cell center.}
+\end{longtable}
+\end{center}
+\subsection[coeffs\_reconstruct]{\hyperref[sec:var_tab_mesh]{coeffs\_reconstruct}}
+\label{subsec:var_sec_mesh_coeffs_reconstruct}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{unitless} \\
+        \hline 
+        Dimension: & R3 maxEdges nCells \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% coeffs\_reconstruct \\
+         \hline 
+    \caption{coeffs\_reconstruct: Coefficients to reconstruct velocity vectors at cell centers.}
+\end{longtable}
+\end{center}
+\subsection[layerThicknessFractions]{\hyperref[sec:var_tab_mesh]{layerThicknessFractions}}
+\label{subsec:var_sec_mesh_layerThicknessFractions}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{none} \\
+        \hline 
+        Dimension: & nVertLevels \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% layerThicknessFractions \\
+         \hline 
+    \caption{layerThicknessFractions: Fractional thickness of each sigma layer}
+\end{longtable}
+\end{center}
+\subsection[layerCenterSigma]{\hyperref[sec:var_tab_mesh]{layerCenterSigma}}
+\label{subsec:var_sec_mesh_layerCenterSigma}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{none} \\
+        \hline 
+        Dimension: & nVertLevels \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% layerCenterSigma \\
+         \hline 
+    \caption{layerCenterSigma: Sigma (fractional) level at center of each layer}
+\end{longtable}
+\end{center}
+\subsection[layerInterfaceSigma]{\hyperref[sec:var_tab_mesh]{layerInterfaceSigma}}
+\label{subsec:var_sec_mesh_layerInterfaceSigma}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{none} \\
+        \hline 
+        Dimension: & nVertInterfaces \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% layerInterfaceSigma \\
+         \hline 
+    \caption{layerInterfaceSigma: Sigma (fractional) level at interface between each layer (including top and bottom)}
+\end{longtable}
+\end{center}
+\subsection[edgeSignOnCell]{\hyperref[sec:var_tab_mesh]{edgeSignOnCell}}
+\label{subsec:var_sec_mesh_edgeSignOnCell}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & \si{unitless} \\
+        \hline 
+        Dimension: & maxEdges nCells \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% edgeSignOnCell \\
+         \hline 
+    \caption{edgeSignOnCell: Sign of edge contributions to a cell for each edge on cell. Used for bit-reproducible loops. Represents directionality of vector connecting cells.}
+\end{longtable}
+\end{center}
+\subsection[edgeSignOnVertex]{\hyperref[sec:var_tab_mesh]{edgeSignOnVertex}}
+\label{subsec:var_sec_mesh_edgeSignOnVertex}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & \si{unitless} \\
+        \hline 
+        Dimension: & maxEdges nVertices \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% edgeSignOnVertex \\
+         \hline 
+    \caption{edgeSignOnVertex: Sign of edge contributions to a vertex for each edge on vertex. Used for bit-reproducible loops. Represents directionality of vector connecting vertices.}
+\end{longtable}
+\end{center}
+\subsection[cellProcID]{\hyperref[sec:var_tab_mesh]{cellProcID}}
+\label{subsec:var_sec_mesh_cellProcID}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & \si{unitless} \\
+        \hline 
+        Dimension: & nCells \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% cellProcID \\
+         \hline 
+    \caption{cellProcID: processor number for each cell}
+\end{longtable}
+\end{center}
+\subsection[baryCellsOnVertex]{\hyperref[sec:var_tab_mesh]{baryCellsOnVertex}}
+\label{subsec:var_sec_mesh_baryCellsOnVertex}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & \si{unitless} \\
+        \hline 
+        Dimension: & R3 nVertices \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% baryCellsOnVertex \\
+         \hline 
+    \caption{baryCellsOnVertex: Cell center indices to use for interpolating from cell centers to vertex locations.  Note these are local indices!}
+\end{longtable}
+\end{center}
+\subsection[baryWeightsOnVertex]{\hyperref[sec:var_tab_mesh]{baryWeightsOnVertex}}
+\label{subsec:var_sec_mesh_baryWeightsOnVertex}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{unitless} \\
+        \hline 
+        Dimension: & R3 nVertices \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% baryWeightsOnVertex \\
+         \hline 
+    \caption{baryWeightsOnVertex: Weights to interpolate from cell centers to vertex locations.  Each weight is used with the corresponding cell center index indentified by baryCellsOnVertex.}
+\end{longtable}
+\end{center}
+\subsection[wachspressWeightVertex]{\hyperref[sec:var_tab_mesh]{wachspressWeightVertex}}
+\label{subsec:var_sec_mesh_wachspressWeightVertex}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{unitless} \\
+        \hline 
+        Dimension: & maxEdges nCells \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% wachspressWeightVertex \\
+         \hline 
+    \caption{wachspressWeightVertex: Wachspress weights used to interpolate from vertices to cell centers.}
+\end{longtable}
+\end{center}
+\subsection[xtime]{\hyperref[sec:var_tab_mesh]{xtime}}
+\label{subsec:var_sec_mesh_xtime}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & text \\
+        \hline 
+        Units: & \si{unitless} \\
+        \hline 
+        Dimension: & Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% xtime \\
+         \hline 
+    \caption{xtime: model time, with format 'YYYY-MM-DD\_HH:MM:SS'}
+\end{longtable}
+\end{center}
+\subsection[deltat]{\hyperref[sec:var_tab_mesh]{deltat}}
+\label{subsec:var_sec_mesh_deltat}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{s} \\
+        \hline 
+        Dimension: & Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% deltat \\
+         \hline 
+    \caption{deltat: time step length, in seconds.  Value on a given time is the value used between the previous time level and the current time level.}
+\end{longtable}
+\end{center}
+\subsection[allowableDtACFL]{\hyperref[sec:var_tab_mesh]{allowableDtACFL}}
+\label{subsec:var_sec_mesh_allowableDtACFL}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{s} \\
+        \hline 
+        Dimension: & Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% allowableDtACFL \\
+         \hline 
+    \caption{allowableDtACFL: The maximum allowable time step based on the advective CFL condition.  Value on a given time is the value appropriate for  between the previous time level and the current time level.}
+\end{longtable}
+\end{center}
+\subsection[allowableDtDCFL]{\hyperref[sec:var_tab_mesh]{allowableDtDCFL}}
+\label{subsec:var_sec_mesh_allowableDtDCFL}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{s} \\
+        \hline 
+        Dimension: & Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% allowableDtDCFL \\
+         \hline 
+    \caption{allowableDtDCFL: The maximum allowable time step based on the diffusive CFL condition.  Value on a given time is the value appropriate for  between the previous time level and the current time level.}
+\end{longtable}
+\end{center}
+\subsection[simulationStartTime]{\hyperref[sec:var_tab_mesh]{simulationStartTime}}
+\label{subsec:var_sec_mesh_simulationStartTime}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & text \\
+        \hline 
+        Units: & \si{unitless} \\
+        \hline 
+        Dimension: &  \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% simulationStartTime \\
+         \hline 
+    \caption{simulationStartTime: start time of first simulation, with format 'YYYY-MM-DD\_HH:MM:SS'}
+\end{longtable}
+\end{center}
+\subsection[daysSinceStart]{\hyperref[sec:var_tab_mesh]{daysSinceStart}}
+\label{subsec:var_sec_mesh_daysSinceStart}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{days} \\
+        \hline 
+        Dimension: & Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% daysSinceStart \\
+         \hline 
+    \caption{daysSinceStart: Time since simulationStartTime in days, for plotting}
+\end{longtable}
+\end{center}
+\subsection[timestepNumber]{\hyperref[sec:var_tab_mesh]{timestepNumber}}
+\label{subsec:var_sec_mesh_timestepNumber}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & \si{none} \\
+        \hline 
+        Dimension: & Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% mesh \% timestepNumber \\
+         \hline 
+    \caption{timestepNumber: time step number.  initial time is 0.}
+\end{longtable}
+\end{center}
+\section[geometry]{\hyperref[sec:var_tab_geometry]{geometry}}
+\label{sec:var_sec_geometry}
+\subsection[bedTopography]{\hyperref[sec:var_tab_geometry]{bedTopography}}
+\label{subsec:var_sec_geometry_bedTopography}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.above.datum} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% geometry \% bedTopography \\
+         \hline 
+    \caption{bedTopography: Elevation of ice sheet bed.  Once isostasy is added to the model, this should become a state variable.}
+\end{longtable}
+\end{center}
+\subsection[thickness]{\hyperref[sec:var_tab_geometry]{thickness}}
+\label{subsec:var_sec_geometry_thickness}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% geometry \% thickness \\
+         \hline 
+    \caption{thickness: ice thickness}
+\end{longtable}
+\end{center}
+\subsection[layerThickness]{\hyperref[sec:var_tab_geometry]{layerThickness}}
+\label{subsec:var_sec_geometry_layerThickness}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m} \\
+        \hline 
+        Dimension: & nVertLevels nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% geometry \% layerThickness \\
+         \hline 
+    \caption{layerThickness: layer thickness}
+\end{longtable}
+\end{center}
+\subsection[lowerSurface]{\hyperref[sec:var_tab_geometry]{lowerSurface}}
+\label{subsec:var_sec_geometry_lowerSurface}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.above.datum} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% geometry \% lowerSurface \\
+         \hline 
+    \caption{lowerSurface: elevation at bottom of ice}
+\end{longtable}
+\end{center}
+\subsection[upperSurface]{\hyperref[sec:var_tab_geometry]{upperSurface}}
+\label{subsec:var_sec_geometry_upperSurface}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.above.datum} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% geometry \% upperSurface \\
+         \hline 
+    \caption{upperSurface: elevation at top of ice}
+\end{longtable}
+\end{center}
+\subsection[layerThicknessEdge]{\hyperref[sec:var_tab_geometry]{layerThicknessEdge}}
+\label{subsec:var_sec_geometry_layerThicknessEdge}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m} \\
+        \hline 
+        Dimension: & nVertLevels nEdges Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% geometry \% layerThicknessEdge \\
+         \hline 
+    \caption{layerThicknessEdge: layer thickness on cell edges}
+\end{longtable}
+\end{center}
+\subsection[dHdt]{\hyperref[sec:var_tab_geometry]{dHdt}}
+\label{subsec:var_sec_geometry_dHdt}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.a^{-1}} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% geometry \% dHdt \\
+         \hline 
+    \caption{dHdt: diagnostic field of rate of thickness change with time (dH/dt). This includes all processes (flux divergence, SMB, BMB, calving, etc.) because it is calculated as the new thickness minus the old thickness divided by the time step.}
+\end{longtable}
+\end{center}
+\subsection[thicknessOld]{\hyperref[sec:var_tab_geometry]{thicknessOld}}
+\label{subsec:var_sec_geometry_thicknessOld}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% geometry \% thicknessOld \\
+         \hline 
+    \caption{thicknessOld: ice thickness from previous time level (only used to calculate thicknessTendency)}
+\end{longtable}
+\end{center}
+\subsection[dynamicThickening]{\hyperref[sec:var_tab_geometry]{dynamicThickening}}
+\label{subsec:var_sec_geometry_dynamicThickening}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.a^{-1}} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% geometry \% dynamicThickening \\
+         \hline 
+    \caption{dynamicThickening: diagnostic field of dynamic thickening rate (calculated as negative of flux divergence)}
+\end{longtable}
+\end{center}
+\subsection[cellMask]{\hyperref[sec:var_tab_geometry]{cellMask}}
+\label{subsec:var_sec_geometry_cellMask}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & \si{none} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% geometry \% cellMask \\
+         \hline 
+    \caption{cellMask: bitmask indicating various properties about the ice sheet on cells.  cellMask only needs to be a restart field if config\_allow\_additional\_advance = false (to keep the mask of initial ice extent)}
+\end{longtable}
+\end{center}
+\subsection[edgeMask]{\hyperref[sec:var_tab_geometry]{edgeMask}}
+\label{subsec:var_sec_geometry_edgeMask}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & \si{none} \\
+        \hline 
+        Dimension: & nEdges Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% geometry \% edgeMask \\
+         \hline 
+    \caption{edgeMask: bitmask indicating various properties about the ice sheet on edges.}
+\end{longtable}
+\end{center}
+\subsection[vertexMask]{\hyperref[sec:var_tab_geometry]{vertexMask}}
+\label{subsec:var_sec_geometry_vertexMask}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & \si{none} \\
+        \hline 
+        Dimension: & nVertices Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% geometry \% vertexMask \\
+         \hline 
+    \caption{vertexMask: bitmask indicating various properties about the ice sheet on vertices.}
+\end{longtable}
+\end{center}
+\subsection[sfcMassBal]{\hyperref[sec:var_tab_geometry]{sfcMassBal}}
+\label{subsec:var_sec_geometry_sfcMassBal}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{kg.m^{-2}.s^{-1}} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% geometry \% sfcMassBal \\
+         \hline 
+    \caption{sfcMassBal: Surface mass balance}
+\end{longtable}
+\end{center}
+\subsection[basalMassBal]{\hyperref[sec:var_tab_geometry]{basalMassBal}}
+\label{subsec:var_sec_geometry_basalMassBal}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{kg.m^{-2}.s^{-1}} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% geometry \% basalMassBal \\
+         \hline 
+    \caption{basalMassBal: Basal mass balance applied}
+\end{longtable}
+\end{center}
+\subsection[groundedBasalMassBal]{\hyperref[sec:var_tab_geometry]{groundedBasalMassBal}}
+\label{subsec:var_sec_geometry_groundedBasalMassBal}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{kg.m^{-2}.s^{-1}} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% geometry \% groundedBasalMassBal \\
+         \hline 
+    \caption{groundedBasalMassBal: Basal mass balance on grounded regions}
+\end{longtable}
+\end{center}
+\subsection[floatingBasalMassBal]{\hyperref[sec:var_tab_geometry]{floatingBasalMassBal}}
+\label{subsec:var_sec_geometry_floatingBasalMassBal}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{kg.m^{-2}.s^{-1}} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% geometry \% floatingBasalMassBal \\
+         \hline 
+    \caption{floatingBasalMassBal: Basal mass balance on floating regions}
+\end{longtable}
+\end{center}
+\subsection[calvingThickness]{\hyperref[sec:var_tab_geometry]{calvingThickness}}
+\label{subsec:var_sec_geometry_calvingThickness}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% geometry \% calvingThickness \\
+         \hline 
+    \caption{calvingThickness: thickness of ice that calves (less than or equal to ice thickness)}
+\end{longtable}
+\end{center}
+\subsection[eigencalvingParameter]{\hyperref[sec:var_tab_geometry]{eigencalvingParameter}}
+\label{subsec:var_sec_geometry_eigencalvingParameter}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.s} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% geometry \% eigencalvingParameter \\
+         \hline 
+    \caption{eigencalvingParameter: proportionality constant K2+- used in eigencalving formulation}
+\end{longtable}
+\end{center}
+\subsection[calvingVelocity]{\hyperref[sec:var_tab_geometry]{calvingVelocity}}
+\label{subsec:var_sec_geometry_calvingVelocity}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.s^{-1}} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% geometry \% calvingVelocity \\
+         \hline 
+    \caption{calvingVelocity: rate of calving front retreat due to calving, represented as a velocity normal to the calving front (in the x-y plane).  This retreat rate is converted in the code to requiredCalvingVolumeRate.}
+\end{longtable}
+\end{center}
+\subsection[requiredCalvingVolumeRate]{\hyperref[sec:var_tab_geometry]{requiredCalvingVolumeRate}}
+\label{subsec:var_sec_geometry_requiredCalvingVolumeRate}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m^3.s^{-1}} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% geometry \% requiredCalvingVolumeRate \\
+         \hline 
+    \caption{requiredCalvingVolumeRate: total volume of ice that needs to be removed based on eigencalving rate at this margin cell}
+\end{longtable}
+\end{center}
+\subsection[uncalvedVolume]{\hyperref[sec:var_tab_geometry]{uncalvedVolume}}
+\label{subsec:var_sec_geometry_uncalvedVolume}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m^3} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% geometry \% uncalvedVolume \\
+         \hline 
+    \caption{uncalvedVolume: volume of ice that was left uncalved from required calving flux due to only applying flux over immediate neighbors (diagnostic field to assess if this limitation is a problem)}
+\end{longtable}
+\end{center}
+\subsection[basalWaterThickness]{\hyperref[sec:var_tab_geometry]{basalWaterThickness}}
+\label{subsec:var_sec_geometry_basalWaterThickness}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% geometry \% basalWaterThickness \\
+         \hline 
+    \caption{basalWaterThickness: thickness of basal water}
+\end{longtable}
+\end{center}
+\subsection[restoreThickness]{\hyperref[sec:var_tab_geometry]{restoreThickness}}
+\label{subsec:var_sec_geometry_restoreThickness}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% geometry \% restoreThickness \\
+         \hline 
+    \caption{restoreThickness: thickness of ice added to restore the calving front to its initial position}
+\end{longtable}
+\end{center}
+\subsection[normalSlopeEdge]{\hyperref[sec:var_tab_geometry]{normalSlopeEdge}}
+\label{subsec:var_sec_geometry_normalSlopeEdge}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.m^{-1}} \\
+        \hline 
+        Dimension: & nEdges Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% geometry \% normalSlopeEdge \\
+         \hline 
+    \caption{normalSlopeEdge: normal surface slope on edges}
+\end{longtable}
+\end{center}
+\subsection[apparentDiffusivity]{\hyperref[sec:var_tab_geometry]{apparentDiffusivity}}
+\label{subsec:var_sec_geometry_apparentDiffusivity}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m^2.s^{-1}} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% geometry \% apparentDiffusivity \\
+         \hline 
+    \caption{apparentDiffusivity: apparent diffusivity at cell centers}
+\end{longtable}
+\end{center}
+\subsection[upperSurfaceVertex]{\hyperref[sec:var_tab_geometry]{upperSurfaceVertex}}
+\label{subsec:var_sec_geometry_upperSurfaceVertex}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.above.datum} \\
+        \hline 
+        Dimension: & nVertices Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% geometry \% upperSurfaceVertex \\
+         \hline 
+    \caption{upperSurfaceVertex: elevation at top of ice on vertices}
+\end{longtable}
+\end{center}
+\subsection[tangentSlopeEdge]{\hyperref[sec:var_tab_geometry]{tangentSlopeEdge}}
+\label{subsec:var_sec_geometry_tangentSlopeEdge}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.m^{-1}} \\
+        \hline 
+        Dimension: & nEdges Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% geometry \% tangentSlopeEdge \\
+         \hline 
+    \caption{tangentSlopeEdge: tangent surface slope on edges}
+\end{longtable}
+\end{center}
+\subsection[slopeEdge]{\hyperref[sec:var_tab_geometry]{slopeEdge}}
+\label{subsec:var_sec_geometry_slopeEdge}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.m^{-1}} \\
+        \hline 
+        Dimension: & nEdges Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% geometry \% slopeEdge \\
+         \hline 
+    \caption{slopeEdge: surface slope magnitude on edges}
+\end{longtable}
+\end{center}
+\section[velocity]{\hyperref[sec:var_tab_velocity]{velocity}}
+\label{sec:var_sec_velocity}
+\subsection[flowParamA]{\hyperref[sec:var_tab_velocity]{flowParamA}}
+\label{subsec:var_sec_velocity_flowParamA}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{s^{-1}.Pa^{-n}} \\
+        \hline 
+        Dimension: & nVertLevels nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% velocity \% flowParamA \\
+         \hline 
+    \caption{flowParamA: flow law parameter, A}
+\end{longtable}
+\end{center}
+\subsection[normalVelocity]{\hyperref[sec:var_tab_velocity]{normalVelocity}}
+\label{subsec:var_sec_velocity_normalVelocity}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.s^{-1}} \\
+        \hline 
+        Dimension: & nVertInterfaces nEdges Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% velocity \% normalVelocity \\
+         \hline 
+    \caption{normalVelocity: horizonal velocity, normal component to an edge, layer interface}
+\end{longtable}
+\end{center}
+\subsection[layerNormalVelocity]{\hyperref[sec:var_tab_velocity]{layerNormalVelocity}}
+\label{subsec:var_sec_velocity_layerNormalVelocity}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.s^{-1}} \\
+        \hline 
+        Dimension: & nVertLevels nEdges Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% velocity \% layerNormalVelocity \\
+         \hline 
+    \caption{layerNormalVelocity: horizonal velocity, normal component to an edge, layer midpoint}
+\end{longtable}
+\end{center}
+\subsection[normalVelocityInitial]{\hyperref[sec:var_tab_velocity]{normalVelocityInitial}}
+\label{subsec:var_sec_velocity_normalVelocityInitial}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.s^{-1}} \\
+        \hline 
+        Dimension: & nVertInterfaces nEdges Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% velocity \% normalVelocityInitial \\
+         \hline 
+    \caption{normalVelocityInitial: horizonal velocity, normal component to an edge, computed at initialization}
+\end{longtable}
+\end{center}
+\subsection[uReconstructX]{\hyperref[sec:var_tab_velocity]{uReconstructX}}
+\label{subsec:var_sec_velocity_uReconstructX}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.s^{-1}} \\
+        \hline 
+        Dimension: & nVertInterfaces nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% velocity \% uReconstructX \\
+         \hline 
+    \caption{uReconstructX: x-component of velocity reconstructed on cell centers.  Also, for higher-order dycores, on input: value of the x-component of velocity that should be applied where dirichletVelocityMask==1.}
+\end{longtable}
+\end{center}
+\subsection[uReconstructY]{\hyperref[sec:var_tab_velocity]{uReconstructY}}
+\label{subsec:var_sec_velocity_uReconstructY}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.s^{-1}} \\
+        \hline 
+        Dimension: & nVertInterfaces nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% velocity \% uReconstructY \\
+         \hline 
+    \caption{uReconstructY: y-component of velocity reconstructed on cell centers.    Also, for higher-order dycores, on input: value of the y-component of velocity that should be applied where dirichletVelocityMask==1.}
+\end{longtable}
+\end{center}
+\subsection[uReconstructZ]{\hyperref[sec:var_tab_velocity]{uReconstructZ}}
+\label{subsec:var_sec_velocity_uReconstructZ}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.s^{-1}} \\
+        \hline 
+        Dimension: & nVertInterfaces nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% velocity \% uReconstructZ \\
+         \hline 
+    \caption{uReconstructZ: z-component of velocity reconstructed on cell centers}
+\end{longtable}
+\end{center}
+\subsection[uReconstructZonal]{\hyperref[sec:var_tab_velocity]{uReconstructZonal}}
+\label{subsec:var_sec_velocity_uReconstructZonal}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.s^{-1}} \\
+        \hline 
+        Dimension: & nVertInterfaces nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% velocity \% uReconstructZonal \\
+         \hline 
+    \caption{uReconstructZonal: zonal velocity reconstructed on cell centers}
+\end{longtable}
+\end{center}
+\subsection[uReconstructMeridional]{\hyperref[sec:var_tab_velocity]{uReconstructMeridional}}
+\label{subsec:var_sec_velocity_uReconstructMeridional}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.s^{-1}} \\
+        \hline 
+        Dimension: & nVertInterfaces nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% velocity \% uReconstructMeridional \\
+         \hline 
+    \caption{uReconstructMeridional: meridional velocity reconstructed on cell centers}
+\end{longtable}
+\end{center}
+\subsection[surfaceSpeed]{\hyperref[sec:var_tab_velocity]{surfaceSpeed}}
+\label{subsec:var_sec_velocity_surfaceSpeed}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.s^{-1}} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% velocity \% surfaceSpeed \\
+         \hline 
+    \caption{surfaceSpeed: ice surface speed reconstructed at cell centers}
+\end{longtable}
+\end{center}
+\subsection[basalSpeed]{\hyperref[sec:var_tab_velocity]{basalSpeed}}
+\label{subsec:var_sec_velocity_basalSpeed}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.s^{-1}} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% velocity \% basalSpeed \\
+         \hline 
+    \caption{basalSpeed: ice basal speed reconstructed at cell centers}
+\end{longtable}
+\end{center}
+\subsection[beta]{\hyperref[sec:var_tab_velocity]{beta}}
+\label{subsec:var_sec_velocity_beta}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{Pa.yr.m^{-1}} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% velocity \% beta \\
+         \hline 
+    \caption{beta: higher-order basal traction parameter; NOTE: not SI units!}
+\end{longtable}
+\end{center}
+\subsection[betaSolve]{\hyperref[sec:var_tab_velocity]{betaSolve}}
+\label{subsec:var_sec_velocity_betaSolve}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{Pa.yr.m^{-1}} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% velocity \% betaSolve \\
+         \hline 
+    \caption{betaSolve: higher-order basal traction parameter; NOTE: not SI units!}
+\end{longtable}
+\end{center}
+\subsection[exx]{\hyperref[sec:var_tab_velocity]{exx}}
+\label{subsec:var_sec_velocity_exx}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{s^{-1}} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% velocity \% exx \\
+         \hline 
+    \caption{exx: x-component of strain rate}
+\end{longtable}
+\end{center}
+\subsection[eyy]{\hyperref[sec:var_tab_velocity]{eyy}}
+\label{subsec:var_sec_velocity_eyy}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{s^{-1}} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% velocity \% eyy \\
+         \hline 
+    \caption{eyy: y-component of strain rate}
+\end{longtable}
+\end{center}
+\subsection[exy]{\hyperref[sec:var_tab_velocity]{exy}}
+\label{subsec:var_sec_velocity_exy}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{s^{-1}} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% velocity \% exy \\
+         \hline 
+    \caption{exy: shear component of strain rate}
+\end{longtable}
+\end{center}
+\subsection[eTheta]{\hyperref[sec:var_tab_velocity]{eTheta}}
+\label{subsec:var_sec_velocity_eTheta}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{radians} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% velocity \% eTheta \\
+         \hline 
+    \caption{eTheta: orientation of principal strain rate}
+\end{longtable}
+\end{center}
+\subsection[eyx]{\hyperref[sec:var_tab_velocity]{eyx}}
+\label{subsec:var_sec_velocity_eyx}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{s^{-1}} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% velocity \% eyx \\
+         \hline 
+    \caption{eyx: shear component of strain rate}
+\end{longtable}
+\end{center}
+\subsection[eMax]{\hyperref[sec:var_tab_velocity]{eMax}}
+\label{subsec:var_sec_velocity_eMax}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{s^{-1}} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% velocity \% eMax \\
+         \hline 
+    \caption{eMax: magnitude of first principal strain rate}
+\end{longtable}
+\end{center}
+\subsection[eMin]{\hyperref[sec:var_tab_velocity]{eMin}}
+\label{subsec:var_sec_velocity_eMin}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{s^{-1}} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% velocity \% eMin \\
+         \hline 
+    \caption{eMin: magnitude of second principal strain rate}
+\end{longtable}
+\end{center}
+\subsection[anyDynamicVertexMaskChanged]{\hyperref[sec:var_tab_velocity]{anyDynamicVertexMaskChanged}}
+\label{subsec:var_sec_velocity_anyDynamicVertexMaskChanged}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & \si{none} \\
+        \hline 
+        Dimension: & Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% velocity \% anyDynamicVertexMaskChanged \\
+         \hline 
+    \caption{anyDynamicVertexMaskChanged: flag needed by external velocity solvers that indicates if the region to solve on the block's domain has changed (treated as a logical)}
+\end{longtable}
+\end{center}
+\subsection[dirichletVelocityMask]{\hyperref[sec:var_tab_velocity]{dirichletVelocityMask}}
+\label{subsec:var_sec_velocity_dirichletVelocityMask}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & \si{none} \\
+        \hline 
+        Dimension: & nVertInterfaces nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% velocity \% dirichletVelocityMask \\
+         \hline 
+    \caption{dirichletVelocityMask: mask of where Dirichlet boundary conditions should be applied to the velocity solution.  1 means apply a Dirichlet boundary condition, 0 means do not. (higher-order dycores only)}
+\end{longtable}
+\end{center}
+\subsection[dirichletMaskChanged]{\hyperref[sec:var_tab_velocity]{dirichletMaskChanged}}
+\label{subsec:var_sec_velocity_dirichletMaskChanged}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & \si{none} \\
+        \hline 
+        Dimension: & Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% velocity \% dirichletMaskChanged \\
+         \hline 
+    \caption{dirichletMaskChanged: flag needed by external velocity solvers that indicates if the Dirichlet boundary condition mask has changed (treated as a logical)}
+\end{longtable}
+\end{center}
+\subsection[floatingEdges]{\hyperref[sec:var_tab_velocity]{floatingEdges}}
+\label{subsec:var_sec_velocity_floatingEdges}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & \si{unitless} \\
+        \hline 
+        Dimension: & nEdges Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% velocity \% floatingEdges \\
+         \hline 
+    \caption{floatingEdges: edges which are floating have a value of 1.  non floating edges have a value of 0.}
+\end{longtable}
+\end{center}
+\section[observations]{\hyperref[sec:var_tab_observations]{observations}}
+\label{sec:var_sec_observations}
+\subsection[observedSurfaceVelocityX]{\hyperref[sec:var_tab_observations]{observedSurfaceVelocityX}}
+\label{subsec:var_sec_observations_observedSurfaceVelocityX}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.s^-1} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% observations \% observedSurfaceVelocityX \\
+         \hline 
+    \caption{observedSurfaceVelocityX: X-component of observed surface velocity}
+\end{longtable}
+\end{center}
+\subsection[observedSurfaceVelocityY]{\hyperref[sec:var_tab_observations]{observedSurfaceVelocityY}}
+\label{subsec:var_sec_observations_observedSurfaceVelocityY}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.s^-1} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% observations \% observedSurfaceVelocityY \\
+         \hline 
+    \caption{observedSurfaceVelocityY: Y-component of observed surface velocity}
+\end{longtable}
+\end{center}
+\subsection[observedSurfaceVelocityUncertainty]{\hyperref[sec:var_tab_observations]{observedSurfaceVelocityUncertainty}}
+\label{subsec:var_sec_observations_observedSurfaceVelocityUncertainty}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.s^-1} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% observations \% observedSurfaceVelocityUncertainty \\
+         \hline 
+    \caption{observedSurfaceVelocityUncertainty: uncertainty in observed surface velocity}
+\end{longtable}
+\end{center}
+\subsection[observedThicknessTendency]{\hyperref[sec:var_tab_observations]{observedThicknessTendency}}
+\label{subsec:var_sec_observations_observedThicknessTendency}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.s^-1} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% observations \% observedThicknessTendency \\
+         \hline 
+    \caption{observedThicknessTendency: observed tendency in thickness (dH/dt)}
+\end{longtable}
+\end{center}
+\subsection[observedThicknessTendencyUncertainty]{\hyperref[sec:var_tab_observations]{observedThicknessTendencyUncertainty}}
+\label{subsec:var_sec_observations_observedThicknessTendencyUncertainty}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.s^-1} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% observations \% observedThicknessTendencyUncertainty \\
+         \hline 
+    \caption{observedThicknessTendencyUncertainty: uncertainty in observed tendency in thickness (dH/dt)}
+\end{longtable}
+\end{center}
+\subsection[sfcMassBalUncertainty]{\hyperref[sec:var_tab_observations]{sfcMassBalUncertainty}}
+\label{subsec:var_sec_observations_sfcMassBalUncertainty}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{kg.m^{-2}.s^{-1}} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% observations \% sfcMassBalUncertainty \\
+         \hline 
+    \caption{sfcMassBalUncertainty: uncertainty in observed surface mass balance}
+\end{longtable}
+\end{center}
+\subsection[thicknessUncertainty]{\hyperref[sec:var_tab_observations]{thicknessUncertainty}}
+\label{subsec:var_sec_observations_thicknessUncertainty}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% observations \% thicknessUncertainty \\
+         \hline 
+    \caption{thicknessUncertainty: uncertainty in observed thickness}
+\end{longtable}
+\end{center}
+\subsection[floatingBasalMassBalUncertainty]{\hyperref[sec:var_tab_observations]{floatingBasalMassBalUncertainty}}
+\label{subsec:var_sec_observations_floatingBasalMassBalUncertainty}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{kg.m^{-2}.s^{-1}} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% observations \% floatingBasalMassBalUncertainty \\
+         \hline 
+    \caption{floatingBasalMassBalUncertainty: uncertainty in observed floating basal mass balance}
+\end{longtable}
+\end{center}
+\section[thermal]{\hyperref[sec:var_tab_thermal]{thermal}}
+\label{sec:var_sec_thermal}
+\subsection[temperature]{\hyperref[sec:var_tab_thermal]{temperature}}
+\label{subsec:var_sec_thermal_temperature}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{K} \\
+        \hline 
+        Dimension: & nVertLevels nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% thermal \% temperature \\
+         \hline 
+    \caption{temperature: interior ice temperature}
+\end{longtable}
+\end{center}
+\subsection[waterfrac]{\hyperref[sec:var_tab_thermal]{waterfrac}}
+\label{subsec:var_sec_thermal_waterfrac}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{unitless} \\
+        \hline 
+        Dimension: & nVertLevels nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% thermal \% waterfrac \\
+         \hline 
+    \caption{waterfrac: interior water fraction}
+\end{longtable}
+\end{center}
+\subsection[enthalpy]{\hyperref[sec:var_tab_thermal]{enthalpy}}
+\label{subsec:var_sec_thermal_enthalpy}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{J.m^{-3}} \\
+        \hline 
+        Dimension: & nVertLevels nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% thermal \% enthalpy \\
+         \hline 
+    \caption{enthalpy: interior ice enthalpy}
+\end{longtable}
+\end{center}
+\subsection[surfaceAirTemperature]{\hyperref[sec:var_tab_thermal]{surfaceAirTemperature}}
+\label{subsec:var_sec_thermal_surfaceAirTemperature}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{K} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% thermal \% surfaceAirTemperature \\
+         \hline 
+    \caption{surfaceAirTemperature: surface air temperature}
+\end{longtable}
+\end{center}
+\subsection[surfaceTemperature]{\hyperref[sec:var_tab_thermal]{surfaceTemperature}}
+\label{subsec:var_sec_thermal_surfaceTemperature}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{K} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% thermal \% surfaceTemperature \\
+         \hline 
+    \caption{surfaceTemperature: upper surface ice temperature}
+\end{longtable}
+\end{center}
+\subsection[basalTemperature]{\hyperref[sec:var_tab_thermal]{basalTemperature}}
+\label{subsec:var_sec_thermal_basalTemperature}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{K} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% thermal \% basalTemperature \\
+         \hline 
+    \caption{basalTemperature: lower surface ice temperature}
+\end{longtable}
+\end{center}
+\subsection[pmpTemperature]{\hyperref[sec:var_tab_thermal]{pmpTemperature}}
+\label{subsec:var_sec_thermal_pmpTemperature}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{K} \\
+        \hline 
+        Dimension: & nVertLevels nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% thermal \% pmpTemperature \\
+         \hline 
+    \caption{pmpTemperature: pressure melt temperature}
+\end{longtable}
+\end{center}
+\subsection[basalPmpTemperature]{\hyperref[sec:var_tab_thermal]{basalPmpTemperature}}
+\label{subsec:var_sec_thermal_basalPmpTemperature}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{K} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% thermal \% basalPmpTemperature \\
+         \hline 
+    \caption{basalPmpTemperature: lower surface pressure melt temperature}
+\end{longtable}
+\end{center}
+\subsection[surfaceConductiveFlux]{\hyperref[sec:var_tab_thermal]{surfaceConductiveFlux}}
+\label{subsec:var_sec_thermal_surfaceConductiveFlux}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{W.m^{-2}} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% thermal \% surfaceConductiveFlux \\
+         \hline 
+    \caption{surfaceConductiveFlux: conductive heat flux at the upper surface (positive downward)}
+\end{longtable}
+\end{center}
+\subsection[basalConductiveFlux]{\hyperref[sec:var_tab_thermal]{basalConductiveFlux}}
+\label{subsec:var_sec_thermal_basalConductiveFlux}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{W.m^{-2}} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% thermal \% basalConductiveFlux \\
+         \hline 
+    \caption{basalConductiveFlux: conductive heat flux at the lower surface (positive downward)}
+\end{longtable}
+\end{center}
+\subsection[basalHeatFlux]{\hyperref[sec:var_tab_thermal]{basalHeatFlux}}
+\label{subsec:var_sec_thermal_basalHeatFlux}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{W.m^{-2}} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% thermal \% basalHeatFlux \\
+         \hline 
+    \caption{basalHeatFlux: basal heat flux into the ice (positive upward)}
+\end{longtable}
+\end{center}
+\subsection[basalFrictionFlux]{\hyperref[sec:var_tab_thermal]{basalFrictionFlux}}
+\label{subsec:var_sec_thermal_basalFrictionFlux}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{W.m^{-2}} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% thermal \% basalFrictionFlux \\
+         \hline 
+    \caption{basalFrictionFlux: basal frictional flux into the ice (positive upward)}
+\end{longtable}
+\end{center}
+\subsection[heatDissipation]{\hyperref[sec:var_tab_thermal]{heatDissipation}}
+\label{subsec:var_sec_thermal_heatDissipation}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{deg.s^{-1}} \\
+        \hline 
+        Dimension: & nVertLevels nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% thermal \% heatDissipation \\
+         \hline 
+    \caption{heatDissipation: interior heat dissipation rate, divided by rhoi*cp\_ice}
+\end{longtable}
+\end{center}
+\section[scratch]{\hyperref[sec:var_tab_scratch]{scratch}}
+\label{sec:var_sec_scratch}
+\subsection[iceCellMask]{\hyperref[sec:var_tab_scratch]{iceCellMask}}
+\label{subsec:var_sec_scratch_iceCellMask}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & \si{none} \\
+        \hline 
+        Dimension: & nCells \\
+        \hline 
+        Persistence: & scratch \\
+        \hline 
+         Location in code: & domain \% blocklist \% scratch \% iceCellMask \\
+         \hline 
+    \caption{iceCellMask: mask set to 1 in cells where some criterion is satisfied and 0 otherwise}
+\end{longtable}
+\end{center}
+\subsection[iceCellMask2]{\hyperref[sec:var_tab_scratch]{iceCellMask2}}
+\label{subsec:var_sec_scratch_iceCellMask2}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & \si{none} \\
+        \hline 
+        Dimension: & nCells \\
+        \hline 
+        Persistence: & scratch \\
+        \hline 
+         Location in code: & domain \% blocklist \% scratch \% iceCellMask2 \\
+         \hline 
+    \caption{iceCellMask2: mask set to 1 in cells where some criterion is satisfied and 0 otherwise}
+\end{longtable}
+\end{center}
+\subsection[iceCellMask3]{\hyperref[sec:var_tab_scratch]{iceCellMask3}}
+\label{subsec:var_sec_scratch_iceCellMask3}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & \si{none} \\
+        \hline 
+        Dimension: & nCells \\
+        \hline 
+        Persistence: & scratch \\
+        \hline 
+         Location in code: & domain \% blocklist \% scratch \% iceCellMask3 \\
+         \hline 
+    \caption{iceCellMask3: mask set to 1 in cells where some criterion is satisfied and 0 otherwise}
+\end{longtable}
+\end{center}
+\subsection[iceEdgeMask]{\hyperref[sec:var_tab_scratch]{iceEdgeMask}}
+\label{subsec:var_sec_scratch_iceEdgeMask}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & \si{none} \\
+        \hline 
+        Dimension: & nEdges \\
+        \hline 
+        Persistence: & scratch \\
+        \hline 
+         Location in code: & domain \% blocklist \% scratch \% iceEdgeMask \\
+         \hline 
+    \caption{iceEdgeMask: mask set to 1 for edges adjacent to ice-covered cells and 0 otherwise}
+\end{longtable}
+\end{center}
+\subsection[workLevelCell]{\hyperref[sec:var_tab_scratch]{workLevelCell}}
+\label{subsec:var_sec_scratch_workLevelCell}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{none} \\
+        \hline 
+        Dimension: & nVertLevels nCells \\
+        \hline 
+        Persistence: & scratch \\
+        \hline 
+         Location in code: & domain \% blocklist \% scratch \% workLevelCell \\
+         \hline 
+    \caption{workLevelCell: generic work array with dimensions of (nVertLevels nCells)}
+\end{longtable}
+\end{center}
+\subsection[workLevelEdge]{\hyperref[sec:var_tab_scratch]{workLevelEdge}}
+\label{subsec:var_sec_scratch_workLevelEdge}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{none} \\
+        \hline 
+        Dimension: & nVertLevels nEdges \\
+        \hline 
+        Persistence: & scratch \\
+        \hline 
+         Location in code: & domain \% blocklist \% scratch \% workLevelEdge \\
+         \hline 
+    \caption{workLevelEdge: generic work array with dimensions of (nVertLevels nEdges)}
+\end{longtable}
+\end{center}
+\subsection[workLevelVertex]{\hyperref[sec:var_tab_scratch]{workLevelVertex}}
+\label{subsec:var_sec_scratch_workLevelVertex}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{none} \\
+        \hline 
+        Dimension: & nVertLevels nVertices \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% scratch \% workLevelVertex \\
+         \hline 
+    \caption{workLevelVertex: generic work array with dimensions of (nVertLevels nVertices)}
+\end{longtable}
+\end{center}
+\subsection[workCell]{\hyperref[sec:var_tab_scratch]{workCell}}
+\label{subsec:var_sec_scratch_workCell}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{none} \\
+        \hline 
+        Dimension: & nCells \\
+        \hline 
+        Persistence: & scratch \\
+        \hline 
+         Location in code: & domain \% blocklist \% scratch \% workCell \\
+         \hline 
+    \caption{workCell: generic work array with dimensions of (nCells)}
+\end{longtable}
+\end{center}
+\subsection[workCell2]{\hyperref[sec:var_tab_scratch]{workCell2}}
+\label{subsec:var_sec_scratch_workCell2}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{none} \\
+        \hline 
+        Dimension: & nCells \\
+        \hline 
+        Persistence: & scratch \\
+        \hline 
+         Location in code: & domain \% blocklist \% scratch \% workCell2 \\
+         \hline 
+    \caption{workCell2: generic work array with dimensions of (nCells)}
+\end{longtable}
+\end{center}
+\subsection[workCell3]{\hyperref[sec:var_tab_scratch]{workCell3}}
+\label{subsec:var_sec_scratch_workCell3}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{none} \\
+        \hline 
+        Dimension: & nCells \\
+        \hline 
+        Persistence: & scratch \\
+        \hline 
+         Location in code: & domain \% blocklist \% scratch \% workCell3 \\
+         \hline 
+    \caption{workCell3: generic work array with dimensions of (nCells)}
+\end{longtable}
+\end{center}
+\subsection[workTracerCell]{\hyperref[sec:var_tab_scratch]{workTracerCell}}
+\label{subsec:var_sec_scratch_workTracerCell}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{none} \\
+        \hline 
+        Dimension: & maxTracersAdvect nCells \\
+        \hline 
+        Persistence: & scratch \\
+        \hline 
+         Location in code: & domain \% blocklist \% scratch \% workTracerCell \\
+         \hline 
+    \caption{workTracerCell: generic work array with dimensions of (maxTracersAdvect nCells)}
+\end{longtable}
+\end{center}
+\subsection[workTracerCell2]{\hyperref[sec:var_tab_scratch]{workTracerCell2}}
+\label{subsec:var_sec_scratch_workTracerCell2}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{none} \\
+        \hline 
+        Dimension: & maxTracersAdvect nCells \\
+        \hline 
+        Persistence: & scratch \\
+        \hline 
+         Location in code: & domain \% blocklist \% scratch \% workTracerCell2 \\
+         \hline 
+    \caption{workTracerCell2: generic work array with dimensions of (maxTracersAdvect nCells)}
+\end{longtable}
+\end{center}
+\subsection[workTracerLevelCell]{\hyperref[sec:var_tab_scratch]{workTracerLevelCell}}
+\label{subsec:var_sec_scratch_workTracerLevelCell}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{none} \\
+        \hline 
+        Dimension: & maxTracersAdvect nVertLevels nCells \\
+        \hline 
+        Persistence: & scratch \\
+        \hline 
+         Location in code: & domain \% blocklist \% scratch \% workTracerLevelCell \\
+         \hline 
+    \caption{workTracerLevelCell: generic work array with dimensions of (maxTracersAdvect nVertLevels nCells)}
+\end{longtable}
+\end{center}
+\subsection[workTracerLevelCell2]{\hyperref[sec:var_tab_scratch]{workTracerLevelCell2}}
+\label{subsec:var_sec_scratch_workTracerLevelCell2}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{none} \\
+        \hline 
+        Dimension: & maxTracersAdvect nVertLevels nCells \\
+        \hline 
+        Persistence: & scratch \\
+        \hline 
+         Location in code: & domain \% blocklist \% scratch \% workTracerLevelCell2 \\
+         \hline 
+    \caption{workTracerLevelCell2: generic work array with dimensions of (maxTracersAdvect nVertLevels nCells)}
+\end{longtable}
+\end{center}
+\subsection[slopeCellX]{\hyperref[sec:var_tab_scratch]{slopeCellX}}
+\label{subsec:var_sec_scratch_slopeCellX}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{none} \\
+        \hline 
+        Dimension: & nCells \\
+        \hline 
+        Persistence: & scratch \\
+        \hline 
+         Location in code: & domain \% blocklist \% scratch \% slopeCellX \\
+         \hline 
+    \caption{slopeCellX: {\bf \color{red} MISSING}}
+\end{longtable}
+\end{center}
+\subsection[slopeCellY]{\hyperref[sec:var_tab_scratch]{slopeCellY}}
+\label{subsec:var_sec_scratch_slopeCellY}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{none} \\
+        \hline 
+        Dimension: & nCells \\
+        \hline 
+        Persistence: & scratch \\
+        \hline 
+         Location in code: & domain \% blocklist \% scratch \% slopeCellY \\
+         \hline 
+    \caption{slopeCellY: {\bf \color{red} MISSING}}
+\end{longtable}
+\end{center}
+\subsection[vertexIndices]{\hyperref[sec:var_tab_scratch]{vertexIndices}}
+\label{subsec:var_sec_scratch_vertexIndices}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & \si{none} \\
+        \hline 
+        Dimension: & nVertices \\
+        \hline 
+        Persistence: & scratch \\
+        \hline 
+         Location in code: & domain \% blocklist \% scratch \% vertexIndices \\
+         \hline 
+    \caption{vertexIndices: local indices of each vertex}
+\end{longtable}
+\end{center}
+\section[regions]{\hyperref[sec:var_tab_regions]{regions}}
+\label{sec:var_sec_regions}
+\subsection[regionCellMasks]{\hyperref[sec:var_tab_regions]{regionCellMasks}}
+\label{subsec:var_sec_regions_regionCellMasks}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & \si{unitless} \\
+        \hline 
+        Dimension: & nRegions nCells \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% regions \% regionCellMasks \\
+         \hline 
+    \caption{regionCellMasks: masks set to 1 in cells that fall within a given region and 0 otherwise}
+\end{longtable}
+\end{center}
+\section[hydro]{\hyperref[sec:var_tab_hydro]{hydro}}
+\label{sec:var_sec_hydro}
+\subsection[waterThickness]{\hyperref[sec:var_tab_hydro]{waterThickness}}
+\label{subsec:var_sec_hydro_waterThickness}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% waterThickness \\
+         \hline 
+    \caption{waterThickness: water layer thickness in subglacial system}
+\end{longtable}
+\end{center}
+\subsection[waterThicknessOld]{\hyperref[sec:var_tab_hydro]{waterThicknessOld}}
+\label{subsec:var_sec_hydro_waterThicknessOld}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% waterThicknessOld \\
+         \hline 
+    \caption{waterThicknessOld: water layer thickness in subglacial system from previous time step}
+\end{longtable}
+\end{center}
+\subsection[waterThicknessTendency]{\hyperref[sec:var_tab_hydro]{waterThicknessTendency}}
+\label{subsec:var_sec_hydro_waterThicknessTendency}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m/s} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% waterThicknessTendency \\
+         \hline 
+    \caption{waterThicknessTendency: rate of change in water layer thickness in subglacial system}
+\end{longtable}
+\end{center}
+\subsection[tillWaterThickness]{\hyperref[sec:var_tab_hydro]{tillWaterThickness}}
+\label{subsec:var_sec_hydro_tillWaterThickness}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% tillWaterThickness \\
+         \hline 
+    \caption{tillWaterThickness: water layer thickness in subglacial till}
+\end{longtable}
+\end{center}
+\subsection[tillWaterThicknessOld]{\hyperref[sec:var_tab_hydro]{tillWaterThicknessOld}}
+\label{subsec:var_sec_hydro_tillWaterThicknessOld}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% tillWaterThicknessOld \\
+         \hline 
+    \caption{tillWaterThicknessOld: water layer thickness in subglacial till from previous time step}
+\end{longtable}
+\end{center}
+\subsection[waterPressure]{\hyperref[sec:var_tab_hydro]{waterPressure}}
+\label{subsec:var_sec_hydro_waterPressure}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{Pa} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% waterPressure \\
+         \hline 
+    \caption{waterPressure: pressure in subglacial system}
+\end{longtable}
+\end{center}
+\subsection[waterPressureOld]{\hyperref[sec:var_tab_hydro]{waterPressureOld}}
+\label{subsec:var_sec_hydro_waterPressureOld}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{Pa} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% waterPressureOld \\
+         \hline 
+    \caption{waterPressureOld: pressure in subglacial system from previous time step}
+\end{longtable}
+\end{center}
+\subsection[waterPressureTendency]{\hyperref[sec:var_tab_hydro]{waterPressureTendency}}
+\label{subsec:var_sec_hydro_waterPressureTendency}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{Pa/s} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% waterPressureTendency \\
+         \hline 
+    \caption{waterPressureTendency: tendency in pressure in subglacial system}
+\end{longtable}
+\end{center}
+\subsection[basalMeltInput]{\hyperref[sec:var_tab_hydro]{basalMeltInput}}
+\label{subsec:var_sec_hydro_basalMeltInput}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{kg.m^-2.s^-1} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% basalMeltInput \\
+         \hline 
+    \caption{basalMeltInput: basal meltwater input}
+\end{longtable}
+\end{center}
+\subsection[externalWaterInput]{\hyperref[sec:var_tab_hydro]{externalWaterInput}}
+\label{subsec:var_sec_hydro_externalWaterInput}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{kg.m^-2.s^-1} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% externalWaterInput \\
+         \hline 
+    \caption{externalWaterInput: external water input}
+\end{longtable}
+\end{center}
+\subsection[frictionAngle]{\hyperref[sec:var_tab_hydro]{frictionAngle}}
+\label{subsec:var_sec_hydro_frictionAngle}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{None} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% frictionAngle \\
+         \hline 
+    \caption{frictionAngle: till friction angle}
+\end{longtable}
+\end{center}
+\subsection[effectivePressure]{\hyperref[sec:var_tab_hydro]{effectivePressure}}
+\label{subsec:var_sec_hydro_effectivePressure}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{Pa} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% effectivePressure \\
+         \hline 
+    \caption{effectivePressure: effective ice pressure in subglacial system}
+\end{longtable}
+\end{center}
+\subsection[hydropotential]{\hyperref[sec:var_tab_hydro]{hydropotential}}
+\label{subsec:var_sec_hydro_hydropotential}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{Pa} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% hydropotential \\
+         \hline 
+    \caption{hydropotential: subglacial hydropotential}
+\end{longtable}
+\end{center}
+\subsection[waterFlux]{\hyperref[sec:var_tab_hydro]{waterFlux}}
+\label{subsec:var_sec_hydro_waterFlux}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m^2/s} \\
+        \hline 
+        Dimension: & nEdges Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% waterFlux \\
+         \hline 
+    \caption{waterFlux: total subglacial water flux}
+\end{longtable}
+\end{center}
+\subsection[waterFluxMask]{\hyperref[sec:var_tab_hydro]{waterFluxMask}}
+\label{subsec:var_sec_hydro_waterFluxMask}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & integer \\
+        \hline 
+        Units: & \si{none} \\
+        \hline 
+        Dimension: & nEdges Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% waterFluxMask \\
+         \hline 
+    \caption{waterFluxMask: mask indicating how to handle fluxes on each edge: 0=calculate based on hydropotential gradient; 1=allow outflow based on hydropotential gradient, but no inflow (NOT YET IMPLEMENTED); 2=zero flux}
+\end{longtable}
+\end{center}
+\subsection[waterFluxAdvec]{\hyperref[sec:var_tab_hydro]{waterFluxAdvec}}
+\label{subsec:var_sec_hydro_waterFluxAdvec}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m^2/s} \\
+        \hline 
+        Dimension: & nEdges Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% waterFluxAdvec \\
+         \hline 
+    \caption{waterFluxAdvec: advective subglacial water flux}
+\end{longtable}
+\end{center}
+\subsection[waterFluxDiffu]{\hyperref[sec:var_tab_hydro]{waterFluxDiffu}}
+\label{subsec:var_sec_hydro_waterFluxDiffu}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m^2/s} \\
+        \hline 
+        Dimension: & nEdges Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% waterFluxDiffu \\
+         \hline 
+    \caption{waterFluxDiffu: diffusive subglacial water flux}
+\end{longtable}
+\end{center}
+\subsection[waterVelocity]{\hyperref[sec:var_tab_hydro]{waterVelocity}}
+\label{subsec:var_sec_hydro_waterVelocity}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.s^-1} \\
+        \hline 
+        Dimension: & nEdges Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% waterVelocity \\
+         \hline 
+    \caption{waterVelocity: subglacial water velocity}
+\end{longtable}
+\end{center}
+\subsection[waterVelocityCellX]{\hyperref[sec:var_tab_hydro]{waterVelocityCellX}}
+\label{subsec:var_sec_hydro_waterVelocityCellX}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.s^-1} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% waterVelocityCellX \\
+         \hline 
+    \caption{waterVelocityCellX: subglacial water velocity reconstructed on cell centers, x-component}
+\end{longtable}
+\end{center}
+\subsection[waterVelocityCellY]{\hyperref[sec:var_tab_hydro]{waterVelocityCellY}}
+\label{subsec:var_sec_hydro_waterVelocityCellY}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.s^-1} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% waterVelocityCellY \\
+         \hline 
+    \caption{waterVelocityCellY: subglacial water velocity reconstructed on cell centers, y-component}
+\end{longtable}
+\end{center}
+\subsection[effectiveConducEdge]{\hyperref[sec:var_tab_hydro]{effectiveConducEdge}}
+\label{subsec:var_sec_hydro_effectiveConducEdge}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{?} \\
+        \hline 
+        Dimension: & nEdges Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% effectiveConducEdge \\
+         \hline 
+    \caption{effectiveConducEdge: effective Darcy hydraulic conductivity on edges}
+\end{longtable}
+\end{center}
+\subsection[waterThicknessEdge]{\hyperref[sec:var_tab_hydro]{waterThicknessEdge}}
+\label{subsec:var_sec_hydro_waterThicknessEdge}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m} \\
+        \hline 
+        Dimension: & nEdges Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% waterThicknessEdge \\
+         \hline 
+    \caption{waterThicknessEdge: water layer thickness on edges}
+\end{longtable}
+\end{center}
+\subsection[waterThicknessEdgeUpwind]{\hyperref[sec:var_tab_hydro]{waterThicknessEdgeUpwind}}
+\label{subsec:var_sec_hydro_waterThicknessEdgeUpwind}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m} \\
+        \hline 
+        Dimension: & nEdges Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% waterThicknessEdgeUpwind \\
+         \hline 
+    \caption{waterThicknessEdgeUpwind: water layer thickness of cell upwind of edge}
+\end{longtable}
+\end{center}
+\subsection[diffusivity]{\hyperref[sec:var_tab_hydro]{diffusivity}}
+\label{subsec:var_sec_hydro_diffusivity}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m^2.s^-1} \\
+        \hline 
+        Dimension: & nEdges Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% diffusivity \\
+         \hline 
+    \caption{diffusivity: diffusivity of sheet}
+\end{longtable}
+\end{center}
+\subsection[hydropotentialBase]{\hyperref[sec:var_tab_hydro]{hydropotentialBase}}
+\label{subsec:var_sec_hydro_hydropotentialBase}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{Pa} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% hydropotentialBase \\
+         \hline 
+    \caption{hydropotentialBase: hydropotential without water thickness contribution}
+\end{longtable}
+\end{center}
+\subsection[hydropotentialBaseVertex]{\hyperref[sec:var_tab_hydro]{hydropotentialBaseVertex}}
+\label{subsec:var_sec_hydro_hydropotentialBaseVertex}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{Pa} \\
+        \hline 
+        Dimension: & nVertices Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% hydropotentialBaseVertex \\
+         \hline 
+    \caption{hydropotentialBaseVertex: hydropotential without water thickness contribution on vertices.  Only used for some choices of config\_SGH\_tangent\_slope\_calculation.}
+\end{longtable}
+\end{center}
+\subsection[hydropotentialBaseSlopeNormal]{\hyperref[sec:var_tab_hydro]{hydropotentialBaseSlopeNormal}}
+\label{subsec:var_sec_hydro_hydropotentialBaseSlopeNormal}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{Pa.m^-1} \\
+        \hline 
+        Dimension: & nEdges Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% hydropotentialBaseSlopeNormal \\
+         \hline 
+    \caption{hydropotentialBaseSlopeNormal: normal component of gradient of hydropotentialBase}
+\end{longtable}
+\end{center}
+\subsection[hydropotentialBaseSlopeTangent]{\hyperref[sec:var_tab_hydro]{hydropotentialBaseSlopeTangent}}
+\label{subsec:var_sec_hydro_hydropotentialBaseSlopeTangent}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{Pa.m^-1} \\
+        \hline 
+        Dimension: & nEdges Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% hydropotentialBaseSlopeTangent \\
+         \hline 
+    \caption{hydropotentialBaseSlopeTangent: tangent component of gradient of hydropotentialBase}
+\end{longtable}
+\end{center}
+\subsection[gradMagPhiEdge]{\hyperref[sec:var_tab_hydro]{gradMagPhiEdge}}
+\label{subsec:var_sec_hydro_gradMagPhiEdge}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{?} \\
+        \hline 
+        Dimension: & nEdges Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% gradMagPhiEdge \\
+         \hline 
+    \caption{gradMagPhiEdge: magnitude of the gradient of hydropotentialBase, on Edges}
+\end{longtable}
+\end{center}
+\subsection[waterPressureSlopeNormal]{\hyperref[sec:var_tab_hydro]{waterPressureSlopeNormal}}
+\label{subsec:var_sec_hydro_waterPressureSlopeNormal}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{Pa.m^-1} \\
+        \hline 
+        Dimension: & nEdges Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% waterPressureSlopeNormal \\
+         \hline 
+    \caption{waterPressureSlopeNormal: normal component of gradient of waterPressure}
+\end{longtable}
+\end{center}
+\subsection[divergence]{\hyperref[sec:var_tab_hydro]{divergence}}
+\label{subsec:var_sec_hydro_divergence}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.s^-1} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% divergence \\
+         \hline 
+    \caption{divergence: flux divergence of water}
+\end{longtable}
+\end{center}
+\subsection[openingRate]{\hyperref[sec:var_tab_hydro]{openingRate}}
+\label{subsec:var_sec_hydro_openingRate}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.s^-1} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% openingRate \\
+         \hline 
+    \caption{openingRate: rate of cavity opening}
+\end{longtable}
+\end{center}
+\subsection[closingRate]{\hyperref[sec:var_tab_hydro]{closingRate}}
+\label{subsec:var_sec_hydro_closingRate}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.s^-1} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% closingRate \\
+         \hline 
+    \caption{closingRate: rate of creep closure}
+\end{longtable}
+\end{center}
+\subsection[zeroOrderSum]{\hyperref[sec:var_tab_hydro]{zeroOrderSum}}
+\label{subsec:var_sec_hydro_zeroOrderSum}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.s^-1} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% zeroOrderSum \\
+         \hline 
+    \caption{zeroOrderSum: sum of zero order terms}
+\end{longtable}
+\end{center}
+\subsection[deltatSGHadvec]{\hyperref[sec:var_tab_hydro]{deltatSGHadvec}}
+\label{subsec:var_sec_hydro_deltatSGHadvec}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{s} \\
+        \hline 
+        Dimension: & Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% deltatSGHadvec \\
+         \hline 
+    \caption{deltatSGHadvec: advective CFL limited time step length}
+\end{longtable}
+\end{center}
+\subsection[deltatSGHdiffu]{\hyperref[sec:var_tab_hydro]{deltatSGHdiffu}}
+\label{subsec:var_sec_hydro_deltatSGHdiffu}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{s} \\
+        \hline 
+        Dimension: & Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% deltatSGHdiffu \\
+         \hline 
+    \caption{deltatSGHdiffu: diffusive CFL limited time step length}
+\end{longtable}
+\end{center}
+\subsection[deltatSGHpressure]{\hyperref[sec:var_tab_hydro]{deltatSGHpressure}}
+\label{subsec:var_sec_hydro_deltatSGHpressure}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{s} \\
+        \hline 
+        Dimension: & Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% deltatSGHpressure \\
+         \hline 
+    \caption{deltatSGHpressure: time step length limited by pressure equation scheme}
+\end{longtable}
+\end{center}
+\subsection[deltatSGH]{\hyperref[sec:var_tab_hydro]{deltatSGH}}
+\label{subsec:var_sec_hydro_deltatSGH}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{s} \\
+        \hline 
+        Dimension: & Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% deltatSGH \\
+         \hline 
+    \caption{deltatSGH: time step used for subglacial hydro}
+\end{longtable}
+\end{center}
+\subsection[channelArea]{\hyperref[sec:var_tab_hydro]{channelArea}}
+\label{subsec:var_sec_hydro_channelArea}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m^2} \\
+        \hline 
+        Dimension: & nEdges Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% channelArea \\
+         \hline 
+    \caption{channelArea: area of subglacial channel}
+\end{longtable}
+\end{center}
+\subsection[channelDischarge]{\hyperref[sec:var_tab_hydro]{channelDischarge}}
+\label{subsec:var_sec_hydro_channelDischarge}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m^3.s^-1} \\
+        \hline 
+        Dimension: & nEdges Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% channelDischarge \\
+         \hline 
+    \caption{channelDischarge: discharge through subglacial channel}
+\end{longtable}
+\end{center}
+\subsection[channelVelocity]{\hyperref[sec:var_tab_hydro]{channelVelocity}}
+\label{subsec:var_sec_hydro_channelVelocity}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.s^-1} \\
+        \hline 
+        Dimension: & nEdges Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% channelVelocity \\
+         \hline 
+    \caption{channelVelocity: velocity in subglacial channel}
+\end{longtable}
+\end{center}
+\subsection[channelMelt]{\hyperref[sec:var_tab_hydro]{channelMelt}}
+\label{subsec:var_sec_hydro_channelMelt}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{kg.m^-1.s^-1} \\
+        \hline 
+        Dimension: & nEdges Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% channelMelt \\
+         \hline 
+    \caption{channelMelt: melt rate in subglacial channel}
+\end{longtable}
+\end{center}
+\subsection[channelPressureFreeze]{\hyperref[sec:var_tab_hydro]{channelPressureFreeze}}
+\label{subsec:var_sec_hydro_channelPressureFreeze}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{kg.m^-1.s^-1} \\
+        \hline 
+        Dimension: & nEdges Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% channelPressureFreeze \\
+         \hline 
+    \caption{channelPressureFreeze: freezing rate in subglacial channel due to water pressure gradient.  positive=freezing, negative=melting}
+\end{longtable}
+\end{center}
+\subsection[flowParamAChannel]{\hyperref[sec:var_tab_hydro]{flowParamAChannel}}
+\label{subsec:var_sec_hydro_flowParamAChannel}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{Pa^-3.s^-1} \\
+        \hline 
+        Dimension: & nEdges Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% flowParamAChannel \\
+         \hline 
+    \caption{flowParamAChannel: flow parameter A on edges used for channel}
+\end{longtable}
+\end{center}
+\subsection[channelEffectivePressure]{\hyperref[sec:var_tab_hydro]{channelEffectivePressure}}
+\label{subsec:var_sec_hydro_channelEffectivePressure}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{Pa} \\
+        \hline 
+        Dimension: & nEdges Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% channelEffectivePressure \\
+         \hline 
+    \caption{channelEffectivePressure: effective pressure in the channel}
+\end{longtable}
+\end{center}
+\subsection[channelClosingRate]{\hyperref[sec:var_tab_hydro]{channelClosingRate}}
+\label{subsec:var_sec_hydro_channelClosingRate}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m^2.s^-1} \\
+        \hline 
+        Dimension: & nEdges Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% channelClosingRate \\
+         \hline 
+    \caption{channelClosingRate: closing rate from creep of the channel}
+\end{longtable}
+\end{center}
+\subsection[channelOpeningRate]{\hyperref[sec:var_tab_hydro]{channelOpeningRate}}
+\label{subsec:var_sec_hydro_channelOpeningRate}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m^2.s^-1} \\
+        \hline 
+        Dimension: & nEdges Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% channelOpeningRate \\
+         \hline 
+    \caption{channelOpeningRate: opening rate from melt of the channel}
+\end{longtable}
+\end{center}
+\subsection[channelChangeRate]{\hyperref[sec:var_tab_hydro]{channelChangeRate}}
+\label{subsec:var_sec_hydro_channelChangeRate}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m^2.s^-1} \\
+        \hline 
+        Dimension: & nEdges Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% channelChangeRate \\
+         \hline 
+    \caption{channelChangeRate: rate of change of channel area}
+\end{longtable}
+\end{center}
+\subsection[deltatSGHadvecChannel]{\hyperref[sec:var_tab_hydro]{deltatSGHadvecChannel}}
+\label{subsec:var_sec_hydro_deltatSGHadvecChannel}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{s} \\
+        \hline 
+        Dimension: & Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% deltatSGHadvecChannel \\
+         \hline 
+    \caption{deltatSGHadvecChannel: time step length limited by channel advection}
+\end{longtable}
+\end{center}
+\subsection[deltatSGHdiffuChannel]{\hyperref[sec:var_tab_hydro]{deltatSGHdiffuChannel}}
+\label{subsec:var_sec_hydro_deltatSGHdiffuChannel}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{s} \\
+        \hline 
+        Dimension: & Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% deltatSGHdiffuChannel \\
+         \hline 
+    \caption{deltatSGHdiffuChannel: time step length limited by channel diffusion}
+\end{longtable}
+\end{center}
+\subsection[divergenceChannel]{\hyperref[sec:var_tab_hydro]{divergenceChannel}}
+\label{subsec:var_sec_hydro_divergenceChannel}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.s^-1} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% divergenceChannel \\
+         \hline 
+    \caption{divergenceChannel: divergence due to channel flow}
+\end{longtable}
+\end{center}
+\subsection[channelAreaChangeCell]{\hyperref[sec:var_tab_hydro]{channelAreaChangeCell}}
+\label{subsec:var_sec_hydro_channelAreaChangeCell}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.s^-1} \\
+        \hline 
+        Dimension: & nCells Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% channelAreaChangeCell \\
+         \hline 
+    \caption{channelAreaChangeCell: change in channel area within each cell, averaged over cell area}
+\end{longtable}
+\end{center}
+\subsection[channelDiffusivity]{\hyperref[sec:var_tab_hydro]{channelDiffusivity}}
+\label{subsec:var_sec_hydro_channelDiffusivity}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m^2.s^-1} \\
+        \hline 
+        Dimension: & nEdges Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% hydro \% channelDiffusivity \\
+         \hline 
+    \caption{channelDiffusivity: diffusivity in channel}
+\end{longtable}
+\end{center}
+\section[globalStatsAM]{\hyperref[sec:var_tab_globalStatsAM]{globalStatsAM}}
+\label{sec:var_sec_globalStatsAM}
+\subsection[totalIceVolume]{\hyperref[sec:var_tab_globalStatsAM]{totalIceVolume}}
+\label{subsec:var_sec_globalStatsAM_totalIceVolume}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m^3} \\
+        \hline 
+        Dimension: & Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% globalStatsAM \% totalIceVolume \\
+         \hline 
+    \caption{totalIceVolume: total ice sheet volume}
+\end{longtable}
+\end{center}
+\subsection[volumeAboveFloatation]{\hyperref[sec:var_tab_globalStatsAM]{volumeAboveFloatation}}
+\label{subsec:var_sec_globalStatsAM_volumeAboveFloatation}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m^3} \\
+        \hline 
+        Dimension: & Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% globalStatsAM \% volumeAboveFloatation \\
+         \hline 
+    \caption{volumeAboveFloatation: total ice sheet volume above floatation}
+\end{longtable}
+\end{center}
+\subsection[totalIceArea]{\hyperref[sec:var_tab_globalStatsAM]{totalIceArea}}
+\label{subsec:var_sec_globalStatsAM_totalIceArea}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m^2} \\
+        \hline 
+        Dimension: & Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% globalStatsAM \% totalIceArea \\
+         \hline 
+    \caption{totalIceArea: total ice sheet area}
+\end{longtable}
+\end{center}
+\subsection[floatingIceVolume]{\hyperref[sec:var_tab_globalStatsAM]{floatingIceVolume}}
+\label{subsec:var_sec_globalStatsAM_floatingIceVolume}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m^3} \\
+        \hline 
+        Dimension: & Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% globalStatsAM \% floatingIceVolume \\
+         \hline 
+    \caption{floatingIceVolume: total floating ice sheet volume}
+\end{longtable}
+\end{center}
+\subsection[floatingIceArea]{\hyperref[sec:var_tab_globalStatsAM]{floatingIceArea}}
+\label{subsec:var_sec_globalStatsAM_floatingIceArea}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m^2} \\
+        \hline 
+        Dimension: & Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% globalStatsAM \% floatingIceArea \\
+         \hline 
+    \caption{floatingIceArea: total floating ice sheet area}
+\end{longtable}
+\end{center}
+\subsection[groundedIceVolume]{\hyperref[sec:var_tab_globalStatsAM]{groundedIceVolume}}
+\label{subsec:var_sec_globalStatsAM_groundedIceVolume}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m^3} \\
+        \hline 
+        Dimension: & Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% globalStatsAM \% groundedIceVolume \\
+         \hline 
+    \caption{groundedIceVolume: total grounded ice sheet volume}
+\end{longtable}
+\end{center}
+\subsection[groundedIceArea]{\hyperref[sec:var_tab_globalStatsAM]{groundedIceArea}}
+\label{subsec:var_sec_globalStatsAM_groundedIceArea}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m^2} \\
+        \hline 
+        Dimension: & Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% globalStatsAM \% groundedIceArea \\
+         \hline 
+    \caption{groundedIceArea: total grounded ice sheet area}
+\end{longtable}
+\end{center}
+\subsection[iceThicknessMean]{\hyperref[sec:var_tab_globalStatsAM]{iceThicknessMean}}
+\label{subsec:var_sec_globalStatsAM_iceThicknessMean}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m} \\
+        \hline 
+        Dimension: & Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% globalStatsAM \% iceThicknessMean \\
+         \hline 
+    \caption{iceThicknessMean: spatially averaged ice thickness}
+\end{longtable}
+\end{center}
+\subsection[iceThicknessMax]{\hyperref[sec:var_tab_globalStatsAM]{iceThicknessMax}}
+\label{subsec:var_sec_globalStatsAM_iceThicknessMax}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m} \\
+        \hline 
+        Dimension: & Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% globalStatsAM \% iceThicknessMax \\
+         \hline 
+    \caption{iceThicknessMax: maximum ice thickness in domain}
+\end{longtable}
+\end{center}
+\subsection[iceThicknessMin]{\hyperref[sec:var_tab_globalStatsAM]{iceThicknessMin}}
+\label{subsec:var_sec_globalStatsAM_iceThicknessMin}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m} \\
+        \hline 
+        Dimension: & Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% globalStatsAM \% iceThicknessMin \\
+         \hline 
+    \caption{iceThicknessMin: minimum ice thickness in domain}
+\end{longtable}
+\end{center}
+\subsection[totalSfcMassBal]{\hyperref[sec:var_tab_globalStatsAM]{totalSfcMassBal}}
+\label{subsec:var_sec_globalStatsAM_totalSfcMassBal}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{kg.yr^{-1}} \\
+        \hline 
+        Dimension: & Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% globalStatsAM \% totalSfcMassBal \\
+         \hline 
+    \caption{totalSfcMassBal: total, area integrated surface mass balance. Positive values are ice gain.}
+\end{longtable}
+\end{center}
+\subsection[avgNetAccumulation]{\hyperref[sec:var_tab_globalStatsAM]{avgNetAccumulation}}
+\label{subsec:var_sec_globalStatsAM_avgNetAccumulation}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.yr^{-1}} \\
+        \hline 
+        Dimension: & Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% globalStatsAM \% avgNetAccumulation \\
+         \hline 
+    \caption{avgNetAccumulation: average sfcMassBal, as a thickness rate. Positive values are ice gain.}
+\end{longtable}
+\end{center}
+\subsection[totalBasalMassBal]{\hyperref[sec:var_tab_globalStatsAM]{totalBasalMassBal}}
+\label{subsec:var_sec_globalStatsAM_totalBasalMassBal}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{kg.yr^{-1}} \\
+        \hline 
+        Dimension: & Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% globalStatsAM \% totalBasalMassBal \\
+         \hline 
+    \caption{totalBasalMassBal: total, area integrated basal mass balance. Positive values are ice gain.}
+\end{longtable}
+\end{center}
+\subsection[totalGroundedBasalMassBal]{\hyperref[sec:var_tab_globalStatsAM]{totalGroundedBasalMassBal}}
+\label{subsec:var_sec_globalStatsAM_totalGroundedBasalMassBal}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{kg.yr^{-1}} \\
+        \hline 
+        Dimension: & Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% globalStatsAM \% totalGroundedBasalMassBal \\
+         \hline 
+    \caption{totalGroundedBasalMassBal: total, area integrated grounded basal mass balance. Positive values are ice gain.}
+\end{longtable}
+\end{center}
+\subsection[avgGroundedBasalMelt]{\hyperref[sec:var_tab_globalStatsAM]{avgGroundedBasalMelt}}
+\label{subsec:var_sec_globalStatsAM_avgGroundedBasalMelt}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.yr^{-1}} \\
+        \hline 
+        Dimension: & Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% globalStatsAM \% avgGroundedBasalMelt \\
+         \hline 
+    \caption{avgGroundedBasalMelt: average groundedBasalMassBal value, as a thickness rate. Positive values are ice loss.}
+\end{longtable}
+\end{center}
+\subsection[totalFloatingBasalMassBal]{\hyperref[sec:var_tab_globalStatsAM]{totalFloatingBasalMassBal}}
+\label{subsec:var_sec_globalStatsAM_totalFloatingBasalMassBal}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{kg.yr^{-1}} \\
+        \hline 
+        Dimension: & Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% globalStatsAM \% totalFloatingBasalMassBal \\
+         \hline 
+    \caption{totalFloatingBasalMassBal: total, area integrated floating basal mass balance. Positive values are ice gain.}
+\end{longtable}
+\end{center}
+\subsection[avgSubshelfMelt]{\hyperref[sec:var_tab_globalStatsAM]{avgSubshelfMelt}}
+\label{subsec:var_sec_globalStatsAM_avgSubshelfMelt}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.yr^{-1}} \\
+        \hline 
+        Dimension: & Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% globalStatsAM \% avgSubshelfMelt \\
+         \hline 
+    \caption{avgSubshelfMelt: average floatingBasalMassBal value, as a thickness rate. Positive values are ice loss.}
+\end{longtable}
+\end{center}
+\subsection[totalCalvingFlux]{\hyperref[sec:var_tab_globalStatsAM]{totalCalvingFlux}}
+\label{subsec:var_sec_globalStatsAM_totalCalvingFlux}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{kg.yr^{-1}} \\
+        \hline 
+        Dimension: & Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% globalStatsAM \% totalCalvingFlux \\
+         \hline 
+    \caption{totalCalvingFlux: total, area integrated mass loss due to calving. Positive values are ice loss.}
+\end{longtable}
+\end{center}
+\subsection[groundingLineFlux]{\hyperref[sec:var_tab_globalStatsAM]{groundingLineFlux}}
+\label{subsec:var_sec_globalStatsAM_groundingLineFlux}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{kg.yr^{-1}} \\
+        \hline 
+        Dimension: & Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% globalStatsAM \% groundingLineFlux \\
+         \hline 
+    \caption{groundingLineFlux: total mass flux across all grounding lines.  Note that flux from floating to grounded ice makes a negative contribution to this metric.}
+\end{longtable}
+\end{center}
+\subsection[surfaceSpeedMax]{\hyperref[sec:var_tab_globalStatsAM]{surfaceSpeedMax}}
+\label{subsec:var_sec_globalStatsAM_surfaceSpeedMax}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.yr^{-1}} \\
+        \hline 
+        Dimension: & Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% globalStatsAM \% surfaceSpeedMax \\
+         \hline 
+    \caption{surfaceSpeedMax: maximum surface speed in the domain}
+\end{longtable}
+\end{center}
+\subsection[basalSpeedMax]{\hyperref[sec:var_tab_globalStatsAM]{basalSpeedMax}}
+\label{subsec:var_sec_globalStatsAM_basalSpeedMax}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.yr^{-1}} \\
+        \hline 
+        Dimension: & Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% globalStatsAM \% basalSpeedMax \\
+         \hline 
+    \caption{basalSpeedMax: maximum basal speed in the domain}
+\end{longtable}
+\end{center}
+\section[regionalStatsAM]{\hyperref[sec:var_tab_regionalStatsAM]{regionalStatsAM}}
+\label{sec:var_sec_regionalStatsAM}
+\subsection[regionalIceArea]{\hyperref[sec:var_tab_regionalStatsAM]{regionalIceArea}}
+\label{subsec:var_sec_regionalStatsAM_regionalIceArea}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m^2} \\
+        \hline 
+        Dimension: & nRegions Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% regionalStatsAM \% regionalIceArea \\
+         \hline 
+    \caption{regionalIceArea: total ice sheet area within region}
+\end{longtable}
+\end{center}
+\subsection[regionalIceVolume]{\hyperref[sec:var_tab_regionalStatsAM]{regionalIceVolume}}
+\label{subsec:var_sec_regionalStatsAM_regionalIceVolume}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m^3} \\
+        \hline 
+        Dimension: & nRegions Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% regionalStatsAM \% regionalIceVolume \\
+         \hline 
+    \caption{regionalIceVolume: total ice sheet volume within region}
+\end{longtable}
+\end{center}
+\subsection[regionalVolumeAboveFloatation]{\hyperref[sec:var_tab_regionalStatsAM]{regionalVolumeAboveFloatation}}
+\label{subsec:var_sec_regionalStatsAM_regionalVolumeAboveFloatation}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m^3} \\
+        \hline 
+        Dimension: & nRegions Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% regionalStatsAM \% regionalVolumeAboveFloatation \\
+         \hline 
+    \caption{regionalVolumeAboveFloatation: total ice sheet volume above floatation}
+\end{longtable}
+\end{center}
+\subsection[regionalGroundedIceArea]{\hyperref[sec:var_tab_regionalStatsAM]{regionalGroundedIceArea}}
+\label{subsec:var_sec_regionalStatsAM_regionalGroundedIceArea}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m^2} \\
+        \hline 
+        Dimension: & nRegions Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% regionalStatsAM \% regionalGroundedIceArea \\
+         \hline 
+    \caption{regionalGroundedIceArea: total grounded ice sheet area within region}
+\end{longtable}
+\end{center}
+\subsection[regionalGroundedIceVolume]{\hyperref[sec:var_tab_regionalStatsAM]{regionalGroundedIceVolume}}
+\label{subsec:var_sec_regionalStatsAM_regionalGroundedIceVolume}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m^3} \\
+        \hline 
+        Dimension: & nRegions Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% regionalStatsAM \% regionalGroundedIceVolume \\
+         \hline 
+    \caption{regionalGroundedIceVolume: total grounded ice sheet volume within region}
+\end{longtable}
+\end{center}
+\subsection[regionalFloatingIceArea]{\hyperref[sec:var_tab_regionalStatsAM]{regionalFloatingIceArea}}
+\label{subsec:var_sec_regionalStatsAM_regionalFloatingIceArea}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m^2} \\
+        \hline 
+        Dimension: & nRegions Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% regionalStatsAM \% regionalFloatingIceArea \\
+         \hline 
+    \caption{regionalFloatingIceArea: total floating ice sheet area within region}
+\end{longtable}
+\end{center}
+\subsection[regionalFloatingIceVolume]{\hyperref[sec:var_tab_regionalStatsAM]{regionalFloatingIceVolume}}
+\label{subsec:var_sec_regionalStatsAM_regionalFloatingIceVolume}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m^3} \\
+        \hline 
+        Dimension: & nRegions Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% regionalStatsAM \% regionalFloatingIceVolume \\
+         \hline 
+    \caption{regionalFloatingIceVolume: total floating ice sheet volume within region}
+\end{longtable}
+\end{center}
+\subsection[regionalIceThicknessMin]{\hyperref[sec:var_tab_regionalStatsAM]{regionalIceThicknessMin}}
+\label{subsec:var_sec_regionalStatsAM_regionalIceThicknessMin}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m} \\
+        \hline 
+        Dimension: & nRegions Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% regionalStatsAM \% regionalIceThicknessMin \\
+         \hline 
+    \caption{regionalIceThicknessMin: min ice thickness within region}
+\end{longtable}
+\end{center}
+\subsection[regionalIceThicknessMax]{\hyperref[sec:var_tab_regionalStatsAM]{regionalIceThicknessMax}}
+\label{subsec:var_sec_regionalStatsAM_regionalIceThicknessMax}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m} \\
+        \hline 
+        Dimension: & nRegions Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% regionalStatsAM \% regionalIceThicknessMax \\
+         \hline 
+    \caption{regionalIceThicknessMax: max ice thickness within region}
+\end{longtable}
+\end{center}
+\subsection[regionalIceThicknessMean]{\hyperref[sec:var_tab_regionalStatsAM]{regionalIceThicknessMean}}
+\label{subsec:var_sec_regionalStatsAM_regionalIceThicknessMean}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m} \\
+        \hline 
+        Dimension: & nRegions Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% regionalStatsAM \% regionalIceThicknessMean \\
+         \hline 
+    \caption{regionalIceThicknessMean: mean ice thickness within region}
+\end{longtable}
+\end{center}
+\subsection[regionalSumSfcMassBal]{\hyperref[sec:var_tab_regionalStatsAM]{regionalSumSfcMassBal}}
+\label{subsec:var_sec_regionalStatsAM_regionalSumSfcMassBal}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{kg.yr^-1} \\
+        \hline 
+        Dimension: & nRegions Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% regionalStatsAM \% regionalSumSfcMassBal \\
+         \hline 
+    \caption{regionalSumSfcMassBal: area-integrated surface mass balance within region}
+\end{longtable}
+\end{center}
+\subsection[regionalAvgNetAccumulation]{\hyperref[sec:var_tab_regionalStatsAM]{regionalAvgNetAccumulation}}
+\label{subsec:var_sec_regionalStatsAM_regionalAvgNetAccumulation}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.yr^{-1}} \\
+        \hline 
+        Dimension: & nRegions Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% regionalStatsAM \% regionalAvgNetAccumulation \\
+         \hline 
+    \caption{regionalAvgNetAccumulation: average sfcMassBal, as a thickness rate. Positive values are ice gain.}
+\end{longtable}
+\end{center}
+\subsection[regionalSumBasalMassBal]{\hyperref[sec:var_tab_regionalStatsAM]{regionalSumBasalMassBal}}
+\label{subsec:var_sec_regionalStatsAM_regionalSumBasalMassBal}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{kg.yr^-1} \\
+        \hline 
+        Dimension: & nRegions Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% regionalStatsAM \% regionalSumBasalMassBal \\
+         \hline 
+    \caption{regionalSumBasalMassBal: area-integrated basal mass balance within region}
+\end{longtable}
+\end{center}
+\subsection[regionalSumGroundedBasalMassBal]{\hyperref[sec:var_tab_regionalStatsAM]{regionalSumGroundedBasalMassBal}}
+\label{subsec:var_sec_regionalStatsAM_regionalSumGroundedBasalMassBal}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{kg.yr^{-1}} \\
+        \hline 
+        Dimension: & nRegions Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% regionalStatsAM \% regionalSumGroundedBasalMassBal \\
+         \hline 
+    \caption{regionalSumGroundedBasalMassBal: total, area integrated grounded basal mass balance. Positive values are ice gain.}
+\end{longtable}
+\end{center}
+\subsection[regionalAvgGroundedBasalMelt]{\hyperref[sec:var_tab_regionalStatsAM]{regionalAvgGroundedBasalMelt}}
+\label{subsec:var_sec_regionalStatsAM_regionalAvgGroundedBasalMelt}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.yr^{-1}} \\
+        \hline 
+        Dimension: & nRegions Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% regionalStatsAM \% regionalAvgGroundedBasalMelt \\
+         \hline 
+    \caption{regionalAvgGroundedBasalMelt: average groundedBasalMassBal value, as a thickness rate. Positive values are ice loss.}
+\end{longtable}
+\end{center}
+\subsection[regionalSumFloatingBasalMassBal]{\hyperref[sec:var_tab_regionalStatsAM]{regionalSumFloatingBasalMassBal}}
+\label{subsec:var_sec_regionalStatsAM_regionalSumFloatingBasalMassBal}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{kg.yr^{-1}} \\
+        \hline 
+        Dimension: & nRegions Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% regionalStatsAM \% regionalSumFloatingBasalMassBal \\
+         \hline 
+    \caption{regionalSumFloatingBasalMassBal: total, area integrated floating basal mass balance. Positive values are ice gain.}
+\end{longtable}
+\end{center}
+\subsection[regionalAvgSubshelfMelt]{\hyperref[sec:var_tab_regionalStatsAM]{regionalAvgSubshelfMelt}}
+\label{subsec:var_sec_regionalStatsAM_regionalAvgSubshelfMelt}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.yr^{-1}} \\
+        \hline 
+        Dimension: & nRegions Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% regionalStatsAM \% regionalAvgSubshelfMelt \\
+         \hline 
+    \caption{regionalAvgSubshelfMelt: average floatingBasalMassBal value, as a thickness rate. Positive values are ice loss.}
+\end{longtable}
+\end{center}
+\subsection[regionalSumCalvingFlux]{\hyperref[sec:var_tab_regionalStatsAM]{regionalSumCalvingFlux}}
+\label{subsec:var_sec_regionalStatsAM_regionalSumCalvingFlux}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{kg.yr^-1} \\
+        \hline 
+        Dimension: & nRegions Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% regionalStatsAM \% regionalSumCalvingFlux \\
+         \hline 
+    \caption{regionalSumCalvingFlux: area-integrated calving flux within region}
+\end{longtable}
+\end{center}
+\subsection[regionalSumGroundingLineFlux]{\hyperref[sec:var_tab_regionalStatsAM]{regionalSumGroundingLineFlux}}
+\label{subsec:var_sec_regionalStatsAM_regionalSumGroundingLineFlux}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{kg.yr^-1} \\
+        \hline 
+        Dimension: & nRegions Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% regionalStatsAM \% regionalSumGroundingLineFlux \\
+         \hline 
+    \caption{regionalSumGroundingLineFlux: total mass flux across all grounding lines (note that flux from floating to grounded ice makes a negative contribution to this metric)}
+\end{longtable}
+\end{center}
+\subsection[regionalSurfaceSpeedMax]{\hyperref[sec:var_tab_regionalStatsAM]{regionalSurfaceSpeedMax}}
+\label{subsec:var_sec_regionalStatsAM_regionalSurfaceSpeedMax}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.yr^{-1}} \\
+        \hline 
+        Dimension: & nRegions Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% regionalStatsAM \% regionalSurfaceSpeedMax \\
+         \hline 
+    \caption{regionalSurfaceSpeedMax: maximum surface speed in the domain}
+\end{longtable}
+\end{center}
+\subsection[regionalBasalSpeedMax]{\hyperref[sec:var_tab_regionalStatsAM]{regionalBasalSpeedMax}}
+\label{subsec:var_sec_regionalStatsAM_regionalBasalSpeedMax}
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+        \hline 
+        Type: & real \\
+        \hline 
+        Units: & \si{m.yr^{-1}} \\
+        \hline 
+        Dimension: & nRegions Time \\
+        \hline 
+        Persistence: & persistent \\
+        \hline 
+         Location in code: & domain \% blocklist \% regionalStatsAM \% regionalBasalSpeedMax \\
+         \hline 
+    \caption{regionalBasalSpeedMax: maximum basal speed in the domain}
+\end{longtable}
+\end{center}

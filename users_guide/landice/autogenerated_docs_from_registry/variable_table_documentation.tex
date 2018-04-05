@@ -1,0 +1,627 @@
+\chapter[Variable definitions]{\hyperref[chap:variable_sections]{Variable definitions}}
+\label{chap:variable_tables}
+Embedded links point to more detailed variable information in the appendix.
+\section[mesh]{\hyperref[sec:var_sec_mesh]{mesh}}
+\label{sec:var_tab_mesh}
+\vspace{0.5in}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    {\bf Name} & {\bf Description} \endfirsthead
+    \hline 
+    {\bf Name} & {\bf Description} (Continued) \endhead
+    \hline
+    \hyperref[subsec:var_sec_mesh_latCell]{latCell} & Latitude location of cell centers in radians. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_lonCell]{lonCell} & Longitude location of cell centers in radians. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_xCell]{xCell} & X Coordinate in cartesian space of cell centers. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_yCell]{yCell} & Y Coordinate in cartesian space of cell centers. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_zCell]{zCell} & Z Coordinate in cartesian space of cell centers. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_indexToCellID]{indexToCellID} & List of global cell IDs. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_latEdge]{latEdge} & Latitude location of edge midpoints in radians. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_lonEdge]{lonEdge} & Longitude location of edge midpoints in radians. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_xEdge]{xEdge} & X Coordinate in cartesian space of edge midpoints. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_yEdge]{yEdge} & Y Coordinate in cartesian space of edge midpoints. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_zEdge]{zEdge} & Z Coordinate in cartesian space of edge midpoints. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_indexToEdgeID]{indexToEdgeID} & List of global edge IDs. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_latVertex]{latVertex} & Latitude location of vertices in radians. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_lonVertex]{lonVertex} & Longitude location of vertices in radians. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_xVertex]{xVertex} & X Coordinate in cartesian space of vertices. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_yVertex]{yVertex} & Y Coordinate in cartesian space of vertices. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_zVertex]{zVertex} & Z Coordinate in cartesian space of vertices. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_indexToVertexID]{indexToVertexID} & List of global vertex IDs. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_nEdgesOnCell]{nEdgesOnCell} & Number of edges that border each cell. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_nEdgesOnEdge]{nEdgesOnEdge} & Number of edges that surround each of the cells that straddle each edge. These edges are used to reconstruct the tangential velocities. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_cellsOnEdge]{cellsOnEdge} & List of cells that straddle each edge. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_edgesOnCell]{edgesOnCell} & List of edges that border each cell. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_edgesOnEdge]{edgesOnEdge} & List of edges that border each of the cells that straddle each edge. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_cellsOnCell]{cellsOnCell} & List of cells that neighbor each cell. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_verticesOnCell]{verticesOnCell} & List of vertices that border each cell. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_verticesOnEdge]{verticesOnEdge} & List of vertices that straddle each edge. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_edgesOnVertex]{edgesOnVertex} & List of edges that share a vertex as an endpoint. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_cellsOnVertex]{cellsOnVertex} & List of cells that share a vertex. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_weightsOnEdge]{weightsOnEdge} & Reconstruction weights associated with each of the edgesOnEdge. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_dvEdge]{dvEdge} & Length of each edge, computed as the distance between verticesOnEdge. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_dcEdge]{dcEdge} & Length of each edge, computed as the distance between cellsOnEdge. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_angleEdge]{angleEdge} & Angle the edge normal makes with local eastward direction. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_areaCell]{areaCell} & Area of each cell in the primary grid. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_areaTriangle]{areaTriangle} & Area of each cell (triangle) in the dual grid. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_kiteAreasOnVertex]{kiteAreasOnVertex} & Area of the portions of each dual cell that are part of each cellsOnVertex. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_meshDensity]{meshDensity} & The value of the generating density function at each cell center. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_localVerticalUnitVectors]{localVerticalUnitVectors} & Unit surface normal vectors defined at cell centers. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_edgeNormalVectors]{edgeNormalVectors} & Normal vector defined at an edge. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_cellTangentPlane]{cellTangentPlane} & The two vectors that define a tangent plane at a cell center. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_coeffs_reconstruct]{coeffs\_reconstruct} & Coefficients to reconstruct velocity vectors at cell centers. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_layerThicknessFractions]{layerThicknessFractions} & Fractional thickness of each sigma layer \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_layerCenterSigma]{layerCenterSigma} & Sigma (fractional) level at center of each layer \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_layerInterfaceSigma]{layerInterfaceSigma} & Sigma (fractional) level at interface between each layer (including top and bottom) \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_edgeSignOnCell]{edgeSignOnCell} & Sign of edge contributions to a cell for each edge on cell. Used for bit-reproducible loops. Represents directionality of vector connecting cells. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_edgeSignOnVertex]{edgeSignOnVertex} & Sign of edge contributions to a vertex for each edge on vertex. Used for bit-reproducible loops. Represents directionality of vector connecting vertices. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_cellProcID]{cellProcID} & processor number for each cell \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_baryCellsOnVertex]{baryCellsOnVertex} & Cell center indices to use for interpolating from cell centers to vertex locations.  Note these are local indices! \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_baryWeightsOnVertex]{baryWeightsOnVertex} & Weights to interpolate from cell centers to vertex locations.  Each weight is used with the corresponding cell center index indentified by baryCellsOnVertex. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_wachspressWeightVertex]{wachspressWeightVertex} & Wachspress weights used to interpolate from vertices to cell centers. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_xtime]{xtime} & model time, with format 'YYYY-MM-DD\_HH:MM:SS' \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_deltat]{deltat} & time step length, in seconds.  Value on a given time is the value used between the previous time level and the current time level. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_allowableDtACFL]{allowableDtACFL} & The maximum allowable time step based on the advective CFL condition.  Value on a given time is the value appropriate for  between the previous time level and the current time level. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_allowableDtDCFL]{allowableDtDCFL} & The maximum allowable time step based on the diffusive CFL condition.  Value on a given time is the value appropriate for  between the previous time level and the current time level. \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_simulationStartTime]{simulationStartTime} & start time of first simulation, with format 'YYYY-MM-DD\_HH:MM:SS' \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_daysSinceStart]{daysSinceStart} & Time since simulationStartTime in days, for plotting \\
+    \hline
+    \hyperref[subsec:var_sec_mesh_timestepNumber]{timestepNumber} & time step number.  initial time is 0. \\
+    \hline
+\end{longtable}
+\end{center}
+}
+\section[geometry]{\hyperref[sec:var_sec_geometry]{geometry}}
+\label{sec:var_tab_geometry}
+\vspace{0.5in}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    {\bf Name} & {\bf Description} \endfirsthead
+    \hline 
+    {\bf Name} & {\bf Description} (Continued) \endhead
+    \hline
+    \hyperref[subsec:var_sec_geometry_bedTopography]{bedTopography} & Elevation of ice sheet bed.  Once isostasy is added to the model, this should become a state variable. \\
+    \hline
+    \hyperref[subsec:var_sec_geometry_thickness]{thickness} & ice thickness \\
+    \hline
+    \hyperref[subsec:var_sec_geometry_layerThickness]{layerThickness} & layer thickness \\
+    \hline
+    \hyperref[subsec:var_sec_geometry_lowerSurface]{lowerSurface} & elevation at bottom of ice \\
+    \hline
+    \hyperref[subsec:var_sec_geometry_upperSurface]{upperSurface} & elevation at top of ice \\
+    \hline
+    \hyperref[subsec:var_sec_geometry_layerThicknessEdge]{layerThicknessEdge} & layer thickness on cell edges \\
+    \hline
+    \hyperref[subsec:var_sec_geometry_dHdt]{dHdt} & diagnostic field of rate of thickness change with time (dH/dt). This includes all processes (flux divergence, SMB, BMB, calving, etc.) because it is calculated as the new thickness minus the old thickness divided by the time step. \\
+    \hline
+    \hyperref[subsec:var_sec_geometry_thicknessOld]{thicknessOld} & ice thickness from previous time level (only used to calculate thicknessTendency) \\
+    \hline
+    \hyperref[subsec:var_sec_geometry_dynamicThickening]{dynamicThickening} & diagnostic field of dynamic thickening rate (calculated as negative of flux divergence) \\
+    \hline
+    \hyperref[subsec:var_sec_geometry_cellMask]{cellMask} & bitmask indicating various properties about the ice sheet on cells.  cellMask only needs to be a restart field if config\_allow\_additional\_advance = false (to keep the mask of initial ice extent) \\
+    \hline
+    \hyperref[subsec:var_sec_geometry_edgeMask]{edgeMask} & bitmask indicating various properties about the ice sheet on edges. \\
+    \hline
+    \hyperref[subsec:var_sec_geometry_vertexMask]{vertexMask} & bitmask indicating various properties about the ice sheet on vertices. \\
+    \hline
+    \hyperref[subsec:var_sec_geometry_sfcMassBal]{sfcMassBal} & Surface mass balance \\
+    \hline
+    \hyperref[subsec:var_sec_geometry_basalMassBal]{basalMassBal} & Basal mass balance applied \\
+    \hline
+    \hyperref[subsec:var_sec_geometry_groundedBasalMassBal]{groundedBasalMassBal} & Basal mass balance on grounded regions \\
+    \hline
+    \hyperref[subsec:var_sec_geometry_floatingBasalMassBal]{floatingBasalMassBal} & Basal mass balance on floating regions \\
+    \hline
+    \hyperref[subsec:var_sec_geometry_calvingThickness]{calvingThickness} & thickness of ice that calves (less than or equal to ice thickness) \\
+    \hline
+    \hyperref[subsec:var_sec_geometry_eigencalvingParameter]{eigencalvingParameter} & proportionality constant K2+- used in eigencalving formulation \\
+    \hline
+    \hyperref[subsec:var_sec_geometry_calvingVelocity]{calvingVelocity} & rate of calving front retreat due to calving, represented as a velocity normal to the calving front (in the x-y plane).  This retreat rate is converted in the code to requiredCalvingVolumeRate. \\
+    \hline
+    \hyperref[subsec:var_sec_geometry_requiredCalvingVolumeRate]{requiredCalvingVolumeRate} & total volume of ice that needs to be removed based on eigencalving rate at this margin cell \\
+    \hline
+    \hyperref[subsec:var_sec_geometry_uncalvedVolume]{uncalvedVolume} & volume of ice that was left uncalved from required calving flux due to only applying flux over immediate neighbors (diagnostic field to assess if this limitation is a problem) \\
+    \hline
+    \hyperref[subsec:var_sec_geometry_basalWaterThickness]{basalWaterThickness} & thickness of basal water \\
+    \hline
+    \hyperref[subsec:var_sec_geometry_restoreThickness]{restoreThickness} & thickness of ice added to restore the calving front to its initial position \\
+    \hline
+    \hyperref[subsec:var_sec_geometry_normalSlopeEdge]{normalSlopeEdge} & normal surface slope on edges \\
+    \hline
+    \hyperref[subsec:var_sec_geometry_apparentDiffusivity]{apparentDiffusivity} & apparent diffusivity at cell centers \\
+    \hline
+    \hyperref[subsec:var_sec_geometry_upperSurfaceVertex]{upperSurfaceVertex} & elevation at top of ice on vertices \\
+    \hline
+    \hyperref[subsec:var_sec_geometry_tangentSlopeEdge]{tangentSlopeEdge} & tangent surface slope on edges \\
+    \hline
+    \hyperref[subsec:var_sec_geometry_slopeEdge]{slopeEdge} & surface slope magnitude on edges \\
+    \hline
+\end{longtable}
+\end{center}
+}
+\section[velocity]{\hyperref[sec:var_sec_velocity]{velocity}}
+\label{sec:var_tab_velocity}
+\vspace{0.5in}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    {\bf Name} & {\bf Description} \endfirsthead
+    \hline 
+    {\bf Name} & {\bf Description} (Continued) \endhead
+    \hline
+    \hyperref[subsec:var_sec_velocity_flowParamA]{flowParamA} & flow law parameter, A \\
+    \hline
+    \hyperref[subsec:var_sec_velocity_normalVelocity]{normalVelocity} & horizonal velocity, normal component to an edge, layer interface \\
+    \hline
+    \hyperref[subsec:var_sec_velocity_layerNormalVelocity]{layerNormalVelocity} & horizonal velocity, normal component to an edge, layer midpoint \\
+    \hline
+    \hyperref[subsec:var_sec_velocity_normalVelocityInitial]{normalVelocityInitial} & horizonal velocity, normal component to an edge, computed at initialization \\
+    \hline
+    \hyperref[subsec:var_sec_velocity_uReconstructX]{uReconstructX} & x-component of velocity reconstructed on cell centers.  Also, for higher-order dycores, on input: value of the x-component of velocity that should be applied where dirichletVelocityMask==1. \\
+    \hline
+    \hyperref[subsec:var_sec_velocity_uReconstructY]{uReconstructY} & y-component of velocity reconstructed on cell centers.    Also, for higher-order dycores, on input: value of the y-component of velocity that should be applied where dirichletVelocityMask==1. \\
+    \hline
+    \hyperref[subsec:var_sec_velocity_uReconstructZ]{uReconstructZ} & z-component of velocity reconstructed on cell centers \\
+    \hline
+    \hyperref[subsec:var_sec_velocity_uReconstructZonal]{uReconstructZonal} & zonal velocity reconstructed on cell centers \\
+    \hline
+    \hyperref[subsec:var_sec_velocity_uReconstructMeridional]{uReconstructMeridional} & meridional velocity reconstructed on cell centers \\
+    \hline
+    \hyperref[subsec:var_sec_velocity_surfaceSpeed]{surfaceSpeed} & ice surface speed reconstructed at cell centers \\
+    \hline
+    \hyperref[subsec:var_sec_velocity_basalSpeed]{basalSpeed} & ice basal speed reconstructed at cell centers \\
+    \hline
+    \hyperref[subsec:var_sec_velocity_beta]{beta} & higher-order basal traction parameter; NOTE: not SI units! \\
+    \hline
+    \hyperref[subsec:var_sec_velocity_betaSolve]{betaSolve} & higher-order basal traction parameter; NOTE: not SI units! \\
+    \hline
+    \hyperref[subsec:var_sec_velocity_exx]{exx} & x-component of strain rate \\
+    \hline
+    \hyperref[subsec:var_sec_velocity_eyy]{eyy} & y-component of strain rate \\
+    \hline
+    \hyperref[subsec:var_sec_velocity_exy]{exy} & shear component of strain rate \\
+    \hline
+    \hyperref[subsec:var_sec_velocity_eTheta]{eTheta} & orientation of principal strain rate \\
+    \hline
+    \hyperref[subsec:var_sec_velocity_eyx]{eyx} & shear component of strain rate \\
+    \hline
+    \hyperref[subsec:var_sec_velocity_eMax]{eMax} & magnitude of first principal strain rate \\
+    \hline
+    \hyperref[subsec:var_sec_velocity_eMin]{eMin} & magnitude of second principal strain rate \\
+    \hline
+    \hyperref[subsec:var_sec_velocity_anyDynamicVertexMaskChanged]{anyDynamicVertexMaskChanged} & flag needed by external velocity solvers that indicates if the region to solve on the block's domain has changed (treated as a logical) \\
+    \hline
+    \hyperref[subsec:var_sec_velocity_dirichletVelocityMask]{dirichletVelocityMask} & mask of where Dirichlet boundary conditions should be applied to the velocity solution.  1 means apply a Dirichlet boundary condition, 0 means do not. (higher-order dycores only) \\
+    \hline
+    \hyperref[subsec:var_sec_velocity_dirichletMaskChanged]{dirichletMaskChanged} & flag needed by external velocity solvers that indicates if the Dirichlet boundary condition mask has changed (treated as a logical) \\
+    \hline
+    \hyperref[subsec:var_sec_velocity_floatingEdges]{floatingEdges} & edges which are floating have a value of 1.  non floating edges have a value of 0. \\
+    \hline
+\end{longtable}
+\end{center}
+}
+\section[observations]{\hyperref[sec:var_sec_observations]{observations}}
+\label{sec:var_tab_observations}
+\vspace{0.5in}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    {\bf Name} & {\bf Description} \endfirsthead
+    \hline 
+    {\bf Name} & {\bf Description} (Continued) \endhead
+    \hline
+    \hyperref[subsec:var_sec_observations_observedSurfaceVelocityX]{observedSurfaceVelocityX} & X-component of observed surface velocity \\
+    \hline
+    \hyperref[subsec:var_sec_observations_observedSurfaceVelocityY]{observedSurfaceVelocityY} & Y-component of observed surface velocity \\
+    \hline
+    \hyperref[subsec:var_sec_observations_observedSurfaceVelocityUncertainty]{observedSurfaceVelocity\-Uncertainty} & uncertainty in observed surface velocity \\
+    \hline
+    \hyperref[subsec:var_sec_observations_observedThicknessTendency]{observedThicknessTendency} & observed tendency in thickness (dH/dt) \\
+    \hline
+    \hyperref[subsec:var_sec_observations_observedThicknessTendencyUncertainty]{observedThicknessTendency\-Uncertainty} & uncertainty in observed tendency in thickness (dH/dt) \\
+    \hline
+    \hyperref[subsec:var_sec_observations_sfcMassBalUncertainty]{sfcMassBalUncertainty} & uncertainty in observed surface mass balance \\
+    \hline
+    \hyperref[subsec:var_sec_observations_thicknessUncertainty]{thicknessUncertainty} & uncertainty in observed thickness \\
+    \hline
+    \hyperref[subsec:var_sec_observations_floatingBasalMassBalUncertainty]{floatingBasalMassBalUncertainty} & uncertainty in observed floating basal mass balance \\
+    \hline
+\end{longtable}
+\end{center}
+}
+\section[thermal]{\hyperref[sec:var_sec_thermal]{thermal}}
+\label{sec:var_tab_thermal}
+\vspace{0.5in}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    {\bf Name} & {\bf Description} \endfirsthead
+    \hline 
+    {\bf Name} & {\bf Description} (Continued) \endhead
+    \hline
+    \hyperref[subsec:var_sec_thermal_temperature]{temperature} & interior ice temperature \\
+    \hline
+    \hyperref[subsec:var_sec_thermal_waterfrac]{waterfrac} & interior water fraction \\
+    \hline
+    \hyperref[subsec:var_sec_thermal_enthalpy]{enthalpy} & interior ice enthalpy \\
+    \hline
+    \hyperref[subsec:var_sec_thermal_surfaceAirTemperature]{surfaceAirTemperature} & surface air temperature \\
+    \hline
+    \hyperref[subsec:var_sec_thermal_surfaceTemperature]{surfaceTemperature} & upper surface ice temperature \\
+    \hline
+    \hyperref[subsec:var_sec_thermal_basalTemperature]{basalTemperature} & lower surface ice temperature \\
+    \hline
+    \hyperref[subsec:var_sec_thermal_pmpTemperature]{pmpTemperature} & pressure melt temperature \\
+    \hline
+    \hyperref[subsec:var_sec_thermal_basalPmpTemperature]{basalPmpTemperature} & lower surface pressure melt temperature \\
+    \hline
+    \hyperref[subsec:var_sec_thermal_surfaceConductiveFlux]{surfaceConductiveFlux} & conductive heat flux at the upper surface (positive downward) \\
+    \hline
+    \hyperref[subsec:var_sec_thermal_basalConductiveFlux]{basalConductiveFlux} & conductive heat flux at the lower surface (positive downward) \\
+    \hline
+    \hyperref[subsec:var_sec_thermal_basalHeatFlux]{basalHeatFlux} & basal heat flux into the ice (positive upward) \\
+    \hline
+    \hyperref[subsec:var_sec_thermal_basalFrictionFlux]{basalFrictionFlux} & basal frictional flux into the ice (positive upward) \\
+    \hline
+    \hyperref[subsec:var_sec_thermal_heatDissipation]{heatDissipation} & interior heat dissipation rate, divided by rhoi*cp\_ice \\
+    \hline
+\end{longtable}
+\end{center}
+}
+\section[scratch]{\hyperref[sec:var_sec_scratch]{scratch}}
+\label{sec:var_tab_scratch}
+\vspace{0.5in}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    {\bf Name} & {\bf Description} \endfirsthead
+    \hline 
+    {\bf Name} & {\bf Description} (Continued) \endhead
+    \hline
+    \hyperref[subsec:var_sec_scratch_iceCellMask]{iceCellMask} & mask set to 1 in cells where some criterion is satisfied and 0 otherwise \\
+    \hline
+    \hyperref[subsec:var_sec_scratch_iceCellMask2]{iceCellMask2} & mask set to 1 in cells where some criterion is satisfied and 0 otherwise \\
+    \hline
+    \hyperref[subsec:var_sec_scratch_iceCellMask3]{iceCellMask3} & mask set to 1 in cells where some criterion is satisfied and 0 otherwise \\
+    \hline
+    \hyperref[subsec:var_sec_scratch_iceEdgeMask]{iceEdgeMask} & mask set to 1 for edges adjacent to ice-covered cells and 0 otherwise \\
+    \hline
+    \hyperref[subsec:var_sec_scratch_workLevelCell]{workLevelCell} & generic work array with dimensions of (nVertLevels nCells) \\
+    \hline
+    \hyperref[subsec:var_sec_scratch_workLevelEdge]{workLevelEdge} & generic work array with dimensions of (nVertLevels nEdges) \\
+    \hline
+    \hyperref[subsec:var_sec_scratch_workLevelVertex]{workLevelVertex} & generic work array with dimensions of (nVertLevels nVertices) \\
+    \hline
+    \hyperref[subsec:var_sec_scratch_workCell]{workCell} & generic work array with dimensions of (nCells) \\
+    \hline
+    \hyperref[subsec:var_sec_scratch_workCell2]{workCell2} & generic work array with dimensions of (nCells) \\
+    \hline
+    \hyperref[subsec:var_sec_scratch_workCell3]{workCell3} & generic work array with dimensions of (nCells) \\
+    \hline
+    \hyperref[subsec:var_sec_scratch_workTracerCell]{workTracerCell} & generic work array with dimensions of (maxTracersAdvect nCells) \\
+    \hline
+    \hyperref[subsec:var_sec_scratch_workTracerCell2]{workTracerCell2} & generic work array with dimensions of (maxTracersAdvect nCells) \\
+    \hline
+    \hyperref[subsec:var_sec_scratch_workTracerLevelCell]{workTracerLevelCell} & generic work array with dimensions of (maxTracersAdvect nVertLevels nCells) \\
+    \hline
+    \hyperref[subsec:var_sec_scratch_workTracerLevelCell2]{workTracerLevelCell2} & generic work array with dimensions of (maxTracersAdvect nVertLevels nCells) \\
+    \hline
+    \hyperref[subsec:var_sec_scratch_slopeCellX]{slopeCellX} & {\bf \color{red} MISSING} \\
+    \hline
+    \hyperref[subsec:var_sec_scratch_slopeCellY]{slopeCellY} & {\bf \color{red} MISSING} \\
+    \hline
+    \hyperref[subsec:var_sec_scratch_vertexIndices]{vertexIndices} & local indices of each vertex \\
+    \hline
+\end{longtable}
+\end{center}
+}
+\section[regions]{\hyperref[sec:var_sec_regions]{regions}}
+\label{sec:var_tab_regions}
+\vspace{0.5in}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    {\bf Name} & {\bf Description} \endfirsthead
+    \hline 
+    {\bf Name} & {\bf Description} (Continued) \endhead
+    \hline
+    \hyperref[subsec:var_sec_regions_regionCellMasks]{regionCellMasks} & masks set to 1 in cells that fall within a given region and 0 otherwise \\
+    \hline
+\end{longtable}
+\end{center}
+}
+\section[hydro]{\hyperref[sec:var_sec_hydro]{hydro}}
+\label{sec:var_tab_hydro}
+\vspace{0.5in}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    {\bf Name} & {\bf Description} \endfirsthead
+    \hline 
+    {\bf Name} & {\bf Description} (Continued) \endhead
+    \hline
+    \hyperref[subsec:var_sec_hydro_waterThickness]{waterThickness} & water layer thickness in subglacial system \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_waterThicknessOld]{waterThicknessOld} & water layer thickness in subglacial system from previous time step \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_waterThicknessTendency]{waterThicknessTendency} & rate of change in water layer thickness in subglacial system \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_tillWaterThickness]{tillWaterThickness} & water layer thickness in subglacial till \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_tillWaterThicknessOld]{tillWaterThicknessOld} & water layer thickness in subglacial till from previous time step \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_waterPressure]{waterPressure} & pressure in subglacial system \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_waterPressureOld]{waterPressureOld} & pressure in subglacial system from previous time step \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_waterPressureTendency]{waterPressureTendency} & tendency in pressure in subglacial system \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_basalMeltInput]{basalMeltInput} & basal meltwater input \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_externalWaterInput]{externalWaterInput} & external water input \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_frictionAngle]{frictionAngle} & till friction angle \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_effectivePressure]{effectivePressure} & effective ice pressure in subglacial system \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_hydropotential]{hydropotential} & subglacial hydropotential \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_waterFlux]{waterFlux} & total subglacial water flux \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_waterFluxMask]{waterFluxMask} & mask indicating how to handle fluxes on each edge: 0=calculate based on hydropotential gradient; 1=allow outflow based on hydropotential gradient, but no inflow (NOT YET IMPLEMENTED); 2=zero flux \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_waterFluxAdvec]{waterFluxAdvec} & advective subglacial water flux \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_waterFluxDiffu]{waterFluxDiffu} & diffusive subglacial water flux \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_waterVelocity]{waterVelocity} & subglacial water velocity \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_waterVelocityCellX]{waterVelocityCellX} & subglacial water velocity reconstructed on cell centers, x-component \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_waterVelocityCellY]{waterVelocityCellY} & subglacial water velocity reconstructed on cell centers, y-component \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_effectiveConducEdge]{effectiveConducEdge} & effective Darcy hydraulic conductivity on edges \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_waterThicknessEdge]{waterThicknessEdge} & water layer thickness on edges \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_waterThicknessEdgeUpwind]{waterThicknessEdgeUpwind} & water layer thickness of cell upwind of edge \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_diffusivity]{diffusivity} & diffusivity of sheet \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_hydropotentialBase]{hydropotentialBase} & hydropotential without water thickness contribution \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_hydropotentialBaseVertex]{hydropotentialBaseVertex} & hydropotential without water thickness contribution on vertices.  Only used for some choices of config\_SGH\_tangent\_slope\_calculation. \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_hydropotentialBaseSlopeNormal]{hydropotentialBaseSlopeNormal} & normal component of gradient of hydropotentialBase \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_hydropotentialBaseSlopeTangent]{hydropotentialBaseSlopeTangent} & tangent component of gradient of hydropotentialBase \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_gradMagPhiEdge]{gradMagPhiEdge} & magnitude of the gradient of hydropotentialBase, on Edges \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_waterPressureSlopeNormal]{waterPressureSlopeNormal} & normal component of gradient of waterPressure \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_divergence]{divergence} & flux divergence of water \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_openingRate]{openingRate} & rate of cavity opening \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_closingRate]{closingRate} & rate of creep closure \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_zeroOrderSum]{zeroOrderSum} & sum of zero order terms \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_deltatSGHadvec]{deltatSGHadvec} & advective CFL limited time step length \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_deltatSGHdiffu]{deltatSGHdiffu} & diffusive CFL limited time step length \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_deltatSGHpressure]{deltatSGHpressure} & time step length limited by pressure equation scheme \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_deltatSGH]{deltatSGH} & time step used for subglacial hydro \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_channelArea]{channelArea} & area of subglacial channel \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_channelDischarge]{channelDischarge} & discharge through subglacial channel \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_channelVelocity]{channelVelocity} & velocity in subglacial channel \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_channelMelt]{channelMelt} & melt rate in subglacial channel \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_channelPressureFreeze]{channelPressureFreeze} & freezing rate in subglacial channel due to water pressure gradient.  positive=freezing, negative=melting \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_flowParamAChannel]{flowParamAChannel} & flow parameter A on edges used for channel \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_channelEffectivePressure]{channelEffectivePressure} & effective pressure in the channel \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_channelClosingRate]{channelClosingRate} & closing rate from creep of the channel \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_channelOpeningRate]{channelOpeningRate} & opening rate from melt of the channel \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_channelChangeRate]{channelChangeRate} & rate of change of channel area \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_deltatSGHadvecChannel]{deltatSGHadvecChannel} & time step length limited by channel advection \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_deltatSGHdiffuChannel]{deltatSGHdiffuChannel} & time step length limited by channel diffusion \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_divergenceChannel]{divergenceChannel} & divergence due to channel flow \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_channelAreaChangeCell]{channelAreaChangeCell} & change in channel area within each cell, averaged over cell area \\
+    \hline
+    \hyperref[subsec:var_sec_hydro_channelDiffusivity]{channelDiffusivity} & diffusivity in channel \\
+    \hline
+\end{longtable}
+\end{center}
+}
+\section[globalStatsAM]{\hyperref[sec:var_sec_globalStatsAM]{globalStatsAM}}
+\label{sec:var_tab_globalStatsAM}
+\vspace{0.5in}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    {\bf Name} & {\bf Description} \endfirsthead
+    \hline 
+    {\bf Name} & {\bf Description} (Continued) \endhead
+    \hline
+    \hyperref[subsec:var_sec_globalStatsAM_totalIceVolume]{totalIceVolume} & total ice sheet volume \\
+    \hline
+    \hyperref[subsec:var_sec_globalStatsAM_volumeAboveFloatation]{volumeAboveFloatation} & total ice sheet volume above floatation \\
+    \hline
+    \hyperref[subsec:var_sec_globalStatsAM_totalIceArea]{totalIceArea} & total ice sheet area \\
+    \hline
+    \hyperref[subsec:var_sec_globalStatsAM_floatingIceVolume]{floatingIceVolume} & total floating ice sheet volume \\
+    \hline
+    \hyperref[subsec:var_sec_globalStatsAM_floatingIceArea]{floatingIceArea} & total floating ice sheet area \\
+    \hline
+    \hyperref[subsec:var_sec_globalStatsAM_groundedIceVolume]{groundedIceVolume} & total grounded ice sheet volume \\
+    \hline
+    \hyperref[subsec:var_sec_globalStatsAM_groundedIceArea]{groundedIceArea} & total grounded ice sheet area \\
+    \hline
+    \hyperref[subsec:var_sec_globalStatsAM_iceThicknessMean]{iceThicknessMean} & spatially averaged ice thickness \\
+    \hline
+    \hyperref[subsec:var_sec_globalStatsAM_iceThicknessMax]{iceThicknessMax} & maximum ice thickness in domain \\
+    \hline
+    \hyperref[subsec:var_sec_globalStatsAM_iceThicknessMin]{iceThicknessMin} & minimum ice thickness in domain \\
+    \hline
+    \hyperref[subsec:var_sec_globalStatsAM_totalSfcMassBal]{totalSfcMassBal} & total, area integrated surface mass balance. Positive values are ice gain. \\
+    \hline
+    \hyperref[subsec:var_sec_globalStatsAM_avgNetAccumulation]{avgNetAccumulation} & average sfcMassBal, as a thickness rate. Positive values are ice gain. \\
+    \hline
+    \hyperref[subsec:var_sec_globalStatsAM_totalBasalMassBal]{totalBasalMassBal} & total, area integrated basal mass balance. Positive values are ice gain. \\
+    \hline
+    \hyperref[subsec:var_sec_globalStatsAM_totalGroundedBasalMassBal]{totalGroundedBasalMassBal} & total, area integrated grounded basal mass balance. Positive values are ice gain. \\
+    \hline
+    \hyperref[subsec:var_sec_globalStatsAM_avgGroundedBasalMelt]{avgGroundedBasalMelt} & average groundedBasalMassBal value, as a thickness rate. Positive values are ice loss. \\
+    \hline
+    \hyperref[subsec:var_sec_globalStatsAM_totalFloatingBasalMassBal]{totalFloatingBasalMassBal} & total, area integrated floating basal mass balance. Positive values are ice gain. \\
+    \hline
+    \hyperref[subsec:var_sec_globalStatsAM_avgSubshelfMelt]{avgSubshelfMelt} & average floatingBasalMassBal value, as a thickness rate. Positive values are ice loss. \\
+    \hline
+    \hyperref[subsec:var_sec_globalStatsAM_totalCalvingFlux]{totalCalvingFlux} & total, area integrated mass loss due to calving. Positive values are ice loss. \\
+    \hline
+    \hyperref[subsec:var_sec_globalStatsAM_groundingLineFlux]{groundingLineFlux} & total mass flux across all grounding lines.  Note that flux from floating to grounded ice makes a negative contribution to this metric. \\
+    \hline
+    \hyperref[subsec:var_sec_globalStatsAM_surfaceSpeedMax]{surfaceSpeedMax} & maximum surface speed in the domain \\
+    \hline
+    \hyperref[subsec:var_sec_globalStatsAM_basalSpeedMax]{basalSpeedMax} & maximum basal speed in the domain \\
+    \hline
+\end{longtable}
+\end{center}
+}
+\section[regionalStatsAM]{\hyperref[sec:var_sec_regionalStatsAM]{regionalStatsAM}}
+\label{sec:var_tab_regionalStatsAM}
+\vspace{0.5in}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} | p{4.0in} |}
+    \hline
+    {\bf Name} & {\bf Description} \endfirsthead
+    \hline 
+    {\bf Name} & {\bf Description} (Continued) \endhead
+    \hline
+    \hyperref[subsec:var_sec_regionalStatsAM_regionalIceArea]{regionalIceArea} & total ice sheet area within region \\
+    \hline
+    \hyperref[subsec:var_sec_regionalStatsAM_regionalIceVolume]{regionalIceVolume} & total ice sheet volume within region \\
+    \hline
+    \hyperref[subsec:var_sec_regionalStatsAM_regionalVolumeAboveFloatation]{regionalVolumeAboveFloatation} & total ice sheet volume above floatation \\
+    \hline
+    \hyperref[subsec:var_sec_regionalStatsAM_regionalGroundedIceArea]{regionalGroundedIceArea} & total grounded ice sheet area within region \\
+    \hline
+    \hyperref[subsec:var_sec_regionalStatsAM_regionalGroundedIceVolume]{regionalGroundedIceVolume} & total grounded ice sheet volume within region \\
+    \hline
+    \hyperref[subsec:var_sec_regionalStatsAM_regionalFloatingIceArea]{regionalFloatingIceArea} & total floating ice sheet area within region \\
+    \hline
+    \hyperref[subsec:var_sec_regionalStatsAM_regionalFloatingIceVolume]{regionalFloatingIceVolume} & total floating ice sheet volume within region \\
+    \hline
+    \hyperref[subsec:var_sec_regionalStatsAM_regionalIceThicknessMin]{regionalIceThicknessMin} & min ice thickness within region \\
+    \hline
+    \hyperref[subsec:var_sec_regionalStatsAM_regionalIceThicknessMax]{regionalIceThicknessMax} & max ice thickness within region \\
+    \hline
+    \hyperref[subsec:var_sec_regionalStatsAM_regionalIceThicknessMean]{regionalIceThicknessMean} & mean ice thickness within region \\
+    \hline
+    \hyperref[subsec:var_sec_regionalStatsAM_regionalSumSfcMassBal]{regionalSumSfcMassBal} & area-integrated surface mass balance within region \\
+    \hline
+    \hyperref[subsec:var_sec_regionalStatsAM_regionalAvgNetAccumulation]{regionalAvgNetAccumulation} & average sfcMassBal, as a thickness rate. Positive values are ice gain. \\
+    \hline
+    \hyperref[subsec:var_sec_regionalStatsAM_regionalSumBasalMassBal]{regionalSumBasalMassBal} & area-integrated basal mass balance within region \\
+    \hline
+    \hyperref[subsec:var_sec_regionalStatsAM_regionalSumGroundedBasalMassBal]{regionalSumGroundedBasalMass\-Bal} & total, area integrated grounded basal mass balance. Positive values are ice gain. \\
+    \hline
+    \hyperref[subsec:var_sec_regionalStatsAM_regionalAvgGroundedBasalMelt]{regionalAvgGroundedBasalMelt} & average groundedBasalMassBal value, as a thickness rate. Positive values are ice loss. \\
+    \hline
+    \hyperref[subsec:var_sec_regionalStatsAM_regionalSumFloatingBasalMassBal]{regionalSumFloatingBasalMass\-Bal} & total, area integrated floating basal mass balance. Positive values are ice gain. \\
+    \hline
+    \hyperref[subsec:var_sec_regionalStatsAM_regionalAvgSubshelfMelt]{regionalAvgSubshelfMelt} & average floatingBasalMassBal value, as a thickness rate. Positive values are ice loss. \\
+    \hline
+    \hyperref[subsec:var_sec_regionalStatsAM_regionalSumCalvingFlux]{regionalSumCalvingFlux} & area-integrated calving flux within region \\
+    \hline
+    \hyperref[subsec:var_sec_regionalStatsAM_regionalSumGroundingLineFlux]{regionalSumGroundingLineFlux} & total mass flux across all grounding lines (note that flux from floating to grounded ice makes a negative contribution to this metric) \\
+    \hline
+    \hyperref[subsec:var_sec_regionalStatsAM_regionalSurfaceSpeedMax]{regionalSurfaceSpeedMax} & maximum surface speed in the domain \\
+    \hline
+    \hyperref[subsec:var_sec_regionalStatsAM_regionalBasalSpeedMax]{regionalBasalSpeedMax} & maximum basal speed in the domain \\
+    \hline
+\end{longtable}
+\end{center}
+}

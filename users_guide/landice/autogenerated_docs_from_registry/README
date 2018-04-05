@@ -1,0 +1,6 @@
+See README at https://github.com/MPAS-Dev/MPAS-Tools/tree/master/python_scripts/namelist_generation for detailed instructions.
+
+Basic instructions, run from this directory:
+sed '/./,$!d' $MPAS/src/core_landice/Registry_processed.xml > Registry_cleaned.xml
+$MPAS-Tools/python_scripts/namelist_generation/parse_xml_registry.py -f Registry_cleaned.xml -d ../section_descriptions -p landice/section_descriptions
+

@@ -1,0 +1,418 @@
+\chapter[Namelist options]{\hyperref[chap:namelist_sections]{Namelist options}}
+\label{chap:namelist_tables}
+Embedded links point to more detailed namelist information in the appendix.
+\section[velocity\_solver]{\hyperref[sec:nm_sec_velocity_solver]{velocity\_solver}}
+\label{sec:nm_tab_velocity_solver}
+\input{landice/section_descriptions/velocity_solver.tex}
+\vspace{0.5in}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    {\bf Name} & {\bf Description} \endfirsthead
+    \hline 
+    {\bf Name} & {\bf Description} (Continued) \endhead
+    \hline
+    \hline
+    \hyperref[subsec:nm_sec_config_velocity_solver]{config\_velocity\_solver} & Selection of the method for solving ice velocity. 'L1L2', 'FO', and 'Stokes' require compiling with external dycores. 'none' skips the calculation of velocity so the velocity field will be 0 or set to a field read from an input file.  'simple' gives a simple prescribed velocity field computed at initialization. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_sia_tangent_slope_calculation]{config\_sia\_tangent\_slope\_\-calculation} & Selection of the method for calculating the tangent component of surface slope at edges needed by the SIA velocity solver. 'from\_vertex\_barycentric' interpolates upperSurface values from cell centers to vertices using the barycentric interpolation routine in operators (mpas\_cells\_to\_points\_using\_baryweights) and then calculates the slope between vertices.  It works for obtuse triangles, but will not work correctly across the edges of periodic meshes. 'from\_vertex\_barycentric\_kiteareas' interpolates upperSurface values from cell centers to vertices using barycentric interpolation based on kiterea values and then calculates the slope between vertices.  It will work across the edges of periodic meshes, but will not work correctly for obtuse triangles. 'from\_normal\_slope' uses the vector operator mpas\_tangential\_vector\_1d to calculate the tangent slopes from the normal slopes on the edges of the adjacent cells.  It will work for any mesh configuration, but is the least accurate method. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_flowParamA_calculation]{config\_flowParamA\_calculation} & Selection of the method for calculating the flow law parameter A.  If 'constant' is selected, the value is set to config\_default\_flowParamA.  The other options are calculated from the temperature field. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_do_velocity_reconstruction_for_external_dycore]{config\_do\_velocity\_\-reconstruction\_for\_external\_\-dycore} & By default, external, higher-order dycores return the uReconstructX and uReconstructY fields (which are the native locations of their FEM solution).  If this option is set to .true., uReconstructX and uReconstructY will be calculated by MPAS using framework's vector reconstruction routines based on the values of normalVelocity supplied by the external dycore.  This provides a way to test the calculation of normalVelocity in the interface. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_simple_velocity_type]{config\_simple\_velocity\_type} & Selection of the type of simple velocity field computed at initialization when config\_velocity\_solver = 'simple' \\
+    \hline
+    \hyperref[subsec:nm_sec_config_use_glp]{config\_use\_glp} & If true, then apply Albany's grounding line parameterization \\
+    \hline
+    \hyperref[subsec:nm_sec_config_beta_use_effective_pressure]{config\_beta\_use\_effective\_\-pressure} & If true, then multiply beta by effective pressure before passing to Albany.  This allows, e.g., a Weertman basal friction law with an effective pressure term.  Note that basal friction still needs to be selected in Albany xml file. \\
+    \hline
+\end{longtable}
+\end{center}
+}
+\section[advection]{\hyperref[sec:nm_sec_advection]{advection}}
+\label{sec:nm_tab_advection}
+\input{landice/section_descriptions/advection.tex}
+\vspace{0.5in}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    {\bf Name} & {\bf Description} \endfirsthead
+    \hline 
+    {\bf Name} & {\bf Description} (Continued) \endhead
+    \hline
+    \hline
+    \hyperref[subsec:nm_sec_config_thickness_advection]{config\_thickness\_advection} & Selection of the method for advecting thickness. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_tracer_advection]{config\_tracer\_advection} & Selection of the method for advecting tracers. \\
+    \hline
+\end{longtable}
+\end{center}
+}
+\section[calving]{\hyperref[sec:nm_sec_calving]{calving}}
+\label{sec:nm_tab_calving}
+\vspace{0.5in}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    {\bf Name} & {\bf Description} \endfirsthead
+    \hline 
+    {\bf Name} & {\bf Description} (Continued) \endhead
+    \hline
+    \hline
+    \hyperref[subsec:nm_sec_config_calving]{config\_calving} & Selection of the method for calving ice. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_calving_topography]{config\_calving\_topography} & Defines the topographic height below which ice calves (for topographic\_threshold option). \\
+    \hline
+    \hyperref[subsec:nm_sec_config_calving_thickness]{config\_calving\_thickness} & Defines the ice thickness below which ice calves (for thickness\_threshold option). \\
+    \hline
+    \hyperref[subsec:nm_sec_config_calving_eigencalving_parameter_source]{config\_calving\_eigencalving\_\-parameter\_source} & Source of the eigencalving parameter value \\
+    \hline
+    \hyperref[subsec:nm_sec_config_calving_eigencalving_parameter_scalar_value]{config\_calving\_eigencalving\_\-parameter\_scalar\_value} & Value of eigencalving parameter if taken as a scalar by option config\_calving\_eigencalving\_parameter\_source. (Default value is 1.0e9 ma converted to units used here.) \\
+    \hline
+    \hyperref[subsec:nm_sec_config_data_calving]{config\_data\_calving} & Select whether or not to configure calving in a 'data' model mode (calc. calving flux but do not update ice geometry) \\
+    \hline
+    \hyperref[subsec:nm_sec_config_calving_timescale]{config\_calving\_timescale} & Defines the timescale for calving. The fraction of eligible ice that calves is max(dt/calving\_timescale, 1.0). A value of 0 means that all eligible ice calves. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_restore_calving_front]{config\_restore\_calving\_front} & If true, then restort the calving front to its initial position \\
+    \hline
+\end{longtable}
+\end{center}
+}
+\section[thermal\_solver]{\hyperref[sec:nm_sec_thermal_solver]{thermal\_solver}}
+\label{sec:nm_tab_thermal_solver}
+\vspace{0.5in}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    {\bf Name} & {\bf Description} \endfirsthead
+    \hline 
+    {\bf Name} & {\bf Description} (Continued) \endhead
+    \hline
+    \hline
+    \hyperref[subsec:nm_sec_config_thermal_solver]{config\_thermal\_solver} & Selection of the method for the vertical thermal solver. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_thermal_calculate_bmb]{config\_thermal\_calculate\_bmb} & Determines if basal and internal melting calculated by the thermal solver should contribute to basal mass balance. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_temperature_init]{config\_temperature\_init} & Selection of the method for initializing the ice temperature. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_thermal_thickness]{config\_thermal\_thickness} & Defines the minimum thickness for thermal calculations \\
+    \hline
+    \hyperref[subsec:nm_sec_config_surface_air_temperature_source]{config\_surface\_air\_\-temperature\_source} & Selection of the method for setting the surface air temperature. 'constant' uses the value set by config\_surface\_air\_temperature\_value.  'file' reads the field from an input or forcing file or ESM coupler. 'lapse' uses the value of config\_surface\_air\_temperature\_value at elevation 0 with a lapse rate applied from config\_surface\_air\_temperature\_lapse\_rate. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_surface_air_temperature_value]{config\_surface\_air\_\-temperature\_value} & Constant value of the surface air temperature. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_surface_air_temperature_lapse_rate]{config\_surface\_air\_\-temperature\_lapse\_rate} & Lapse rate to apply to surface air temperature when config\_surface\_air\_temperature\_source='lapse'. Positive values lead to colder temperatures at higher elevations. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_basal_heat_flux_source]{config\_basal\_heat\_flux\_source} & Selection of the method for setting the basal heat flux. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_basal_heat_flux_value]{config\_basal\_heat\_flux\_value} & Constant value of the basal heat flux (positive upward). \\
+    \hline
+    \hyperref[subsec:nm_sec_config_basal_mass_bal_float]{config\_basal\_mass\_bal\_float} & Selection of the method for computing the basal mass balance of floating ice.  'none' sets the basalMassBal field to 0 everywhere.  'file' uses without modification whatever value was read in through an input or forcing file or the value set by an ESM coupler.  'constant', 'mismip', 'seroussi' use hardcoded fields defined in the code. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_basal_mass_bal_seroussi_amplitude]{config\_basal\_mass\_bal\_\-seroussi\_amplitude} & amplitude on the depth adjustment applied to the Seroussi subglacial melt param. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_basal_mass_bal_seroussi_period]{config\_basal\_mass\_bal\_\-seroussi\_period} & period of the periodic depth adjustment applied to the Seroussi subglacial melt param. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_basal_mass_bal_seroussi_phase]{config\_basal\_mass\_bal\_\-seroussi\_phase} & phase of the periodic depth adjustment applied to the Seroussi subglacial melt param. Units are cycles, i.e., 0-1 \\
+    \hline
+    \hyperref[subsec:nm_sec_config_bmlt_float_flux]{config\_bmlt\_float\_flux} & Value of the constant heat flux applied to the base of floating ice (positive upward). \\
+    \hline
+    \hyperref[subsec:nm_sec_config_bmlt_float_xlimit]{config\_bmlt\_float\_xlimit} & x value defining region where bmlt\_float\_flux is applied; melt only where abs(x) > xlimit. \\
+    \hline
+\end{longtable}
+\end{center}
+}
+\section[physical\_parameters]{\hyperref[sec:nm_sec_physical_parameters]{physical\_parameters}}
+\label{sec:nm_tab_physical_parameters}
+\input{landice/section_descriptions/physical_parameters.tex}
+\vspace{0.5in}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    {\bf Name} & {\bf Description} \endfirsthead
+    \hline 
+    {\bf Name} & {\bf Description} (Continued) \endhead
+    \hline
+    \hline
+    \hyperref[subsec:nm_sec_config_ice_density]{config\_ice\_density} & ice density to use \\
+    \hline
+    \hyperref[subsec:nm_sec_config_ocean_density]{config\_ocean\_density} & ocean density to use for calculating floatation \\
+    \hline
+    \hyperref[subsec:nm_sec_config_sea_level]{config\_sea\_level} & sea level to use for calculating floatation \\
+    \hline
+    \hyperref[subsec:nm_sec_config_default_flowParamA]{config\_default\_flowParamA} & Defines the default value of the flow law parameter A to be used if it is not being calculated from ice temperature.  Defaults to the SI representation of 1.0e-16 yr$^{-1}$ Pa$^{-3}$. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_enhancementFactor]{config\_enhancementFactor} & multiplier on the flow parameter A \\
+    \hline
+    \hyperref[subsec:nm_sec_config_flowLawExponent]{config\_flowLawExponent} & Defines the value of the Glen flow law exponent, n. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_dynamic_thickness]{config\_dynamic\_thickness} & Defines the ice thickness below which dynamics are not calculated. \\
+    \hline
+\end{longtable}
+\end{center}
+}
+\section[time\_integration]{\hyperref[sec:nm_sec_time_integration]{time\_integration}}
+\label{sec:nm_tab_time_integration}
+\input{landice/section_descriptions/time_integration.tex}
+\vspace{0.5in}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    {\bf Name} & {\bf Description} \endfirsthead
+    \hline 
+    {\bf Name} & {\bf Description} (Continued) \endhead
+    \hline
+    \hline
+    \hyperref[subsec:nm_sec_config_dt]{config\_dt} & Length of model time step defined as a time interval. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_time_integration]{config\_time\_integration} & Time integration method. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_adaptive_timestep]{config\_adaptive\_timestep} & Determines if the time step should be adjusted based on the CFL condition or should be steady in time. If true, the config\_dt\_* options are ignored. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_min_adaptive_timestep]{config\_min\_adaptive\_timestep} & The minimum allowable time step in seconds.  If the CFL condition dictates the time step should be shorter than this, then the model aborts. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_max_adaptive_timestep]{config\_max\_adaptive\_timestep} & The maximum allowable time step in seconds.  If the CFL condition allows the time step to be longer than this, then the model uses this value instead.  Defaults to 100 years (in seconds). \\
+    \hline
+    \hyperref[subsec:nm_sec_config_adaptive_timestep_CFL_fraction]{config\_adaptive\_timestep\_\-CFL\_fraction} & A multiplier on the minimum allowable time step calculated from the CFL condition. (Setting to 1.0 may be unstable, so smaller values are recommended.) \\
+    \hline
+    \hyperref[subsec:nm_sec_config_adaptive_timestep_include_DCFL]{config\_adaptive\_timestep\_\-include\_DCFL} & Option of whether to include the diffusive CFL condition in the determination of the maximum allowable timestep. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_adaptive_timestep_force_interval]{config\_adaptive\_timestep\_\-force\_interval} & If adaptive timestep is enabled, the model will ensure a timestep ends at multiples of this interval.  This is useful for ensuring you get output at a specific desired interval (rather than the closest time after) or for running coupled to earth system models that expect a certain interval. \\
+    \hline
+\end{longtable}
+\end{center}
+}
+\section[time\_management]{\hyperref[sec:nm_sec_time_management]{time\_management}}
+\label{sec:nm_tab_time_management}
+\input{landice/section_descriptions/time_management.tex}
+\vspace{0.5in}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    {\bf Name} & {\bf Description} \endfirsthead
+    \hline 
+    {\bf Name} & {\bf Description} (Continued) \endhead
+    \hline
+    \hline
+    \hyperref[subsec:nm_sec_config_do_restart]{config\_do\_restart} & Determines if the initial conditions should be read from a restart file, or an input file.  To perform a restart, simply set this to true in the namelist.input file and modify the start time to be the time you want restart from.  A restart will read the grid information from the input field, and the restart state from the restart file.  It will perform a run normally, except velocity will not be solved on a restart. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_restart_timestamp_name]{config\_restart\_timestamp\_name} & Path to the filename for restart timestamps to be read and written from. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_start_time]{config\_start\_time} & Timestamp describing the initial time of the simulation.  If it is set to 'file', the initial time is read from restart\_timestamp \\
+    \hline
+    \hyperref[subsec:nm_sec_config_stop_time]{config\_stop\_time} & Timestamp describing the final time of the simulation. If it is set to 'none' the final time is determined from config\_start\_time and config\_run\_duration.  If config\_run\_duration is also specified, it takes precedence over config\_stop\_time.  Set config\_stop\_time to be equal to config\_start\_time (and config\_run\_duration to 'none') to perform a diagnostic solve only. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_run_duration]{config\_run\_duration} & Timestamp describing the length of the simulation. If it is set to 'none' the duration is determined from config\_start\_time and config\_stop\_time. config\_run\_duration overrides inconsistent values of config\_stop\_time. If a time value is specified for config\_run\_duration, it must be greater than 0. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_calendar_type]{config\_calendar\_type} & Selection of the type of calendar that should be used in the simulation. \\
+    \hline
+\end{longtable}
+\end{center}
+}
+\section[io]{\hyperref[sec:nm_sec_io]{io}}
+\label{sec:nm_tab_io}
+\input{landice/section_descriptions/io.tex}
+\vspace{0.5in}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    {\bf Name} & {\bf Description} \endfirsthead
+    \hline 
+    {\bf Name} & {\bf Description} (Continued) \endhead
+    \hline
+    \hline
+    \hyperref[subsec:nm_sec_config_stats_interval]{config\_stats\_interval} & Integer specifying interval (number of timesteps) for writing global/local statistics. If set to 0, then statistics are not written (except perhaps at startup, as determined by 'config\_write\_stats\_on\_startup'). \\
+    \hline
+    \hyperref[subsec:nm_sec_config_write_stats_on_startup]{config\_write\_stats\_on\_startup} & Logical flag determining if statistics should be written prior to the first time step. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_stats_cell_ID]{config\_stats\_cell\_ID} & global ID for the cell selected for local statistics/diagnostics \\
+    \hline
+    \hyperref[subsec:nm_sec_config_write_output_on_startup]{config\_write\_output\_on\_\-startup} & Logical flag determining if an output file should be written prior to the first time step. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_pio_num_iotasks]{config\_pio\_num\_iotasks} & Integer specifying how many IO tasks should be used within the PIO library. A value of 0 causes all MPI tasks to also be IO tasks. IO tasks are required to write contiguous blocks of data to a file. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_pio_stride]{config\_pio\_stride} & Integer specifying the stride of each IO task. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_year_digits]{config\_year\_digits} & Integer specifying the number of digits used to represent the year in time strings. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_output_external_velocity_solver_data]{config\_output\_external\_\-velocity\_solver\_data} & If .true., external velocity solvers (if enabled) will write their own output data in addition to any MPAS output that is configured. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_write_albany_ascii_mesh]{config\_write\_albany\_ascii\_\-mesh} & Logical flag determining if Albany ascii mesh files will be written.  If .true., model initializes, writes the mesh files, and then terminates. \\
+    \hline
+\end{longtable}
+\end{center}
+}
+\section[decomposition]{\hyperref[sec:nm_sec_decomposition]{decomposition}}
+\label{sec:nm_tab_decomposition}
+\input{landice/section_descriptions/decomposition.tex}
+\vspace{0.5in}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    {\bf Name} & {\bf Description} \endfirsthead
+    \hline 
+    {\bf Name} & {\bf Description} (Continued) \endhead
+    \hline
+    \hline
+    \hyperref[subsec:nm_sec_config_num_halos]{config\_num\_halos} & Determines the number of halo cells extending from a blocks owned cells (Called the 0-Halo). Default FO advection requires a minimum of 2.  Note that a minimum of 3 is required for incremental remapping advection on a quad mesh or for FCT advection, neither of which is currently fully supported. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_block_decomp_file_prefix]{config\_block\_decomp\_file\_\-prefix} & Defines the prefix for the block decomposition file. Can include a path. The number of blocks is appended to the end of the prefix at run-time. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_number_of_blocks]{config\_number\_of\_blocks} & Determines the number of blocks a simulation should be run with. If it is set to 0, the number of blocks is the same as the number of MPI tasks at run-time. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_explicit_proc_decomp]{config\_explicit\_proc\_decomp} & Determines if an explicit processor decomposition should be used. This is only useful if multiple blocks per processor are used. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_proc_decomp_file_prefix]{config\_proc\_decomp\_file\_prefix} & Defines the prefix for the processor decomposition file. This file is only read if config\_explicit\_proc\_decomp is .true. The number of processors is appended to the end of the prefix at run-time. \\
+    \hline
+\end{longtable}
+\end{center}
+}
+\section[debug]{\hyperref[sec:nm_sec_debug]{debug}}
+\label{sec:nm_tab_debug}
+\input{landice/section_descriptions/debug.tex}
+\vspace{0.5in}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    {\bf Name} & {\bf Description} \endfirsthead
+    \hline 
+    {\bf Name} & {\bf Description} (Continued) \endhead
+    \hline
+    \hline
+    \hyperref[subsec:nm_sec_config_print_thickness_advection_info]{config\_print\_thickness\_\-advection\_info} & Prints additional information about thickness advection. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_print_calving_info]{config\_print\_calving\_info} & Prints additional information about calving. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_print_thermal_info]{config\_print\_thermal\_info} & Prints additional information about thermal calculations. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_always_compute_fem_grid]{config\_always\_compute\_fem\_\-grid} & Always compute finite-element grid information for external dycores rather than only doing so when the ice extent changes. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_print_velocity_cleanup_details]{config\_print\_velocity\_cleanup\_\-details} & After velocity is calculated there are a few checks for appropriate values in certain geometric configurations.  Setting this option to .true. will cause detailed information about those adjustments to be printed. \\
+    \hline
+\end{longtable}
+\end{center}
+}
+\section[subglacial\_hydro]{\hyperref[sec:nm_sec_subglacial_hydro]{subglacial\_hydro}}
+\label{sec:nm_tab_subglacial_hydro}
+\vspace{0.5in}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    {\bf Name} & {\bf Description} \endfirsthead
+    \hline 
+    {\bf Name} & {\bf Description} (Continued) \endhead
+    \hline
+    \hline
+    \hyperref[subsec:nm_sec_config_SGH]{config\_SGH} & activate subglacial hydrology model \\
+    \hline
+    \hyperref[subsec:nm_sec_config_SGH_adaptive_timestep_fraction]{config\_SGH\_adaptive\_\-timestep\_fraction} & fraction of limiting timestep to use \\
+    \hline
+    \hyperref[subsec:nm_sec_config_SGH_max_adaptive_timestep]{config\_SGH\_max\_adaptive\_\-timestep} & The maximum allowable time step in seconds for the subglacial hydrology model.  If the CFL condition allows the time step to be longer than this, then the model uses this value instead.  Defaults to 100 years (in seconds). \\
+    \hline
+    \hyperref[subsec:nm_sec_config_SGH_tangent_slope_calculation]{config\_SGH\_tangent\_slope\_\-calculation} & Selection of the method for calculating the tangent component of slope at edges. 'from\_vertex\_barycentric' interpolates scalar values from cell centers to vertices using the barycentric interpolation routine in operators (mpas\_cells\_to\_points\_using\_baryweights) and then calculates the slope between vertices.  It works for obtuse triangles, but will not work correctly across the edges of periodic meshes. 'from\_vertex\_barycentric\_kiteareas' interpolates scalar values from cell centers to vertices using barycentric interpolation based on kiterea values and then calculates the slope between vertices.  It will work across the edges of periodic meshes, but will not work correctly for obtuse triangles. 'from\_normal\_slope' uses the vector operator mpas\_tangential\_vector\_1d to calculate the tangent slopes from the normal slopes on the edges of the adjacent cells.  It will work for any mesh configuration, but is the least accurate method. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_SGH_pressure_calc]{config\_SGH\_pressure\_calc} & Selection of the method for calculating water pressure. 'cavity' closes the hydrology equations by assuming cavities are always completely full. 'overburden' assumes water pressure is always equal to ice overburden pressure. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_SGH_alpha]{config\_SGH\_alpha} & power in flux formula \\
+    \hline
+    \hyperref[subsec:nm_sec_config_SGH_beta]{config\_SGH\_beta} & power in flux formula \\
+    \hline
+    \hyperref[subsec:nm_sec_config_SGH_conduc_coeff]{config\_SGH\_conduc\_coeff} & conductivity coefficient \\
+    \hline
+    \hyperref[subsec:nm_sec_config_SGH_till_drainage]{config\_SGH\_till\_drainage} & background till drainage rate \\
+    \hline
+    \hyperref[subsec:nm_sec_config_SGH_advection]{config\_SGH\_advection} & Advection method for SGH.  'fo'=First order upwind; 'fct'=Flux corrected transport.  FCT currently not enabled. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_SGH_bed_roughness]{config\_SGH\_bed\_roughness} & cavitation coefficient \\
+    \hline
+    \hyperref[subsec:nm_sec_config_SGH_bed_roughness_max]{config\_SGH\_bed\_roughness\_\-max} & bed roughness scale \\
+    \hline
+    \hyperref[subsec:nm_sec_config_SGH_creep_coefficient]{config\_SGH\_creep\_coefficient} & creep closure coefficient \\
+    \hline
+    \hyperref[subsec:nm_sec_config_SGH_englacial_porosity]{config\_SGH\_englacial\_porosity} & notional englacial porosity \\
+    \hline
+    \hyperref[subsec:nm_sec_config_SGH_till_max]{config\_SGH\_till\_max} & maximum water thickness in till \\
+    \hline
+    \hyperref[subsec:nm_sec_config_SGH_chnl_active]{config\_SGH\_chnl\_active} & activate channels in subglacial hydrology model \\
+    \hline
+    \hyperref[subsec:nm_sec_config_SGH_chnl_alpha]{config\_SGH\_chnl\_alpha} & power in flux formula \\
+    \hline
+    \hyperref[subsec:nm_sec_config_SGH_chnl_beta]{config\_SGH\_chnl\_beta} & power in flux formula \\
+    \hline
+    \hyperref[subsec:nm_sec_config_SGH_chnl_conduc_coeff]{config\_SGH\_chnl\_conduc\_coeff} & conductivity coefficient \\
+    \hline
+    \hyperref[subsec:nm_sec_config_SGH_chnl_creep_coefficient]{config\_SGH\_chnl\_creep\_\-coefficient} & creep closure coefficient \\
+    \hline
+    \hyperref[subsec:nm_sec_config_SGH_incipient_channel_width]{config\_SGH\_incipient\_\-channel\_width} & width of sheet beneath/around channel that contributes to melt within the channel \\
+    \hline
+    \hyperref[subsec:nm_sec_config_SGH_include_pressure_melt]{config\_SGH\_include\_pressure\_\-melt} & whether to include the pressure melt term in the channel opening \\
+    \hline
+    \hyperref[subsec:nm_sec_config_SGH_shmip_forcing]{config\_SGH\_shmip\_forcing} & calculate time-varying forcing specified by SHMIP experiments C or D \\
+    \hline
+    \hyperref[subsec:nm_sec_config_SGH_basal_melt]{config\_SGH\_basal\_melt} & source for the basalMeltInput term.  'file' takes whatever field was input and performs no calculation.  'thermal' uses the groundedBasalMassBal field calculated by the thermal model.  'basal\_heat' calculates a melt rate assuming the entirety of the basal heat flux (basalFrictionFlux+basalHeatFlux) goes to melting ice at the bed.  This is calculated in the SGH module and is independent of any calculations in the thermal model. \\
+    \hline
+\end{longtable}
+\end{center}
+}
+\section[AM\_globalStats]{\hyperref[sec:nm_sec_AM_globalStats]{AM\_globalStats}}
+\label{sec:nm_tab_AM_globalStats}
+\vspace{0.5in}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    {\bf Name} & {\bf Description} \endfirsthead
+    \hline 
+    {\bf Name} & {\bf Description} (Continued) \endhead
+    \hline
+    \hline
+    \hyperref[subsec:nm_sec_config_AM_globalStats_enable]{config\_AM\_globalStats\_enable} & If true, landice analysis member globalStats is called. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_AM_globalStats_compute_interval]{config\_AM\_globalStats\_\-compute\_interval} & Timestamp determining how often analysis member computation should be performed. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_AM_globalStats_stream_name]{config\_AM\_globalStats\_\-stream\_name} & Name of the stream that the globalStats analysis member should be tied to. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_AM_globalStats_compute_on_startup]{config\_AM\_globalStats\_\-compute\_on\_startup} & Logical flag determining if an analysis member computation occurs on start-up. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_AM_globalStats_write_on_startup]{config\_AM\_globalStats\_write\_\-on\_startup} & Logical flag determining if an analysis member write occurs on start-up. \\
+    \hline
+\end{longtable}
+\end{center}
+}
+\section[AM\_regionalStats]{\hyperref[sec:nm_sec_AM_regionalStats]{AM\_regionalStats}}
+\label{sec:nm_tab_AM_regionalStats}
+\vspace{0.5in}
+{\small
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    {\bf Name} & {\bf Description} \endfirsthead
+    \hline 
+    {\bf Name} & {\bf Description} (Continued) \endhead
+    \hline
+    \hline
+    \hyperref[subsec:nm_sec_config_AM_regionalStats_enable]{config\_AM\_regionalStats\_\-enable} & If true, landice analysis member regionalStats is called. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_AM_regionalStats_compute_interval]{config\_AM\_regionalStats\_\-compute\_interval} & Timestamp determining how often analysis member computation should be performed. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_AM_regionalStats_stream_name]{config\_AM\_regionalStats\_\-stream\_name} & Name of the stream that the regionalStats analysis member should be tied to. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_AM_regionalStats_compute_on_startup]{config\_AM\_regionalStats\_\-compute\_on\_startup} & Logical flag determining if an analysis member computation occurs on start-up. \\
+    \hline
+    \hyperref[subsec:nm_sec_config_AM_regionalStats_write_on_startup]{config\_AM\_regionalStats\_\-write\_on\_startup} & Logical flag determining if an analysis member write occurs on start-up. \\
+    \hline
+\end{longtable}
+\end{center}
+}
