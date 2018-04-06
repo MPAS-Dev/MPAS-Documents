@@ -1,4 +1,22 @@
-In the Richardson-number based vertical mixing parameterization \citep{Pacanowski_Philander81jpo}, the vertical diffusivity and viscosity are functions of the Richardson Number,
+\textbf{NOTE}: The functionality of this namelist has been superceded by the CVMix package, which has it's own namelist.  vmix\_rich is defunct and may be depracated in a future release.  Use of this parameterization is not recommended.
+
+Two Richardson-number based parameterizations are available in CVMix.  Identical functionality to the vmix\_rich routine \citep{Pacanowski_Philander81jpo} can be achieved in CVMix with the following changes to CVMix default namelist values
+\begin{itemize}
+	\item config\_cvmix\_shear\_mixing\_scheme = 'PP'
+	\item config\_use\_cvmix\_kpp = .false.
+	\item config\_use\_cvmix\_convection = .false.
+	\item config\_use\_cvmix\_shear = .true.
+\end{itemize}
+
+The Richardson-number based parameterization of \cite{Large:1994ua} is achieved by 
+\begin{itemize}
+	\item config\_cvmix\_shear\_mixing\_scheme = 'KPP'
+	\item config\_use\_cvmix\_kpp = .false.
+	\item config\_use\_cvmix\_convection = .false.
+	\item config\_use\_cvmix\_shear = .true.
+\end{itemize}
+
+In the Richardson-number based vertical mixing parameterization \citep[\textit{e.g.},][]{Pacanowski_Philander81jpo}, the vertical diffusivity and viscosity are functions of the Richardson Number,
 \begin{eqnarray}   
 \label{ocean:\mode_Ri1}
 Ri &=& N^2
@@ -6,14 +24,14 @@ Ri &=& N^2
  = -\frac{g}{\rho_0}\frac{\partial \rho}{\partial z}
 \left(\frac{\partial V}{\partial z} \right)^{-2},
 \end{eqnarray}
-where $V=\sqrt{u^2+v^2}=\sqrt{2ke}$ is the velocity magnitude.  The discrete version is
+The discrete version is
 \begin{eqnarray}   
 Ri^{top}_k &=& -\frac{g}{\rho_0}\frac{\rho^*_{k-1}-\rho^*_k}{\frac{1}{2}(h_{k-1}+h_k)}
 \left(\frac{u_{k-1}-u_k}{\frac{1}{2}(h_{k-1}+h_k)}\right)^{-2}\\
  &=& -\frac{g}{\rho_0}\frac{(\rho^*_{k-1}-\rho^*_k)\frac{1}{2}(h_{k-1}+h_k)}
 {(u_{k-1}-u_k)^2+\epsilon}
 \end{eqnarray}
-where $top$ indicates a layer interface, $ke$ is the cell-centered kinetic energy, $\rho^*_k$ is the density in layer $k$ adiabatically displaced to the surface, and $\epsilon$ is a small number to avoid dividing by zero.  
+where $top$ indicates a layer interface, $u$ is the normal velocity on cell edges, $\rho^*_k$ is the density in layer $k$ adiabatically displaced to the surface, and $\epsilon$ is a small number to avoid dividing by zero.  
 
 The variable $Ri^{top}$ must be available at cell edges for the viscoscity $\nu_v$ and at cell centers for the tracer diffusion $\kappa_v$.  In addition, the computation of shear is native to the edges, while density is native to the cell centers.  
 
@@ -22,6 +40,6 @@ The functional forms for vertical viscosity and diffusivity at each layer interf
 \nu_v &=& \nu_{bkrd} + c_{Ri}/(1+5Ri)^2\\
 \kappa_v &=& \kappa_{bkrd} + (\nu_{bkrd} + c_{Ri}/(1+5Ri)^2)/(1+5Ri)
 \end{eqnarray}
-for $Ri>=0$.  For unstable stratification, $Ri<0$ and the viscosity and diffusion are set to the convective values, which are typically very high.
+for $Ri>=0$.  For unstable stratification, $Ri<0$ and the viscosity and diffusion are fixed at their maximum value, which are set by config\_cvmix\_shear\_PP\_nu\_zero.
 
-Note: The functionality of this namelist has been superceded by the CVMix package, which has it's own namelist.  This namelist has been kept for backwards compatibility with and verification against version 2.0.
+
