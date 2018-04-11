@@ -164,19 +164,19 @@ Embedded links point to more detailed variable information in the appendix.
     \hline
     \hyperref[subsec:var_sec_geometry_vertexMask]{vertexMask} & bitmask indicating various properties about the ice sheet on vertices. \\
     \hline
-    \hyperref[subsec:var_sec_geometry_sfcMassBal]{sfcMassBal} & Surface mass balance \\
+    \hyperref[subsec:var_sec_geometry_sfcMassBal]{sfcMassBal} & applied surface mass balance \\
     \hline
-    \hyperref[subsec:var_sec_geometry_basalMassBal]{basalMassBal} & Basal mass balance applied \\
+    \hyperref[subsec:var_sec_geometry_basalMassBal]{basalMassBal} & applied basal mass balance \\
     \hline
     \hyperref[subsec:var_sec_geometry_groundedBasalMassBal]{groundedBasalMassBal} & Basal mass balance on grounded regions \\
     \hline
     \hyperref[subsec:var_sec_geometry_floatingBasalMassBal]{floatingBasalMassBal} & Basal mass balance on floating regions \\
     \hline
-    \hyperref[subsec:var_sec_geometry_calvingThickness]{calvingThickness} & thickness of ice that calves (less than or equal to ice thickness) \\
+    \hyperref[subsec:var_sec_geometry_calvingThickness]{calvingThickness} & thickness of ice that calves on a given timestep (less than or equal to ice thickness) \\
     \hline
     \hyperref[subsec:var_sec_geometry_eigencalvingParameter]{eigencalvingParameter} & proportionality constant K2+- used in eigencalving formulation \\
     \hline
-    \hyperref[subsec:var_sec_geometry_calvingVelocity]{calvingVelocity} & rate of calving front retreat due to calving, represented as a velocity normal to the calving front (in the x-y plane).  This retreat rate is converted in the code to requiredCalvingVolumeRate. \\
+    \hyperref[subsec:var_sec_geometry_calvingVelocity]{calvingVelocity} & rate of calving front retreat due to calving, represented as a velocity normal to the calving front (in the x-y plane).  This retreat rate is converted from a flux to a rate in the code requiredCalvingVolumeRate. \\
     \hline
     \hyperref[subsec:var_sec_geometry_requiredCalvingVolumeRate]{requiredCalvingVolumeRate} & total volume of ice that needs to be removed based on eigencalving rate at this margin cell \\
     \hline
@@ -184,11 +184,11 @@ Embedded links point to more detailed variable information in the appendix.
     \hline
     \hyperref[subsec:var_sec_geometry_basalWaterThickness]{basalWaterThickness} & thickness of basal water \\
     \hline
-    \hyperref[subsec:var_sec_geometry_restoreThickness]{restoreThickness} & thickness of ice added to restore the calving front to its initial position \\
+    \hyperref[subsec:var_sec_geometry_restoreThickness]{restoreThickness} & thickness of ice added when the config\_restore\_calving\_front option is set to .true. (in order to maintain the calving front at its initial position) \\
     \hline
     \hyperref[subsec:var_sec_geometry_normalSlopeEdge]{normalSlopeEdge} & normal surface slope on edges \\
     \hline
-    \hyperref[subsec:var_sec_geometry_apparentDiffusivity]{apparentDiffusivity} & apparent diffusivity at cell centers \\
+    \hyperref[subsec:var_sec_geometry_apparentDiffusivity]{apparentDiffusivity} & apparent diffusivity at cell centers (estimated based on the local ice flux and surface slope) \\
     \hline
     \hyperref[subsec:var_sec_geometry_upperSurfaceVertex]{upperSurfaceVertex} & elevation at top of ice on vertices \\
     \hline
@@ -211,7 +211,7 @@ Embedded links point to more detailed variable information in the appendix.
     \hline 
     {\bf Name} & {\bf Description} (Continued) \endhead
     \hline
-    \hyperref[subsec:var_sec_velocity_flowParamA]{flowParamA} & flow law parameter, A \\
+    \hyperref[subsec:var_sec_velocity_flowParamA]{flowParamA} & flow law parameter, A, used by shallow-ice velocity solver \\
     \hline
     \hyperref[subsec:var_sec_velocity_normalVelocity]{normalVelocity} & horizonal velocity, normal component to an edge, layer interface \\
     \hline
@@ -233,23 +233,23 @@ Embedded links point to more detailed variable information in the appendix.
     \hline
     \hyperref[subsec:var_sec_velocity_basalSpeed]{basalSpeed} & ice basal speed reconstructed at cell centers \\
     \hline
-    \hyperref[subsec:var_sec_velocity_beta]{beta} & higher-order basal traction parameter; NOTE: not SI units! \\
+    \hyperref[subsec:var_sec_velocity_beta]{beta} & input value of basal traction parameter for sliding law used with first-order momentum balance solver (NOTE non-SI units) \\
     \hline
-    \hyperref[subsec:var_sec_velocity_betaSolve]{betaSolve} & higher-order basal traction parameter; NOTE: not SI units! \\
+    \hyperref[subsec:var_sec_velocity_betaSolve]{betaSolve} & value of basal traction parameter for sliding law used with first-order momentum balance solver (NOTE non-SI units); differs from beta due to any necessary adjustments made for internal consistency (e.g., zeroed out where the ice is found to be floating) \\
     \hline
-    \hyperref[subsec:var_sec_velocity_exx]{exx} & x-component of strain rate \\
+    \hyperref[subsec:var_sec_velocity_exx]{exx} & x-component of surface strain rate \\
     \hline
-    \hyperref[subsec:var_sec_velocity_eyy]{eyy} & y-component of strain rate \\
+    \hyperref[subsec:var_sec_velocity_eyy]{eyy} & y-component of surface strain rate \\
     \hline
-    \hyperref[subsec:var_sec_velocity_exy]{exy} & shear component of strain rate \\
+    \hyperref[subsec:var_sec_velocity_exy]{exy} & shear component of surface strain rate \\
     \hline
-    \hyperref[subsec:var_sec_velocity_eTheta]{eTheta} & orientation of principal strain rate \\
+    \hyperref[subsec:var_sec_velocity_eTheta]{eTheta} & orientation of principal surface strain rate \\
     \hline
-    \hyperref[subsec:var_sec_velocity_eyx]{eyx} & shear component of strain rate \\
+    \hyperref[subsec:var_sec_velocity_eyx]{eyx} & shear component of surface strain rate \\
     \hline
-    \hyperref[subsec:var_sec_velocity_eMax]{eMax} & magnitude of first principal strain rate \\
+    \hyperref[subsec:var_sec_velocity_eMax]{eMax} & magnitude of first principal surface strain rate \\
     \hline
-    \hyperref[subsec:var_sec_velocity_eMin]{eMin} & magnitude of second principal strain rate \\
+    \hyperref[subsec:var_sec_velocity_eMin]{eMin} & magnitude of second principal surface strain rate \\
     \hline
     \hyperref[subsec:var_sec_velocity_anyDynamicVertexMaskChanged]{anyDynamicVertexMaskChanged} & flag needed by external velocity solvers that indicates if the region to solve on the block's domain has changed (treated as a logical) \\
     \hline
@@ -278,7 +278,7 @@ Embedded links point to more detailed variable information in the appendix.
     \hline
     \hyperref[subsec:var_sec_observations_observedSurfaceVelocityY]{observedSurfaceVelocityY} & Y-component of observed surface velocity \\
     \hline
-    \hyperref[subsec:var_sec_observations_observedSurfaceVelocityUncertainty]{observedSurfaceVelocity\-Uncertainty} & uncertainty in observed surface velocity \\
+    \hyperref[subsec:var_sec_observations_observedSurfaceVelocityUncertainty]{observedSurfaceVelocity\-Uncertainty} & uncertainty in observed surface velocity magnitude \\
     \hline
     \hyperref[subsec:var_sec_observations_observedThicknessTendency]{observedThicknessTendency} & observed tendency in thickness (dH/dt) \\
     \hline
@@ -307,27 +307,27 @@ Embedded links point to more detailed variable information in the appendix.
     \hline
     \hyperref[subsec:var_sec_thermal_temperature]{temperature} & interior ice temperature \\
     \hline
-    \hyperref[subsec:var_sec_thermal_waterfrac]{waterfrac} & interior water fraction \\
+    \hyperref[subsec:var_sec_thermal_waterfrac]{waterfrac} & interior ice water fraction \\
     \hline
     \hyperref[subsec:var_sec_thermal_enthalpy]{enthalpy} & interior ice enthalpy \\
     \hline
-    \hyperref[subsec:var_sec_thermal_surfaceAirTemperature]{surfaceAirTemperature} & surface air temperature \\
+    \hyperref[subsec:var_sec_thermal_surfaceAirTemperature]{surfaceAirTemperature} & air temperature at the ice sheet surface \\
     \hline
-    \hyperref[subsec:var_sec_thermal_surfaceTemperature]{surfaceTemperature} & upper surface ice temperature \\
+    \hyperref[subsec:var_sec_thermal_surfaceTemperature]{surfaceTemperature} & temperature at upper ice service \\
     \hline
-    \hyperref[subsec:var_sec_thermal_basalTemperature]{basalTemperature} & lower surface ice temperature \\
+    \hyperref[subsec:var_sec_thermal_basalTemperature]{basalTemperature} & temperature at lower ice surface \\
     \hline
     \hyperref[subsec:var_sec_thermal_pmpTemperature]{pmpTemperature} & pressure melt temperature \\
     \hline
-    \hyperref[subsec:var_sec_thermal_basalPmpTemperature]{basalPmpTemperature} & lower surface pressure melt temperature \\
+    \hyperref[subsec:var_sec_thermal_basalPmpTemperature]{basalPmpTemperature} & pressure melt temperature at lower ice surface \\
     \hline
-    \hyperref[subsec:var_sec_thermal_surfaceConductiveFlux]{surfaceConductiveFlux} & conductive heat flux at the upper surface (positive downward) \\
+    \hyperref[subsec:var_sec_thermal_surfaceConductiveFlux]{surfaceConductiveFlux} & conductive heat flux at the upper ice surface (positive downward) \\
     \hline
-    \hyperref[subsec:var_sec_thermal_basalConductiveFlux]{basalConductiveFlux} & conductive heat flux at the lower surface (positive downward) \\
+    \hyperref[subsec:var_sec_thermal_basalConductiveFlux]{basalConductiveFlux} & conductive heat flux at the lower ice surface (positive downward) \\
     \hline
     \hyperref[subsec:var_sec_thermal_basalHeatFlux]{basalHeatFlux} & basal heat flux into the ice (positive upward) \\
     \hline
-    \hyperref[subsec:var_sec_thermal_basalFrictionFlux]{basalFrictionFlux} & basal frictional flux into the ice (positive upward) \\
+    \hyperref[subsec:var_sec_thermal_basalFrictionFlux]{basalFrictionFlux} & basal frictional heat flux into the ice (positive upward) \\
     \hline
     \hyperref[subsec:var_sec_thermal_heatDissipation]{heatDissipation} & interior heat dissipation rate, divided by rhoi*cp\_ice \\
     \hline
@@ -412,55 +412,55 @@ Embedded links point to more detailed variable information in the appendix.
     \hline 
     {\bf Name} & {\bf Description} (Continued) \endhead
     \hline
-    \hyperref[subsec:var_sec_hydro_waterThickness]{waterThickness} & water layer thickness in subglacial system \\
+    \hyperref[subsec:var_sec_hydro_waterThickness]{waterThickness} & water layer thickness in subglacial hydrology system \\
     \hline
-    \hyperref[subsec:var_sec_hydro_waterThicknessOld]{waterThicknessOld} & water layer thickness in subglacial system from previous time step \\
+    \hyperref[subsec:var_sec_hydro_waterThicknessOld]{waterThicknessOld} & water layer thickness in subglacial hydrology system from previous time step \\
     \hline
-    \hyperref[subsec:var_sec_hydro_waterThicknessTendency]{waterThicknessTendency} & rate of change in water layer thickness in subglacial system \\
+    \hyperref[subsec:var_sec_hydro_waterThicknessTendency]{waterThicknessTendency} & rate of change in water layer thickness in subglacial hydrology system \\
     \hline
     \hyperref[subsec:var_sec_hydro_tillWaterThickness]{tillWaterThickness} & water layer thickness in subglacial till \\
     \hline
     \hyperref[subsec:var_sec_hydro_tillWaterThicknessOld]{tillWaterThicknessOld} & water layer thickness in subglacial till from previous time step \\
     \hline
-    \hyperref[subsec:var_sec_hydro_waterPressure]{waterPressure} & pressure in subglacial system \\
+    \hyperref[subsec:var_sec_hydro_waterPressure]{waterPressure} & pressure in subglacial hydrology system \\
     \hline
-    \hyperref[subsec:var_sec_hydro_waterPressureOld]{waterPressureOld} & pressure in subglacial system from previous time step \\
+    \hyperref[subsec:var_sec_hydro_waterPressureOld]{waterPressureOld} & pressure in subglacial hydrology system from previous time step \\
     \hline
-    \hyperref[subsec:var_sec_hydro_waterPressureTendency]{waterPressureTendency} & tendency in pressure in subglacial system \\
+    \hyperref[subsec:var_sec_hydro_waterPressureTendency]{waterPressureTendency} & tendency in pressure in subglacial hydrology system \\
     \hline
-    \hyperref[subsec:var_sec_hydro_basalMeltInput]{basalMeltInput} & basal meltwater input \\
+    \hyperref[subsec:var_sec_hydro_basalMeltInput]{basalMeltInput} & basal meltwater input to subglacial hydrology system \\
     \hline
-    \hyperref[subsec:var_sec_hydro_externalWaterInput]{externalWaterInput} & external water input \\
+    \hyperref[subsec:var_sec_hydro_externalWaterInput]{externalWaterInput} & external water input to subglacial hydrology system \\
     \hline
-    \hyperref[subsec:var_sec_hydro_frictionAngle]{frictionAngle} & till friction angle \\
+    \hyperref[subsec:var_sec_hydro_frictionAngle]{frictionAngle} & subglacial till friction angle \\
     \hline
-    \hyperref[subsec:var_sec_hydro_effectivePressure]{effectivePressure} & effective ice pressure in subglacial system \\
+    \hyperref[subsec:var_sec_hydro_effectivePressure]{effectivePressure} & effective ice pressure in subglacial hydrology system \\
     \hline
-    \hyperref[subsec:var_sec_hydro_hydropotential]{hydropotential} & subglacial hydropotential \\
+    \hyperref[subsec:var_sec_hydro_hydropotential]{hydropotential} & hydropotential in subglacial hydrology system \\
     \hline
-    \hyperref[subsec:var_sec_hydro_waterFlux]{waterFlux} & total subglacial water flux \\
+    \hyperref[subsec:var_sec_hydro_waterFlux]{waterFlux} & total water flux in subglacial hydrology system \\
     \hline
     \hyperref[subsec:var_sec_hydro_waterFluxMask]{waterFluxMask} & mask indicating how to handle fluxes on each edge: 0=calculate based on hydropotential gradient; 1=allow outflow based on hydropotential gradient, but no inflow (NOT YET IMPLEMENTED); 2=zero flux \\
     \hline
-    \hyperref[subsec:var_sec_hydro_waterFluxAdvec]{waterFluxAdvec} & advective subglacial water flux \\
+    \hyperref[subsec:var_sec_hydro_waterFluxAdvec]{waterFluxAdvec} & advective water flux in subglacial hydrology system \\
     \hline
-    \hyperref[subsec:var_sec_hydro_waterFluxDiffu]{waterFluxDiffu} & diffusive subglacial water flux \\
+    \hyperref[subsec:var_sec_hydro_waterFluxDiffu]{waterFluxDiffu} & diffusive water flux in subglacial hydrology system \\
     \hline
-    \hyperref[subsec:var_sec_hydro_waterVelocity]{waterVelocity} & subglacial water velocity \\
+    \hyperref[subsec:var_sec_hydro_waterVelocity]{waterVelocity} & water velocity in subglacial hydrology system \\
     \hline
     \hyperref[subsec:var_sec_hydro_waterVelocityCellX]{waterVelocityCellX} & subglacial water velocity reconstructed on cell centers, x-component \\
     \hline
     \hyperref[subsec:var_sec_hydro_waterVelocityCellY]{waterVelocityCellY} & subglacial water velocity reconstructed on cell centers, y-component \\
     \hline
-    \hyperref[subsec:var_sec_hydro_effectiveConducEdge]{effectiveConducEdge} & effective Darcy hydraulic conductivity on edges \\
+    \hyperref[subsec:var_sec_hydro_effectiveConducEdge]{effectiveConducEdge} & effective Darcy hydraulic conductivity on edges in subglacial hydrology system \\
     \hline
-    \hyperref[subsec:var_sec_hydro_waterThicknessEdge]{waterThicknessEdge} & water layer thickness on edges \\
+    \hyperref[subsec:var_sec_hydro_waterThicknessEdge]{waterThicknessEdge} & water layer thickness on edges in subglacial hydrology system \\
     \hline
-    \hyperref[subsec:var_sec_hydro_waterThicknessEdgeUpwind]{waterThicknessEdgeUpwind} & water layer thickness of cell upwind of edge \\
+    \hyperref[subsec:var_sec_hydro_waterThicknessEdgeUpwind]{waterThicknessEdgeUpwind} & water layer thickness of cell upwind of edge in subglacial hydrology system \\
     \hline
-    \hyperref[subsec:var_sec_hydro_diffusivity]{diffusivity} & diffusivity of sheet \\
+    \hyperref[subsec:var_sec_hydro_diffusivity]{diffusivity} & diffusivity of water sheet in subglacial hydrology system \\
     \hline
-    \hyperref[subsec:var_sec_hydro_hydropotentialBase]{hydropotentialBase} & hydropotential without water thickness contribution \\
+    \hyperref[subsec:var_sec_hydro_hydropotentialBase]{hydropotentialBase} & hydropotential in subglacial hydrology system without water thickness contribution \\
     \hline
     \hyperref[subsec:var_sec_hydro_hydropotentialBaseVertex]{hydropotentialBaseVertex} & hydropotential without water thickness contribution on vertices.  Only used for some choices of config\_SGH\_tangent\_slope\_calculation. \\
     \hline
@@ -470,53 +470,53 @@ Embedded links point to more detailed variable information in the appendix.
     \hline
     \hyperref[subsec:var_sec_hydro_gradMagPhiEdge]{gradMagPhiEdge} & magnitude of the gradient of hydropotentialBase, on Edges \\
     \hline
-    \hyperref[subsec:var_sec_hydro_waterPressureSlopeNormal]{waterPressureSlopeNormal} & normal component of gradient of waterPressure \\
+    \hyperref[subsec:var_sec_hydro_waterPressureSlopeNormal]{waterPressureSlopeNormal} & normal component of gradient of waterPressure in subglacial hydrology system \\
     \hline
-    \hyperref[subsec:var_sec_hydro_divergence]{divergence} & flux divergence of water \\
+    \hyperref[subsec:var_sec_hydro_divergence]{divergence} & flux divergence of water in subglacial hydrology system \\
     \hline
-    \hyperref[subsec:var_sec_hydro_openingRate]{openingRate} & rate of cavity opening \\
+    \hyperref[subsec:var_sec_hydro_openingRate]{openingRate} & rate of cavity opening in subglacial hydrology system \\
     \hline
-    \hyperref[subsec:var_sec_hydro_closingRate]{closingRate} & rate of creep closure \\
+    \hyperref[subsec:var_sec_hydro_closingRate]{closingRate} & rate of ice creep closure in subglacial hydrology system \\
     \hline
-    \hyperref[subsec:var_sec_hydro_zeroOrderSum]{zeroOrderSum} & sum of zero order terms \\
+    \hyperref[subsec:var_sec_hydro_zeroOrderSum]{zeroOrderSum} & sum of zero order terms in subglacial hydrology system \\
     \hline
-    \hyperref[subsec:var_sec_hydro_deltatSGHadvec]{deltatSGHadvec} & advective CFL limited time step length \\
+    \hyperref[subsec:var_sec_hydro_deltatSGHadvec]{deltatSGHadvec} & advective CFL limited time step length in subglacial hydrology system \\
     \hline
-    \hyperref[subsec:var_sec_hydro_deltatSGHdiffu]{deltatSGHdiffu} & diffusive CFL limited time step length \\
+    \hyperref[subsec:var_sec_hydro_deltatSGHdiffu]{deltatSGHdiffu} & diffusive CFL limited time step length in subglacial hydrology system \\
     \hline
-    \hyperref[subsec:var_sec_hydro_deltatSGHpressure]{deltatSGHpressure} & time step length limited by pressure equation scheme \\
+    \hyperref[subsec:var_sec_hydro_deltatSGHpressure]{deltatSGHpressure} & time step length limited by pressure equation scheme in subglacial hydrology system \\
     \hline
-    \hyperref[subsec:var_sec_hydro_deltatSGH]{deltatSGH} & time step used for subglacial hydro \\
+    \hyperref[subsec:var_sec_hydro_deltatSGH]{deltatSGH} & time step used for evolving subglacial hydrology system \\
     \hline
-    \hyperref[subsec:var_sec_hydro_channelArea]{channelArea} & area of subglacial channel \\
+    \hyperref[subsec:var_sec_hydro_channelArea]{channelArea} & area of channel in subglacial hydrology system \\
     \hline
-    \hyperref[subsec:var_sec_hydro_channelDischarge]{channelDischarge} & discharge through subglacial channel \\
+    \hyperref[subsec:var_sec_hydro_channelDischarge]{channelDischarge} & discharge through channel in subglacial hydrology system \\
     \hline
-    \hyperref[subsec:var_sec_hydro_channelVelocity]{channelVelocity} & velocity in subglacial channel \\
+    \hyperref[subsec:var_sec_hydro_channelVelocity]{channelVelocity} & water velocity in channel in subglacial hydrology system \\
     \hline
-    \hyperref[subsec:var_sec_hydro_channelMelt]{channelMelt} & melt rate in subglacial channel \\
+    \hyperref[subsec:var_sec_hydro_channelMelt]{channelMelt} & melt rate in channel in subglacial hydrology system \\
     \hline
-    \hyperref[subsec:var_sec_hydro_channelPressureFreeze]{channelPressureFreeze} & freezing rate in subglacial channel due to water pressure gradient.  positive=freezing, negative=melting \\
+    \hyperref[subsec:var_sec_hydro_channelPressureFreeze]{channelPressureFreeze} & freezing rate in subglacial channel due to water pressure gradient (positive=freezing, negative=melting) \\
     \hline
-    \hyperref[subsec:var_sec_hydro_flowParamAChannel]{flowParamAChannel} & flow parameter A on edges used for channel \\
+    \hyperref[subsec:var_sec_hydro_flowParamAChannel]{flowParamAChannel} & flow parameter A on edges used for channel in subglacial hydrology system \\
     \hline
-    \hyperref[subsec:var_sec_hydro_channelEffectivePressure]{channelEffectivePressure} & effective pressure in the channel \\
+    \hyperref[subsec:var_sec_hydro_channelEffectivePressure]{channelEffectivePressure} & effective pressure in the channel in subglacial hydrology system \\
     \hline
-    \hyperref[subsec:var_sec_hydro_channelClosingRate]{channelClosingRate} & closing rate from creep of the channel \\
+    \hyperref[subsec:var_sec_hydro_channelClosingRate]{channelClosingRate} & closing rate from creep of the channel in subglacial hydrology system \\
     \hline
-    \hyperref[subsec:var_sec_hydro_channelOpeningRate]{channelOpeningRate} & opening rate from melt of the channel \\
+    \hyperref[subsec:var_sec_hydro_channelOpeningRate]{channelOpeningRate} & opening rate from melt of the channel in subglacial hydrology system \\
     \hline
-    \hyperref[subsec:var_sec_hydro_channelChangeRate]{channelChangeRate} & rate of change of channel area \\
+    \hyperref[subsec:var_sec_hydro_channelChangeRate]{channelChangeRate} & rate of change of channel area in subglacial hydrology system \\
     \hline
     \hyperref[subsec:var_sec_hydro_deltatSGHadvecChannel]{deltatSGHadvecChannel} & time step length limited by channel advection \\
     \hline
     \hyperref[subsec:var_sec_hydro_deltatSGHdiffuChannel]{deltatSGHdiffuChannel} & time step length limited by channel diffusion \\
     \hline
-    \hyperref[subsec:var_sec_hydro_divergenceChannel]{divergenceChannel} & divergence due to channel flow \\
+    \hyperref[subsec:var_sec_hydro_divergenceChannel]{divergenceChannel} & divergence due to channel flow in subglacial hydrology system \\
     \hline
     \hyperref[subsec:var_sec_hydro_channelAreaChangeCell]{channelAreaChangeCell} & change in channel area within each cell, averaged over cell area \\
     \hline
-    \hyperref[subsec:var_sec_hydro_channelDiffusivity]{channelDiffusivity} & diffusivity in channel \\
+    \hyperref[subsec:var_sec_hydro_channelDiffusivity]{channelDiffusivity} & diffusivity in channel in subglacial hydrology system \\
     \hline
 \end{longtable}
 \end{center}
@@ -553,21 +553,21 @@ Embedded links point to more detailed variable information in the appendix.
     \hline
     \hyperref[subsec:var_sec_globalStatsAM_iceThicknessMin]{iceThicknessMin} & minimum ice thickness in domain \\
     \hline
-    \hyperref[subsec:var_sec_globalStatsAM_totalSfcMassBal]{totalSfcMassBal} & total, area integrated surface mass balance. Positive values are ice gain. \\
+    \hyperref[subsec:var_sec_globalStatsAM_totalSfcMassBal]{totalSfcMassBal} & total, area integrated surface mass balance. Positive values represent ice gain. \\
     \hline
-    \hyperref[subsec:var_sec_globalStatsAM_avgNetAccumulation]{avgNetAccumulation} & average sfcMassBal, as a thickness rate. Positive values are ice gain. \\
+    \hyperref[subsec:var_sec_globalStatsAM_avgNetAccumulation]{avgNetAccumulation} & average sfcMassBal, as a thickness rate. Positive values represent ice gain. \\
     \hline
-    \hyperref[subsec:var_sec_globalStatsAM_totalBasalMassBal]{totalBasalMassBal} & total, area integrated basal mass balance. Positive values are ice gain. \\
+    \hyperref[subsec:var_sec_globalStatsAM_totalBasalMassBal]{totalBasalMassBal} & total, area integrated basal mass balance. Positive values represent ice gain. \\
     \hline
-    \hyperref[subsec:var_sec_globalStatsAM_totalGroundedBasalMassBal]{totalGroundedBasalMassBal} & total, area integrated grounded basal mass balance. Positive values are ice gain. \\
+    \hyperref[subsec:var_sec_globalStatsAM_totalGroundedBasalMassBal]{totalGroundedBasalMassBal} & total, area integrated grounded basal mass balance. Positive values represent ice gain. \\
     \hline
-    \hyperref[subsec:var_sec_globalStatsAM_avgGroundedBasalMelt]{avgGroundedBasalMelt} & average groundedBasalMassBal value, as a thickness rate. Positive values are ice loss. \\
+    \hyperref[subsec:var_sec_globalStatsAM_avgGroundedBasalMelt]{avgGroundedBasalMelt} & average groundedBasalMassBal value, as a thickness rate. Positive values represent ice loss. \\
     \hline
-    \hyperref[subsec:var_sec_globalStatsAM_totalFloatingBasalMassBal]{totalFloatingBasalMassBal} & total, area integrated floating basal mass balance. Positive values are ice gain. \\
+    \hyperref[subsec:var_sec_globalStatsAM_totalFloatingBasalMassBal]{totalFloatingBasalMassBal} & total, area integrated floating basal mass balance. Positive values represent ice gain. \\
     \hline
-    \hyperref[subsec:var_sec_globalStatsAM_avgSubshelfMelt]{avgSubshelfMelt} & average floatingBasalMassBal value, as a thickness rate. Positive values are ice loss. \\
+    \hyperref[subsec:var_sec_globalStatsAM_avgSubshelfMelt]{avgSubshelfMelt} & average floatingBasalMassBal value, as a thickness rate. Positive values represent ice loss. \\
     \hline
-    \hyperref[subsec:var_sec_globalStatsAM_totalCalvingFlux]{totalCalvingFlux} & total, area integrated mass loss due to calving. Positive values are ice loss. \\
+    \hyperref[subsec:var_sec_globalStatsAM_totalCalvingFlux]{totalCalvingFlux} & total, area integrated mass loss due to calving. Positive values represent ice loss. \\
     \hline
     \hyperref[subsec:var_sec_globalStatsAM_groundingLineFlux]{groundingLineFlux} & total mass flux across all grounding lines.  Note that flux from floating to grounded ice makes a negative contribution to this metric. \\
     \hline
@@ -612,17 +612,17 @@ Embedded links point to more detailed variable information in the appendix.
     \hline
     \hyperref[subsec:var_sec_regionalStatsAM_regionalSumSfcMassBal]{regionalSumSfcMassBal} & area-integrated surface mass balance within region \\
     \hline
-    \hyperref[subsec:var_sec_regionalStatsAM_regionalAvgNetAccumulation]{regionalAvgNetAccumulation} & average sfcMassBal, as a thickness rate. Positive values are ice gain. \\
+    \hyperref[subsec:var_sec_regionalStatsAM_regionalAvgNetAccumulation]{regionalAvgNetAccumulation} & average sfcMassBal, as a thickness rate. Positive values represent ice gain. \\
     \hline
     \hyperref[subsec:var_sec_regionalStatsAM_regionalSumBasalMassBal]{regionalSumBasalMassBal} & area-integrated basal mass balance within region \\
     \hline
-    \hyperref[subsec:var_sec_regionalStatsAM_regionalSumGroundedBasalMassBal]{regionalSumGroundedBasalMass\-Bal} & total, area integrated grounded basal mass balance. Positive values are ice gain. \\
+    \hyperref[subsec:var_sec_regionalStatsAM_regionalSumGroundedBasalMassBal]{regionalSumGroundedBasalMass\-Bal} & total, area integrated grounded basal mass balance. Positive values represent ice gain. \\
     \hline
-    \hyperref[subsec:var_sec_regionalStatsAM_regionalAvgGroundedBasalMelt]{regionalAvgGroundedBasalMelt} & average groundedBasalMassBal value, as a thickness rate. Positive values are ice loss. \\
+    \hyperref[subsec:var_sec_regionalStatsAM_regionalAvgGroundedBasalMelt]{regionalAvgGroundedBasalMelt} & average groundedBasalMassBal value, as a thickness rate. Positive values represent ice loss. \\
     \hline
-    \hyperref[subsec:var_sec_regionalStatsAM_regionalSumFloatingBasalMassBal]{regionalSumFloatingBasalMass\-Bal} & total, area integrated floating basal mass balance. Positive values are ice gain. \\
+    \hyperref[subsec:var_sec_regionalStatsAM_regionalSumFloatingBasalMassBal]{regionalSumFloatingBasalMass\-Bal} & total, area integrated floating basal mass balance. Positive values represent ice gain. \\
     \hline
-    \hyperref[subsec:var_sec_regionalStatsAM_regionalAvgSubshelfMelt]{regionalAvgSubshelfMelt} & average floatingBasalMassBal value, as a thickness rate. Positive values are ice loss. \\
+    \hyperref[subsec:var_sec_regionalStatsAM_regionalAvgSubshelfMelt]{regionalAvgSubshelfMelt} & average floatingBasalMassBal value, as a thickness rate. Positive values represent ice loss. \\
     \hline
     \hyperref[subsec:var_sec_regionalStatsAM_regionalSumCalvingFlux]{regionalSumCalvingFlux} & area-integrated calving flux within region \\
     \hline

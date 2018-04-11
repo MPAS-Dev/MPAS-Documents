@@ -1244,7 +1244,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% geometry \% sfcMassBal \\
          \hline 
-    \caption{sfcMassBal: Surface mass balance}
+    \caption{sfcMassBal: applied surface mass balance}
 \end{longtable}
 \end{center}
 \subsection[basalMassBal]{\hyperref[sec:var_tab_geometry]{basalMassBal}}
@@ -1262,7 +1262,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% geometry \% basalMassBal \\
          \hline 
-    \caption{basalMassBal: Basal mass balance applied}
+    \caption{basalMassBal: applied basal mass balance}
 \end{longtable}
 \end{center}
 \subsection[groundedBasalMassBal]{\hyperref[sec:var_tab_geometry]{groundedBasalMassBal}}
@@ -1316,7 +1316,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% geometry \% calvingThickness \\
          \hline 
-    \caption{calvingThickness: thickness of ice that calves (less than or equal to ice thickness)}
+    \caption{calvingThickness: thickness of ice that calves on a given timestep (less than or equal to ice thickness)}
 \end{longtable}
 \end{center}
 \subsection[eigencalvingParameter]{\hyperref[sec:var_tab_geometry]{eigencalvingParameter}}
@@ -1352,7 +1352,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% geometry \% calvingVelocity \\
          \hline 
-    \caption{calvingVelocity: rate of calving front retreat due to calving, represented as a velocity normal to the calving front (in the x-y plane).  This retreat rate is converted in the code to requiredCalvingVolumeRate.}
+    \caption{calvingVelocity: rate of calving front retreat due to calving, represented as a velocity normal to the calving front (in the x-y plane).  This retreat rate is converted from a flux to a rate in the code requiredCalvingVolumeRate.}
 \end{longtable}
 \end{center}
 \subsection[requiredCalvingVolumeRate]{\hyperref[sec:var_tab_geometry]{requiredCalvingVolumeRate}}
@@ -1424,7 +1424,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% geometry \% restoreThickness \\
          \hline 
-    \caption{restoreThickness: thickness of ice added to restore the calving front to its initial position}
+    \caption{restoreThickness: thickness of ice added when the config\_restore\_calving\_front option is set to .true. (in order to maintain the calving front at its initial position)}
 \end{longtable}
 \end{center}
 \subsection[normalSlopeEdge]{\hyperref[sec:var_tab_geometry]{normalSlopeEdge}}
@@ -1460,7 +1460,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% geometry \% apparentDiffusivity \\
          \hline 
-    \caption{apparentDiffusivity: apparent diffusivity at cell centers}
+    \caption{apparentDiffusivity: apparent diffusivity at cell centers (estimated based on the local ice flux and surface slope)}
 \end{longtable}
 \end{center}
 \subsection[upperSurfaceVertex]{\hyperref[sec:var_tab_geometry]{upperSurfaceVertex}}
@@ -1534,7 +1534,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% velocity \% flowParamA \\
          \hline 
-    \caption{flowParamA: flow law parameter, A}
+    \caption{flowParamA: flow law parameter, A, used by shallow-ice velocity solver}
 \end{longtable}
 \end{center}
 \subsection[normalVelocity]{\hyperref[sec:var_tab_velocity]{normalVelocity}}
@@ -1732,7 +1732,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% velocity \% beta \\
          \hline 
-    \caption{beta: higher-order basal traction parameter; NOTE: not SI units!}
+    \caption{beta: input value of basal traction parameter for sliding law used with first-order momentum balance solver (NOTE non-SI units)}
 \end{longtable}
 \end{center}
 \subsection[betaSolve]{\hyperref[sec:var_tab_velocity]{betaSolve}}
@@ -1750,7 +1750,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% velocity \% betaSolve \\
          \hline 
-    \caption{betaSolve: higher-order basal traction parameter; NOTE: not SI units!}
+    \caption{betaSolve: value of basal traction parameter for sliding law used with first-order momentum balance solver (NOTE non-SI units); differs from beta due to any necessary adjustments made for internal consistency (e.g., zeroed out where the ice is found to be floating)}
 \end{longtable}
 \end{center}
 \subsection[exx]{\hyperref[sec:var_tab_velocity]{exx}}
@@ -1768,7 +1768,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% velocity \% exx \\
          \hline 
-    \caption{exx: x-component of strain rate}
+    \caption{exx: x-component of surface strain rate}
 \end{longtable}
 \end{center}
 \subsection[eyy]{\hyperref[sec:var_tab_velocity]{eyy}}
@@ -1786,7 +1786,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% velocity \% eyy \\
          \hline 
-    \caption{eyy: y-component of strain rate}
+    \caption{eyy: y-component of surface strain rate}
 \end{longtable}
 \end{center}
 \subsection[exy]{\hyperref[sec:var_tab_velocity]{exy}}
@@ -1804,7 +1804,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% velocity \% exy \\
          \hline 
-    \caption{exy: shear component of strain rate}
+    \caption{exy: shear component of surface strain rate}
 \end{longtable}
 \end{center}
 \subsection[eTheta]{\hyperref[sec:var_tab_velocity]{eTheta}}
@@ -1822,7 +1822,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% velocity \% eTheta \\
          \hline 
-    \caption{eTheta: orientation of principal strain rate}
+    \caption{eTheta: orientation of principal surface strain rate}
 \end{longtable}
 \end{center}
 \subsection[eyx]{\hyperref[sec:var_tab_velocity]{eyx}}
@@ -1840,7 +1840,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% velocity \% eyx \\
          \hline 
-    \caption{eyx: shear component of strain rate}
+    \caption{eyx: shear component of surface strain rate}
 \end{longtable}
 \end{center}
 \subsection[eMax]{\hyperref[sec:var_tab_velocity]{eMax}}
@@ -1858,7 +1858,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% velocity \% eMax \\
          \hline 
-    \caption{eMax: magnitude of first principal strain rate}
+    \caption{eMax: magnitude of first principal surface strain rate}
 \end{longtable}
 \end{center}
 \subsection[eMin]{\hyperref[sec:var_tab_velocity]{eMin}}
@@ -1876,7 +1876,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% velocity \% eMin \\
          \hline 
-    \caption{eMin: magnitude of second principal strain rate}
+    \caption{eMin: magnitude of second principal surface strain rate}
 \end{longtable}
 \end{center}
 \subsection[anyDynamicVertexMaskChanged]{\hyperref[sec:var_tab_velocity]{anyDynamicVertexMaskChanged}}
@@ -1960,7 +1960,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Type: & real \\
         \hline 
-        Units: & \si{m.s^-1} \\
+        Units: & \si{m.s^{-1}} \\
         \hline 
         Dimension: & nCells Time \\
         \hline 
@@ -1978,7 +1978,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Type: & real \\
         \hline 
-        Units: & \si{m.s^-1} \\
+        Units: & \si{m.s^{-1}} \\
         \hline 
         Dimension: & nCells Time \\
         \hline 
@@ -1996,7 +1996,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Type: & real \\
         \hline 
-        Units: & \si{m.s^-1} \\
+        Units: & \si{m.s^{-1}} \\
         \hline 
         Dimension: & nCells Time \\
         \hline 
@@ -2004,7 +2004,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% observations \% observedSurfaceVelocityUncertainty \\
          \hline 
-    \caption{observedSurfaceVelocityUncertainty: uncertainty in observed surface velocity}
+    \caption{observedSurfaceVelocityUncertainty: uncertainty in observed surface velocity magnitude}
 \end{longtable}
 \end{center}
 \subsection[observedThicknessTendency]{\hyperref[sec:var_tab_observations]{observedThicknessTendency}}
@@ -2014,7 +2014,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Type: & real \\
         \hline 
-        Units: & \si{m.s^-1} \\
+        Units: & \si{m.s^{-1}} \\
         \hline 
         Dimension: & nCells Time \\
         \hline 
@@ -2032,7 +2032,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Type: & real \\
         \hline 
-        Units: & \si{m.s^-1} \\
+        Units: & \si{m.s^{-1}} \\
         \hline 
         Dimension: & nCells Time \\
         \hline 
@@ -2132,7 +2132,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% thermal \% waterfrac \\
          \hline 
-    \caption{waterfrac: interior water fraction}
+    \caption{waterfrac: interior ice water fraction}
 \end{longtable}
 \end{center}
 \subsection[enthalpy]{\hyperref[sec:var_tab_thermal]{enthalpy}}
@@ -2168,7 +2168,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% thermal \% surfaceAirTemperature \\
          \hline 
-    \caption{surfaceAirTemperature: surface air temperature}
+    \caption{surfaceAirTemperature: air temperature at the ice sheet surface}
 \end{longtable}
 \end{center}
 \subsection[surfaceTemperature]{\hyperref[sec:var_tab_thermal]{surfaceTemperature}}
@@ -2186,7 +2186,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% thermal \% surfaceTemperature \\
          \hline 
-    \caption{surfaceTemperature: upper surface ice temperature}
+    \caption{surfaceTemperature: temperature at upper ice service}
 \end{longtable}
 \end{center}
 \subsection[basalTemperature]{\hyperref[sec:var_tab_thermal]{basalTemperature}}
@@ -2204,7 +2204,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% thermal \% basalTemperature \\
          \hline 
-    \caption{basalTemperature: lower surface ice temperature}
+    \caption{basalTemperature: temperature at lower ice surface}
 \end{longtable}
 \end{center}
 \subsection[pmpTemperature]{\hyperref[sec:var_tab_thermal]{pmpTemperature}}
@@ -2240,7 +2240,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% thermal \% basalPmpTemperature \\
          \hline 
-    \caption{basalPmpTemperature: lower surface pressure melt temperature}
+    \caption{basalPmpTemperature: pressure melt temperature at lower ice surface}
 \end{longtable}
 \end{center}
 \subsection[surfaceConductiveFlux]{\hyperref[sec:var_tab_thermal]{surfaceConductiveFlux}}
@@ -2258,7 +2258,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% thermal \% surfaceConductiveFlux \\
          \hline 
-    \caption{surfaceConductiveFlux: conductive heat flux at the upper surface (positive downward)}
+    \caption{surfaceConductiveFlux: conductive heat flux at the upper ice surface (positive downward)}
 \end{longtable}
 \end{center}
 \subsection[basalConductiveFlux]{\hyperref[sec:var_tab_thermal]{basalConductiveFlux}}
@@ -2276,7 +2276,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% thermal \% basalConductiveFlux \\
          \hline 
-    \caption{basalConductiveFlux: conductive heat flux at the lower surface (positive downward)}
+    \caption{basalConductiveFlux: conductive heat flux at the lower ice surface (positive downward)}
 \end{longtable}
 \end{center}
 \subsection[basalHeatFlux]{\hyperref[sec:var_tab_thermal]{basalHeatFlux}}
@@ -2312,7 +2312,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% thermal \% basalFrictionFlux \\
          \hline 
-    \caption{basalFrictionFlux: basal frictional flux into the ice (positive upward)}
+    \caption{basalFrictionFlux: basal frictional heat flux into the ice (positive upward)}
 \end{longtable}
 \end{center}
 \subsection[heatDissipation]{\hyperref[sec:var_tab_thermal]{heatDissipation}}
@@ -2678,7 +2678,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% hydro \% waterThickness \\
          \hline 
-    \caption{waterThickness: water layer thickness in subglacial system}
+    \caption{waterThickness: water layer thickness in subglacial hydrology system}
 \end{longtable}
 \end{center}
 \subsection[waterThicknessOld]{\hyperref[sec:var_tab_hydro]{waterThicknessOld}}
@@ -2696,7 +2696,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% hydro \% waterThicknessOld \\
          \hline 
-    \caption{waterThicknessOld: water layer thickness in subglacial system from previous time step}
+    \caption{waterThicknessOld: water layer thickness in subglacial hydrology system from previous time step}
 \end{longtable}
 \end{center}
 \subsection[waterThicknessTendency]{\hyperref[sec:var_tab_hydro]{waterThicknessTendency}}
@@ -2706,7 +2706,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Type: & real \\
         \hline 
-        Units: & \si{m/s} \\
+        Units: & \si{m.s^{-1}} \\
         \hline 
         Dimension: & nCells Time \\
         \hline 
@@ -2714,7 +2714,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% hydro \% waterThicknessTendency \\
          \hline 
-    \caption{waterThicknessTendency: rate of change in water layer thickness in subglacial system}
+    \caption{waterThicknessTendency: rate of change in water layer thickness in subglacial hydrology system}
 \end{longtable}
 \end{center}
 \subsection[tillWaterThickness]{\hyperref[sec:var_tab_hydro]{tillWaterThickness}}
@@ -2768,7 +2768,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% hydro \% waterPressure \\
          \hline 
-    \caption{waterPressure: pressure in subglacial system}
+    \caption{waterPressure: pressure in subglacial hydrology system}
 \end{longtable}
 \end{center}
 \subsection[waterPressureOld]{\hyperref[sec:var_tab_hydro]{waterPressureOld}}
@@ -2786,7 +2786,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% hydro \% waterPressureOld \\
          \hline 
-    \caption{waterPressureOld: pressure in subglacial system from previous time step}
+    \caption{waterPressureOld: pressure in subglacial hydrology system from previous time step}
 \end{longtable}
 \end{center}
 \subsection[waterPressureTendency]{\hyperref[sec:var_tab_hydro]{waterPressureTendency}}
@@ -2796,7 +2796,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Type: & real \\
         \hline 
-        Units: & \si{Pa/s} \\
+        Units: & \si{Pa.s^{-1}} \\
         \hline 
         Dimension: & nCells Time \\
         \hline 
@@ -2804,7 +2804,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% hydro \% waterPressureTendency \\
          \hline 
-    \caption{waterPressureTendency: tendency in pressure in subglacial system}
+    \caption{waterPressureTendency: tendency in pressure in subglacial hydrology system}
 \end{longtable}
 \end{center}
 \subsection[basalMeltInput]{\hyperref[sec:var_tab_hydro]{basalMeltInput}}
@@ -2814,7 +2814,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Type: & real \\
         \hline 
-        Units: & \si{kg.m^-2.s^-1} \\
+        Units: & \si{kg.m^{-2}.s^{-1}} \\
         \hline 
         Dimension: & nCells Time \\
         \hline 
@@ -2822,7 +2822,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% hydro \% basalMeltInput \\
          \hline 
-    \caption{basalMeltInput: basal meltwater input}
+    \caption{basalMeltInput: basal meltwater input to subglacial hydrology system}
 \end{longtable}
 \end{center}
 \subsection[externalWaterInput]{\hyperref[sec:var_tab_hydro]{externalWaterInput}}
@@ -2832,7 +2832,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Type: & real \\
         \hline 
-        Units: & \si{kg.m^-2.s^-1} \\
+        Units: & \si{kg.m^{-2}.s^{-1}} \\
         \hline 
         Dimension: & nCells Time \\
         \hline 
@@ -2840,7 +2840,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% hydro \% externalWaterInput \\
          \hline 
-    \caption{externalWaterInput: external water input}
+    \caption{externalWaterInput: external water input to subglacial hydrology system}
 \end{longtable}
 \end{center}
 \subsection[frictionAngle]{\hyperref[sec:var_tab_hydro]{frictionAngle}}
@@ -2858,7 +2858,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% hydro \% frictionAngle \\
          \hline 
-    \caption{frictionAngle: till friction angle}
+    \caption{frictionAngle: subglacial till friction angle}
 \end{longtable}
 \end{center}
 \subsection[effectivePressure]{\hyperref[sec:var_tab_hydro]{effectivePressure}}
@@ -2876,7 +2876,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% hydro \% effectivePressure \\
          \hline 
-    \caption{effectivePressure: effective ice pressure in subglacial system}
+    \caption{effectivePressure: effective ice pressure in subglacial hydrology system}
 \end{longtable}
 \end{center}
 \subsection[hydropotential]{\hyperref[sec:var_tab_hydro]{hydropotential}}
@@ -2894,7 +2894,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% hydro \% hydropotential \\
          \hline 
-    \caption{hydropotential: subglacial hydropotential}
+    \caption{hydropotential: hydropotential in subglacial hydrology system}
 \end{longtable}
 \end{center}
 \subsection[waterFlux]{\hyperref[sec:var_tab_hydro]{waterFlux}}
@@ -2904,7 +2904,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Type: & real \\
         \hline 
-        Units: & \si{m^2/s} \\
+        Units: & \si{m{^2}.s^{-1}} \\
         \hline 
         Dimension: & nEdges Time \\
         \hline 
@@ -2912,7 +2912,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% hydro \% waterFlux \\
          \hline 
-    \caption{waterFlux: total subglacial water flux}
+    \caption{waterFlux: total water flux in subglacial hydrology system}
 \end{longtable}
 \end{center}
 \subsection[waterFluxMask]{\hyperref[sec:var_tab_hydro]{waterFluxMask}}
@@ -2940,7 +2940,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Type: & real \\
         \hline 
-        Units: & \si{m^2/s} \\
+        Units: & \si{m{^2}.s^{-1}} \\
         \hline 
         Dimension: & nEdges Time \\
         \hline 
@@ -2948,7 +2948,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% hydro \% waterFluxAdvec \\
          \hline 
-    \caption{waterFluxAdvec: advective subglacial water flux}
+    \caption{waterFluxAdvec: advective water flux in subglacial hydrology system}
 \end{longtable}
 \end{center}
 \subsection[waterFluxDiffu]{\hyperref[sec:var_tab_hydro]{waterFluxDiffu}}
@@ -2958,7 +2958,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Type: & real \\
         \hline 
-        Units: & \si{m^2/s} \\
+        Units: & \si{m{^2}.s^{-1}} \\
         \hline 
         Dimension: & nEdges Time \\
         \hline 
@@ -2966,7 +2966,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% hydro \% waterFluxDiffu \\
          \hline 
-    \caption{waterFluxDiffu: diffusive subglacial water flux}
+    \caption{waterFluxDiffu: diffusive water flux in subglacial hydrology system}
 \end{longtable}
 \end{center}
 \subsection[waterVelocity]{\hyperref[sec:var_tab_hydro]{waterVelocity}}
@@ -2976,7 +2976,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Type: & real \\
         \hline 
-        Units: & \si{m.s^-1} \\
+        Units: & \si{m.s^{-1}} \\
         \hline 
         Dimension: & nEdges Time \\
         \hline 
@@ -2984,7 +2984,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% hydro \% waterVelocity \\
          \hline 
-    \caption{waterVelocity: subglacial water velocity}
+    \caption{waterVelocity: water velocity in subglacial hydrology system}
 \end{longtable}
 \end{center}
 \subsection[waterVelocityCellX]{\hyperref[sec:var_tab_hydro]{waterVelocityCellX}}
@@ -2994,7 +2994,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Type: & real \\
         \hline 
-        Units: & \si{m.s^-1} \\
+        Units: & \si{m.s^{-1}} \\
         \hline 
         Dimension: & nCells Time \\
         \hline 
@@ -3012,7 +3012,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Type: & real \\
         \hline 
-        Units: & \si{m.s^-1} \\
+        Units: & \si{m.s^{-1}} \\
         \hline 
         Dimension: & nCells Time \\
         \hline 
@@ -3030,7 +3030,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Type: & real \\
         \hline 
-        Units: & \si{?} \\
+        Units: & \si{m^2.s^{-1}.Pa^{-1}} \\
         \hline 
         Dimension: & nEdges Time \\
         \hline 
@@ -3038,7 +3038,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% hydro \% effectiveConducEdge \\
          \hline 
-    \caption{effectiveConducEdge: effective Darcy hydraulic conductivity on edges}
+    \caption{effectiveConducEdge: effective Darcy hydraulic conductivity on edges in subglacial hydrology system}
 \end{longtable}
 \end{center}
 \subsection[waterThicknessEdge]{\hyperref[sec:var_tab_hydro]{waterThicknessEdge}}
@@ -3056,7 +3056,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% hydro \% waterThicknessEdge \\
          \hline 
-    \caption{waterThicknessEdge: water layer thickness on edges}
+    \caption{waterThicknessEdge: water layer thickness on edges in subglacial hydrology system}
 \end{longtable}
 \end{center}
 \subsection[waterThicknessEdgeUpwind]{\hyperref[sec:var_tab_hydro]{waterThicknessEdgeUpwind}}
@@ -3074,7 +3074,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% hydro \% waterThicknessEdgeUpwind \\
          \hline 
-    \caption{waterThicknessEdgeUpwind: water layer thickness of cell upwind of edge}
+    \caption{waterThicknessEdgeUpwind: water layer thickness of cell upwind of edge in subglacial hydrology system}
 \end{longtable}
 \end{center}
 \subsection[diffusivity]{\hyperref[sec:var_tab_hydro]{diffusivity}}
@@ -3084,7 +3084,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Type: & real \\
         \hline 
-        Units: & \si{m^2.s^-1} \\
+        Units: & \si{m^{2}.s^{-1}} \\
         \hline 
         Dimension: & nEdges Time \\
         \hline 
@@ -3092,7 +3092,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% hydro \% diffusivity \\
          \hline 
-    \caption{diffusivity: diffusivity of sheet}
+    \caption{diffusivity: diffusivity of water sheet in subglacial hydrology system}
 \end{longtable}
 \end{center}
 \subsection[hydropotentialBase]{\hyperref[sec:var_tab_hydro]{hydropotentialBase}}
@@ -3110,7 +3110,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% hydro \% hydropotentialBase \\
          \hline 
-    \caption{hydropotentialBase: hydropotential without water thickness contribution}
+    \caption{hydropotentialBase: hydropotential in subglacial hydrology system without water thickness contribution}
 \end{longtable}
 \end{center}
 \subsection[hydropotentialBaseVertex]{\hyperref[sec:var_tab_hydro]{hydropotentialBaseVertex}}
@@ -3138,7 +3138,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Type: & real \\
         \hline 
-        Units: & \si{Pa.m^-1} \\
+        Units: & \si{Pa.m^{-1}} \\
         \hline 
         Dimension: & nEdges Time \\
         \hline 
@@ -3156,7 +3156,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Type: & real \\
         \hline 
-        Units: & \si{Pa.m^-1} \\
+        Units: & \si{Pa.m^{-1}} \\
         \hline 
         Dimension: & nEdges Time \\
         \hline 
@@ -3174,7 +3174,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Type: & real \\
         \hline 
-        Units: & \si{?} \\
+        Units: & \si{Pa.m^{-1}} \\
         \hline 
         Dimension: & nEdges Time \\
         \hline 
@@ -3192,7 +3192,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Type: & real \\
         \hline 
-        Units: & \si{Pa.m^-1} \\
+        Units: & \si{Pa.m^{-1}} \\
         \hline 
         Dimension: & nEdges Time \\
         \hline 
@@ -3200,7 +3200,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% hydro \% waterPressureSlopeNormal \\
          \hline 
-    \caption{waterPressureSlopeNormal: normal component of gradient of waterPressure}
+    \caption{waterPressureSlopeNormal: normal component of gradient of waterPressure in subglacial hydrology system}
 \end{longtable}
 \end{center}
 \subsection[divergence]{\hyperref[sec:var_tab_hydro]{divergence}}
@@ -3210,7 +3210,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Type: & real \\
         \hline 
-        Units: & \si{m.s^-1} \\
+        Units: & \si{m.s^{-1}} \\
         \hline 
         Dimension: & nCells Time \\
         \hline 
@@ -3218,7 +3218,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% hydro \% divergence \\
          \hline 
-    \caption{divergence: flux divergence of water}
+    \caption{divergence: flux divergence of water in subglacial hydrology system}
 \end{longtable}
 \end{center}
 \subsection[openingRate]{\hyperref[sec:var_tab_hydro]{openingRate}}
@@ -3228,7 +3228,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Type: & real \\
         \hline 
-        Units: & \si{m.s^-1} \\
+        Units: & \si{m.s^{-1}} \\
         \hline 
         Dimension: & nCells Time \\
         \hline 
@@ -3236,7 +3236,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% hydro \% openingRate \\
          \hline 
-    \caption{openingRate: rate of cavity opening}
+    \caption{openingRate: rate of cavity opening in subglacial hydrology system}
 \end{longtable}
 \end{center}
 \subsection[closingRate]{\hyperref[sec:var_tab_hydro]{closingRate}}
@@ -3246,7 +3246,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Type: & real \\
         \hline 
-        Units: & \si{m.s^-1} \\
+        Units: & \si{m.s^{-1}} \\
         \hline 
         Dimension: & nCells Time \\
         \hline 
@@ -3254,7 +3254,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% hydro \% closingRate \\
          \hline 
-    \caption{closingRate: rate of creep closure}
+    \caption{closingRate: rate of ice creep closure in subglacial hydrology system}
 \end{longtable}
 \end{center}
 \subsection[zeroOrderSum]{\hyperref[sec:var_tab_hydro]{zeroOrderSum}}
@@ -3264,7 +3264,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Type: & real \\
         \hline 
-        Units: & \si{m.s^-1} \\
+        Units: & \si{m.s^{-1}} \\
         \hline 
         Dimension: & nCells Time \\
         \hline 
@@ -3272,7 +3272,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% hydro \% zeroOrderSum \\
          \hline 
-    \caption{zeroOrderSum: sum of zero order terms}
+    \caption{zeroOrderSum: sum of zero order terms in subglacial hydrology system}
 \end{longtable}
 \end{center}
 \subsection[deltatSGHadvec]{\hyperref[sec:var_tab_hydro]{deltatSGHadvec}}
@@ -3290,7 +3290,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% hydro \% deltatSGHadvec \\
          \hline 
-    \caption{deltatSGHadvec: advective CFL limited time step length}
+    \caption{deltatSGHadvec: advective CFL limited time step length in subglacial hydrology system}
 \end{longtable}
 \end{center}
 \subsection[deltatSGHdiffu]{\hyperref[sec:var_tab_hydro]{deltatSGHdiffu}}
@@ -3308,7 +3308,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% hydro \% deltatSGHdiffu \\
          \hline 
-    \caption{deltatSGHdiffu: diffusive CFL limited time step length}
+    \caption{deltatSGHdiffu: diffusive CFL limited time step length in subglacial hydrology system}
 \end{longtable}
 \end{center}
 \subsection[deltatSGHpressure]{\hyperref[sec:var_tab_hydro]{deltatSGHpressure}}
@@ -3326,7 +3326,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% hydro \% deltatSGHpressure \\
          \hline 
-    \caption{deltatSGHpressure: time step length limited by pressure equation scheme}
+    \caption{deltatSGHpressure: time step length limited by pressure equation scheme in subglacial hydrology system}
 \end{longtable}
 \end{center}
 \subsection[deltatSGH]{\hyperref[sec:var_tab_hydro]{deltatSGH}}
@@ -3344,7 +3344,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% hydro \% deltatSGH \\
          \hline 
-    \caption{deltatSGH: time step used for subglacial hydro}
+    \caption{deltatSGH: time step used for evolving subglacial hydrology system}
 \end{longtable}
 \end{center}
 \subsection[channelArea]{\hyperref[sec:var_tab_hydro]{channelArea}}
@@ -3354,7 +3354,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Type: & real \\
         \hline 
-        Units: & \si{m^2} \\
+        Units: & \si{m^{2}} \\
         \hline 
         Dimension: & nEdges Time \\
         \hline 
@@ -3362,7 +3362,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% hydro \% channelArea \\
          \hline 
-    \caption{channelArea: area of subglacial channel}
+    \caption{channelArea: area of channel in subglacial hydrology system}
 \end{longtable}
 \end{center}
 \subsection[channelDischarge]{\hyperref[sec:var_tab_hydro]{channelDischarge}}
@@ -3372,7 +3372,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Type: & real \\
         \hline 
-        Units: & \si{m^3.s^-1} \\
+        Units: & \si{m^{3}.s^{-1}} \\
         \hline 
         Dimension: & nEdges Time \\
         \hline 
@@ -3380,7 +3380,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% hydro \% channelDischarge \\
          \hline 
-    \caption{channelDischarge: discharge through subglacial channel}
+    \caption{channelDischarge: discharge through channel in subglacial hydrology system}
 \end{longtable}
 \end{center}
 \subsection[channelVelocity]{\hyperref[sec:var_tab_hydro]{channelVelocity}}
@@ -3390,7 +3390,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Type: & real \\
         \hline 
-        Units: & \si{m.s^-1} \\
+        Units: & \si{m.s^{-1}} \\
         \hline 
         Dimension: & nEdges Time \\
         \hline 
@@ -3398,7 +3398,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% hydro \% channelVelocity \\
          \hline 
-    \caption{channelVelocity: velocity in subglacial channel}
+    \caption{channelVelocity: water velocity in channel in subglacial hydrology system}
 \end{longtable}
 \end{center}
 \subsection[channelMelt]{\hyperref[sec:var_tab_hydro]{channelMelt}}
@@ -3408,7 +3408,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Type: & real \\
         \hline 
-        Units: & \si{kg.m^-1.s^-1} \\
+        Units: & \si{kg.m^{-1}.s^{-1}} \\
         \hline 
         Dimension: & nEdges Time \\
         \hline 
@@ -3416,7 +3416,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% hydro \% channelMelt \\
          \hline 
-    \caption{channelMelt: melt rate in subglacial channel}
+    \caption{channelMelt: melt rate in channel in subglacial hydrology system}
 \end{longtable}
 \end{center}
 \subsection[channelPressureFreeze]{\hyperref[sec:var_tab_hydro]{channelPressureFreeze}}
@@ -3426,7 +3426,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Type: & real \\
         \hline 
-        Units: & \si{kg.m^-1.s^-1} \\
+        Units: & \si{kg.m^{-1}.s^{-1}} \\
         \hline 
         Dimension: & nEdges Time \\
         \hline 
@@ -3434,7 +3434,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% hydro \% channelPressureFreeze \\
          \hline 
-    \caption{channelPressureFreeze: freezing rate in subglacial channel due to water pressure gradient.  positive=freezing, negative=melting}
+    \caption{channelPressureFreeze: freezing rate in subglacial channel due to water pressure gradient (positive=freezing, negative=melting)}
 \end{longtable}
 \end{center}
 \subsection[flowParamAChannel]{\hyperref[sec:var_tab_hydro]{flowParamAChannel}}
@@ -3444,7 +3444,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Type: & real \\
         \hline 
-        Units: & \si{Pa^-3.s^-1} \\
+        Units: & \si{Pa^{-3}.s^{-1}} \\
         \hline 
         Dimension: & nEdges Time \\
         \hline 
@@ -3452,7 +3452,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% hydro \% flowParamAChannel \\
          \hline 
-    \caption{flowParamAChannel: flow parameter A on edges used for channel}
+    \caption{flowParamAChannel: flow parameter A on edges used for channel in subglacial hydrology system}
 \end{longtable}
 \end{center}
 \subsection[channelEffectivePressure]{\hyperref[sec:var_tab_hydro]{channelEffectivePressure}}
@@ -3470,7 +3470,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% hydro \% channelEffectivePressure \\
          \hline 
-    \caption{channelEffectivePressure: effective pressure in the channel}
+    \caption{channelEffectivePressure: effective pressure in the channel in subglacial hydrology system}
 \end{longtable}
 \end{center}
 \subsection[channelClosingRate]{\hyperref[sec:var_tab_hydro]{channelClosingRate}}
@@ -3480,7 +3480,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Type: & real \\
         \hline 
-        Units: & \si{m^2.s^-1} \\
+        Units: & \si{m^{2}.s^{-1}} \\
         \hline 
         Dimension: & nEdges Time \\
         \hline 
@@ -3488,7 +3488,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% hydro \% channelClosingRate \\
          \hline 
-    \caption{channelClosingRate: closing rate from creep of the channel}
+    \caption{channelClosingRate: closing rate from creep of the channel in subglacial hydrology system}
 \end{longtable}
 \end{center}
 \subsection[channelOpeningRate]{\hyperref[sec:var_tab_hydro]{channelOpeningRate}}
@@ -3498,7 +3498,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Type: & real \\
         \hline 
-        Units: & \si{m^2.s^-1} \\
+        Units: & \si{m^{2}.s^{-1}} \\
         \hline 
         Dimension: & nEdges Time \\
         \hline 
@@ -3506,7 +3506,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% hydro \% channelOpeningRate \\
          \hline 
-    \caption{channelOpeningRate: opening rate from melt of the channel}
+    \caption{channelOpeningRate: opening rate from melt of the channel in subglacial hydrology system}
 \end{longtable}
 \end{center}
 \subsection[channelChangeRate]{\hyperref[sec:var_tab_hydro]{channelChangeRate}}
@@ -3516,7 +3516,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Type: & real \\
         \hline 
-        Units: & \si{m^2.s^-1} \\
+        Units: & \si{m^{2}.s^{-1}} \\
         \hline 
         Dimension: & nEdges Time \\
         \hline 
@@ -3524,7 +3524,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% hydro \% channelChangeRate \\
          \hline 
-    \caption{channelChangeRate: rate of change of channel area}
+    \caption{channelChangeRate: rate of change of channel area in subglacial hydrology system}
 \end{longtable}
 \end{center}
 \subsection[deltatSGHadvecChannel]{\hyperref[sec:var_tab_hydro]{deltatSGHadvecChannel}}
@@ -3570,7 +3570,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Type: & real \\
         \hline 
-        Units: & \si{m.s^-1} \\
+        Units: & \si{m.s^{-1}} \\
         \hline 
         Dimension: & nCells Time \\
         \hline 
@@ -3578,7 +3578,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% hydro \% divergenceChannel \\
          \hline 
-    \caption{divergenceChannel: divergence due to channel flow}
+    \caption{divergenceChannel: divergence due to channel flow in subglacial hydrology system}
 \end{longtable}
 \end{center}
 \subsection[channelAreaChangeCell]{\hyperref[sec:var_tab_hydro]{channelAreaChangeCell}}
@@ -3588,7 +3588,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Type: & real \\
         \hline 
-        Units: & \si{m.s^-1} \\
+        Units: & \si{m.s^{-1}} \\
         \hline 
         Dimension: & nCells Time \\
         \hline 
@@ -3606,7 +3606,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Type: & real \\
         \hline 
-        Units: & \si{m^2.s^-1} \\
+        Units: & \si{m^{2}.s^{-1}} \\
         \hline 
         Dimension: & nEdges Time \\
         \hline 
@@ -3614,7 +3614,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% hydro \% channelDiffusivity \\
          \hline 
-    \caption{channelDiffusivity: diffusivity in channel}
+    \caption{channelDiffusivity: diffusivity in channel in subglacial hydrology system}
 \end{longtable}
 \end{center}
 \section[globalStatsAM]{\hyperref[sec:var_tab_globalStatsAM]{globalStatsAM}}
@@ -3814,7 +3814,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% globalStatsAM \% totalSfcMassBal \\
          \hline 
-    \caption{totalSfcMassBal: total, area integrated surface mass balance. Positive values are ice gain.}
+    \caption{totalSfcMassBal: total, area integrated surface mass balance. Positive values represent ice gain.}
 \end{longtable}
 \end{center}
 \subsection[avgNetAccumulation]{\hyperref[sec:var_tab_globalStatsAM]{avgNetAccumulation}}
@@ -3832,7 +3832,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% globalStatsAM \% avgNetAccumulation \\
          \hline 
-    \caption{avgNetAccumulation: average sfcMassBal, as a thickness rate. Positive values are ice gain.}
+    \caption{avgNetAccumulation: average sfcMassBal, as a thickness rate. Positive values represent ice gain.}
 \end{longtable}
 \end{center}
 \subsection[totalBasalMassBal]{\hyperref[sec:var_tab_globalStatsAM]{totalBasalMassBal}}
@@ -3850,7 +3850,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% globalStatsAM \% totalBasalMassBal \\
          \hline 
-    \caption{totalBasalMassBal: total, area integrated basal mass balance. Positive values are ice gain.}
+    \caption{totalBasalMassBal: total, area integrated basal mass balance. Positive values represent ice gain.}
 \end{longtable}
 \end{center}
 \subsection[totalGroundedBasalMassBal]{\hyperref[sec:var_tab_globalStatsAM]{totalGroundedBasalMassBal}}
@@ -3868,7 +3868,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% globalStatsAM \% totalGroundedBasalMassBal \\
          \hline 
-    \caption{totalGroundedBasalMassBal: total, area integrated grounded basal mass balance. Positive values are ice gain.}
+    \caption{totalGroundedBasalMassBal: total, area integrated grounded basal mass balance. Positive values represent ice gain.}
 \end{longtable}
 \end{center}
 \subsection[avgGroundedBasalMelt]{\hyperref[sec:var_tab_globalStatsAM]{avgGroundedBasalMelt}}
@@ -3886,7 +3886,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% globalStatsAM \% avgGroundedBasalMelt \\
          \hline 
-    \caption{avgGroundedBasalMelt: average groundedBasalMassBal value, as a thickness rate. Positive values are ice loss.}
+    \caption{avgGroundedBasalMelt: average groundedBasalMassBal value, as a thickness rate. Positive values represent ice loss.}
 \end{longtable}
 \end{center}
 \subsection[totalFloatingBasalMassBal]{\hyperref[sec:var_tab_globalStatsAM]{totalFloatingBasalMassBal}}
@@ -3904,7 +3904,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% globalStatsAM \% totalFloatingBasalMassBal \\
          \hline 
-    \caption{totalFloatingBasalMassBal: total, area integrated floating basal mass balance. Positive values are ice gain.}
+    \caption{totalFloatingBasalMassBal: total, area integrated floating basal mass balance. Positive values represent ice gain.}
 \end{longtable}
 \end{center}
 \subsection[avgSubshelfMelt]{\hyperref[sec:var_tab_globalStatsAM]{avgSubshelfMelt}}
@@ -3922,7 +3922,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% globalStatsAM \% avgSubshelfMelt \\
          \hline 
-    \caption{avgSubshelfMelt: average floatingBasalMassBal value, as a thickness rate. Positive values are ice loss.}
+    \caption{avgSubshelfMelt: average floatingBasalMassBal value, as a thickness rate. Positive values represent ice loss.}
 \end{longtable}
 \end{center}
 \subsection[totalCalvingFlux]{\hyperref[sec:var_tab_globalStatsAM]{totalCalvingFlux}}
@@ -3940,7 +3940,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% globalStatsAM \% totalCalvingFlux \\
          \hline 
-    \caption{totalCalvingFlux: total, area integrated mass loss due to calving. Positive values are ice loss.}
+    \caption{totalCalvingFlux: total, area integrated mass loss due to calving. Positive values represent ice loss.}
 \end{longtable}
 \end{center}
 \subsection[groundingLineFlux]{\hyperref[sec:var_tab_globalStatsAM]{groundingLineFlux}}
@@ -4186,7 +4186,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Type: & real \\
         \hline 
-        Units: & \si{kg.yr^-1} \\
+        Units: & \si{kg.yr^{-1}} \\
         \hline 
         Dimension: & nRegions Time \\
         \hline 
@@ -4212,7 +4212,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% regionalStatsAM \% regionalAvgNetAccumulation \\
          \hline 
-    \caption{regionalAvgNetAccumulation: average sfcMassBal, as a thickness rate. Positive values are ice gain.}
+    \caption{regionalAvgNetAccumulation: average sfcMassBal, as a thickness rate. Positive values represent ice gain.}
 \end{longtable}
 \end{center}
 \subsection[regionalSumBasalMassBal]{\hyperref[sec:var_tab_regionalStatsAM]{regionalSumBasalMassBal}}
@@ -4222,7 +4222,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Type: & real \\
         \hline 
-        Units: & \si{kg.yr^-1} \\
+        Units: & \si{kg.yr^{-1}} \\
         \hline 
         Dimension: & nRegions Time \\
         \hline 
@@ -4248,7 +4248,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% regionalStatsAM \% regionalSumGroundedBasalMassBal \\
          \hline 
-    \caption{regionalSumGroundedBasalMassBal: total, area integrated grounded basal mass balance. Positive values are ice gain.}
+    \caption{regionalSumGroundedBasalMassBal: total, area integrated grounded basal mass balance. Positive values represent ice gain.}
 \end{longtable}
 \end{center}
 \subsection[regionalAvgGroundedBasalMelt]{\hyperref[sec:var_tab_regionalStatsAM]{regionalAvgGroundedBasalMelt}}
@@ -4266,7 +4266,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% regionalStatsAM \% regionalAvgGroundedBasalMelt \\
          \hline 
-    \caption{regionalAvgGroundedBasalMelt: average groundedBasalMassBal value, as a thickness rate. Positive values are ice loss.}
+    \caption{regionalAvgGroundedBasalMelt: average groundedBasalMassBal value, as a thickness rate. Positive values represent ice loss.}
 \end{longtable}
 \end{center}
 \subsection[regionalSumFloatingBasalMassBal]{\hyperref[sec:var_tab_regionalStatsAM]{regionalSumFloatingBasalMassBal}}
@@ -4284,7 +4284,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% regionalStatsAM \% regionalSumFloatingBasalMassBal \\
          \hline 
-    \caption{regionalSumFloatingBasalMassBal: total, area integrated floating basal mass balance. Positive values are ice gain.}
+    \caption{regionalSumFloatingBasalMassBal: total, area integrated floating basal mass balance. Positive values represent ice gain.}
 \end{longtable}
 \end{center}
 \subsection[regionalAvgSubshelfMelt]{\hyperref[sec:var_tab_regionalStatsAM]{regionalAvgSubshelfMelt}}
@@ -4302,7 +4302,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
          Location in code: & domain \% blocklist \% regionalStatsAM \% regionalAvgSubshelfMelt \\
          \hline 
-    \caption{regionalAvgSubshelfMelt: average floatingBasalMassBal value, as a thickness rate. Positive values are ice loss.}
+    \caption{regionalAvgSubshelfMelt: average floatingBasalMassBal value, as a thickness rate. Positive values represent ice loss.}
 \end{longtable}
 \end{center}
 \subsection[regionalSumCalvingFlux]{\hyperref[sec:var_tab_regionalStatsAM]{regionalSumCalvingFlux}}
@@ -4312,7 +4312,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Type: & real \\
         \hline 
-        Units: & \si{kg.yr^-1} \\
+        Units: & \si{kg.yr^{-1}} \\
         \hline 
         Dimension: & nRegions Time \\
         \hline 
@@ -4330,7 +4330,7 @@ Embedded links point to information in chapter \ref{chap:variable_tables}
         \hline 
         Type: & real \\
         \hline 
-        Units: & \si{kg.yr^-1} \\
+        Units: & \si{kg.yr^{-1}} \\
         \hline 
         Dimension: & nRegions Time \\
         \hline 
