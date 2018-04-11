@@ -24,6 +24,12 @@ Chapter \ref{chap:mpas_io} provides a detailed overview of the implementation of
 run-time input/output streams in MPAS.  Within the Land Ice core, the following 
 streams are defined at build time:
 
+
+\subsection{A note about time strings}
+MPAS commonly uses time strings of the format 'YYYY-MM-DD\_HH:MM:SS'.
+Note that items in the format string may be dropped from the left if not needed.  E.g., 01-00\_00:00:00 can be used instead of 0000-01-00\_00:00:00 to indicate one month.
+Similarly, components on either side of the underscore may be replaced with a single integer representing the adjacent unit. e.g. 0000-00-01\_0 and 0000-00-01\_00:00:00 are identical for representing an interval of one day.
+
 \subsection{input}
 This is an immutable stream defining the fields required for input.  It is only read at the initial time.  Input files may have other fields in them, but only the fields specified in this stream definition are actually read.
 Default name is \texttt{landice\_grid.nc}.
