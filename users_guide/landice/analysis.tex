@@ -1,0 +1,35 @@
+\chapter{Model Analysis}
+\label{chap:landice-analysis}
+
+As with other climate model components built using the MPAS framework, MALI supports the development and application of ``analysis members", which allow for a wide range of run-time-generated simulation diagnostics and statistics output at user specified time intervals. Support tools included with the code release allow for the definition of any number or combination of pre-defined ``geographic features'' -- points, lines (``transects''), or areas (``regions'') -- of interest within an MPAS mesh. Features are defined using the standard GeoJSON format \citep{geojson} and a large existing database of globally defined features is currently supported\footnote{\url{https://github.com/MPAS-Dev/geometric_features}}. Python-based scripts are available for editing GeoJSON feature files, combining or splitting them, and using them to define their coverage within MPAS mesh files. Currently, MALI includes support for standard ice sheet model diagnostics (see Table \ref{table:analysisVars}) defined over the global domain (by default) and / or over specific ice sheet drainage basins and ice shelves (or their combination). Support for generating model output at points and along transects will be  added in the future (e.g., vertical samples at ice core locations or along ground-penetrating radar profile lines). In Section \ref{sec:realApplication} below we demonstrate the analysis capability applied to an idealized simulation of the Antarctica ice sheet.
+
+
+\begin{table*}[t]
+\caption{Standard model diagnostics available for an arbitrary number of predefined geographic regions.
+}
+\begin{tabular}{lc}
+\tophline
+diagnostic & units \\
+\middlehline
+net ice area and volume & m$^2$, m$^3$ \\
+net grounded ice area and volume & m$^2$, m$^3$ \\
+net floating ice area and volume & m$^2$, m$^3$ \\
+net volume above floatation & m$^3$ \\
+minimum, maximum, and mean ice thickness & m \\
+net surface mass balance & kg yr$^{-1}$ \\
+net basal mass balance & kg yr$^{-1}$ \\
+net basal mass balance for floating ice & kg yr$^{-1}$ \\
+net basal mass balance for grounded ice & kg yr$^{-1}$ \\
+average surface mass balance & m yr$^{-1}$ \\
+average basal mass balance for grounded ice & m yr$^{-1}$ \\
+average basal mass balance for floating ice & m yr$^{-1}$ \\
+net flux due to iceberg calving & kg yr$^{-1}$ \\
+net flux across grounding lines & kg yr$^{-1}$ \\
+maximum surface and basal velocity & m yr$^{-1}$ \\
+\bottomhline
+\end{tabular}
+\belowtable{} % Table Footnotes
+\label{table:analysisVars}
+\end{table*}
+
+

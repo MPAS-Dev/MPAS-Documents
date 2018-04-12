@@ -40,9 +40,9 @@
 	\put(0,0){%
 		\parbox[b][\paperheight]{\paperwidth}{%
 			\centering
-			\includegraphics[width=9.5cm,keepaspectratio]{landice/figures/dome.png}%
+			\includegraphics[width=8.5cm,keepaspectratio]{landice/figures/halfar_mesh.png}%
 			\vfill
-			\includegraphics[width=7cm,keepaspectratio]{landice/figures/greenland.png}%
+			\includegraphics[width=9cm,keepaspectratio]{landice/figures/AIS20km.png}%
 }}}
 
 \newcommand{\core}{landice}
@@ -79,12 +79,17 @@
 \input{shared/mpas_visualization.tex}
 
 \part{MPAS-Land Ice}
-\input{landice/core_intro.tex}
+%\input{landice/core_intro.tex}
+\input{landice/mobal.tex}
+\input{landice/physics.tex}
+\input{landice/optim.tex}
+\input{landice/analysis.tex}
+\input{landice/validation.tex}
+\input{landice/test_case_descriptions.tex}
+%\input{landice/global_statistics.tex}
+\input{landice/climatemodel_coupling.tex}
 \input{landice/model_configuration.tex}
 \input{landice/visualization.tex}
-\input{landice/test_case_descriptions.tex}
-\input{landice/global_statistics.tex}
-\input{landice/climatemodel_coupling.tex}
 \input{landice/troubleshooting.tex}
 \input{landice/knownissues.tex}
 
