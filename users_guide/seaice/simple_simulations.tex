@@ -1,0 +1,15 @@
+\section{Quick start simulation}
+\label{sec:simple_simulations}
+
+Successful building of MPAS-Seaice (see chapter \ref{chap:mpas_build_instructions} for building instructions) can be demonstrated by running a simple simulation with the test data described in section \ref{sec:input_data}. To run the model with the quasi-uniform 120 km domain and the \lstinline+standard_physics+ configuration:
+
+\begin{enumerate}
+
+\item Create a run directory and execute the \lstinline+get_domain.py+ script from the \lstinline+domain_QU120km+ directory of the input data. This create symbolic links with the correct names to the grid and forcing data.
+
+\item Copy the streams and namelist files from the \lstinline+standard_physics+ directory of the sea-ice configurations directory (see section \ref{sec:standard_configurations}) of the MPAS repository.
+
+\item Execute the \lstinline+seaice_model+ MPAS-Seaice executable from the run directory. The model should run and generate a log file called \lstinline+log.seaice.0000.out+.
+
+\end{enumerate}
+

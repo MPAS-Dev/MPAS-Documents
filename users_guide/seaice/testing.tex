@@ -1,2 +1,26 @@
 \section{Testing}
 \label{sec:testing}
+
+MPAS-Seaice includes a simple testing system located in the MPAS repository at \lstinline+MPAS/testing_and_setup/seaice/testing/+. Three test types (found at \lstinline+MPAS/testing_and_setup/seaice/testing/tests/+) are currently implemented:
+\begin{enumerate}
+
+\item \textbf{Regression:} This test compares the output of two different versions of MPAS-Seaice and checks that they produce bit-for-bit identical results. Typically, this is used to ensure developments do not unintentionally change results by comparing model versions from before and after the changes. 
+
+\item \textbf{Parallelism:} This test compares a single version of the model for model runs using different numbers of processors, and checks that using different numbers of processors does not change the model answer.
+
+\item \textbf{Restartability:} This tests that restarting does not produce different results than if a restart was not performed.
+
+\end{enumerate}
+
+These tests can be run against different domains and different configurations. These combinations are defined in a test suite xml file found at \lstinline+MPAS/testing_and_setup/seaice/testing/testsuites/+. The default testsuite is the \lstinline+testsuite.standard.xml+ test suite which uses the quasi-uniform 120km domain with the \lstinline+standard_physics+ configuration. A BGC test suite is also included that uses the quasi-uniform 240km domain and the \lstinline+standard_bgc+ configuration.
+
+To run the default testsuite:
+
+\begin{enumerate}
+
+\item Set the \lstinline+MPAS_SEAICE_DOMAINS_DIR+ environment variable to the location of the input data described in section \ref{sec:input_data}.
+
+\item Create a test directory. From that directory run the MPAS-Seaice test script: \lstinline+MPAS/testing_and_setup/seaice/testing/test_mpas-seaice.py -d dev_repo -b base_repo+ where \lstinline+dev_repo+ and \lstinline+base_repo+ are the locations of the two MPAS repositories (with compiled model binary) to be compared in the regression test. Other tests (parallelism and restartability) only test the \lstinline+dev_repo+ repository. The \lstinline+-t+ option allows testsuites other than the default (\lstinline+testsuite.standard.xml+) to be used.
+
+\end{enumerate}
+
