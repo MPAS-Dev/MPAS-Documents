@@ -14,6 +14,7 @@
 \usepackage{eso-pic}
 \usepackage{float}
 \usepackage{siunitx}
+\usepackage[para]{threeparttable}
 
 \definecolor{black}{rgb}{0.0,0.0,0.0}
 \definecolor{darkblue}{rgb}{0.0,0.0,0.5}
@@ -95,7 +96,7 @@ breaklines=true
 \input{shared/mpas_grid_description.tex}
 \input{shared/mpas_io.tex}
 % Grid generation is not included in MPAS release 1.0:
-%\input{shared/mpas_grid_generation.tex}
+\input{shared/mpas_grid_generation.tex}
 \input{shared/mpas_visualization.tex}
 
 \part{MPAS-Seaice}
@@ -103,7 +104,7 @@ breaklines=true
 % Grid generation is not included in MPAS release 1.0.
 % In a future release, describe here ocean-specific grid
 % generation, currently the basin.F program.
-%\input{ocean/mpas_grid_generation.tex}
+%\input{shared/mpas_grid_generation.tex}
 
 \chapter{Model Description}
 \label{chap:model_description}
@@ -113,6 +114,7 @@ breaklines=true
 \input{seaice/transport.tex}
 \input{seaice/column_physics.tex}
 \input{seaice/forcing.tex}
+\input{seaice/biogeochemistry.tex}
 
 \chapter{Standalone Simulations}
 \label{chap:standalone_simulations}
