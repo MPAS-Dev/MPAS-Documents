@@ -77,12 +77,26 @@ breaklines=true
 \LARGE Version: \version
 }
 
-\author{
-\LARGE Climate, Ocean, Sea-Ice Modeling Team\\ \\
-\LARGE Los Alamos National Laboratory
-}
 
-\date{PUT RELEASE DATE HERE May 1, 2018}
+
+
+\author{
+\begin{tabular}{c}
+Adrian K. Turner \tabularnewline
+William H. Lipscomb \tabularnewline
+Elizabeth C. Hunke \tabularnewline
+Douglas W. Jacobsen \tabularnewline
+Nicole Jeffery \tabularnewline
+Todd D. Ringler \tabularnewline
+Jonathan D. Wolfe
+\end{tabular}
+}
+%\author{
+%\LARGE Climate, Ocean, Sea-Ice Modeling Team\\ \\
+%\LARGE Los Alamos National Laboratory
+%}
+
+\date{April 17, 2018}
 
 \maketitle
 
@@ -94,16 +108,9 @@ breaklines=true
 \input{shared/mpas_build_instructions.tex}
 \input{shared/mpas_grid_description.tex}
 \input{shared/mpas_io.tex}
-% Grid generation is not included in MPAS release 1.0:
-%\input{shared/mpas_grid_generation.tex}
 \input{shared/mpas_visualization.tex}
 
 \part{MPAS-Seaice}
-
-% Grid generation is not included in MPAS release 1.0.
-% In a future release, describe here ocean-specific grid
-% generation, currently the basin.F program.
-%\input{ocean/mpas_grid_generation.tex}
 
 \chapter{Model Description}
 \label{chap:model_description}
