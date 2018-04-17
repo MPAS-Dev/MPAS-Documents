@@ -1,2 +1,23 @@
 \section{Input Data}
 \label{sec:input_data}
+
+Input data for simple standalone simulations and for the MPAS-Seaice testing system are available at \url{http://doi.org/10.5281/zenodo.1219191}. The data consists of model domain grid files and forcing data for two different domains: a quasi-uniform 120 km resolution mesh, and a quasi-uniform 240 km resolution mesh. Included files for the quasi-uniform 120 km domain are:
+
+\begin{table}[H]
+\begin{tabular}{ll}
+\hline
+Filename & Description \\
+\hline
+\lstinline+LYq_monthly.nc+ & Monthly climatology atmospheric forcing file. \\
+\lstinline+LYq_six_hourly.2000.nc+ & Six hourly Atmospheric forcing file. \\
+\lstinline+culled_graph.info.part.16+ & Grid partition file for 16 processors. \\
+\lstinline+culled_graph.info.part.32+ & Grid partition file for 32 processors. \\
+\lstinline+get_domain.py+ & Script to set up MPAS-Seaice run directory. \\
+\lstinline+mpas_seaice_domain_manifest+ & Contents of this directory. \\
+\lstinline+oceanmixed_ice_depth_QU120km.nc+ & Ocean forcing file. \\
+\lstinline+seaice_QU_120km.nc+ & Grid file for the quasi-uniform 120 km domain \\
+\lstinline+snicar_optics_5bnd_mam_c140303_mpas_seaice.nc+ &  \\
+\lstinline+standard_optics_mpas_seaice.nc+ &  \\
+\hline
+\end{tabular}
+\end{table}

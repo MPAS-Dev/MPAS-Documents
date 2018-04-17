@@ -20,6 +20,13 @@
 \hypersetup{colorlinks,breaklinks,
             linkcolor=blue,urlcolor=blue,
             anchorcolor=black,citecolor=blue}
+            
+\usepackage{listings}
+\lstset{
+basicstyle=\small\ttfamily,
+columns=flexible,
+breaklines=true
+}
 
 
 \renewcommand\cftsecaftersnumb{
@@ -106,16 +113,12 @@
 \input{seaice/column_physics.tex}
 \input{seaice/forcing.tex}
 
-\chapter{Analysis Members}
-\label{chap:analysis_members}
-
-\input{seaice/am_time_series_stats.tex}
-
 \chapter{Standalone Simulations}
 \label{chap:standalone_simulations}
 
 \input{seaice/input_data.tex}
 \input{seaice/standard_configurations.tex}
+\input{seaice/simple_simulations.tex}
 \input{seaice/testing.tex}
 
 
