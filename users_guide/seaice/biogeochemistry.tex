@@ -1,7 +1,7 @@
 \section{Biogeochemistry}
 \label{sec:biogeochemistry}
 
-% 
+%
 \newcommand\bgcNO{\mbox{NO$_3$}}
 \newcommand\bgcNH{\mbox{NH$_4$}}
 \newcommand\bgcSi{\mbox{SiO$_3$}}
@@ -32,7 +32,7 @@ case of the skeletal layer model this is a single layer, while for
 zbgc  there are {\tt nBioLayers}$+1$ vertical layers.  The primary difference between the
 two schemes is in the vertical transport assumptions for each
 biogeochemical tracer.  This includes the parameterizations
-of fluxes between ocean and ice.  
+of fluxes between ocean and ice.
 
 For both models, there are configuration variables that, in part, specify the
 complexity of the ecosystem.  In Registry.xml these are 1) {\tt nAlgae}, the number of algal species; 2)
@@ -51,7 +51,7 @@ carbon, DOC and DIC, tracers are not fully implented in this version and
 should not be used out of the box. Note also that for
 tracers with multiple species/groups, the
 order is important.  For example, specifiying {\tt nALG}$ = 1$ will
-compute reaction terms using parameters specific to ice diatoms.  
+compute reaction terms using parameters specific to ice diatoms.
 
 In addition to specifying the group size, individual biogeochemical
 tracer groups must also be set as true in namelist.cice.
@@ -61,7 +61,7 @@ dissolved iron (config\_use\_iron);  the dimethylsulphide group: DMS, DMSPp,
 DMSPd (config\_use\_DMS); carbon: DOC and DIC (config\_use\_carbon);
 DON (config\_use\_DON);
 humic material (config\_use\_humics); a non-adsorptive passive tracer
-(config\_use\_nonreactive); and particulate and dissolved iron (config\_use\_iron). 
+(config\_use\_nonreactive); and particulate and dissolved iron (config\_use\_iron).
 
 Biogeochemical upper ocean concentrations are initialized in the
 subroutine \newline {\bf colpkg\_init\_ocean\_conc}
@@ -71,7 +71,7 @@ biogeochemical simulations, ocean surface concentrations for diatoms,
 small plankton, {\it Phaeocystis} sp, nitrate, silicate, ammonium, and
 dissolved iron are passed to the sea ice biogeochemistry.  The sea ice
 computes return fluxes based on the local brine fluxes, and/or ice growth
-and melt rates. 
+and melt rates.
 
 \subsection{Skeletal Layer BGC}
 
@@ -84,7 +84,7 @@ to true: {\tt config\_use\_brine}, \newline {\tt config\_use\_column\_biogeochem
 {\tt config\_use\_skeletal\_biochemistry}.
 
 Skeletal tracers ($T_{b}$) are ice area ($a_{i}$) conserved
-and, for each thickness category $n$, satisfy the horizontal transport equation: 
+and, for each thickness category $n$, satisfy the horizontal transport equation:
 \begin{eqnarray}
 \label{eqn:bgc_tracer_thickness_cons}
 \frac{\partial (T_{bn} a_{in})}{\partial t} + \Delta \cdot (T_{bn} a_{in} {\bf u}) & = & 0
@@ -106,7 +106,7 @@ on the particular tracer and the flux formulation.  There are two types of ice-o
 `Jin2006' modelled after the growth rate dependent piston velocity of \cite{Jin:sklbgc:2006}
 and 2) `constant' which sets the piston velocity to a constant (\cite{Elliott:sklbgc:2012}).
 The formulation is chosen in  {\bf namelist.seaice} by setting {\tt config\_skeletal\_bgc\_flux\_type} equal to
-`Jin2006' or `constant'. 
+`Jin2006' or `constant'.
 
 The default parameterization,  `Jin2006', assumes the piston velocity is a function of ice growth and melt rates.  All tracers (algae included) flux with the same piston velocity during ice thickness growth,
  $dh_i/dt > 0$:
@@ -116,18 +116,18 @@ w_b  & =  & - p_g\left|m_1 + m_2 \frac{dh_i}{dt} - m_3
   \left(\frac{dh_i}{dt} \right)^2\right|
 \end{eqnarray}
 with parameters $m_1$, $m_2$, $m_3$ and $p_g$ defined
-in {\bf skl\_biogeochemistry} in {\bf ice\_algae.F90}. 
+in {\bf skl\_biogeochemistry} in {\bf ice\_algae.F90}.
 For ice melt, $dh_i/dt < 0$, all tracers with the exception of ice algae
-flux with 
+flux with
 \begin{eqnarray}
 \label{eqn:pwJin_melt}
 w_b  & =  & p_m\left|m_2 \frac{dh}{dt} - m_3
-    \left(\frac{dh}{dt}  \right)^2\right| 
+    \left(\frac{dh}{dt}  \right)^2\right|
 \end{eqnarray}
 with $p_m$ defined
-in {\bf skl\_biogeochemistry}. 
+in {\bf skl\_biogeochemistry}.
 The `Jin2006' formulation also requires that for both expressions, $|w_b| \leq 0.9
-h_{sk}/\Delta t$ where $h_{sk}=0.03\,m$ is the skeletal layer thickness.  
+h_{sk}/\Delta t$ where $h_{sk}=0.03\,m$ is the skeletal layer thickness.
 The concentration difference at the ice-ocean boundary for each tracer, $\Delta
 T_b$, depends on the sign of $w_b$.  For growing ice, $w_b < 0$,
 $\Delta T_b  = T_b/h_{sk} - T_{io}$, where $T_{io}$ is the ocean
@@ -135,7 +135,7 @@ concentration of tracer $i$. For melting
 ice,  $w_b > 0$, $\Delta T_b = T_b/h_{sk}$.
 
 In  `Jin2006', the algal tracer ($N_a$) responds to ice melt in the same manner as
-the other tracers (\ref{eqn:pwJin_melt}).  However, during ice growth, the skeletal algal concentration remains fixed unless the ice algal brine concentration is less than the ocean algal concentration ($N_o$).  In this case, the ocean seeds the sea ice according to  
+the other tracers (\ref{eqn:pwJin_melt}).  However, during ice growth, the skeletal algal concentration remains fixed unless the ice algal brine concentration is less than the ocean algal concentration ($N_o$).  In this case, the ocean seeds the sea ice according to
 \begin{eqnarray}
 \label{eqn:seed}
 w_b \frac{\Delta N_a}{\Delta z} & = & \frac{N_oh_{sk}/\phi_{sk} -
@@ -147,16 +147,16 @@ The `constant' formulation uses a fixed piston velocity for positive ice growth 
 in `Jin2006', congelation ice growth seeds the sea ice algal
 population according to (\ref{eqn:seed}) when $N_a < N_o
 h_{sk}/\phi_{sk}$. For bottom ice melt, all tracers follow the prescription
-\begin{eqnarray} 
+\begin{eqnarray}
  w_b \frac{\Delta T_b}{\Delta z} & = &  \left\{ \begin{array}{ll}
    T_b   |dh_i/dt|/h_{sk} \ \ \ \ \ &   \mbox{if }
  |dh_i/dt|\Delta t/h_{sk} < 1  \\
- T_b/\Delta t & \mbox{otherwise.}   \end{array} \right.  
+ T_b/\Delta t & \mbox{otherwise.}   \end{array} \right.
 \label{eqn:constant_melt}
 \end{eqnarray}
 
 A detailed description of the biogeochemistry reaction terms is given
-in section~\ref{sec:reactions}. 
+in section~\ref{sec:reactions}.
 
 \subsection{Vertical ``Z'' BGC}
 \label{sec:zbgc}
@@ -181,8 +181,8 @@ following configuration options in {\bf namelist.cice} to true: a)
 \end{itemize}
 In addition, a halodynamics scheme must also be on.  The default
 thermo-halodynamics is mushy layer {\tt config\_thermodynamics\_type} set to 2.  An
-alternative uses \cite{Bitz:thermo:1999}'s thermodynamics ({\tt config\_thermodynamics\_type} set
-to 1) and {\tt config\_use\_vertical\_salinity} true (referred to as ``zsalinity''). 
+alternative uses \cite{BL99}'s thermodynamics ({\tt config\_thermodynamics\_type} set
+to 1) and {\tt config\_use\_vertical\_salinity} true (referred to as ``zsalinity'').
 
 Vertically resolved z-tracer bulk concentrations ($T_{zb}$) are  brine volume fraction conserved and thus
 depend on both the ice volume ($v_{i}$) and the brine height fraction tracer ($f_b$).   These tracers follow the conservation equations for multiply dependent
@@ -202,7 +202,7 @@ The bio grid  is a vertical grid used for solving the brine height
 variable ($h_b = f_b h_i$) and descretizing the vertical transport equations of
 biogeochemical tracers. The grid is non-dimensional and takes the value zero at the brine surface and one at the ice-ocean
 interface.  The number of grid levels is specified during Registry.xml  by setting the variable {\tt nBioLayers}
-integer ($n_b$) .  
+integer ($n_b$) .
 
 Ice tracers and microstructural properties defined on the bio grid are
  referenced in two ways: as
@@ -215,7 +215,7 @@ spaced at $1/n_b$ intervals beginning with {\tt bgrid(2)}$ =
 equidistant with the same spacing, but physically coincide  with
 points midway between those of the {\tt bgrid}.
 
- \subsubsection{Transport along the interface bio grid}  
+ \subsubsection{Transport along the interface bio grid}
 
 Purely mobile biogeochemical tracers are tracers which move with the brine and thus,
 in the absence of biochemical reactions, evolve in a manner like salinity.  In the vertical tracer transport of purely mobile tracers, the flux conserved quantity is the bulk
@@ -232,7 +232,7 @@ The biogeochemical module solves the equation:
 \frac{\partial C}{\partial t} & =& \frac{\partial }{\partial x}\left\{
 \left( \frac{v}{h} + \frac{w_f}{h\phi} -
   \frac{\tilde{D}}{h^2\phi^2}\frac{\partial \phi}{\partial x} \right) C
-+ \frac{\tilde{D}}{h^2\phi}\frac{\partial C}{\partial x} 
++ \frac{\tilde{D}}{h^2\phi}\frac{\partial C}{\partial x}
 \right\} + h\phi R([c]) \label{eqn:mobile_transport}
 \end{eqnarray}
 where $D_{in} = \tilde{D}/h^2 =  (D + \phi D_m)/h^2$ (\cite{Jeffery:tracers:2011})
@@ -246,10 +246,10 @@ Gelerkin discretization.  Details are in section~\ref{append:tracer_numerics}.
 \subsection{Splitting tracers:  config\_mobility\_type}
 In addition to purely mobile tracers such as nitrate, some biogeochemical tracers also adsorb or
 otherwise adhere to the ice crystals.  These tracers exist in both the
-mobile and stationary phasea and their  
+mobile and stationary phasea and their
 total brine concentration is a sum $c_m + c_s$
 where $c_m$ is the moble fraction transported by
-(\ref{eqn:mobile_transport}) and $c_s$  remains vertically fixed during ice growth/melt and brine motion.  The primary algal group, discussed below,  are a notable exception.  
+(\ref{eqn:mobile_transport}) and $c_s$  remains vertically fixed during ice growth/melt and brine motion.  The primary algal group, discussed below,  are a notable exception.
 
 In order to model the transfer between these fractions, we assume that tracers adhere to the crystals with a time-constant of
 $\tau_{ret}$, and release with a time constant $\tau_{rel}$, \bgcie
@@ -258,7 +258,7 @@ $\tau_{ret}$, and release with a time constant $\tau_{rel}$, \bgcie
 \nonumber
 \frac{\partial c_s}{\partial t} & = &\frac{c_m}{\tau_{ret}} - \frac{c_s}{\tau_{rel}}
 \end{eqnarray}
- 
+
 We use the exponential form of these equations:
 \begin{eqnarray}
 c_m^{t+dt} & = &
@@ -270,7 +270,7 @@ c_s^{t+dt} & = & c_s^t\exp\left(\left\{-\frac{dt}{\tau_{rel}}\right)\right\} +
 c_m^t\left(1-\exp\left[-\left\{\frac{dt}{\tau_{ret}}\right\}\right]\right) \nonumber
 \end{eqnarray}
 The time constants are functions of the ice growth and melt rates
-($dh/dt$). All tracers except algal nitrogen diatoms follow the 
+($dh/dt$). All tracers except algal nitrogen diatoms follow the
 simple case: when $dh/dt \geq 0$, then $\tau_{rel} \rightarrow \infty$ and
 $\tau_{ret}$ is finite.  For $dh/dt < 0$, then $\tau_{ret} \rightarrow \infty$ and
 $\tau_{rel}$ is finite.  In other words,  ice growth promotes transitions to the
@@ -283,7 +283,7 @@ algal nitrogen group, actively maintain their
 relative position within the ice, \bgcie bottom (interior, upper) algae
 remain in the bottom (interior, upper) ice, unless melt rates exceed a
 threshold.  The configuration parameter {\tt config\_algal\_maximum\_velocity} sets this
-threshold. 
+threshold.
 
 \subsection{Mobile and Stationary Phases}
 \label{sec:mobile_and_stationary}
@@ -295,14 +295,14 @@ vertical transport behavior of each biogeochemical in the code and
 {\tt config\_long\_mobile\_to\_stationary\_time} and \newline
 {\tt config\_rapid\_mobile\_to\_stationary\_time} define the maximum (slow) and minimum (fast)  timescales (rates).  For a mobility type of -1, the tracer remains solely in the mobile
 phase throughout the simulation.  This is the default for nitrate and silicate.  For mobility types of 0, the tracer has maximal rates (\bgcie minimum timescale) of retention and slow rates (\bgcie maximum timescale) of release back to the mobile phase.  For a value of 1, the tracer has slow rates in
-the retention phase and fast release to mobility.  For a mobility type of 0.5, 
+the retention phase and fast release to mobility.  For a mobility type of 0.5,
 minimum timescales are used for both
 transitions, and for a value of 2, maximal timescales are used. Table~\ref{table:phases} summarizes the transition types.
 
 \begin{table}[t!]
 \caption{Types of Mobile and Stationary Transitions}
-\begin{tabular}{l|l|l|l} \hline 
-{\bf{config\_mobility\_type}} &$ \tau_{ret}$ & $\tau_{rel}$ & Description \\ \hline 
+\begin{tabular}{l|l|l|l} \hline
+{\bf{config\_mobility\_type}} &$ \tau_{ret}$ & $\tau_{rel}$ & Description \\ \hline
 -1  & $\infty$ & 0 & entirely in the mobile phase \\
 0   & min & max & retention dominated \\
 1   & max & min & release dominated \\
@@ -322,8 +322,8 @@ As the ice melts, z-tracers return to the mobile phase.
 Very large release timescales will prevent this transition and could
 result in an unphysically large accumulation during the melt season.
 
-\subsection{Brine Fraction Tracer} 
-\label{sec:brine} 
+\subsection{Brine Fraction Tracer}
+\label{sec:brine}
 \index{brine}
 The brine height, $h_b$, is the distance from the
 ice-ocean interface to the brine surface. It is the vertical domain
@@ -337,8 +337,8 @@ height and the equilibrium sea surface. Brine height motion is
 computed in {\bf ice\_brine.F90} from thermodynamic variables and the ice microstructural state
 deduced from internal bulk salinities and temperature.  This tracer
 is required for the transport of vertically resolved biogeochemical
-tracers. 
- 
+tracers.
+
 Vertical transport
 processes are, generally, a result of the brine motion. Therefore the vertical
 transport equations for biogeochemical tracers will be defined only
@@ -347,13 +347,13 @@ the brine height, defines the domain of the vertical bio-grid (section~\ref{sec:
 microstructural state, determined in {\bf ice\_brine.F90}, is computed
 from sea ice salinities and temperatures linearly interpolated to the
 bio-grid.  When $h_b > h_i$, the upper surface brine is assumed to
-have the same temperature as the ice surface. 
+have the same temperature as the ice surface.
 
 Brine height is  transported horizontally as the
 fraction $f_{b} = h_b/h_i$, a volume conserved
 tracer.  Note
 that unlike the sea ice porosity, brine height fraction may be greater than 1
-when $h_b > h_i$. 
+when $h_b > h_i$.
 
 Changes to $h_b$ occur from ice and snow melt, ice
 bottom boundary changes,
@@ -370,7 +370,7 @@ to pressure forces are governed by
 Darcy's equation:
 \begin{eqnarray}
 \label{eqn:Darcy}
-w & = & -\frac{\Pi^* \bar{\rho} g}{\mu}\frac{h_p}{h_i}.  
+w & = & -\frac{\Pi^* \bar{\rho} g}{\mu}\frac{h_p}{h_i}.
 \end{eqnarray}
 where $\mu$ is the viscosity and $g$ is the gravitational acceleration.
 The vertical component of the net permeability tensor $\Pi^*$
@@ -378,11 +378,11 @@ is computed as
 \begin{eqnarray}
 \label{eqn:netPi}
 \Pi^* & = & \left(\frac{1}{h}\sum_{i=1}^N{\frac{\Delta
-      z_i}{\Pi_i}}\right)^{-1} 
+      z_i}{\Pi_i}}\right)^{-1}
 \end{eqnarray}
 where the sea ice is composed of $N$ vertical layers with $i$th layer
 thickness $\Delta z_i$ and
-permeability $\Pi_i$. % (\ref{eq:topo_permea}).  
+permeability $\Pi_i$. % (\ref{eq:topo_permea}).
 The average sea ice density is
 $\bar{\rho}$.
  The hydraulic head is $h_p = h_b - h_{sl}$ where $h_{sl}$ is the sea
@@ -397,7 +397,7 @@ Assuming constant $h_i$ and $h_s$ during Darcy flow, the rate of change of $h_b$
 \frac{\partial h_b}{\partial t}  & = & -w h_p
 \end{eqnarray}
 where   $w_o = \Pi^* \bar{\rho}
-g/(h_i\mu\phi_{top})$ and $\phi_{top}$ is the upper surface porosity. 
+g/(h_i\mu\phi_{top})$ and $\phi_{top}$ is the upper surface porosity.
 When the Darcy flow is downward into the ice ($w_o < 0$), the
 $\phi_{top}$ equals the sea ice porosity in the uppermost layer.  However,
 when the flow is upwards into the snow, then $\phi_{top}$ equals the snow
@@ -406,7 +406,7 @@ number is specified, then the default value is
 used: {\tt phi\_snow} $=1 - \rho_s/\rho_w$.
 
 Since $h_{sl}$ remains relatively unchanged during Darcy flow,
-(\ref{eqn:h_p}) has the approximate solution 
+(\ref{eqn:h_p}) has the approximate solution
 \begin{eqnarray}
 \label{eqn:brine_height}
 h_b(t+\Delta t) \approx h_{sl}(t+\Delta t) +  [h'_b - h_{sl}(t+\Delta t)]\exp\left\{-w \Delta t\right\}.
@@ -424,7 +424,7 @@ surface is melting, ie. $(\Delta h_i)_{top} <
 \left(\Delta h_b\right)_{top} & = &  \frac{\rho_i}{\rho_o} \cdot \left\{ \begin{array}{ll}
  -(\Delta h_i)_{top} &  \mbox{if }
  |(\Delta h_i)_{top}| < h_i-h_b  \\
- h_i-h_b & \mbox{otherwise.}   \end{array} \right.  
+ h_i-h_b & \mbox{otherwise.}   \end{array} \right.
 \end{eqnarray}
 For snow melt ($\Delta h_s < 0$), it is assumed that
 all snow meltwater contributes a source of surface
@@ -432,7 +432,7 @@ brine. The total change from snow melt and ice thickness changes is
 \begin{eqnarray}
 \label{eqn:dzdt_meltwater}
 \Delta h_b|_{h_i,h_s} & = & \left( \Delta
-h_b\right)_{top} -\left(\Delta h_i\right)_{bot} -\frac{\rho_s}{\rho_o}\Delta h_s.  
+h_b\right)_{top} -\left(\Delta h_i\right)_{bot} -\frac{\rho_s}{\rho_o}\Delta h_s.
 \end{eqnarray}
 
 The above brine height calculation is used only when $h_i$ and $h_b$
@@ -440,21 +440,22 @@ exceed a minimum thickness, {\tt thinS}, specified in {\bf
   ice\_zbgc\_shared}. Otherwise 
 \begin{eqnarray}
 \label{eqn:thinbrine}
-h_b(t+\Delta t) & = & h_b(t) + \Delta h_i 
+h_b(t+\Delta t) & = & h_b(t) + \Delta h_i
 \end{eqnarray}
 provided that $|h_{sl}-h_b| \leq 0.001$.  This
 formulation ensures small Darcy velocities\index{Darcy flow}
- when $h_b$ first exceeds {\tt thinS}.  
+ when $h_b$ first exceeds {\tt thinS}.
 \index{brine}
 
-\subsection{Default Aerosols}
+\subsection{Standard Aerosols}
 
-\index{aerosols}Aerosols deposited on the ice gradually
+\index{aerosols} The standard aerosol scheme was developed in
+CCSM4 and its impacts described by \cite{Holland:dust:2012}. Briefly,  aerosols deposited on the ice gradually
 work their way through until the ice melts and they are passed
 into the ocean.   They are defined as ice and snow volume tracers, with the
 %(Eq.~\ref{eq:transport_viT}  and \ref{eq:transport_vsT}), with the
 snow and ice each having two  tracers for each aerosol species, one in
-the surface scattering layer (delta-Eddington SSL) and one in the snow or ice interior below the SSL.  
+the surface scattering layer (delta-Eddington SSL) and one in the snow or ice interior below the SSL.
 
 Rather than updating aerosols for each change to ice/snow thickness
 due to evaporation, melting,  snow-ice formation, etc., during the
@@ -482,7 +483,8 @@ The aerosol tracer flag {\tt config\_use\_aerosols} must be set to true in {\bf
   namelist.cice}, and the number  of aerosol species, {\tt nAerosols}, is set in {\bf
   Registry.xml}.  The following output variables may be added to {\tt
   streams.cice}: {\tt snowScatteringAerosol}, {\tt snowBodyAerosol},
-{\tt iceScatteringAerosol}, and {\tt iceBodyAerosol}. 
+{\tt iceScatteringAerosol}, and {\tt iceBodyAerosol}.
+
 
 \subsection{Z-Aerosols}
 
@@ -504,16 +506,16 @@ see the scavenging parameter {\tt kscavz} for z-tracers defined in {\bf
 
 Within the snow,  z-tracers are defined as concentrations in the snow
 surface layer ($h_{ssl}$) and the snow interior ($h_s-h_{ssl}$).  The
-total snow content of z-tracers per ice area per grid cell area, $C_{snow}$  is 
+total snow content of z-tracers per ice area per grid cell area, $C_{snow}$  is
 \begin{eqnarray}
-C_{snow} & = & C_{ssl}h_{ssl} + C_{sint}(h_{s}-h_{ssl}) 
+C_{snow} & = & C_{ssl}h_{ssl} + C_{sint}(h_{s}-h_{ssl})
 \end{eqnarray}
 
 One major difference in how the two schemes model snow aerosol transport is
 that the fraction scavenged from snow melt in the z-tracer scheme is not immediately fluxed
 into the ocean, but rather, enters the ice as a source of low
 salinity but potentially tracer rich brine.  The snow melt source is
-included as a surface flux condition in {\bf ice\_algae.F90}.  
+included as a surface flux condition in {\bf ice\_algae.F90}.
 
 All the z-aerosols are nonreactive with the exception of the
 dust aerosols. We assume that a small fraction of the dust flux into
@@ -540,10 +542,10 @@ in the subroutine {\tt algal\_dyn}. The same set of equations is used
 for the bottom layer  model (when {\tt config\_use\_skeletal\_biochemistry} is true) and the
 multi-layer biogeochemical model (when {\tt
   config\_use\_vertical\_biochemistry} and \newline {\tt
-  config\_use\_vertical\_tracers} are true).  
+  config\_use\_vertical\_tracers} are true).
 
 \begin{table}[t!]
-\caption{Biogeochemical Tracers}    
+\caption{Biogeochemical Tracers}
 \begin{threeparttable}
 \begin{tabular}{l|l|l|l|l} \hline %  doesn't change lapidus constants
 Text Variable & Variable in code & flag config\_use\_ & Description & units \\ \hline
@@ -569,7 +571,7 @@ hum &hum$^{ab}$ & {\tt humics} & passive sticky  tracer & mmol $/m^3$ \\
 \zaerodust(2) & zaero(4)$^a$ & {\tt zaerosols} & dust species 2 & kg $/m^3$ \\
 \zaerodust(3)&zaero(5)$^a$ & {\tt zaerosols} & dust species 3 & kg $/m^3$ \\
 \zaerodust(4)& zaero(6)$^a$ & {\tt zaerosols} & dust species 4 & kg
-$/m^3$ \\  \hline 
+$/m^3$ \\  \hline
 \end{tabular}\label{table:bio_tracers}
 \begin{tablenotes}
 \item[a] {not modified in {\tt algal\_dyn}} \\
@@ -583,7 +585,7 @@ $/m^3$ \\  \hline
 The biochemical reaction term for each algal species has the form:
 \begin{eqnarray}
 \Delta \bgcN/dt & = & R_{\bgcN} = \mu (1- f_{graze} - f_{res}) - M_{ort}
-\end{eqnarray} 
+\end{eqnarray}
 where $\mu$ is the algal growth rate, $M_{ort}$ is a mortality loss,
 $f_{graze}$ is the fraction of algal growth that is lost to predatory
 grazing, and $f_{res}$ is the fraction of algal growth lost to
@@ -594,7 +596,7 @@ M_{ort} & = & \min( l_{max}[\bgcN], m_{pre}\exp\{m_{T}(T-T_{max})\}[\bgcN])
 \end{eqnarray}
 Note, $[\cdots]$ denotes brine concentration.
 
-Nitrate and ammonium reaction terms are given by  
+Nitrate and ammonium reaction terms are given by
 \begin{eqnarray}
 \Delta\bgcNO/dt & = & R_{\bgcNO} =  [\bgcNH] k_{nitr}- U^{tot}_{\bgcNO} \nonumber \\
 \Delta\bgcNH/dt & = & R_{\bgcNH} = -[\bgcNH] k_{nitr} -U^{tot}_{\bgcNH} +
@@ -616,7 +618,7 @@ Dissolved organic nitrogen satisfies the equation
 \Delta \bgcDON/dt & = & R_{\bgcDON} = f_{dg}f_{gs}f_{graze}\mu^{tot} - [\bgcDON]k_{nb}
 \end{eqnarray}
 With a loss from bacterial degration (rate $k_{nb}$) and a gain from
-spilled grazing that does not enter the $\bgcNH$ pool.  
+spilled grazing that does not enter the $\bgcNH$ pool.
 
 A term Z$_{oo}$ closes the nitrogen cycle by summing all the excess nitrogen removed as zooplankton/bacteria in a timestep.  This term
 is not a true tracer, \bgcie  not advected horizontally with the ice motion,
@@ -661,7 +663,7 @@ For values less than $r^{max}_{fed:doc}$
 Very long timescales $\tau_{fe}$ will remove this source/sink
 term. Since carbon is not yet fully implemented, the default value is currently set at 3065 days to turn off this
 dependency. 61-65 days is a more realistic option (\cite{Parekh:iron:2004}).
- 
+
 The full equation for $\bgcfed$ including uptake and remineralization is
 \begin{eqnarray}
 \Delta \bgcfed/dt & = & R_{\bgcfed} = -U^{tot}_{\bgcfed} + f_{fa}R_{fe:n}N_{remin}
@@ -672,12 +674,12 @@ bioavailable.  The full equation for $\bgcfep$ is
 \begin{eqnarray}
 \Delta \bgcfep/dt & = & R_{\bgcfep} =  R_{fe:n}[\mbox{Z}_{oo}/dt + (1-f_{fa})]N_{remin}
 + \Delta_{fe}\bgcfep/dt
-\end{eqnarray} 
+\end{eqnarray}
 
 The sulfur cycle includes $\bgcDMS$ and dissolved DMSP ($\bgcDMSPd$).
 Particulate DMSP is assumed to be proportional to the algal
 concentration, i.e. $\bgcDMSPp = R^i_{s:n}\bgcN^i$ for algal species $i$.
-For $\bgcDMSP$ and $\bgcDMS$, 
+For $\bgcDMSP$ and $\bgcDMS$,
 \begin{eqnarray}
 \Delta \bgcDMSPd/dt & = & R_{\bgcDMSPd} = R_{s:n}[ f_{sr}f_{res}\mu^{tot}
 +f_{nm}M_{ort} ] - [\bgcDMSPd]/\tau_{dmsp} \nonumber \\
@@ -699,16 +701,16 @@ and $\bgcfed$
 \bgcNH_{lim} & = & \frac{[\bgcNH]}{[\bgcNH] + K_{\bgcNH}}\nonumber \\
 N_{lim} & = &\mbox{min}(1,\bgcNO_{lim} + \bgcNH_{lim}) \nonumber \\
 \bgcSi_{lim} & = & \frac{[\bgcSi]}{[\bgcSi] + K_{\bgcSi}} \nonumber \\
-\bgcfed_{lim} & = & \frac{[\bgcfed]}{[\bgcfed] + K_{\bgcfed}} 
+\bgcfed_{lim} & = & \frac{[\bgcfed]}{[\bgcfed] + K_{\bgcfed}}
 \end{eqnarray}
 
 Light limitation $L_{lim}$ is defined in the following way:   $I
 _{sw}(z)$ (in $W/m^2$) is the shortwave radiation
 at the ice level and the optical depth is proportional to the
-chlorophyll concentration, $op_{dep} = chlabs [\bgcchl] $. 
+chlorophyll concentration, $op_{dep} = chlabs [\bgcchl] $.
 If ($op_{dep} > op_{min}$) then
 \begin{eqnarray}
-I_{avg} & = & I_{sw}(1- \exp(-op_{dep}))/op_{dep} \nonumber 
+I_{avg} & = & I_{sw}(1- \exp(-op_{dep}))/op_{dep} \nonumber
 \end{eqnarray}
 otherwise $I_{avg} = I_{sw}$.
 \begin{eqnarray}
@@ -717,7 +719,7 @@ L_{lim} & = & (1 - \exp(-\alpha\cdot I_{avg}))\exp(-\beta \cdot I_{avg})
 
 The maximal algal growth rate before limitation is
 \begin{eqnarray}
-\mu_o & = & \mu_{max}\exp(\mu_T\Delta T)f_{sal}[\bgcN]  \nonumber \\ 
+\mu_o & = & \mu_{max}\exp(\mu_T\Delta T)f_{sal}[\bgcN]  \nonumber \\
 \mu' & = & min(L_{lim},N_{lim},\bgcSi_{lim},\bgcfed_{lim}) \mu_o
 \end{eqnarray}
 where $\mu'$ is the initial estimate of algal growth rate for a given
@@ -727,11 +729,11 @@ tempurature and the maximum (in this case T$_{max} = 0^o$C).
 The initial estimate of the uptake rate for silicate and iron  is
 \begin{eqnarray}
 \tilde{U}_{\bgcSi} & = & R_{si:n}\mu' \nonumber \\
-\tilde{U}_{\bgcfed} & = & R_{fe:n}\mu' 
+\tilde{U}_{\bgcfed} & = & R_{fe:n}\mu'
 \end{eqnarray}
 For nitrogen uptake, we assume that ammonium is preferentially acquired by algae.  To
 determine the nitrogen uptake needed for each algal growth rate of
-$\mu$, first determine the potential  uptake rate of 
+$\mu$, first determine the potential  uptake rate of
 ammonium:
 
 \begin{eqnarray}
@@ -747,12 +749,12 @@ We require that each rate not exceed a maximum loss rate
 $l_{max}/dt$.This is particularly important when multiple species are present.
 In this case, the accumulated uptake rate for each nutrient is found and the fraction ($fU^i$) of uptake due to algal species $i$ is
 saved. Then the total uptake rate is compared with the maximum loss
-condition.  
-For example, the net uptake of nitrate when there are three algal species is 
+condition.
+For example, the net uptake of nitrate when there are three algal species is
 \begin{eqnarray}
-\tilde{U}^{tot}_{\bgcNO} & = & \sum^{3}_{i=1}\tilde{U}^i_{\bgcNO}\ \ \ . \nonumber  
+\tilde{U}^{tot}_{\bgcNO} & = & \sum^{3}_{i=1}\tilde{U}^i_{\bgcNO}\ \ \ . \nonumber
 \end{eqnarray}
-Then the uptake fraction for species $i$ and the adjusted total uptake is 
+Then the uptake fraction for species $i$ and the adjusted total uptake is
 \begin{eqnarray}
 fU^i_{\bgcNO} & = & \frac{\tilde{U}^i_{\bgcNO}}{\tilde{U}^{tot}_{\bgcNO}} \nonumber \\
 U^{tot}_{\bgcNO} & = & \min(\tilde{U}^{tot}_{\bgcNO}, l_{max}[\bgcNO]/dt)
@@ -767,16 +769,16 @@ Then the true growth rate for each algal species $i$ is
 \mu^i & = & \min(U^i_{\bgcSi}/R_{si:n}, U^i_{\bgcNO} + U^i_{\bgcNH}, U^i_{\bgcfed}/R_{fe:n})
 \end{eqnarray}
 Preferential ammonium uptake is assumed once again and the remaining nitrogen
-is taken from the nitrate pool. 
+is taken from the nitrate pool.
 
 \subsubsection{BGC Tuning Parameters}
 Biogeochemical tuning parameters are specified as namelist options in
 {\bf namelist.cice}.  Table~\ref{table:bio_tracers2} provides a list of
 parameters used in the above reaction equations, their representation in subroutine
-{\tt algal\_dyn}, a short description and units.  
+{\tt algal\_dyn}, a short description and units.
 
 \begin{table}[t!]
-  \caption{Biogeochemical Reaction Parameters in subroutine: algal\_dyn}    
+  \caption{Biogeochemical Reaction Parameters in subroutine: algal\_dyn}
 \begin{threeparttable}
 \begin{tabular}{l|l|l|l|l} \hline %  doesn't change lapidus constants
 Text Variable & Variable in code & Description &  units \\ \hline
@@ -795,7 +797,7 @@ $k_{nb}$ & kn\_bac & bacterial degredation of $\bgcDON$ &
 day$^{-1}$  \\
 $f_{cg}$ & f\_doc(1:3) & fraction of mortality to $\bgcDOC$ &
 1 \\
-$R_{c:n}^c$& R\_C2N(1:3) & algal carbon to nitrogen ratio & mol/mol  \\ 
+$R_{c:n}^c$& R\_C2N(1:3) & algal carbon to nitrogen ratio & mol/mol  \\
 $k_{cb}$ & k\_bac{1:3}$^a$ & bacterial degredation of DOC & day$^{-1}$  \\
 $\tau_{fe}$ & t\_iron\_conv & conversion time pFe $\leftrightarrow$ dFe
  & day \\
@@ -846,7 +848,7 @@ integrate by parts
     -\left[\frac{1}{h}\frac{dh_b}{dt}+  \frac{w_f}{h\phi}\right]C + \frac{D_{in}}{\phi^2}\frac{\partial \phi}{\partial
     x}C -\frac{D_{in}}{\phi}\frac{\partial C}{\partial
     x}\right)\right|_{bot} + w\left[\frac{1}{h}\frac{dh_t}{dt} +
-\frac{w_f}{h\phi}\right]C|_{top}  =  0 
+\frac{w_f}{h\phi}\right]C|_{top}  =  0
 \end{eqnarray}
 
 
@@ -858,12 +860,12 @@ The bottom boundary condition indicated by $|_{bot}$ satisfies
     x}\right)\right|_{bot} & = & \nonumber \\
  w\left[\frac{1}{h}\frac{dh_b}{dt} +
 \frac{w_f}{h \phi_{N+1}}\right](C_{N+2} \mbox{ or }C_{N+1}) -
-w\frac{D_{in}}{\phi_{N+1}(\Delta h+g_o)}\left(C_{N+1} - C_{N+2}\right) & & 
+w\frac{D_{in}}{\phi_{N+1}(\Delta h+g_o)}\left(C_{N+1} - C_{N+2}\right) & &
 \end{eqnarray}
 where $C_{N+2} = h\phi_{N+1}[c]_{ocean}$ and $w = 1$ at the bottom
 boundary and the top.  The component $C_{N+2}$ or $C_{N+1}$ depends on
 the sign of the advection boundary term.  If $dh_b + w_f/\phi > 0$
-then use $C_{N+2}$ otherwise $C_{N+1}$. 
+then use $C_{N+2}$ otherwise $C_{N+1}$.
 
 Define basis functions as linear piecewise, with two nodes
 (boundary nodes) in each element. Then for  $i > 1$ and $i < N+1$
@@ -872,7 +874,7 @@ w_i(x) & = & \left\{ \begin{array}{llll}
 0 & x < x_{i-1} \\
 (x - x_{i-1})/\Delta & x_{i-1}< x \leq x_{i} \\
 1 - (x-x_i)/\Delta & x_i \leq x < x_{i+1} \\
-0, & x \geq x_{i+1} 
+0, & x \geq x_{i+1}
 \end{array}
 \right.
 \end{eqnarray}
@@ -881,7 +883,7 @@ For $i=1$
 \begin{eqnarray}
 w_1(x) & = & \left\{ \begin{array}{ll}
 1 - x/\Delta & x < x_{2} \\
-0, & x \geq x_{2} 
+0, & x \geq x_{2}
 \end{array}
 \right.
 \end{eqnarray}
@@ -899,7 +901,7 @@ Now assume a form
 \begin{eqnarray}
 C_h & = &  \sum_j^{N+1} c_j w_j
 \end{eqnarray}
-Then 
+Then
 \begin{eqnarray}
 \int_h C_h dx & = & c_1\int_0^{x_{2}}\left(1-\frac{x}{\Delta}\right)dx
   +  c_{N+1}\int_{x_N}^{x_{N+1}}\frac{x-x_{N}}{\Delta}dx  \nonumber \\
@@ -924,7 +926,7 @@ with $w = w_h \in \{w_j\}$
 \frac{w_f}{h\phi}\right]C_h|_{top} \nonumber
 \end{eqnarray}
 
-The result is a linear matrix equation 
+The result is a linear matrix equation
 \begin{eqnarray}
 M_{jk}\frac{\partial C_k(t)}{\partial t} & = & [K_{jk}+S_{jk}] C_k(t) + q_{in}
 \end{eqnarray}
@@ -948,7 +950,7 @@ q_{in} & = & -V C_{t} w_j(x)|_{t}
  And $C_{N+2} = h\phi_{N+1}[c]_{ocean}$
 
 For the top condition $q_{in}$ is applied to the upper value $C_2$
-when $VC_t < 0$, i.e. $q_{in}$ is a source. 
+when $VC_t < 0$, i.e. $q_{in}$ is a source.
 
 Compute the $M_{jk}$ integrals:
 \begin{eqnarray}
@@ -958,7 +960,7 @@ M_{jj} & = & \int_{x_{j-1}}^{x_j}\frac{(x- x_{j-1})^2}{\Delta^2}dx +
 M_{11} & = & \int_{x_{1}}^{x_{2}}\left[ 1-\frac{(x- x_{2})}{\Delta}\right]^2dx =
 \frac{\Delta}{3}   \nonumber \\
 M_{N+1,N+1} & = &\int_{x_{N}}^{x_{N+1}}\frac{(x- x_{N})^2}{\Delta^2}dx
-= \frac{\Delta}{3} \nonumber 
+= \frac{\Delta}{3} \nonumber
 \end{eqnarray}
 Off diagonal components:
 \begin{eqnarray}
@@ -975,7 +977,7 @@ Compute the $K_{jk}$ integrals:
 K_{jj} &=& k'_{jj}\left[ \int_{x_{j-1}}^{x_j} \frac{\partial w_j}{\partial x}
 w_j dx + \int_{x_{j}}^{x_{j+1}} \frac{\partial w_j}{\partial x}
 w_j dx \right] \nonumber \\
-&  = &  \frac{1}{2} + -\frac{1}{2} = 0  \ \ \ \mbox{for } 1 < j < N+1 \nonumber \\ 
+&  = &  \frac{1}{2} + -\frac{1}{2} = 0  \ \ \ \mbox{for } 1 < j < N+1 \nonumber \\
 K_{11} & = &  -\frac{k'_{11}}{2} = \frac{1}{2}\left[\frac{v}{h} +
   \frac{w_f}{h\phi}\right] \nonumber \\
 K_{N+1,N+1}  & = & \frac{k'_{N+1,N+1}}{2} +\min\left[0, \left(\frac{1}{h}\frac{dh_b}{dt} +
@@ -1003,11 +1005,11 @@ k'_{j(j-1)}\int_{x_{j-1}}^{x_{j}}\left[1 -
 \\
 & = & \frac{k'_{j(j-1)}}{\Delta^2}\frac{\Delta^2}{2} =
 \frac{k'_{j(j-1)}}{2}  = -p5*\left[\frac{v}{h} + \frac{w_f}{h\phi}- \frac{D_{in}}{\phi^2}\frac{\partial
-      \phi}{\partial x}\right]_{(j-1)} \ \ \ \ \ \mbox{for }  j > 1 
+      \phi}{\partial x}\right]_{(j-1)} \ \ \ \ \ \mbox{for }  j > 1
 \end{eqnarray}
 for $K_{N+1,N}$, there's a boundary contribution .
 \begin{eqnarray}
-K_{N+1,N} & = & \frac{k'_{N+1(N)}}{2} - \frac{D_N}{\Delta \phi_{N}} 
+K_{N+1,N} & = & \frac{k'_{N+1(N)}}{2} - \frac{D_N}{\Delta \phi_{N}}
 \end{eqnarray}
 
 Note.  The bottom condition works if $C_{bot} = h
@@ -1025,7 +1027,7 @@ porosity gradient.    In general
 
 When evaluating the integrals for the diffusion term, we will assume
 that $D/\phi$ is constant in an element.  For $D_{in}/i\phi$ defined on interface
-points, $D_1 = 0$  
+points, $D_1 = 0$
 for $j = 2,...,N$
 $D_j/b\phi_j = (D_{in}(j) + D_{in}(j+1))/(i\phi_j + i\phi_{j+1})$.  Then the above integrals will
 be modified as follows:
@@ -1094,8 +1096,8 @@ K^2_{jj} & = & \left(\frac{w_f}{h}-\frac{D}{\phi}\frac{\partial
 Now $m = (\phi_{j+1}-\phi_{j})/\Delta$ and $b = \phi_{j+1} -
 mx_{j+1}$.
 
-Source terms $q_{bot} = q_{N+1}$ and $q_{top} = q_{1}$ (both positive)  
-\begin{eqnarray}  
+Source terms $q_{bot} = q_{N+1}$ and $q_{top} = q_{1}$ (both positive)
+\begin{eqnarray}
 q_{bot} & = &\max\left[0, \left(\frac{1}{h}\frac{dh_b}{dt} +
 \frac{w_f}{h \phi_{N+1}}\right)\right]C|_{bot} +
 \frac{D_{in}}{\phi_{N+1}(g_o/h)}C|_{bot} \nonumber \\
@@ -1135,13 +1137,13 @@ d_{jj} & = & -\sum_{i\neq j} d_{ji}
 
 Conservations terms for the low order solution are:
 \begin{eqnarray}
-\int \left[C^{n+1} -C^{n}\right] w(x)dx & = & 
+\int \left[C^{n+1} -C^{n}\right] w(x)dx & = &
  \Delta \left[\frac{c^{n+1}_1-c^{n}_1}{2} +
    \frac{c^{n+1}_{N+1}-c^{n}_{N+1}}{2} + \sum_{j =
      2}^{N}(c^{n+1}_{j}-c^{n}_{j})\right] \nonumber \\
 &  = &   \Delta t \left[ q_{bot} +
 q_{in} + (K_{N+1,N+1}+ K_{N,N+1} )C^{n+1}_{N+1} + (K_{1,1} +
-K_{2,1})C^{n+1}_{1}\right]  \nonumber 
+K_{2,1})C^{n+1}_{1}\right]  \nonumber
 \end{eqnarray}
 Now add the antidiffusive flux:
 1) compute the F matrix using the low order solution $c^{n+1}$.  Diagonal components are zero.  For $i \neq j$
