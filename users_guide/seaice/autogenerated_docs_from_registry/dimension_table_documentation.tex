@@ -1,0 +1,164 @@
+\chapter{Dimensions}
+\label{chap:dimensions}
+{\small
+\begin{center}
+\begin{longtable}{| p{1.0in} || p{1.0in} | p{4.0in} |}
+    \hline 
+    {\bf Name} & {\bf Units} & {\bf Description} \endfirsthead
+    \hline 
+    {\bf Name} & {\bf Units} & {\bf Description} (Continued) \endhead
+    \hline 
+    \hline 
+    nCells & {\bf \color{red} MISSING} & The number of polygons in the primary grid. \\ 
+    \hline
+    nEdges & {\bf \color{red} MISSING} & The number of edge midpoints in either the primary or dual grid. \\ 
+    \hline
+    maxEdges & {\bf \color{red} MISSING} & The largest number of edges any polygon within the grid has. \\ 
+    \hline
+    maxEdges2 & {\bf \color{red} MISSING} & Two times the largest number of edges any polygon within the grid has. \\ 
+    \hline
+    nVertices & {\bf \color{red} MISSING} & The total number of cells in the dual grid. Also the number of corners in the primary grid. \\ 
+    \hline
+    ONE & {\bf \color{red} MISSING} & The number one as a dimension. \\ 
+    \hline
+    TWO & {\bf \color{red} MISSING} & The number two as a dimension. \\ 
+    \hline
+    R3 & {\bf \color{red} MISSING} & The number three as a dimension. \\ 
+    \hline
+    FIFTEEN & {\bf \color{red} MISSING} & The number fifteen as a dimension. \\ 
+    \hline
+    TWENTYONE & {\bf \color{red} MISSING} & The number twenty one as a dimension. \\ 
+    \hline
+    vertexDegree & {\bf \color{red} MISSING} & The number of cells or edges touching each vertex. \\ 
+    \hline
+    nCategories & {\bf \color{red} MISSING} & The number of ice thickness categories. \\ 
+    \hline
+    nIceLayers & {\bf \color{red} MISSING} & The number of ice layers in the vertical direction. \\ 
+    \hline
+    nSnowLayers & {\bf \color{red} MISSING} & The number of snow layers in the vertical direction. \\ 
+    \hline
+    nHemispheres & {\bf \color{red} MISSING} & The number of hemispheres (global, north, south). \\ 
+    \hline
+    nQuadPoints & {\bf \color{red} MISSING} & {\bf \color{red} MISSING} \\ 
+    \hline
+    nTriPerEdgeRemap & {\bf \color{red} MISSING} & {\bf \color{red} MISSING} \\ 
+    \hline
+    maxCellsPerEdgeRemap & {\bf \color{red} MISSING} & {\bf \color{red} MISSING} \\ 
+    \hline
+    maxEdgesPerEdgeRemap & {\bf \color{red} MISSING} & {\bf \color{red} MISSING} \\ 
+    \hline
+    maxVerticesPerEdgeRemap & {\bf \color{red} MISSING} & {\bf \color{red} MISSING} \\ 
+    \hline
+    nIceLayersP1 & {\bf \color{red} MISSING} & The number of ice layers in the vertical direction plus one. \\ 
+    \hline
+    nCategoriesP1 & {\bf \color{red} MISSING} & The number of ice thickness categories plus one. \\ 
+    \hline
+    nAerosols & {\bf \color{red} MISSING} & Number of aerosol species carried in the ice (NCAR scheme) \\ 
+    \hline
+    nSpectralIntervals & {\bf \color{red} MISSING} & Number of spectral intervals in the radiation calculation \\ 
+    \hline
+    nBioLayers & {\bf \color{red} MISSING} & Number of levels in the biological grid \\ 
+    \hline
+    nBioLayersP1 & {\bf \color{red} MISSING} & Number of levels in the interface biological grid \\ 
+    \hline
+    nBioLayersP2 & {\bf \color{red} MISSING} & Number of levels in the biological grid plus two \\ 
+    \hline
+    nBioLayersP3 & {\bf \color{red} MISSING} & Number of biological levels in the ice and snow \\ 
+    \hline
+    maxAlgaeType & {\bf \color{red} MISSING} & Maximum number of ice algal types \\ 
+    \hline
+    maxDOCType & {\bf \color{red} MISSING} & Maximum number of dissolved organic carbon groups \\ 
+    \hline
+    maxDICType & {\bf \color{red} MISSING} & Maximum number of dissolved inorganic carbon groups \\ 
+    \hline
+    maxDONType & {\bf \color{red} MISSING} & Maximum number of dissolved organic nitrogen groups \\ 
+    \hline
+    maxIronType & {\bf \color{red} MISSING} & Maximum number of dissolved or particulate iron groups \\ 
+    \hline
+    maxBCType & {\bf \color{red} MISSING} & Maximum number of black carbon species carried in the ice \\ 
+    \hline
+    maxDustType & {\bf \color{red} MISSING} & Maximum number of dust species carried in the ice \\ 
+    \hline
+    maxAerosolType & {\bf \color{red} MISSING} & Total maximum number of aerosols carried in the ice \\ 
+    \hline
+    nModal1 & {\bf \color{red} MISSING} & Specifies the second dimension of the modal aerosol optical parameter matrix \\ 
+    \hline
+    nModal2 & {\bf \color{red} MISSING} & Specifies the third dimension of the modal aerosol optical parameter matrix \\ 
+    \hline
+    nAlgae & {\bf \color{red} MISSING} & Number of algal species in use \\ 
+    \hline
+    nDOC & {\bf \color{red} MISSING} & Number of dissolved organic carbon groups in use \\ 
+    \hline
+    nDIC & {\bf \color{red} MISSING} & Number of dissolved inorganic carbon groups in use \\ 
+    \hline
+    nDON & {\bf \color{red} MISSING} & Number of dissolved organic nitrogen groups in use \\ 
+    \hline
+    nParticulateIron & {\bf \color{red} MISSING} & Number of particulate iron species in use \\ 
+    \hline
+    nDissolvedIron & {\bf \color{red} MISSING} & Number of dissolved iron species in use \\ 
+    \hline
+    nzAerosols & {\bf \color{red} MISSING} & Number of aerosol species carried in the ice \\ 
+    \hline
+    nShortwaveBio & {\bf \color{red} MISSING} & Number of levels in the radiation calculation with biological species \\ 
+    \hline
+    nAlgaeLayers & {\bf \color{red} MISSING} & Total number of algal layers including two for snow plus the interface grid \\ 
+    \hline
+    nAlgaeIceLayers & {\bf \color{red} MISSING} & Total number of algal layers in the ice \\ 
+    \hline
+    nAlgaeSnowLayers & {\bf \color{red} MISSING} & Total number of algal layers in the snow \\ 
+    \hline
+    nDOCLayers & {\bf \color{red} MISSING} & Total number of DOC layers including two for snow plus the interface grid \\ 
+    \hline
+    nDOCIceLayers & {\bf \color{red} MISSING} & Total number of DOC layers in the ice \\ 
+    \hline
+    nDOCSnowLayers & {\bf \color{red} MISSING} & Total number of DOC layers in the snow \\ 
+    \hline
+    nDICLayers & {\bf \color{red} MISSING} & Total number of DIC layers including two for snow plus the interface grid \\ 
+    \hline
+    nDICIceLayers & {\bf \color{red} MISSING} & Total number of DIC layers in the ice \\ 
+    \hline
+    nDICSnowLayers & {\bf \color{red} MISSING} & Total number of DIC layers in the snow \\ 
+    \hline
+    nDONLayers & {\bf \color{red} MISSING} & Total number of DON layers including two for snow plus the interface grid \\ 
+    \hline
+    nDONIceLayers & {\bf \color{red} MISSING} & Total number of DON layers in the ice \\ 
+    \hline
+    nDONSnowLayers & {\bf \color{red} MISSING} & Total number of DON layers in the snow \\ 
+    \hline
+    nParticulateIronLayers & {\bf \color{red} MISSING} & Total number of particulate iron layers including two for snow plus the interface grid \\ 
+    \hline
+    nPartIronIceLayers & {\bf \color{red} MISSING} & Total number of particulate iron layers in the ice \\ 
+    \hline
+    nPartIronSnowLayers & {\bf \color{red} MISSING} & Total number of particulate iron layers in the snow \\ 
+    \hline
+    nDissolvedIronLayers & {\bf \color{red} MISSING} & Total number of dissolved iron layers including two for snow plus the interface grid \\ 
+    \hline
+    nDisIronIceLayers & {\bf \color{red} MISSING} & Total number of dissolved iron layers in the ice \\ 
+    \hline
+    nDisIronSnowLayers & {\bf \color{red} MISSING} & Total number of dissolved iron layers in the snow \\ 
+    \hline
+    nzAerosolsLayers & {\bf \color{red} MISSING} & Total number of z-aerosol layers including two for snow plus the interface grid \\ 
+    \hline
+    nzAerosolsSnowLayers & {\bf \color{red} MISSING} & Total number of z-aerosol layers in the snow \\ 
+    \hline
+    nzAerosolsIceLayers & {\bf \color{red} MISSING} & Total number of z-aerosol layers in the ice \\ 
+    \hline
+    nZBGCTracers & {\bf \color{red} MISSING} & Maximum number of distinct biological or chemical tracer types \\ 
+    \hline
+    nRegions & {\bf \color{red} MISSING} & The number of regions defined for analysis. \\ 
+    \hline
+    nPoints & \si{unitless} & The number of points for AM\_pointwiseStats \\ 
+    \hline
+    nPointGroups & \si{unitless} & The number of points groups \\ 
+    \hline
+    maxPointsInGroup & \si{unitless} & The maximum number of points in any group. \\ 
+    \hline
+    nForcingGroupsMax & {\bf \color{red} MISSING} & The maximum number of forcing groups defined in the core. \\ 
+    \hline
+    nProcs & {\bf \color{red} MISSING} & {\bf \color{red} MISSING} \\ 
+    \hline
+    nMonths & {\bf \color{red} MISSING} & {\bf \color{red} MISSING} \\ 
+    \hline
+\end{longtable}
+\end{center}
+}
