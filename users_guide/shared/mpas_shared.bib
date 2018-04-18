@@ -110,3 +110,188 @@ volume = {139},
 number = {9},
 pages = {2962--2975}
 }
+
+%%%% other %%%%
+@Article{	  skamarock2012,
+  abstract	= {The formulation of a fully compressible nonhydrostatic
+		  atmospheric model called the Model for Prediction Across
+		  Scales–Atmosphere (MPAS-A) is described. The solver is
+		  discretized using centroidal Voronoi meshes and a C-grid
+		  staggering of the prognostic variables, and it incorporates
+		  a split-explicit time-integration technique used in many
+		  existing nonhydrostatic meso-and cloud-scale models. MPAS
+		  can be applied to the globe, over limited areas of the
+		  globe, and on Cartesian planes. The Voronoi meshes are
+		  unstructured grids that permit variable horizontal
+		  resolution. These meshes allow for applications beyond
+		  uniform-resolution NWP and climate prediction, in
+		  particular allowing embedded high-resolution regions to be
+		  used for regional NWP and regional climate applications.
+		  The rationales for aspects of this formulation are
+		  discussed, and results from tests for nonhydrostatic flows
+		  on Cartesian planes and for large-scale flow on the sphere
+		  are presented. The results indicate that the solver is as
+		  accurate as existing nonhydrostatic solvers for
+		  nonhydrostatic-scale flows, and has accuracy comparable to
+		  existing global models using icosahedral (hexagonal) meshes
+		  for large-scale flows in idealized tests. Preliminary
+		  full-physics forecast results indicate that the solver
+		  formulation is robust and that the variable-resolution-mesh
+		  solutions are well resolved and exhibit no obvious problems
+		  in the mesh-transition zones.},
+  author	= {Skamarock, William C and Klemp, Joseph B and Duda, Michael
+		  G and Fowler, Laura D and Park, Sang-Hun and Ringler, Todd
+		  D},
+  doi		= {10.1175/MWR-D-11-00215.1},
+  file		= {:Users/mhoffman/Documents/PAPERS{\_}PRESENTATIONS/ARTICLES{\_}Mendeley/Skamarock
+		  et al. - 2012 - Monthly Weather Review.pdf:pdf},
+  isbn		= {0027-0644},
+  issn		= {0027-0644},
+  journal	= {Monthly Weather Review},
+  number	= {9},
+  pages		= {3090--3105},
+  title		= {{A Multiscale Nonhydrostatic Atmospheric Model Using
+		  Centroidal Voronoi Tesselations and C-Grid Staggering}},
+  url		= {http://journals.ametsoc.org/doi/abs/10.1175/MWR-D-11-00215.1},
+  volume	= {140},
+  year		= {2012}
+}
+
+@Article{	  ringler2013,
+  abstract	= {A new global ocean model (MPAS-Ocean) capable of using
+		  enhanced resolution in selected regions of the ocean domain
+		  is described and evaluated. Three simulations using
+		  different grids are presented. The first grid is a uniform
+		  high-resolution (15. km) mesh; the second grid has
+		  similarly high resolution (15. km) in the North Atlantic
+		  (NA), but coarse resolution elsewhere; the third grid is a
+		  variable resolution grid like the second but with higher
+		  resolution (7.5. km) in the NA. Simulation results are
+		  compared to observed sea-surface height (SSH), SSH variance
+		  and selected current transports. In general, the
+		  simulations produce subtropical and subpolar gyres with
+		  peak SSH amplitudes too strong by between 0.25 and 0.40. m.
+		  The mesoscale eddy activity within the NA is, in general,
+		  well simulated in both structure and amplitude. The uniform
+		  high-resolution simulation produces reasonable
+		  representations of mesoscale activity throughout the global
+		  ocean. Simulations using the second variable-resolution
+		  grid are essentially identical to the uniform case within
+		  the NA region. The third case with higher NA resolution
+		  produces a simulation that agrees somewhat better in the NA
+		  with observed SSH, SSH variance and transports than the two
+		  15. km simulations. The actual throughput, including I/O,
+		  for the x1-15km simulation is the same as the structured
+		  grid Parallel Ocean Program ocean model in its standard
+		  high-resolution 0.1° configuration. Our overall conclusion
+		  is that this ocean model is a viable candidate for
+		  multi-resolution simulations of the global ocean system on
+		  climate-change time scales. {\textcopyright} 2013 Elsevier
+		  Ltd.},
+  author	= {Ringler, Todd and Petersen, Mark and Higdon, Robert L. and
+		  Jacobsen, Doug and Jones, Philip W. and Maltrud, Mathew},
+  doi		= {10.1016/j.ocemod.2013.04.010},
+  file		= {:Users/mhoffman/Documents/PAPERS{\_}PRESENTATIONS/ARTICLES{\_}Mendeley/Ringler
+		  et al. - 2013 - Ocean Modelling.pdf:pdf},
+  issn		= {14635003},
+  journal	= {Ocean Modelling},
+  keywords	= {Finite-volume,Global ocean
+		  model,MPAS-Ocean,Multi-resolution,Spherical Centroidal
+		  Voronoi Tesselations},
+  pages		= {211--232},
+  publisher	= {Elsevier Ltd},
+  title		= {{A multi-resolution approach to global ocean modeling}},
+  url		= {http://dx.doi.org/10.1016/j.ocemod.2013.04.010},
+  volume	= {69},
+  year		= {2013}
+}
+
+@Article{	  petersen2015,
+  abstract	= {The vertical coordinate of the Model for Prediction Across
+		  Scales-Ocean (MPAS-Ocean) uses the Arbitrary
+		  Lagrangian-Eulerian (ALE) method, which offers a variety of
+		  configurations. When fully Eulerian, the vertical
+		  coordinate is fixed like a z-level ocean model; when fully
+		  Lagrangian there is no vertical transport through the
+		  interfaces so that the mesh moves with the fluid;
+		  additional options for vertical coordinates exist between
+		  these two extremes, including z-star, z-tilde, sigma, and
+		  isopycnal coordinates. Here we evaluate spurious diapycnal
+		  mixing in MPAS-Ocean in several idealized test cases as
+		  well as real-world domains with full bathymetry. Mixing
+		  data is compared to several other ocean models, including
+		  the Parallel Ocean Program (POP) z-level and z-star
+		  formulations. In three-dimensional domains, MPAS-Ocean has
+		  lower spurious mixing that other ocean models. A series of
+		  simulations show that this is likely due to MPAS-Ocean's
+		  hexagon-type horizontal grid cells combined with a
+		  flux-corrected transport tracer advection scheme designed
+		  for these unstructured meshes.The frequency-filtered
+		  vertical coordinate of Leclair and Madec (2011) (also
+		  called z-tilde) has been implemented and analyzed in
+		  MPAS-Ocean. This addition allows low-frequency vertical
+		  transport to pass through the vertical interface in an
+		  Eulerian manner, while high-frequency vertical
+		  oscillations, such as internal gravity waves, are treated
+		  in a Lagrangian manner. Z-tilde leads to a substantial
+		  reduction in vertical transport across layer interfaces,
+		  and a reduction in spurious diapycnal mixing.},
+  author	= {Petersen, Mark R. and Jacobsen, Douglas W. and Ringler,
+		  Todd D. and Hecht, Matthew W. and Maltrud, Mathew E.},
+  doi		= {10.1016/j.ocemod.2014.12.004},
+  file		= {:Users/mhoffman/Documents/PAPERS{\_}PRESENTATIONS/ARTICLES{\_}Mendeley/Petersen
+		  et al. - 2015 - Ocean Modelling.pdf:pdf},
+  issn		= {14635003},
+  journal	= {Ocean Modelling},
+  keywords	= {Arbitrary Lagrangian-Eulerian coordinate method,Diapycnal
+		  ocean mixing,Ocean modeling,Unstructured mesh},
+  pages		= {93--113},
+  publisher	= {Elsevier Ltd},
+  title		= {{Evaluation of the arbitrary Lagrangian-Eulerian vertical
+		  coordinate method in the MPAS-Ocean model}},
+  url		= {http://dx.doi.org/10.1016/j.ocemod.2014.12.004},
+  volume	= {86},
+  year		= {2015}
+}
+
+@article{Petersen2018,
+author = {Petersen, Mark R. and Asay-Davis, Xylar  and  Jacobsen, Douglas and  Jones, Phil and Maltrud, Mathew and Ringler, Todd D.  and Turner,  Adrian K.  and Van Roekel, Luke  and  Veneziani, Milena and  Wolfe, Jon and Wolfram, Phillip J.},
+journal = {Journal of Advances in Modeling Earth Systems},
+title = {{An evaluation of the ocean and sea ice climate of E3SM using MPAS and interannual CORE-II forcing}},
+volume = {in prep.},
+year = {2018}
+}
+
+@article{Ringler2011,
+author = {Ringler, Todd D. and Jacobsen, Doug and Gunzburger, Max and Ju, Lili and Duda, Michael and Skamarock, William},
+doi = {10.1175/MWR-D-10-05049.1},
+file = {:Users/mhoffman/Documents/PAPERS{\_}PRESENTATIONS/ARTICLES{\_}Mendeley/Ringler et al. - 2011 - Monthly Weather Review.pdf:pdf},
+journal = {Monthly Weather Review},
+pages = {3348--3368},
+title = {{Exploring a Multiresolution Modeling Approach within the Shallow-Water Equations}},
+volume = {139},
+year = {2011}
+}
+
+@article{Turner2018,
+author = {Adrian K. Turner and William H. Lipscomb and Elizabeth C. Hunke and Douglas W. Jacobsen and Nicole Jeffery and Todd D. Ringler and Jonathan D. Wolfe},
+title = {{MPAS-Seaice: a new variable resolution sea-ice model}},
+journal = {Journal of Advances in Modeling Earth Systems},
+year = {2018},
+note = {submitted}
+}
+
+@article{Hoffman2018,
+       author = {Hoffman, Matthew J. and Perego, Mauro and Price, Stephen F. and Lipscomb, William H. and Jacobsen, Douglas and Tezaur, Irina and Salinger, Andrew G. and Tuminaro, Raymond and Zhang, Tong},
+      doi = {10.5194/gmd-2018-78},
+    issn = {1991-962X},
+   journal = {Geoscientific Model Development Discussions},
+  month = {apr},
+ number = {April},
+pages = {1--47},
+title = {{MPAS-Albany Land Ice (MALI): A variable resolution ice sheet model for Earth system modeling using Voronoi grids}},
+url = {https://www.geosci-model-dev-discuss.net/gmd-2018-78/},
+volume = {in review},
+year = {2018}
+}
+
