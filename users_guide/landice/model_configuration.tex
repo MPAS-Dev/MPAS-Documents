@@ -34,41 +34,55 @@ Similarly, components on either side of the underscore may be replaced with a si
 This is an immutable stream defining the fields required for input.  It is only read at the initial time.  Input files may have other fields in them, but only the fields specified in this stream definition are actually read.
 Default name is \texttt{landice\_grid.nc}.
 
-The input stream consists of the following members:
+The input stream consists of the following members.  All fields are optional, and some are only utilized by the model if certain model components are enabled (e.g., subglacial hydrology model).
 \begin{itemize}
   \item stream name="basicmesh"
-  \item var\_array name="tracers"
   \item var name="thickness"
-  \item var name="normalVelocity"
   \item var name="bedTopography"
+  \item var name="temperature"
+  \item var name="normalVelocity"
   \item var name="sfcMassBal"
+  \item var name="floatingBasalMassBal"
+  \item var name="surfaceAirTemperature"
+  \item var name="basalHeatFlux"
+  \item var name="eigencalvingParameter"
+  \item var name="beta"
+  \item var name="dirichletVelocityMask"
+  \item var name="uReconstructX"
+  \item var name="uReconstructY"
+  \item var name="basalMeltInput"
+  \item var name="externalWaterInput"
+  \item var name="waterThickness"
+  \item var name="waterPressure"
+  \item var name="channelArea"
+  \item var name="waterFluxMask"
 \end{itemize}
 
 
 \subsection{output}
 This is a mutable stream defining the fields that will be output.  
 Because it is mutable, the list of fields for output may be modified at run time by editing the streams.landice file.
-Default name is \texttt{output.nc}.  Default clobber mode is \texttt{replace\_files}, \textbf{which will overwrite existing output}.
-
+Default name is \texttt{output.nc}.  Default clobber mode is \texttt{replace\_files}, \textbf{which will overwrite existing output files}.
 
 The output stream consists of the following members by default:
 \begin{itemize}
-  \item 			stream name="basicmesh"
-  \item			var\_array name="tracers"
+  \item			stream name="basicmesh"
+ \item var name="layerCenterSigma"
+ \item var name="layerInterfaceSigma"
   \item			var name="xtime"
+ \item var name="simulationStartTime"
+ \item var name="daysSinceStart"
+ \item var name="deltat"
+ \item var name="allowableDtACFL"
+ \item var name="allowableDtDCFL"
   \item			var name="thickness"
-  \item			var name="layerThickness"
   \item			var name="lowerSurface"
   \item			var name="upperSurface"
   \item			var name="cellMask"
   \item			var name="edgeMask"
-  \item			var name="vertexMask"
   \item			var name="normalVelocity"
   \item			var name="uReconstructX"
   \item			var name="uReconstructY"
-  \item			var name="uReconstructZ"
-  \item			var name="uReconstructZonal"
-  \item			var name="uReconstructMeridional"
 \end{itemize}
 
 
@@ -84,17 +98,34 @@ and use the associated .nc file to restart the model from that checkpoint.
 
 Default name is \texttt{restart.\$Y-\$M-\$D\_\$h.\$m.\$s.nc} with a new file for each checkpoint. Default clobber mode is \texttt{replace\_files}, \textbf{which will overwrite existing output}.
 
-The user does not need to keep track of what fields are required for restart, 
-but for reference they are:
+All fields required to restart the model are included in restart files automatically, 
+so the user does not need to keep track of what fields are required for restart.
+On a restart, only the restart file is read, and the original input file is not used.
+For reference the restart fields are below.  Some of these are only included conditionally based on the model configuration.
 \begin{itemize}
   \item			stream name="basicmesh"
-  \item			var\_array name="tracers"
   \item			var name="xtime"
+ \item var name="simulationStartTime"
   \item			var name="thickness"
+  \item var name="temperature"
+  \item var name="surfaceAirTemperature"
+  \item var name="basalHeatFlux"
   \item			var name="cellMask"
-  \item			var name="normalVelocity"
   \item			var name="bedTopography"
   \item			var name="sfcMassBal"
+  \item			var name="floatingBasalMassBal"
+  \item			var name="eigencalvingParameter"
+  \item			var name="normalVelocity"
+  \item			var name="uReconstructX"
+  \item			var name="uReconstructY"
+  \item var name="beta"
+  \item var name="dirichletVelocityMask"
+  \item var name="basalMeltInput"
+  \item var name="externalWaterInput"
+  \item var name="waterThickness"
+  \item var name="waterPressure"
+  \item var name="channelArea"
+  \item var name="waterFluxMask"
 \end{itemize}
 
 

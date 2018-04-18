@@ -186,7 +186,7 @@ At land-terminating ice sheet boundaries, $P_w=0$ is applied as the boundary con
 At marine-terminating ice sheet boundaries, the boundary condition is $P_w=-\rho_w g z_b$, where $\rho_w$ is ocean water density.
 The drainage model uses explicit forward Euler time-stepping using 
 Eqs. \ref{sgh:tillevol}, \ref{sgh:masscon}, \ref{sgh:channelevol}, and \ref{sgh:pressure}.
-This requires obeying advective and diffusive Courant?Friedrichs?Lewy (CFL) conditions for distributed drainage as described by \cite{Bueler2015}, 
+This requires obeying advective and diffusive Courant-Friedrichs-Lewy (CFL) conditions for distributed drainage as described by \cite{Bueler2015}, 
 as well as an additional advective CFL condition for channelized drainage, if it is active.
 
 We acknowledge that the non-continuum implementation of channels can make the solution
@@ -291,5 +291,3 @@ Ice that is eligible for calving can be removed immediately or fractionally each
 based on a calving timescale. 
 To allow ice shelves to advance as well as retreat, we implement a simple parameterization for sub-grid motion of the calving front by forcing floating cells adjacent to open ocean to remain dynamically inactive until ice thickness there reaches 95\% of the minimum thickness of all floating neighbors.
 This is an \textit{ad hoc} alternative to methods tracking the calving front position at sub-grid scales \citep{Albrecht2011,Bondzio2016}.
-In Section \ref{sec:realApplication} below, we demonstrate the eigencalving scheme applied to a realistic Antarctic ice sheet simulation. 
-More sophisticated calving schemes are currently under development.

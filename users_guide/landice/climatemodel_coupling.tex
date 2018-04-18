@@ -1,15 +1,13 @@
-\chapter{Running MPAS-Land Ice within a coupled climate model}
+\chapter{MALI within the Energy Exascale Earth System Model}
 \label{chap:climatemodel_landice_coupling}
 
-** \textbf{maybe the title above is not quite appropriate for this content? Or, we should change / add to the content if we think this needs to be more generic to any / other climate models?} **
-
-
-MALI is the current land ice model component of the U.S. Department of Energy's \textit{Energy Exascale Earth System Model} (E3SM). E3SM is an Earth System Model with atmosphere, land, ocean, and sea ice components, linked through a coupler
+MALI is the current land ice model component of the U.S. Department of Energy's \textit{Energy Exascale Earth System Model} (E3SM, \url{https://github.com/E3SM-Project/E3SM}). 
+E3SM is an Earth System Model with atmosphere, land, ocean, and sea ice components, linked through a coupler
 that passes the necessary fields (e.g., model state, mass, momentum, and energy fluxes) between the components.
 E3SM, which branched from the Community Earth System Model (CESM, version 1.2 beta10) in 2014, targets high resolution global simulations, and all components have a variable resolution mesh capability. The ocean \citep{Ringler2013,Petersen2015,Petersen2018} and sea ice \citep{Turner2018} components are also built on the MPAS Framework. Because the coupling between E3SM and MALI is currently still fairly rudimentary, we include only a few additional details below and leave a more detailed description to future work. 
 Having all three of these E3SM components in the MPAS framework has simplified adding and maintaining them within E3SM,
 because developments in the component driver code and build and configuration scripts made by one MPAS component can easily be leveraged by the others.
-	
+
 Physics at the ice sheet atmosphere interface are handled by the snow model within the E3SM Land Model (ELM; \cite{ELM2018a,ELM2018b}). ELM's snow model calculates ice sheet surface mass balance using a surface energy balance model and, at each coupling interval, MALI passes the current ice sheet extent and surface elevation through the coupler to ELM. The coupler then returns the surface mass balance and surface temperature calculated by ELM to MALI. These fields are used within MALI as boundary conditions to the mass and thermal evolution equations (Sections \ref{sec:consMass} and \ref{sec:consEnergy}). Currently, runoff from surface melting is calculated within ELM and routed directly through E3SM's runoff model, rather than being passed to and used by MALI. The subglacial discharge model discussed above in Section \ref{sec:subglacialHydro} is not currently coupled to the rest of E3SM. 
 
 Ongoing and future work on MALI and E3SM coupling includes: passing subglacial discharge at terrestrial ice margins to the land runoff model in E3SM; passing surface runoff calculated in E3SM to the land ice model (for use as a source term in the subglacial hydrology model); two-way coupling between the ocean and a dynamic MALI model\footnote{Coupling to a static Antarctic ice sheet with ocean circulation in sub-ice shelf cavities is supported in E3SM version 1.0.0}; discharge of icebergs (solid ice flux from MALI) to the coupler and from there to the ocean and sea ice models.
