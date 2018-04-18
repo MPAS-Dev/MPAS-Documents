@@ -3,6 +3,8 @@
 
 \label{describe_transport}
 
+\subsection{Overview}
+
 To transport sea ice fractional area and various tracers, MPAS-Seaice uses an incremental remapping (IR) algorithm similar to that described by \citet{Dukowicz00}, \citet{Lipscomb04} (henceforth LH04) and \citet{Lipscomb05} (henceforth LR05). The LH04 scheme was designed for structured quadrilateral meshes and is implemented in CICE \citep{Hunke15}. The LR05 scheme was implemented on a structured SCVT global mesh consisting of quasi-regular hexagons and 12 pentagons.
 
 For MPAS-Seaice the IR scheme was generalized to work on either the standard MPAS mesh (hexagons and other n-gons of varying sizes, with a vertex degree of 3 as in LR05) or a quadrilateral mesh (with a vertex degree of 4 as in LH04 and CICE). Since MPAS meshes are unstructured, the IR scheme had to be rewritten from scratch. Most of the code is mesh-agnostic, but a small amount of code is specific to quad meshes as noted below.
@@ -57,7 +59,7 @@ With advanced physics and biogeochemistry (BGC) options, MPAS-Seaice can be conf
 
 We next describe the IR algorithm in detail, pointing out features that are new in MPAS-Seaice.
 
-\subsubsection{Reconstructing area and tracer fields}
+\subsection{Reconstructing area and tracer fields}
 \label{IR_reconstruct}
 
 The fractional ice area and all tracers are reconstructed in each grid cell (quadilaterals, hexagons or other $n$-gons) as functions of $\mathbf{r} = (x,y)$ in a cell-based coordinate system. On a sphere, $\mathbf{r}$ lies in a local plane that is tangent to the sphere at the cell center. The state variable for ice area, denoted as $\bar{a}$, should be recovered as the mean value when integrated over the cell:
@@ -106,7 +108,7 @@ The integrals in (\ref{eq:barycenters}) can be evaluated by applying quadrature 
 
 Monotonicity is enforced by van Leer limiting \citep{vanLeer79}. The reconstructed area and tracers are evaluated at cell vertices, and the coefficients $\alpha$  are reduced as needed so that the reconstructed values lie within the range of the mean values in the cell and its neighbors. When $\alpha = 1$, the reconstruction is second-order accurate in space. When $\alpha = 0$, the reconstruction reduces locally to first-order.
 
-\subsubsection{Locating departure triangles}
+\subsection{Locating departure triangles}
 \label{IR_triangles}
 
 The next step is to identify the departure region associated with fluxes across each cell edge, and to divide the departure region into triangles. Figure~\ref{fig:IR_geom}a illustrates the geometry for the standard MPAS mesh. The edge has vertices $V1$ and $V2$. Each edge is oriented such that one adjacent cell ($C1$) is defined to lie in the left half-plane and the other ($C2$) in the right half-plane. The departure points $D1$ and $D2$ are found by projecting velocities backward from $V1$ and $V2$. The shaded departure region is a quadrilateral containing all the ice transported across the edge in one time step. In addition to $C1$ and $C2$, the departure region can include side cells $C3$ and $C4$. The side cells share edges $E1$ to $E4$ and vertices $V3$ to $V6$ with the central cells $C1$ and $C2$.
@@ -131,7 +133,7 @@ Once triangle vertices have been found in edge-based coordinates, they are trans
 {{A}_{T}}=\frac{1}{2}\left| ({{x}_{2}}-{{x}_{1}})({{y}_{3}}-{{y}_{1}})-({{y}_{2}}-{{y}_{1}})({{x}_{3}}-{{x}_{1}}) \right|.
 \end{equation}
 
-\subsubsection{Integrating the transport}
+\subsection{Integrating the transport}
 \label{IR_integrate}
 
 Next, ice area and area-tracer products are integrated in each triangle. The integrals have the form (\ref{eq:recover_a}) for area and (\ref{eq:recover_T}) for tracers. Since each field is a linear function of $(x,y)$ as in (\ref{eq:reconstruct_a}) and (\ref{eq:reconstruct_T}), the area-tracer products are quadratic, cubic and quartic polynomials, respectively, for tracers of type 1, 2 and 3.
@@ -148,7 +150,7 @@ I = {{A}_{T}}\left[ {{w}_{1}}\sum\limits_{i=1}^{3}{f({{\mathbf{x}}_{1i}})}+{{w}_
 \end{equation}
 where $\mathbf{x_{1i}}$ and $\mathbf{x_{2i}}$ are two sets of three quadrature points, arranged symmetrically on trisecting medians of the triangle, and $w_1$ and $w_2$ are weighting factors. Coefficients and weighting factors for these and other symmetric quadrature rules for triangles were computed by \citet{Dunavant85}. These integrals are computed for each triangle and summed over edges to give fluxes of ice area and area-tracer products across each edge.
 
-\subsubsection{Updating area and tracer fields}
+\subsection{Updating area and tracer fields}
 \label{IR_update}
 
 The area transported across edge $k$ for a given cell can be denoted as $\Delta a_k$,  and the area-tracer products as $\Delta (a T_1)_k$, $\Delta (a T_1 T_2)_k$ and $\Delta (a T_1 T_2 T_3)_k$. The new ice area at time $n+1$ is given by
