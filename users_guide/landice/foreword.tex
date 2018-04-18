@@ -3,34 +3,34 @@
 
 The MPAS-Albany Land Ice (MALI) is an unstructured-mesh land ice model (ice sheets or glaciers) capable of using enhanced 
 horizontal resolution in selected regions of the land ice domain.  
-This allows researchers to perform high-resolution regional simulations at a lower computational cost, 
-while providing realistic ice flow from the low-resolution regions. 
-Model domains may be spherical or on Cartesian domains.  
-MALI is designed for large-scale, high-resolution simulations of ice sheet dynamics, 
-using a combination of Finite Difference, Finite Volume, and Finite Element Methods on variable resolution meshes.  
-MALI is currently released with support for standard test cases used in verifying model performance. 
-Eventually, support for standard ice sheet configurations will also be included 
-(e.g., stand-alone Greenland and Antarctica simulations).
-MALI is the ice sheet component in the Energy Exascale Earth System Model (E3SM) v1.0
-(https://climatemodeling.science.energy.gov/projects/energy-exascale-earth-system-model).
-
-MALI shows good agreement with manufactured solutions and standard test cases
-and has been used in land ice evolution experiments estimating potential for future sea-level rise from ice sheets 
+MALI is built using the Model for Prediction Across Scales (MPAS) framework for developing variable resolution Earth System Model components 
+and the Albany multi-physics code base for solution of coupled systems of partial-differential equations, which itself makes use of Trilinos solver libraries.  
+MALI includes a three-dimensional, first-order momentum balance solver (``Blatter-Pattyn") by linking to the Albany-LI ice sheet velocity solver,
+as well as an explicit shallow ice velocity solver.
+Evolution of ice geometry and tracers is handled through an explicit first-order
+horizontal advection scheme with vertical remapping.
+Evolution of ice temperature is treated using operator splitting of vertical diffusion and horizontal advection and can be configured to use either a temperature or enthalpy formulation.  
+MALI includes a mass-conserving subglacial hydrology model that supports distributed and/or channelized drainage and can optionally be coupled to ice dynamics.
+Options for calving include ``eigencalving'', which assumes calving rate is proportional to extensional strain rates.
+MALI has been evaluated against commonly used exact solutions and community benchmark experiments and shows the expected accuracy.
+It has been used in land ice evolution experiments estimating potential for future sea-level rise from ice sheets 
 (e.g., Ice2Sea international assessment project \citep{Shannon2013, edwards2014}).  
+MALI is the glacier component of the Energy Exascale Earth System Model (E3SM) version 1.0
+(\url{https://climatemodeling.science.energy.gov/projects/energy-exascale-earth-system-model}).
 
-MPAS-Land Ice is one component within the Model for Prediction Across Scales (MPAS) framework of climate model components
+MPAS-Albany Land Ice is one component within the Model for Prediction Across Scales (MPAS) framework of climate model components
  that is developed in cooperation between Los Alamos National Laboratory (LANL) and the National Center for Atmospheric Research (NCAR).  
 Functionality that is required by all cores, such as i/o, time management, block decomposition, etc, is developed collaboratively, and this code is shared across cores within the same repository.  
 Each core then solves its own differential equations and physical parameterizations within this framework.  
 This user's guide reflects the spirit of this collaborative process, where Part I, ``The MPAS Framework'', applies to all cores, 
-and the remaining parts apply to MPAS-Albany Land Ice.
+and the remaining parts apply specifically to MPAS-Albany Land Ice.
 
 MPAS-Albany Land Ice also makes use of the Albany/LI velocity solver (formally Albany/FELIX) for implementation of the first-order
 velocity solver.  Not all details of running and configuring that velocity solver are covered in this User's Guide.  
-We refer the user to Albany's website for more information about installing and running Albany: https://github.com/gahansen/Albany
+We refer the user to Albany's website for more information about installing and running Albany: \url{https://github.com/gahansen/Albany}
 
 MPAS-Albany Land Ice is described by a model description paper currently in review in Geoscientific Model Descriptions at:
-https://www.geosci-model-dev-discuss.net/gmd-2018-78/
+\url{https://www.geosci-model-dev-discuss.net/gmd-2018-78/}
 Much of the information in this User's Guide is derived from the text of that paper.
 
 

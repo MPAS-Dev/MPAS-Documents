@@ -14,21 +14,21 @@ In general, the build process follows the following steps.
 	\item Build Parallel-NetCDF library (v1.2.1, v1.3.0, etc.)
 	\item Build Parallel I/O library (v1.4.1, v1.6.1, etc.)
 	\item (Optional) Build METIS library and executables (v4.0, v5.0.2, etc.)
-	\item Checkout MPAS-Land Ice from repository
+	\item Clone MPAS-Land Ice from repository
 	\item Build Land Ice core
 \end{enumerate}
 
-After step 7, an executable should be created called landice\_model.exe. Once the executable is built, one can begin the run process as follows:
+After step 7, an executable should be created called {\tt landice\_model.exe}. Once the executable is built, one can begin the run process as follows:
 
 \begin{enumerate}
 	\item Create run directory.
 	\item Copy executable to run directory.
-	\item Copy namelist.input into run directory.
+	\item Copy {\tt namelist.landice} and {\tt streams.landice} from the {\tt default\_inputs} directory into run directory.
 	\item (Optional) Copy input and graph files into run directory.
-	\item Edit namelist.input to have the proper parameters. \\
+	\item Edit {\tt namelist.input} to have the proper parameters. \\
 		  If step 4 was skipped, ensure paths to input and graph files are appropriately set.
 	\item (Optional) Create graph files, using METIS executable (pmetis or gpmetis depending on version). \\
-		  A graph file is required for each processor count you want to use.
+		  A graph file is required for each processor count you want to use greater than one processor.
 	\item Run MPAS-Land Ice.
 	\item Visualize output file, and perform analysis.
 \end{enumerate}

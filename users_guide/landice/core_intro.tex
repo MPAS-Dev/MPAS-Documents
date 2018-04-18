@@ -1,55 +1,23 @@
-\chapter{Governing Equations}
+\chapter{MPAS-Albany Land Ice Introduction}
 \label{chap:landice-intro}
 
+During the past decade, numerical ice sheet models (ISMs) have undergone a renaissance relative to their predecessors. This period of intense model development was initiated following the Fourth Assessment Report of the Intergovernmental Panel on Climate Change \citep{IPCCWG1PhysicalSolomon2007}, which pointed to deficiencies in ISMs of the time as being the single largest shortcoming with respect to the scientific community's ability to project future sea-level rise stemming from ice sheets. 
+Model maturation during this period, which continued through the IPCC's Fifth Assessment Report \citep{IPCCWG1PhysicalStocker2013} and to the present day, has focused on improvements to ISM ``dynamical cores'' (including the fidelity, discretization, and solution methods for the governing conservation equations \citep[e.g.,][]{Bueler2009,Schoof2010,Goldberg2011a,perego2012,Leng2012,Larour2012,Aschwanden2012,Cornford2013,gagliardini2013,brinkerhoff2013}), ISM model ``physics'' (for example, the addition of improved models of basal sliding coupled to explicit subglacial hydrology \citep[e.g.,][]{Schoof2005,Werder2013,Hewitt2013,Hoffman2014,Bueler2015}; and ice damage, fracture, and calving \citep[e.g.,][]{Astrom2014,Bassis2015,Borstad2016,Jimenez2017}) and the coupling between ISMs and Earth System Models (ESMs) \citep[e.g.,][]{Ridley2005,vizcaino2008,Vizcaino2009,Fyke2011,Lipscomb2013}. These ``next generation'' ISMs have been applied to community-wide experiments focused on assessing (i) the sensitivity of ISMs to idealized and realistic boundary conditions and environmental forcing and (ii) the potential future contributions of ice sheets to sea-level rise \citep[see e.g.,][]{pattyn2013,Nowicki2013a,Nowicki2013b,Bindschadler2013,Shannon2013,edwards2014}. 
 
+While these efforts represent significant steps forward, next-generation ISMs continue to confront new challenges. These come about as a result of (1) applying ISMs to larger (whole-ice sheet), higher-resolution (regionally $O$(1 km) or less), and more realistic problems, (2) adding new or improved sub-models of critical physical processes to ISMs, and (3) applying ISMs as partially or fully coupled components of ESMs. The first two challenges relate to maintaining adequate performance and robustness, as increased resolution and/or complexity have the potential to increase forward model cost and/or degrade solver reliability. The latter challenge relates to the added complexity and cost associated with optimization workflows, which are necessary for obtaining model initial conditions that are realistic and compatible with forcing from ESMs. %(See related discussion in \cite{perego2014}). 
+These challenges argue for ISM development that specifically targets the following model features and capabilities: 
+\begin{enumerate}
 
-Advection is performed on a C-grid, with scalar quantities (thickness, temperature, age, etc.) on the Voronoi cell centers and velocities and fluxes centered at Voronoi cell edges.  MPAS-Land Ice uses SI units everywhere, including input and output.  One exception is the ability (but not the requirement) to specify the model time step in years (but which is then converted to seconds internally).
+\item parallel, scalable, and robust, linear and nonlinear solvers
 
-\section{Momentum Balance}
+\item variable and / or adaptive mesh resolution 
 
-Currently within MPAS-Land Ice, the momentum balance for ice is approximated with the Shallow Ice Approximation (SIA) \citep{Hutter1983}, which is solved explicitly.  In terms of balancing the gravitational body force, the SIA neglects all but the 0th-order, vertical shear-stress gradients.  The preferred numerical approach for implementing the SIA in ice sheet models is not to solve for the velocity directly but to instead formulate a parabolic PDE describing the thickness evolution, with velocities implicit in the formulation.  However, for higher-order treatments of the momentum balance, it is necessary to solve the velocity and thickness evolution steps separately. Therefore, to allow for the eventual incorporation of higher-order velocity solvers in MPAS Land Ice, the current design explicitly calculates velocities from the SIA.
+\item computational kernels based on flexible programming models, to allow for implementation on a range of High-Performance Computing (HPC) architectures\footnote{For example, traditional CPU-only architectures and MPI programming models versus CPU+GPU, hybrid architectures using MPI for nodal communication and OpenMP or CUDA for on-node parallelism.}
 
-Within a column, at any point in the model domain in map view, the depth-dependent SIA velocity can be solved for as:
+\item adjoint capabilities for use in high-dimensional parameter field optimization and uncertainty quantification 
 
-\begin{equation}
-    \label{sia}
-	\vect{u}(z) = -\frac{1}{2} A (\rho g )^n |\nabla s|^{n-1} \nabla s \left[H^{n+1} - (h-z)^{n+1} \right]
-\end{equation}
-where $\vect{u}(z)$ is the horizontal velocity vector, $A$ is the flow rate factor (primarily a function of ice temperature), $n$ is the Glen flow law exponent (typically taken as 3), $\rho$ is the density of ice, $g$ is acceleration due to gravity, $s$ is the ice surface elevation, $H$ is ice thickness, and $z$ is the vertical coordinate. Velocities are (nonlinearly) proportional to both the ice thickness and the ice surface slope.
+\end{enumerate}
 
-Velocities and fluxes are calculated on the midpoint of Voronoi cell edges.  
-The normal component of surface slope is calculated on cell edges 
-using surface elevation at adjacent cell centers.  
-The tangential component of surface slope is calculated on cell edges using 
-surface elevation at adjacent vertices.  
-The surface elevation at vertices is calculated from the values at adjacent 
-cell centers using barycentric interpolation.
-Ice thickness on edges is calculated as the average of the 
-adjacent cell center values (2nd-order approximation).
-
-
-\section{Time Integration}
-
-Currently, MPAS Land Ice only supports Forward Euler time integration.
-
-
-\section{Advection}
-
-Currently, MPAS Land Ice only supports advection of thickness and only using First-Order Upwinding. 
-In 1D, first-order upwinding of ice thickness using a Forward Euler time step is described by:
-
-\begin{equation}
-    \label{fouw}
- \frac{H_i^{n+1} - H_i^n}{\Delta t} + u \frac{H_i^n - H_{i-1}^n}{\Delta x} = 0 \quad \text{for} \quad u > 0
-\end{equation}
-\begin{equation}
- \frac{H_i^{n+1} - H_i^n}{\Delta t} + u \frac{H_{i+1}^n - H_i^n}{\Delta x} = 0 \quad \text{for} \quad u < 0
-\end{equation}
-
-where ${\Delta x}$ represents the horizontal grid spacing along flow, subscripts designate the spatial dimension, and superscripts designate the time dimension.
-
-(See, e.g. \url{http://en.wikipedia.org/wiki/Upwind\_scheme})
-
-To allow the eventual inclusion of tracer advection, thickness is advected level-by-level, rather than the cheaper operation of advecting the total column thickness.
-
+Based on these considerations, we have developed a new land ice model, the MALI model, which is composed of three major components: 
+1) model framework, 2) dynamical cores for solving equations of conservation of momentum, mass, and energy, and 3) modules for additional model physics. The model leverages existing and mature frameworks and libraries, namely the Model for Prediction Across Scales (MPAS) framework and the Albany and Trilinos solver libraries. These have allowed us to take into consideration and address, from the start, many of the challenges discussed above. We discuss each of these components in more detail in the following sections.
 
