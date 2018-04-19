@@ -54,7 +54,7 @@ order is important.  For example, specifiying {\tt nALG}$ = 1$ will
 compute reaction terms using parameters specific to ice diatoms.
 
 In addition to specifying the group size, individual biogeochemical
-tracer groups must also be set as true in namelist.cice.
+tracer groups must also be set as true in namelist.seaice.
 These includes the nutrients: nitrate (config\_use\_nitrate), silicate
 (config\_use\_silicate), ammonium (config\_use\_ammonium), and
 dissolved iron (config\_use\_iron);  the dimethylsulphide group: DMS, DMSPp,
@@ -79,7 +79,7 @@ In the skeletal layer model, ice algal biogeochemistry is modelled as a single l
 of reactive tracers attached to the sea ice bottom. This assumption
 has greater validity in the Arctic than in the Southern Ocean where internal
 and freeboard communitites are common.
-To use skl-bgc, set the following namelist.cice configuration options
+To use skl-bgc, set the following namelist.seaice configuration options
 to true: {\tt config\_use\_brine}, \newline {\tt config\_use\_column\_biogeochemistry},
 {\tt config\_use\_skeletal\_biochemistry}.
 
@@ -161,7 +161,7 @@ in section~\ref{sec:reactions}.
 \subsection{Vertical ``Z'' BGC}
 \label{sec:zbgc}
 In order to solve the vertically resolved biogeochemistry, set the
-following configuration options in {\bf namelist.cice} to true: a)
+following configuration options in {\bf namelist.seaice} to true: a)
 {\tt config\_use\_brine}, b) {\tt config\_use\_vertical\_tracers}, and
 \newline c) {\tt
   config\_use\_vertical\_biochemistry}.
@@ -289,7 +289,7 @@ threshold.
 \label{sec:mobile_and_stationary}
 There are 5 possible mobility types indicated by the set $\{-1, 0,
 0.5, 1, 2\}$ which assigns a combination of a fast and slow timescale
-to the release and retention of tracers.  In {\bf namelist.cice}, the
+to the release and retention of tracers.  In {\bf namelist.seaice}, the
 parameters beginning {\tt config\_mobility\_type\_} specify the
 vertical transport behavior of each biogeochemical in the code and
 {\tt config\_long\_mobile\_to\_stationary\_time} and \newline
@@ -328,7 +328,7 @@ result in an unphysically large accumulation during the melt season.
 The brine height, $h_b$, is the distance from the
 ice-ocean interface to the brine surface. It is the vertical domain
 for all ice biogeochemical tracers and aerosols.   When {\tt
-  config\_use\_brine} is set true in {\bf namelist.cice} the position
+  config\_use\_brine} is set true in {\bf namelist.seaice} the position
 of the  brine
 surface  relative moves relative to the
  ice surface. Physically, this occurs when the ice is permeable and there is
@@ -480,15 +480,15 @@ the rates of aerosol  deposition for each species, while {\tt
   faero\_ocn} has the rate at  which the aerosols are transferred to the ocean.
 
 The aerosol tracer flag {\tt config\_use\_aerosols} must be set to true in {\bf
-  namelist.cice}, and the number  of aerosol species, {\tt nAerosols}, is set in {\bf
+  namelist.seaice}, and the number  of aerosol species, {\tt nAerosols}, is set in {\bf
   Registry.xml}.  The following output variables may be added to {\tt
-  streams.cice}: {\tt snowScatteringAerosol}, {\tt snowBodyAerosol},
+  streams.seaice}: {\tt snowScatteringAerosol}, {\tt snowBodyAerosol},
 {\tt iceScatteringAerosol}, and {\tt iceBodyAerosol}.
 
 
 \subsection{Z-Aerosols}
 
-\index{zaerosols}MPAS-seaice  offers an alternate scheme for aerosols
+\index{zaerosols}MPAS-Seaice  offers an alternate scheme for aerosols
 in sea ice using the brine motion based transport scheme of the
 biogeochemical tracers.   All vertically resolved biogeochemical
 tracers (z-tracers), including
@@ -521,10 +521,10 @@ All the z-aerosols are nonreactive with the exception of the
 dust aerosols. We assume that a small fraction of the dust flux into
 the ice has soluble iron  which is passed to the dissolved iron
 tracer (see {\tt config\_solubility\_of\_Fe\_in\_dust} and {\tt
-  config\_ratio\_Fe\_to\_dust} in {\bf namelist.cice}).  The remaining dust passes through the ice without reactions.
+  config\_ratio\_Fe\_to\_dust} in {\bf namelist.seaice}).  The remaining dust passes through the ice without reactions.
 
 To use z-aerosols, set {\tt config\_use\_zaerosols}  to true in {\bf
- namelist.cice} and choose up to 6  z-aerosol species {\tt
+ namelist.seaice} and choose up to 6  z-aerosol species {\tt
   nAerosols} in  {\bf
   Registry.xml}.    Note, the default tracers {\tt
   config\_use\_aerosols} must be false. In addition, {\tt
@@ -572,7 +572,7 @@ hum &hum$^{ab}$ & {\tt humics} & passive sticky  tracer & mmol $/m^3$ \\
 \zaerodust(3)&zaero(5)$^a$ & {\tt zaerosols} & dust species 3 & kg $/m^3$ \\
 \zaerodust(4)& zaero(6)$^a$ & {\tt zaerosols} & dust species 4 & kg
 $/m^3$ \\  \hline
-\end{tabular}\label{table:bio_tracers}
+\end{tabular}
 \begin{tablenotes}
 \item[a] {not modified in {\tt algal\_dyn}} \\
 \item[b] {may be in C or N units depending on the ocean concentration} \\
@@ -580,6 +580,7 @@ $/m^3$ \\  \hline
   \\
 \end{tablenotes}
 \end{threeparttable}
+\label{table:bio_tracers}
 \end{table}
 
 The biochemical reaction term for each algal species has the form:
@@ -773,7 +774,7 @@ is taken from the nitrate pool.
 
 \subsubsection{BGC Tuning Parameters}
 Biogeochemical tuning parameters are specified as namelist options in
-{\bf namelist.cice}.  Table~\ref{table:bio_tracers2} provides a list of
+{\bf namelist.seaice}.  Table~\ref{table:bio_tracers2} provides a list of
 parameters used in the above reaction equations, their representation in subroutine
 {\tt algal\_dyn}, a short description and units.
 
@@ -826,11 +827,12 @@ $\mu_T$ & grow\_Tdep(1:3) & temperature growth factor & day$^{-1}$ \\
 $f_{sal}$ & fsal & salinity  growth factor  & 1 \\
 $R_{si:n}$ & R\_Si2N(1:3) & algal silicate to nitrogen &
 mol/mol \\ \hline
-\end{tabular}\label{table:bio_tracers2}
+\end{tabular}
 \begin{tablenotes}
 \item[a] {only (1:2) of DOC and DOC parameters have physical meaning} \\
 \end{tablenotes}
 \end{threeparttable}
+\label{table:bio_tracers2}
 \end{table}
 
 \subsection{Flux-Corrected, Positive Definite Transport
