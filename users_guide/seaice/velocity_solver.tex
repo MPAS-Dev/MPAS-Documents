@@ -1,15 +1,15 @@
 \section{Velocity Solver}
 \label{sec:velocity_solver}
 
-MPAS-Seaice uses a `B' Arakawa type grid \citep{Arakawa77} with both components of velocity defined at cell vertices and sea-ice concentration, volume and other tracers defined at cell centers (see Chapter \ref{chap:mpas_grid_description}). When using CICE-like quadrilateral meshes, this allows the velocity solver algorithm of MPAS-Seaice to reduce to that of CICE, allowing CICE and MPAS-Seaice to use identical test cases and allow rapid testing and development. 
+\subsection{Overview}
 
-In CICE the velocity components are aligned with the quadrilateral mesh. This is not possible, in general, with MPAS-Seaice since a SCVT MPAS mesh does not have edges with perpendicular directions as in a quadrilateral mesh. Instead, the velocity components at a given MPAS vertex are defined as eastwards ($u$) and northwards ($v$), irrespective of the orientation of edges joining that vertex. Such a definition, however, would result in a convergence of $v$ components at the geographic North Pole and strong metric terms in the velocity solution. Consequently, in addition, we rotate these definitions of $u$ and $v$ so that their pole lies on the geographical equator at $0^\circ$ longitude. 
+MPAS-Seaice uses a `B' Arakawa type grid \citep{Arakawa77} with both components of velocity defined at cell vertices and sea-ice concentration, volume and other tracers defined at cell centers (see Chapter \ref{chap:mpas_grid_description}). The velocity components at a given MPAS vertex are defined as eastwards ($u$) and northwards ($v$), irrespective of the orientation of edges joining that vertex. Such a definition, however, would result in a convergence of $v$ components at the geographic North Pole and strong metric terms in the velocity solution. Consequently, in addition, these definitions of $u$ and $v$ are rotated so that their pole lies on the geographical equator at $0^\circ$ longitude. 
 
-To prognose sea-ice velocity we solve the same sea-ice momentum equation as CICE \citep{Hibler79,Hunke97}:
+To prognose sea-ice velocity MPAS-Seaice solves the same sea-ice momentum equation as CICE \citep{Hibler79,Hunke97}:
 \begin{equation}
 m \frac{\partial{\boldsymbol{u}}}{\partial{t}} = \boldsymbol{\nabla} \cdot \boldsymbol{\sigma} + \boldsymbol{\tau_a} + \boldsymbol{\tau_w} - \boldsymbol{\hat{k}} \times m f \boldsymbol{u} -mg \boldsymbol{\nabla}H_o.
 \end{equation}
-Here $m$ is the mass of snow and ice per unit area, $\boldsymbol{u}$ is the sea-ice velocity, $\boldsymbol{\sigma}$ is the ice internal stress tensor, $\boldsymbol{\tau_a}$ and $\boldsymbol{\tau_w}$ are the horizontal stresses due to atmospheric winds and ocean currents respectively, $\boldsymbol{\hat{k}}$ is the unit vector normal to the Earth surface, $f$ is the Coriolis parameter, $g$ is the acceleration due to gravity and $H_o$ is the ocean surface height. The second to last term represents the Coriolis force and the last term represents the force due to the ocean surface tilt. Only the divergence of internal stress and ocean surface tilt terms depend on horizontal differential operators. During coupled simulations the ocean model provides the ocean surface tilt term, whereas in non-coupled simulations we assume that the ocean currents are in geostrophic balance so that
+Here $m$ is the mass of snow and ice per unit area, $\boldsymbol{u}$ is the sea-ice velocity, $\boldsymbol{\sigma}$ is the ice internal stress tensor, $\boldsymbol{\tau_a}$ and $\boldsymbol{\tau_w}$ are the horizontal stresses due to atmospheric winds and ocean currents respectively, $\boldsymbol{\hat{k}}$ is the unit vector normal to the Earth surface, $f$ is the Coriolis parameter, $g$ is the acceleration due to gravity and $H_o$ is the ocean surface height. The second to last term represents the Coriolis force and the last term represents the force due to the ocean surface tilt. Only the divergence of internal stress and ocean surface tilt terms depend on horizontal differential operators. During coupled simulations the ocean model provides the ocean surface tilt term, whereas in non-coupled simulations MPAS-Seaice assumes that the ocean currents are in geostrophic balance so that
 \begin{equation}
 mg \boldsymbol{\nabla}H_o = m f \boldsymbol{\hat{k}} \times \boldsymbol{u_o}
 \end{equation}
@@ -21,11 +21,11 @@ Determination of the divergence of the internal stress can be broken down into t
 \item The stress tensor at a point is determined, through a constitutive relation, from the strain rate tensor at that point.
 \item The divergence of this stress tensor is calculated. 
 \end{enumerate}
-As in CICE we use an Elastic-Viscous-Plastic (EVP) rheology \citep{Hunke97} for the constitutive relation. This step does not depend on the details of the horizontal mesh and we use the same formulation as CICE. We develop two schemes to calculate the strain rate tensor and the divergence of internal stress on MPAS meshes. A variational scheme is based on that used in CICE \citep{Hunke02}, whereas a weak scheme uses the line integral forms of the symmetric gradient and divergence operators. These schemes are described in the following sections.
+As in CICE an Elastic-Viscous-Plastic (EVP) rheology \citep{Hunke97} is used for the constitutive relation. This step does not depend on the details of the horizontal mesh and MPAS-Seaice uses the same formulation as CICE. Two schemes to calculate the strain rate tensor and the divergence of internal stress on MPAS meshes are implemented in MPAS-Seaice. A variational scheme is based on that used in CICE \citep{Hunke02}, whereas a weak scheme uses the line integral forms of the symmetric gradient and divergence operators. These schemes are described in the following sections.
 
-\subsubsection{Variational Scheme}
+\subsection{Variational Scheme}
 
-We develop a variational scheme for calculating the divergence of stress based on that of \citet{Hunke02} but adapted for arbitrarily shaped and sided convex polygons. This scheme is based on the fact that over the entire domain, $\Omega$, and ignoring boundary effects, the total work done by the internal stress is equal to the dissipation of mechanical energy:
+MPAS-Seaice implements a variational scheme for calculating the divergence of stress based on that of \citet{Hunke02} but adapted for arbitrarily shaped and sided convex polygons. This scheme is based on the fact that over the entire domain, $\Omega$, and ignoring boundary effects, the total work done by the internal stress is equal to the dissipation of mechanical energy:
 \begin{equation}
 \int_\Omega \boldsymbol{u} \cdot (\boldsymbol{\nabla} \cdot \boldsymbol{\sigma}) \mathrm{d}A = -\int_\Omega (\boldsymbol{\sigma_{11}} \boldsymbol{\dot{\epsilon}_{11}}  + 2 \boldsymbol{\sigma_{12}} \boldsymbol{\dot{\epsilon}_{12}} + \boldsymbol{\sigma_{22}} \boldsymbol{\dot{\epsilon}_{22}}) \mathrm{d}A.
 \label{eqn:work_done}
@@ -39,7 +39,7 @@ Writing the two components of the divergence of stress as $F_u=(\nabla \cdot \si
 \begin{equation}
 \sum_i^{n_d} \int_i (uF_u + vF_v) \mathrm{d}A = D(u_1, u_2, ..., u_n, v_1, v_2, ..., v_{n_d}).
 \end{equation}
-If we assume that within the dual cell the velocity is constant, it follows that
+If it is assumed that within the dual cell the velocity is constant, it follows that
 \begin{equation}
 \sum_i^{n_d} (u_i F_{ui} + v_i F_{vi}) A_{ui} = D(u_1, u_2, ..., u_n, v_1, v_2, ..., v_{n_d})
 \end{equation}
@@ -61,7 +61,7 @@ with
 \begin{equation}
 D_1=-\int  \boldsymbol{\sigma_{11}} \boldsymbol{\dot{\epsilon}_{11}} \mathrm{d}A ,\quad D_2=-\int  2 \boldsymbol{\sigma_{12}} \boldsymbol{\dot{\epsilon}_{12}} \mathrm{d}A, \quad D_3=-\int  \boldsymbol{\sigma_{22}} \boldsymbol{\dot{\epsilon}_{22}} \mathrm{d}A.
 \end{equation}
-We will calculate the contribution to $F_u$ and $F_v$ from $D_1$. Similar contributions come from $D_2$ and $D_3$. Using the expression for $\dot{\epsilon}_{11}$ in terms of the velocity components and latitude $\phi$, $D_1$ becomes
+The contribution to $F_u$ and $F_v$ from $D_1$ will be calculated. Similar contributions come from $D_2$ and $D_3$. Using the expression for $\dot{\epsilon}_{11}$ in terms of the velocity components and latitude $\phi$, $D_1$ becomes
 \begin{equation}
 D_1=-\int  \sigma_{11} \left[ \frac{\partial{u}}{\partial{x}} - \frac{v \tan{\phi}}{r} \right] \mathrm{d}A
 \end{equation}
@@ -72,7 +72,7 @@ D_1=- \sum_k^{n_p} \int_k  \sigma_{11} \left[ \frac{\partial{u}}{\partial{x}} - 
 \label{eqn:d_1}
 \end{equation}
 where the integral is over the interior area of the $k$th cell. 
-To perform this integral we use a set of basis functions, $\mathcal{W}_l$, to represent functions within a cell of the primary mesh. If a function, $\psi$, has a value of  $\psi_l$ at vertex $l$ of a cell, then the value of the function at a position $(x,y)$ within the cell can be approximated as
+To perform this integral a set of basis functions, $\mathcal{W}_l$, is used to represent functions within a cell of the primary mesh. If a function, $\psi$, has a value of  $\psi_l$ at vertex $l$ of a cell, then the value of the function at a position $(x,y)$ within the cell can be approximated as
 \begin{equation}
 \psi(x,y) = \sum_l^{n_v} \psi_l \mathcal{W}_l (x,y)
 \end{equation}
@@ -86,7 +86,7 @@ Rearranging
 \begin{equation}
 D_1= -\sum_k^{n_p} \sum_{l}^{n_v} \sum_{m}^{n_v} \sigma_{11{l}}\left( u_{m} \int_k  \mathcal{W}_{l}   \frac{\partial{\mathcal{W}_{m}}}{\partial{x}}  \mathrm{d}A  - \frac{\tan{\phi}}{r}  v_{m} \int_k \mathcal{W}_{l} \mathcal{W}_{m}  \mathrm{d}A  \right).
 \end{equation}
-In moving the integral, we have assumed that $\phi$, the latitude, is constant in the cell. The terms involving integrals are now only a function of the geometry of the mesh and can be calculated once during the initialization phase of the model run. Defining 
+In moving the integral, its has been assumed that $\phi$, the latitude, is constant in the cell. The terms involving integrals are now only a function of the geometry of the mesh and can be calculated once during the initialization phase of the model run. Defining 
 \begin{equation}
 \mathcal{S}^x_{lm} = \int_k  \mathcal{W}_{l}   \frac{\partial{\mathcal{W}_{m}}}{\partial{x}}  \mathrm{d}A
 \end{equation}
@@ -94,7 +94,7 @@ and
 \begin{equation}
 \mathcal{T}_{lm} = \int_k \mathcal{W}_{l} \mathcal{W}_{m}  \mathrm{d}A.
 \end{equation}
-we have
+then
 \begin{equation}
 D_1= -\sum_k^{n_p} \sum_{l}^{n_v} \sum_{m}^{n_v} \sigma_{11{l}}\left( u_{m} \mathcal{S}^x_{lm}  - \frac{\tan{\phi}}{r}  v_{m} \mathcal{T}_{lm}  \right).
 \end{equation}
@@ -112,7 +112,7 @@ Only cells that border the vertex point $j$ contribute to the $k$ sum over cells
 \begin{equation}
 (\nabla \cdot \sigma)_{v_j} = (\nabla \cdot \sigma)_{v_j}^{D_1} + (\nabla \cdot \sigma)_{v_j}^{D_2} + (\nabla \cdot \sigma)_{v_j}^{D_3}.
 \end{equation}
-All that remains now is to determine the stress for each cell at its vertices. As in the formulation in CICE, each cell has its own values of the stress at its vertices, so each vertex has several values of the stress, each corresponding to a different surrounding cell. The stresses are calculated from the strain rate tensor at each vertex using the constitutive relation. Including metric effects \citep{Batchelor67} the strain rate tensor is given by:
+The stress for each cell at its vertices now needs to be determined. As in the formulation in CICE, each cell has its own values of the stress at its vertices, so each vertex has several values of the stress, each corresponding to a different surrounding cell. The stresses are calculated from the strain rate tensor at each vertex using the constitutive relation. Including metric effects \citep{Batchelor67} the strain rate tensor is given by:
 \begin{equation}
 \dot{\epsilon}_{11} = \frac{\partial{u}}{\partial{x}} - \frac{v \tan{\phi}}{r}
 \end{equation}
@@ -134,13 +134,13 @@ The strain rate tensor at cell vertex $l$ is then given by
 \end{equation}
 The derivatives of the basis functions are taken at cell vertex $l$.
 
-In MPAS-Seaice we provide two options for the choice of basis functions, $\mathcal{W}_l$: Wachspress basis functions and Piece-Wise Linear (PWL) basis functions. Both basis functions have a value of one on vertex $l$ and zero on the other vertices of a cell, and are linear on the cell boundaries. The Wachspress basis functions are smooth rational polynomials in the cell interior \citep{Dasgupta03}. The integrals of the Wachspress basis function within a cell are performed using the eighth order quadrature rules of \citet{Dunavant85}. PWL basis functions divide the polygonal cell into sub-triangles and use a linear basis within each sub-triangle \citep{Bailey08}. To divide the polygonal cell into sub-triangles, a point is chosen within the cell and sub-triangles formed using this point and two adjacent vertices. The central point in the cell, $\mathbf{x}_c$,  is chosen as
+In MPAS-Seaice two options for the choice of basis functions, $\mathcal{W}_l$ are provided: Wachspress basis functions and Piece-Wise Linear (PWL) basis functions. Both basis functions have a value of one on vertex $l$ and zero on the other vertices of a cell, and are linear on the cell boundaries. The Wachspress basis functions are smooth rational polynomials in the cell interior \citep{Dasgupta03}. The integrals of the Wachspress basis function within a cell are performed using the eighth order quadrature rules of \citet{Dunavant85}. PWL basis functions divide the polygonal cell into sub-triangles and use a linear basis within each sub-triangle \citep{Bailey08}. To divide the polygonal cell into sub-triangles, a point is chosen within the cell and sub-triangles formed using this point and two adjacent vertices. The central point in the cell, $\mathbf{x}_c$,  is chosen as
 \begin{equation}
 \mathbf{x}_c = \sum_i^{n_v} \alpha_i \mathbf{x}_i
 \end{equation}
 where the sum is over the $n_v$ vertices of the cell each with position $\mathbf{x}_i$. The simplest choice for the $\alpha_i$ is to set them all equal to the inverse of the number of cell vertices, $1/n_v$. For quadrilateral meshes the Wachspress basis functions reduce to the bilinear basis functions used in CICE.
 
-\subsubsection{Weak Scheme}
+\subsection{Weak Scheme}
 
 \begin{figure}[]
 \centering
@@ -149,7 +149,7 @@ where the sum is over the $n_v$ vertices of the cell each with position $\mathbf
 \label{fig:mesh_weak}
 \end{figure}
 
-For the weak scheme we use line integrals around cells in the primary and dual meshes to calculate the strain rate tensor and the divergence of stress, respectively. To determine the strain rate tensor we start from the following vector identity:
+For the weak scheme line integrals around cells in the primary and dual meshes are used to calculate the strain rate tensor and the divergence of stress, respectively. To determine the strain rate tensor the following vector identity is used:
 \begin{equation}
 \boldsymbol{\nabla} \cdot (\boldsymbol{u} \otimes \boldsymbol{v}) = (\boldsymbol{u} \cdot \boldsymbol{\nabla}) \boldsymbol{v} + (\boldsymbol{\nabla} \cdot \boldsymbol{u}) \boldsymbol{v}
 \label{eqn:vector_identity}
@@ -160,12 +160,12 @@ and from the divergence theorem:
 \label{eqn:divergence_theorem}
 \end{equation}
 where $\boldsymbol{n}$ is a normal vector to the surface $S$ and $\otimes$ is the tensor product.
-If equation \ref{eqn:vector_identity} is integrated over $\Omega$, using equation \ref{eqn:divergence_theorem} we obtain
+If equation \ref{eqn:vector_identity} is integrated over $\Omega$, using equation \ref{eqn:divergence_theorem}
 \begin{equation}
 \int_\Omega \left[ (\boldsymbol{u} \cdot \boldsymbol{\nabla}) \boldsymbol{v} + (\boldsymbol{\nabla} \cdot \boldsymbol{u}) \boldsymbol{v} \right] \partial{\Omega} = \oint_S \left[(\boldsymbol{n} \cdot \boldsymbol{u}) \boldsymbol{v} \right] \partial{S}
 \label{eqn:weak1}
 \end{equation}
-If $\boldsymbol{u}$ is chosen as constant then $\boldsymbol{\nabla} \cdot \boldsymbol{u}$ vanishes as does the second term in equation \ref{eqn:weak1}. Taking, also, $\boldsymbol{u}$ sequentially as the cartesian unit vectors spanning $\Omega$ and summing the results we obtain
+If $\boldsymbol{u}$ is chosen as constant then $\boldsymbol{\nabla} \cdot \boldsymbol{u}$ vanishes as does the second term in equation \ref{eqn:weak1}. Taking, also, $\boldsymbol{u}$ sequentially as the cartesian unit vectors spanning $\Omega$ and summing the results
 \begin{equation}
 \int_\Omega \left[ \boldsymbol{\nabla} \boldsymbol{v} \right] \partial{\Omega} = \oint_S \left[ \boldsymbol{n} \otimes \boldsymbol{v} \right] \partial{S}
 \end{equation}
@@ -178,11 +178,11 @@ The strain rate at a point is then obtained from the limit
 \boldsymbol{\dot{\epsilon}} = \boldsymbol{\nabla}_S \boldsymbol{v} = \lim_{A \to 0} \frac{1}{A} \oint \frac{1}{2}\left[ \boldsymbol{n} \otimes \boldsymbol{v} + \boldsymbol{v} \otimes \boldsymbol{n} \right] \mathrm{d}l
 \end{equation}
 where the integral is around a closed loop with area $A$ and normal vector $\boldsymbol{n}$, and $\boldsymbol{v}$ is the sea-ice velocity.
-To determine the strain rate tensor at the centers of the primary mesh, we take this integration around the edges of the cells in the primary mesh. First the cell is projected onto a flat tangent plane perpendicular to the vector joining the center of the sphere to the cell center. We take the sea ice velocity at a cell edge as the average of the values on the two vertices forming that edge projected onto the tangent plane:
+To determine the strain rate tensor at the centers of the primary mesh, this integration is taken around the edges of the cells in the primary mesh. First the cell is projected onto a flat tangent plane perpendicular to the vector joining the center of the sphere to the cell center. The sea ice velocity at a cell edge is taken as the average of the values on the two vertices forming that edge projected onto the tangent plane:
 \begin{equation}
 \boldsymbol{\dot{\epsilon}}^\prime = \frac{1}{A} \sum_i^{n_e} \frac{1}{2} \left[ \boldsymbol{n}_i \otimes \boldsymbol{v}_i + \boldsymbol{v}_i \otimes \boldsymbol{n}_i \right] l_i
 \end{equation}
-Here, $A$ is the area of the primary cell, the summation is over the $n_e$ edges of the primary cell, $\boldsymbol{n}_i$ is the normal vector to the edge $i$ that lies in the tangent plane, $\boldsymbol{v}_i$ is the edge velocity and $l_i$ is the length of edge $i$. We use the tangental projection of the velocity and account for metric terms separately. The full strain rate tensor including these metric terms is \citep{Batchelor67}:
+Here, $A$ is the area of the primary cell, the summation is over the $n_e$ edges of the primary cell, $\boldsymbol{n}_i$ is the normal vector to the edge $i$ that lies in the tangent plane, $\boldsymbol{v}_i$ is the edge velocity and $l_i$ is the length of edge $i$. The tangental projection of the velocity is used and metric terms are accounted for separately. The full strain rate tensor including these metric terms is \citep{Batchelor67}:
 \begin{equation}
 \dot{\epsilon}_{11} = \dot{\epsilon}_{11}^\prime - \frac{v \tan{\phi}}{r}
 \end{equation}
@@ -193,7 +193,7 @@ Here, $A$ is the area of the primary cell, the summation is over the $n_e$ edges
 \dot{\epsilon}_{12} = \dot{\epsilon}_{12}^\prime + \frac{u \tan{\phi}}{2r}
 \end{equation}
 where the prime symbol signifies a strain rate without metric terms.
-The stress, which is determined from the strain rate tensor using the constitutive relation, is now defined on cell centers. To find its divergence we use the divergence theorem:
+The stress, which is determined from the strain rate tensor using the constitutive relation, is now defined on cell centers. To find its divergence the divergence theorem is used:
 \begin{equation}
 \iint \boldsymbol{\nabla} \cdot \boldsymbol{\sigma} \mathrm{d}A = \oint \left[ \boldsymbol{\sigma} \cdot \boldsymbol{n} \right] \mathrm{d}l
 \end{equation}
