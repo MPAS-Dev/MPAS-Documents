@@ -74,7 +74,7 @@
 \LARGE Los Alamos National Laboratory
 }
 
-\date{PUT RELEASE DATE HERE May 1, 2018}
+\date{April 18, 2018}
 
 \maketitle
 
@@ -82,7 +82,7 @@
 \input{ocean/foreword.tex}
 \input{ocean/history.tex}
 
-\tableofcontents
+%\tableofcontents
 
 \input{ocean/quick_start.tex}
 \input{ocean/support_policy.tex}
@@ -102,11 +102,10 @@
 % generation, currently the basin.F program.
 %\input{ocean/mpas_grid_generation.tex}
 
-\chapter{Description (edit name)}
-\label{chap:forward_mode}
+% mrp 2018/4/20.  This is an old command for "forward mode" documentation.
+% Need to remove soon.
 \newcommand{\mode}{forward}
-\input{ocean/mode_forward_header.tex}
-\input{ocean/mode_analysis_header.tex}
+
 \input{ocean/namelist_table_documentation.tex}
 \input{ocean/variable_table_documentation.tex}
 \input{ocean/test_case_descriptions.tex}
@@ -118,10 +117,10 @@
 \input{ocean/AM_meridional_heat_transport.tex}
 \input{ocean/AM_eliassen_palm.tex}
 \input{ocean/visualization.tex}
-\input{ocean/cesm_coupling.tex}
-\input{ocean/troubleshooting.tex}
+\input{ocean/E3SM_coupling.tex}
+%\input{ocean/troubleshooting.tex}
 \input{ocean/tested_setups.tex}
-\input{ocean/knownissues.tex}
+%\input{ocean/knownissues.tex}
 
 \part{Bibliography}
 \bibliographystyle{shared/ametsoc}

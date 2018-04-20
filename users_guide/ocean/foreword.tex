@@ -4,22 +4,30 @@ The Model for Prediction Across Scales-Ocean (MPAS-Ocean) is an unstructured-mes
 
 MPAS-Ocean is one component within the MPAS framework of climate models that is developed in cooperation between Los Alamos National Laboratory (LANL) and the National Center for Atmospheric Research (NCAR).  Functionality that is required by all cores, such as i/o, time management, block decomposition, etc, is developed collaboratively, and this code is shared across cores within the same repository.  Each core then solves its own differential equations and physical parameterizations within this framework.  This user's guide reflects the spirit of this collaborative process, where Part I, ``The MPAS Framework'', applies to all cores, and the remaining parts apply to MPAS-Ocean.
 
-This release of the ocean model brings with it several physics improvements, including support for CVMix to provide additional vertical mixing parameterizations, and the Gent-McWilliams mesoscale eddy parameterization. In addition to physics improvements, this release includes support for the ocean analysis core. Please see chapter \ref{chap:analysis_mode} for more information about how to use this mode. Within the MPAS framework, this release brings with it a large change in internal data structures (variable pools), and support for flexible run-time configurable I/O. 
+This release of the ocean model corresponds with the initial release of the Energy Exascale Earth System Model (E3SM) by the U.S. Department of Energy (see \href{https://e3sm.org}{https://e3sm.org/}).  E3SM includes MPAS components for ocean, sea ice, and land ice.  Each component may be run as a stand-alone model, or coupled within E3SM.  MPAS-Ocean now includes biogeochemistry modules, and the ability to control groups of tracers.
 
-Information about MPAS-Ocean, including the most recent code, user's guide, and test cases, may be found at \url{http://mpas-dev.github.com}.  This user's guide refers to version \version, with corresponding downloads at \href{http://mpas-dev.github.com/ocean/release_\version/release_\version.html}{release \version}. \\
+Information about MPAS-Ocean, including the most recent code, user's guide, and test cases, may be found at \url{http://mpas-dev.github.com}.  This user's guide refers to version \version.
+
 
 \vspace{8pt}
 \noindent
 {\bf Contributors to this guide:}\\
-Doug Jacobsen, Mark Petersen, Todd Ringler\\
+Mark R. Petersen, Xylar S. Asay-Davis, 
+Douglas W. Jacobsen, Mathew E. Maltrud, Todd D. Ringler,
+Luke P. Van Roekel, Milena Veneziani,
+Phillip J. Wolfram
+\\
 {\bf Additional contributors to MPAS Framework sections:}\\
-Michael Duda
+Michael Duda, Matthew Hoffman
 
 \vspace{8pt}
 \noindent
 {\scriptsize
-{\it Funding for the development of MPAS-Ocean was provided by the United States Department of Energy, Office of Science.} \\
-LA-UR-13-24348. Cover image created with assistance from Phillip Wolfram.}
+{\it This research was supported as part of the Energy Exascale Earth System Model
+(E3SM) project, funded by the U.S. Department of Energy, Office of Science,
+Office of Biological and Environmental Research.
+} \\
+LA-UR-13-24348. Cover image created by M. Petersen and P. Wolfram.}
 
 
 

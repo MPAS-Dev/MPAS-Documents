@@ -6,16 +6,17 @@ build and run the model. It is meant merely as a brief overview of the process,
 while the more detailed descriptions of each step are provided in later
 sections.
 
-In general, the build process follows the following steps.
+In general, the build process follows the following steps.  See Chapter 
+\ref{chap:tested-configurations} for recommended versions.
 
 \begin{enumerate}
 	\item Build MPI Layer (OpenMPI, MVAPICH2, etc.)
-	\item Build serial NetCDF library (v3.6.3, v4.1.3, etc.)
-	\item Build Parallel-NetCDF library (v1.2.1, v1.3.0, etc.)
-	\item Build Parallel I/O library (v1.4.1, v1.6.1, etc.)
-	\item (Optional) Build METIS library and executables (v4.0, v5.0.2, etc.)
+	\item Build serial NetCDF library
+	\item Build Parallel-NetCDF library
+	\item Build Parallel I/O library
+	\item (Optional) Build METIS library and executables
 	\item Checkout MPAS-Ocean from repository
-	\item Build ocean core
+	\item Build ocean core (e.g.\ {\tt make CORE=ocean})
 \end{enumerate}
 
 After step 7, an executable should be created called ocean\_model. Once the executable is built, one can begin the run process as follows:
@@ -24,7 +25,7 @@ After step 7, an executable should be created called ocean\_model. Once the exec
 	\item Create run directory.
 	\item Copy executable to run directory.
 	\item Copy namelist.input, input and graph files into run directory.  See test cases, Chapter \ref{sec:\core_test_cases}.  The standard first test case is the 10km-resolution baroclinic channel, available at\\
- \url{http://mpas-dev.github.com/ocean/release_\version/release_\version.html} \\
+ \url{http://mpas-dev.github.com/ocean/releases.html} \\
 as {\tt overflow\_10km\_40layer.tgz}.
 	\item Edit namelist.input to have the proper parameters. \\
 		  If step 4 was skipped, ensure paths to input and graph files are appropriately set.
