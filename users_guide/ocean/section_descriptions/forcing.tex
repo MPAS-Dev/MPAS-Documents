@@ -2,10 +2,10 @@ Forcing may be applied to the RHS of the momentum equation (\ref{ocean:momentum}
 \begin{equation}
 {\cal F}^u = \frac{1}{\rho_0 h}\tau \label{ocean:\mode_mom_surf_forcing}
 \end{equation}
-where $\tau$ is typically the wind stress in $N/m^2$ applied to the top layer.  More generally, momentum forcing may be applied to any layer in the ocean.  The momentum forcing may be constant or monthly, as described in the configuration settings below.  When running within the CESM, the wind stress is provided by the coupler (see Chapter \ref{chap:cesm_ocean_coupling}).
+where $\tau$ is typically the wind stress in $N/m^2$ applied to the top layer.  More generally, momentum forcing may be applied to any layer in the ocean.  The momentum forcing may be constant or monthly, as described in the configuration settings below.  When running within the E3SM, the wind stress is provided by the coupler (see Chapter \ref{chap:E3SM_ocean_coupling}).
 
 Temperature and salinity restoring are applied to the tracer equation (\ref{ocean:tracer}) through the term
 \begin{equation}
 {\cal F}^\varphi = -h\frac{\varphi-\varphi_{r}}{\tau_{r}}
 \end{equation}
-where $\varphi_{r}$ is the tracer restoring value and $\tau_{r}$ is the restoring timescale.  This term is only applied at the top layer, and may be constant or monthly, as described in the configuration settings below.  When running within the CESM, the coupler provides surface heat, salinity, and freshwater fluxes rather than a restoring in this form (see Chapter \ref{chap:cesm_ocean_coupling}).
+where $\varphi_{r}$ is the tracer restoring value and $\tau_{r}$ is the restoring timescale.  This term is only applied at the top layer, and may be constant or monthly, as described in the configuration settings below.  When running within the E3SM, the coupler provides surface heat, salinity, and freshwater fluxes rather than a restoring in this form (see Chapter \ref{chap:E3SM_ocean_coupling}).
