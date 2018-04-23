@@ -1,20 +1,16 @@
 \chapter{Test Cases}
 \label{chap:landice_test_cases}
 
-** \textbf{Is this an exhaustive description? It seems like we have more test cases at this point. Do we want to include SHMIP test cases here? There's a comment at the end about making realistic GIS and AIS meshes available. We could just add some coarse res. uniform meshes for now to get people started (e.g. GIS, AIS 20 km).} **
+This chapter describes detail of a couple of simple test cases that can easily be
+run by new users.
+It does not provide an exhaustive description of all the tests that have been added to MALI.
+Some additional tests are summarized in Chapter \ref{chap:landice-vv}.
+MPAS includes a test case system called "Configuration Of Model for Prediction Across Scales Setups" (COMPASS)
+located within the model source code at {\tt testing\_and\_setup/compass}.
+We hope to include instructions for setting up COMPASS tests in future releases.
 
-%Steve commented out line below because test case ARE currently available for download. 
-%Eventually test cases will be available for download.  Currently they are only part of the Development code for MPAS-Land Ice.  
+The test cases discussed below are available for download at \url{http://mpas-dev.github.io/land_ice/download.html}.
 
-The test cases discussed below are available for download \href{http://mpas-dev.github.io/land_ice/download.html}{here}.
-
-%% Steve added comment below, but then commented out, since Users do not have access to all of the code mentioned in
-%% this quick start file (e.g., mesh gen. tools).
-%For the test cases discussed below, additional information can be found in the detailed ``quick start" guide, found 
-%\href{https://github.com/MPAS-Dev/MPAS-Documents/blob/master/landice/reference_manual/mpas_landice_quickstart.txt}{here}.
-
-%%%All test cases can be downloaded from \url{http://mpas-dev.github.com}  The test cases for this version of the code are available at\\
-%%%\url{http://mpas-dev.github.com/ocean/release_\version/release_\version.}.
 
 \FloatBarrier
 
@@ -57,12 +53,12 @@ These values can be changed by editing \texttt{setup\_dome\_initial\_conditions.
 		Information about the test case.
 
 	\item namelist.landice: \\
-		This file is used for actually running the dome test case in the MPAS land ice core.  It may not include all options available to the model.  See the namelist.landice.defaults file in the MPAS root directory for a list of all options available.  They are also documented in Section \ref{sec:forward_namelist_tables}.
+		This file is used for actually running the dome test case in the MPAS land ice core.  It may not include all options available to the model.  See the namelist.landice.defaults file in the MPAS root directory for a list of all options available.  They are also documented in Section \ref{chap:namelist_tables}.
 
 	\item streams.landice: \\
 		This file is used for specifying file input/output settings for the model.
 
-	\item halfar.py: \\
+	\item check\_halfar\_solution.py: \\
 		This is the script to compare model results to the analytic solution.
 
 	\item visualize\_dome.py: \\
@@ -125,7 +121,7 @@ Currently only the Moving Margin 1 Test Case from EISMINT-1 is included.
 
 \begin{itemize}
 \item namelist.landice: \\
-	This file is used for actually running the dome test case in the MPAS land ice core.  It may not include all options available to the model.  See the namelist.landice.defaults file in the MPAS root directory for a list of all options available.  They are also documented in Section \ref{sec:forward_namelist_tables}.
+	This file is used for actually running the dome test case in the MPAS land ice core.  It may not include all options available to the model.  See the namelist.landice.defaults file in the MPAS root directory for a list of all options available.  They are also documented in Section \ref{chap:namelist_tables}.
 
 \item streams.landice: \\
 	This file is used for specifying file input/output settings for the model.
@@ -142,7 +138,7 @@ This script can be used to compare model output to results from the EISMINT inte
 		These provide grid partitioning information for running the test case on more than one processor.  
 
 \item setup\_initial\_conditions\_EISMINT1-MovingMargin-1.py \\
-This file can be used to setup the initial conditions for the test case.  If you downloaded a tar archive, you do not need to do this.  However, if you want to modify the IC for some reason, you can edit and run this script.
+This file can be used to setup the initial conditions for the test case.  If you downloaded a tar archive, you do not need to do this.  However, if you want to modify the initial condition for some reason, you can edit and run this script.
 
 \end{itemize}
 
@@ -158,17 +154,23 @@ You should see something similar to this:
 
 \begin{verbatim}
 ====================================
-Max modeled thickness (m) = 2974.79474126
+Max modeled thickness (m) = 2976.68217741
 EISMINT models ice thickness at divide (m):
   3d models (10 of them): 2978.0 +/- 19.3
   2d models (3 of them):  2982.2 +/- 26.4
+====================================
+
+====================================
+Basal homologous temperature at divide (deg C) = -13.0860572743
+EISMINT models basal temperature at divide (m):
+  3d models (6 of them): -13.34 +/- 0.56
 ====================================
 \end{verbatim}
 
 % ================================================================
 
 
-\section{Real World Test Cases}
-Eventually grids for real-world Greenland and Antarctica will be provided at varying resolutions.
+%\section{Real World Test Cases}
+%Eventually grids for real-world Greenland and Antarctica will be provided at varying resolutions.
 
 

@@ -39,7 +39,8 @@ where $\dot{\epsilon_{ij}}$ is the strain-rate tensor and $\eta_{e}$ is the ``ef
 \eta_{e}~=~\gamma A^{-\frac{1}{n}} \dot{\epsilon}_{e}^{\frac{1-n}{n}}.
 \label{eq:mobalGlen}
 \end{equation}
-In Equation \ref{eq:mobalGlen}, $A$ is a temperature dependent rate factor, $n$ is an exponent commonly taken as 3 for polycrystalline glacier ice, and $\gamma$ is an ice ``stiffness'' factor (inverse enhancement factor) commonly used to account for other impacts on ice rheology, such as impurities or crystal anisotropy (see also Section \ref{sec:optimInit}). The effective strain rate $\dot{\epsilon}_{e}$  is given by the second invariant of the strain-rate tensor,
+In Equation \ref{eq:mobalGlen}, $A$ is a temperature dependent rate factor, $n$ is an exponent commonly taken as 3 for polycrystalline glacier ice, and $\gamma$ is an ice ``stiffness'' factor (inverse enhancement factor) commonly used to account for other impacts on ice rheology, such as impurities or crystal anisotropy. 
+The effective strain rate $\dot{\epsilon}_{e}$  is given by the second invariant of the strain-rate tensor,
 \begin{equation}
 \dot{\epsilon}_{e}=\left(\frac{1}{2}\dot{\epsilon}_{ij}\dot{\epsilon}_{ij}\right)^{\frac{1}{2}},
 \label{eq:effstrain}
@@ -196,6 +197,7 @@ For all three boundary types, ice temperature is averaged from the neighboring l
 
 
 \begin{figure}[t]
+\centering
 \includegraphics[width=7.0cm]{landice/figures/mpas_grid_albany_bc.pdf}
 \caption{Correspondence between MPAS and Albany meshes and application of boundary conditions for the first-order velocity solver.
 Solid black lines are cells on the Voronoi mesh and dashed gray lines are triangles on the Delaunay Triangulation.

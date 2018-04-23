@@ -20,8 +20,10 @@ Some others check that the model gives bit-for-bit
 exact answers on different numbers of processors.
 All but 20 of the longer running tests are run every time new features are added to the code,
 and these tests each also include a check for answer changes.
-The verification and benchmark descriptions below are the most 
-important examples from the larger test suite.
+This chapter describes the configuration and analysis of some of the more
+significant tests.
+Detailed description of tests that can easily be run by new users are described
+in Chapter \ref{chap:landice_test_cases}.
 
 \section{Halfar analytic solution}
 In \citep{Halfar1981,Halfar1983}, Halfar
@@ -50,6 +52,7 @@ providing confidence in the advection scheme applied to variable resolution mesh
 The variable resolution mesh has about half the cells of the 1000 m uniform resolution mesh.
 
 \begin{figure}[t]
+\centering
 \includegraphics[width=7.3cm]{landice/figures/halfar_convergence_and_mesh.pdf}
 \caption{a) Root mean square error in ice thickness as a function of grid cell spacing for the Halfar dome after 200 years shown with black dots.  
 The order of convergence is 0.78.
@@ -140,11 +143,12 @@ where we assume the range reported in by \citet{payne2000} is symmetric about th
 For experiments B, C, and D reported values are the change from experiment A results.
 MALI results that lie outside the range of values in \citet{payne2000} are italicized.
 }
+\centerline{
 \begin{tabular}{llccccc}
 %\tophline
 \hline
-Experiment & Model  &  Volume & Area & Melt fraction & Divide thickness & Divide basal temperature \\
-           &        &  $10^6$ km$^3$ & $10^6$ km$^2$ & & m & K \\
+Exp. & Model  &  Volume & Area & Melt fraction & Divide thickness & Divide basal \\
+           &        &  $10^6$ km$^3$ & $10^6$ km$^2$ & & m & temperature K \\
 %\middlehline
 \hline
 A          & EISMINT2 & 2.128$\pm$0.0725 & 1.034$\pm$0.043 & 0.718$\pm$0.145 & 3688.3$\pm$48.3 & 255.6$\pm$1.4  \\
@@ -152,7 +156,7 @@ A          & EISMINT2 & 2.128$\pm$0.0725 & 1.034$\pm$0.043 & 0.718$\pm$0.145 & 3
            & MALI   & 2.097          & 1.030         & 0.637         & 3671.8        & 255.2  \\  % now
 %\middlehline
 \hline
-Experiment & Model  &  \% change & \% change & \% change & \% change & change (K)\\
+Exp. & Model  &  \% change & \% change & \% change & \% change & change (K)\\
 %\middlehline
 \hline
 B          & EISMINT2 & -2.589$\pm$0.4735 & 0.0$\pm$0.0 & 11.836$\pm$9.3345 & -4.9$\pm$0.658 & 4.6$\pm$0.259  \\
@@ -167,12 +171,14 @@ D          & EISMINT2 & -12.085$\pm$0.618 & -9.489$\pm$1.63 & -1.613$\pm$2.8725 
 %\bottomhline
 \hline
 \end{tabular}
+}
 %\belowtable{} % Table Footnotes
  \label{table-EISMINT2}
 \end{table*}
 
 
 \begin{figure}[t]
+\centering
 \includegraphics[width=16.0cm]{landice/figures/eismint_basal_temps.pdf}
 \caption{a) Basal homologous temperature (K) for EISMINT2 Experiment A. b) Same for Experiment F.
 Figures are plotted following \citet{payne2000}.
@@ -261,6 +267,7 @@ These results are included in the MISMIP+ results paper in preparation and not s
 
 
 \begin{figure}[t]
+\centering
 \includegraphics[width=10.0cm]{landice/figures/MISMIP3d_Stnd_convergence_plot.pdf}
 \caption{
 Grid resolution convergence for MISMIP3d Stnd experiment with (gray squares) and without (black circles) grounding line parameterization.
@@ -269,6 +276,7 @@ Grid resolution convergence for MISMIP3d Stnd experiment with (gray squares) and
 \end{figure}
 
 \begin{figure}[t]
+\centering
 \includegraphics[width=16.0cm]{landice/figures/mismip3d.png}
 \caption{
 Results of the MISMIP3d P75R and P75S experiments from MALI at increasing grid resolution:
