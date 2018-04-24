@@ -1,0 +1,1725 @@
+\chapter[Namelist options]{\hyperref[chap:namelist_tables]{Namelist options}}
+\label{chap:namelist_sections}
+Embedded links point to information in chapter \ref{chap:namelist_tables}
+\section[velocity\_solver]{\hyperref[sec:nm_tab_velocity_solver]{velocity\_solver}}
+\label{sec:nm_sec_velocity_solver}
+\subsection[config\_velocity\_solver]{\hyperref[sec:nm_tab_velocity_solver]{config\_velocity\_solver}}
+\label{subsec:nm_sec_config_velocity_solver}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & sia \\
+    \hline
+    Possible Values: & 'sia', 'L1L2', 'FO', 'Stokes', 'simple', 'none' \\
+    \hline
+    \caption{config\_velocity\_solver: Selection of the method for solving ice velocity. 'L1L2', 'FO', and 'Stokes' require compiling with external dycores. 'none' skips the calculation of velocity so the velocity field will be 0 or set to a field read from an input file.  'simple' gives a simple prescribed velocity field computed at initialization.}
+\end{longtable}
+\end{center}
+\subsection[config\_sia\_tangent\_slope\_calculation]{\hyperref[sec:nm_tab_velocity_solver]{config\_sia\_tangent\_slope\_calculation}}
+\label{subsec:nm_sec_config_sia_tangent_slope_calculation}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & from\_vertex\_barycentric \\
+    \hline
+    Possible Values: & 'from\_vertex\_barycentric', 'from\_vertex\_barycentric\_kiteareas', 'from\_normal\_slope' \\
+    \hline
+    \caption{config\_sia\_tangent\_slope\_calculation: Selection of the method for calculating the tangent component of surface slope at edges needed by the SIA velocity solver. 'from\_vertex\_barycentric' interpolates upperSurface values from cell centers to vertices using the barycentric interpolation routine in operators (mpas\_cells\_to\_points\_using\_baryweights) and then calculates the slope between vertices.  It works for obtuse triangles, but will not work correctly across the edges of periodic meshes. 'from\_vertex\_barycentric\_kiteareas' interpolates upperSurface values from cell centers to vertices using barycentric interpolation based on kiterea values and then calculates the slope between vertices.  It will work across the edges of periodic meshes, but will not work correctly for obtuse triangles. 'from\_normal\_slope' uses the vector operator mpas\_tangential\_vector\_1d to calculate the tangent slopes from the normal slopes on the edges of the adjacent cells.  It will work for any mesh configuration, but is the least accurate method.}
+\end{longtable}
+\end{center}
+\subsection[config\_flowParamA\_calculation]{\hyperref[sec:nm_tab_velocity_solver]{config\_flowParamA\_calculation}}
+\label{subsec:nm_sec_config_flowParamA_calculation}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & constant \\
+    \hline
+    Possible Values: & 'constant', 'PB1982', 'CP2010' \\
+    \hline
+    \caption{config\_flowParamA\_calculation: Selection of the method for calculating the flow law parameter A.  If 'constant' is selected, the value is set to config\_default\_flowParamA.  The other options are calculated from the temperature field.  This calculation only applies if config\_velocity\_solver is set to 'sia'.  For the 'FO' velocity solver, this is set in the albany\_input.xml file.}
+\end{longtable}
+\end{center}
+\subsection[config\_do\_velocity\_reconstruction\_for\_external\_dycore]{\hyperref[sec:nm_tab_velocity_solver]{config\_do\_velocity\_reconstruction\_for\_external\_dycore}}
+\label{subsec:nm_sec_config_do_velocity_reconstruction_for_external_dycore}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_do\_velocity\_reconstruction\_for\_external\_dycore: By default, external, higher-order dycores return the uReconstructX and uReconstructY fields (which are the native locations of their FEM solution).  If this option is set to .true., uReconstructX and uReconstructY will be calculated by MPAS using framework's vector reconstruction routines based on the values of normalVelocity supplied by the external dycore.  This provides a way to test the calculation of normalVelocity in the interface.}
+\end{longtable}
+\end{center}
+\subsection[config\_simple\_velocity\_type]{\hyperref[sec:nm_tab_velocity_solver]{config\_simple\_velocity\_type}}
+\label{subsec:nm_sec_config_simple_velocity_type}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & uniform \\
+    \hline
+    Possible Values: & 'uniform', 'radial' \\
+    \hline
+    \caption{config\_simple\_velocity\_type: Selection of the type of simple velocity field computed at initialization when config\_velocity\_solver = 'simple'.  See mode\_forward/mpas\_li\_velocity\_simple.F for details of what the options do.}
+\end{longtable}
+\end{center}
+\subsection[config\_use\_glp]{\hyperref[sec:nm_tab_velocity_solver]{config\_use\_glp}}
+\label{subsec:nm_sec_config_use_glp}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & .true. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_use\_glp: If true, then apply Albany's grounding line parameterization}
+\end{longtable}
+\end{center}
+\subsection[config\_beta\_use\_effective\_pressure]{\hyperref[sec:nm_tab_velocity_solver]{config\_beta\_use\_effective\_pressure}}
+\label{subsec:nm_sec_config_beta_use_effective_pressure}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_beta\_use\_effective\_pressure: If true, then multiply beta by effective pressure before passing to Albany.  This allows, e.g., a Weertman basal friction law with an effective pressure term.  Note that basal friction still needs to be selected in Albany xml file.}
+\end{longtable}
+\end{center}
+\section[advection]{\hyperref[sec:nm_tab_advection]{advection}}
+\label{sec:nm_sec_advection}
+\subsection[config\_thickness\_advection]{\hyperref[sec:nm_tab_advection]{config\_thickness\_advection}}
+\label{subsec:nm_sec_config_thickness_advection}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & fo \\
+    \hline
+    Possible Values: & 'fo', 'none' \\
+    \hline
+    \caption{config\_thickness\_advection: Selection of the method for advecting thickness ('fo' = first-order upwinding).}
+\end{longtable}
+\end{center}
+\subsection[config\_tracer\_advection]{\hyperref[sec:nm_tab_advection]{config\_tracer\_advection}}
+\label{subsec:nm_sec_config_tracer_advection}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & none \\
+    \hline
+    Possible Values: & 'fo', 'none' \\
+    \hline
+    \caption{config\_tracer\_advection: Selection of the method for advecting tracers.}
+\end{longtable}
+\end{center}
+\section[calving]{\hyperref[sec:nm_tab_calving]{calving}}
+\label{sec:nm_sec_calving}
+\subsection[config\_calving]{\hyperref[sec:nm_tab_calving]{config\_calving}}
+\label{subsec:nm_sec_config_calving}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & none \\
+    \hline
+    Possible Values: & 'none', 'floating', 'topographic\_threshold', 'thickness\_threshold', 'eigencalving'  \\
+    \hline
+    \caption{config\_calving: Selection of the method for calving ice (as defined further below).}
+\end{longtable}
+\end{center}
+\subsection[config\_calving\_topography]{\hyperref[sec:nm_tab_calving]{config\_calving\_topography}}
+\label{subsec:nm_sec_config_calving_topography}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & \si{m} \\
+    \hline
+    Default Value: & -500.0 \\
+    \hline
+    Possible Values: & Any non-positive real value \\
+    \hline
+    \caption{config\_calving\_topography: Defines the topographic height below which ice calves (for topographic\_threshold option).}
+\end{longtable}
+\end{center}
+\subsection[config\_calving\_thickness]{\hyperref[sec:nm_tab_calving]{config\_calving\_thickness}}
+\label{subsec:nm_sec_config_calving_thickness}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & \si{m.of.ice} \\
+    \hline
+    Default Value: & 100.0 \\
+    \hline
+    Possible Values: & Any positive real value \\
+    \hline
+    \caption{config\_calving\_thickness: Defines the ice thickness below which ice calves (for thickness\_threshold option).}
+\end{longtable}
+\end{center}
+\subsection[config\_calving\_eigencalving\_parameter\_source]{\hyperref[sec:nm_tab_calving]{config\_calving\_eigencalving\_parameter\_source}}
+\label{subsec:nm_sec_config_calving_eigencalving_parameter_source}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & \si{none} \\
+    \hline
+    Default Value: & scalar \\
+    \hline
+    Possible Values: & 'data' ('eigencalvingParameter' field read from input file), 'scalar' (specified by config\_calving\_eigencalving\_parameter\_scalar\_value) \\
+    \hline
+    \caption{config\_calving\_eigencalving\_parameter\_source: Source of the eigencalving parameter value}
+\end{longtable}
+\end{center}
+\subsection[config\_calving\_eigencalving\_parameter\_scalar\_value]{\hyperref[sec:nm_tab_calving]{config\_calving\_eigencalving\_parameter\_scalar\_value}}
+\label{subsec:nm_sec_config_calving_eigencalving_parameter_scalar_value}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & \si{m.s} \\
+    \hline
+    Default Value: & 3.14e16 \\
+    \hline
+    Possible Values: & any positive real number \\
+    \hline
+    \caption{config\_calving\_eigencalving\_parameter\_scalar\_value: Value of eigencalving parameter if taken as a scalar by option config\_calving\_eigencalving\_parameter\_source. (Default value is 1.0e9 m a converted to units used here.)}
+\end{longtable}
+\end{center}
+\subsection[config\_data\_calving]{\hyperref[sec:nm_tab_calving]{config\_data\_calving}}
+\label{subsec:nm_sec_config_data_calving}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_data\_calving: Select whether or not to configure calving in a 'data' model mode (calc. calving flux but do not update ice geometry)}
+\end{longtable}
+\end{center}
+\subsection[config\_calving\_timescale]{\hyperref[sec:nm_tab_calving]{config\_calving\_timescale}}
+\label{subsec:nm_sec_config_calving_timescale}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & \si{s} \\
+    \hline
+    Default Value: & 0.0 \\
+    \hline
+    Possible Values: & Any non-negative real value \\
+    \hline
+    \caption{config\_calving\_timescale: Defines the timescale for calving. The fraction of eligible ice that calves is min(dt/calving\_timescale, 1.0). A value of 0 means that all eligible ice calves.}
+\end{longtable}
+\end{center}
+\subsection[config\_restore\_calving\_front]{\hyperref[sec:nm_tab_calving]{config\_restore\_calving\_front}}
+\label{subsec:nm_sec_config_restore_calving_front}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_restore\_calving\_front: If true, then restore the calving front to its initial position.  If ice grows beyond the initial extent, it is removed.  If ice shrinks to an extent behind the initial extent, those locations are filled with thin ice (defined as 1/10th the value of config\_dynamic\_thickness).  Note that this violates conservation of mass and energy.}
+\end{longtable}
+\end{center}
+\section[thermal\_solver]{\hyperref[sec:nm_tab_thermal_solver]{thermal\_solver}}
+\label{sec:nm_sec_thermal_solver}
+\subsection[config\_thermal\_solver]{\hyperref[sec:nm_tab_thermal_solver]{config\_thermal\_solver}}
+\label{subsec:nm_sec_config_thermal_solver}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & none \\
+    \hline
+    Possible Values: & 'none', 'temperature', 'enthalpy' \\
+    \hline
+    \caption{config\_thermal\_solver: Selection of the method for the vertical thermal solver (possible values are described further below).}
+\end{longtable}
+\end{center}
+\subsection[config\_thermal\_calculate\_bmb]{\hyperref[sec:nm_tab_thermal_solver]{config\_thermal\_calculate\_bmb}}
+\label{subsec:nm_sec_config_thermal_calculate_bmb}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & .true. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_thermal\_calculate\_bmb: Determines if basal and internal melting calculated by the thermal solver should contribute to basal mass balance or be ignored.}
+\end{longtable}
+\end{center}
+\subsection[config\_temperature\_init]{\hyperref[sec:nm_tab_thermal_solver]{config\_temperature\_init}}
+\label{subsec:nm_sec_config_temperature_init}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & file \\
+    \hline
+    Possible Values: & 'sfc\_air\_temperature', 'linear', 'file' \\
+    \hline
+    \caption{config\_temperature\_init: Selection of the method for initializing the ice temperature (as described further below).}
+\end{longtable}
+\end{center}
+\subsection[config\_thermal\_thickness]{\hyperref[sec:nm_tab_thermal_solver]{config\_thermal\_thickness}}
+\label{subsec:nm_sec_config_thermal_thickness}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & \si{m.of.ice} \\
+    \hline
+    Default Value: & 1.0 \\
+    \hline
+    Possible Values: & Any positive real value \\
+    \hline
+    \caption{config\_thermal\_thickness: Defines the minimum ice thickness for conducting thermal calculations. Ice thinner than this value is ignored by the thermal solver.}
+\end{longtable}
+\end{center}
+\subsection[config\_surface\_air\_temperature\_source]{\hyperref[sec:nm_tab_thermal_solver]{config\_surface\_air\_temperature\_source}}
+\label{subsec:nm_sec_config_surface_air_temperature_source}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & file \\
+    \hline
+    Possible Values: & 'constant', 'file', 'lapse' \\
+    \hline
+    \caption{config\_surface\_air\_temperature\_source: Selection of the method for setting the surface air temperature. 'constant' uses the value set by config\_surface\_air\_temperature\_value.  'file' reads the field from an input or forcing file or ESM coupler. 'lapse' uses the value of config\_surface\_air\_temperature\_value at elevation 0 with a lapse rate applied from config\_surface\_air\_temperature\_lapse\_rate.}
+\end{longtable}
+\end{center}
+\subsection[config\_surface\_air\_temperature\_value]{\hyperref[sec:nm_tab_thermal_solver]{config\_surface\_air\_temperature\_value}}
+\label{subsec:nm_sec_config_surface_air_temperature_value}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & \si{Kelvin} \\
+    \hline
+    Default Value: & 273.15 \\
+    \hline
+    Possible Values: & Any positive real value \\
+    \hline
+    \caption{config\_surface\_air\_temperature\_value: Constant value of the surface air temperature.}
+\end{longtable}
+\end{center}
+\subsection[config\_surface\_air\_temperature\_lapse\_rate]{\hyperref[sec:nm_tab_thermal_solver]{config\_surface\_air\_temperature\_lapse\_rate}}
+\label{subsec:nm_sec_config_surface_air_temperature_lapse_rate}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & \si{K.m^{-1}} \\
+    \hline
+    Default Value: & 0.01 \\
+    \hline
+    Possible Values: & Any real value \\
+    \hline
+    \caption{config\_surface\_air\_temperature\_lapse\_rate: Lapse rate to apply to surface air temperature when config\_surface\_air\_temperature\_source='lapse'. Positive values lead to colder temperatures at higher elevations.}
+\end{longtable}
+\end{center}
+\subsection[config\_basal\_heat\_flux\_source]{\hyperref[sec:nm_tab_thermal_solver]{config\_basal\_heat\_flux\_source}}
+\label{subsec:nm_sec_config_basal_heat_flux_source}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & file \\
+    \hline
+    Possible Values: & 'constant', 'file'  'constant' uses the value set by config\_basal\_heat\_flux\_value.  'file' reads the field from an input or forcing file or ESM coupler. \\
+    \hline
+    \caption{config\_basal\_heat\_flux\_source: Selection of the method for setting the basal heat flux.}
+\end{longtable}
+\end{center}
+\subsection[config\_basal\_heat\_flux\_value]{\hyperref[sec:nm_tab_thermal_solver]{config\_basal\_heat\_flux\_value}}
+\label{subsec:nm_sec_config_basal_heat_flux_value}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & \si{W.m^{-2}} \\
+    \hline
+    Default Value: & 0.0 \\
+    \hline
+    Possible Values: & Any positive real value \\
+    \hline
+    \caption{config\_basal\_heat\_flux\_value: Constant value of the basal heat flux (positive upward).}
+\end{longtable}
+\end{center}
+\subsection[config\_basal\_mass\_bal\_float]{\hyperref[sec:nm_tab_thermal_solver]{config\_basal\_mass\_bal\_float}}
+\label{subsec:nm_sec_config_basal_mass_bal_float}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & none \\
+    \hline
+    Possible Values: & 'none', 'file', 'constant', 'mismip', 'seroussi' \\
+    \hline
+    \caption{config\_basal\_mass\_bal\_float: Selection of the method for computing the basal mass balance of floating ice.  'none' sets the basalMassBal field to 0 everywhere.  'file' uses without modification whatever value was read in through an input or forcing file or the value set by an ESM coupler.  'constant', 'mismip', 'seroussi' use hardcoded fields defined in the code.}
+\end{longtable}
+\end{center}
+\subsection[config\_basal\_mass\_bal\_seroussi\_amplitude]{\hyperref[sec:nm_tab_thermal_solver]{config\_basal\_mass\_bal\_seroussi\_amplitude}}
+\label{subsec:nm_sec_config_basal_mass_bal_seroussi_amplitude}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & \si{m} \\
+    \hline
+    Default Value: & 0.0 \\
+    \hline
+    Possible Values: & any positive real value \\
+    \hline
+    \caption{config\_basal\_mass\_bal\_seroussi\_amplitude: amplitude on the depth adjustment applied to the Seroussi subglacial melt parameterization}
+\end{longtable}
+\end{center}
+\subsection[config\_basal\_mass\_bal\_seroussi\_period]{\hyperref[sec:nm_tab_thermal_solver]{config\_basal\_mass\_bal\_seroussi\_period}}
+\label{subsec:nm_sec_config_basal_mass_bal_seroussi_period}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & \si{a} \\
+    \hline
+    Default Value: & 1.0 \\
+    \hline
+    Possible Values: & any positive real value \\
+    \hline
+    \caption{config\_basal\_mass\_bal\_seroussi\_period: period of the periodic depth adjustment applied to the Seroussi subglacial melt parameterization}
+\end{longtable}
+\end{center}
+\subsection[config\_basal\_mass\_bal\_seroussi\_phase]{\hyperref[sec:nm_tab_thermal_solver]{config\_basal\_mass\_bal\_seroussi\_phase}}
+\label{subsec:nm_sec_config_basal_mass_bal_seroussi_phase}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & \si{cycles} \\
+    \hline
+    Default Value: & 0.0 \\
+    \hline
+    Possible Values: & any positive real value \\
+    \hline
+    \caption{config\_basal\_mass\_bal\_seroussi\_phase: phase of the periodic depth adjustment applied to the Seroussi subglacial melt parameterization. Units are cycles, i.e., 0-1}
+\end{longtable}
+\end{center}
+\subsection[config\_bmlt\_float\_flux]{\hyperref[sec:nm_tab_thermal_solver]{config\_bmlt\_float\_flux}}
+\label{subsec:nm_sec_config_bmlt_float_flux}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & \si{W.m^{-2}} \\
+    \hline
+    Default Value: & 0.0 \\
+    \hline
+    Possible Values: & Any positive real value \\
+    \hline
+    \caption{config\_bmlt\_float\_flux: Value of the constant heat flux applied to the base of floating ice (positive upward).}
+\end{longtable}
+\end{center}
+\subsection[config\_bmlt\_float\_xlimit]{\hyperref[sec:nm_tab_thermal_solver]{config\_bmlt\_float\_xlimit}}
+\label{subsec:nm_sec_config_bmlt_float_xlimit}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & \si{m} \\
+    \hline
+    Default Value: & 0.0 \\
+    \hline
+    Possible Values: & Any positive real value \\
+    \hline
+    \caption{config\_bmlt\_float\_xlimit: x value defining region where bmlt\_float\_flux is applied; melt only where abs(x) is greater than xlimit.}
+\end{longtable}
+\end{center}
+\section[physical\_parameters]{\hyperref[sec:nm_tab_physical_parameters]{physical\_parameters}}
+\label{sec:nm_sec_physical_parameters}
+\subsection[config\_ice\_density]{\hyperref[sec:nm_tab_physical_parameters]{config\_ice\_density}}
+\label{subsec:nm_sec_config_ice_density}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & \si{kg.m^{-3}} \\
+    \hline
+    Default Value: & 910.0 \\
+    \hline
+    Possible Values: & Any positive real value \\
+    \hline
+    \caption{config\_ice\_density: ice density to use (assumed constant and uniform)}
+\end{longtable}
+\end{center}
+\subsection[config\_ocean\_density]{\hyperref[sec:nm_tab_physical_parameters]{config\_ocean\_density}}
+\label{subsec:nm_sec_config_ocean_density}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & \si{kg.m^{-3}} \\
+    \hline
+    Default Value: & 1028.0 \\
+    \hline
+    Possible Values: & Any positive real value \\
+    \hline
+    \caption{config\_ocean\_density: ocean density to use for calculating floatation (assumed constant and uniform)}
+\end{longtable}
+\end{center}
+\subsection[config\_sea\_level]{\hyperref[sec:nm_tab_physical_parameters]{config\_sea\_level}}
+\label{subsec:nm_sec_config_sea_level}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & \si{m.above.datum} \\
+    \hline
+    Default Value: & 0.0 \\
+    \hline
+    Possible Values: & Any real value \\
+    \hline
+    \caption{config\_sea\_level: sea level to use for calculating floatation (assumed constant and uniform)}
+\end{longtable}
+\end{center}
+\subsection[config\_default\_flowParamA]{\hyperref[sec:nm_tab_physical_parameters]{config\_default\_flowParamA}}
+\label{subsec:nm_sec_config_default_flowParamA}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & \si{s^{-1}.Pa^{-n}} \\
+    \hline
+    Default Value: & 3.1709792e-24 \\
+    \hline
+    Possible Values: & Any positive real value \\
+    \hline
+    \caption{config\_default\_flowParamA: Defines the default value of the flow law parameter A to be used if it is not being calculated from ice temperature.  This value will be used by either the sia or FO velocity solver if they are respectively configured to use a scalar A value.  Defaults to the SI representation of 1.0e-16 yr$^{-1}$ Pa$^{-3}$.}
+\end{longtable}
+\end{center}
+\subsection[config\_enhancementFactor]{\hyperref[sec:nm_tab_physical_parameters]{config\_enhancementFactor}}
+\label{subsec:nm_sec_config_enhancementFactor}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & \si{none} \\
+    \hline
+    Default Value: & 1.0 \\
+    \hline
+    Possible Values: & Any positive real value \\
+    \hline
+    \caption{config\_enhancementFactor: multiplier on the flow parameter A}
+\end{longtable}
+\end{center}
+\subsection[config\_flowLawExponent]{\hyperref[sec:nm_tab_physical_parameters]{config\_flowLawExponent}}
+\label{subsec:nm_sec_config_flowLawExponent}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & \si{none} \\
+    \hline
+    Default Value: & 3.0 \\
+    \hline
+    Possible Values: & Any real value \\
+    \hline
+    \caption{config\_flowLawExponent: Defines the value of the Glen flow law exponent, n. This value will be used by either the sia or FO velocity solver.  A value other than 3.0 is untested.}
+\end{longtable}
+\end{center}
+\subsection[config\_dynamic\_thickness]{\hyperref[sec:nm_tab_physical_parameters]{config\_dynamic\_thickness}}
+\label{subsec:nm_sec_config_dynamic_thickness}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & \si{m.of.ice} \\
+    \hline
+    Default Value: & 10.0 \\
+    \hline
+    Possible Values: & Any positive real value \\
+    \hline
+    \caption{config\_dynamic\_thickness: Defines the ice thickness below which dynamics are not calculated (and hence ice velocity is set to 0).}
+\end{longtable}
+\end{center}
+\section[time\_integration]{\hyperref[sec:nm_tab_time_integration]{time\_integration}}
+\label{sec:nm_sec_time_integration}
+\subsection[config\_dt]{\hyperref[sec:nm_tab_time_integration]{config\_dt}}
+\label{subsec:nm_sec_config_dt}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & 0001-00-00\_00:00:00 \\
+    \hline
+    Possible Values: & Any time interval of the format 'YYYY-MM-DD\_HH:MM:SS', but limited by CFL condition. \\
+    \hline
+    \caption{config\_dt: Length of model time step defined as a time interval.}
+\end{longtable}
+\end{center}
+\subsection[config\_time\_integration]{\hyperref[sec:nm_tab_time_integration]{config\_time\_integration}}
+\label{subsec:nm_sec_config_time_integration}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & forward\_euler \\
+    \hline
+    Possible Values: & 'forward\_euler' \\
+    \hline
+    \caption{config\_time\_integration: Time integration method (currently, only forward Euler is supported).}
+\end{longtable}
+\end{center}
+\subsection[config\_adaptive\_timestep]{\hyperref[sec:nm_tab_time_integration]{config\_adaptive\_timestep}}
+\label{subsec:nm_sec_config_adaptive_timestep}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_adaptive\_timestep: Determines if the time step should be adjusted based on the CFL condition or should be steady in time. If true, the config\_dt\_* options are ignored.}
+\end{longtable}
+\end{center}
+\subsection[config\_min\_adaptive\_timestep]{\hyperref[sec:nm_tab_time_integration]{config\_min\_adaptive\_timestep}}
+\label{subsec:nm_sec_config_min_adaptive_timestep}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & \si{s} \\
+    \hline
+    Default Value: & 0.0 \\
+    \hline
+    Possible Values: & Any non-negative real value. \\
+    \hline
+    \caption{config\_min\_adaptive\_timestep: The minimum allowable time step in seconds.  If the CFL condition dictates the time step should be shorter than this, then the model aborts.}
+\end{longtable}
+\end{center}
+\subsection[config\_max\_adaptive\_timestep]{\hyperref[sec:nm_tab_time_integration]{config\_max\_adaptive\_timestep}}
+\label{subsec:nm_sec_config_max_adaptive_timestep}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & \si{s} \\
+    \hline
+    Default Value: & 3.15e9 \\
+    \hline
+    Possible Values: & Any non-negative real value. \\
+    \hline
+    \caption{config\_max\_adaptive\_timestep: The maximum allowable time step in seconds. If the allowable time step determined by the adaptive CFL calculation is longer than this, then the model will specify config\_max\_adaptive\_timestep as the time step instead. Defaults to 100 years (in seconds).}
+\end{longtable}
+\end{center}
+\subsection[config\_adaptive\_timestep\_CFL\_fraction]{\hyperref[sec:nm_tab_time_integration]{config\_adaptive\_timestep\_CFL\_fraction}}
+\label{subsec:nm_sec_config_adaptive_timestep_CFL_fraction}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & \si{none} \\
+    \hline
+    Default Value: & 0.25 \\
+    \hline
+    Possible Values: & Any positive real value less than 1.0. \\
+    \hline
+    \caption{config\_adaptive\_timestep\_CFL\_fraction: A multiplier on the minimum allowable time step calculated from the CFL condition. (Setting to 1.0 may be unstable, so smaller values are recommended.)}
+\end{longtable}
+\end{center}
+\subsection[config\_adaptive\_timestep\_include\_DCFL]{\hyperref[sec:nm_tab_time_integration]{config\_adaptive\_timestep\_include\_DCFL}}
+\label{subsec:nm_sec_config_adaptive_timestep_include_DCFL}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & \si{none} \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_adaptive\_timestep\_include\_DCFL: Option of whether to include the diffusive CFL condition in the determination of the maximum allowable timestep. The diffusive CFL condition at any location is estimated based on the local ice flux and surface slope.}
+\end{longtable}
+\end{center}
+\subsection[config\_adaptive\_timestep\_force\_interval]{\hyperref[sec:nm_tab_time_integration]{config\_adaptive\_timestep\_force\_interval}}
+\label{subsec:nm_sec_config_adaptive_timestep_force_interval}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & 1000-00-00\_00:00:00 \\
+    \hline
+    Possible Values: & Any time interval of the format 'YYYY-MM-DD\_HH:MM:SS'. (items in the format string may be dropped from the left if not needed, and the components on either side of the underscore may be replaced with a single integer representing the rightmost unit) \\
+    \hline
+    \caption{config\_adaptive\_timestep\_force\_interval: If adaptive timestep is enabled, the model will ensure a timestep ends at multiples of this interval.  This is useful for ensuring that model output is written at a specific desired interval (rather than the closest time after) or when running coupled to an earth system model that expects a certain interval.}
+\end{longtable}
+\end{center}
+\section[time\_management]{\hyperref[sec:nm_tab_time_management]{time\_management}}
+\label{sec:nm_sec_time_management}
+\subsection[config\_do\_restart]{\hyperref[sec:nm_tab_time_management]{config\_do\_restart}}
+\label{subsec:nm_sec_config_do_restart}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_do\_restart: Determines if the initial conditions should be read from a restart file, or an input file.  To perform a restart, set this to true in the namelist.input file.  The restart time will be read from config\_start\_time (which can be set to 'file' to have the restart time read automatically from the file defined by config\_restart\_timestamp\_name). A restart will read everything from the restart file - no information is read from the 'input' stream.  It will perform a run normally, except velocity will not be solved on a restart.}
+\end{longtable}
+\end{center}
+\subsection[config\_restart\_timestamp\_name]{\hyperref[sec:nm_tab_time_management]{config\_restart\_timestamp\_name}}
+\label{subsec:nm_sec_config_restart_timestamp_name}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & restart\_timestamp \\
+    \hline
+    Possible Values: & Path to a file. \\
+    \hline
+    \caption{config\_restart\_timestamp\_name: Path to the filename for restart timestamps to be read and written from.}
+\end{longtable}
+\end{center}
+\subsection[config\_start\_time]{\hyperref[sec:nm_tab_time_management]{config\_start\_time}}
+\label{subsec:nm_sec_config_start_time}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & 0000-01-01\_00:00:00 \\
+    \hline
+    Possible Values: & 'YYYY-MM-DD\_HH:MM:SS' (items in the format string may be dropped from the left if not needed, and the components on either side of the underscore may be replaced with a single integer representing the rightmost unit) \\
+    \hline
+    \caption{config\_start\_time: Timestamp describing the initial time of the simulation.  If it is set to 'file', the initial time is read from the filename specified by config\_restart\_timestamp\_name (defaults to 'restart\_timestamp').}
+\end{longtable}
+\end{center}
+\subsection[config\_stop\_time]{\hyperref[sec:nm_tab_time_management]{config\_stop\_time}}
+\label{subsec:nm_sec_config_stop_time}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & 0000-01-01\_00:00:00 \\
+    \hline
+    Possible Values: & 'YYYY-MM-DD\_HH:MM:SS' or 'none' (items in the format string may be dropped from the left if not needed, and the components on either side of the underscore may be replaced with a single integer representing the rightmost unit) \\
+    \hline
+    \caption{config\_stop\_time: Timestamp describing the final time of the simulation. If it is set to 'none' the final time is determined from config\_start\_time and config\_run\_duration.  If config\_run\_duration is also specified, it takes precedence over config\_stop\_time.  Set config\_stop\_time to be equal to config\_start\_time (and config\_run\_duration to 'none') to perform a diagnostic solve only.}
+\end{longtable}
+\end{center}
+\subsection[config\_run\_duration]{\hyperref[sec:nm_tab_time_management]{config\_run\_duration}}
+\label{subsec:nm_sec_config_run_duration}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & none \\
+    \hline
+    Possible Values: & 'YYYY-MM-DD\_HH:MM:SS' or 'none' (items in the format string may be dropped from the left if not needed, and the components on either side of the underscore may be replaced with a single integer representing the rightmost unit) \\
+    \hline
+    \caption{config\_run\_duration: Timestamp describing the length of the simulation. If it is set to 'none' the duration is determined from config\_start\_time and config\_stop\_time. config\_run\_duration overrides inconsistent values of config\_stop\_time. If a time value is specified for config\_run\_duration, it must be greater than 0.}
+\end{longtable}
+\end{center}
+\subsection[config\_calendar\_type]{\hyperref[sec:nm_tab_time_management]{config\_calendar\_type}}
+\label{subsec:nm_sec_config_calendar_type}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & gregorian\_noleap \\
+    \hline
+    Possible Values: & 'gregorian', 'gregorian\_noleap' \\
+    \hline
+    \caption{config\_calendar\_type: Selection of the type of calendar that should be used in the simulation.}
+\end{longtable}
+\end{center}
+\section[io]{\hyperref[sec:nm_tab_io]{io}}
+\label{sec:nm_sec_io}
+\subsection[config\_stats\_interval]{\hyperref[sec:nm_tab_io]{config\_stats\_interval}}
+\label{subsec:nm_sec_config_stats_interval}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & integer \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & 0 \\
+    \hline
+    Possible Values: & Any positive integer value greater than or equal to 0. \\
+    \hline
+    \caption{config\_stats\_interval: Integer specifying interval (number of timesteps) for writing global/local statistics. If set to 0, then statistics are not written (except perhaps at startup, as determined by 'config\_write\_stats\_on\_startup'). Applies to statistics written to log file and not analysis member output written to netCDF files.}
+\end{longtable}
+\end{center}
+\subsection[config\_write\_stats\_on\_startup]{\hyperref[sec:nm_tab_io]{config\_write\_stats\_on\_startup}}
+\label{subsec:nm_sec_config_write_stats_on_startup}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_write\_stats\_on\_startup: Logical flag determining if statistics should be written prior to the first time step. Applies to statistics written to log file and not analysis member output written to netCDF files.}
+\end{longtable}
+\end{center}
+\subsection[config\_stats\_cell\_ID]{\hyperref[sec:nm_tab_io]{config\_stats\_cell\_ID}}
+\label{subsec:nm_sec_config_stats_cell_ID}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & integer \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & 1 \\
+    \hline
+    Possible Values: & Any positive integer value greater than or equal to 0. \\
+    \hline
+    \caption{config\_stats\_cell\_ID: global ID for the cell selected for local statistics/diagnostics. Applies to statistics written to log file and not analysis member output written to netCDF files.}
+\end{longtable}
+\end{center}
+\subsection[config\_write\_output\_on\_startup]{\hyperref[sec:nm_tab_io]{config\_write\_output\_on\_startup}}
+\label{subsec:nm_sec_config_write_output_on_startup}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & .true. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_write\_output\_on\_startup: Logical flag determining if an output file should be written prior to the first time step.}
+\end{longtable}
+\end{center}
+\subsection[config\_pio\_num\_iotasks]{\hyperref[sec:nm_tab_io]{config\_pio\_num\_iotasks}}
+\label{subsec:nm_sec_config_pio_num_iotasks}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & integer \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & 0 \\
+    \hline
+    Possible Values: & Any positive integer value greater than or equal to 0. \\
+    \hline
+    \caption{config\_pio\_num\_iotasks: Integer specifying how many IO tasks should be used within the PIO library. A value of 0 causes all MPI tasks to also be IO tasks. IO tasks are required to write contiguous blocks of data to a file.  Optimal performance is typically found by having 1-2 tasks per node performing I/O.  To do so, config\_pio\_num\_iotasks must be manually set in conjunction with config\_pio\_stride as appropriate for the processor layout used. For example, running on 240 processors on a machine with 24 processors per node, setting config\_pio\_num\_iotasks=20 and config\_pio\_stride=12 would configure two I/O tasks per node.}
+\end{longtable}
+\end{center}
+\subsection[config\_pio\_stride]{\hyperref[sec:nm_tab_io]{config\_pio\_stride}}
+\label{subsec:nm_sec_config_pio_stride}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & integer \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & 1 \\
+    \hline
+    Possible Values: & Any positive integer value greater than 0. \\
+    \hline
+    \caption{config\_pio\_stride: Integer specifying the stride of each IO task. See config\_pio\_num\_iotasks for details.}
+\end{longtable}
+\end{center}
+\subsection[config\_year\_digits]{\hyperref[sec:nm_tab_io]{config\_year\_digits}}
+\label{subsec:nm_sec_config_year_digits}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & integer \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & 4 \\
+    \hline
+    Possible Values: & Any positive integer value greater than 0. \\
+    \hline
+    \caption{config\_year\_digits: Integer specifying the number of digits used to represent the year in time strings.}
+\end{longtable}
+\end{center}
+\subsection[config\_output\_external\_velocity\_solver\_data]{\hyperref[sec:nm_tab_io]{config\_output\_external\_velocity\_solver\_data}}
+\label{subsec:nm_sec_config_output_external_velocity_solver_data}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_output\_external\_velocity\_solver\_data: If .true., external velocity solvers (if enabled) will write their own output data in addition to any MPAS output that is configured.}
+\end{longtable}
+\end{center}
+\subsection[config\_write\_albany\_ascii\_mesh]{\hyperref[sec:nm_tab_io]{config\_write\_albany\_ascii\_mesh}}
+\label{subsec:nm_sec_config_write_albany_ascii_mesh}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_write\_albany\_ascii\_mesh: Logical flag determining if ascii mesh files will be created.  These files are written in a format that can be used by the standalone Albany velocity solver for optimization.  If .true., the model initializes, writes the mesh files, and then terminates.}
+\end{longtable}
+\end{center}
+\section[decomposition]{\hyperref[sec:nm_tab_decomposition]{decomposition}}
+\label{sec:nm_sec_decomposition}
+\subsection[config\_num\_halos]{\hyperref[sec:nm_tab_decomposition]{config\_num\_halos}}
+\label{subsec:nm_sec_config_num_halos}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & integer \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & 2 \\
+    \hline
+    Possible Values: & Any positive interger value. \\
+    \hline
+    \caption{config\_num\_halos: Determines the number of halo cells extending from a blocks owned cells (Called the 0-Halo). The default first-order upwinding advection requires a minimum of 2.  Note that a minimum of 3 is required for incremental remapping advection on a quad mesh or for FCT advection (neither of which is currently supported for land ice).}
+\end{longtable}
+\end{center}
+\subsection[config\_block\_decomp\_file\_prefix]{\hyperref[sec:nm_tab_decomposition]{config\_block\_decomp\_file\_prefix}}
+\label{subsec:nm_sec_config_block_decomp_file_prefix}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & graph.info.part. \\
+    \hline
+    Possible Values: & Any path/prefix to a block decomposition file. \\
+    \hline
+    \caption{config\_block\_decomp\_file\_prefix: Defines the prefix for the block decomposition file. Can include a path. The number of blocks is appended to the end of the prefix at run-time.}
+\end{longtable}
+\end{center}
+\subsection[config\_number\_of\_blocks]{\hyperref[sec:nm_tab_decomposition]{config\_number\_of\_blocks}}
+\label{subsec:nm_sec_config_number_of_blocks}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & integer \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & 0 \\
+    \hline
+    Possible Values: & Any integer $>=$ 0. \\
+    \hline
+    \caption{config\_number\_of\_blocks: Determines the number of blocks a simulation should be run with. If it is set to 0, the number of blocks is the same as the number of MPI tasks at run-time.}
+\end{longtable}
+\end{center}
+\subsection[config\_explicit\_proc\_decomp]{\hyperref[sec:nm_tab_decomposition]{config\_explicit\_proc\_decomp}}
+\label{subsec:nm_sec_config_explicit_proc_decomp}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_explicit\_proc\_decomp: Determines if an explicit processor decomposition should be used. This is only useful if multiple blocks per processor are used.}
+\end{longtable}
+\end{center}
+\subsection[config\_proc\_decomp\_file\_prefix]{\hyperref[sec:nm_tab_decomposition]{config\_proc\_decomp\_file\_prefix}}
+\label{subsec:nm_sec_config_proc_decomp_file_prefix}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & graph.info.part. \\
+    \hline
+    Possible Values: & Any path/prefix to a processor decomposition file. \\
+    \hline
+    \caption{config\_proc\_decomp\_file\_prefix: Defines the prefix for the processor decomposition file. This file is only read if config\_explicit\_proc\_decomp is .true. The number of processors is appended to the end of the prefix at run-time.}
+\end{longtable}
+\end{center}
+\section[debug]{\hyperref[sec:nm_tab_debug]{debug}}
+\label{sec:nm_sec_debug}
+\subsection[config\_print\_thickness\_advection\_info]{\hyperref[sec:nm_tab_debug]{config\_print\_thickness\_advection\_info}}
+\label{subsec:nm_sec_config_print_thickness_advection_info}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_print\_thickness\_advection\_info: Prints additional information about thickness advection.}
+\end{longtable}
+\end{center}
+\subsection[config\_print\_calving\_info]{\hyperref[sec:nm_tab_debug]{config\_print\_calving\_info}}
+\label{subsec:nm_sec_config_print_calving_info}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_print\_calving\_info: Prints additional information about calving physics (if enabled).}
+\end{longtable}
+\end{center}
+\subsection[config\_print\_thermal\_info]{\hyperref[sec:nm_tab_debug]{config\_print\_thermal\_info}}
+\label{subsec:nm_sec_config_print_thermal_info}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_print\_thermal\_info: Prints additional information about thermal calculations (if enabled).}
+\end{longtable}
+\end{center}
+\subsection[config\_always\_compute\_fem\_grid]{\hyperref[sec:nm_tab_debug]{config\_always\_compute\_fem\_grid}}
+\label{subsec:nm_sec_config_always_compute_fem_grid}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_always\_compute\_fem\_grid: Always compute finite-element grid information for external dycores rather than only doing so when the ice extent changes.}
+\end{longtable}
+\end{center}
+\subsection[config\_print\_velocity\_cleanup\_details]{\hyperref[sec:nm_tab_debug]{config\_print\_velocity\_cleanup\_details}}
+\label{subsec:nm_sec_config_print_velocity_cleanup_details}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_print\_velocity\_cleanup\_details: After velocity is calculated there are a few checks for appropriate values in certain geometric configurations.  Setting this option to .true. will cause detailed information about those adjustments to be printed.}
+\end{longtable}
+\end{center}
+\section[subglacial\_hydro]{\hyperref[sec:nm_tab_subglacial_hydro]{subglacial\_hydro}}
+\label{sec:nm_sec_subglacial_hydro}
+\subsection[config\_SGH]{\hyperref[sec:nm_tab_subglacial_hydro]{config\_SGH}}
+\label{subsec:nm_sec_config_SGH}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_SGH: activate subglacial hydrology model}
+\end{longtable}
+\end{center}
+\subsection[config\_SGH\_adaptive\_timestep\_fraction]{\hyperref[sec:nm_tab_subglacial_hydro]{config\_SGH\_adaptive\_timestep\_fraction}}
+\label{subsec:nm_sec_config_SGH_adaptive_timestep_fraction}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & 1.0 \\
+    \hline
+    Possible Values: & positive real number \\
+    \hline
+    \caption{config\_SGH\_adaptive\_timestep\_fraction: fraction of adaptive CFL timestep to use}
+\end{longtable}
+\end{center}
+\subsection[config\_SGH\_max\_adaptive\_timestep]{\hyperref[sec:nm_tab_subglacial_hydro]{config\_SGH\_max\_adaptive\_timestep}}
+\label{subsec:nm_sec_config_SGH_max_adaptive_timestep}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & \si{s} \\
+    \hline
+    Default Value: & 3.15e9 \\
+    \hline
+    Possible Values: & Any non-negative real value. \\
+    \hline
+    \caption{config\_SGH\_max\_adaptive\_timestep: The maximum allowable time step in seconds. If the allowable time step determined by the adaptive CFL calculation is longer than this, then the model will specify config\_SGH\_max\_adaptive\_timestep as the time step instead.  Defaults to 100 years (in seconds).}
+\end{longtable}
+\end{center}
+\subsection[config\_SGH\_tangent\_slope\_calculation]{\hyperref[sec:nm_tab_subglacial_hydro]{config\_SGH\_tangent\_slope\_calculation}}
+\label{subsec:nm_sec_config_SGH_tangent_slope_calculation}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & from\_normal\_slope \\
+    \hline
+    Possible Values: & 'from\_vertex\_barycentric', 'from\_vertex\_barycentric\_kiteareas', 'from\_normal\_slope' \\
+    \hline
+    \caption{config\_SGH\_tangent\_slope\_calculation: Selection of the method for calculating the tangent component of slope at edges. 'from\_vertex\_barycentric' interpolates scalar values from cell centers to vertices using the barycentric interpolation routine in operators (mpas\_cells\_to\_points\_using\_baryweights) and then calculates the slope between vertices.  It works for obtuse triangles, but will not work correctly across the edges of periodic meshes. 'from\_vertex\_barycentric\_kiteareas' interpolates scalar values from cell centers to vertices using barycentric interpolation based on kiterea values and then calculates the slope between vertices.  It will work across the edges of periodic meshes, but will not work correctly for obtuse triangles. 'from\_normal\_slope' uses the vector operator mpas\_tangential\_vector\_1d to calculate the tangent slopes from the normal slopes on the edges of the adjacent cells.  It will work for any mesh configuration, but is the least accurate method.}
+\end{longtable}
+\end{center}
+\subsection[config\_SGH\_pressure\_calc]{\hyperref[sec:nm_tab_subglacial_hydro]{config\_SGH\_pressure\_calc}}
+\label{subsec:nm_sec_config_SGH_pressure_calc}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & cavity \\
+    \hline
+    Possible Values: & 'cavity', 'overburden' \\
+    \hline
+    \caption{config\_SGH\_pressure\_calc: Selection of the method for calculating water pressure. 'cavity' closes the hydrology equations by assuming cavities are always completely full. 'overburden' assumes water pressure is always equal to ice overburden pressure.}
+\end{longtable}
+\end{center}
+\subsection[config\_SGH\_alpha]{\hyperref[sec:nm_tab_subglacial_hydro]{config\_SGH\_alpha}}
+\label{subsec:nm_sec_config_SGH_alpha}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & 1.25 \\
+    \hline
+    Possible Values: & positive real number \\
+    \hline
+    \caption{config\_SGH\_alpha: power of alpha parameter in subglacial water flux formula}
+\end{longtable}
+\end{center}
+\subsection[config\_SGH\_beta]{\hyperref[sec:nm_tab_subglacial_hydro]{config\_SGH\_beta}}
+\label{subsec:nm_sec_config_SGH_beta}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & 1.5 \\
+    \hline
+    Possible Values: & positive real number \\
+    \hline
+    \caption{config\_SGH\_beta: power of beta parameter in subglacial water flux formula}
+\end{longtable}
+\end{center}
+\subsection[config\_SGH\_conduc\_coeff]{\hyperref[sec:nm_tab_subglacial_hydro]{config\_SGH\_conduc\_coeff}}
+\label{subsec:nm_sec_config_SGH_conduc_coeff}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & \si{m^(2*beta-alpha).s^(2*beta-3).kg^(1-beta)} \\
+    \hline
+    Default Value: & 0.001 \\
+    \hline
+    Possible Values: & positive real number \\
+    \hline
+    \caption{config\_SGH\_conduc\_coeff: conductivity coefficient for subglacial water flux}
+\end{longtable}
+\end{center}
+\subsection[config\_SGH\_till\_drainage]{\hyperref[sec:nm_tab_subglacial_hydro]{config\_SGH\_till\_drainage}}
+\label{subsec:nm_sec_config_SGH_till_drainage}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & \si{m.s^{-1}} \\
+    \hline
+    Default Value: & 3.1709792e-11 \\
+    \hline
+    Possible Values: & positive real number.  Default value is 0.001 m/yr in SI units. \\
+    \hline
+    \caption{config\_SGH\_till\_drainage: background subglacial till drainage rate}
+\end{longtable}
+\end{center}
+\subsection[config\_SGH\_advection]{\hyperref[sec:nm_tab_subglacial_hydro]{config\_SGH\_advection}}
+\label{subsec:nm_sec_config_SGH_advection}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & \si{none} \\
+    \hline
+    Default Value: & fo \\
+    \hline
+    Possible Values: & 'fo','fct' \\
+    \hline
+    \caption{config\_SGH\_advection: Advection method for SGH. 'fo'=first-order upwind; 'fct'=flux-corrected transport. FCT currently not enabled.}
+\end{longtable}
+\end{center}
+\subsection[config\_SGH\_bed\_roughness]{\hyperref[sec:nm_tab_subglacial_hydro]{config\_SGH\_bed\_roughness}}
+\label{subsec:nm_sec_config_SGH_bed_roughness}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & \si{m^{-1}} \\
+    \hline
+    Default Value: & 0.5 \\
+    \hline
+    Possible Values: & positive real number \\
+    \hline
+    \caption{config\_SGH\_bed\_roughness: cavitation coefficient}
+\end{longtable}
+\end{center}
+\subsection[config\_SGH\_bed\_roughness\_max]{\hyperref[sec:nm_tab_subglacial_hydro]{config\_SGH\_bed\_roughness\_max}}
+\label{subsec:nm_sec_config_SGH_bed_roughness_max}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & \si{m} \\
+    \hline
+    Default Value: & 0.1 \\
+    \hline
+    Possible Values: & positive real number \\
+    \hline
+    \caption{config\_SGH\_bed\_roughness\_max: bed roughness scale}
+\end{longtable}
+\end{center}
+\subsection[config\_SGH\_creep\_coefficient]{\hyperref[sec:nm_tab_subglacial_hydro]{config\_SGH\_creep\_coefficient}}
+\label{subsec:nm_sec_config_SGH_creep_coefficient}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & \si{none} \\
+    \hline
+    Default Value: & 0.04 \\
+    \hline
+    Possible Values: & positive real number \\
+    \hline
+    \caption{config\_SGH\_creep\_coefficient: creep closure coefficient}
+\end{longtable}
+\end{center}
+\subsection[config\_SGH\_englacial\_porosity]{\hyperref[sec:nm_tab_subglacial_hydro]{config\_SGH\_englacial\_porosity}}
+\label{subsec:nm_sec_config_SGH_englacial_porosity}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & \si{none} \\
+    \hline
+    Default Value: & 0.01 \\
+    \hline
+    Possible Values: & positive real number \\
+    \hline
+    \caption{config\_SGH\_englacial\_porosity: notional englacial porosity}
+\end{longtable}
+\end{center}
+\subsection[config\_SGH\_till\_max]{\hyperref[sec:nm_tab_subglacial_hydro]{config\_SGH\_till\_max}}
+\label{subsec:nm_sec_config_SGH_till_max}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & \si{m} \\
+    \hline
+    Default Value: & 2.0 \\
+    \hline
+    Possible Values: & positive real number \\
+    \hline
+    \caption{config\_SGH\_till\_max: maximum water thickness in subglacial till}
+\end{longtable}
+\end{center}
+\subsection[config\_SGH\_chnl\_active]{\hyperref[sec:nm_tab_subglacial_hydro]{config\_SGH\_chnl\_active}}
+\label{subsec:nm_sec_config_SGH_chnl_active}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_SGH\_chnl\_active: activate channels in subglacial hydrology model}
+\end{longtable}
+\end{center}
+\subsection[config\_SGH\_chnl\_alpha]{\hyperref[sec:nm_tab_subglacial_hydro]{config\_SGH\_chnl\_alpha}}
+\label{subsec:nm_sec_config_SGH_chnl_alpha}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & 1.25 \\
+    \hline
+    Possible Values: & positive real number \\
+    \hline
+    \caption{config\_SGH\_chnl\_alpha: power of alpha parameter in subglacial water flux formula (in channels)}
+\end{longtable}
+\end{center}
+\subsection[config\_SGH\_chnl\_beta]{\hyperref[sec:nm_tab_subglacial_hydro]{config\_SGH\_chnl\_beta}}
+\label{subsec:nm_sec_config_SGH_chnl_beta}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & 1.5 \\
+    \hline
+    Possible Values: & positive real number \\
+    \hline
+    \caption{config\_SGH\_chnl\_beta: power of beta parameter in subglacial water flux formula (in channels)}
+\end{longtable}
+\end{center}
+\subsection[config\_SGH\_chnl\_conduc\_coeff]{\hyperref[sec:nm_tab_subglacial_hydro]{config\_SGH\_chnl\_conduc\_coeff}}
+\label{subsec:nm_sec_config_SGH_chnl_conduc_coeff}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & \si{m^(2*beta-alpha).s^(2*beta-3).kg^(1-beta)} \\
+    \hline
+    Default Value: & 0.1 \\
+    \hline
+    Possible Values: & positive real number \\
+    \hline
+    \caption{config\_SGH\_chnl\_conduc\_coeff: conductivity coefficient (in channels)}
+\end{longtable}
+\end{center}
+\subsection[config\_SGH\_chnl\_creep\_coefficient]{\hyperref[sec:nm_tab_subglacial_hydro]{config\_SGH\_chnl\_creep\_coefficient}}
+\label{subsec:nm_sec_config_SGH_chnl_creep_coefficient}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & \si{none} \\
+    \hline
+    Default Value: & 0.04 \\
+    \hline
+    Possible Values: & positive real number \\
+    \hline
+    \caption{config\_SGH\_chnl\_creep\_coefficient: creep closure coefficient (in channels)}
+\end{longtable}
+\end{center}
+\subsection[config\_SGH\_incipient\_channel\_width]{\hyperref[sec:nm_tab_subglacial_hydro]{config\_SGH\_incipient\_channel\_width}}
+\label{subsec:nm_sec_config_SGH_incipient_channel_width}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & \si{m} \\
+    \hline
+    Default Value: & 2.0 \\
+    \hline
+    Possible Values: & positive real number \\
+    \hline
+    \caption{config\_SGH\_incipient\_channel\_width: width of sheet beneath/around channel that contributes to melt within the channel}
+\end{longtable}
+\end{center}
+\subsection[config\_SGH\_include\_pressure\_melt]{\hyperref[sec:nm_tab_subglacial_hydro]{config\_SGH\_include\_pressure\_melt}}
+\label{subsec:nm_sec_config_SGH_include_pressure_melt}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & \si{none} \\
+    \hline
+    Default Value: & .true. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_SGH\_include\_pressure\_melt: whether to include the pressure melt term in the rate of channel opening}
+\end{longtable}
+\end{center}
+\subsection[config\_SGH\_shmip\_forcing]{\hyperref[sec:nm_tab_subglacial_hydro]{config\_SGH\_shmip\_forcing}}
+\label{subsec:nm_sec_config_SGH_shmip_forcing}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & \si{none} \\
+    \hline
+    Default Value: & none \\
+    \hline
+    Possible Values: & 'none', 'C1'-'C4', 'D1'-'D5' \\
+    \hline
+    \caption{config\_SGH\_shmip\_forcing: calculate time-varying forcing specified by SHMIP experiments C or D}
+\end{longtable}
+\end{center}
+\subsection[config\_SGH\_basal\_melt]{\hyperref[sec:nm_tab_subglacial_hydro]{config\_SGH\_basal\_melt}}
+\label{subsec:nm_sec_config_SGH_basal_melt}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & \si{none} \\
+    \hline
+    Default Value: & file \\
+    \hline
+    Possible Values: & 'file', 'thermal', 'basal\_heat' \\
+    \hline
+    \caption{config\_SGH\_basal\_melt: source for the basalMeltInput term.  'file' takes whatever field was input and performs no calculation.  'thermal' uses the groundedBasalMassBal field calculated by the thermal model.  'basal\_heat' calculates a melt rate assuming the entirety of the basal heat flux (basalFrictionFlux+basalHeatFlux) goes to melting ice at the bed.  This is calculated in the SGH module and is independent of any calculations in the thermal model.}
+\end{longtable}
+\end{center}
+\section[AM\_globalStats]{\hyperref[sec:nm_tab_AM_globalStats]{AM\_globalStats}}
+\label{sec:nm_sec_AM_globalStats}
+\subsection[config\_AM\_globalStats\_enable]{\hyperref[sec:nm_tab_AM_globalStats]{config\_AM\_globalStats\_enable}}
+\label{subsec:nm_sec_config_AM_globalStats_enable}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_AM\_globalStats\_enable: If true, landice analysis member globalStats is called.}
+\end{longtable}
+\end{center}
+\subsection[config\_AM\_globalStats\_compute\_interval]{\hyperref[sec:nm_tab_AM_globalStats]{config\_AM\_globalStats\_compute\_interval}}
+\label{subsec:nm_sec_config_AM_globalStats_compute_interval}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & output\_interval \\
+    \hline
+    Possible Values: & Any valid time stamp, 'dt', or 'output\_interval' \\
+    \hline
+    \caption{config\_AM\_globalStats\_compute\_interval: Timestamp determining how often analysis member computations should be performed.}
+\end{longtable}
+\end{center}
+\subsection[config\_AM\_globalStats\_stream\_name]{\hyperref[sec:nm_tab_AM_globalStats]{config\_AM\_globalStats\_stream\_name}}
+\label{subsec:nm_sec_config_AM_globalStats_stream_name}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & globalStatsOutput \\
+    \hline
+    Possible Values: & Any existing stream name or 'none' \\
+    \hline
+    \caption{config\_AM\_globalStats\_stream\_name: Name of the stream that the globalStats analysis member should be tied to.}
+\end{longtable}
+\end{center}
+\subsection[config\_AM\_globalStats\_compute\_on\_startup]{\hyperref[sec:nm_tab_AM_globalStats]{config\_AM\_globalStats\_compute\_on\_startup}}
+\label{subsec:nm_sec_config_AM_globalStats_compute_on_startup}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & .true. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_AM\_globalStats\_compute\_on\_startup: Logical flag determining if analysis member computations occur on start-up.}
+\end{longtable}
+\end{center}
+\subsection[config\_AM\_globalStats\_write\_on\_startup]{\hyperref[sec:nm_tab_AM_globalStats]{config\_AM\_globalStats\_write\_on\_startup}}
+\label{subsec:nm_sec_config_AM_globalStats_write_on_startup}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & .true. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_AM\_globalStats\_write\_on\_startup: Logical flag determining if an analysis member write occurs on start-up.}
+\end{longtable}
+\end{center}
+\section[AM\_regionalStats]{\hyperref[sec:nm_tab_AM_regionalStats]{AM\_regionalStats}}
+\label{sec:nm_sec_AM_regionalStats}
+\subsection[config\_AM\_regionalStats\_enable]{\hyperref[sec:nm_tab_AM_regionalStats]{config\_AM\_regionalStats\_enable}}
+\label{subsec:nm_sec_config_AM_regionalStats_enable}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & .false. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_AM\_regionalStats\_enable: If true, landice analysis member regionalStats is called.}
+\end{longtable}
+\end{center}
+\subsection[config\_AM\_regionalStats\_compute\_interval]{\hyperref[sec:nm_tab_AM_regionalStats]{config\_AM\_regionalStats\_compute\_interval}}
+\label{subsec:nm_sec_config_AM_regionalStats_compute_interval}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & output\_interval \\
+    \hline
+    Possible Values: & Any valid time stamp, 'dt', or 'output\_interval' \\
+    \hline
+    \caption{config\_AM\_regionalStats\_compute\_interval: Timestamp determining how often analysis member computations should be performed.}
+\end{longtable}
+\end{center}
+\subsection[config\_AM\_regionalStats\_stream\_name]{\hyperref[sec:nm_tab_AM_regionalStats]{config\_AM\_regionalStats\_stream\_name}}
+\label{subsec:nm_sec_config_AM_regionalStats_stream_name}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & character \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & regionalStatsOutput \\
+    \hline
+    Possible Values: & Any existing stream name or 'none' \\
+    \hline
+    \caption{config\_AM\_regionalStats\_stream\_name: Name of the stream that the regionalStats analysis member should be tied to.}
+\end{longtable}
+\end{center}
+\subsection[config\_AM\_regionalStats\_compute\_on\_startup]{\hyperref[sec:nm_tab_AM_regionalStats]{config\_AM\_regionalStats\_compute\_on\_startup}}
+\label{subsec:nm_sec_config_AM_regionalStats_compute_on_startup}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & .true. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_AM\_regionalStats\_compute\_on\_startup: Logical flag determining if analysis member computations occur on start-up.}
+\end{longtable}
+\end{center}
+\subsection[config\_AM\_regionalStats\_write\_on\_startup]{\hyperref[sec:nm_tab_AM_regionalStats]{config\_AM\_regionalStats\_write\_on\_startup}}
+\label{subsec:nm_sec_config_AM_regionalStats_write_on_startup}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & logical \\
+    \hline
+    Units: & \si{unitless} \\
+    \hline
+    Default Value: & .true. \\
+    \hline
+    Possible Values: & .true. or .false. \\
+    \hline
+    \caption{config\_AM\_regionalStats\_write\_on\_startup: Logical flag determining if an analysis member write occurs on start-up.}
+\end{longtable}
+\end{center}

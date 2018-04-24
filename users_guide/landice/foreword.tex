@@ -1,38 +1,72 @@
 \chapter*{Foreword}
 \label{chap:foreword}
 
-The Model for Prediction Across Scales-Land Ice (MPAS-Land Ice) is an unstructured-mesh land ice model (ice sheets or glaciers) capable of using enhanced horizontal resolution in selected regions of the land ice domain.  This allows researchers to perform high-resolution regional simulations at a lower computational cost, while providing realistic ice flow from the low-resolution regions. Model domains may be spherical or on Cartesian domains.  MPAS-Land-Ice is being designed for large-scale, hi-resolution simulations of ice sheet dynamics, using a combination of Finite Difference, Finite Volume, and Finite Element Methods on variable resolution meshes.  MPAS-Land-Ice will initially be released with support for standard test cases used in verifying model performance. Eventually, support for standard ice sheet configurations will also be included (e.g., stand-alone Greenland and Antarctica simulations).
+The MPAS-Albany Land Ice (MALI) is an unstructured-mesh land ice model (ice sheets or glaciers) capable of using enhanced 
+horizontal resolution in selected regions of the land ice domain.  
+MALI is built using the Model for Prediction Across Scales (MPAS) framework for developing variable resolution Earth System Model components 
+and the Albany multi-physics code base for solution of coupled systems of partial-differential equations, which itself makes use of Trilinos solver libraries.  
+MALI includes a three-dimensional, first-order momentum balance solver (``Blatter-Pattyn") by linking to the Albany-LI ice sheet velocity solver,
+as well as an explicit shallow ice velocity solver.
+Evolution of ice geometry and tracers is handled through an explicit first-order
+horizontal advection scheme with vertical remapping.
+Evolution of ice temperature is treated using operator splitting of vertical diffusion and horizontal advection and can be configured to use either a temperature or enthalpy formulation.  
+MALI includes a mass-conserving subglacial hydrology model that supports distributed and/or channelized drainage and can optionally be coupled to ice dynamics.
+Options for calving include ``eigencalving'', which assumes calving rate is proportional to extensional strain rates.
+MALI has been evaluated against commonly used exact solutions and community benchmark experiments and shows the expected accuracy.
+It has been used in land ice evolution experiments estimating potential for future sea-level rise from ice sheets 
+(e.g., Ice2Sea international assessment project \citep{Shannon2013, edwards2014}).  
+MALI is the glacier component of the Energy Exascale Earth System Model (E3SM) version 1.0
+(\url{https://climatemodeling.science.energy.gov/projects/energy-exascale-earth-system-model}).
 
-Prototype dynamcial cores for MPAS-Land-Ice have shown good agreement with manufactured solutions and standard test cases, and have been used in land ice evolution experiments aimed at informing the IPCC AR5 on the potential for future sea-level rise from ice sheets (e.g., Ice2Sea international assessment project \citep{Shannon2013, Edwards2013b}).  Two dynamical cores are currently under development for implementation within MPAS-Land-Ice. These include a 1st-order accurate approximation to the momentum balance equations, a prototype of which has been described by \citet{Perego2012}, and a "full" Stokes momentum balance, described in \citet{Leng2012}. 
+MPAS-Albany Land Ice is one component within the Model for Prediction Across Scales (MPAS) framework of climate model components
+ that is developed in cooperation between Los Alamos National Laboratory (LANL) and the National Center for Atmospheric Research (NCAR).  
+Functionality that is required by all cores, such as i/o, time management, block decomposition, etc, is developed collaboratively, and this code is shared across cores within the same repository.  
+Each core then solves its own differential equations and physical parameterizations within this framework.  
+This user's guide reflects the spirit of this collaborative process, where Part I, ``The MPAS Framework'', applies to all cores, 
+and the remaining parts apply specifically to MPAS-Albany Land Ice.
 
-MPAS-Land Ice is one component within the MPAS framework of climate models that is developed in cooperation between Los Alamos National Laboratory (LANL) and the National Center for Atmospheric Research (NCAR).  Functionality that is required by all cores, such as i/o, time management, block decomposition, etc, is developed collaboratively, and this code is shared across cores within the same repository.  Each core then solves its own differential equations and physical parameterizations within this framework.  This user's guide reflects the spirit of this collaborative process, where Part I, ``The MPAS Framework'', applies to all cores, and the remaining parts apply to MPAS-Land Ice.
+MPAS-Albany Land Ice also makes use of the Albany/LI velocity solver (formally Albany/FELIX) for implementation of the first-order
+velocity solver.  Not all details of running and configuring that velocity solver are covered in this User's Guide.  
+We refer the user to Albany's website for more information about installing and running Albany: \url{https://github.com/gahansen/Albany}
 
-Here we would normally describe the new features of this version.  For the initial release, we will simply review the major features of the basic MPAS-Land Ice model.  We employ a finite-volume discretization of the ice continuity equation using a C-grid staggering in the horizontal.  The vertical coordinate is sigma.  The time-stepping method is Forward Euler (explicit).  Ice advection is performed by first-order upwinding.  No tracer advection is available at present. In the initial release velocity can only be solved using the Shallow Ice Approximation. 
+MPAS-Albany Land Ice is described by a model description paper currently in review in Geoscientific Model Descriptions at:
+\url{https://www.geosci-model-dev-discuss.net/gmd-2018-78/}
+Much of the information in this User's Guide is derived from the text of that paper.
 
+\section{Support Policy}
+The Department of Energy support for the MALI model fully realizes and embraces the importance of making the model source code, 
+the data and the application software tools publicly available, 
+and of communicating and informing the scientific community and the public about all stages of the project, its research and future plans.
+While MALI has become an open development project, we cannot commit ourselves to increased support to cover developmental versions. 
+We are committed though to provide limited support for the scientifically validated configurations of the model.
 
-A history of past releases of the Land Ice core within the MPAS version numbering scheme is as follows:
+\section{Release History}
+A history of releases of the Land Ice core within the MPAS version numbering scheme is as follows:
 
-\begin{tabular}{lll} 
+\begin{tabular}{p{1.5cm} p{3.7cm} p{10cm}} 
 \hline\hline version & date & description  \\
 \hline 
-2.0.0 & November 15, 2013 & Initial public release of Land Ice core (SIA velocity solver only) \\
+6.0 & April 17, 2018 & Addition of Albany FO velocity solver, thermal solver, subglacial hydrology model, calving, analysis members, coupling to E3SM.\\
 \hline 
-3.0.0 & November 18, 2013 & Fix bug in SIA slope calculation.  Introduction of run-time I/O streams. \\
+3.0 & November 18, 2014 & Fix bug in SIA slope calculation.  Introduction of run-time I/O streams. \\
+\hline 
+2.0 & November 15, 2013 & Initial public release of Land Ice core (SIA velocity solver only) \\
 \hline 
 \end{tabular} 
 
-Information about MPAS-Land Ice, including the most recent code, user's guide, and test cases, may be found at \url{http://mpas-dev.github.com}.  This user's guide refers to version \version.
+\section{Additional Information}
+Information about MPAS-Albany Land Ice, including the most recent code, user's guide, and test cases, may be found at \url{http://mpas-dev.github.com}.  This user's guide refers to version \version.
 
 \vspace{8pt}
 \noindent
 {\bf Contributors to this guide:}\\
-Matt Hoffman, Stephen Price\\
+Matt Hoffman, Stephen Price, Mauro Perego\\
 {\bf Additional contributors to MPAS Framework sections:}\\
 Michael Duda, Douglas Jacobsen
 
 \vspace{8pt}
 \noindent
-{\it Funding for the development of MPAS-Land Ice was provided by the United States Department of Energy, Office of Science.}
+{\it Funding for the development of MPAS-Albany Land Ice was provided by the United States Department of Energy, Office of Science.}
 
 
 

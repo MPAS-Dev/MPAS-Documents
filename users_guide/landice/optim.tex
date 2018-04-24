@@ -1,0 +1,42 @@
+\chapter{Optimization}
+\label{chap:landice-optim}
+
+
+
+\subsection{Optimization}
+\label{sec:optimInit}
+MALI includes an optimization capability through its coupling to the Albany-LI momentum-balance solver described in Section \ref{sec:foMomBal}. We provide a brief overview of this capability here, while referring to \cite{perego2014} for a complete description of the governing equations, solution methods, and example applications. In general, our approaches are similar to those reported on for other advanced ice sheet modeling frameworks already described in the literature \citep[e.g.,][]{Goldberg2011b,Larour2012,gagliardini2013,brinkerhoff2013,Cornford2013} and focus (here) primarily on optimizing the model velocity field relative to observed surface velocities. Briefly, we consider the optimization functional 
+
+%\begin{equation}\label{eq:JSi}
+%{\ensuremath{\mathcal J}}(\beta) = \fint_{\Sigma}
+%\frac{1}{2\sigma_u^2}|{\boldsymbol{u}}_{s} - {\boldsymbol{u}}_{s}^{{{\ensuremath{\text{obs}}}}}|^2\,{d\boldsymbol{s}} + \mathcal R(\beta),
+%\end{equation}
+%%% version w/ mass bal. constraints and var. H here %%
+% \begin{equation}\label{eq:optimFunctional}
+% \begin{array}{ll}
+% {\ensuremath{\mathcal J}}(\beta, H) =& \displaystyle \fint_{\Sigma} \frac{1}{2\sigma_u^2}| {\boldsymbol{u}}_s - {\boldsymbol{u}}_s^{{{\ensuremath{\text{obs}}}}}|^2\,{d\boldsymbol{s}}\\
+%   & + \displaystyle \fint_{\Sigma} \frac{1}{2\sigma_{{\dot{M}}}^2} |\nabla \cdot({\mathbf{\bar{u}}} H) - \dot{M}|^2 \,{d\boldsymbol{s}} +
+% \mathcal R(\beta, H).
+% \end{array}
+% \end{equation}
+\begin{equation}
+\label{eq:optimFunctional}
+{\ensuremath{\mathcal J}}(\beta, \gamma) = \fint_{\Sigma}
+\frac{1}{2\sigma_u^2}|{\boldsymbol{u}}_{s} - {\boldsymbol{u}}_{s}^{{{\ensuremath{\text{obs}}}}}|^2\,{d\boldsymbol{s}} + \frac{c_{\gamma}}{2} \fint_{\Sigma}
+|\gamma - 1|^2\,{d\boldsymbol{s}} + \mathcal R_{\beta}(\beta) + \mathcal R_{\gamma}(\gamma),
+\end{equation}
+%Unfortunately we do not know $\sigma_{\gamma}$ so we pick that somewhat arbitrarily or heuristically.
+%Pick whatever letter you think it is best for the stiffening factor. Also, in practice we work with the log of $\beta$ and $\gamma$.. not sure how much into details you want to go.
+where the first term on the right-hand side (RHS) is a cost function associated with the misfit between modeled and observed surface velocities, 
+%set of terms is a cost functional associated with the misfit between the modeled flux divergence and the sum of mass balances at the top and bottom surfaces of the ice sheet ($\dot{M}=\dot{a}+\dot{b}$). 
+the second term on the RHS is a cost function associated with the ice stiffness factor, $\gamma$ (see Equation \ref{eq:mobalGlen}), and the third and fourth terms on the RHS are Tikhonov regularization terms given by
+\begin{equation}
+\label{eq:reguarlization}
+\mathcal R_{\beta}(\beta) = \frac{\alpha_\beta}2\fint_{\Sigma}|\nabla\beta|^2 \,{d\boldsymbol{s}},
+~~\mathcal R_{\gamma}(\gamma) = \frac{\alpha_\gamma}2\fint_{\Sigma}|\nabla\gamma|^2 \,{d\boldsymbol{s}}.
+\end{equation}
+$\sigma_u$ is an estimate for the the standard deviation of the uncertainty in the observed ice surface velocities and the parameter $c_{\gamma}$ controls how far the ice stiffness factor is allowed to stray from unity in order to improve the match to observed surface velocities. The regularization parameters $\alpha_\beta>0$ and $\alpha_\gamma>0$ control the tradeoff between a smooth $\beta$ field and one with higher-frequency oscillations (that may capture more spatial detail at the risk of over-fitting the observations). The optimal values of $\alpha_\beta$ and $\alpha_\gamma$ can be chosen through a standard L-curve analysis\footnote{We note that, while not done here, additional scalar parameters could be placed in front of $\mathcal R(\beta)$ and $\mathcal R(\gamma)$ in Equation \ref{eq:optimFunctional} to differentially weight their contributions to the cost function}. The optimization problem is solved using the Limited Memory BFGS method, as implemented in the Trilinos package ROL\footnote{\url{https://trilinos.org/packages/rol/}}, on the reduced-space problem. The functional gradient is computed using the adjoint method.
+
+An example application of the optimization capability applied to a realistic, whole-ice-sheet problem is given below in Section \ref{sec:realApplication}. \cite{Hoffman2018GRL} present another application to the assimilation of surface velocity time series in Western Greenland.   
+
+We note that our optimization framework has been designed to be significantly more general than implied by Equation \ref{eq:optimFunctional}. While not applied here, we are able to introduce additional observational-based constraints (e.g., mass balance terms) and optimize additional model variable (e.g., the ice thickness). These are necessary, for example, when targeting model initial conditions that are in quasi-equlibrium with some applied climate forcing. These capabilities are discussed in more detail in \cite{perego2014}.
