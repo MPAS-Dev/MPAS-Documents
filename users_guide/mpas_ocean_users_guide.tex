@@ -66,7 +66,7 @@
 \AddToShipoutPicture*{\BackgroundPic}
 
 \title{
-\Huge MPAS-Ocean Model User's Guide \\
+\Huge MPAS-Ocean User's Guide \\
 \LARGE Version: \version}
 
 \author{
@@ -96,6 +96,7 @@
 
 \part{MPAS-Ocean}
 \input{ocean/core_intro.tex}
+\input{ocean/tracers.tex}
 
 % Grid generation is not included in MPAS release 1.0.
 % In a future release, describe here ocean-specific grid
@@ -108,14 +109,11 @@
 
 \input{ocean/namelist_table_documentation.tex}
 \input{ocean/variable_table_documentation.tex}
+
 \input{ocean/test_case_descriptions.tex}
-\input{ocean/global_statistics.tex}
-\input{ocean/AM_surface_area_averages.tex}
-\input{ocean/AM_layer_volume_averages.tex}
-\input{ocean/AM_time_filter.tex}
-\input{ocean/AM_lagrangian_particle_tracking.tex}
-\input{ocean/AM_meridional_heat_transport.tex}
-\input{ocean/AM_eliassen_palm.tex}
+
+%\input{ocean/global_statistics.tex}
+
 \input{ocean/visualization.tex}
 \input{ocean/E3SM_coupling.tex}
 %\input{ocean/troubleshooting.tex}

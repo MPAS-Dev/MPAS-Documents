@@ -22,14 +22,11 @@ In general, the build process follows the following steps.  See Chapter
 After step 7, an executable should be created called ocean\_model. Once the executable is built, one can begin the run process as follows:
 
 \begin{enumerate}
-	\item Create run directory.
-	\item Copy executable to run directory.
-	\item Copy namelist.input, input and graph files into run directory.  See test cases, Chapter \ref{sec:\core_test_cases}.  The standard first test case is the 10km-resolution baroclinic channel, available at\\
- \url{http://mpas-dev.github.com/ocean/releases.html} \\
-as {\tt overflow\_10km\_40layer.tgz}.
-	\item Edit namelist.input to have the proper parameters. \\
-		  If step 4 was skipped, ensure paths to input and graph files are appropriately set.
-	\item (Optional) Create graph files, using METIS executable (pmetis or gpmetis depending on version).  A graph file is required for each processor count you want to use.  See Section \ref{sec:metis}
+	\item Download a run directory from \url{http://mpas-dev.github.com}, ``MPAS-Ocean Download''
+	\item Copy or link executable to run directory.
+	\item (Optional) Edit namelist.ocean to have the proper parameters. In particular, you may change the simulation length with {\tt config\_run\_duration = '0000\_06:00:00'}, which shows {\tt DAYS\_H:M:S}.
+	\item (Optional) Create additional graph files using METIS executable (pmetis or gpmetis depending on version).  A graph file is required for each processor count you want to use.  See Section \ref{sec:metis}
 	\item Run MPAS-Ocean (e.g.\ {\tt mpirun -np 8 ocean\_model}).
-	\item Visualize output file, and perform analysis.  See Chapters \ref{chap:mpas_visualization} and \ref{chap:ocean_visualization}.
+	\item If run was successful, last line of {\tt log.ocean.0000.out} shows {\tt Logging complete.}
+	\item Visualize output file and perform analysis.  Output file is typically named {\tt output.nc}.  See Chapters \ref{chap:mpas_visualization} and \ref{chap:ocean_visualization}.
 \end{enumerate}
