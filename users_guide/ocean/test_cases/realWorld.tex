@@ -1,4 +1,4 @@
-\subsection{Real World Configuration}
+\section{Real World Configuration}
 \label{subsec:realWorld_description}
 
 Files are provided to run real-world simulations with realistic topography, wind forcing, and temperature and salinity restoring.  
@@ -20,7 +20,7 @@ Simulations are similar to those presented in \citet{Ringler_ea13om}, and includ
 		It is used to decompose the mesh into partition files.
 	\item graph.info.part.$n$: \\
 		This is a partition file for use with an $n$ processor run, where $n$ is a typical number for the given resolution.  For example, the 240 km mesh may be run on 1 to 16 processors, while the 15 km requires thousands of processors.
-	\item namelist.input: \\
+	\item namelist.ocean: \\
 		This is the namelist file with all parameters for the run. \\
 		It has a default setup which when run provides the results in the next section.
 \end{itemize}
