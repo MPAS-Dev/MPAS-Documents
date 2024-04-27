@@ -294,9 +294,9 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & split\_explicit\_ab2 \\
     \hline
-    Possible Values: & 'split\_explicit', 'RK4', 'unsplit\_explicit', 'split\_implicit', 'LTS', 'split\_explicit\_ab2' \\
+    Possible Values: & 'split\_explicit', 'RK4', 'unsplit\_explicit', 'split\_implicit', 'split\_explicit\_ab2', 'LTS', 'FB\_LTS' \\
     \hline
-    \caption{config\_time\_integrator: Time integration method.}
+    \caption{config\_time\_integrator: Time integration method. These options are only supported in standalone, not E3SM: 'LTS', 'FB\_LTS'.}
 \end{longtable}
 \end{center}
 \subsection[config\_number\_of\_time\_levels]{\hyperref[sec:nm_tab_time_integration]{config\_number\_of\_time\_levels}}
@@ -2423,22 +2423,6 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
 \end{center}
 \section[coupling]{\hyperref[sec:nm_tab_coupling]{coupling}}
 \label{sec:nm_sec_coupling}
-\subsection[config\_ssh\_grad\_relax\_timescale]{\hyperref[sec:nm_tab_coupling]{config\_ssh\_grad\_relax\_timescale}}
-\label{subsec:nm_sec_config_ssh_grad_relax_timescale}
-\begin{center}
-\begin{longtable}{| p{2.0in} || p{4.0in} |}
-    \hline
-    Type: & real \\
-    \hline
-    Units: & \si{seconds} \\
-    \hline
-    Default Value: & 0.0 \\
-    \hline
-    Possible Values: & Any positive real number. \\
-    \hline
-    \caption{config\_ssh\_grad\_relax\_timescale: Timescale for relaxation of the ssh gradient for coupling. A value of 0.0 (default) removes any relaxation and gives instantaneous response.}
-\end{longtable}
-\end{center}
 \subsection[config\_remove\_AIS\_coupler\_runoff]{\hyperref[sec:nm_tab_coupling]{config\_remove\_AIS\_coupler\_runoff}}
 \label{subsec:nm_sec_config_remove_AIS_coupler_runoff}
 \begin{center}
@@ -2470,7 +2454,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Possible Values: & 'jerlov' or 'ohlmann00' or 'none' \\
     \hline
-    \caption{config\_sw\_absorption\_type: Name of shortwave absorption type used in simulation. }
+    \caption{config\_sw\_absorption\_type: Name of shortwave absorption type used in simulation.}
 \end{longtable}
 \end{center}
 \subsection[config\_jerlov\_water\_type]{\hyperref[sec:nm_tab_shortwaveRadiation]{config\_jerlov\_water\_type}}
@@ -2582,7 +2566,7 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     \hline
     Default Value: & off \\
     \hline
-    Possible Values: & 'off','monochromatic' \\
+    Possible Values: & 'off','monochromatic','linear' \\
     \hline
     \caption{config\_tidal\_forcing\_model: Selects the mode in which tidal forcing is computed.}
 \end{longtable}
@@ -2649,6 +2633,54 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     Possible Values: & Any positive real number. \\
     \hline
     \caption{config\_tidal\_forcing\_monochromatic\_baseline: Value of baseline monochromatic tide, e.g., sea level rise.}
+\end{longtable}
+\end{center}
+\subsection[config\_tidal\_forcing\_linear\_baseline]{\hyperref[sec:nm_tab_tidal_forcing]{config\_tidal\_forcing\_linear\_baseline}}
+\label{subsec:nm_sec_config_tidal_forcing_linear_baseline}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & \si{days} \\
+    \hline
+    Default Value: & 0.0 \\
+    \hline
+    Possible Values: & Any positive real number. \\
+    \hline
+    \caption{config\_tidal\_forcing\_linear\_baseline: Value of baseline linear tide, e.g., sea level rise.}
+\end{longtable}
+\end{center}
+\subsection[config\_tidal\_forcing\_linear\_min]{\hyperref[sec:nm_tab_tidal_forcing]{config\_tidal\_forcing\_linear\_min}}
+\label{subsec:nm_sec_config_tidal_forcing_linear_min}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & \si{days} \\
+    \hline
+    Default Value: & -1.0 \\
+    \hline
+    Possible Values: & Any real number. \\
+    \hline
+    \caption{config\_tidal\_forcing\_linear\_min: Value of minimum tide.}
+\end{longtable}
+\end{center}
+\subsection[config\_tidal\_forcing\_linear\_rate]{\hyperref[sec:nm_tab_tidal_forcing]{config\_tidal\_forcing\_linear\_rate}}
+\label{subsec:nm_sec_config_tidal_forcing_linear_rate}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & \si{days} \\
+    \hline
+    Default Value: & -8.0 \\
+    \hline
+    Possible Values: & Any real number. \\
+    \hline
+    \caption{config\_tidal\_forcing\_linear\_rate: Value of tide rate of change in m per day.}
 \end{longtable}
 \end{center}
 \section[self\_attraction\_loading]{\hyperref[sec:nm_tab_self_attraction_loading]{self\_attraction\_loading}}
@@ -4063,6 +4095,56 @@ Embedded links point to information in chapter \ref{chap:namelist_tables}
     Possible Values: & Any positive integer greater than or equal to one. A value of one employs the same dt in all regions. \\
     \hline
     \caption{config\_dt\_scaling\_LTS: The ratio between the dt on the coarse region and the dt on the fine region. Specifically, it is the positive integer M that defines dtFine for LTS, dtFine = dt / M.}
+\end{longtable}
+\end{center}
+\section[forward\_backward]{\hyperref[sec:nm_tab_forward_backward]{forward\_backward}}
+\label{sec:nm_sec_forward_backward}
+\subsection[config\_fb\_weight\_1]{\hyperref[sec:nm_tab_forward_backward]{config\_fb\_weight\_1}}
+\label{subsec:nm_sec_config_fb_weight_1}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & -- \\
+    \hline
+    Default Value: & 0.531 \\
+    \hline
+    Possible Values: & Any positive real number less than or equal to one. \\
+    \hline
+    \caption{config\_fb\_weight\_1: The forward-backward weight for the first stage of FB-RK(3,2), used in FB\_LTS.}
+\end{longtable}
+\end{center}
+\subsection[config\_fb\_weight\_2]{\hyperref[sec:nm_tab_forward_backward]{config\_fb\_weight\_2}}
+\label{subsec:nm_sec_config_fb_weight_2}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & -- \\
+    \hline
+    Default Value: & 0.531 \\
+    \hline
+    Possible Values: & Any positive real number less than or equal to one. \\
+    \hline
+    \caption{config\_fb\_weight\_2: The forward-backward weight for the second stage of FB-RK(3,2), used in FB\_LTS.}
+\end{longtable}
+\end{center}
+\subsection[config\_fb\_weight\_3]{\hyperref[sec:nm_tab_forward_backward]{config\_fb\_weight\_3}}
+\label{subsec:nm_sec_config_fb_weight_3}
+\begin{center}
+\begin{longtable}{| p{2.0in} || p{4.0in} |}
+    \hline
+    Type: & real \\
+    \hline
+    Units: & -- \\
+    \hline
+    Default Value: & 0.313 \\
+    \hline
+    Possible Values: & Any positive real number less than or equal to one. \\
+    \hline
+    \caption{config\_fb\_weight\_3: The forward-backward weight for the third stage of FB-RK(3,2), used in FB\_LTS.}
 \end{longtable}
 \end{center}
 \section[pressure\_gradient]{\hyperref[sec:nm_tab_pressure_gradient]{pressure\_gradient}}
