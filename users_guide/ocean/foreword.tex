@@ -1,34 +1,20 @@
 \chapter*{Foreword}
 \label{chap:foreword}
-The Model for Prediction Across Scales-Ocean (MPAS-Ocean) is an unstructured-mesh ocean model capable of using enhanced horizontal resolution in selected regions of the ocean domain.  Model domains may be spherical with bottom topography to simulate the earth's oceans, or on Cartesian domains for idealized experiments.  The global meshes, created using Spherical Centroidal Voronoi Tesselations \citep{Ringler_ea08od,Ringler_ea11mwr} consist of gridcells that vary smoothly from low to high resolution regions. Numerical algorithms specifically designed for these grids guarantee that mass, tracers, potential vorticity (in isopycnal mode) and energy are conserved \citep{Thurburn_ea09jcp,Ringler_ea10jcp}.  MPAS-Ocean high-resolution and variable-resolution global simulations, as well as descriptions of mesh generation, model capabilities, and algorithms, are presented in \citet{Ringler_ea13om}.  The vertical grid is detailed in \citet{Petersen_ea14om}, including the Arbitrary Lagrangian Eulerian method, a variety of vertical coordinates, and results from five test cases.
 
-MPAS-Ocean is one component within the MPAS framework of climate models that is developed in cooperation between Los Alamos National Laboratory (LANL) and the National Center for Atmospheric Research (NCAR).  Functionality that is required by all cores, such as i/o, time management, block decomposition, etc, is developed collaboratively, and this code is shared across cores within the same repository.  Each core then solves its own differential equations and physical parameterizations within this framework.  This user's guide reflects the spirit of this collaborative process, where Part I, ``The MPAS Framework'', applies to all cores, and the remaining parts apply to MPAS-Ocean.
+This User's Guide is for the Model for Prediction Across Scales-Ocean
+(MPAS-Ocean), the ocean component of the Energy Exascale Earth System Model
+(E3SM), developed by the U.S. Department of Energy. Herein we describe the
+equations, namelist options, and variables for MPAS-Ocean. These settings apply
+ to both the standalone ocean-only version of MPAS-Ocean, and E3SM version that
+  is coupled to the atmosphere, sea ice, land ice, land and river components.
 
-This release of the ocean model corresponds with the initial release of the Energy Exascale Earth System Model (E3SM) by the U.S. Department of Energy (see \href{https://e3sm.org}{https://e3sm.org/}).  E3SM includes MPAS components for ocean, sea ice, and land ice.  Each component may be run as a stand-alone model, or coupled within E3SM.  MPAS-Ocean now includes biogeochemistry modules, and the ability to control groups of tracers.
+The MPAS-Ocean code for both standalone and coupled is housed in the repository
+\url{https://github.com/E3SM-Project/E3SM}, within the directory
+\texttt{components/mpas-ocean}. The standalone executable may be built within
+that directory using the make command with the required libraries, as described
+in Chapter 1 of this guide.
 
-Information about MPAS-Ocean, including the most recent code, user's guide, and test cases, may be found at \url{http://mpas-dev.github.com}.  This user's guide refers to version \version.
-
-
-\vspace{8pt}
-\noindent
-{\bf Contributors to this guide:}\\
-Mark R. Petersen, Xylar S. Asay-Davis, 
-Douglas W. Jacobsen, Mathew E. Maltrud, Todd D. Ringler,
-Luke P. Van Roekel, 
-Phillip J. Wolfram
-\\
-{\bf Additional contributors to MPAS Framework sections:}\\
-Michael Duda, Matthew Hoffman
-
-\vspace{8pt}
-\noindent
-{\scriptsize
-{\it This research was supported as part of the Energy Exascale Earth System Model
-(E3SM) project, funded by the U.S. Department of Energy, Office of Science,
-Office of Biological and Environmental Research.
-} \\
-LA-UR-13-24348. Cover image created by M. Petersen and P. Wolfram.}
-
-
-
-
+Documentation for the E3SM coupled climate model may be found on the
+\href{https://docs.e3sm.org/E3SM/}{E3SM docs pages}, the
+\href{https://acme-climate.atlassian.net/wiki/spaces/DOC/overview?homepageId=1931641291}{E3SM Documentation webpage},
+or the \href{https://github.com/E3SM-Project/E3SM}{E3SM repository homepage}.
